@@ -1,15 +1,23 @@
 <script setup>
-import { buttonProps } from './props'
+import { useSlots } from 'vue'
+import { buttonProps, buttonEmits } from './index'
 
 defineOptions({
   name: 'FrButton'
 })
 
 defineProps(buttonProps)
+const emit = defineEmits(buttonEmits)
+
+const slots = useSlots()
+
+const handleClick = e => {
+  emit('click', e)
+}
 </script>
 
 <template>
-  <div>
+  <div @click="handleClick">
     <button
       :class="[
         'fr-button',
@@ -23,7 +31,23 @@ defineProps(buttonProps)
         }
       ]"
     >
-      <slot></slot>
+      <template v-if="loading">
+        <fr-icon
+          icon="loading"
+          class="fr-icon"
+        >
+        </fr-icon>
+      </template>
+      <template v-else-if="icon">
+        <fr-icon
+          :icon="icon"
+          class="fr-icon"
+        >
+        </fr-icon>
+      </template>
+      <span v-if="slots.default">
+        <slot></slot>
+      </span>
     </button>
   </div>
 </template>
@@ -31,4 +55,4 @@ defineProps(buttonProps)
 <style>
 @import '@/theme-chalk/base.scss';
 @import '@/theme-chalk/button.scss';
-</style>
+</style>.

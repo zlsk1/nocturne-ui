@@ -6,12 +6,10 @@
     <fr-button
       type="warning"
       plain
-      size="small"
     >
       warning
+      <fr-icon icon="loading" class="fr-icon--left"></fr-icon>
     </fr-button>
-    <svg-icon icon="eye"></svg-icon>
-    <svg-icon icon="upload"></svg-icon>
   </div>
 </template>
 

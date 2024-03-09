@@ -6,7 +6,7 @@ export const buttonProps = {
   },
   size: {
     type: String,
-    values: ['large', 'default', 'small'],
+    values: ['large', 'default', 'small', ''],
     default: ''
   },
   plain: {
@@ -24,5 +24,16 @@ export const buttonProps = {
   disabled: {
     type: Boolean,
     default: false
+  },
+  icon: {
+    type: String
+  },
+  loading: {
+    type: Boolean,
+    default: false
   }
 }
+
+export const buttonEmits = [
+  'click'
+]

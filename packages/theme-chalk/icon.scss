@@ -1,0 +1,28 @@
+@use './mixins/config' as *;
+@use './mixins/mixins' as *;
+@use './mixins/_var' as *;
+
+$marginLeft: 6px;
+$marginRight: 6px;
+
+@include b(icon) {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+
+  @include m(left) {
+    margin-left: 6px;
+  }
+
+  @include m(right) {
+    margin-right: $marginRight;
+  }
+
+  @include m(external) {
+    background-color: currentColor;
+    mask-size: cover !important;
+    display: inline-block;
+  }
+} 

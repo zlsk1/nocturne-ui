@@ -1,9 +1,9 @@
 import FrButton from './button/src/button.vue'
-import svgIcon from './svg-icon/src/icon.vue'
+import FrIcon from './svg-icon/src/icon.vue'
 
 const components = [
   FrButton,
-  svgIcon
+  FrIcon
 ]
 
 const install = app => {
@@ -16,5 +16,5 @@ export default install
 
 export {
   FrButton,
-  svgIcon
+  FrIcon
 }
