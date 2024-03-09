@@ -10,6 +10,7 @@ $marginRight: 6px;
   height: 1em;
   vertical-align: -0.15em;
   fill: currentColor;
+  color: inherit;
   overflow: hidden;
 
   @include m(left) {

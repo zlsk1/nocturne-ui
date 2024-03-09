@@ -1,15 +1,33 @@
 <script setup>
+import { ref } from 'vue'
+
+const value = ref('hello')
 </script>
 
 <template>
   <div class="container">
-    <fr-button
-      type="warning"
-      plain
-    >
-      warning
-      <fr-icon icon="loading" class="fr-icon--left"></fr-icon>
-    </fr-button>
+    <div>
+      <fr-button
+        type="warning"
+        plain
+      >
+        warning
+        <fr-icon icon="loading" class="fr-icon--left"></fr-icon>
+      </fr-button>
+      <fr-input
+        v-model="value"
+        style="width: 240px"
+        type="password"
+        show-password
+        clearable
+        placeholder="please input"
+        suffix-icon="upload"
+      >
+        <template #prefix>
+          <fr-icon icon="share"></fr-icon>
+        </template>
+      </fr-input>
+    </div>
   </div>
 </template>
 
