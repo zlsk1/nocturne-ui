@@ -1,0 +1,36 @@
+{
+  "name": "freedom-ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --open",
+    "build": "vite build",
+    "preview": "vite preview --open",
+    "test:unit": "vitest",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "format": "prettier --write packages/",
+    "prepare": "is-ci || husky install",
+    "precommit": "lint-staged -c ./.husky/.lintstagedrc -q"
+  },
+  "dependencies": {
+    "vue": "^3.4.15"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.0.3",
+    "@commitlint/config-conventional": "^19.0.3",
+    "@vitejs/plugin-vue": "^5.0.3",
+    "@vue/test-utils": "^2.4.4",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "husky": "^9.0.11",
+    "is-ci": "^3.0.1",
+    "jsdom": "^24.0.0",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.0.3",
+    "sass": "^1.71.1",
+    "vite": "^5.0.11",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vitest": "^1.2.2"
+  }
+}
