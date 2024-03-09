@@ -1,0 +1,83 @@
+@use 'config' as *;
+
+@function selectorToString($selector) {
+  $selector: inspect($selector);
+  $selector: str-slice($selector, 2, -2);
+  @return $selector;
+}
+
+// 是否包含--修饰符
+@function hasModifier($selector) {
+  $selector: selectorToString($selector);
+  @if str-index($selector, $modifier-separator) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+// 是否包含is-前缀
+@function hasWhenFlag($selector) {
+  $selector: selectorToString($selector);
+  @if str-index($selector, $state-prefix) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+// 是否包含伪类
+@function hasPseudoClass($selector) {
+  $selector: selectorToString($selector);
+
+  @if str-index($selector, ':') {
+    @return true;
+  }
+
+  @else {
+    @return false;
+  }
+}
+
+@function hasAllSpecialRule($selector) {
+  @return hasModifier($selector) or hasWhenFlag($selector) or hasPseudoClass($selector);
+}
+
+// join css var name: joinVarName('button', 'primary') => --fr-button-primary
+@function joinVarName($list) {
+  $name: '--' + $namespace;
+
+  @each $item in $list {
+    @if $item != '' {
+      $name: $name + '-' + $item
+    }
+  }
+
+  @return $name;
+}
+
+// getCssVarName('button', 'primary') => --fr-button-primary
+@function getCssVarName($args...) {
+  @return joinVarName($args);
+}
+
+// getCssVar('button', 'primary') => var(--fr-button-primary)
+@function getCssVar($args...) {
+  @return var(#{joinVarName($args)});
+}
+
+// bem('block', 'element', 'modifier') => 'fr-block__element--modifier'
+@function bem($block, $element: '', $modifier: '') {
+  $name: config.$namespace + config.$common-separator + $block;
+
+  @if $element !='' {
+    $name: $name + config.$element-separator + $element;
+  }
+
+  @if $modifier !='' {
+    $name: $name + config.$modifier-separator + $modifier;
+  }
+
+  // @debug $name;
+  @return $name;
+}
