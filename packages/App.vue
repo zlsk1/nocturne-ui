@@ -11,6 +11,7 @@
       warning
     </fr-button>
     <svg-icon icon="eye"></svg-icon>
+    <svg-icon icon="upload"></svg-icon>
   </div>
 </template>
 
