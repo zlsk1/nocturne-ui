@@ -10,6 +10,7 @@
     >
       warning
     </fr-button>
+    <svg-icon icon="eye"></svg-icon>
   </div>
 </template>
 
