@@ -19,9 +19,7 @@ module.exports = {
         'max': 1
       }
     }],
-    'vue/multi-word-component-names': ['error', {
-      'ignores': ['index']
-    }],
+    'vue/multi-word-component-names': [0, {}],
     // 不自动闭合单个标签
     'vue/html-self-closing': ['error', {
       'html': {
