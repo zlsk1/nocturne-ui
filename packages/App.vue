@@ -2,7 +2,9 @@
 </script>
 
 <template>
-  <div></div>
+  <div>
+    <fr-button>111</fr-button>
+  </div>
 </template>
 
 <style scoped>
