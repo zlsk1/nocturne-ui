@@ -10,7 +10,19 @@ defineProps(buttonProps)
 
 <template>
   <div>
-    <button class="fr-button fr-button--danger fr-button--small is-dark">
+    <button
+      :class="[
+        'fr-button',
+        type ? 'fr-button--' + type : '',
+        size ? 'fr-button--' + size : '',
+        {
+          'is-round': round,
+          'is-plain': plain,
+          'is-circle': circle,
+          'is-disabled': disabled,
+        }
+      ]"
+    >
       <slot></slot>
     </button>
   </div>
@@ -19,9 +31,4 @@ defineProps(buttonProps)
 <style>
 @import '@/theme-chalk/base.scss';
 @import '@/theme-chalk/button.scss';
-
-button {
-  border: none;
-  background: none;
-}
 </style>

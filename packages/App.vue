@@ -3,8 +3,12 @@
 
 <template>
   <div class="container">
-    <fr-button>
-      primary
+    <fr-button
+      type="warning"
+      plain
+      size="small"
+    >
+      warning
     </fr-button>
   </div>
 </template>
