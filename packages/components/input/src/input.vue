@@ -86,6 +86,7 @@ defineExpose({
   <div
     :class="[
       !isTextarea ? 'fr-input' :'fr-textarea',
+      `fr-input--${size}`,
       {
         'is-disabled': disabled,
       }

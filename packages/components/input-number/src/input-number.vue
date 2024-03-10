@@ -91,6 +91,7 @@ defineExpose({
     </span>
     <fr-input
       ref="inputRef"
+      :size="size"
       :model-value="_modelValue"
       :disabled="disabled"
       :readonly="readonly"

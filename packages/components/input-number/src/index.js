@@ -2,6 +2,10 @@ export const inputNumberProps = {
   modelValue: {
     type: Number
   },
+  size: {
+    type: String,
+    value: ['large', 'default', 'small', '']
+  },
   placeholder: String,
   max: {
     type: Number,

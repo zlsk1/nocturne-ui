@@ -18,11 +18,11 @@ const number = ref(1)
       <fr-input
         v-model="value"
         style="width: 240px"
-        type="textarea"
+        type="text"
         maxlength="100"
         show-limit
         :rows="2"
-        disabled
+        size="large"
         placeholder="please input"
       >
       </fr-input>
@@ -31,7 +31,6 @@ const number = ref(1)
         :max="10"
         :min="1"
         :step="3"
-        disabled
       ></fr-input-number>
     </div>
   </div>
