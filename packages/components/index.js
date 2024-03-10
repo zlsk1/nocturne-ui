@@ -1,10 +1,12 @@
 import FrButton from './button/src/button.vue'
 import FrIcon from './svg-icon/src/icon.vue'
 import FrInput from './input/src/input.vue'
+import FrInputNumber from './input-number/src/input-number.vue'
 const components = [
   FrButton,
   FrIcon,
-  FrInput
+  FrInput,
+  FrInputNumber
 ]
 
 const install = app => {
@@ -18,5 +20,6 @@ export default install
 export {
   FrButton,
   FrIcon,
-  FrInput
+  FrInput,
+  FrInputNumber
 }

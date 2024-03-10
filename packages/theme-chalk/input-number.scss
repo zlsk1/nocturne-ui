@@ -1,0 +1,69 @@
+@use 'sass:map';
+
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(input-number) {
+  position: relative;
+  display: inline-flex;
+  width: 150px;
+  line-height: 30px;
+  text-align: center;
+
+  @include when(disabled){
+    span {
+      cursor: not-allowed;
+      color: getCssVar(disabled-text-color);
+      
+      &:hover {
+        color: getCssVar(disabled-text-color);
+      }
+    }
+  }
+
+  @include e((increase, decrease)) {
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 30px;
+    color: getCssVar(text-color-regular);
+    // background: getCssVar(fill-color-light);
+    z-index: 1;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &:hover {
+      color: getCssVar(color-primary);
+    }
+
+    @include when(disabled) {
+      cursor: not-allowed;
+      color: getCssVar(disabled-text-color);
+
+      &:hover {
+        color: getCssVar(disabled-text-color);
+      }
+    }
+  }
+
+  @include e(decrease) {
+    left: 0;
+    border-right: getCssVar(border);
+    border-radius: getCssVar(border-radius-base) 0 0 getCssVar(border-radius-base);
+  }
+
+  @include e(increase) {
+    right: 0;
+    border-left: getCssVar(border);
+    border-radius: 0 getCssVar(border-radius-base) getCssVar(border-radius-base) 0;
+  }
+
+  .fr-input__inner {
+    text-align: center
+  }
+}

@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 
 const value = ref('hello')
+const number = ref(1)
 </script>
 
 <template>
@@ -18,13 +19,19 @@ const value = ref('hello')
         v-model="value"
         style="width: 240px"
         type="textarea"
-        maxlength="100"
         show-limit
         max-length="100"
         :rows="2"
         placeholder="please input"
       >
       </fr-input>
+      <fr-input-number
+        v-model="number"
+        :max="10"
+        :min="1"
+        disabled
+        :step="1"
+      ></fr-input-number>
     </div>
   </div>
 </template>
