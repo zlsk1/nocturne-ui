@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-
-const value = ref('hello')
-const number = ref(1)
+const radio = ref(3)
 
 const change = e => {
   console.log(e)
@@ -12,47 +10,27 @@ const change = e => {
 <template>
   <div class="container">
     <div>
-      <fr-button
-        type="warning"
-        plain
-      >
-        warning
-        <fr-icon icon="loading" class="fr-icon--left"></fr-icon>
-      </fr-button>
-      <fr-input
-        v-model="value"
-        style="width: 240px"
-        type="text"
-        maxlength="100"
-        show-limit
+      <fr-radio-group
+        v-model="radio"
         size="large"
-        placeholder="please input"
-      >
-      </fr-input>
-      <fr-input-number
-        v-model="number"
-        :max="10"
-        :min="1"
-        :step="3"
-      ></fr-input-number>
-      <fr-input
-        v-model="value"
-        style="width: 240px"
-        type="password"
-        size="large"
-        placeholder="please input"
-        show-password
-        prefix-icon="edit"
-      >
-      </fr-input>
-      <fr-switch
-        size="small"
-        inactive-text="close"
-        active-text="open"
-        active-value="on"
-        inactive-value="off"
         @change="change"
-      ></fr-switch>
+      >
+        <fr-radio
+          :label="3"
+        >
+          333
+        </fr-radio>
+        <fr-radio
+          :value="6"
+        >
+          666
+        </fr-radio>
+        <fr-radio
+          :value="9"
+        >
+          999
+        </fr-radio>
+      </fr-radio-group>
     </div>
   </div>
 </template>

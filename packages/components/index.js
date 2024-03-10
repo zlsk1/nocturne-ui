@@ -3,13 +3,17 @@ import FrIcon from './svg-icon/src/icon.vue'
 import FrInput from './input/src/input.vue'
 import FrInputNumber from './input-number/src/input-number.vue'
 import FrSwitch from './switch/src/switch.vue'
+import FrRadio from './radio/src/radio.vue'
+import FrRadioGroup from './radio-group/src/radio-group.vue'
 
 const components = [
   FrButton,
   FrIcon,
   FrInput,
   FrInputNumber,
-  FrSwitch
+  FrSwitch,
+  FrRadio,
+  FrRadioGroup
 ]
 
 const install = app => {
@@ -25,5 +29,7 @@ export {
   FrIcon,
   FrInput,
   FrInputNumber,
-  FrSwitch
+  FrSwitch,
+  FrRadio,
+  FrRadioGroup
 }
