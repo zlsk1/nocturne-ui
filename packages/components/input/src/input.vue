@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, nextTick } from 'vue'
+import { ref, computed, nextTick, useSlots } from 'vue'
 import { inputProps, inputEmits } from './index'
 
 defineOptions({
@@ -8,10 +8,11 @@ defineOptions({
 
 const props = defineProps(inputProps)
 const emit = defineEmits(inputEmits)
+const slots = useSlots()
 
 const inputRef = ref()
 const isFocus = ref(false)
-const showPwd = ref(false)
+const showPwd = ref(true)
 const hovering = ref(false)
 
 const showPwdVisable = computed(() => {
@@ -24,6 +25,10 @@ const showClear = computed(() => {
 
 const isTextarea = computed(() => {
   return props.type === 'textarea'
+})
+
+const showSuffix = computed(() => {
+  return props.suffixIcon || showPwdVisable.value || props.showLimit || slots.suffix
 })
 
 const handleInput = e => {
@@ -101,11 +106,12 @@ defineExpose({
           isFocus ? 'is-focus' : ''
         ]"
       >
-        <span class="fr-input__prefix">
+        <span v-if="prefixIcon || slots.prefix" class="fr-input__prefix">
           <span class="fr-input__prefix-inner">
             <i class="fr-icon fr-input__icon">
-              <slot name="prefix">
+              <slot v-if="slots.prefix" name="prefix">
               </slot>
+              <fr-icon v-else :icon="prefixIcon"></fr-icon>
             </i>
           </span>
         </span>
@@ -126,7 +132,7 @@ defineExpose({
           @blur="handleBlur"
           @change="handleChange"
         >
-        <span class="fr-input__suffix">
+        <span v-if="showSuffix" class="fr-input__suffix">
           <span class="fr-input__suffix-inner">
             <i
               v-if="showPwdVisable"
@@ -164,14 +170,13 @@ defineExpose({
               <fr-icon :icon="suffixIcon"></fr-icon>
             </i>
             <i
-              v-else
-              name="suffix"
+              v-if="slots.suffix"
               :class="[
                 'fr-icon',
                 'fr-input__icon',
               ]"
             >
-              <slot>
+              <slot name="suffix">
               </slot>
             </i>
             <span v-if="showLimit" class="fr-input__count">

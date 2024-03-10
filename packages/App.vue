@@ -21,7 +21,6 @@ const number = ref(1)
         type="text"
         maxlength="100"
         show-limit
-        :rows="2"
         size="large"
         placeholder="please input"
       >
@@ -32,6 +31,16 @@ const number = ref(1)
         :min="1"
         :step="3"
       ></fr-input-number>
+      <fr-input
+        v-model="value"
+        style="width: 240px"
+        type="password"
+        size="large"
+        placeholder="please input"
+        show-password
+        prefix-icon="edit"
+      >
+      </fr-input>
     </div>
   </div>
 </template>
