@@ -3,6 +3,10 @@ import { ref } from 'vue'
 
 const value = ref('hello')
 const number = ref(1)
+
+const change = e => {
+  console.log(e)
+}
 </script>
 
 <template>
@@ -41,6 +45,14 @@ const number = ref(1)
         prefix-icon="edit"
       >
       </fr-input>
+      <fr-switch
+        size="small"
+        inactive-text="close"
+        active-text="open"
+        active-value="on"
+        inactive-value="off"
+        @change="change"
+      ></fr-switch>
     </div>
   </div>
 </template>
