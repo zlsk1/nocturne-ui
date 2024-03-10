@@ -17,17 +17,13 @@ const value = ref('hello')
       <fr-input
         v-model="value"
         style="width: 240px"
-        type="password"
-        show-password
-        clearable
+        type="textarea"
         maxlength="100"
         show-limit
+        max-length="100"
+        :rows="2"
         placeholder="please input"
-        suffix-icon="upload"
       >
-        <template #prefix>
-          <fr-icon icon="share"></fr-icon>
-        </template>
       </fr-input>
     </div>
   </div>

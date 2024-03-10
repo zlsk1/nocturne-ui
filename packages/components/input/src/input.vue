@@ -22,6 +22,10 @@ const showClear = computed(() => {
   return props.clearable && (hovering.value || isFocus) && props.modelValue.length
 })
 
+const isTextarea = computed(() => {
+  return props.type === 'textarea'
+})
+
 const handleInput = e => {
   const { value } = e.target
   emit('update:modelValue', value)
@@ -81,96 +85,123 @@ defineExpose({
 <template>
   <div
     :class="[
-      'fr-input',
+      !isTextarea ? 'fr-input' :'fr-textarea',
       {
-        'is-disabled': disabled
+        'is-disabled': disabled,
       }
     ]"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
   >
-    <div
-      :class="[
-        'fr-input__wrapper',
-        isFocus ? 'is-focus' : ''
-      ]"
-    >
-      <span class="fr-input__prefix">
-        <span class="fr-input__prefix-inner">
-          <i class="fr-icon fr-input__icon">
-            <slot name="prefix">
-            </slot>
-          </i>
+    <template v-if="!isTextarea">
+      <div
+        :class="[
+          'fr-input__wrapper',
+          isFocus ? 'is-focus' : ''
+        ]"
+      >
+        <span class="fr-input__prefix">
+          <span class="fr-input__prefix-inner">
+            <i class="fr-icon fr-input__icon">
+              <slot name="prefix">
+              </slot>
+            </i>
+          </span>
         </span>
-      </span>
-      <input
-        ref="inputRef"
-        :type="showPassword ? (showPwd ? 'password' : 'text') : type"
-        :maxlength="maxlength"
-        :minlength="minlength"
+        <input
+          ref="inputRef"
+          :type="showPassword ? (showPwd ? 'password' : 'text') : type"
+          :maxlength="maxlength"
+          :minlength="minlength"
+          :placeholder="placeholder"
+          :tabindex="tabindex"
+          class="fr-input__inner"
+          :value="modelValue"
+          :readonly="readonly"
+          :autofocus="autofocus"
+          @input="handleInput"
+          @focus="handleFocus"
+          @blur="handleBlur"
+          @change="handleChange"
+        >
+        <span class="fr-input__suffix">
+          <span class="fr-input__suffix-inner">
+            <i
+              v-if="showPwdVisable"
+              :class="[
+                'fr-icon',
+                'fr-input__icon',
+                'fr-input__password'
+              ]"
+            >
+              <fr-icon
+                icon="eye"
+                @click="handleShowPwd"
+              ></fr-icon>
+            </i>
+            <i
+              v-if="showClear"
+              :class="[
+                'fr-icon',
+                'fr-input__icon',
+                'fr-input__clear'
+              ]"
+            >
+              <fr-icon
+                icon="circle-delete"
+                @click="clearValue"
+              ></fr-icon>
+            </i>
+            <i
+              v-if="suffixIcon"
+              :class="[
+                'fr-icon',
+                'fr-input__icon',
+              ]"
+            >
+              <fr-icon :icon="suffixIcon"></fr-icon>
+            </i>
+            <i
+              v-else
+              name="suffix"
+              :class="[
+                'fr-icon',
+                'fr-input__icon',
+              ]"
+            >
+              <slot>
+              </slot>
+            </i>
+            <span v-if="showLimit" class="fr-input__count">
+              <span class="fr-input__count-inner">{{ modelValue.length }} / {{ maxlength }}</span>
+            </span>
+          </span>
+        </span>
+      </div>
+    </template>
+    <template v-else>
+      <textarea
         :placeholder="placeholder"
-        class="fr-input__inner"
-        :value="modelValue"
+        :minlength="minlength"
+        :maxlength="maxlength"
+        :tabindex="tabindex"
         :readonly="readonly"
+        :autofocus="autofocus"
+        :rows="rows"
+        :class="[
+          'fr-textarea__inner',
+          {
+            'is-noResize': noResize
+          }
+        ]"
         @input="handleInput"
         @focus="handleFocus"
         @blur="handleBlur"
-        @change="handleChange"
-      >
-      <span class="fr-input__suffix">
-        <span class="fr-input__suffix-inner">
-          <i
-            v-if="showPwdVisable"
-            :class="[
-              'fr-icon',
-              'fr-input__icon',
-              'fr-input__password'
-            ]"
-          >
-            <fr-icon
-              icon="eye"
-              @click="handleShowPwd"
-            ></fr-icon>
-          </i>
-          <i
-            v-if="showClear"
-            :class="[
-              'fr-icon',
-              'fr-input__icon',
-              'fr-input__clear'
-            ]"
-          >
-            <fr-icon
-              icon="circle-delete"
-              @click="clearValue"
-            ></fr-icon>
-          </i>
-          <i
-            v-if="suffixIcon"
-            :class="[
-              'fr-icon',
-              'fr-input__icon',
-            ]"
-          >
-            <fr-icon :icon="suffixIcon"></fr-icon>
-          </i>
-          <i
-            v-else
-            name="suffix"
-            :class="[
-              'fr-icon',
-              'fr-input__icon',
-            ]"
-          >
-            <slot>
-            </slot>
-          </i>
-          <span v-if="showLimit" class="fr-input__count">
-            <span class="fr-input__count-inner">{{ modelValue.length }} / {{ maxlength }}</span>
-          </span>
-        </span>
+      ></textarea>
+      <span v-if="showLimit" class="fr-input__count">
+        <span class="fr-input__count-inner">{{ modelValue.length }} / {{ maxlength }}</span>
       </span>
-    </div>
+    </template>
   </div>
 </template>
 

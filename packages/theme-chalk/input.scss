@@ -87,6 +87,10 @@
       outline: none;
       @include inset-input-border(#{getCssVar('input', 'focus-border-color')});
     }
+
+    @include when(noResize) {
+      resize: none
+    }
   }
 
   & .#{$namespace}-input__count {

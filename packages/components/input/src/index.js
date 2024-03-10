@@ -27,7 +27,7 @@ export const inputProps = {
     type: Boolean,
     default: false
   },
-  tableindex: [String, Number],
+  tabindex: [String, Number],
   maxlength: [String, Number],
   minlength: [String, Number],
   max: [String, Number],
@@ -37,6 +37,16 @@ export const inputProps = {
   showLimit: {
     type: Boolean,
     default: false
+  },
+  autofocus: {
+    type: Boolean,
+    default: false
+  },
+  // 只有type为textarea
+  rows: Number,
+  noResize: {
+    type: Boolean,
+    deafult: false
   }
 }
 
