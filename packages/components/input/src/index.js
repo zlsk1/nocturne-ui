@@ -42,5 +42,9 @@ export const inputProps = {
 
 export const inputEmits = [
   'update:modelValue',
-  'update:type'
+  'input',
+  'clearValue',
+  'change',
+  'focus',
+  'blur'
 ]

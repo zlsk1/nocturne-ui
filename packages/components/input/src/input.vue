@@ -1,12 +1,12 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import { inputProps, inputEmits } from './index'
 
 defineOptions({
   name: 'FrInput'
 })
 
-defineProps(inputProps)
+const props = defineProps(inputProps)
 const emit = defineEmits(inputEmits)
 
 const inputRef = ref()
@@ -14,13 +14,29 @@ const isFocus = ref(false)
 const showPwd = ref(false)
 const hovering = ref(false)
 
+const showPwdVisable = computed(() => {
+  return props.showPassword && props.modelValue.length
+})
+
+const showClear = computed(() => {
+  return props.clearable && (hovering.value || isFocus) && props.modelValue.length
+})
+
 const handleInput = e => {
   const { value } = e.target
   emit('update:modelValue', value)
+  emit('input', value)
 }
 
 const clearValue = () => {
   emit('update:modelValue', '')
+  emit('clearValue')
+  emit('input', '')
+  emit('change', '')
+}
+
+const handleChange = e => {
+  emit('change', e.target.value)
 }
 
 const handleMouseEnter = () => {
@@ -33,15 +49,33 @@ const handleMouseLeave = () => {
 
 const handleFocus = () => {
   isFocus.value = true
+  emit('focus')
 }
 
 const handleBlur = () => {
   isFocus.value = false
+  emit('blur')
 }
 
 const handleShowPwd = () => {
   showPwd.value = !showPwd.value
 }
+
+const focus = async () => {
+  await nextTick()
+  inputRef.value?.focus()
+}
+
+const blur = async () => {
+  inputRef.value?.blur()
+}
+
+defineExpose({
+  inputRef,
+  focus,
+  blur,
+  clearValue
+})
 </script>
 
 <template>
@@ -81,11 +115,12 @@ const handleShowPwd = () => {
         @input="handleInput"
         @focus="handleFocus"
         @blur="handleBlur"
+        @change="handleChange"
       >
       <span class="fr-input__suffix">
         <span class="fr-input__suffix-inner">
           <i
-            v-if="showPassword && modelValue.length"
+            v-if="showPwdVisable"
             :class="[
               'fr-icon',
               'fr-input__icon',
@@ -98,7 +133,7 @@ const handleShowPwd = () => {
             ></fr-icon>
           </i>
           <i
-            v-if="clearable && (hovering || isFocus) && modelValue.length"
+            v-if="showClear"
             :class="[
               'fr-icon',
               'fr-input__icon',
