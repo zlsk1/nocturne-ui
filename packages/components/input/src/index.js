@@ -33,7 +33,11 @@ export const inputProps = {
   max: [String, Number],
   min: [String, Number],
   suffixIcon: String,
-  prefixIcon: String
+  prefixIcon: String,
+  showLimit: {
+    type: Boolean,
+    default: false
+  }
 }
 
 export const inputEmits = [

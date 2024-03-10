@@ -20,6 +20,8 @@ const value = ref('hello')
         type="password"
         show-password
         clearable
+        maxlength="100"
+        show-limit
         placeholder="please input"
         suffix-icon="upload"
       >

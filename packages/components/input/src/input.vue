@@ -85,7 +85,7 @@ const handleShowPwd = () => {
       <span class="fr-input__suffix">
         <span class="fr-input__suffix-inner">
           <i
-            v-if="showPassword && modelValue.trim().length"
+            v-if="showPassword && modelValue.length"
             :class="[
               'fr-icon',
               'fr-input__icon',
@@ -98,7 +98,7 @@ const handleShowPwd = () => {
             ></fr-icon>
           </i>
           <i
-            v-if="clearable && (hovering || isFocus) && modelValue.trim().length"
+            v-if="clearable && (hovering || isFocus) && modelValue.length"
             :class="[
               'fr-icon',
               'fr-input__icon',
@@ -130,6 +130,9 @@ const handleShowPwd = () => {
             <slot>
             </slot>
           </i>
+          <span v-if="showLimit" class="fr-input__count">
+            <span class="fr-input__count-inner">{{ modelValue.length }} / {{ maxlength }}</span>
+          </span>
         </span>
       </span>
     </div>
