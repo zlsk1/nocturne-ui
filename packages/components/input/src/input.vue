@@ -119,6 +119,7 @@ defineExpose({
           :value="modelValue"
           :readonly="readonly"
           :autofocus="autofocus"
+          :disabled="disabled"
           @input="handleInput"
           @focus="handleFocus"
           @blur="handleBlur"
@@ -185,7 +186,9 @@ defineExpose({
         :minlength="minlength"
         :maxlength="maxlength"
         :tabindex="tabindex"
+        :disabled="disabled"
         :readonly="readonly"
+        :value="modelValue"
         :autofocus="autofocus"
         :rows="rows"
         :class="[
