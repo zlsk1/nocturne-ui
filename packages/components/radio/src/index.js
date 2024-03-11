@@ -22,5 +22,6 @@ export const radioProps = {
 }
 
 export const radioEmits = [
-  'change'
+  'change',
+  'update:modelValue'
 ]

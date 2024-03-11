@@ -31,10 +31,9 @@ const modelValue = computed({
     if (isGroup.value) {
       groupRef.value.changeGroup(val)
     } else {
-      emit && emit('udpate:modelValue', val)
+      emit && emit('update:modelValue', val)
     }
     radioRef.value.checked = props.modelValue === actualValue.value
-    getModelValue()
   }
 })
 
@@ -44,10 +43,6 @@ const disabled = computed(() => {
 
 const handleChange = () => {
   nextTick(() => emit('change', modelValue.value))
-}
-
-const getModelValue = () => {
-  return modelValue.value
 }
 </script>
 
