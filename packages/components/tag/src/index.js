@@ -4,8 +4,8 @@ export const tagProps = {
     values: ['large', 'default', 'small', '']
   },
   type: {
-    String,
-    values: ['primary', 'success', 'warning', 'info', 'error', ''],
+    type: String,
+    values: ['primary', 'success', 'warning', 'info', 'danger', ''],
     default: ''
   },
   round: {

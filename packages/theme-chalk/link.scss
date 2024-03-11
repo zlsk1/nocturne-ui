@@ -1,0 +1,68 @@
+@use 'sass:map';
+
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+@include b(link) {
+  @include set-component-css-var('link', $link);
+}
+
+@include b(link) {
+  position: relative;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  vertical-align: middle;
+  font-size: getCssVar('link', 'font-size');
+  font-weight: getCssVar('link', 'font-weight');
+  text-decoration: none;
+  color: getCssVar('link', 'text-color');
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    color: getCssVar('link', 'hover-text-color');
+  }
+
+  @include when(underline) {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  @include when(disabled) {
+    color: getCssVar('link', 'disabled-text-color');
+    cursor: not-allowed;
+  }
+  
+  .fr-icon {
+    margin-left: 5px;
+  }
+  
+  @each $type in $types {
+    &.#{$namespace}-link--#{$type} {
+      @include css-var-from-global(('link', 'text-color'), ('color', $type));
+      @include css-var-from-global(
+        ('link', 'hover-text-color'),
+        ('color', $type, 'light-3')
+      );
+      @include css-var-from-global(
+        ('link', 'disabled-text-color'),
+        ('color', $type, 'light-5')
+      );
+
+      &:after {
+        border-color: getCssVar('link', 'text-color');
+      }
+
+      @include when(underline) {
+        &:hover:after {
+          border-color: getCssVar('link', 'text-color');
+        }
+      }
+    }
+  }
+}

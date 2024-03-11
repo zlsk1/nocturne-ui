@@ -8,6 +8,7 @@ import FrRadioGroup from './radio-group/src/radio-group.vue'
 import FrCheckbox from './checkbox/src/checkbox.vue'
 import FrCheckboxGroup from './checkbox-group/src/checkbox-group.vue'
 import FrTag from './tag/src/tag.vue'
+import FrLink from './link/src/link.vue'
 
 const components = [
   FrButton,
@@ -19,7 +20,8 @@ const components = [
   FrRadioGroup,
   FrCheckbox,
   FrCheckboxGroup,
-  FrTag
+  FrTag,
+  FrLink
 ]
 
 const install = app => {
@@ -40,5 +42,6 @@ export {
   FrRadioGroup,
   FrCheckbox,
   FrCheckboxGroup,
-  FrTag
+  FrTag,
+  FrLink
 }
