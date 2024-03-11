@@ -1,0 +1,56 @@
+@use 'sass:map';
+
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+@include b(badge) {
+  @include set-component-css-var('badge', $badge);
+}
+
+@include b(badge) {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  vertical-align: middle; 
+
+  @include e(content) {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: getCssVar('badge', 'size');
+    padding: 0 getCssVar('badge', 'padding');
+    font-size: getCssVar('badge', 'font-size');
+    white-space: nowrap;
+    color: getCssVar('color', 'white');
+    background-color: getCssVar('badge', 'bg-color');
+    border: 1px solid getCssVar('bg-color');
+    border-radius: getCssVar('badge', 'radius');
+
+    @include when(fixed) {
+      position: absolute;
+      top: 0;
+      right: calc(1px + #{getCssVar('badge', 'size')} / 2); 
+      transform: translateY(-50%) translateX(100%);
+      z-index: getCssVar('index', 'normal');
+
+      @include when(dot) {
+        right: 5px;
+      }
+    }
+
+    @include when(dot) {
+      height: 8px;
+      width: 8px;
+      padding: 0;
+      right: 0;
+      border-radius: 50%;
+    }
+
+    @each $type in $types {
+      @include m($type) {
+        background-color: getCssVar('color', $type);
+      }
+    } 
+  }
+}

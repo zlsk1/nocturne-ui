@@ -3,13 +3,12 @@
 
 <template>
   <div class="container">
-    <fr-link
-      type="danger"
-      underline
+    <fr-badge
+      :value="12"
+      :max="10"
     >
-      <fr-icon icon="edit"></fr-icon>
-      link
-    </fr-link>
+      <fr-button>badge</fr-button>
+    </fr-badge>
   </div>
 </template>
 

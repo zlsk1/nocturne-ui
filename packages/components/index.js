@@ -9,6 +9,7 @@ import FrCheckbox from './checkbox/src/checkbox.vue'
 import FrCheckboxGroup from './checkbox-group/src/checkbox-group.vue'
 import FrTag from './tag/src/tag.vue'
 import FrLink from './link/src/link.vue'
+import FrBadge from './badge/src/badge.vue'
 
 const components = [
   FrButton,
@@ -21,7 +22,8 @@ const components = [
   FrCheckbox,
   FrCheckboxGroup,
   FrTag,
-  FrLink
+  FrLink,
+  FrBadge
 ]
 
 const install = app => {
@@ -43,5 +45,6 @@ export {
   FrCheckbox,
   FrCheckboxGroup,
   FrTag,
-  FrLink
+  FrLink,
+  FrBadge
 }

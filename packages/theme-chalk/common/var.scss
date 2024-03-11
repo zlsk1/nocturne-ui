@@ -627,3 +627,17 @@ $link-text-color: () !default;
     ($type: map.get($colors, $type, 'base'),)
   ) !global;
 }
+
+// Badge
+// css3 var in packages/theme-chalk/src/badge.scss
+$badge: () !default;
+$badge: map.merge(
+  (
+    'bg-color': getCssVar('color-danger'),
+    'radius': 10px,
+    'font-size': 12px,
+    'padding': 6px,
+    'size': 18px,
+  ),
+  $badge
+);
