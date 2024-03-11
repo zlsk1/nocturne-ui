@@ -73,14 +73,14 @@
 
 // bem('block', 'element', 'modifier') => 'fr-block__element--modifier'
 @function bem($block, $element: '', $modifier: '') {
-  $name: config.$namespace + config.$common-separator + $block;
+  $name: $namespace + $common-separator + $block;
 
   @if $element !='' {
-    $name: $name + config.$element-separator + $element;
+    $name: $name + $element-separator + $element;
   }
 
   @if $modifier !='' {
-    $name: $name + config.$modifier-separator + $modifier;
+    $name: $name + $modifier-separator + $modifier;
   }
 
   // @debug $name;

@@ -1,43 +1,49 @@
 <script setup>
 import { ref } from 'vue'
 
-const checklist = ref(['option1'])
-const list = ref(['option1', 'option2', 'option3', 'option4'])
-const checked = ref(false)
-const indeterminate = ref(true)
+const tags = ref([
+  { name: 'Tag 1', type: 'primary' },
+  { name: 'Tag 2', type: 'success' },
+  { name: 'Tag 3', type: 'info' },
+  { name: 'Tag 4', type: 'warning' },
+  { name: 'Tag 5', type: 'danger' }
+])
 
-const handleChange = val => {
-  const length = val.length
-  checked.value = length === list.value.length
-  indeterminate.value = length > 0 && length < list.value.length
+const value = ref('')
+
+const handleClose = (index) => {
+  tags.value.splice(index, 1)
 }
 
-const checkAll = val => {
-  checklist.value = val ? list.value : []
-  indeterminate.value = false
+const handleBlur = () => {
+  if (!value.value) return
+  tags.value.push({ name: value.value, type: 'primary' })
+  value.value = ''
 }
 </script>
 
 <template>
   <div class="container">
-    <div>
-      <fr-checkbox
-        v-model="checked"
-        :indeterminate="indeterminate"
-        @change="checkAll"
-      >
-        checkAll
-      </fr-checkbox>
-      <fr-checkbox-group v-model="checklist" @change="handleChange">
-        <fr-checkbox
-          v-for="item in list"
-          :key="item"
-          :value="item"
-        >
-          {{ item }}
-        </fr-checkbox>
-      </fr-checkbox-group>
-    </div>
+    <fr-tag
+      v-for="(item, index) in tags"
+      :key="index"
+      :type="item.type"
+      round
+      size="small"
+      effect="dark"
+      closable
+      border
+      @close="handleClose(index)"
+    >
+      {{ item.name }}
+    </fr-tag>
+    <fr-input
+      v-model="value"
+      style="width: 90px"
+      size="small"
+      placeholder="new tag"
+      @blur="handleBlur"
+    ></fr-input>
   </div>
 </template>
 
