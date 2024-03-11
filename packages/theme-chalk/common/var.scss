@@ -660,3 +660,15 @@ $slider: map.merge(
   ),
   $slider
 );
+
+// timeline
+// css3 var in packages/theme-chalk/src/timeline.scss
+$timeline: () !default;
+$timeline: map.merge(
+  ( 
+    'dot-size-normal': 12px, 
+    'dot-size-large': 14px,
+    'dot-color': getCssVar('border-color-light'),
+  ),
+  $timeline
+);

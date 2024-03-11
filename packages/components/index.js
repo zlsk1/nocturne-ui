@@ -11,6 +11,8 @@ import FrTag from './tag/src/tag.vue'
 import FrLink from './link/src/link.vue'
 import FrBadge from './badge/src/badge.vue'
 import FrSlider from './slider/src/slider.vue'
+import FrTimeLine from './timeline/src/timeline.vue'
+import FrTimeLineItem from './timeline-item/src/timeline-item.vue'
 
 const components = [
   FrButton,
@@ -25,7 +27,9 @@ const components = [
   FrTag,
   FrLink,
   FrBadge,
-  FrSlider
+  FrSlider,
+  FrTimeLine,
+  FrTimeLineItem
 ]
 
 const install = app => {
@@ -49,5 +53,7 @@ export {
   FrTag,
   FrLink,
   FrBadge,
-  FrSlider
+  FrSlider,
+  FrTimeLine,
+  FrTimeLineItem
 }
