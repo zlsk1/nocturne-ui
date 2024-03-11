@@ -1,0 +1,56 @@
+@use 'sass:map';
+
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+$slider-height: () !default;
+$slider-height: map.merge(
+  (
+    'large': 40px,
+    'default': 32px,
+    'small': 24px,
+  ),
+  $slider-height
+);
+
+@include b(slider) {
+  @include set-component-css-var('slider', $slider);
+}
+
+@include b(slider) {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: map.get($slider-height, 'default');
+
+  @include e(track) {
+    position: relative;
+    flex: 1;
+    height: getCssVar('slider-height');
+    background-color: getCssVar('slider-track-bg-color');
+    border-radius: getCssVar('slider', 'radius');
+    cursor: pointer;
+
+    @include e(bar) {
+      height: getCssVar('slider', 'size');
+      background-color: getCssVar('slider-bar-bg-color');
+      border-radius: getCssVar('slider-radius');
+    }
+  
+    @include e(button) {
+      position: absolute;
+      top: getCssVar('slider-button-offset');
+      width: getCssVar('slider-button-size');
+      height: getCssVar('slider-button-size');
+      background-color: getCssVar('slider-track-bg-color');
+      border: solid 2px getCssVar('slider-bar-bg-color');
+      border-radius: 50%;
+      transform: translateX(-50%);
+
+      &:hover {
+        cursor: grab;
+      }
+    }
+  }
+}

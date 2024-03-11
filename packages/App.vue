@@ -3,12 +3,9 @@
 
 <template>
   <div class="container">
-    <fr-badge
-      :value="12"
-      :max="10"
-    >
-      <fr-button>badge</fr-button>
-    </fr-badge>
+    <fr-slider style="width: 400px">
+      slider
+    </fr-slider>
   </div>
 </template>
 
