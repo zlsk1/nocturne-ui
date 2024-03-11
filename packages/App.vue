@@ -1,36 +1,42 @@
 <script setup>
 import { ref } from 'vue'
-const radio = ref(3)
 
-const change = e => {
-  console.log(e)
+const checklist = ref(['option1'])
+const list = ref(['option1', 'option2', 'option3', 'option4'])
+const checked = ref(false)
+const indeterminate = ref(true)
+
+const handleChange = val => {
+  const length = val.length
+  checked.value = length === list.value.length
+  indeterminate.value = length > 0 && length < list.value.length
+}
+
+const checkAll = val => {
+  checklist.value = val ? list.value : []
+  indeterminate.value = false
 }
 </script>
 
 <template>
   <div class="container">
     <div>
-      <fr-radio-group
-        v-model="radio"
-        size="large"
-        @change="change"
+      <fr-checkbox
+        v-model="checked"
+        :indeterminate="indeterminate"
+        @change="checkAll"
       >
-        <fr-radio
-          :label="3"
+        checkAll
+      </fr-checkbox>
+      <fr-checkbox-group v-model="checklist" @change="handleChange">
+        <fr-checkbox
+          v-for="item in list"
+          :key="item"
+          :value="item"
         >
-          333
-        </fr-radio>
-        <fr-radio
-          :value="6"
-        >
-          666
-        </fr-radio>
-        <fr-radio
-          :value="9"
-        >
-          999
-        </fr-radio>
-      </fr-radio-group>
+          {{ item }}
+        </fr-checkbox>
+      </fr-checkbox-group>
     </div>
   </div>
 </template>

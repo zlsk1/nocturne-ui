@@ -5,6 +5,8 @@ import FrInputNumber from './input-number/src/input-number.vue'
 import FrSwitch from './switch/src/switch.vue'
 import FrRadio from './radio/src/radio.vue'
 import FrRadioGroup from './radio-group/src/radio-group.vue'
+import FrCheckbox from './checkbox/src/checkbox.vue'
+import FrCheckboxGroup from './checkbox-group/src/checkbox-group.vue'
 
 const components = [
   FrButton,
@@ -13,7 +15,9 @@ const components = [
   FrInputNumber,
   FrSwitch,
   FrRadio,
-  FrRadioGroup
+  FrRadioGroup,
+  FrCheckbox,
+  FrCheckboxGroup
 ]
 
 const install = app => {
@@ -31,5 +35,7 @@ export {
   FrInputNumber,
   FrSwitch,
   FrRadio,
-  FrRadioGroup
+  FrRadioGroup,
+  FrCheckbox,
+  FrCheckboxGroup
 }

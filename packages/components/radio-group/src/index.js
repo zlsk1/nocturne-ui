@@ -1,7 +1,7 @@
 export const radioGroupProps = {
   modelValue: {
-    type: [Number, String, Boolean],
-    default: undefined
+    type: Object,
+    default: []
   },
   size: {
     type: String,
