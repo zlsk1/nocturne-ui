@@ -1,0 +1,110 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(pagination) {
+  @include set-component-css-var('pagination', $pagination);
+}
+
+@include b(pagination) {
+  display: flex;
+  align-items: center;
+  color: getCssVar('pagination-text-color');
+  box-sizing: border-box;
+  transition: getCssVar('transition-duration-fast');
+  font-size: 14px;
+
+  @include when(small) {
+    
+    @include e(button) {
+      width: getCssVar('pagination-small-size');
+      height: getCssVar('pagination-small-size');
+      line-height: getCssVar('pagination-small-size');
+    }
+
+    @include e(num) {
+      width: getCssVar('pagination-small-size');
+      height: getCssVar('pagination-small-size');
+      line-height: getCssVar('pagination-small-size');
+      font-size: 12px;
+    }
+  }
+
+  @include when(background) {
+    
+    @include e(button) {
+      color: #000;
+      background-color: getCssVar('fill-color-light');
+      border-radius: getCssVar('pagination-bg-radius');
+
+      @include when(not-allow) {
+        color: getCssVar('text-color-placeholder');
+        cursor: not-allowed;
+
+        &:hover {
+          color: getCssVar('text-color-placeholder');
+        }
+      }
+    }
+
+    @include e(num) {
+      color: #000;
+      background-color: getCssVar('fill-color-light');
+      border-radius: getCssVar('pagination-bg-radius');
+
+      @include when(active) {
+        color: #fff;
+        background-color: getCssVar('pagination-color');
+        font-weight: 700;
+      }
+    }
+  }
+
+  @include e(pages) {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  @include e(num) {
+    width: getCssVar('pagination-default-size');
+    height: getCssVar('pagination-default-size');
+    margin: getCssVar('pagination-num-margin');
+    line-height: getCssVar('pagination-default-size');
+    text-align: center;
+    transition: getCssVar('transition-duration-fast');
+    cursor: pointer;
+    &:hover {
+      color: getCssVar('pagination-color');
+    }
+
+    @include when(active) {
+      color: getCssVar('pagination-color');
+    }
+  }
+
+  @include e(button) {
+    width: getCssVar('pagination-default-size');
+    height: getCssVar('pagination-default-size');
+    margin: getCssVar('pagination-num-margin');
+    background-color: #fff;
+    border: none;
+    outline: none;
+    transition: getCssVar('transition-duration-fast');
+    cursor: pointer;
+
+    &:hover {
+      color: getCssVar('pagination-color');
+    }
+
+    @include when(not-allow) {
+      color: getCssVar('color-info');
+      cursor: not-allowed;
+
+      &:hover {
+        color: getCssVar('color-info');
+      }
+    }
+  }
+}

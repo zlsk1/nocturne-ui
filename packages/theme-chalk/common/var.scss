@@ -701,3 +701,19 @@ $message: map.merge(
   ),
   $message
 );
+
+// message
+// css3 var in packages/theme-chalk/src/message.scss
+$pagination: () !default;
+$pagination: map.merge(
+  ( 
+    'text-color': #141414,
+    'color': getCssVar('color', 'primary'),
+    'num-margin': 3px,
+    'default-size': 30px,
+    'small-size': 20px,
+    'bg-radius': 2px,
+    'bg-padding': 6px 10px,
+  ),
+  $pagination   
+);

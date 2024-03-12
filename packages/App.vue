@@ -1,26 +1,18 @@
 <script setup>
-import FrMessage from '@/components/message/src/method.js'
-import FrButton from '@/components/button/src/button.vue'
-
-const click = () => {
-  FrMessage({
-    message: 'some mistakes should be resloved',
-    showClose: true,
-    type: 'error',
-    onClose: close
-  })
-}
-
-function close () {
-  console.log(1)
+const change = e => {
+  console.log(e)
 }
 </script>
 
 <template>
   <div class="container">
-    <fr-button type="primary" @click="click">
-      Show Message
-    </fr-button>
+    <fr-pagination
+      page-count="5"
+      background
+      small
+      @changePage="change"
+    >
+    </fr-pagination>
   </div>
 </template>
 

@@ -14,6 +14,7 @@ import FrSlider from './slider/src/slider.vue'
 import FrTimeLine from './timeline/src/timeline.vue'
 import FrTimeLineItem from './timeline-item/src/timeline-item.vue'
 import FrAlert from './alert/src/alert.vue'
+import FrPagination from './pagination/src/pagination.vue'
 
 const components = [
   FrButton,
@@ -31,7 +32,8 @@ const components = [
   FrSlider,
   FrTimeLine,
   FrTimeLineItem,
-  FrAlert
+  FrAlert,
+  FrPagination
 ]
 
 const install = app => {
@@ -58,5 +60,6 @@ export {
   FrSlider,
   FrTimeLine,
   FrTimeLineItem,
-  FrAlert
+  FrAlert,
+  FrPagination
 }
