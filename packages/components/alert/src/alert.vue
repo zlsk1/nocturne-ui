@@ -37,7 +37,7 @@ const handleClose = e => {
     <div class="fr-alert__content">
       <slot name="title">
       </slot>
-      <span class="fr-alert__title">
+      <span v-if="title" class="fr-alert__title">
         {{ title }}
       </span>
       <p v-if="description" class="fr-alert__description">

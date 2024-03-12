@@ -1,22 +1,21 @@
 <script setup>
-const handleClose = () => {
-  console.log(1111)
+import FrMessage from '@/components/message/src/method.js'
+import FrButton from '@/components/button/src/button.vue'
+
+const click = () => {
+  FrMessage({
+    message: 'hello',
+    showClose: true,
+    type: 'warning'
+  })
 }
 </script>
 
 <template>
   <div class="container">
-    <fr-alert
-      style="width: 600px;"
-      type="success"
-      effect="dark"
-      title="alert"
-      show-icon
-      description="hello"
-      close-text="close"
-      @close="handleClose"
-    >
-    </fr-alert>
+    <fr-button type="primary" @click="click">
+      Show Message
+    </fr-button>
   </div>
 </template>
 
