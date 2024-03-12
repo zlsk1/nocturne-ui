@@ -1,21 +1,22 @@
 <script setup>
+const handleClose = () => {
+  console.log(1111)
+}
 </script>
 
 <template>
   <div class="container">
-    <fr-timeline>
-      <fr-timeline-item
-        timestamp="2020-10-12"
-        placement="top"
-        size="large"
-        icon="eye"
-      >
-        start
-      </fr-timeline-item>
-      <fr-timeline-item timestamp="2020-10-12" type="primary">
-        start
-      </fr-timeline-item>
-    </fr-timeline>
+    <fr-alert
+      style="width: 600px;"
+      type="success"
+      effect="dark"
+      title="alert"
+      show-icon
+      description="hello"
+      close-text="close"
+      @close="handleClose"
+    >
+    </fr-alert>
   </div>
 </template>
 

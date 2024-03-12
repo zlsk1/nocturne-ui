@@ -13,6 +13,7 @@ import FrBadge from './badge/src/badge.vue'
 import FrSlider from './slider/src/slider.vue'
 import FrTimeLine from './timeline/src/timeline.vue'
 import FrTimeLineItem from './timeline-item/src/timeline-item.vue'
+import FrAlert from './alert/src/alert.vue'
 
 const components = [
   FrButton,
@@ -29,7 +30,8 @@ const components = [
   FrBadge,
   FrSlider,
   FrTimeLine,
-  FrTimeLineItem
+  FrTimeLineItem,
+  FrAlert
 ]
 
 const install = app => {
@@ -55,5 +57,6 @@ export {
   FrBadge,
   FrSlider,
   FrTimeLine,
-  FrTimeLineItem
+  FrTimeLineItem,
+  FrAlert
 }

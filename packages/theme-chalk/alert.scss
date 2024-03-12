@@ -1,0 +1,99 @@
+@use 'sass:map';
+
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+@include b(alert) {
+  @include set-component-css-var('alert', $alert);
+}
+
+@include b(alert) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: getCssVar('alert-padding-column') getCssVar('alert-padding-row');
+  border-radius: getCssVar('alert-radius');
+  box-sizing: border-box;
+  opacity: 1;
+  transition: opacity getCssVar('transition-duration', 'fast');
+  
+  @each $type in (success, info, warning, error) {
+    @include m($type) {
+      @include css-var-from-global(
+        ('alert', 'bg-color'),
+        ('color', $type, 'light-9')
+      );
+
+      &.is-light {
+        background-color: getCssVar('alert', 'bg-color');
+        color: getCssVar('color', $type);
+
+        .#{$namespace}-alert__description {
+          color: getCssVar('color', $type);
+        }
+      }
+
+      &.is-dark {
+        background-color: getCssVar('color', $type);
+        color: getCssVar('color', 'white');
+      }
+    }
+  }
+
+  @include when(light) {
+    .#{$namespace}-alert__close {
+      color: getCssVar('text-color', 'placeholder');
+    }
+  }
+
+  @include when(dark) {
+    .#{$namespace}-alert__close {
+      color: getCssVar('color', 'white');
+    }
+    .#{$namespace}-alert__description {
+      color: getCssVar('color', 'white');
+    }
+  }
+
+  @include e(close) {
+    position: absolute;
+    right: getCssVar('alert-padding-row');
+    top: calc(50% - .5rem);
+    font-size: getCssVar('alert', 'close-font-size');
+    cursor: pointer;
+
+    @include when(close-text) {
+      top: getCssVar('alert-padding-column');
+      line-height: 24px;
+      font-size: getCssVar('alert', 'font-size');
+    }
+  }
+
+  @include when(center) {
+    justify-content: center;
+  }
+
+  @include e(content) {
+  }
+
+  @include e(icon) {
+    margin-top: 2px;
+    margin-right: 8px;
+  }
+
+  @include e(title) {
+    line-height: 24px;
+    font-size: getCssVar('alert', 'font-size');
+  }
+
+  @include e(description) {
+    margin: 0;
+  }
+}
+
+.#{$namespace}-alert-fade-enter-from,
+.#{$namespace}-alert-fade-leave-active {
+  opacity: 0;
+}

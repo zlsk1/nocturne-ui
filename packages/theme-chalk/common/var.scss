@@ -672,3 +672,17 @@ $timeline: map.merge(
   ),
   $timeline
 );
+
+// alert
+// css3 var in packages/theme-chalk/src/alert.scss
+$alert: () !default;
+$alert: map.merge(
+  (
+    'padding-column': 12px,
+    'padding-row': 16px,
+    'font-size': 14px,
+    'radius': 4px,
+    'close-font-size': 16px,
+  ),
+  $alert
+);
