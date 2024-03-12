@@ -4,10 +4,15 @@ import FrButton from '@/components/button/src/button.vue'
 
 const click = () => {
   FrMessage({
-    message: 'hello',
+    message: 'some mistakes should be resloved',
     showClose: true,
-    type: 'warning'
+    type: 'error',
+    onClose: close
   })
+}
+
+function close () {
+  console.log(1)
 }
 </script>
 

@@ -3,6 +3,7 @@ import { ref, onMounted, computed } from 'vue'
 import FrIcon from '@/components/svg-icon/src/icon.vue'
 import { messageProps, messageEmits } from './index'
 import { getOffsetOrSpace, getLastOffset } from './instance'
+import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
 
 defineOptions({
   name: 'FrMessage'
@@ -13,7 +14,7 @@ defineEmits(messageEmits)
 
 const visible = ref(false)
 const height = ref(0)
-const messageRef = (null)
+const messageRef = ref()
 
 let stopTimer
 
@@ -33,14 +34,18 @@ const close = () => {
 
 const startTimer = () => {
   if (props.duration === 0) return
-  stopTimer = setTimeout(() => {
+  ({ stop: stopTimer } = useTimeoutFn(() => {
     close()
-  }, props.duration)
+  }, props.duration))
 }
 
 const clearTimer = () => {
   stopTimer?.()
 }
+
+useResizeObserver(messageRef, () => {
+  height.value = messageRef.value.getBoundingClientRect().height
+})
 
 defineExpose({
   visible,
@@ -50,37 +55,44 @@ defineExpose({
 </script>
 
 <template>
-  <div
-    v-show="visible"
-    ref="messageRef"
-    :class="[
-      'fr-message',
-      `fr-message--${type}`
-    ]"
-    :style="{
-      top: offset + 'px'
-    }"
-    @mouseenter="clearTimer"
-    @mouseleave="startTimer"
+  <transition
+    name="fr-message-fade"
+    @before-leave="onClose"
+    @after-leave="$emit('destroy')"
+    @before-enter="startTimer"
   >
-    <fr-icon
-      :class-name="`fr-message-icon--${type}`"
-      :icon="type"
-    ></fr-icon>
-    <div class="fr-message__content">
-      <slot name="title">
-      </slot>
-      <span class="fr-message__title">
-        {{ message }}
-      </span>
+    <div
+      v-show="visible"
+      ref="messageRef"
+      :class="[
+        'fr-message',
+        `fr-message--${type}`
+      ]"
+      :style="{
+        top: offset + 'px'
+      }"
+      @mouseenter="clearTimer"
+      @mouseleave="startTimer"
+    >
       <fr-icon
-        v-if="showClose"
-        icon="close"
-        class-name="fr-message__close"
-        @click="onClose"
+        :class-name="`fr-message-icon--${type}`"
+        :icon="type"
       ></fr-icon>
+      <div class="fr-message__content">
+        <slot name="title">
+        </slot>
+        <span class="fr-message__title">
+          {{ message }}
+        </span>
+        <fr-icon
+          v-if="showClose"
+          icon="close"
+          class-name="fr-message__close"
+          @click.stop="close"
+        ></fr-icon>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <style>

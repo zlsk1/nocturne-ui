@@ -66,7 +66,11 @@ const createMessage = ({ appendTo, ...options }, context) => {
   const vnode = h(
     FrMessage,
     props,
-    props.message
+    {
+      default: typeof (props.message) === 'function'
+        ? props.message
+        : () => props.message
+    }
   )
   vnode.appContext = context
 
