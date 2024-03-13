@@ -1,5 +1,5 @@
 export const paginationProps = {
-  pageCount: [Number, String],
+  pageCount: Number,
   background: {
     type: Boolean,
     default: false
@@ -12,9 +12,26 @@ export const paginationProps = {
     type: String,
     values: ['prev', 'pages', 'next', 'jumper', 'total'],
     default: 'prev, pages, next'
-  }
+  },
+  total: Number,
+  pageSize: {
+    type: Number,
+    default: 10
+  },
+  maxPages: {
+    type: Number,
+    default: 7
+  },
+  defaultPage: {
+    type: Number,
+    default: 1
+  },
+  currentPage: Number
 }
 
 export const paginationEmits = [
-  'changePage'
+  'changePage',
+  'clickPrev',
+  'clickNext',
+  'update:current-page'
 ]

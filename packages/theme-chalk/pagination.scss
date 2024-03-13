@@ -14,6 +14,10 @@
   transition: getCssVar('transition-duration-fast');
   font-size: 14px;
 
+  li * {
+    pointer-events: none;
+  }
+
   @include when(small) {
     
     @include e(button) {
@@ -80,6 +84,7 @@
     }
 
     @include when(active) {
+      font-weight: 700;
       color: getCssVar('pagination-color');
     }
   }
