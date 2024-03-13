@@ -123,15 +123,11 @@
 
     span {
       flex-shrink: 0;
-      margin-right: 6px;
     }
 
-    .fr-input {
+    .fr-input-number {
       width: 60px;
-
-      .fr-input__inner {
-        text-align: center;
-      }
+      margin: 0 10px;
     }
   }
 }

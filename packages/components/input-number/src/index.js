@@ -27,11 +27,16 @@ export const inputNumberProps = {
     type: Boolean,
     default: false
   },
-  precision: Number
+  precision: Number,
+  controls: {
+    type: Boolean,
+    default: true
+  }
 }
 
 export const inputNumberEmits = [
   'update:modelValue',
   'blur',
-  'focus'
+  'focus',
+  'change'
 ]

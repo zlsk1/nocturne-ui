@@ -62,8 +62,16 @@
     border-left: getCssVar(border);
     border-radius: 0 getCssVar(border-radius-base) getCssVar(border-radius-base) 0;
   }
-
-  .fr-input__inner {
-    text-align: center
+  .#{$namespace}-input {
+    &__inner {
+      text-align: center;
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        margin: 0;
+        -webkit-appearance: none;
+      }
+    }
   }
 }

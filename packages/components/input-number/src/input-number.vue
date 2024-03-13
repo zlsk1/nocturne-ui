@@ -51,6 +51,10 @@ const blur = () => { inputRef.value?.blur() }
 
 const focus = () => { inputRef.value?.focus() }
 
+const handleChange = val => {
+  emit('change', Number(val))
+}
+
 defineExpose({
   inputRef,
   blur,
@@ -67,36 +71,42 @@ defineExpose({
       }
     ]"
   >
-    <span
-      :class="[
-        'fr-input-number__decrease',
-        {
-          'is-disabled': isLessMin
-        }
-      ]"
-      @click="handleDecrease"
-    >
-      <fr-icon icon="minus"></fr-icon>
-    </span>
-    <span
-      :class="[
-        'fr-input-number__increase',
-        {
-          'is-disabled': isMoreMax
-        }
-      ]"
-      @click="handleIncrease"
-    >
-      <fr-icon icon="plus"></fr-icon>
-    </span>
+    <template v-if="controls">
+      <span
+        :class="[
+          'fr-input-number__decrease',
+          {
+            'is-disabled': isLessMin
+          }
+        ]"
+        @click="handleDecrease"
+      >
+        <fr-icon icon="minus"></fr-icon>
+      </span>
+      <span
+        :class="[
+          'fr-input-number__increase',
+          {
+            'is-disabled': isMoreMax
+          }
+        ]"
+        @click="handleIncrease"
+      >
+        <fr-icon icon="plus"></fr-icon>
+      </span>
+    </template>
     <fr-input
       ref="inputRef"
       :size="size"
+      type="number"
       :model-value="_modelValue"
       :disabled="disabled"
       :readonly="readonly"
+      :max="max"
+      :min="min"
       @blur="handleBlur"
       @focus="handleFocus"
+      @change="handleChange"
     ></fr-input>
   </div>
 </template>

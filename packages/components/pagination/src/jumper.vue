@@ -18,11 +18,12 @@ const change = value => {
 <template>
   <div class="fr-pagination__jumper">
     <span>{{ jumperText || 'Go to' }}</span>
-    <fr-input
+    <fr-input-number
       :model-value="val"
       size="large"
       type="number"
+      :controls="false"
       @change="change"
-    ></fr-input>
+    ></fr-input-number>
   </div>
 </template>

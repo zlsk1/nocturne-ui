@@ -1,4 +1,8 @@
 <script setup>
+import { ref } from 'vue'
+
+const number = ref(2)
+
 const change = e => {
   console.log(e)
 }

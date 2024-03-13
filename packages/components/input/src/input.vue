@@ -120,6 +120,8 @@ defineExpose({
           :type="showPassword ? (showPwd ? 'password' : 'text') : type"
           :maxlength="maxlength"
           :minlength="minlength"
+          :max="max"
+          :min="min"
           :placeholder="placeholder"
           :tabindex="tabindex"
           class="fr-input__inner"
