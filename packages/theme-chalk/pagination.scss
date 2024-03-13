@@ -55,6 +55,7 @@
       color: #000;
       background-color: getCssVar('fill-color-light');
       border-radius: getCssVar('pagination-bg-radius');
+      user-select: none;
 
       @include when(active) {
         color: #fff;
@@ -77,7 +78,6 @@
     margin: getCssVar('pagination-num-margin');
     line-height: getCssVar('pagination-default-size');
     text-align: center;
-    transition: getCssVar('transition-duration-fast');
     cursor: pointer;
     &:hover {
       color: getCssVar('pagination-color');
@@ -96,7 +96,6 @@
     background-color: #fff;
     border: none;
     outline: none;
-    transition: getCssVar('transition-duration-fast');
     cursor: pointer;
 
     &:hover {
@@ -109,6 +108,29 @@
 
       &:hover {
         color: getCssVar('color-info');
+      }
+    }
+    
+    @include when(text) {
+      width: auto;
+    }
+  }
+
+  @include e(jumper) {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    span {
+      flex-shrink: 0;
+      margin-right: 6px;
+    }
+
+    .fr-input {
+      width: 60px;
+
+      .fr-input__inner {
+        text-align: center;
       }
     }
   }

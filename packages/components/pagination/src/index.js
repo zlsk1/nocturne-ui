@@ -26,7 +26,10 @@ export const paginationProps = {
     type: Number,
     default: 1
   },
-  currentPage: Number
+  currentPage: Number,
+  nextText: String,
+  prevText: String,
+  jumperText: String
 }
 
 export const paginationEmits = [

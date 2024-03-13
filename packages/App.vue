@@ -13,8 +13,12 @@ const clickNext = e => {
 <template>
   <div class="container">
     <fr-pagination
-      :page-count="10"
-      small
+      :page-count="100"
+      next-text="下一页"
+      prev-text="上一页"
+      background
+      layout="prev, next, pages, jumper"
+      jumper-text="跳转至"
       @changePage="change"
       @clickPrev="clickPrev"
       @clickNext="clickNext"

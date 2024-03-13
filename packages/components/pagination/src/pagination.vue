@@ -1,6 +1,7 @@
 <script setup>
-import { computed, ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect, provide } from 'vue'
 import { paginationProps, paginationEmits } from './index'
+import jumper from './jumper.vue'
 
 defineOptions({
   name: 'FrPagination'
@@ -107,6 +108,14 @@ const handleNextPage = () => {
   ++_currentPage.value
   emit('clickNext', _currentPage.value)
 }
+
+provide(
+  'pagination',
+  {
+    currentPage: _currentPage,
+    emit
+  }
+)
 </script>
 
 <template>
@@ -119,17 +128,23 @@ const handleNextPage = () => {
       }
     ]"
   >
+    <jumper
+      v-if="layout.includes('jumper')"
+      :jumper-text="jumperText"
+    ></jumper>
     <button
       v-if="layout.includes('prev')"
       :class="[
         'fr-pagination__button',
         {
-          'is-not-allow': less
+          'is-not-allow': less,
+          'is-text': nextText
         }
       ]"
       @click="handlePrevPage"
     >
-      <fr-icon icon="arrow-left"></fr-icon>
+      <fr-icon v-if="!prevText" icon="arrow-left"></fr-icon>
+      <span v-else>{{ prevText }}</span>
     </button>
     <ul
       v-if="layout.includes('pages')"
@@ -145,7 +160,7 @@ const handleNextPage = () => {
       </li>
       <!-- prevMore -->
       <li
-        v-if="showPrevMore || isPrevHover"
+        v-if="showPrevMore"
         class="fr-pagination__num is-more prev"
         @mouseenter="isPrevHover = true"
         @mouseleave="isPrevHover = false"
@@ -164,7 +179,7 @@ const handleNextPage = () => {
       </li>
       <!-- nextMore -->
       <li
-        v-if="showNextMore || isNextHover"
+        v-if="showNextMore"
         class="fr-pagination__num is-more next"
         @mouseenter="isNextHover = true"
         @mouseleave="isNextHover = false"
@@ -185,12 +200,14 @@ const handleNextPage = () => {
       :class="[
         'fr-pagination__button',
         {
-          'is-not-allow': more
+          'is-not-allow': more,
+          'is-text': nextText
         }
       ]"
       @click="handleNextPage"
     >
-      <fr-icon icon="arrow-right"></fr-icon>
+      <fr-icon v-if="!nextText" icon="arrow-right"></fr-icon>
+      <span v-else>{{ nextText }}</span>
     </button>
   </div>
 </template>
