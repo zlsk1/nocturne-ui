@@ -79,7 +79,7 @@ watchEffect(() => {
 })
 
 const changePage = e => {
-  if (e.target.tagName === 'UL') {
+  if (e.target.tagName === 'UL' || props.disabled) {
     return
   }
   let newPage = Number(e.target.textContent)
@@ -98,13 +98,13 @@ const changePage = e => {
 }
 
 const handlePrevPage = () => {
-  if (less.value) return
+  if (less.value || props.disabled) return
   --_currentPage.value
   emit('clickPrev', _currentPage.value)
 }
 
 const handleNextPage = () => {
-  if (more.value) return
+  if (more.value || props.disabled) return
   ++_currentPage.value
   emit('clickNext', _currentPage.value)
 }
@@ -124,13 +124,15 @@ provide(
       'fr-pagination',
       {
         'is-background': background,
-        'is-small': small
+        'is-small': small,
+        'is-disabled': disabled
       }
     ]"
   >
     <jumper
       v-if="layout.includes('jumper')"
       :jumper-text="jumperText"
+      :disabled="disabled"
     ></jumper>
     <button
       v-if="layout.includes('prev')"
@@ -143,12 +145,13 @@ provide(
       ]"
       @click="handlePrevPage"
     >
-      <fr-icon v-if="!prevText" icon="arrow-left"></fr-icon>
+      <fr-icon v-if="!prevText" :icon="prevIcon"></fr-icon>
       <span v-else>{{ prevText }}</span>
     </button>
     <ul
       v-if="layout.includes('pages')"
       class="fr-pagination__pages"
+      :class="{ 'is-disabled': disabled }"
       @click="changePage"
     >
       <li
@@ -172,8 +175,10 @@ provide(
       <li
         v-for="item in pages"
         :key="item"
-        class="fr-pagination__num"
-        :class="item === _currentPage ? 'is-active' : ''"
+        :class="[
+          'fr-pagination__num',
+          item === _currentPage ? 'is-active' : ''
+        ]"
       >
         {{ item }}
       </li>
@@ -181,7 +186,8 @@ provide(
       <li
         v-if="showNextMore"
         class="fr-pagination__num is-more next"
-        @mouseenter="isNextHover = true"
+        :class="{ 'is-disabled': disabled }"
+        @mouseenter="!disabled ? isNextHover = true : ''"
         @mouseleave="isNextHover = false"
       >
         <fr-icon v-if="!isNextHover" icon="more"></fr-icon>
@@ -206,7 +212,7 @@ provide(
       ]"
       @click="handleNextPage"
     >
-      <fr-icon v-if="!nextText" icon="arrow-right"></fr-icon>
+      <fr-icon v-if="!nextText" :icon="nextIcon"></fr-icon>
       <span v-else>{{ nextText }}</span>
     </button>
   </div>

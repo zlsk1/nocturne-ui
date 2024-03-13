@@ -1,3 +1,7 @@
 export const jumperProps = {
-  jumperText: String
+  jumperText: String,
+  disabled: {
+    type: Boolean,
+    default: false
+  }
 }

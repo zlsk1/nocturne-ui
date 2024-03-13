@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 
-const number = ref(2)
-
 const change = e => {
   console.log(e)
 }
@@ -18,9 +16,8 @@ const clickNext = e => {
   <div class="container">
     <fr-pagination
       :page-count="100"
-      next-text="下一页"
-      prev-text="上一页"
       background
+      disabled
       layout="prev, next, pages, jumper"
       jumper-text="跳转至"
       @changePage="change"

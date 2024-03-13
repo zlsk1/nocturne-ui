@@ -29,7 +29,19 @@ export const paginationProps = {
   currentPage: Number,
   nextText: String,
   prevText: String,
-  jumperText: String
+  jumperText: String,
+  nextIcon: {
+    type: String,
+    default: 'arrow-right'
+  },
+  prevIcon: {
+    type: String,
+    default: 'arrow-left'
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  }
 }
 
 export const paginationEmits = [

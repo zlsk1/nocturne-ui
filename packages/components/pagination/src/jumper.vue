@@ -23,6 +23,7 @@ const change = value => {
       size="large"
       type="number"
       :controls="false"
+      :disabled="disabled"
       @change="change"
     ></fr-input-number>
   </div>
