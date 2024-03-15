@@ -1,30 +1,22 @@
 <script setup>
 import { ref } from 'vue'
 
-const change = e => {
-  console.log(e)
-}
-const clickPrev = e => {
-  console.log(e)
-}
-const clickNext = e => {
-  console.log(e)
+const img = ref('https://empty')
+
+const onError = () => {
+  img.value = 'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png'
 }
 </script>
 
 <template>
   <div class="container">
-    <fr-pagination
-      :page-count="100"
-      background
-      disabled
-      layout="prev, next, pages, jumper"
-      jumper-text="跳转至"
-      @changePage="change"
-      @clickPrev="clickPrev"
-      @clickNext="clickNext"
-    >
-    </fr-pagination>
+    <FrAvatar
+      :size="100"
+      shape="square"
+      :src="img"
+      fit="scale-down"
+      @error="onError"
+    ></FrAvatar>
   </div>
 </template>
 

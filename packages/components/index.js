@@ -15,6 +15,7 @@ import FrTimeLine from './timeline/src/timeline.vue'
 import FrTimeLineItem from './timeline-item/src/timeline-item.vue'
 import FrAlert from './alert/src/alert.vue'
 import FrPagination from './pagination/src/pagination.vue'
+import FrAvatar from './avatar/src/avatar.vue'
 
 const components = [
   FrButton,
@@ -33,7 +34,8 @@ const components = [
   FrTimeLine,
   FrTimeLineItem,
   FrAlert,
-  FrPagination
+  FrPagination,
+  FrAvatar
 ]
 
 const install = app => {
@@ -61,5 +63,6 @@ export {
   FrTimeLine,
   FrTimeLineItem,
   FrAlert,
-  FrPagination
+  FrPagination,
+  FrAvatar
 }
