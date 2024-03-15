@@ -26,6 +26,7 @@
     @include m($size) {
       width: getCssVar('component-size', $size);
       height: getCssVar('component-size', $size);
+      font-size: getCssVar('avatar-icon-size', $size);
 
       .fr-avatar__icon {
         font-size: getCssVar('avatar-icon-size', $size);

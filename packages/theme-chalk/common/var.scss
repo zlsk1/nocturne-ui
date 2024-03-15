@@ -723,9 +723,9 @@ $avatar: map.merge(
   ( 
     'square-radius': getCssVar('border-radius-base'),
     'circle-radius': getCssVar('border-radius-circle'),
-    'font-size': getCssVar('font-size-extra-small'),
+    'font-size': getCssVar('font-size-small'),
     'icon-size-large': getCssVar('font-size-large'),
-    'icon-size-small': getCssVar('font-size-small'),
+    'icon-size-small': getCssVar('font-size-extra-small'),
   ),
   $avatar   
 );
