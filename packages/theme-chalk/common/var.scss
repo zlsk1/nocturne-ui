@@ -718,6 +718,8 @@ $pagination: map.merge(
   $pagination   
 );
 
+// avatar
+// css3 var in packages/theme-chalk/src/avatar.scss
 $avatar: () !default;
 $avatar: map.merge(
   ( 
@@ -729,3 +731,24 @@ $avatar: map.merge(
   ),
   $avatar   
 );
+
+// collapse
+// css3 var in packages/theme-chalk/src/collapse.scss
+$collapse: () !default;
+$collapse: map.merge(
+  (
+    'font-size': getCssVar('font-size-small'),
+  ),
+  $collapse
+);
+
+// collapse-item
+// css3 var in packages/theme-chalk/src/collapse-item.scss
+$collapse-item: () !default;
+$collapse-item: map.merge(
+  (
+    'title-height': getCssVar('component-size-large'),
+    'title-padding-right': 8px,
+  ),
+  $collapse-item
+)

@@ -4,8 +4,5 @@ export const svgIconProps = {
     required: true
   },
   // 图标类名
-  className: {
-    type: String,
-    default: ''
-  }
+  className: [String, Array]
 }

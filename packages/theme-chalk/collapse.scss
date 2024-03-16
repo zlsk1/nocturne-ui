@@ -1,0 +1,13 @@
+@use 'sass:map';
+
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+@include b(collapse) {
+  @include set-component-css-var('collapse', $collapse);
+}
+
+@include b(collapse) {
+  font-size: getCssVar('collapse-font-size');
+}

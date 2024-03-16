@@ -44,8 +44,11 @@ const styleExternalIcon = computed(() => ({
 }))
 
 const svgClass = computed(() => {
-  if (props.className) {
-    return 'fr-icon ' + props.className
+  if (props.className && Array.isArray(props.className)) {
+    const className = props.className.map(v => {
+      return v
+    }).join(' ')
+    return 'fr-icon ' + className
   } else {
     return 'fr-icon'
   }

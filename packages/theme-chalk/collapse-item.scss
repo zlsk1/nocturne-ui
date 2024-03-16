@@ -1,0 +1,56 @@
+@use 'sass:map';
+
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+@include b(collapse-item) {
+  @include set-component-css-var('collapse-item', $collapse-item);
+}
+
+@include b(collapse-item) {
+  border-top: 1px solid getCssVar('border-color');
+
+  @include e(title) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: getCssVar('collapse-item-title-height');
+    padding-right: getCssVar('collapse-item-title-padding-right');
+    line-height: getCssVar('collapse-item-title-height');
+    cursor: pointer;
+
+    h3 {
+      margin: 0;
+      font-weight: normal;
+    }
+
+    @include e(icon) {
+      transition: all .3s;
+  
+      @include when(rotate) {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  @include e(content) {
+    height: 0;
+    overflow: hidden;
+    transition: height .3s;
+
+    @include when(active) {
+      height: auto;
+      padding-bottom: 10px;
+    }
+  }
+
+  @include when(disabled) {
+    color: getCssVar('color-info-light-3');
+    cursor: not-allowed;
+
+    @include e(title) {
+      cursor: not-allowed;
+    }
+  }
+}
