@@ -1,6 +1,7 @@
 <script setup>
 import { ref, inject, computed } from 'vue'
 import { collapseItemProps } from './index'
+import FrCollapseTransition from '../../collapse-transition/collapse-transition.vue'
 
 defineOptions({
   name: 'FrCollapseItem'
@@ -19,15 +20,6 @@ const isActive = computed(() => {
 const showContent = () => {
   if (props.disabled) return
   collapse.changeEvent(props.name)
-  // if (isActive.value) {
-  //   contentRef.value.style.height = 'auto'
-  //   const height = contentRef.value.getBoundingClientRect().height
-  //   setTimeout(() => {
-  //     contentRef.value.style.height = height + 'px'
-  //   }, 50)
-  // } else {
-  //   contentRef.value.style.height = '0'
-  // }
 }
 </script>
 
@@ -53,17 +45,19 @@ const showContent = () => {
         ]"
       ></fr-icon>
     </div>
-    <div
-      ref="contentRef"
-      :class="[
-        'fr-collapse-item__content',
-        {
-          'is-active': isActive
-        }
-      ]"
-    >
-      <slot></slot>
-    </div>
+    <fr-collapse-transition>
+      <div
+        v-show="isActive"
+        class="fr-collapse-item__wrap"
+      >
+        <div
+          ref="contentRef"
+          class="fr-collapse-item__content"
+        >
+          <slot></slot>
+        </div>
+      </div>
+    </fr-collapse-transition>
   </div>
 </template>
 

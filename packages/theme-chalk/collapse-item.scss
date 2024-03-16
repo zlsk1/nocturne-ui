@@ -35,15 +35,13 @@
     }
   }
 
-  @include e(content) {
-    height: 0;
+  @include e(wrap) {
+    box-sizing: border-box;
     overflow: hidden;
-    transition: height .3s;
+  }
 
-    @include when(active) {
-      height: auto;
-      padding-bottom: 10px;
-    }
+  @include e(content) {
+    padding-bottom: 20px;
   }
 
   @include when(disabled) {
