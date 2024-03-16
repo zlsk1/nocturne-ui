@@ -19,6 +19,7 @@ import FrAvatar from './avatar/src/avatar.vue'
 import FrCollapse from './collapse/src/collapse.vue'
 import FrCollapseItem from './collapse-item/src/collapse-item.vue'
 import FrStatistic from './statistic/src/statistic.vue'
+import FrCountdown from './countdown/src/countdown.vue'
 
 const components = [
   FrButton,
@@ -41,7 +42,8 @@ const components = [
   FrAvatar,
   FrCollapse,
   FrCollapseItem,
-  FrStatistic
+  FrStatistic,
+  FrCountdown
 ]
 
 const install = app => {
@@ -73,5 +75,6 @@ export {
   FrAvatar,
   FrCollapse,
   FrCollapseItem,
-  FrStatistic
+  FrStatistic,
+  FrCountdown
 }

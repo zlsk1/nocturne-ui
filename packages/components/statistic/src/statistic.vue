@@ -8,9 +8,11 @@ defineOptions({
 const props = defineProps(statisticProps)
 
 const _value = computed(() => {
+  const { formatter, precision, value } = props
   let newValue
-  if (props.precision) newValue = props.value.toFixed(props.precision).toLocaleString('en-US')
-  else newValue = props.value.toLocaleString('en-US')
+  if (typeof (formatter) === 'function') return formatter(value)
+  if (precision) newValue = value.toFixed(precision).toLocaleString('en-US')
+  else newValue = value.toLocaleString('en-US')
   return newValue
 })
 </script>
