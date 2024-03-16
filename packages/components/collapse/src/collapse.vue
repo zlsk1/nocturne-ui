@@ -12,14 +12,10 @@ const emit = defineEmits(collapseEmits)
 const activelist = ref([])
 
 const changeEvent = (e) => {
-  if (!props.accordion) {
-    if (!activelist.value.includes(e)) activelist.value.push(e)
-    else {
-      activelist.value.splice(activelist.value.indexOf(e), 1)
-    }
-  } else {
-    activelist.value = [e]
-  }
+  if (!activelist.value.includes(e)) {
+    if (!props.accordion)activelist.value.push(e)
+    else activelist.value = [e]
+  } else activelist.value.splice(activelist.value.indexOf(e), 1)
   emit('change', activelist.value)
 }
 

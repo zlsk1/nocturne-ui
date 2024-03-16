@@ -19,7 +19,6 @@ const isActive = computed(() => {
 const showContent = () => {
   if (props.disabled) return
   collapse.changeEvent(props.name)
-  // isShowContent.value = !isShowContent.value
   // if (isActive.value) {
   //   contentRef.value.style.height = 'auto'
   //   const height = contentRef.value.getBoundingClientRect().height

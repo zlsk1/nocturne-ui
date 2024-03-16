@@ -18,6 +18,7 @@
     height: getCssVar('collapse-item-title-height');
     padding-right: getCssVar('collapse-item-title-padding-right');
     line-height: getCssVar('collapse-item-title-height');
+    user-select: none;
     cursor: pointer;
 
     h3 {

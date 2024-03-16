@@ -1,17 +1,27 @@
 <script setup>
 import { ref } from 'vue'
-import dayjs from 'dayjs'
-
-const value = ref(Date.now() + 1000 * 3600 * 7)
-const value2 = ref(dayjs().add(1, 'month').startOf('month'))
 </script>
 
 <template>
   <div class="container">
-    <fr-countdown :value="value2" format="DD [days] HH:mm:ss">
-      countdown
-      <fr-icon icon="info"></fr-icon>
-    </fr-countdown>
+    <fr-collapse style="width: 1000px" accordion>
+      <fr-collapse-item title="countdown" name="1">
+        <div>
+          Consistent with real life: in line with the process and logic of real life, and comply with languages and habits that the users are used to;
+        </div>
+        <div>
+          Consistent within interface: all elements should be consistent, such as: design style, icons and texts, position of elements, etc.
+        </div>
+      </fr-collapse-item>
+      <fr-collapse-item title="statistic" name="2">
+        <div>
+          Consistent with real life: in line with the process and logic of real life, and comply with languages and habits that the users are used to;
+        </div>
+        <div>
+          Consistent within interface: all elements should be consistent, such as: design style, icons and texts, position of elements, etc.
+        </div>
+      </fr-collapse-item>
+    </fr-collapse>
   </div>
 </template>
 
