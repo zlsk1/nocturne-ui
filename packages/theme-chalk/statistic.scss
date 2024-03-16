@@ -1,0 +1,23 @@
+@use 'sass:map';
+
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+@include b(statistic) {
+  @include set-component-css-var('statistic', $statistic);
+}
+
+@include b(statistic) {
+  text-align: center;
+  font-size: getCssVar('font-size-base');
+
+  @include e(title) {
+    margin-bottom: 10px;
+    color: getCssVar('statistic-title-color')
+  }
+
+  @include e(value) {
+    font-size: getCssVar('statistic-value-font-size');
+  }
+}

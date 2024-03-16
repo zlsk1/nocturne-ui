@@ -18,6 +18,7 @@ import FrPagination from './pagination/src/pagination.vue'
 import FrAvatar from './avatar/src/avatar.vue'
 import FrCollapse from './collapse/src/collapse.vue'
 import FrCollapseItem from './collapse-item/src/collapse-item.vue'
+import FrStatistic from './statistic/src/statistic.vue'
 
 const components = [
   FrButton,
@@ -39,7 +40,8 @@ const components = [
   FrPagination,
   FrAvatar,
   FrCollapse,
-  FrCollapseItem
+  FrCollapseItem,
+  FrStatistic
 ]
 
 const install = app => {
@@ -70,5 +72,6 @@ export {
   FrPagination,
   FrAvatar,
   FrCollapse,
-  FrCollapseItem
+  FrCollapseItem,
+  FrStatistic
 }

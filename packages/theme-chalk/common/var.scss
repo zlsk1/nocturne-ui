@@ -751,4 +751,15 @@ $collapse-item: map.merge(
     'title-padding-right': 8px,
   ),
   $collapse-item
+);
+
+// statistic
+// css3 var in packages/theme-chalk/src/statistic.scss
+$statistic: () !default;
+$statistic: map.merge(
+  (
+    'title-color': getCssVar('text-color-regular'),
+    'value-font-size': getCssVar('font-size-extra-large'),
+  ),
+  $statistic
 )
