@@ -4,24 +4,14 @@ import { ref } from 'vue'
 
 <template>
   <div class="container">
-    <fr-collapse style="width: 1000px" accordion>
-      <fr-collapse-item title="countdown" name="1">
-        <div>
-          Consistent with real life: in line with the process and logic of real life, and comply with languages and habits that the users are used to;
-        </div>
-        <div>
-          Consistent within interface: all elements should be consistent, such as: design style, icons and texts, position of elements, etc.
-        </div>
-      </fr-collapse-item>
-      <fr-collapse-item title="statistic" name="2">
-        <div>
-          Consistent with real life: in line with the process and logic of real life, and comply with languages and habits that the users are used to;
-        </div>
-        <div>
-          Consistent within interface: all elements should be consistent, such as: design style, icons and texts, position of elements, etc.
-        </div>
-      </fr-collapse-item>
-    </fr-collapse>
+    <fr-tooltip
+      content="there is the fr-tooltip"
+      placement="bottom-end"
+    >
+      <fr-button type="primary" plain>
+        show tooltip
+      </fr-button>
+    </fr-tooltip>
   </div>
 </template>
 

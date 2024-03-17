@@ -763,3 +763,14 @@ $statistic: map.merge(
   ),
   $statistic
 );
+
+// tooltip
+// css3 var in packages/theme-chalk/src/tooltip.scss
+$tooltip: () !default;
+$tooltip: map.merge(
+  (
+    'title-color': getCssVar('text-color-regular'),
+    'value-font-size': getCssVar('font-size-extra-large'),
+  ),
+  $tooltip
+);
