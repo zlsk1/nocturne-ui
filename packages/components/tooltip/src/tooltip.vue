@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, nextTick } from 'vue'
 import { tooltipProps } from './index'
 import { createPopper } from '@popperjs/core'
 import { isSameTriggerType } from './utils'
@@ -16,10 +16,6 @@ const arrowRef = ref()
 const visible = ref(false)
 
 let instance
-
-onMounted(() => {
-  crerteInstance()
-})
 
 const crerteInstance = () => {
   instance = createPopper(referenceRef.value, contentRef.value, {
@@ -49,20 +45,21 @@ const setOptions = () => {
 }
 
 const show = () => {
-  visible.value = !visible.value
-  setOptions()
-  instance.update()
+  visible.value = true
+  nextTick(() => {
+    crerteInstance()
+    instance.update()
+  })
 }
 
 const hide = () => {
   visible.value = !visible.value
 }
 
-const click = () => {
-  visible.value = !visible.value
+const click = (e) => {
+  if (!contentRef.value.contains(e.target)) hide()
   if (visible.value) {
-    setOptions()
-    instance.update()
+    crerteInstance()
   }
 }
 
@@ -72,6 +69,8 @@ const onMouseLeave = isSameTriggerType(props.trigger, 'hover', hide)
 
 const onClick = isSameTriggerType(props.trigger, 'click', click)
 
+const onClickOutside = isSameTriggerType(props.trigger, 'click', click)
+
 </script>
 
 <template>
@@ -80,30 +79,34 @@ const onClick = isSameTriggerType(props.trigger, 'click', click)
       'fr-tooltip',
       `fr-tooltip--${effect}`
     ]"
-    @mouseenter="onMouseEnter"
-    @mouseleave="onMouseLeave"
-    @click="onClick"
-    @focus="onFocus"
   >
     <div
       ref="referenceRef"
+      v-click-outside="onClickOutside"
+      @mouseenter="onMouseEnter"
+      @mouseleave="onMouseLeave"
+      @click="onClick"
     >
       <slot></slot>
     </div>
-    <transition name="fr-tooltip-transition">
-      <div
-        v-show="visible"
-        ref="contentRef"
-        class="fr-tooltip__content"
-      >
-        <span>{{ content }}</span>
-        <span ref="arrowRef" class="fr-tooltip__arrow"></span>
-      </div>
-    </transition>
+    <teleport to="body">
+      <transition name="fr-tooltip-transition">
+        <div
+          v-if="visible"
+          ref="contentRef"
+          class="fr-tooltip__content"
+          @mouseenter="onMouseEnter"
+          @mouseleave="onMouseLeave"
+        >
+          <span>{{ content }}</span>
+          <span ref="arrowRef" class="fr-tooltip__arrow"></span>
+        </div>
+      </transition>
+    </teleport>
   </div>
 </template>
 
-<style>
+<style scoped>
 @import '@/theme-chalk/tooltip.scss';
 .fr-tooltip-transition-enter-active,
 .fr-tooltip-transition-leave-active {

@@ -8,7 +8,7 @@ import { ref } from 'vue'
       content="there is the fr-tooltip"
       placement="bottom-end"
     >
-      <fr-button type="primary" plain>
+      <fr-button>
         show tooltip
       </fr-button>
     </fr-tooltip>
