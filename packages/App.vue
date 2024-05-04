@@ -4,14 +4,12 @@ import { ref } from 'vue'
 
 <template>
   <div class="container">
-    <fr-tooltip
-      content="there is the fr-tooltip"
-      placement="bottom-end"
-    >
-      <fr-button type="primary" plain>
-        show tooltip
-      </fr-button>
-    </fr-tooltip>
+    <FrProgress :percentage="50">
+      <div style="display: flex;align-items: center;">
+        50%
+        <FrIcon icon="warning" style="color:#e6a23c"></FrIcon>
+      </div>
+    </FrProgress>
   </div>
 </template>
 

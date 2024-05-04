@@ -21,6 +21,7 @@ import FrCollapseItem from './collapse-item/src/collapse-item.vue'
 import FrStatistic from './statistic/src/statistic.vue'
 import FrCountdown from './countdown/src/countdown.vue'
 import FrTooltip from './tooltip/src/tooltip.vue'
+import FrProgress from './progress/src/progress.vue'
 
 const components = [
   FrButton,
@@ -45,7 +46,8 @@ const components = [
   FrCollapseItem,
   FrStatistic,
   FrCountdown,
-  FrTooltip
+  FrTooltip,
+  FrProgress
 ]
 
 const install = app => {
@@ -79,5 +81,6 @@ export {
   FrCollapseItem,
   FrStatistic,
   FrCountdown,
-  FrTooltip
+  FrTooltip,
+  FrProgress
 }

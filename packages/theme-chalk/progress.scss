@@ -1,0 +1,46 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(progress) {
+  // @include set-component-css-var('progress', $progress);
+}
+
+@include b(progress) {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 10px;
+  border-radius: 20px;
+
+  @include m(line) {
+    font-size: 13px;
+    width: 200px;
+    height: 10px;
+
+    @include e(bg) {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
+      height: 10px;
+      background-color: #999;
+      border-radius: 20px;
+      z-index: 8;
+    }
+  
+    @include e(progress) {
+      position: absolute;
+      left: 0;
+      width: 0%;
+      height: 10px;
+      border-radius: 20px;
+      // transition: all .6s cubic-bezier(0.895, 0.5, 0.685, 0.22);
+      z-index: 10;
+    }
+  }
+  
+  @include e(slot) {
+    margin-left: calc(100% + 10px);
+  }
+}
