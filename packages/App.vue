@@ -5,11 +5,12 @@
 <template>
   <div class="container">
     <fr-tooltip
-      content="it is the fr-tooltip :)"
-      trigger="click"
-      placement="top"
+      content="there is the fr-tooltip"
+      placement="bottom-end"
     >
-      <fr-button>show tooltip</fr-button>
+      <fr-button type="primary" plain>
+        show tooltip
+      </fr-button>
     </fr-tooltip>
   </div>
 </template>
