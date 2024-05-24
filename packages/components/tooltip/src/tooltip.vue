@@ -1,120 +1,151 @@
+<template>
+  <frPopper ref="popperRef" :role="role">
+    <FrTooltipReference
+      :trigger="trigger"
+      :disabled="disabled"
+      :trigger-keys="triggerKeys"
+      :virtual-ref="virtualRef"
+      :virtual-triggering="virtualTriggering"
+    >
+      <slot></slot>
+    </FrTooltipReference>
+    <frTooltipContent
+      ref="contentRef"
+      :aria-label="ariaLabel"
+      :boundaries-padding="boundariesPadding"
+      :content="content"
+      :disabled="disabled"
+      :effect="effect"
+      :enterable="enterable"
+      :fallback-placements="fallbackPlacements"
+      :hide-after="hideAfter"
+      :gpu-acceleration="gpuAcceleration"
+      :offset="offset"
+      :persistent="persistent"
+      :popper-class="popperClass"
+      :popper-style="popperStyle"
+      :placement="placement"
+      :popper-options="popperOptions"
+      :pure="pure"
+      :raw-content="rawContent"
+      :reference-el="referenceEl"
+      :trigger-target-el="triggerTargetEl"
+      :show-after="showAfter"
+      :strategy="strategy"
+      :teleported="teleported"
+      :transition="transition"
+      :virtual-triggering="virtualTriggering"
+      :z-index="zIndex"
+      :append-to="appendTo"
+    >
+      <slot name="content">
+        <span v-if="rawContent" v-html="content"></span>
+        <span v-else>{{ content }}</span>
+      </slot>
+      <FrPopperArrow v-if="showArrow" :arrow-offset="arrowOffset"></FrPopperArrow>
+    </frTooltipContent>
+  </frPopper>
+</template>
+
 <script setup>
-import { ref, nextTick } from 'vue'
-import { tooltipProps } from './index'
-import { createPopper } from '@popperjs/core'
-import { isSameTriggerType } from './utils'
+import { ref, provide, computed, unref, toRef, watch, onDeactivated } from 'vue'
+import { tooltipEmits, useTooltipModelToggle, useTooltipProps } from './tooltip'
+import { useDelayedToggle } from '@/compoables'
+import frTooltipContent from './content.vue'
+import FrTooltipReference from './reference.vue'
+import FrPopperArrow from '@/components/popper/src/arrow.vue'
 
 defineOptions({
   name: 'FrTooltip'
 })
 
-const props = defineProps(tooltipProps)
+const props = defineProps(useTooltipProps)
+const emit = defineEmits(tooltipEmits)
 
-const referenceRef = ref()
+const popperRef = ref()
 const contentRef = ref()
-const arrowRef = ref()
-const visible = ref(false)
+const open = ref(false)
+const toggleReason = ref()
 
-let instance
+const controlled = computed(() => typeof props.visible === 'boolean' && !hasUpdateHandler.value)
 
-const crerteInstance = () => {
-  instance = createPopper(referenceRef.value, contentRef.value, {
-    modifiers: [
-      {
-        name: 'offset',
-        options: {
-          offset: [0, 12]
-        }
-      },
-      {
-        name: 'arrow',
-        options: {
-          element: arrowRef.value,
-          padding: 0
-        }
-      }
-    ]
-  })
-  setOptions()
-}
+watch(
+  () => props.disabled,
+  (disabled) => {
+    if (disabled && open.value) {
+      open.value = false
+    }
+  }
+)
 
-const setOptions = () => {
-  instance.setOptions({
-    placement: props.placement
-  })
-}
+const { show, hide, hasUpdateHandler } = useTooltipModelToggle({
+  indicator: open,
+  toggleReason
+})
 
-const show = () => {
-  visible.value = true
-  nextTick(() => {
-    crerteInstance()
-    instance.update()
-  })
-}
+const { onOpen, onClose } = useDelayedToggle({
+  showAfter: toRef(props, 'showAfter'),
+  hideAfter: toRef(props, 'hideAfter'),
+  autoClose: toRef(props, 'autoClose'),
+  open: show,
+  close: hide
+})
 
-const hide = () => {
-  visible.value = !visible.value
-}
+onDeactivated(() => open.value && hide())
 
-const click = (e) => {
-  if (!contentRef.value.contains(e.target)) hide()
-  if (visible.value) {
-    crerteInstance()
+const updatePopper = () => {
+  const popperComponent = unref(popperRef)
+  if (popperComponent) {
+    popperComponent.popperInstanceRef?.update()
   }
 }
 
-const onMouseEnter = isSameTriggerType(props.trigger, 'hover', show)
+const isFocusInsideContent = (event) => {
+  const popperContent = contentRef.value?.contentRef?.popperContentRef
+  const activeElement = (event?.relatedTarget) || document.activeElement
 
-const onMouseLeave = isSameTriggerType(props.trigger, 'hover', hide)
+  return popperContent && popperContent.contains(activeElement)
+}
 
-const onClick = isSameTriggerType(props.trigger, 'click', click)
+provide('tooltipProvide', {
+  controlled,
+  open,
+  trigger: toRef(props, 'trigger'),
+  onOpen: (event) => {
+    onOpen(event)
+  },
+  onClose: (event) => {
+    onClose(event)
+  },
+  onToggle: (event) => {
+    if (unref(open)) {
+      onClose(event)
+    } else {
+      onOpen(event)
+    }
+  },
+  onShow: () => {
+    emit('show', toggleReason.value)
+  },
+  onHide: () => {
+    emit('hide', toggleReason.value)
+  },
+  onBeforeShow: () => {
+    emit('before-show', toggleReason.value)
+  },
+  onBeforeHide: () => {
+    emit('before-hide', toggleReason.value)
+  },
+  updatePopper
+})
 
-const onClickOutside = isSameTriggerType(props.trigger, 'click', click)
-
+defineExpose({
+  popperRef,
+  contentRef,
+  isFocusInsideContent,
+  updatePopper,
+  onOpen,
+  onClose,
+  hide
+})
 </script>
-
-<template>
-  <div
-    :class="[
-      'fr-tooltip',
-      `fr-tooltip--${effect}`
-    ]"
-  >
-    <div
-      ref="referenceRef"
-      v-click-outside="onClickOutside"
-      @mouseenter="onMouseEnter"
-      @mouseleave="onMouseLeave"
-      @click="onClick"
-    >
-      <slot></slot>
-    </div>
-    <teleport to="body">
-      <transition name="fr-tooltip-transition">
-        <div
-          v-if="visible"
-          ref="contentRef"
-          class="fr-tooltip__content"
-          @mouseenter="onMouseEnter"
-          @mouseleave="onMouseLeave"
-        >
-          <span>{{ content }}</span>
-          <span ref="arrowRef" class="fr-tooltip__arrow"></span>
-        </div>
-      </transition>
-    </teleport>
-  </div>
-</template>
-
-<style scoped>
-@import '@/theme-chalk/tooltip.scss';
-.fr-tooltip-transition-enter-active,
-.fr-tooltip-transition-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fr-tooltip-transition-enter-from,
-.fr-tooltip-transition-leave-to {
-  opacity: 0;
-}
-</style>

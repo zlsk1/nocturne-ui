@@ -774,3 +774,14 @@ $tooltip: map.merge(
   ),
   $tooltip
 );
+
+// tooltip
+// css3 var in packages/theme-chalk/src/tooltip.scss
+$popper: () !default;
+$popper: map.merge(
+  (
+    'title-color': getCssVar('text-color-regular'),
+    'value-font-size': getCssVar('font-size-extra-large'),
+  ),
+  $popper
+);

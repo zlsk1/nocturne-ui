@@ -1,25 +1,32 @@
 <script setup>
-import { ref } from 'vue'
+// import { ref } from 'vue'
 </script>
 
 <template>
   <div class="container">
     <fr-tooltip
-      content="there is the fr-tooltip"
-      placement="bottom-end"
+      content="it is the fr-tooltip :)"
+      trigger="click"
+      placement="top"
     >
-      <fr-button>
-        show tooltip
-      </fr-button>
+      <fr-button>show tooltip</fr-button>
     </fr-tooltip>
   </div>
 </template>
 
-<style scoped>
-.container {
+<style>
+html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 200px;
+  width: 200%;
+  height: 200%;
+  background-color: #141414;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 </style>

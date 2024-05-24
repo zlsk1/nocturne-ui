@@ -1,0 +1,90 @@
+@use 'sass:map';
+
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+@use 'common/transition' as *;
+
+$placement: (
+  'bottom': 'top',
+  'top': 'bottom',
+  'right': 'left',
+  'left': 'right',
+);
+
+@include b(popper) {
+  @include set-component-css-var('popper', $popper);
+}
+
+@include b(popper) {
+  position: absolute;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  z-index: 2000;
+
+  @include e(arrow) {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: getCssVar('text-color', 'primary');
+      border: 1px solid #414243;
+      border-radius: 2px;
+      box-sizing: border-box;
+      transform: rotate(45deg);
+    }
+  }
+
+  @each $placement,
+    $adjacency
+      in ('top': 'left', 'bottom': 'right', 'left': 'bottom', 'right': 'top')
+  {
+    &[data-popper-placement^='#{$placement}'] {
+      .fr-popper__arrow::after {
+        border-#{$placement}-color: transparent !important;
+        border-#{$adjacency}-color: transparent !important;
+      }
+    }
+  }
+
+  @each $opposite, $val in $placement {
+    &[data-popper-placement^='#{$opposite}'] > .#{$namespace}-popper__arrow {
+      #{$val}: -4px;
+    }
+  }
+
+  @include when(dark) {
+    color: #fff;
+    background-color: getCssVar('text-color', 'primary');
+    border: 1px solid #414243;
+  }
+
+  @include when(light) {
+    color: #141414;
+    background-color: #fff;
+
+    @include e(arrow) {
+      
+      &::after {
+        background-color: #fff;
+        border-color: #fff;
+      }
+    }
+  }
+}
+
+.fr-popper-transition-enter-active,
+.fr-popper-transition-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fr-popper-transition-enter-from,
+.fr-popper-transition-leave-to {
+  opacity: 0;
+}

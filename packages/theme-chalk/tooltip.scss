@@ -3,6 +3,7 @@
 @use 'mixins/mixins' as *;
 @use 'mixins/var' as *;
 @use 'common/var' as *;
+@use 'common/transition' as *;
 
 $placement: (
   'bottom': 'top',
@@ -13,54 +14,4 @@ $placement: (
 
 @include b(tooltip) {
   @include set-component-css-var('tooltip', $tooltip);
-}
-
-@include b(tooltip) {
-
-  @include e(content) {
-    position: absolute;
-    padding: 4px 8px;
-    border-radius: 4px;
-
-    @include e(arrow) {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      
-      &::after {
-        content: '';
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        background-color: #141414;
-        border-top: 1px solid #141414;
-        border-left: 1px solid #141414;
-        border-radius: 2px;
-        box-sizing: border-box;
-        transform: rotate(45deg);
-      }
-    }
-
-    @each $name, $val in $placement {
-      &[data-popper-placement^='#{$name}'] > .#{$namespace}-tooltip__arrow {
-        #{$val}: -4px;
-      }
-    }
-  }
-
-  @include m(dark) {
-
-    @include e(content) {
-      color: #fff;
-      background-color: #141414;
-    }
-  }
-
-  @include m(light) {
-
-    @include e(content) {
-      color: #141414;
-      background-color: #fff;
-    }
-  }
 }

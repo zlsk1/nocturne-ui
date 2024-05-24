@@ -20,6 +20,7 @@ import FrCollapse from './collapse/src/collapse.vue'
 import FrCollapseItem from './collapse-item/src/collapse-item.vue'
 import FrStatistic from './statistic/src/statistic.vue'
 import FrCountdown from './countdown/src/countdown.vue'
+import FrPopper from './popper/src/popper.vue'
 import FrTooltip from './tooltip/src/tooltip.vue'
 
 const components = [
@@ -45,6 +46,7 @@ const components = [
   FrCollapseItem,
   FrStatistic,
   FrCountdown,
+  FrPopper,
   FrTooltip
 ]
 
@@ -79,5 +81,6 @@ export {
   FrCollapseItem,
   FrStatistic,
   FrCountdown,
+  FrPopper,
   FrTooltip
 }
