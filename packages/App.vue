@@ -1,5 +1,5 @@
 <script setup>
-// import { ref } from 'vue'
+import { ref } from 'vue'
 </script>
 
 <template>
@@ -7,6 +7,7 @@
     <fr-tooltip
       content="there is the fr-tooltip"
       placement="bottom-end"
+      trigger="click"
     >
       <fr-button type="primary" plain>
         show tooltip

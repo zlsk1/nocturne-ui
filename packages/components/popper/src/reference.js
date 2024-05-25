@@ -4,7 +4,7 @@ export const popperReferenceProps = {
   },
   virtualTriggering: Boolean,
   onClick: Function,
-  onmouseenter: Function,
+  onMouseenter: Function,
   onMouseleave: Function,
   onKeydown: {
     type: Function

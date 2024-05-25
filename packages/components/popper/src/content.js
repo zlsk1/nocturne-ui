@@ -28,7 +28,10 @@ export const popperCoreConfigProps = {
   /**
    * @description [popper.js](https://popper.js.org/docs/v2/) parameters
    */
-  popperOptions: {},
+  popperOptions: {
+    type: Object,
+    default: () => { return {} }
+  },
   strategy: {
     type: String,
     default: 'absolute'

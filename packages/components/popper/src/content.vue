@@ -16,13 +16,13 @@
 <script setup>
 import { provide, ref, watch, onMounted, unref, onBeforeUnmount } from 'vue'
 import { usePopperContentDOM, usePopperContent } from './compoables'
-import { popperCoreConfigProps } from './content'
+import { popperContentProps } from './content'
 
 defineOptions({
   name: 'FrPopperContent'
 })
 
-const props = defineProps(popperCoreConfigProps)
+const props = defineProps(popperContentProps)
 
 const arrowOffset = ref()
 

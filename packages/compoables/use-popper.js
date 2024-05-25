@@ -1,5 +1,5 @@
 import { computed, onBeforeUnmount, ref, shallowRef, unref, watch } from 'vue'
-import { createPopper } from '@popperJS/core'
+import { createPopper } from '@popperjs/core'
 
 export const usePopper = (
   referenceElementRef,
@@ -106,6 +106,7 @@ function deriveState (state) {
     attributes[ele] = state.attributes[ele]
     styles[ele] = state.styles[ele] || {}
   }
+
   return {
     styles,
     attributes
