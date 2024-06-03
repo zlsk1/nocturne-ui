@@ -3,6 +3,8 @@
   "semi": false,
   "tabWidth": 2,
   "trailingComma": "none",
+  "singleQuote": true,
+  "printWidth": 80,
   "overrides": [
     {
       "files": ".prettierrc",
