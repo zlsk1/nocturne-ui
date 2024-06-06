@@ -1,19 +1,5 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "target": "es2018",
-    "module": "esnext",
-    "baseUrl": ".",
-    "sourceMap": false,
-    "moduleResolution": "node",
-    "allowJs": false,
-    "strict": true,
-    "noUnusedLocals": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "removeComments": false,
-    "rootDir": ".",
     "composite": true,
     "lib": ["ESNext"],
     "types": ["node"],
@@ -23,5 +9,5 @@
     "vite.config.*",
     "vitest.config.*",
   ],
-  // "exclude": ["**/__tests__/**", "**/tests/**", "**/dist"]
+  "exclude": ["**/__tests__/**", "**/tests/**", "**/dist"]
 }
