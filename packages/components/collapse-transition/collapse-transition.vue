@@ -1,14 +1,14 @@
-<script setup>
+<script lang="ts" setup>
 defineOptions({
   name: 'FrCollapseTransition'
 })
 
-const reset = (el) => {
+const reset = (el: HTMLElement) => {
   el.style.height = ''
 }
 
 const on = {
-  beforeEnter (el) {
+  beforeEnter(el: any) {
     if (!el.dataset) el.dataset = {}
 
     if (el.style.height) el.dataset.elExistsHeight = el.style.height
@@ -16,41 +16,43 @@ const on = {
     el.style.height = 0
   },
 
-  enter (el) {
+  enter(el: any) {
     if (el.dataset.elExistsHeight) {
       el.style.height = el.dataset.elExistsHeight
-    } else if (el.scrollHeight !== 0) {
+    }
+    else if (el.scrollHeight !== 0) {
       el.style.height = `${el.scrollHeight}px`
-    } else {
+    }
+    else {
       el.style.height = 0
     }
   },
 
-  afterEnter (el) {
+  afterEnter(el: any) {
     reset(el)
   },
 
-  enterCancelled (el) {
+  enterCancelled(el: any) {
     reset(el)
   },
 
-  beforeLeave (el) {
+  beforeLeave(el: any) {
     if (!el.dataset) el.dataset = {}
 
     el.style.height = `${el.scrollHeight}px`
   },
 
-  leave (el) {
+  leave(el: any) {
     if (el.scrollHeight !== 0) {
       el.style.height = 0
     }
   },
 
-  afterLeave (el) {
+  afterLeave(el: any) {
     reset(el)
   },
 
-  leaveCancelled (el) {
+  leaveCancelled(el: any) {
     reset(el)
   }
 }

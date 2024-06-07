@@ -1,25 +1,27 @@
-<script setup>
+<script lang="ts" setup>
 import { ref, inject, computed } from 'vue'
-import { collapseItemProps } from './index'
+import { collapseItemProps } from './collapse-item'
+import { COLLAPSE_INJECTION_KEY } from '@/components/collapse/src/constants'
 import FrCollapseTransition from '../../collapse-transition/collapse-transition.vue'
+import FrIcon from '@/components/icon'
 
 defineOptions({
   name: 'FrCollapseItem'
 })
 
-const collapse = inject('collapse')
+const { activelist, changeEvent } = inject(COLLAPSE_INJECTION_KEY, undefined)!
 
 const props = defineProps(collapseItemProps)
 
-const contentRef = ref()
+const contentRef = ref<HTMLElement>()
 
 const isActive = computed(() => {
-  return collapse.activelist.value.includes(props.name)
+  return activelist.value.includes(props.name as never)
 })
 
 const showContent = () => {
   if (props.disabled) return
-  collapse.changeEvent(props.name)
+  changeEvent(props.name as string)
 }
 </script>
 

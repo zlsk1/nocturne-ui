@@ -1,7 +1,8 @@
-<script setup>
-import { nextTick, provide, toRefs, ref } from 'vue'
-
-import { checkboxGroupProps, checkboxGroupEmits } from './index'
+<script lang="ts" setup>
+import { nextTick, provide, toRefs, computed } from 'vue'
+import { checkboxGroupProps, checkboxGroupEmits } from './checkbox-group'
+import { checkboxGroupContextKey } from '../../checkbox/src/constants'
+import { CheckboxGroupValueType } from './checkbox-group'
 
 defineOptions({
   name: 'FrCheckboxGroup'
@@ -10,20 +11,26 @@ defineOptions({
 const props = defineProps(checkboxGroupProps)
 const emit = defineEmits(checkboxGroupEmits)
 
-const groupRef = ref(null)
-
-const changeEvent = val => {
-  emit('update:modelValue', val)
-  nextTick(() => emit('change', val))
+const changeEvent = async(value: CheckboxGroupValueType) => {
+  emit('update:modelValue', value)
+  await nextTick()
+  emit('change', value)
 }
 
-provide(
-  'groupRef',
-  ref({
-    ...toRefs(props),
-    changeEvent
-  })
-)
+const modelValue = computed({
+  get() {
+    return props.modelValue
+  },
+  set(val: CheckboxGroupValueType) {
+    changeEvent(val)
+  }
+})
+
+provide(checkboxGroupContextKey, {
+  ...toRefs(props),
+  modelValue,
+  changeEvent
+})
 </script>
 
 <template>

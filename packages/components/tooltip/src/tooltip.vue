@@ -47,13 +47,15 @@
   </frPopper>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, provide, computed, unref, toRef, watch, onDeactivated } from 'vue'
 import { tooltipEmits, useTooltipModelToggle, useTooltipProps } from './tooltip'
-import { useDelayedToggle } from '@/compoables'
+import { useDelayedToggle } from '@/composables'
 import frTooltipContent from './content.vue'
 import FrTooltipReference from './reference.vue'
 import FrPopperArrow from '@/components/popper/src/arrow.vue'
+import { TOOLTIP_INJECTION_KEY } from './constants'
+import type { PopperInstance } from '@/components/popper'
 
 defineOptions({
   name: 'FrTooltip'
@@ -62,10 +64,10 @@ defineOptions({
 const props = defineProps(useTooltipProps)
 const emit = defineEmits(tooltipEmits)
 
-const popperRef = ref()
-const contentRef = ref()
+const popperRef = ref<PopperInstance>()
+const contentRef = ref<any>()
 const open = ref(false)
-const toggleReason = ref()
+const toggleReason = ref<Event>()
 
 const controlled = computed(() => typeof props.visible === 'boolean' && !hasUpdateHandler.value)
 
@@ -96,31 +98,32 @@ onDeactivated(() => open.value && hide())
 const updatePopper = () => {
   const popperComponent = unref(popperRef)
   if (popperComponent) {
-    popperComponent.popperInstanceRef?.update()
+    popperComponent.instancePopperRef?.update()
   }
 }
 
-const isFocusInsideContent = (event) => {
+const isFocusInsideContent = (event?: FocusEvent) => {
   const popperContent = contentRef.value?.contentRef?.popperContentRef
   const activeElement = (event?.relatedTarget) || document.activeElement
 
   return popperContent && popperContent.contains(activeElement)
 }
 
-provide('tooltipProvide', {
+provide(TOOLTIP_INJECTION_KEY, {
   controlled,
   open,
   trigger: toRef(props, 'trigger'),
-  onOpen: (event) => {
+  onOpen: (event?: Event) => {
     onOpen(event)
   },
-  onClose: (event) => {
+  onClose: (event?: Event) => {
     onClose(event)
   },
-  onToggle: (event) => {
+  onToggle: (event?: Event) => {
     if (unref(open)) {
       onClose(event)
-    } else {
+    }
+    else {
       onOpen(event)
     }
   },

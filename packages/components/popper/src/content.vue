@@ -13,10 +13,14 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { provide, ref, watch, onMounted, unref, onBeforeUnmount } from 'vue'
-import { usePopperContentDOM, usePopperContent } from './compoables'
+import { usePopperContentDOM, usePopperContent } from './composables'
 import { popperContentProps } from './content'
+import { POPPER_CONTENT_INJECTION_KEY } from './constants'
+import { isElement } from '@/utils'
+
+import type { WatchStopHandle } from 'vue'
 
 defineOptions({
   name: 'FrPopperContent'
@@ -33,8 +37,7 @@ const {
   arrowStyle,
   contentAttrs,
   contentClass,
-  contentStyle,
-  updateZIndex
+  contentStyle
 } = usePopperContentDOM(props, {
   styles,
   attributes,
@@ -43,7 +46,7 @@ const {
 
 const updatePopper = (shouldUpdateZIndex = true) => {
   update()
-  shouldUpdateZIndex && updateZIndex()
+  shouldUpdateZIndex
 }
 
 const togglePopperAlive = () => {
@@ -55,7 +58,7 @@ const togglePopperAlive = () => {
   // }
 }
 
-let triggerTargetAriaStopWatch
+let triggerTargetAriaStopWatch: WatchStopHandle | undefined
 
 onMounted(() => {
   watch(
@@ -67,20 +70,20 @@ onMounted(() => {
       const el = unref(triggerTargetEl || contentRef.value)
       const prevEl = unref(prevTriggerTargetEl || contentRef.value)
 
-      if (el) {
+      if (isElement(el)) {
         triggerTargetAriaStopWatch = watch(
           [role, () => props.ariaLabel, ariaModal, () => props.id],
           (watches) => {
             ['role', 'aria-label', 'aria-modal', 'id'].forEach((key, idx) => {
               !watches[idx]
                 ? el.removeAttribute(key)
-                : el.setAttribute(key, watches[idx])
+                : el.setAttribute(key, watches[idx] as string)
             })
           },
           { immediate: true }
         )
       }
-      if (prevEl !== el && prevEl) {
+      if (prevEl !== el && isElement(prevEl)) {
         ['role', 'aria-label', 'aria-modal', 'id'].forEach((key) => {
           prevEl.removeAttribute(key)
         })
@@ -97,7 +100,7 @@ onBeforeUnmount(() => {
   triggerTargetAriaStopWatch = undefined
 })
 
-provide('popperContentProvide', {
+provide(POPPER_CONTENT_INJECTION_KEY, {
   arrowStyle,
   arrowRef,
   arrowOffset

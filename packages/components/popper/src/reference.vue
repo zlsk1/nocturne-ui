@@ -7,9 +7,14 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { inject, onMounted, watch, computed, onBeforeUnmount } from 'vue'
 import { popperReferenceProps } from './reference'
+import { POPPER_INJECTION_KEY } from './constants'
+import { isElement } from '@/utils'
+import { unrefElement } from '@vueuse/core'
+
+import type { WatchStopHandle } from 'vue'
 
 defineOptions({
   name: 'FrPopperReference'
@@ -17,56 +22,38 @@ defineOptions({
 
 const props = defineProps(popperReferenceProps)
 
-const { referenceRef, role } = inject('popperProvide')
+const { referenceRef, role } = inject(POPPER_INJECTION_KEY, undefined)!
 
-const ariaControls = computed(() => {
+const ariaControls = computed<string | undefined>(() => {
   return ariaHaspopup.value ? props.id : undefined
 })
 
-const ariaDescribedby = computed(() => {
+const ariaDescribedby = computed<string | undefined>(() => {
   if (role && role.value === 'tooltip') {
     return props.open && props.id ? props.id : undefined
   }
   return undefined
 })
 
-const ariaHaspopup = computed(() => {
+const ariaHaspopup = computed<string | undefined>(() => {
   if (role && role.value !== 'tooltip') {
     return role.value
   }
   return undefined
 })
 
-const ariaExpanded = computed(() => {
+const ariaExpanded = computed<string | undefined>(() => {
   return ariaHaspopup.value ? `${props.open}` : undefined
 })
 
-let virtualTriggerAriaStopWatch
+let virtualTriggerAriaStopWatch: WatchStopHandle | undefined
 
 onMounted(() => {
   watch(
-    referenceRef,
-    (el, prevEl) => {
-      if (el) {
-        (
-          [
-            'onMouseenter',
-            'onMouseleave',
-            'onClick'
-          ]
-        ).forEach((eventName) => {
-          const handler = props[eventName]
-          if (handler) {
-            el.addEventListener(
-              eventName.slice(2).toLowerCase(),
-              handler
-            )
-            prevEl?.removeEventListener?.(
-              eventName.slice(2).toLowerCase(),
-              handler
-            )
-          }
-        })
+    () => props.virtualRef,
+    (virtualEl) => {
+      if (virtualEl) {
+        referenceRef.value = unrefElement(virtualEl as HTMLElement)
       }
     },
     {
@@ -79,7 +66,7 @@ onMounted(() => {
     (el, prevEl) => {
       virtualTriggerAriaStopWatch?.()
       virtualTriggerAriaStopWatch = undefined
-      if (el) {
+      if (isElement(el)) {
         (
           [
             'onMouseenter',
@@ -89,15 +76,15 @@ onMounted(() => {
             'onFocus',
             'onBlur',
             'onContextmenu'
-          ]
+          ] as const
         ).forEach((eventName) => {
           const handler = props[eventName]
           if (handler) {
-            el.addEventListener(
+            (el as HTMLElement).addEventListener(
               eventName.slice(2).toLowerCase(),
               handler
-            )
-            prevEl?.removeEventListener?.(
+            );
+            (prevEl as HTMLElement)?.removeEventListener?.(
               eventName.slice(2).toLowerCase(),
               handler
             )
@@ -114,13 +101,13 @@ onMounted(() => {
             ].forEach((key, idx) => {
               !watches[idx]
                 ? el.removeAttribute(key)
-                : el.setAttribute(key, watches[idx])
+                : el.setAttribute(key, watches[idx] as string)
             })
           },
           { immediate: true }
         )
       }
-      if (prevEl) {
+      if (isElement(prevEl)) {
         [
           'aria-controls',
           'aria-describedby',

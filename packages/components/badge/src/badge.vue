@@ -1,6 +1,7 @@
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue'
-import { badgeProps } from './index'
+import { badgeProps } from './badge'
+import { isNumber } from '@/utils'
 
 defineOptions({
   name: 'FrBadge'
@@ -9,7 +10,7 @@ defineOptions({
 const props = defineProps(badgeProps)
 
 const _value = computed(() => {
-  if (props.max && typeof (props.value) === 'number' && props.value > props.max) {
+  if (isNumber(props.value) && props.value > props.max) {
     return `${props.max}+`
   }
   return props.value

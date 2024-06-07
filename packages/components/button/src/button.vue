@@ -1,6 +1,7 @@
-<script setup>
+<script lang="ts" setup>
 import { useSlots } from 'vue'
-import { buttonProps, buttonEmits } from './index'
+import { buttonProps, buttonEmits } from './button'
+import FrIcon from '@/components/icon'
 
 defineOptions({
   name: 'FrButton'
@@ -11,7 +12,7 @@ const emit = defineEmits(buttonEmits)
 
 const slots = useSlots()
 
-const handleClick = e => {
+const handleClick = (e: MouseEvent) => {
   emit('click', e)
 }
 </script>

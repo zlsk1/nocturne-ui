@@ -15,6 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     height: getCssVar('collapse-item-title-height');
     padding-right: getCssVar('collapse-item-title-padding-right');
     line-height: getCssVar('collapse-item-title-height');

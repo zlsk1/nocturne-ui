@@ -13,12 +13,13 @@
   </FrPopperReference>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { inject, ref, unref, toRef } from 'vue'
 import { useTooltipTriggerProps } from './reference.js'
 import { whenTrigger } from './utils'
 import { composeEventHandlers } from '@/utils/dom'
 import FrPopperReference from '@/components/popper/src/reference.vue'
+import { TOOLTIP_INJECTION_KEY } from './constants'
 
 defineOptions({
   name: 'FrTooltipReference'
@@ -27,11 +28,11 @@ defineOptions({
 const props = defineProps(useTooltipTriggerProps)
 
 const { controlled, open, onOpen, onClose, onToggle } = inject(
-  'tooltipProvide',
+  TOOLTIP_INJECTION_KEY,
   undefined
-)
+)!
 
-const triggerRef = ref(null)
+const triggerRef = ref<HTMLElement | null>(null)
 
 const stopWhenControlledOrDisabled = () => {
   if (unref(controlled) || props.disabled) {

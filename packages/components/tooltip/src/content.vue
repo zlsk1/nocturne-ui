@@ -47,12 +47,13 @@
   </teleport>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { inject, computed, ref, onBeforeUnmount, unref, watch } from 'vue'
 import { useTooltipContentProps } from './content'
 import { onClickOutside } from '@vueuse/core'
 import frPopperContent from '@/components/popper/src/content.vue'
 import { composeEventHandlers } from '@/utils/dom'
+import { TOOLTIP_INJECTION_KEY } from './constants'
 
 defineOptions({
   name: 'FrTooltipContent'
@@ -62,7 +63,6 @@ const props = defineProps(useTooltipContentProps)
 
 const {
   controlled,
-  id,
   open,
   trigger,
   onClose,
@@ -71,7 +71,7 @@ const {
   onHide,
   onBeforeShow,
   onBeforeHide
-} = inject('tooltipProvide', undefined)
+} = inject(TOOLTIP_INJECTION_KEY, undefined)!
 
 const contentRef = ref()
 const destroyed = ref(false)
@@ -158,7 +158,7 @@ const onBlur = () => {
   }
 }
 
-let stopHandle
+let stopHandle: ReturnType<typeof onClickOutside>
 
 watch(
   () => unref(open),

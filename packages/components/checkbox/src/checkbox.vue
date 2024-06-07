@@ -1,43 +1,27 @@
-<script setup>
-import { inject, nextTick, computed, ref } from 'vue'
-import { checkboxProps, checkboxEmits } from './index'
+<script lang="ts" setup>
+import { useSlots } from 'vue'
+import { checkboxProps, checkboxEmits } from './checkbox'
+import { useCheckbox } from '../composables'
 
 defineOptions({
   name: 'FrCheckbox'
 })
 
-const checkboxGroup = inject('groupRef', undefined)
-
 const props = defineProps(checkboxProps)
-const emit = defineEmits(checkboxEmits)
+defineEmits(checkboxEmits)
+const slots = useSlots()
 
-const checkboxRef = ref(null)
-
-const modelValue = computed({
-  get () {
-    return checkboxGroup ? checkboxGroup?.value.modelValue : props.modelValue
-  },
-  set (val) {
-    if (checkboxGroup) {
-      checkboxGroup.value.changeEvent(val)
-    } else {
-      emit && emit('update:modelValue', !props.modelValue)
-    }
-    checkboxRef.value.checked = props.modelValue
-  }
-})
-
-const isChecked = computed(() => {
-  if (checkboxGroup) {
-    return modelValue.value.includes(props.value)
-  } else {
-    return props.modelValue
-  }
-})
-
-const handleChange = () => {
-  nextTick(() => emit('change', modelValue.value))
-}
+const {
+  isChecked,
+  isDisabled,
+  isFocused,
+  checkboxSize,
+  hasOwnLabel,
+  model,
+  actualValue,
+  handleChange,
+  onClickRoot
+} = useCheckbox(props, slots)
 </script>
 
 <template>
@@ -46,7 +30,7 @@ const handleChange = () => {
       'fr-checkbox',
       `fr-checkbox--${size || 'default'}`,
       {
-        'is-disabled': disabled,
+        'is-disabled': disabled || isDisabled,
         'is-checked': isChecked,
       }
     ]"
@@ -55,28 +39,53 @@ const handleChange = () => {
       :class="[
         'fr-checkbox__input',
         {
-          'is-disabled': disabled,
+          'is-disabled': disabled || isDisabled,
           'is-checked': isChecked,
           'is-indeterminate': indeterminate
         }
       ]"
     >
       <input
-        ref="checkboxRef"
-        v-model="modelValue"
-        :value="value"
+        v-if="trueValue || falseValue"
+        v-model="model"
+        :value="actualValue"
+        :indeterminate="indeterminate"
+        :name="name"
+        :tabindex="tabindex"
+        :disabled="isDisabled"
+        :true-value="trueValue"
+        :false-value="falseValue"
         type="checkbox"
         class="fr-checkbox__original"
         @change="handleChange"
+        @focus="isFocused = true"
+        @blur="isFocused = false"
+        @click.stop
+      >
+      <input
+        v-else
+        v-model="model"
+        :value="actualValue"
+        :indeterminate="indeterminate"
+        :name="name"
+        :tabindex="tabindex"
+        :disabled="isDisabled"
+        type="checkbox"
+        class="fr-checkbox__original"
+        @change="handleChange"
+        @focus="isFocused = true"
+        @blur="isFocused = false"
+        @click.stop
       >
       <span class="fr-checkbox__inner"></span>
     </span>
     <span class="fr-checkbox__label">
-      <slot>{{ value }}</slot>
+      <slot></slot>
+      <template v-if="!$slots.default">{{ label }}</template>
     </span>
   </label>
 </template>
 
-<style>
+<style scoped>
 @import '@/theme-chalk/checkbox.scss';
 </style>

@@ -1,6 +1,6 @@
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue'
-import { avatarProps, avatarEmits } from './index'
+import { avatarProps, avatarEmits } from './avatar'
 defineOptions({
   name: 'FrAvatar'
 })
@@ -12,8 +12,8 @@ const sizeIsNumber = computed(() => {
   return typeof (props.size) === 'number'
 })
 
-const onError = (e) => {
-  emit('error', e)
+const onError = (evt: Event) => {
+  emit('error', evt)
 }
 </script>
 

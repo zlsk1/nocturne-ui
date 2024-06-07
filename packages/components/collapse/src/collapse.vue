@@ -1,6 +1,7 @@
-<script setup>
+<script lang="ts" setup>
 import { provide, ref } from 'vue'
-import { collapseProps, collapseEmits } from './index'
+import { collapseProps, collapseEmits } from './collapse'
+import { COLLAPSE_INJECTION_KEY } from '@/components/collapse/src/constants'
 
 defineOptions({
   name: 'FrCollapse'
@@ -9,17 +10,18 @@ defineOptions({
 const props = defineProps(collapseProps)
 const emit = defineEmits(collapseEmits)
 
-const activelist = ref([])
+const activelist = ref<string[] | number[]>([])
 
-const changeEvent = (e) => {
-  if (!activelist.value.includes(e)) {
-    if (!props.accordion)activelist.value.push(e)
-    else activelist.value = [e]
-  } else activelist.value.splice(activelist.value.indexOf(e), 1)
-  emit('change', activelist.value)
+const changeEvent = (val: string | number) => {
+  if (!activelist.value.includes(val as never)) {
+    if (!props.accordion) activelist.value.push(val as never)
+    else activelist.value = [val as never]
+  }
+  else activelist.value.splice(activelist.value.indexOf(val as never), 1)
+  emit('change', val)
 }
 
-provide('collapse', {
+provide(COLLAPSE_INJECTION_KEY, {
   changeEvent,
   activelist
 })

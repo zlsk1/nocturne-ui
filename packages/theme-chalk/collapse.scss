@@ -10,4 +10,7 @@
 
 @include b(collapse) {
   font-size: getCssVar('collapse-font-size');
+  &-item:last-child {
+    border-bottom: 1px solid getCssVar('border-color');
+  }
 }

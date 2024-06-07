@@ -1,7 +1,7 @@
-<script setup>
+<script lang="ts" setup>
 import { ref, onBeforeUnmount, watch } from 'vue'
 import { getTime, formatTime } from './utils'
-import { countdownProps, countdownEmits } from './index'
+import { countdownProps, countdownEmits } from './countdown'
 
 defineOptions({
   name: 'FrCountdown'
@@ -37,7 +37,8 @@ const startTimer = () => {
       diff = 0
       stopTimer()
       emit('finish')
-    } else {
+    }
+    else {
       timer = requestAnimationFrame(frameFunc)
     }
     rawValue.value = diff

@@ -1,6 +1,6 @@
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
-import { alertProps, alertEmits } from './index'
+import { alertProps, alertEmits } from './alert'
 
 defineOptions({
   name: 'FrAlert'
@@ -11,7 +11,7 @@ const emit = defineEmits(alertEmits)
 
 const isClose = ref(false)
 
-const handleClose = e => {
+const handleClose = (e: MouseEvent) => {
   isClose.value = true
   emit('close', e)
 }
