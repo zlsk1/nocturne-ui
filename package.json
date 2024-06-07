@@ -16,6 +16,7 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "@vueuse/core": "^9.13.0",
+    "dayjs": "^1.11.11",
     "vue": "^3.4.15"
   },
   "devDependencies": {
