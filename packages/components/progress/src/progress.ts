@@ -1,4 +1,5 @@
 import progress from './progress.vue'
+import { definePropType } from '@/utils'
 import type { ExtractPropTypes } from 'vue'
 
 export const progressProps = {
@@ -17,15 +18,22 @@ export const progressProps = {
     values: ['line', 'round']
   },
   color: {
-    type: String,
+    type: definePropType<string | Function>([String, Object]),
     default: '#409eff'
+  },
+  animationDuration: {
+    type: Number,
+    default: 1000
+  },
+  height: {
+    type: Number,
+    default: 10
+  },
+  animationFn: {
+    type: Function,
+    default: undefined
   }
 } as const
 
-export const progressEmits = {
-  destroy: () => true
-}
-
 export type ProgressProps = ExtractPropTypes<typeof progressProps>
-export type ProgressEmits = typeof progressEmits
 export type ProgressInstance = InstanceType<typeof progress>

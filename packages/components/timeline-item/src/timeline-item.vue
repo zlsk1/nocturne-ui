@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { timelineProps } from './timeline-item'
+import { timelineItemProps } from './timeline-item'
 
 defineOptions({
   name: 'FrTimelineItem'
 })
 
-defineProps(timelineProps)
+defineProps(timelineItemProps)
 </script>
 
 <template>

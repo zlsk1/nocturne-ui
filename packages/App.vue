@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import {
   FrInputNumber,
   FrInput,
@@ -9,15 +9,26 @@ import {
   FrPagination,
   FrRadio,
   FrRadioGroup,
-  FrCountdown
+  FrCountdown,
+  FrProgress
 } from '@/components'
-const x = ref('1')
+const x = ref(50)
 </script>
 
 <template>
   <div class="container">
-    <FrCountdown :value="Date.now() + 2000000000">
-    </FrCountdown>
+    <FrProgress
+      style="width: 500px;"
+      :percentage="x"
+      :height="20"
+      animation
+      @click="nextTick(() => x +=10)"
+    >
+      {{ x + '%' }}
+      <template #inner>
+        {{ x + '%' }}
+      </template>
+    </FrProgress>
   </div>
 </template>
 
