@@ -20,9 +20,10 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 // import { ref } from 'vue'
-import { progressProps } from './index'
+import { progressProps } from './progress'
+
 defineOptions({
   name: 'FrProgress'
 })

@@ -18,4 +18,4 @@ export const linkProps = {
     default: false
   },
   icon: String
-}
+} as const

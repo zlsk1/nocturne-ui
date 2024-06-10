@@ -1,4 +1,7 @@
-export const timelineProps = {
+import type { ExtractPropTypes } from 'vue'
+import timelineItem from './timeline-item.vue'
+
+export const timelineItemProps = {
   timestamp: {
     type: String,
     default: ''
@@ -35,4 +38,7 @@ export const timelineProps = {
     default: ''
   },
   icon: String
-}
+} as const
+
+export type TimelineItemProps = ExtractPropTypes<typeof timelineItemProps>
+export type TimelineItemInstance = InstanceType<typeof timelineItem>

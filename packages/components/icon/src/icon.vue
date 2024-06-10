@@ -20,6 +20,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { iconProps } from './icon'
+import { isString } from '@/utils'
 import type { StyleValue } from 'vue'
 
 defineOptions({
@@ -45,7 +46,10 @@ const styleExternalIcon = computed(() => ({
 }))
 
 const svgClass = computed<StyleValue>(() => {
-  if (props.className && Array.isArray(props.className)) {
+  if (isString(props.className)) {
+    return 'fr-icon ' + props.className
+  }
+  else if (Array.isArray(props.className)) {
     const className = props.className.map(v => {
       return v
     }).join(' ')

@@ -1,6 +1,7 @@
-<script setup>
-import { ref, provide, nextTick, toRefs } from 'vue'
-import { radioGroupProps, radioGroupEmits } from './index'
+<script lang="ts" setup>
+import { provide, nextTick, toRefs, reactive } from 'vue'
+import { radioGroupProps, radioGroupEmits } from './radio-group'
+import { RADIOGROUP_INJECTION_KEY } from './constants'
 
 defineOptions({
   name: 'FrRadioGroup'
@@ -9,25 +10,22 @@ defineOptions({
 const props = defineProps(radioGroupProps)
 const emit = defineEmits(radioGroupEmits)
 
-const groupRef = ref()
-
-const changeGroup = val => {
+const changeGroup = (val: string | number | boolean) => {
   emit('update:modelValue', val)
   nextTick(() => emit('change', val))
 }
 
 provide(
-  'groupRef',
-  ref({
-    changeGroup,
-    ...toRefs(props)
+  RADIOGROUP_INJECTION_KEY,
+  reactive({
+    ...toRefs(props),
+    changeGroup
   })
 )
 </script>
 
 <template>
   <div
-    ref="groupRef"
     class="fr-radio-group"
   >
     <slot></slot>

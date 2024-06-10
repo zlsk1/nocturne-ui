@@ -4,4 +4,4 @@ export const jumperProps = {
     type: Boolean,
     default: false
   }
-}
+} as const

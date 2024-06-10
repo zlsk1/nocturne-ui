@@ -1,7 +1,11 @@
+import { componentSizes } from '@/constants'
+import { ExtractPropTypes } from 'vue'
+import tag from './tag.vue'
+
 export const tagProps = {
   size: {
     type: String,
-    values: ['large', 'default', 'small', '']
+    values: componentSizes
   },
   type: {
     type: String,
@@ -30,9 +34,13 @@ export const tagProps = {
     default: false
   },
   color: String
+} as const
+
+export const tagEmits = {
+  close: (e: Event) => e instanceof Event,
+  click: (e: Event) => e instanceof Event
 }
 
-export const tagEmits = [
-  'close',
-  'click'
-]
+export type TagProps = ExtractPropTypes<typeof tagProps>
+export type TagEmits = typeof tagEmits
+export type TagInstance = InstanceType<typeof tag>

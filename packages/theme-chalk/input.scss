@@ -330,6 +330,7 @@
     .#{$namespace}-input__wrapper {
       background-color: map.get($input-disabled, 'fill');
       @include mixed-input-border(map.get($input-disabled, 'border'));
+      cursor: not-allowed;
     }
 
     .#{$namespace}-input__inner {

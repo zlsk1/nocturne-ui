@@ -1,6 +1,7 @@
-<script setup>
+<script lang="ts" setup>
 import { ref, computed, nextTick, useSlots } from 'vue'
-import { inputProps, inputEmits } from './index'
+import { inputProps, inputEmits } from './input'
+import { FrIcon } from '@/components'
 
 defineOptions({
   name: 'FrInput'
@@ -10,17 +11,17 @@ const props = defineProps(inputProps)
 const emit = defineEmits(inputEmits)
 const slots = useSlots()
 
-const inputRef = ref()
+const inputRef = ref<HTMLInputElement>()
 const isFocus = ref(false)
 const showPwd = ref(true)
 const hovering = ref(false)
 
 const showPwdVisable = computed(() => {
-  return props.showPassword && props.modelValue.length
+  return props.showPassword && props.modelValue
 })
 
 const showClear = computed(() => {
-  return props.clearable && (hovering.value || isFocus) && props.modelValue.length
+  return props.clearable && (hovering.value || isFocus.value) && props.modelValue
 })
 
 const isTextarea = computed(() => {
@@ -28,11 +29,11 @@ const isTextarea = computed(() => {
 })
 
 const showSuffix = computed(() => {
-  return props.suffixIcon || showPwdVisable.value || props.showLimit || slots.suffix
+  return props.suffixIcon || showClear.value
 })
 
-const handleInput = e => {
-  const { value } = e.target
+const handleInput = (e: Event) => {
+  const { value } = e.target as HTMLInputElement
   emit('update:modelValue', value)
   emit('input', value)
 }
@@ -44,8 +45,8 @@ const clearValue = () => {
   emit('change', '')
 }
 
-const handleChange = e => {
-  emit('change', e.target.value)
+const handleChange = (e: Event) => {
+  emit('change', (e.target as HTMLInputElement).value)
 }
 
 const handleMouseEnter = () => {
@@ -56,26 +57,26 @@ const handleMouseLeave = () => {
   hovering.value = false
 }
 
-const handleFocus = () => {
+const handleFocus = (e: FocusEvent) => {
   isFocus.value = true
-  emit('focus')
+  emit('focus', e)
 }
 
-const handleBlur = () => {
+const handleBlur = (e: FocusEvent) => {
   isFocus.value = false
-  emit('blur')
+  emit('blur', e)
 }
 
 const handleShowPwd = () => {
   showPwd.value = !showPwd.value
 }
 
-const focus = async () => {
+const focus = async() => {
   await nextTick()
   inputRef.value?.focus()
 }
 
-const blur = async () => {
+const blur = async() => {
   inputRef.value?.blur()
 }
 
@@ -91,7 +92,7 @@ defineExpose({
   <div
     :class="[
       !isTextarea ? 'fr-input' :'fr-textarea',
-      `fr-input--${size}`,
+      size ? `fr-input--${size}` : '',
       {
         'is-disabled': disabled,
       }
@@ -182,7 +183,7 @@ defineExpose({
               </slot>
             </i>
             <span v-if="showLimit" class="fr-input__count">
-              <span class="fr-input__count-inner">{{ modelValue.length }} / {{ maxlength }}</span>
+              <span class="fr-input__count-inner">{{ (modelValue as string).length }} / {{ maxlength }}</span>
             </span>
           </span>
         </span>
@@ -210,7 +211,7 @@ defineExpose({
         @blur="handleBlur"
       ></textarea>
       <span v-if="showLimit" class="fr-input__count">
-        <span class="fr-input__count-inner">{{ modelValue.length }} / {{ maxlength }}</span>
+        <span class="fr-input__count-inner">{{ (modelValue as string).length }} / {{ maxlength }}</span>
       </span>
     </template>
   </div>

@@ -1,23 +1,25 @@
-<script setup>
+<script lang="ts" setup>
 import { inject, ref } from 'vue'
+import { PAGINATION_INJECTION_KEY } from '../constants'
 import { jumperProps } from './jumper'
+import { FrInputNumber } from '@/components'
 
 defineProps(jumperProps)
 
-const pagination = inject('pagination', undefined)
+const { _currentPage, emit } = inject(PAGINATION_INJECTION_KEY, undefined)!
 
-const val = ref(pagination.currentPage)
+const val = ref(_currentPage)
 
-const change = value => {
+const change = (value: number) => {
   val.value = Number(value)
-  pagination.currentPage = Number(value)
-  pagination.emit('changePage', Number(value))
+  _currentPage.value = Number(value)
+  emit('changePage', Number(value))
 }
 </script>
 
 <template>
   <div class="fr-pagination__jumper">
-    <span>{{ jumperText || 'Go to' }}</span>
+    <span>{{ jumperText || '跳转到' }}</span>
     <fr-input-number
       :model-value="val"
       size="large"

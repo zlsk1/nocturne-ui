@@ -7,6 +7,7 @@ export const isNil = (val: any) => typeof (val) === 'undefined' || val === 'null
 export const isArray = (val: any): val is [] => Array.isArray(val)
 export const isEqual = (val: any, other: any): boolean => Object.is(val, other)
 export const isObject = (val: any): val is Record<any, any> => val instanceof Object && !Array.isArray(val)
+export const isClient = (): boolean => typeof (window) !== 'undefined'
 
 export const isElement = (e: any): e is Element => {
   if (typeof Element === 'undefined') return false

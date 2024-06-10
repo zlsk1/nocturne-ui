@@ -1,6 +1,6 @@
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
-import { switchProps, switchEmits } from './index'
+import { switchProps, switchEmits } from './switch'
 
 defineOptions({
   name: 'FrSwitch'
@@ -18,7 +18,7 @@ const handleClick = () => {
 
 const handleChange = () => {
   const val = isActive.value ? props.activeValue : props.inactiveValue
-  emit('change', val)
+  emit('change', val as boolean | string | number)
 }
 
 const handleSwitch = () => {

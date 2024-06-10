@@ -1,30 +1,23 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { FrCollapse, FrCollapseItem, FrCollapseTransition } from '@/components'
-
+import {
+  FrInputNumber,
+  FrInput,
+  FrLink,
+  FrMessage,
+  FrButton,
+  FrPagination,
+  FrRadio,
+  FrRadioGroup,
+  FrCountdown
+} from '@/components'
+const x = ref('1')
 </script>
 
 <template>
   <div class="container">
-    <FrCollapse style="width: 600px;">
-      <FrCollapseItem name="1" title="11111">
-        <div>
-          Consistent with real life: in line with the process and logic of real life, and comply with languages and habits that the users are used to;
-        </div>
-        <div>
-          Consistent within interface: all elements should be consistent, such as: design style, icons and texts, position of elements, etc.
-        </div>
-      </FrCollapseItem>
-      <FrCollapseItem name="2" title="22222">
-        111123333333333333
-      </FrCollapseItem>
-      <FrCollapseItem name="3" title="33333">
-        111123333333333333
-      </FrCollapseItem>
-      <FrCollapseItem name="4" title="44444">
-        111123333333333333
-      </FrCollapseItem>
-    </FrCollapse>
+    <FrCountdown :value="Date.now() + 2000000000">
+    </FrCountdown>
   </div>
 </template>
 

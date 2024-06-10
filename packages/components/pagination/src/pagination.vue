@@ -1,7 +1,12 @@
-<script setup>
-import { computed, ref, watchEffect, provide } from 'vue'
-import { paginationProps, paginationEmits } from './index'
-import jumper from './jumper.vue'
+<script lang="ts" setup>
+import { computed, ref, provide } from 'vue'
+import { paginationProps, paginationEmits } from './pagination'
+import { PAGINATION_INJECTION_KEY } from './constants'
+import jumper from './components/jumper.vue'
+import pager from './components/pager.vue'
+import prev from './components/prev.vue'
+import next from './components/next.vue'
+import total from './components/total.vue'
 
 defineOptions({
   name: 'FrPagination'
@@ -11,108 +16,17 @@ const props = defineProps(paginationProps)
 const emit = defineEmits(paginationEmits)
 
 const _currentPage = ref(props.currentPage || props.defaultPage)
-const showPrevMore = ref(false)
-const showNextMore = ref(false)
-const isPrevHover = ref(false)
-const isNextHover = ref(false)
 
 const totalPages = computed(() => {
-  return props.pageCount || Math.ceil(props.total / props.pageSize)
+  return props.pageCount || Math.ceil(props.total! / props.pageSize)
 })
-
-const more = computed(() => {
-  return _currentPage.value >= totalPages.value
-})
-
-const less = computed(() => {
-  return _currentPage.value <= 1
-})
-
-const pages = computed(() => {
-  const pagerCount = props.maxPages
-  const halfPagerCount = (pagerCount - 1) / 2
-  let showPrevMore = false
-  let showNextMore = false
-  if (totalPages.value > pagerCount) {
-    if (_currentPage.value > pagerCount - halfPagerCount) {
-      showPrevMore = true
-    }
-    if (_currentPage.value < totalPages.value - halfPagerCount) {
-      showNextMore = true
-    }
-  }
-  const array = []
-  if (showPrevMore && !showNextMore) {
-    const startPage = totalPages.value - (pagerCount - 2)
-    for (let i = startPage; i < totalPages.value; i++) {
-      array.push(i)
-    }
-  } else if (!showPrevMore && showNextMore) {
-    for (let i = 2; i < pagerCount; i++) {
-      array.push(i)
-    }
-  } else if (showPrevMore && showNextMore) {
-    const offset = Math.floor(pagerCount / 2) - 1
-    for (let i = _currentPage.value - offset; i <= _currentPage.value + offset; i++) {
-      array.push(i)
-    }
-  } else {
-    for (let i = 2; i < totalPages.value; i++) {
-      array.push(i)
-    }
-  }
-  return array
-})
-
-watchEffect(() => {
-  const halfPagerCount = (props.maxPages - 1) / 2
-  showPrevMore.value = false
-  showNextMore.value = false
-  if (totalPages.value > props.maxPages) {
-    if (_currentPage.value > props.maxPages - halfPagerCount) {
-      showPrevMore.value = true
-    }
-    if (_currentPage.value < totalPages.value - halfPagerCount) {
-      showNextMore.value = true
-    }
-  }
-})
-
-const changePage = e => {
-  if (e.target.tagName === 'UL' || props.disabled) {
-    return
-  }
-  let newPage = Number(e.target.textContent)
-  const pageOffset = props.maxPages - 2
-
-  const className = e.target.className
-  if (className.includes('more')) {
-    if (className.includes('prev')) {
-      newPage = _currentPage.value - pageOffset
-    } else if (className.includes('next')) {
-      newPage = _currentPage.value + pageOffset
-    }
-  }
-  emit('changePage', newPage)
-  _currentPage.value = newPage
-}
-
-const handlePrevPage = () => {
-  if (less.value || props.disabled) return
-  --_currentPage.value
-  emit('clickPrev', _currentPage.value)
-}
-
-const handleNextPage = () => {
-  if (more.value || props.disabled) return
-  ++_currentPage.value
-  emit('clickNext', _currentPage.value)
-}
 
 provide(
-  'pagination',
+  PAGINATION_INJECTION_KEY,
   {
-    currentPage: _currentPage,
+    _currentPage,
+    totalPages,
+    disabled: props.disabled,
     emit
   }
 )
@@ -129,92 +43,11 @@ provide(
       }
     ]"
   >
-    <jumper
-      v-if="layout.includes('jumper')"
-      :jumper-text="jumperText"
-      :disabled="disabled"
-    ></jumper>
-    <button
-      v-if="layout.includes('prev')"
-      :class="[
-        'fr-pagination__button',
-        {
-          'is-not-allow': less,
-          'is-text': nextText
-        }
-      ]"
-      @click="handlePrevPage"
-    >
-      <fr-icon v-if="!prevText" :icon="prevIcon"></fr-icon>
-      <span v-else>{{ prevText }}</span>
-    </button>
-    <ul
-      v-if="layout.includes('pages')"
-      class="fr-pagination__pages"
-      :class="{ 'is-disabled': disabled }"
-      @click="changePage"
-    >
-      <li
-        v-if="totalPages > 0"
-        class="fr-pagination__num"
-        :class="_currentPage === 1 ? 'is-active' : ''"
-      >
-        1
-      </li>
-      <!-- prevMore -->
-      <li
-        v-if="showPrevMore"
-        class="fr-pagination__num is-more prev"
-        @mouseenter="isPrevHover = true"
-        @mouseleave="isPrevHover = false"
-      >
-        <fr-icon v-if="!isPrevHover" icon="more"></fr-icon>
-        <fr-icon v-else icon="arrow-left-double"></fr-icon>
-      </li>
-      <!-- pages -->
-      <li
-        v-for="item in pages"
-        :key="item"
-        :class="[
-          'fr-pagination__num',
-          item === _currentPage ? 'is-active' : ''
-        ]"
-      >
-        {{ item }}
-      </li>
-      <!-- nextMore -->
-      <li
-        v-if="showNextMore"
-        class="fr-pagination__num is-more next"
-        :class="{ 'is-disabled': disabled }"
-        @mouseenter="!disabled ? isNextHover = true : ''"
-        @mouseleave="isNextHover = false"
-      >
-        <fr-icon v-if="!isNextHover" icon="more"></fr-icon>
-        <fr-icon v-else icon="arrow-right-double"></fr-icon>
-      </li>
-      <li
-        v-if="totalPages > 1"
-        class="fr-pagination__num"
-        :class="_currentPage === totalPages ? 'is-active' : ''"
-      >
-        {{ totalPages }}
-      </li>
-    </ul>
-    <button
-      v-if="layout.includes('next')"
-      :class="[
-        'fr-pagination__button',
-        {
-          'is-not-allow': more,
-          'is-text': nextText
-        }
-      ]"
-      @click="handleNextPage"
-    >
-      <fr-icon v-if="!nextText" :icon="nextIcon"></fr-icon>
-      <span v-else>{{ nextText }}</span>
-    </button>
+    <total :total="props.total as unknown as number"></total>
+    <jumper :disabled="disabled"></jumper>
+    <prev></prev>
+    <pager :max-pages="maxPages"></pager>
+    <next></next>
   </div>
 </template>
 

@@ -1,3 +1,6 @@
+import progress from './progress.vue'
+import type { ExtractPropTypes } from 'vue'
+
 export const progressProps = {
   percentage: {
     type: Number,
@@ -17,8 +20,12 @@ export const progressProps = {
     type: String,
     default: '#409eff'
   }
-}
+} as const
 
 export const progressEmits = {
   destroy: () => true
 }
+
+export type ProgressProps = ExtractPropTypes<typeof progressProps>
+export type ProgressEmits = typeof progressEmits
+export type ProgressInstance = InstanceType<typeof progress>

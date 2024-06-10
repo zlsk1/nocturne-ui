@@ -1,5 +1,6 @@
-<script setup>
-import { linkProps } from './index'
+<script lang="ts" setup>
+import { linkProps } from './link'
+import { FrIcon } from '@/components'
 
 defineOptions({
   name: 'FrLink'
@@ -31,6 +32,6 @@ defineProps(linkProps)
   </a>
 </template>
 
-<style>
+<style scoped>
 @import '@/theme-chalk/link.scss'
 </style>

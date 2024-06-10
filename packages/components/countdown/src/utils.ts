@@ -1,3 +1,7 @@
+import { isNumber } from '@/utils'
+
+import type { Dayjs } from 'dayjs'
+
 const timeUnits = [
   ['Y', 1000 * 60 * 60 * 24 * 365], // years
   ['M', 1000 * 60 * 60 * 24 * 30], // months
@@ -6,13 +10,13 @@ const timeUnits = [
   ['m', 1000 * 60], // minutes
   ['s', 1000], // seconds
   ['S', 1] // million seconds
-]
+] as const
 
-export const getTime = (value) => {
-  return typeof (value) === 'number' ? new Date(value).getTime() : value.valueOf()
+export const getTime = (value: number | Dayjs) => {
+  return isNumber(value) ? new Date(value).getTime() : value.valueOf()
 }
 
-export const formatTime = (timestamp, format) => {
+export const formatTime = (timestamp: number, format: string) => {
   let timeLeft = timestamp
   const escapeRegex = /\[([^\]]*)]/g
 

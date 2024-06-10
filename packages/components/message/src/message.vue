@@ -1,9 +1,11 @@
-<script setup>
-import { ref, onMounted, computed } from 'vue'
-import FrIcon from '@/components/svg-icon/src/icon.vue'
-import { messageProps, messageEmits } from './index'
+<script lang="ts" setup>
+import { ref, onMounted, computed, watch } from 'vue'
+import { FrIcon } from '@/components'
+import { messageProps, messageEmits } from './message'
 import { getOffsetOrSpace, getLastOffset } from './instance'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
+import { FrBadge } from '@/components'
+import { BadgeProps } from '@/components/badge'
 
 defineOptions({
   name: 'FrMessage'
@@ -14,19 +16,32 @@ defineEmits(messageEmits)
 
 const visible = ref(false)
 const height = ref(0)
-const messageRef = ref()
+const messageRef = ref<HTMLElement>()
 
-let stopTimer
+let stopTimer: (() => void) | undefined
 
 onMounted(() => {
+  startTimer()
   visible.value = true
 })
+
+watch(
+  () => props.repeatNum,
+  () => {
+    clearTimer()
+    startTimer()
+  }
+)
 
 const lastOffset = computed(() => getLastOffset(props.id))
 
 const offset = computed(() => getOffsetOrSpace(props.id, props.offset) + lastOffset.value)
 
 const bottom = computed(() => height.value + offset.value)
+
+const badgeType = computed<BadgeProps['type']>(() =>
+  props.type ? (props.type === 'error' ? 'danger' : props.type) : 'info'
+)
 
 const close = () => {
   visible.value = false
@@ -44,7 +59,7 @@ const clearTimer = () => {
 }
 
 useResizeObserver(messageRef, () => {
-  height.value = messageRef.value.getBoundingClientRect().height
+  height.value = messageRef.value!.getBoundingClientRect().height
 })
 
 defineExpose({
@@ -57,16 +72,16 @@ defineExpose({
 <template>
   <transition
     name="fr-message-fade"
-    @before-leave="onClose"
+    @before-leave="onClose!"
     @after-leave="$emit('destroy')"
-    @before-enter="startTimer"
   >
     <div
       v-show="visible"
       ref="messageRef"
       :class="[
         'fr-message',
-        `fr-message--${type}`
+        `fr-message--${type}`,
+        customClass
       ]"
       :style="{
         top: offset + 'px'
@@ -74,6 +89,12 @@ defineExpose({
       @mouseenter="clearTimer"
       @mouseleave="startTimer"
     >
+      <FrBadge
+        v-if="repeatNum > 1"
+        class="fr-message__badge"
+        :value="repeatNum"
+        :type="badgeType"
+      ></FrBadge>
       <fr-icon
         :class-name="`fr-message-icon--${type}`"
         :icon="type"

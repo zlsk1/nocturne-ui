@@ -1,5 +1,5 @@
-<script setup>
-import { timelineProps } from './index'
+<script lang="ts" setup>
+import { timelineProps } from './timeline-item'
 
 defineOptions({
   name: 'FrTimelineItem'

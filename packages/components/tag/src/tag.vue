@@ -1,5 +1,5 @@
-<script setup>
-import { tagProps, tagEmits } from './index'
+<script lang="ts" setup>
+import { tagProps, tagEmits } from './tag'
 
 defineOptions({
   name: 'FrTag'
@@ -8,9 +8,9 @@ defineOptions({
 defineProps(tagProps)
 const emit = defineEmits(tagEmits)
 
-const handleClose = e => emit('close', e)
+const handleClose = (e: Event) => emit('close', e)
 
-const handleClick = e => emit('click', e)
+const handleClick = (e: Event) => emit('click', e)
 </script>
 
 <template>

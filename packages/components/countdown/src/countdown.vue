@@ -2,6 +2,8 @@
 import { ref, onBeforeUnmount, watch } from 'vue'
 import { getTime, formatTime } from './utils'
 import { countdownProps, countdownEmits } from './countdown'
+import { setTimer, cancelTimer } from '@/utils/timer'
+import { FrStatistic } from '@/components'
 
 defineOptions({
   name: 'FrCountdown'
@@ -12,17 +14,17 @@ const emit = defineEmits(countdownEmits)
 
 const rawValue = ref(getTime(props.value) - Date.now())
 
-let timer
+let timer: ReturnType<typeof setTimer> | undefined
 
 onBeforeUnmount(() => {
   stopTimer()
 })
 
-const formatter = (val) => formatTime(val, props.format)
+const formatter = (val: number) => formatTime(val, props.format)
 
 const stopTimer = () => {
   if (timer) {
-    cancelAnimationFrame(timer)
+    cancelTimer(timer)
     timer = undefined
   }
 }
@@ -39,11 +41,11 @@ const startTimer = () => {
       emit('finish')
     }
     else {
-      timer = requestAnimationFrame(frameFunc)
+      timer = setTimer(frameFunc)
     }
     rawValue.value = diff
   }
-  timer = requestAnimationFrame(frameFunc)
+  timer = setTimer(frameFunc)
 }
 
 watch(

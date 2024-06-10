@@ -1,6 +1,9 @@
-<script setup>
+<script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { inputNumberProps, inputNumberEmits } from './index'
+import { inputNumberProps, inputNumberEmits } from './input-number'
+import { FrInput, FrIcon } from '@/components'
+import type { InputInstance } from '@/components/input/src/input'
+
 defineOptions({
   name: 'FrInputNumber'
 })
@@ -8,7 +11,7 @@ defineOptions({
 const props = defineProps(inputNumberProps)
 const emit = defineEmits(inputNumberEmits)
 
-const inputRef = ref(null)
+const inputRef = ref<InputInstance>()
 
 const isLessMin = computed(() => {
   return props.modelValue <= props.min
@@ -18,7 +21,7 @@ const isMoreMax = computed(() => {
   return props.modelValue >= props.max
 })
 
-const _modelValue = computed(() => {
+const _modelValue = computed<string | number | undefined>(() => {
   return props.precision ? props.modelValue.toFixed(props.precision) : props.modelValue
 })
 
@@ -26,6 +29,7 @@ const handleIncrease = () => {
   if (isMoreMax.value || props.disabled) return
   let { modelValue } = props
   emit('update:modelValue', modelValue += props.step)
+  console.log(modelValue)
 }
 
 const handleDecrease = () => {
@@ -34,24 +38,24 @@ const handleDecrease = () => {
   emit('update:modelValue', modelValue -= props.step)
 }
 
-const handleBlur = e => {
+const handleBlur = (e: FocusEvent) => {
   const { max, min } = props
-  let value = Number(inputRef.value.inputRef.value)
+  let value = Number(inputRef.value?.inputRef?.value)
   value = value >= max ? max : value
   value = value <= min ? min : value
   emit('update:modelValue', value)
   emit('blur', e)
 }
 
-const handleFocus = e => {
+const handleFocus = (e: FocusEvent) => {
   emit('focus', e)
 }
 
-const blur = () => { inputRef.value?.blur() }
+const blur = () => { inputRef.value?.inputRef?.blur() }
 
-const focus = () => { inputRef.value?.focus() }
+const focus = () => { inputRef.value?.inputRef?.focus() }
 
-const handleChange = val => {
+const handleChange = (val: number | string) => {
   emit('change', Number(val))
 }
 

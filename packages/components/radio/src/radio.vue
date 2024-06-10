@@ -1,6 +1,7 @@
-<script setup>
+<script lang="ts" setup>
 import { nextTick, computed, inject, ref } from 'vue'
-import { radioProps, radioEmits } from './index'
+import { radioProps, radioEmits } from './radio'
+import { RADIOGROUP_INJECTION_KEY } from '@/components/radio-group/src/constants'
 
 defineOptions({
   name: 'FrRadio'
@@ -9,10 +10,10 @@ defineOptions({
 const props = defineProps(radioProps)
 const emit = defineEmits(radioEmits)
 
-const groupRef = inject('groupRef')
+const groupRef = inject(RADIOGROUP_INJECTION_KEY, undefined)!
 
 const focus = ref(false)
-const radioRef = ref(null)
+const radioRef = ref<HTMLInputElement>()
 
 const isGroup = computed(() => !!radioRef.value)
 
@@ -24,25 +25,26 @@ const actualValue = computed(() => {
 })
 
 const modelValue = computed({
-  get () {
-    return isGroup.value ? groupRef.value.modelValue : props.modelValue
+  get() {
+    return isGroup.value ? groupRef.modelValue : props.modelValue
   },
-  set (val) {
+  set(val) {
     if (isGroup.value) {
-      groupRef.value.changeGroup(val)
-    } else {
-      emit && emit('update:modelValue', val)
+      groupRef.changeGroup(val)
     }
-    radioRef.value.checked = props.modelValue === actualValue.value
+    else {
+      emit && emit('update:modelValue', val as string | number | boolean)
+    }
+    radioRef.value!.checked = props.modelValue === actualValue.value
   }
 })
 
 const disabled = computed(() => {
-  return groupRef.value.disabled || props.disabled
+  return groupRef.disabled || props.disabled
 })
 
 const handleChange = () => {
-  nextTick(() => emit('change', modelValue.value))
+  nextTick(() => emit('change', modelValue.value as string | number | boolean))
 }
 </script>
 
