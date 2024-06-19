@@ -804,3 +804,15 @@ $option: map.merge(
   ),
   $option
 );
+
+// scrollbar
+// css3 var in packages/theme-chalk/src/scrollbar.scss
+$scrollbar: () !default;
+$scrollbar: map.merge(
+  (
+    'thumb-bgcolor': getCssVar('border-color', 'darker'),
+    'thumb-hover-bgcolor': getCssVar('text-color', 'placeholder'),
+    'thumb-border-radius': getCssVar('border-radius', 'base')
+  ),
+  $scrollbar
+);

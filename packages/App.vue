@@ -15,15 +15,22 @@ import {
   FrOption,
   FrIcon,
   FrTooltip,
-  FrTag
+  FrTag,
+  FrScrollbar
 } from '@/components'
 </script>
 
 <template>
   <div class="container">
-    <FrTooltip content="tooltip">
-      <FrButton>show tooltip</FrButton>
-    </FrTooltip>
+    <FrScrollbar height="100">
+      <p>sssssssssssssssssssssssssssssss</p>
+      <p>sssssssssssssssssssssssssssssss</p>
+      <p>sssssssssssssssssssssssssssssss</p>
+      <p>sssssssssssssssssssssssssssssss</p>
+      <p>sssssssssssssssssssssssssssssss</p>
+      <p>sssssssssssssssssssssssssssssss</p>
+      <p>sssssssssssssssssssssssssssssss</p>
+    </FrScrollbar>
   </div>
 </template>
 
