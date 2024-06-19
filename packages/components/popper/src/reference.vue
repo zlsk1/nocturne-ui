@@ -67,10 +67,6 @@ onMounted(() => {
       virtualTriggerAriaStopWatch?.()
       virtualTriggerAriaStopWatch = undefined
       if (isElement(el)) {
-        const children = el.children
-        const parent = el.parentElement
-        parent?.appendChild(children[0])
-        parent?.removeChild(el);
         (
           [
             'onMouseenter',

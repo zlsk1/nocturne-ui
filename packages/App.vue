@@ -22,15 +22,9 @@ import {
 
 <template>
   <div class="container">
-    <FrScrollbar height="100">
-      <p>sssssssssssssssssssssssssssssss</p>
-      <p>sssssssssssssssssssssssssssssss</p>
-      <p>sssssssssssssssssssssssssssssss</p>
-      <p>sssssssssssssssssssssssssssssss</p>
-      <p>sssssssssssssssssssssssssssssss</p>
-      <p>sssssssssssssssssssssssssssssss</p>
-      <p>sssssssssssssssssssssssssssssss</p>
-    </FrScrollbar>
+    <FrTooltip content="tooltip">
+      <FrButton>show tooltip</FrButton>
+    </FrTooltip>
   </div>
 </template>
 
