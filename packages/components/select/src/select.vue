@@ -56,6 +56,7 @@
               :type="tagType"
               closable
               @close="handleTagDel(item as never)"
+              @mousedown.prevent="() => true"
             >
               {{ !isNil(item.label) ? item.label : item }}
             </FrTag>
@@ -138,7 +139,6 @@ const inputRef = ref<HTMLInputElement>()
 const selectRef = ref<HTMLElement>()
 const optionRef = ref<HTMLUListElement>()
 
-const isActive = ref(false)
 const isHover = ref(false)
 const visable = ref(false)
 const actualVal = ref(props.modelValue)
@@ -153,7 +153,6 @@ onClickOutside(selectRef, (e: MouseEvent) => {
   if (optionRef.value?.contains(e.target as Node)) return
 
   visable.value = false
-  isActive.value = false
 })
 
 const { height } = useElementSize(selectRef)
@@ -211,10 +210,6 @@ const taglist = computed(() => {
 const handleSelectClick = () => {
   if (props.disabled) return
 
-  if (!props.multiple) isActive.value = !isActive.value
-  else if (props.multiple && !isActive.value) isActive.value = true
-  else if (props.multiple && isActive.value) isActive.value = false
-
   visable.value = !visable.value
 }
 
@@ -233,7 +228,6 @@ const clearValue = () => {
 }
 
 const handleTagDel = (val: any) => {
-  // visable.value = true
   const _actualVal = actualVal.value as Array<string | number | boolean | Object>
 
   if (props.multiple) {

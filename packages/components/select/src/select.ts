@@ -59,12 +59,15 @@ export const selectProps = {
     type: Boolean,
     default: true
   },
-  popperClass: String,
+  popperClass: {
+    type: String,
+    default: ''
+  },
   popperOption: {
     type: definePropType<Partial<Options>>(Object),
     default: () => { return {} }
   },
-  placements: {
+  placement: {
     type: String,
     values: ['bottom', 'top', 'left', 'right'],
     default: 'bottom'

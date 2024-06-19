@@ -55,9 +55,10 @@ const onMouseleave = composeEventHandlers(
 const onClick = composeEventHandlers(
   stopWhenControlledOrDisabled,
   whenTrigger(trigger, 'click', (e) => {
-    if (!e.button) {
-      onToggle(e)
-    }
+    onToggle(e)
+    // if (!e.button) {
+    //   onToggle(e)
+    // }
   })
 )
 

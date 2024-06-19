@@ -47,7 +47,6 @@ const idss = ref([list.value[0], list.value[1]])
       style="width: 240px;"
       value-key="id"
       multiple
-      clear-value
     >
       <FrOption
         v-for="item in list"
@@ -57,9 +56,6 @@ const idss = ref([list.value[0], list.value[1]])
       >
       </FrOption>
     </FrSelect>
-    <!-- <FrTooltip trigger="click" content="it is the tooltip">
-      <FrButton>show tooltip</FrButton>
-    </FrTooltip> -->
   </div>
 </template>
 
