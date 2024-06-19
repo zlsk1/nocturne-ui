@@ -1,0 +1,63 @@
+@use 'sass:map';
+
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'mixins/button' as *;
+@use 'common/var' as *;
+
+$prefix: fr-select-option;
+
+.#{$prefix}__wrapper {
+  @include set-component-css-var('option', $option);
+}
+
+.#{$prefix}__wrapper {
+  position: relative;
+  width: 100%;
+  z-index: 100;
+
+  .#{$prefix}__item {
+    padding: 6px 20px 6px 15px;
+    list-style-type: none;
+    text-align: start;
+    font-size: 14px;
+    color: getCssVar('text-color', 'regular');
+    cursor: pointer;
+
+    &:hover {
+      color: getCssVar('text-color', 'regular');
+      background-color: getCssVar('fill-color', 'light');
+    }
+
+    @include when(selected) {
+      color: getCssVar('color-primary');
+      font-weight: 700;
+
+      &:hover {
+        color: getCssVar('color-primary');
+      }
+    }
+
+    @include when(disabled) {
+      color: getCssVar('option', 'disabled-text-color');
+      cursor: not-allowed;
+
+      &:hover {
+        color: getCssVar('option', 'disabled-text-color');
+        background-color: #fff;
+      }
+      
+      .#{$prefix}__item {
+        &:hover {
+          color: getCssVar('option', 'disabled-text-color');
+        }
+      }
+    }
+  }
+
+  .#{$prefix}__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

@@ -12,24 +12,25 @@ const emit = defineEmits(inputEmits)
 const slots = useSlots()
 
 const inputRef = ref<HTMLInputElement>()
+const wrapperRef = ref<HTMLInputElement>()
 const isFocus = ref(false)
-const showPwd = ref(true)
+const showPwd = ref(false)
 const hovering = ref(false)
 
 const showPwdVisable = computed(() => {
-  return props.showPassword && props.modelValue
+  return props.showPassword && !!props.modelValue
 })
 
 const showClear = computed(() => {
-  return props.clearable && (hovering.value || isFocus.value) && props.modelValue
+  return props.clearable && (hovering.value || isFocus.value) && !!props.modelValue
 })
 
 const isTextarea = computed(() => {
   return props.type === 'textarea'
 })
 
-const showSuffix = computed(() => {
-  return props.suffixIcon || showClear.value
+const showSuffix = computed<boolean>(() => {
+  return !!props.suffixIcon || showClear.value || showPwdVisable.value || !!slots.suffix
 })
 
 const handleInput = (e: Event) => {
@@ -63,6 +64,7 @@ const handleFocus = (e: FocusEvent) => {
 }
 
 const handleBlur = (e: FocusEvent) => {
+  if (e.relatedTarget && wrapperRef.value?.contains(e.relatedTarget as Node)) return
   isFocus.value = false
   emit('blur', e)
 }
@@ -77,6 +79,7 @@ const focus = async() => {
 }
 
 const blur = async() => {
+  await nextTick()
   inputRef.value?.blur()
 }
 
@@ -99,13 +102,16 @@ defineExpose({
     ]"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
+    @click="focus"
   >
     <template v-if="!isTextarea">
       <div
+        ref="wrapperRef"
         :class="[
           'fr-input__wrapper',
           isFocus ? 'is-focus' : ''
         ]"
+        tabindex="1"
       >
         <span v-if="prefixIcon || slots.prefix" class="fr-input__prefix">
           <span class="fr-input__prefix-inner">

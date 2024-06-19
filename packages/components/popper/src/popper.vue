@@ -33,7 +33,3 @@ const popperProvide = {
 defineExpose(popperProvide)
 provide(POPPER_INJECTION_KEY, popperProvide)
 </script>
-
-<style scoped>
-@import '@/theme-chalk/popper.scss';
-</style>

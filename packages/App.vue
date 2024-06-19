@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, nextTick } from 'vue'
+import { ref } from 'vue'
 import {
   FrInputNumber,
   FrInput,
@@ -10,25 +10,56 @@ import {
   FrRadio,
   FrRadioGroup,
   FrCountdown,
-  FrProgress
+  FrProgress,
+  FrSelect,
+  FrOption,
+  FrIcon,
+  FrTooltip
 } from '@/components'
-const x = ref(50)
+const list = ref([
+  {
+    name: 'option1',
+    id: 0
+  },
+  {
+    name: 'option2',
+    id: 1
+  },
+  {
+    name: 'option3',
+    id: 2
+  },
+  {
+    name: 'option4',
+    id: 3
+  }
+])
+const id = ref('option3')
+const _id = ref(list.value[0])
+const ids = ref(['option2', 'option3'])
+const idss = ref([list.value[0], list.value[1]])
 </script>
 
 <template>
   <div class="container">
-    <FrProgress
-      style="width: 500px;"
-      :percentage="x"
-      :height="20"
-      animation
-      @click="nextTick(() => x +=10)"
+    <FrSelect
+      v-model="idss"
+      style="width: 240px;"
+      value-key="id"
+      multiple
+      clear-value
     >
-      {{ x + '%' }}
-      <template #inner>
-        {{ x + '%' }}
-      </template>
-    </FrProgress>
+      <FrOption
+        v-for="item in list"
+        :key="item.id"
+        :value="item"
+        :label="item.name"
+      >
+      </FrOption>
+    </FrSelect>
+    <!-- <FrTooltip trigger="click" content="it is the tooltip">
+      <FrButton>show tooltip</FrButton>
+    </FrTooltip> -->
   </div>
 </template>
 
@@ -46,5 +77,9 @@ html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.frpoppppper {
+  padding: 100px;
 }
 </style>

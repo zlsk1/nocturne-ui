@@ -35,7 +35,6 @@ $placement: (
       height: 10px;
       background-color: getCssVar('text-color', 'primary');
       border: 1px solid #414243;
-      border-radius: 2px;
       box-sizing: border-box;
       transform: rotate(45deg);
     }
@@ -46,7 +45,7 @@ $placement: (
       in ('top': 'left', 'bottom': 'right', 'left': 'bottom', 'right': 'top')
   {
     &[data-popper-placement^='#{$placement}'] {
-      .fr-popper__arrow::after {
+      .#{$namespace}-popper__arrow::after {
         border-#{$placement}-color: transparent !important;
         border-#{$adjacency}-color: transparent !important;
       }
@@ -55,7 +54,22 @@ $placement: (
 
   @each $opposite, $val in $placement {
     &[data-popper-placement^='#{$opposite}'] > .#{$namespace}-popper__arrow {
-      #{$val}: -4px;
+      #{$val}: -5px;
+
+      &::after {
+        @if $opposite == top {
+          border-bottom-right-radius: 2px;
+        }
+        @if $opposite == bottom {
+          border-top-left-radius: 2px;
+        }
+        @if $opposite == left {
+          border-top-right-radius: 2px;
+        }
+        @if $opposite == right {
+          border-bottom-left-radius: 2px;
+        }
+      }
     }
   }
 
@@ -68,12 +82,14 @@ $placement: (
   @include when(light) {
     color: #141414;
     background-color: #fff;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, .12);
+    border: 1px solid getCssVar('border-color-light');
 
     @include e(arrow) {
       
       &::after {
         background-color: #fff;
-        border-color: #fff;
+        border: 1px solid getCssVar('border-color-light');
       }
     }
   }
@@ -81,7 +97,7 @@ $placement: (
 
 .fr-popper-transition-enter-active,
 .fr-popper-transition-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.3s ease;
 }
 
 .fr-popper-transition-enter-from,

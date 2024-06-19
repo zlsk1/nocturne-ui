@@ -26,6 +26,9 @@ export const popperCoreConfigProps = {
     type: definePropType<Placement[]>(Array),
     default: undefined
   },
+  /**
+   * @description use transform: translate3d or inset to positioning
+   */
   gpuAcceleration: {
     type: Boolean,
     default: true
@@ -81,6 +84,9 @@ export const popperContentProps = {
     type: Boolean,
     default: true
   },
+  /**
+   * @description whether padding: 0
+   */
   pure: Boolean,
   focusOnShow: {
     type: Boolean,

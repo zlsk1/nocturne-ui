@@ -1,0 +1,121 @@
+@use 'sass:map';
+
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'mixins/button' as *;
+@use 'common/var' as *;
+
+$select-height: () !default;
+$select-height: map.merge(
+  (
+    'large': ('height': 40px, 'font-size': 14px),
+    'default': ('height': 32px, 'font-size': 13px),
+    'small': ('height': 24px, 'font-size': 12px),
+  ),
+  $select-height
+);
+
+@include b(select) {
+  @include set-component-css-var('select', $select);
+}
+
+@include b(select) {
+  min-height: 32px;
+  font-size: 14px;
+  border-radius: getCssVar('border-radius', 'base');
+  border: 1px solid getCssVar('border-color');
+  cursor: pointer;
+  transition: all .3s linear;
+
+  &:hover {
+    border: 1px solid getCssVar('select', 'hover-border') 
+  }
+
+  @include when(focus) {
+    outline: none;
+    border: 1px solid getCssVar('select', 'focus-border') 
+  }
+
+  @include when(disabled) {
+    color: getCssVar('select', 'disabled-text-color');
+    background: getCssVar('select', 'disabled-bg-color');
+    cursor: not-allowed;
+
+    &:hover {
+      border: 1px solid getCssVar('border-color');
+    }
+  }
+
+  @include e(wrapper) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 32px;
+    padding: 0 10px;
+    color: getCssVar('border-color', 'darker');
+
+    @include when(multiple) {
+      padding-left: 0px;
+    }
+  }
+
+  .fr-select__input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-wrap: wrap;
+
+    @include e(input) {
+      max-width: 100%;
+      border: none;
+      outline: none;
+      padding: 0;
+      font-size: inherit;
+      font-family: inherit;
+      appearance: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+
+    @include e(placeholder) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      user-select: none;
+
+      @include when(selecting) {
+        color: getCssVar('text-color-regular');
+      }
+
+      @include when(disabled) {
+        color: getCssVar('select', 'disabled-text-color');
+      }
+    }
+  }
+
+  @include e(tag) {
+    margin: 3px 4px;
+  }
+
+  @include e(icon) {
+    flex-shrink: 0
+  }
+  
+  @each $size in (large, small) {
+    @include m($size) {
+      @include set-css-var-value(('select', 'height'),
+        map.get($select-height, $size, 'height'));
+      @include set-css-var-value(('select', 'font-size'),
+        map.get($select-height, $size, 'font-size'));
+
+      min-height: getCssVar('select', 'height');
+      font-size: getCssVar('select', 'font-size');
+    }
+  }
+}
+
+.fr-select__popper {
+  padding: 4px 0 !important;
+}
+  

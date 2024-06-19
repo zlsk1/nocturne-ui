@@ -769,8 +769,6 @@ $statistic: map.merge(
 $tooltip: () !default;
 $tooltip: map.merge(
   (
-    'title-color': getCssVar('text-color-regular'),
-    'value-font-size': getCssVar('font-size-extra-large'),
   ),
   $tooltip
 );
@@ -780,8 +778,29 @@ $tooltip: map.merge(
 $popper: () !default;
 $popper: map.merge(
   (
-    'title-color': getCssVar('text-color-regular'),
-    'value-font-size': getCssVar('font-size-extra-large'),
   ),
   $popper
+);
+
+// select
+// css3 var in packages/theme-chalk/src/select.scss
+$select: () !default;
+$select: map.merge(
+  (
+    'hover-border': getCssVar('border-color-hover'),
+    'focus-border': getCssVar('color-primary'),
+    'disabled-bg-color': getCssVar('fill-color', 'light'),
+    'disabled-text-color': getCssVar('text-color', 'placeholder'),
+  ),
+  $select
+);
+
+// option
+// css3 var in packages/theme-chalk/src/option.scss
+$option: () !default;
+$option: map.merge(
+  (
+    'disabled-text-color': getCssVar('text-color', 'placeholder'),
+  ),
+  $option
 );

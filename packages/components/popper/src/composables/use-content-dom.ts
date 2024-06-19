@@ -24,6 +24,7 @@ export const usePopperContentDOM = (
       props.popperStyle || {}
     ]
   })
+
   const ariaModal = computed<string | undefined>(() => role.value === 'dialog' ? 'false' : undefined)
   const arrowStyle = computed(() => unref(styles).arrow || {}) as unknown as CSSProperties
 

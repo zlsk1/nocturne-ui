@@ -103,6 +103,7 @@ $tag-icon-span-gap: map.merge(
   border-radius: getCssVar('tag-border-radius');
   box-sizing: border-box;
   white-space: nowrap;
+  user-select: none;
 
   @include set-css-var-value('icon-size', 14px);
 

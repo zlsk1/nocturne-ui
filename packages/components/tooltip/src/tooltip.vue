@@ -1,5 +1,5 @@
 <template>
-  <frPopper ref="popperRef" :role="role">
+  <FrPopper ref="popperRef" :role="role">
     <FrTooltipReference
       :trigger="trigger"
       :disabled="disabled"
@@ -44,7 +44,7 @@
       </slot>
       <FrPopperArrow v-if="showArrow" :arrow-offset="arrowOffset"></FrPopperArrow>
     </frTooltipContent>
-  </frPopper>
+  </FrPopper>
 </template>
 
 <script lang="ts" setup>
@@ -53,8 +53,10 @@ import { tooltipEmits, useTooltipModelToggle, useTooltipProps } from './tooltip'
 import { useDelayedToggle } from '@/composables'
 import frTooltipContent from './content.vue'
 import FrTooltipReference from './reference.vue'
+import FrPopper from '@/components/popper'
 import FrPopperArrow from '@/components/popper/src/arrow.vue'
 import { TOOLTIP_INJECTION_KEY } from './constants'
+import { isBoolean } from '@/utils'
 import type { PopperInstance } from '@/components/popper'
 
 defineOptions({
@@ -69,7 +71,12 @@ const contentRef = ref<any>()
 const open = ref(false)
 const toggleReason = ref<Event>()
 
-const controlled = computed(() => typeof props.visible === 'boolean' && !hasUpdateHandler.value)
+const { show, hide, hasUpdateHandler } = useTooltipModelToggle({
+  indicator: open,
+  toggleReason
+})
+
+const controlled = computed(() => isBoolean(props.visible) && !hasUpdateHandler.value)
 
 watch(
   () => props.disabled,
@@ -79,11 +86,6 @@ watch(
     }
   }
 )
-
-const { show, hide, hasUpdateHandler } = useTooltipModelToggle({
-  indicator: open,
-  toggleReason
-})
 
 const { onOpen, onClose } = useDelayedToggle({
   showAfter: toRef(props, 'showAfter'),

@@ -4,8 +4,6 @@ import Input from './input.vue'
 import { isString, isNumber } from '@/utils'
 import { componentSizes } from '@/constants'
 
-import type { Component } from 'vue'
-
 export const inputProps = {
   type: {
     type: String,
@@ -51,12 +49,8 @@ export const inputProps = {
   min: {
     type: definePropType<string | number>([String, Number])
   },
-  suffixIcon: {
-    type: definePropType<string | Component>(String)
-  },
-  prefixIcon: {
-    type: definePropType<string | Component>(String)
-  },
+  suffixIcon: String,
+  prefixIcon: String,
   showLimit: {
     type: Boolean,
     default: false
