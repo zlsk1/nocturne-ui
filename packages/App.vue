@@ -14,48 +14,13 @@ import {
   FrSelect,
   FrOption,
   FrIcon,
-  FrTooltip
+  FrTooltip,
+  FrTag
 } from '@/components'
-const list = ref([
-  {
-    name: 'option1',
-    id: 0
-  },
-  {
-    name: 'option2',
-    id: 1
-  },
-  {
-    name: 'option3',
-    id: 2
-  },
-  {
-    name: 'option4',
-    id: 3
-  }
-])
-const id = ref('option3')
-const _id = ref(list.value[0])
-const ids = ref(['option2', 'option3'])
-const idss = ref([list.value[0], list.value[1]])
 </script>
 
 <template>
   <div class="container">
-    <FrSelect
-      v-model="idss"
-      style="width: 240px;"
-      value-key="id"
-      multiple
-    >
-      <FrOption
-        v-for="item in list"
-        :key="item.id"
-        :value="item"
-        :label="item.name"
-      >
-      </FrOption>
-    </FrSelect>
   </div>
 </template>
 

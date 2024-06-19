@@ -121,3 +121,14 @@
   transition: opacity getCssVar('transition-duration')
     cubic-bezier(0.55, 0, 0.1, 1);
 }
+
+.#{$namespace}-flip-enter-active,
+.#{$namespace}-flip-leave-active {
+  transition: all getCssVar('transition-duration') ease-in-out;
+}
+
+.#{$namespace}-flip-enter-from,
+.#{$namespace}-flip-leave-to {
+  transform: rotateY(180deg);
+  opacity: 0;
+}

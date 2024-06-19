@@ -25,10 +25,10 @@ export const tagProps = {
     values: ['dark', 'light', 'plain'],
     default: 'light'
   },
-  // transition: {
-  //   type: Boolean,
-  //   default: true
-  // },
+  transition: {
+    type: Boolean,
+    default: true
+  },
   border: {
     type: Boolean,
     default: false
