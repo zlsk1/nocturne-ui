@@ -21,6 +21,9 @@ import {
 
 <template>
   <div class="container">
+    <FrTooltip content="tooltip">
+      <FrButton>show tooltip</FrButton>
+    </FrTooltip>
   </div>
 </template>
 
