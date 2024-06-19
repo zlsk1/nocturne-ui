@@ -18,7 +18,7 @@ const handleClick = (e: MouseEvent) => {
 </script>
 
 <template>
-  <div @click="handleClick">
+  <div class="fr-button-wrapper" @click="handleClick">
     <button
       :class="[
         'fr-button',
