@@ -15,48 +15,22 @@ import {
   FrOption,
   FrIcon,
   FrTooltip,
-  FrTag
+  FrTag,
+  FrSlider
 } from '@/components'
 
-const value = ref()
-const list = ref([
-  {
-    id: 0,
-    value: 'Option1'
-  },
-  {
-    id: 1,
-    value: 'Option2'
-  },
-  {
-    id: 2,
-    value: 'Option3'
-  },
-  {
-    id: 3,
-    value: 'Option4'
-  },
-  {
-    id: 4,
-    value: 'Option5'
-  },
-  {
-    id: 5,
-    value: 'Option6'
-  }
-])
+const val = ref(20)
 </script>
 
 <template>
   <div class="container">
-    <FrSelect v-model="value" style="width: 120px;">
-      <FrOption
-        v-for="item in list"
-        :key="item.id"
-        :value="item.value"
-        :label="item.value"
-      ></FrOption>
-    </FrSelect>
+    <FrSlider
+      v-model="val"
+      style="width: 200px;"
+      :format-value-fn="(val: number) => val / 10"
+      disabled
+      @change="(val) => console.log(val)"
+    ></FrSlider>
   </div>
 </template>
 

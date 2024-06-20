@@ -31,25 +31,51 @@ $slider-height: map.merge(
     background-color: getCssVar('slider-track-bg-color');
     border-radius: getCssVar('slider', 'radius');
     cursor: pointer;
+  }
 
-    @include e(bar) {
-      height: getCssVar('slider', 'size');
-      background-color: getCssVar('slider-bar-bg-color');
-      border-radius: getCssVar('slider-radius');
+  @include e(track__bar) {
+    height: getCssVar('slider-height');
+    background-color: getCssVar('slider-bar-bg-color');
+    border-radius: getCssVar('slider-radius');
+  }
+
+  @include e(reference-wrapper) {
+    position: absolute;
+    top: getCssVar('slider-button-offset');
+    width: getCssVar('slider-button-size');
+    height: getCssVar('slider-button-size');
+    background-color: getCssVar('slider-track-bg-color');
+    border-radius: 50%;
+    transform: translateX(-50%);
+    transition: box-shadow getCssVar('transition-duration-fast') linear;
+    cursor: grab;
+
+    &:hover {
+      box-shadow: 0px 0px 10px #ccc;
     }
-  
-    @include e(button) {
-      position: absolute;
-      top: getCssVar('slider-button-offset');
-      width: getCssVar('slider-button-size');
-      height: getCssVar('slider-button-size');
-      background-color: getCssVar('slider-track-bg-color');
-      border: solid 2px getCssVar('slider-bar-bg-color');
-      border-radius: 50%;
-      transform: translateX(-50%);
+
+    @include when(active) {
+      box-shadow: 0px 0px 10px #666;
+    }
+  }
+
+  @include e(reference) {
+    width: getCssVar('slider-button-size');
+    height: getCssVar('slider-button-size');
+  }
+
+  @include when(disabled) {
+    
+    @include e(track) {
+      cursor: not-allowed;
+    }
+
+    @include e(reference-wrapper) {
+      background: getCssVar('disabled', 'text-color');
+      cursor: not-allowed;
 
       &:hover {
-        cursor: grab;
+        box-shadow: 0px 0px 10px #fff;
       }
     }
   }
