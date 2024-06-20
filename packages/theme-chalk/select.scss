@@ -2,7 +2,7 @@
 
 @use 'mixins/mixins' as *;
 @use 'mixins/var' as *;
-@use 'mixins/button' as *;
+@use 'mixins/function' as *;
 @use 'common/var' as *;
 
 $select-height: () !default;

@@ -1,5 +1,6 @@
 // forward mixins
 @forward 'config';
+@use 'function' as *;
 @use 'config' as *;
 
 // Scrollbar

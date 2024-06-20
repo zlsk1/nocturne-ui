@@ -76,6 +76,10 @@ export const selectProps = {
     type: String,
     values: ['primary', 'success', 'warning', 'info', 'danger', ''],
     default: 'info'
+  },
+  height: {
+    type: [String, Number],
+    default: '200'
   }
 }
 

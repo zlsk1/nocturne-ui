@@ -93,7 +93,7 @@
         <ul
           ref="optionRef"
           class="fr-select-option__wrapper"
-          :style="{ width: selectWrapperWidth }"
+          :style="selectWrapperStyle"
         >
           <slot></slot>
         </ul>
@@ -171,8 +171,11 @@ const arrowIconStyle = computed<CSSProperties>(() => {
   }
 })
 
-const selectWrapperWidth = computed(() => {
-  return selectRef.value?.style.width
+const selectWrapperStyle = computed<CSSProperties>(() => {
+  return {
+    width: selectRef.value?.style.width + 'px',
+    maxHeight: props.height + 'px'
+  }
 })
 
 const existActualValue = computed(() => {

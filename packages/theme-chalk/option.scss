@@ -2,7 +2,7 @@
 
 @use 'mixins/mixins' as *;
 @use 'mixins/var' as *;
-@use 'mixins/button' as *;
+@use 'mixins/function' as *;
 @use 'common/var' as *;
 
 $prefix: fr-select-option;
@@ -14,7 +14,10 @@ $prefix: fr-select-option;
 .#{$prefix}__wrapper {
   position: relative;
   width: 100%;
+  overflow: auto;
   z-index: 100;
+
+  @include scroll-bar;
 
   .#{$prefix}__item {
     padding: 6px 20px 6px 15px;

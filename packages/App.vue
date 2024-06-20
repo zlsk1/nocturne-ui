@@ -15,16 +15,48 @@ import {
   FrOption,
   FrIcon,
   FrTooltip,
-  FrTag,
-  FrScrollbar
+  FrTag
 } from '@/components'
+
+const value = ref()
+const list = ref([
+  {
+    id: 0,
+    value: 'Option1'
+  },
+  {
+    id: 1,
+    value: 'Option2'
+  },
+  {
+    id: 2,
+    value: 'Option3'
+  },
+  {
+    id: 3,
+    value: 'Option4'
+  },
+  {
+    id: 4,
+    value: 'Option5'
+  },
+  {
+    id: 5,
+    value: 'Option6'
+  }
+])
 </script>
 
 <template>
   <div class="container">
-    <FrTooltip content="tooltip">
-      <FrButton>show tooltip</FrButton>
-    </FrTooltip>
+    <FrSelect v-model="value" style="width: 120px;">
+      <FrOption
+        v-for="item in list"
+        :key="item.id"
+        :value="item.value"
+        :label="item.value"
+      ></FrOption>
+    </FrSelect>
   </div>
 </template>
 
