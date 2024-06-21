@@ -16,21 +16,41 @@ import {
   FrIcon,
   FrTooltip,
   FrTag,
-  FrSlider
+  FrSlider,
+  FrCarousel,
+  FrCarouselItem
 } from '@/components'
 
 const val = ref(20)
+
+const list = ['#e8e8e8', '#000', '#409eff', '#666', '#ccc']
 </script>
 
 <template>
   <div class="container">
-    <FrSlider
-      v-model="val"
-      style="width: 200px;"
-      :format-value-fn="(val: number) => val / 10"
-      disabled
+    <FrCarousel
+      style="width: 800px"
+      height="200"
+      indicator-shape="round"
+      hide-indicator
       @change="(val) => console.log(val)"
-    ></FrSlider>
+    >
+      <template #prev>
+        <FrButton type="warning">
+          previous slide
+        </FrButton>
+      </template>
+      <template #next>
+        <FrButton type="primary">
+          previous next
+        </FrButton>
+      </template>
+      <FrCarouselItem v-for="(item, index) in list" :key="index">
+        <div :style="{width: '800px', height: '200px', backgroundColor: item}">
+          {{ index }}
+        </div>
+      </FrCarouselItem>
+    </FrCarousel>
   </div>
 </template>
 

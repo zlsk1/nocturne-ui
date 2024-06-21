@@ -1,0 +1,147 @@
+<template>
+  <div
+    class="fr-carousel"
+    @mouseenter="onMouseenter"
+    @mouseleave="onMouseleave"
+  >
+    <button
+      v-if="showArrow && !$slots.prev"
+      :class="[
+        'fr-carousel__button',
+        'fr-carousel__button--left',
+        { 'is-animation': isHover }
+      ]"
+      @click="handlePrev"
+    >
+      <FrIcon icon="arrow-left"></FrIcon>
+    </button>
+    <div
+      v-else
+      class="fr-carousel__slot--prev"
+      @click="handlePrev"
+    >
+      <slot name="prev"></slot>
+    </div>
+    <ul
+      ref="contentRef"
+      class="fr-carousel__content"
+      :style="{ height: height + 'px' }"
+    >
+      <slot></slot>
+    </ul>
+    <ul v-if="!hideIndicator" class="fr-carousel__indicator">
+      <li
+        v-for="(_, i) in itemCount"
+        :key="i"
+        :class="[
+          'fr-carousel__indicator__item'
+        ]"
+        @click="clickIndicator(i)"
+      >
+        <button
+          :class="[
+            { 'is-active': i === currentIndex,
+              'is-round': indicatorShape === 'round'
+            },
+          ]"
+        ></button>
+      </li>
+    </ul>
+    <button
+      v-if="showArrow && !$slots.next"
+      :class="[
+        'fr-carousel__button',
+        'fr-carousel__button--right',
+        { 'is-animation': isHover }
+      ]"
+      @click="handleNext"
+    >
+      <FrIcon v-if="!$slots.next" icon="arrow-right"></FrIcon>
+    </button>
+    <div
+      v-else
+      class="fr-carousel__slot--next"
+      @click="handleNext"
+    >
+      <slot name="next"></slot>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { onMounted, provide, ref, watch } from 'vue'
+import { carouselProps, carouselEmits } from './carousel'
+import { FrIcon } from '@/components'
+import { CAROUSEL_INJECT_KEY } from './constants'
+import { useIntervalFn } from '@vueuse/core'
+
+const props = defineProps(carouselProps)
+const emit = defineEmits(carouselEmits)
+
+let stopInterval: (() => void) | undefined
+let startInterval: (() => void) | undefined
+
+const contentRef = ref<HTMLUListElement>()
+
+const itemCount = ref<number>(0)
+const currentIndex = ref(0)
+const isHover = ref(false)
+
+onMounted(() => {
+  setInterval()
+})
+
+watch(currentIndex, (newVal, oldVal) => {
+  emit('change', newVal, oldVal)
+})
+
+const handlePrev = () => {
+  if (currentIndex.value === 0) {
+    currentIndex.value = itemCount.value - 1
+  }
+  else {
+    --currentIndex.value
+  }
+}
+const handleNext = () => {
+  if (currentIndex.value === itemCount.value - 1) {
+    currentIndex.value = 0
+  }
+  else {
+    ++currentIndex.value
+  }
+}
+
+const clickIndicator = (val: number) => {
+  currentIndex.value = val
+}
+
+const onMouseenter = () => {
+  stopInterval?.()
+
+  isHover.value = true
+}
+
+const onMouseleave = () => {
+  startInterval?.()
+
+  isHover.value = false
+}
+
+const setInterval = () => {
+  if (!props.autoplay) return
+  ({ pause: stopInterval, resume: startInterval } = useIntervalFn(() => {
+    handleNext()
+  }, props.interval))
+}
+
+provide(CAROUSEL_INJECT_KEY, {
+  itemCount,
+  currentIndex,
+  contentRef
+})
+</script>
+
+<style scoped>
+@import '@/theme-chalk/carousel.scss';
+</style>

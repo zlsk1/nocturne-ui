@@ -1,0 +1,122 @@
+@use 'sass:map';
+
+@use 'common/var' as *;
+@use 'mixins/function' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+@include b(carousel) {
+  @include set-component-css-var('carousel', $carousel);
+}
+@include b(carousel) {
+  position: relative;
+  overflow: hidden;
+
+  ul, li {
+    list-style: none;
+  }
+
+  button {
+    outline: none;
+    border: none;
+  }
+
+  @include e(indicator) {
+    position: absolute;
+    bottom: 3%;
+    left: 50%;
+    display: flex;
+    transform: translateX(-50%);
+  }
+
+  .is-active {
+    background-color: #fff !important;
+  }
+
+  @include e(indicator__item) {
+    padding: 10px 5px;
+    cursor: pointer;
+
+    button {
+      display: block;
+      width: 30px;
+      height: 2px;
+      background-color: getCssVar('carousel', 'indicator-color');
+      transition: all getCssVar('transition-duration-fast');
+      cursor: pointer;
+
+      @include when(round) {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+    }
+
+    &:hover button {
+      background-color: #fff;
+    }
+  }
+
+  @include e(content) {
+    position: relative;
+    overflow: hidden;
+  }
+
+  @include e(content__item) {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    @include when(animation) {
+      transition: transform getCssVar('transition-duration') ease-in-out;
+    }
+  }
+
+  @include e(button) {
+    position: absolute;
+    top: 50%;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    transition: all getCssVar('transition-duration-fast') linear;
+    cursor: pointer;
+    z-index: 10;
+
+    &:hover {
+      opacity: .7;
+    }
+
+    @include m(left) {
+      left: -5%;
+
+      @include when(animation) {
+        left: 2%;
+      }
+    }
+
+    @include m(right) {
+      right: -5%;
+
+      @include when(animation) {
+        right: 2%;
+      }
+    }
+  }
+
+  @include e(slot--prev) {
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+
+  @include e(slot--next) {
+    position: absolute;
+    top: 50%;
+    right: 2%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+}

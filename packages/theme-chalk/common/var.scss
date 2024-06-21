@@ -804,3 +804,13 @@ $slider: map.merge(
   ),
   $slider
 );
+
+// carousel
+// css3 var in packages/theme-chalk/src/carousel.scss
+$carousel: () !default;
+$carousel: map.merge(
+  (
+    'indicator-color': getCssVar('border-color-light')
+  ),
+  $carousel
+);
