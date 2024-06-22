@@ -3,7 +3,8 @@ import type { ComputedRef, InjectionKey, Ref } from 'vue'
 export type FrPaginationInjectionContext = {
   _currentPage: Ref<number>,
   disabled: boolean,
-  totalPages: ComputedRef<number>
+  totalPages: ComputedRef<number>,
+  pageSize: Ref<number>
   emit: any,
 }
 

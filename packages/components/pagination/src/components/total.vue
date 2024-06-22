@@ -1,6 +1,6 @@
 <template>
   <div class="fr-pagination__total">
-    总共{{ total }}
+    总共{{ total }}条
   </div>
 </template>
 

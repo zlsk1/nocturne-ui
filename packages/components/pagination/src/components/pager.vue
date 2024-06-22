@@ -141,6 +141,7 @@ const changePage = (e: any) => {
     }
   }
   emit('changePage', newPage)
+  emit('update:current-page', newPage)
   _currentPage.value = newPage
 }
 </script>

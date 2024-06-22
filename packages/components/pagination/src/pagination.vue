@@ -27,6 +27,7 @@ provide(
     _currentPage,
     totalPages,
     disabled: props.disabled,
+    pageSize: props.pageSize,
     emit
   }
 )

@@ -37,5 +37,6 @@ const handleNextPage = () => {
   if (more.value || disabled) return
   ++_currentPage.value
   emit('clickNext', _currentPage.value)
+  emit('update:current-page', _currentPage.value)
 }
 </script>

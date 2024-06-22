@@ -3,10 +3,18 @@ import {
   computed,
   ref,
   provide,
-  h
+  h,
+  watch
 } from 'vue'
 import { PAGINATION_INJECTION_KEY } from './constants'
 import { isNumber } from '@/utils'
+
+import { jumperProps } from './components/jumper'
+import { pagerProps } from './components/pager'
+import { prevProps } from './components/prev'
+import { nextProps } from './components/next'
+import { totalProps } from './components/total'
+import { sizeProps } from './components/size'
 
 import type { ExtractPropTypes, VNode } from 'vue'
 
@@ -27,48 +35,26 @@ type layoutType =
   | 'slot'
 
 export const paginationProps = {
+  ...jumperProps,
+  ...pagerProps,
+  ...prevProps,
+  ...nextProps,
+  ...totalProps,
+  ...sizeProps,
   pageCount: Number,
   background: {
     type: Boolean,
     default: false
   },
-  small: {
-    type: Boolean,
-    default: false
-  },
   layout: {
     type: String,
-    default: 'total, prev, pager, next, jumper, sizes'
-  },
-  total: Number,
-  pageSize: {
-    type: Number,
-    default: 10
-  },
-  maxPages: {
-    type: Number,
-    default: 7
+    default: 'total, prev, pager, next, sizes, jumper'
   },
   defaultPage: {
     type: Number,
     default: 1
   },
   currentPage: Number,
-  nextText: String,
-  prevText: String,
-  jumperText: String,
-  nextIcon: {
-    type: String,
-    default: 'arrow-right'
-  },
-  prevIcon: {
-    type: String,
-    default: 'arrow-left'
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
   slotIndex: Number
 } as const
 
@@ -76,7 +62,9 @@ export const paginationEmits = {
   changePage: (val: number) => isNumber(val),
   clickPrev: (val: number) => isNumber(val),
   clickNext: (val: number) => isNumber(val),
-  'update:current-page': (val: number) => isNumber(val)
+  'update:current-page': (val: number) => isNumber(val),
+  'update:page-size': (val: number) => isNumber(val),
+  changeSize: (val: number) => isNumber(val)
 }
 
 export type PaginationProps = ExtractPropTypes<typeof paginationProps>
@@ -89,9 +77,16 @@ export default defineComponent({
 
   setup(props, { slots, emit }) {
     const _currentPage = ref(props.currentPage || props.defaultPage)
+    const pageSize = ref(props.pageSize)
 
     const totalPages = computed(() => {
-      return props.pageCount || Math.ceil(props.total! / props.pageSize)
+      return props.pageCount || Math.ceil(props.total! / pageSize.value)
+    })
+
+    watch(pageSize, () => {
+      if (totalPages.value < _currentPage.value) {
+        _currentPage.value = totalPages.value
+      }
     })
 
     const template: Array<VNode | VNode[] | null> = []
@@ -110,7 +105,11 @@ export default defineComponent({
         nextIcon: props.nextIcon,
         nextText: props.nextText
       }),
-      sizes: h(size),
+      sizes: h(size, {
+        pageSizes: props.pageSizes,
+        pageSize: props.pageSize,
+        small: props.small
+      }),
       jumper: h(jumper, {
         disabled: props.disabled
       }),
@@ -128,6 +127,7 @@ export default defineComponent({
         _currentPage,
         totalPages,
         disabled: props.disabled,
+        pageSize,
         emit
       }
     )

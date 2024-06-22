@@ -36,5 +36,6 @@ const handlePrevPage = () => {
   if (less.value || disabled) return
   --_currentPage.value
   emit('clickPrev', _currentPage.value)
+  emit('update:current-page', _currentPage.value)
 }
 </script>

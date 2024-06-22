@@ -1,3 +1,5 @@
+import type { ExtractPropTypes } from 'vue'
+
 export const prevProps = {
   prevText: String,
   prevIcon: {
@@ -5,3 +7,5 @@ export const prevProps = {
     default: 'arrow-left'
   }
 } as const
+
+export type PrevProps = ExtractPropTypes<typeof prevProps>
