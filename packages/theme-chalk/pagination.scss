@@ -155,6 +155,10 @@
       margin-right: 15px;
       font-size: 12px;
     }
+
+    @include e(size) {
+      width: 95px;
+    }
   }
 
   @include when(background) {

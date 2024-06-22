@@ -34,7 +34,7 @@
         <div
           :class="[
             'fr-select__wrapper',
-            size ? `fr-select--${size}` : '',
+            // size ? `fr-select--${size}` : '',
             {
               'is-multiple': existActualValue && multiple
             }

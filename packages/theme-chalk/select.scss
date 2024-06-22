@@ -8,9 +8,9 @@
 $select-height: () !default;
 $select-height: map.merge(
   (
-    'large': ('height': 40px, 'font-size': 14px),
-    'default': ('height': 32px, 'font-size': 13px),
-    'small': ('height': 24px, 'font-size': 12px),
+    'large': ('height': 40px, 'font-size': 14px, 'padding': 0 14px),
+    'default': ('height': 32px, 'font-size': 13px,'padding': 0 10px),
+    'small': ('height': 24px, 'font-size': 12px, 'padding': 0 6px),
   ),
   $select-height
 );
@@ -21,6 +21,7 @@ $select-height: map.merge(
 
 @include b(select) {
   min-height: 32px;
+  padding: 0 10px;
   font-size: 14px;
   border-radius: getCssVar('border-radius', 'base');
   border: 1px solid getCssVar('border-color');
@@ -52,7 +53,6 @@ $select-height: map.merge(
     align-items: center;
     justify-content: space-between;
     min-height: 32px;
-    padding: 0 10px;
     color: getCssVar('border-color', 'darker');
 
     @include when(multiple) {
@@ -61,10 +61,8 @@ $select-height: map.merge(
   }
 
   .fr-select__input-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    flex-wrap: wrap;
+    position: relative;
+    width: 100%;
 
     @include e(input) {
       max-width: 100%;
@@ -79,6 +77,11 @@ $select-height: map.merge(
     }
 
     @include e(placeholder) {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      transform: translateY(-50%);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -108,9 +111,16 @@ $select-height: map.merge(
         map.get($select-height, $size, 'height'));
       @include set-css-var-value(('select', 'font-size'),
         map.get($select-height, $size, 'font-size'));
+      @include set-css-var-value(('select', 'padding'),
+        map.get($select-height, $size, 'padding'));
 
       min-height: getCssVar('select', 'height');
+      padding: getCssVar('select', 'padding');
       font-size: getCssVar('select', 'font-size');
+
+      @include e(wrapper) {
+        min-height: getCssVar('select', 'height');
+      }
     }
   }
 }
