@@ -21,36 +21,20 @@ import {
   FrCarouselItem
 } from '@/components'
 
-const val = ref(20)
+const val = ref(0)
 
-const list = ['#e8e8e8', '#000', '#409eff', '#666', '#ccc']
+const format = val => val / 10
 </script>
 
 <template>
   <div class="container">
-    <FrCarousel
-      style="width: 800px"
-      height="200"
-      indicator-shape="round"
-      hide-indicator
-      @change="(val) => console.log(val)"
-    >
-      <template #prev>
-        <FrButton type="warning">
-          previous slide
-        </FrButton>
-      </template>
-      <template #next>
-        <FrButton type="primary">
-          previous next
-        </FrButton>
-      </template>
-      <FrCarouselItem v-for="(item, index) in list" :key="index">
-        <div :style="{width: '800px', height: '200px', backgroundColor: item}">
-          {{ index }}
-        </div>
-      </FrCarouselItem>
-    </FrCarousel>
+    <FrSlider
+      v-model="val"
+      :min="-1000"
+      :max="2220"
+      style="width: 400px;"
+      :format-value-fn="format"
+    ></FrSlider>
   </div>
 </template>
 

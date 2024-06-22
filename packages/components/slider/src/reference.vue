@@ -9,12 +9,15 @@
     ]"
     :style="positionStyle"
     @mousedown.stop="onMousedown"
+    @mouseenter="onMouseenter"
+    @mouseleave="onMouseleave"
   >
     <FrTooltip
       ref="tooltipRef"
       :disabled="!showTooltip"
       :placement="placement"
       :popper-class="tooltipClass"
+      :visible="visible"
     >
       <div class="fr-slider__reference"></div>
       <template #content>
@@ -44,6 +47,9 @@ const referenceRef = ref<HTMLDivElement>()
 const tooltipRef = ref<TooltipInstance>()
 const positionData = ref({ top: 0, left: 0 })
 const isActive = ref(false)
+const visible = ref(false)
+
+let calculateVal:number
 
 let parentLeft = 0
 let parentWidth = 0
@@ -71,17 +77,28 @@ const positionStyle = computed(() => {
 
 const formatValue = computed<number>(() => {
   if (!props.formatValueFn) {
-    return Math.ceil(Number(positionPercent.value.slice(0, -1)))
+    return Math.ceil(Number(positionPercent.value.slice(0, -1)) / 100)
   }
   else {
-    return props.formatValueFn(Math.ceil(Number(positionPercent.value.slice(0, -1))))
+    if ((props.min && !props.max) || !props.formatValueFn) {
+      calculateVal = Math.ceil(Number(positionPercent.value.slice(0, -1)) / 100)
+    }
+    else if (!props.min && props.max) {
+      calculateVal = Math.ceil(Number(positionPercent.value.slice(0, -1)) * props.max / 100)
+    }
+    else if (props.min || props.max) {
+      calculateVal = props.min! + Math.ceil(Number(positionPercent.value.slice(0, -1)) * (props.max! - props.min!) / 100)
+    }
+    return props.formatValueFn(calculateVal)
   }
 })
 
 const onMousedown = (e: MouseEvent) => {
   if (props.disabled) return
 
-  else isActive.value = true
+  if (props.showTooltip && !visible.value) visible.value = true
+
+  isActive.value = true
 
   window.addEventListener('mousemove', handleMove)
   window.addEventListener('mouseup', handleMoveEnd)
@@ -106,10 +123,21 @@ const handleMove = (e: MouseEvent) => {
 }
 
 const handleMoveEnd = (e: MouseEvent) => {
+  if (props.showTooltip) visible.value = false
+
   isActive.value = false
+
   e.preventDefault()
   window.removeEventListener('mousemove', handleMove)
   window.removeEventListener('mouseup', handleMoveEnd)
+}
+
+const onMouseenter = () => {
+  visible.value = true
+}
+
+const onMouseleave = () => {
+  if (!isActive.value) visible.value = false
 }
 
 defineExpose({

@@ -20,8 +20,10 @@ export const sliderReferenceProps = {
   disabled: {
     type: Boolean,
     default: false
-  }
-}
+  },
+  min: Number,
+  max: Number
+} as const
 
 export const sliderReferenceEmits = {
   change: (val: ComputedRef<number>) => isNumber(val.value)

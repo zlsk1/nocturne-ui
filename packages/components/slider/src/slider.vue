@@ -15,8 +15,11 @@
         :placement="placement"
         :tooltip-class="tooltipClass"
         :disabled="disabled"
+        :max="max"
+        :min="min"
         @change="changeVal"
       ></reference>
+      <div class="fr-slider__step"></div>
     </div>
   </div>
 </template>

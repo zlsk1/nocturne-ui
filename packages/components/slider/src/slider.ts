@@ -8,6 +8,10 @@ export const sliderProps = {
   modelValue: {
     type: Number,
     default: 0
+  },
+  step: {
+    type: Number,
+    default: 0
   }
 }
 export const sliderEmits = {
