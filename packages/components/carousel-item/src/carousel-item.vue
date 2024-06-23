@@ -1,5 +1,5 @@
 <template>
-  <li
+  <div
     ref="itemRef"
     :class="[
       'fr-carousel__content__item',
@@ -10,7 +10,7 @@
     :style="{ transform: `translateX(${elTranslateX})`}"
   >
     <slot></slot>
-  </li>
+  </div>
 </template>
 
 <script lang="ts" setup>

@@ -21,20 +21,22 @@ import {
   FrCarouselItem
 } from '@/components'
 
-const val = ref(0)
-
-const format = val => val / 10
+const bg = ['	https://cdn.pixabay.com/photo/2023/02/01/21/40/pink-7761356_640.png', 'https://cdn.pixabay.com/photo/2023/08/22/16/02/chrysanthemum-8206709_640.jpg', '	https://cdn.pixabay.com/photo/2024/02/06/03/09/envelope-8555766_640.jpg']
 </script>
 
 <template>
-  <div class="container">
-    <FrSlider
-      v-model="val"
-      :height="400"
-      vertical
-      :step="10"
-      disabled
-    ></FrSlider>
+  <div class="container" style="width: 600px;">
+    <FrCarousel :height="300" indicator-shape="round">
+      <FrCarouselItem
+        v-for="item in bg"
+        :key="item"
+      >
+        <img
+          :src="item"
+          style="width: 100%; height: 300px;"
+        >
+      </FrCarouselItem>
+    </FrCarousel>
   </div>
 </template>
 

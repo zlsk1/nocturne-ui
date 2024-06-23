@@ -22,13 +22,13 @@
     >
       <slot name="prev"></slot>
     </div>
-    <ul
+    <div
       ref="contentRef"
       class="fr-carousel__content"
       :style="{ height: height + 'px' }"
     >
       <slot></slot>
-    </ul>
+    </div>
     <ul v-if="!hideIndicator" class="fr-carousel__indicator">
       <li
         v-for="(_, i) in itemCount"
@@ -73,13 +73,14 @@ import { onMounted, provide, ref, watch } from 'vue'
 import { carouselProps, carouselEmits } from './carousel'
 import { FrIcon } from '@/components'
 import { CAROUSEL_INJECT_KEY } from './constants'
-import { useIntervalFn } from '@vueuse/core'
+import { useIntervalFn, useThrottleFn } from '@vueuse/core'
 
 const props = defineProps(carouselProps)
 const emit = defineEmits(carouselEmits)
 
 let stopInterval: (() => void) | undefined
 let startInterval: (() => void) | undefined
+const delay = 300
 
 const contentRef = ref<HTMLUListElement>()
 
@@ -95,7 +96,7 @@ watch(currentIndex, (newVal, oldVal) => {
   emit('change', newVal, oldVal)
 })
 
-const handlePrev = () => {
+const onPrev = () => {
   if (currentIndex.value === 0) {
     currentIndex.value = itemCount.value - 1
   }
@@ -103,7 +104,7 @@ const handlePrev = () => {
     --currentIndex.value
   }
 }
-const handleNext = () => {
+const onNext = () => {
   if (currentIndex.value === itemCount.value - 1) {
     currentIndex.value = 0
   }
@@ -111,6 +112,9 @@ const handleNext = () => {
     ++currentIndex.value
   }
 }
+
+const handlePrev = useThrottleFn(onPrev, delay)
+const handleNext = useThrottleFn(onNext, delay)
 
 const clickIndicator = (val: number) => {
   currentIndex.value = val
