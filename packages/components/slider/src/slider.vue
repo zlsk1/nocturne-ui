@@ -3,11 +3,16 @@
     ref="sliderRef"
     :class="[
       'fr-slider',
-      { 'is-disabled': disabled }
+      { 'is-disabled': disabled,
+        'is-vertical': vertical
+      }
     ]"
+    :style="{
+      height: vertical ? height + 'px' : ''
+    }"
   >
     <div class="fr-slider__track" @mousedown="onSliderDown">
-      <div class="fr-slider__track__bar" :style="{ width: positionPercent }"></div>
+      <div class="fr-slider__track__bar" :style="barStyle"></div>
       <reference
         ref="referenceRef"
         :show-tooltip="showTooltip"
@@ -15,19 +20,31 @@
         :placement="placement"
         :tooltip-class="tooltipClass"
         :disabled="disabled"
+        :max="max"
+        :min="min"
+        :step="step"
+        :vertical="vertical"
+        :height="height"
         @change="changeVal"
       ></reference>
+      <div v-if="step" class="fr-slider__step">
+        <div
+          v-for="(_, index) in step + 1"
+          :key="index"
+          class="fr-slider__step__item"
+        ></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, provide } from 'vue'
+import { ref, provide, computed } from 'vue'
 import { SLIDER_INJECT_KEY } from './constants'
 import { sliderProps, sliderEmits } from './slider'
 import reference from './reference.vue'
 import type { SliderReferenceInstance } from './reference'
-import type { ComputedRef } from 'vue'
+import type { CSSProperties } from 'vue'
 
 defineOptions({
   name: 'FrSlider'
@@ -38,15 +55,28 @@ const emit = defineEmits(sliderEmits)
 
 const sliderRef = ref<HTMLDivElement>()
 const referenceRef = ref<SliderReferenceInstance>()
-const positionPercent = ref<string>(props.modelValue + '%')
+const positionPercent = ref<number>(props.modelValue)
+
+const barStyle = computed<CSSProperties>(() => {
+  if (!props.vertical) {
+    return {
+      width: positionPercent.value + '%'
+    }
+  }
+  else {
+    return {
+      height: positionPercent.value + '%'
+    }
+  }
+})
 
 const onSliderDown = (e: MouseEvent) => {
   if (props.disabled) return
   referenceRef.value?.handleMove(e)
 }
 
-const changeVal = (val: ComputedRef<number>) => {
-  emit('change', val.value)
+const changeVal = (val: number) => {
+  emit('change', val)
 }
 
 provide(SLIDER_INJECT_KEY, {

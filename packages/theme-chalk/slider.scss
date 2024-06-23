@@ -48,6 +48,7 @@ $slider-height: map.merge(
     border-radius: 50%;
     transform: translateX(-50%);
     transition: box-shadow getCssVar('transition-duration-fast') linear;
+    z-index: 20;
     cursor: grab;
 
     &:hover {
@@ -64,6 +65,25 @@ $slider-height: map.merge(
     height: getCssVar('slider-button-size');
   }
 
+  @include e(step) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
+
+  @include e(step__item) {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #000;
+  }
+
   @include when(disabled) {
     
     @include e(track) {
@@ -77,6 +97,31 @@ $slider-height: map.merge(
       &:hover {
         box-shadow: 0px 0px 10px #fff;
       }
+    }
+  }
+
+  @include when(vertical) {
+    height: 100%;
+
+    @include e(track) {
+      width: getCssVar('slider-height');
+      height: 100%;
+    }
+
+    @include e(track__bar) {
+      position: absolute;
+      bottom: 0;
+      width: getCssVar('slider-height');
+    }
+
+    @include e(reference-wrapper) {
+      top: auto;
+      left: getCssVar('slider-button-offset');
+      transform: translateY(50%);
+    }
+
+    @include e(step) {
+      flex-direction: column;
     }
   }
 }

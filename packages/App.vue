@@ -22,14 +22,13 @@ import {
 } from '@/components'
 
 const val = ref(20)
-const page = ref(3)
 
 const list = ['#e8e8e8', '#000', '#409eff', '#666', '#ccc']
 </script>
 
 <template>
   <div class="container">
-    <!-- <FrCarousel
+    <FrCarousel
       style="width: 800px"
       height="200"
       indicator-shape="round"
