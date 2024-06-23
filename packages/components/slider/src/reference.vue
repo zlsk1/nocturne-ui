@@ -43,53 +43,61 @@ const emit = defineEmits(sliderReferenceEmits)
 
 const { sliderRef, positionPercent } = inject(SLIDER_INJECT_KEY, undefined)!
 
+type PositionData = {
+  top: number,
+  left: number
+}
+
 const referenceRef = ref<HTMLDivElement>()
 const tooltipRef = ref<TooltipInstance>()
-const positionData = ref({ top: 0, left: 0 })
+const positionData = ref<PositionData>({ top: 0, left: 0 })
 const isActive = ref(false)
 const visible = ref(false)
 
-let calculateVal:number
-
 let parentLeft = 0
+let parentTop = 0
 let parentWidth = 0
+const parentHeight = (props.height!)
+const diff = props.max - props.min
+const diffs: number[] = []
 
 watch(sliderRef, () => {
-  parentLeft = sliderRef.value!.getBoundingClientRect()?.x
-  parentWidth = sliderRef.value!.getBoundingClientRect()?.width
+  const rect = sliderRef.value!.getBoundingClientRect()
+  parentLeft = rect?.x
+  parentTop = rect?.y
+  parentWidth = rect?.width
+
+  if (props.step) {
+    for (let i = 0; i <= props.step; i++) {
+      if (!props.vertical) {
+        diffs.push((parentWidth / props.step) * i)
+      }
+      else {
+        diffs.push((parentHeight / props.step) * i)
+      }
+    }
+  }
 })
 
-watch(
-  positionData,
-  (val) => {
-    positionPercent.value = (val.left / parentWidth * 100) + '%'
-  },
-  {
-    deep: true
-  }
-)
-
 const positionStyle = computed(() => {
-  return {
-    left: positionPercent.value
+  if (!props.vertical) {
+    return {
+      left: positionPercent.value + '%'
+    }
+  }
+  else {
+    return {
+      bottom: positionPercent.value + '%'
+    }
   }
 })
 
 const formatValue = computed<number>(() => {
   if (!props.formatValueFn) {
-    return Math.ceil(Number(positionPercent.value.slice(0, -1)) / 100)
+    return Math.round(positionPercent.value)
   }
   else {
-    if ((props.min && !props.max) || !props.formatValueFn) {
-      calculateVal = Math.ceil(Number(positionPercent.value.slice(0, -1)) / 100)
-    }
-    else if (!props.min && props.max) {
-      calculateVal = Math.ceil(Number(positionPercent.value.slice(0, -1)) * props.max / 100)
-    }
-    else if (props.min || props.max) {
-      calculateVal = props.min! + Math.ceil(Number(positionPercent.value.slice(0, -1)) * (props.max! - props.min!) / 100)
-    }
-    return props.formatValueFn(calculateVal)
+    return useFormat()
   }
 })
 
@@ -105,29 +113,30 @@ const onMousedown = (e: MouseEvent) => {
 }
 
 const handleMove = (e: MouseEvent) => {
-  const left = e.clientX - parentLeft
-
   e.preventDefault()
 
-  if (left < 0) {
-    positionData.value.left = 0
-  }
-  else if (left >= parentWidth) {
-    positionData.value.left = parentWidth
+  const left = e.clientX - parentLeft
+  const top = e.clientY - parentTop
+
+  if (!props.vertical) {
+    setPositionData('left', left, parentWidth)
+    setPercent(positionData.value.left)
   }
   else {
-    positionData.value.left = left
+    setPositionData('top', top, parentHeight)
+    setPercent(positionData.value.top)
   }
+
   tooltipRef.value?.updatePopper()
-  nextTick(() => emit('change', formatValue))
+  nextTick(() => emit('change', formatValue.value))
 }
 
 const handleMoveEnd = (e: MouseEvent) => {
+  e.preventDefault()
+
   if (props.showTooltip) visible.value = false
 
   isActive.value = false
-
-  e.preventDefault()
   window.removeEventListener('mousemove', handleMove)
   window.removeEventListener('mouseup', handleMoveEnd)
 }
@@ -138,6 +147,41 @@ const onMouseenter = () => {
 
 const onMouseleave = () => {
   if (!isActive.value) visible.value = false
+}
+
+const setPercent = (val: number) => {
+  positionPercent.value = props.vertical ? 100 - (val / parentHeight * 100) : (val / parentWidth * 100)
+}
+
+const useFormat = () => {
+  const calculateVal = props.min + Math.round(positionPercent.value * (diff) / 100)
+  return props.formatValueFn!(calculateVal)
+}
+
+const setPositionData = (direction: 'left' | 'top', directionVal: number, parent: number) => {
+  if (directionVal < 0) {
+    positionData.value[direction] = 0
+  }
+  else if (directionVal >= parent) {
+    positionData.value[direction] = parent
+  }
+  else {
+    if (props.step) {
+      for (let i = 0; i < diffs.length; i++) {
+        if (directionVal > diffs[i] && directionVal < diffs[i + 1]) {
+          if (directionVal - diffs[i] < parent / props.step / 2) {
+            positionData.value[direction] = diffs[i]
+          }
+          else {
+            positionData.value[direction] = diffs[i + 1]
+          }
+        }
+      }
+    }
+    else {
+      positionData.value[direction] = directionVal
+    }
+  }
 }
 
 defineExpose({

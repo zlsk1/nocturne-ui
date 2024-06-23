@@ -30,10 +30,10 @@ const format = val => val / 10
   <div class="container">
     <FrSlider
       v-model="val"
-      :min="-1000"
-      :max="2220"
-      style="width: 400px;"
-      :format-value-fn="format"
+      :height="400"
+      vertical
+      :step="10"
+      disabled
     ></FrSlider>
   </div>
 </template>
