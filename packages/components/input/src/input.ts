@@ -3,6 +3,7 @@ import { ExtractPropTypes } from 'vue'
 import Input from './input.vue'
 import { isString, isNumber } from '@/utils'
 import { componentSizes } from '@/constants'
+import { iconPropType } from '@/utils'
 
 export const inputProps = {
   type: {
@@ -49,8 +50,8 @@ export const inputProps = {
   min: {
     type: definePropType<string | number>([String, Number])
   },
-  suffixIcon: String,
-  prefixIcon: String,
+  suffixIcon: iconPropType,
+  prefixIcon: iconPropType,
   showLimit: {
     type: Boolean,
     default: false

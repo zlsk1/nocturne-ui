@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { linkProps } from './link'
-import { FrIcon } from '@/components'
 
 defineOptions({
   name: 'FrLink'
@@ -25,10 +24,11 @@ defineProps(linkProps)
     <span>
       <slot></slot>
     </span>
-    <fr-icon
+    <component
+      :is="icon"
       v-if="icon"
-      :icon="icon"
-    ></fr-icon>
+      size="16"
+    ></component>
   </a>
 </template>
 

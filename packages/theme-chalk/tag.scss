@@ -82,6 +82,7 @@ $tag-icon-span-gap: map.merge(
     &:hover {
       color: getCssVar('color-white');
       background-color: getCssVar('tag-hover-color');
+      border-radius: 50%;
     }
   }
 

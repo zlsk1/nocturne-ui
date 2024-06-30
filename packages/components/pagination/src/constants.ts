@@ -4,7 +4,7 @@ export type FrPaginationInjectionContext = {
   _currentPage: Ref<number>,
   disabled: boolean,
   totalPages: ComputedRef<number>,
-  pageSize: Ref<number>
+  pageSize: number
   emit: any,
 }
 

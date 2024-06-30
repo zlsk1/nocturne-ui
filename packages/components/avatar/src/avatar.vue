@@ -39,9 +39,9 @@ const onError = (evt: Event) => {
     >
     <fr-icon
       v-else-if="icon"
-      :icon="icon"
       class-name="fr-avatar__icon"
     >
+      <component :is="icon"></component>
     </fr-icon>
     <slot></slot>
   </div>

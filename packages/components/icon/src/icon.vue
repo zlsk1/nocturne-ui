@@ -1,49 +1,29 @@
+<!-- eslint-disable vue/no-multiple-template-root -->
 <template>
-  <!-- 展示外部图标 -->
-  <div
-    v-if="isExternal"
-    :style="styleExternalIcon"
-    class="fr-icon-external fr-icon"
-    :class="className"
-  >
-  </div>
-  <!-- 展示内部图标 -->
-  <svg
-    v-else
+  <i
+    v-if="$slots.default"
+    class="fr-icon"
     :class="svgClass"
-    aria-hidden="true"
+    :style="svgStyle"
   >
-    <use :xlink:href="iconName" />
-  </svg>
+    <slot></slot>
+  </i>
+  <template v-else>
+    <slot></slot>
+  </template>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { iconProps } from './icon'
 import { isString } from '@/utils'
-import type { StyleValue } from 'vue'
+import type { StyleValue, CSSProperties } from 'vue'
 
 defineOptions({
   name: 'FrIcon'
 })
 
 const props = defineProps(iconProps)
-
-/**
- * 判断当前图标是否为外部图标
- */
-function external(path: string) {
-  return /^(https?:|mailto:|tel:)/.test(path)
-}
-
-const isExternal = computed(() => external(props.icon as string))
-/**
- * 外部图标样式
- */
-const styleExternalIcon = computed(() => ({
-  mask: `url(${props.icon}) no-repeat 50% 50%`,
-  '-webkit-mask': `url(${props.icon}) no-repeat 50% 50%`
-}))
 
 const svgClass = computed<StyleValue>(() => {
   if (isString(props.className)) {
@@ -60,10 +40,12 @@ const svgClass = computed<StyleValue>(() => {
   }
 })
 
-/**
- * 内部图标
- */
-const iconName = computed(() => `#fr-icon-${props.icon}`)
+const svgStyle = computed<CSSProperties>(() => {
+  return {
+    color: props.color,
+    fontSize: props.size + 'px'
+  }
+})
 </script>
 
 <style lang="scss" scoped>

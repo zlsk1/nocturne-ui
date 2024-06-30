@@ -124,7 +124,8 @@
 
 .#{$namespace}-flip-enter-active,
 .#{$namespace}-flip-leave-active {
-  transition: all getCssVar('transition-duration') ease-in-out;
+  transform: rotateY(0deg);
+  transition: getCssVar('transition-duration');
 }
 
 .#{$namespace}-flip-enter-from,

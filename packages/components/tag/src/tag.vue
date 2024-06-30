@@ -22,13 +22,12 @@
       <span class="fr-tag__content">
         <slot></slot>
       </span>
-      <fr-icon
+      <Close
         v-if="closable"
-        icon="close"
+        size="14"
         class-name="fr-tag__close"
         @click.stop="handleClose"
-      >
-      </fr-icon>
+      ></Close>
     </span>
   </transition>
   <!-- eslint-disable-next-line vue/no-multiple-template-root -->
@@ -51,20 +50,19 @@
     <span class="fr-tag__content">
       <slot></slot>
     </span>
-    <fr-icon
+    <Close
       v-if="closable"
-      icon="close"
+      size="14"
       class-name="fr-tag__close"
       @click.stop="handleClose"
-    >
-    </fr-icon>
+    ></Close>
   </span>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { tagProps, tagEmits } from './tag'
-import { FrIcon } from '@/components'
+import { RiCloseLine as Close } from '@remixicon/vue'
 
 defineOptions({
   name: 'FrTag'

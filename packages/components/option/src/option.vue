@@ -16,7 +16,7 @@
       <template v-else>
         {{ label }}
       </template>
-      <FrIcon v-if="showCheck" icon="check-line"></FrIcon>
+      <Check v-if="showCheck" size="16"></Check>
     </span>
   </li>
 </template>
@@ -26,7 +26,7 @@ import { inject, computed, getCurrentInstance } from 'vue'
 import { SELECT_INJECTION_KEY } from '@/components/select/src/constants'
 import { optionEmits, optionProps } from './option'
 import { isObject, isArray } from '@/utils'
-import { FrIcon } from '@/components'
+import { RiCheckFill as Check } from '@remixicon/vue'
 import type { OptionProxy } from '@/components/select/src/constants'
 
 defineOptions({

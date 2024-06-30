@@ -18,8 +18,8 @@
       @mouseenter="isPrevHover = true"
       @mouseleave="isPrevHover = false"
     >
-      <fr-icon v-if="!isPrevHover" icon="more"></fr-icon>
-      <fr-icon v-else icon="arrow-left-double"></fr-icon>
+      <More v-if="!isPrevHover" size="16"></More>
+      <ArrowLeftDouble v-else size="16"></ArrowLeftDouble>
     </li>
     <!-- pages -->
     <li
@@ -40,8 +40,8 @@
       @mouseenter="!disabled ? isNextHover = true : ''"
       @mouseleave="isNextHover = false"
     >
-      <fr-icon v-if="!isNextHover" icon="more"></fr-icon>
-      <fr-icon v-else icon="arrow-right-double"></fr-icon>
+      <More v-if="!isNextHover" size="16"></More>
+      <ArrowRightDouble v-else size="16"></ArrowRightDouble>
     </li>
     <li
       v-if="totalPages > 1"
@@ -57,7 +57,11 @@
 import { ref, computed, inject, watchEffect } from 'vue'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { pagerProps } from './pager'
-import { FrIcon } from '@/components'
+import {
+  RiArrowRightDoubleFill as ArrowRightDouble,
+  RiArrowLeftDoubleFill as ArrowLeftDouble,
+  RiMoreFill as More
+} from '@remixicon/vue'
 
 const {
   totalPages,

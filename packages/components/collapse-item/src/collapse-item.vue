@@ -3,7 +3,7 @@ import { ref, inject, computed } from 'vue'
 import { collapseItemProps } from './collapse-item'
 import { COLLAPSE_INJECTION_KEY } from '@/components/collapse/src/constants'
 import FrCollapseTransition from '../../collapse-transition/collapse-transition.vue'
-import FrIcon from '@/components/icon'
+import { RiArrowRightWideLine as ArrowRight } from '@remixicon/vue'
 
 defineOptions({
   name: 'FrCollapseItem'
@@ -39,13 +39,11 @@ const showContent = () => {
         {{ title }}
       </h3>
       <slot v-else name="title"></slot>
-      <fr-icon
-        icon="arrow-right"
-        :class-name="[
-          'fr-collapse-item__icon',
-          isActive ? 'is-rotate' : ''
-        ]"
-      ></fr-icon>
+      <ArrowRight
+        size="16"
+        class-name="fr-collapse-item__icon"
+        :class="isActive ? 'is-rotate' : ''"
+      ></ArrowRight>
     </div>
     <fr-collapse-transition>
       <div

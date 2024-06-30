@@ -73,19 +73,20 @@
             </div>
           </div>
           <div class="fr-select__icon">
-            <FrIcon
-              v-if="!shouldShowClearIcon"
-              icon="arrow-down"
-              :style="[
-                { transition: 'all .3s' },
-                visable ? arrowIconStyle : ''
-              ]"
-            ></FrIcon>
-            <FrIcon
+            <fr-icon v-if="!shouldShowClearIcon">
+              <ArrowDown
+                size="16"
+                :style="[
+                  { transition: 'all .3s' },
+                  visable ? arrowIconStyle : ''
+                ]"
+              ></ArrowDown>
+            </fr-icon>
+            <CloseCircle
               v-else
-              icon="circle-delete"
+              size="16"
               @click.stop="clearValue"
-            ></FrIcon>
+            ></CloseCircle>
           </div>
         </div>
       </template>
@@ -123,6 +124,10 @@ import {
   isArray,
   isObject
 } from '@/utils'
+import {
+  RiArrowDownWideLine as ArrowDown,
+  RiCloseCircleLine as CloseCircle
+} from '@remixicon/vue'
 import type { CSSProperties } from 'vue'
 import type { TooltipInstance } from '@/components/tooltip'
 import type { OptionProxy } from './constants'

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { statisticProps } from './statistic'
-import { FrIcon } from '@/components'
 import { isFunction, isNumber } from '@/utils'
 
 defineOptions({
@@ -35,9 +34,9 @@ defineExpose({
       <slot></slot>
     </div>
     <div class="fr-statistic__value" :style="valueStyle">
-      <fr-icon v-if="suffixIcon" :icon="suffixIcon"></fr-icon>
+      <component :is="suffixIcon" v-if="suffixIcon"></component>
       {{ _value }}
-      <fr-icon v-if="prefixIcon" :icon="prefixIcon"></fr-icon>
+      <component :is="prefixIcon" v-if="prefixIcon"></component>
     </div>
   </div>
 </template>

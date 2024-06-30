@@ -1,11 +1,17 @@
 <script lang="ts" setup>
 import { ref, onMounted, computed, watch } from 'vue'
-import { FrIcon } from '@/components'
 import { messageProps, messageEmits } from './message'
 import { getOffsetOrSpace, getLastOffset } from './instance'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
 import { FrBadge } from '@/components'
 import { BadgeProps } from '@/components/badge'
+import {
+  RiInformationFill as info,
+  RiCheckboxFill as success,
+  RiErrorWarningFill as warning,
+  RiCloseCircleFill as error,
+  RiCloseLine as Close
+} from '@remixicon/vue'
 
 defineOptions({
   name: 'FrMessage'
@@ -42,6 +48,20 @@ const bottom = computed(() => height.value + offset.value)
 const badgeType = computed<BadgeProps['type']>(() =>
   props.type ? (props.type === 'error' ? 'danger' : props.type) : 'info'
 )
+
+const icon = computed(() => {
+  switch (props.type) {
+    case 'info':
+      return info
+    case 'success':
+      return success
+    case 'error':
+      return error
+    case 'warning':
+      return warning
+  }
+  return info
+})
 
 const close = () => {
   visible.value = false
@@ -95,22 +115,23 @@ defineExpose({
         :value="repeatNum"
         :type="badgeType"
       ></FrBadge>
-      <fr-icon
+      <component
+        :is="icon"
         :class-name="`fr-message-icon--${type}`"
-        :icon="type"
-      ></fr-icon>
+        size="18"
+      ></component>
       <div class="fr-message__content">
         <slot name="title">
         </slot>
         <span class="fr-message__title">
           {{ message }}
         </span>
-        <fr-icon
+        <Close
           v-if="showClose"
-          icon="close"
           class-name="fr-message__close"
+          size="18"
           @click.stop="close"
-        ></fr-icon>
+        ></Close>
       </div>
     </div>
   </transition>

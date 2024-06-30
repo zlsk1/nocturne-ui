@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { inputNumberProps, inputNumberEmits } from './input-number'
-import { FrInput, FrIcon } from '@/components'
+import { FrInput } from '@/components'
+import {
+  RiAddLine as Add,
+  RiSubtractLine as Subtract
+} from '@remixicon/vue'
 import type { InputInstance } from '@/components/input/src/input'
 
 defineOptions({
@@ -84,7 +88,7 @@ defineExpose({
         ]"
         @click="handleDecrease"
       >
-        <fr-icon icon="minus"></fr-icon>
+        <Subtract></Subtract>
       </span>
       <span
         :class="[
@@ -95,7 +99,7 @@ defineExpose({
         ]"
         @click="handleIncrease"
       >
-        <fr-icon icon="plus"></fr-icon>
+        <Add></Add>
       </span>
     </template>
     <fr-input

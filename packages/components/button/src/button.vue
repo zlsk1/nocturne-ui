@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useSlots } from 'vue'
 import { buttonProps, buttonEmits } from './button'
-import FrIcon from '@/components/icon'
+import { RiLoaderLine } from '@remixicon/vue'
 
 defineOptions({
   name: 'FrButton'
@@ -33,18 +33,18 @@ const handleClick = (e: MouseEvent) => {
       ]"
     >
       <template v-if="loading">
-        <fr-icon
-          icon="loading"
+        <component
+          :is="RiLoaderLine"
           class="fr-icon"
-        >
-        </fr-icon>
+          size="14"
+        ></component>
       </template>
       <template v-else-if="icon">
-        <fr-icon
-          :icon="icon"
+        <component
+          :is="icon"
           class="fr-icon"
-        >
-        </fr-icon>
+          size="14"
+        ></component>
       </template>
       <span v-if="slots.default">
         <slot></slot>

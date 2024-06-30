@@ -20,10 +20,4 @@ $marginRight: 6px;
   @include m(right) {
     margin-right: $marginRight;
   }
-
-  @include m(external) {
-    background-color: currentColor;
-    mask-size: cover !important;
-    display: inline-block;
-  }
 } 

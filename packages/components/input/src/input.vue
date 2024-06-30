@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import { ref, computed, nextTick, useSlots } from 'vue'
 import { inputProps, inputEmits } from './input'
-import { FrIcon } from '@/components'
+import {
+  RiEyeLine as Eye,
+  RiCloseCircleLine as CloseCircle
+} from '@remixicon/vue'
 
 defineOptions({
   name: 'FrInput'
@@ -118,7 +121,7 @@ defineExpose({
             <i class="fr-icon fr-input__icon">
               <slot v-if="slots.prefix" name="prefix">
               </slot>
-              <fr-icon v-else :icon="prefixIcon"></fr-icon>
+              <component :is="prefixIcon" v-else></component>
             </i>
           </span>
         </span>
@@ -151,10 +154,7 @@ defineExpose({
                 'fr-input__password'
               ]"
             >
-              <fr-icon
-                icon="eye"
-                @click="handleShowPwd"
-              ></fr-icon>
+              <Eye @click="handleShowPwd"></Eye>
             </i>
             <i
               v-if="showClear"
@@ -164,10 +164,7 @@ defineExpose({
                 'fr-input__clear'
               ]"
             >
-              <fr-icon
-                icon="circle-delete"
-                @click="clearValue"
-              ></fr-icon>
+              <CloseCircle @click="clearValue"></CloseCircle>
             </i>
             <i
               v-if="suffixIcon"
@@ -176,7 +173,7 @@ defineExpose({
                 'fr-input__icon',
               ]"
             >
-              <fr-icon :icon="suffixIcon"></fr-icon>
+              <component :is="suffixIcon"></component>
             </i>
             <i
               v-if="slots.suffix"
