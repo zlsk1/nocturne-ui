@@ -29,7 +29,6 @@ const handleIncrease = () => {
   if (isMoreMax.value || props.disabled) return
   let { modelValue } = props
   emit('update:modelValue', modelValue += props.step)
-  console.log(modelValue)
 }
 
 const handleDecrease = () => {
@@ -115,6 +114,6 @@ defineExpose({
   </div>
 </template>
 
-<style>
-@import '@/theme-chalk/input-number.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/input-number.scss';
 </style>

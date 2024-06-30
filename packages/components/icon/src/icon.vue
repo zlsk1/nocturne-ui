@@ -66,6 +66,6 @@ const svgClass = computed<StyleValue>(() => {
 const iconName = computed(() => `#fr-icon-${props.icon}`)
 </script>
 
-<style>
-@import '@/theme-chalk/icon.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/icon.scss';
 </style>.

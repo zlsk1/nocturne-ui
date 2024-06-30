@@ -60,6 +60,6 @@ const handleClose = (e: MouseEvent) => {
   </div>
 </template>
 
-<style scoped>
-@import '@/theme-chalk/alert.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/alert.scss';
 </style>

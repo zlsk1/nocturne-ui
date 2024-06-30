@@ -223,7 +223,7 @@ defineExpose({
   </div>
 </template>
 
-<style>
-@import '@/theme-chalk/base.scss';
-@import '@/theme-chalk/input.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/base.scss';
+@use '@/theme-chalk/input.scss';
 </style>

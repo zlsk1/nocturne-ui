@@ -32,6 +32,6 @@ provide(
   </div>
 </template>
 
-<style>
-@import '@/theme-chalk/radio-group.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/radio-group.scss';
 </style>

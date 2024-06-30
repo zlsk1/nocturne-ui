@@ -1,13 +1,13 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "lib": ["ESNext"],
+    "lib": ["ESNext", "ES2018", "DOM", "DOM.Iterable"],
     "types": ["node"],
     "skipLibCheck": true
   },
   "include": [
-    "vite.config.*",
-    "vitest.config.*",
+    "packages"
   ],
   "exclude": ["**/__tests__/**", "**/tests/**", "**/dist"]
 }

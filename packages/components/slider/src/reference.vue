@@ -189,6 +189,6 @@ defineExpose({
 })
 </script>
 
-<style scoped>
-@import '@/theme-chalk/slider.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/slider.scss';
 </style>

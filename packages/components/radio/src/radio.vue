@@ -86,6 +86,6 @@ const handleChange = () => {
   </label>
 </template>
 
-<style>
-@import '@/theme-chalk/radio.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/radio.scss';
 </style>

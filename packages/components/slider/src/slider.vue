@@ -85,6 +85,6 @@ provide(SLIDER_INJECT_KEY, {
 })
 </script>
 
-<style scoped>
-@import '@/theme-chalk/slider.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/slider.scss';
 </style>

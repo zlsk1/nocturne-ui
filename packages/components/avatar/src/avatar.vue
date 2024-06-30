@@ -47,6 +47,6 @@ const onError = (evt: Event) => {
   </div>
 </template>
 
-<style>
-@import '@/theme-chalk/avatar.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/avatar.scss';
 </style>

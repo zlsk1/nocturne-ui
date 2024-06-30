@@ -39,6 +39,6 @@ defineExpose({
 })
 </script>
 
-<style scoped>
-@import '@/theme-chalk/popper.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/popper.scss';
 </style>

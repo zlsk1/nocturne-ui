@@ -173,7 +173,7 @@ const arrowIconStyle = computed<CSSProperties>(() => {
 
 const selectWrapperStyle = computed<CSSProperties>(() => {
   return {
-    width: selectRef.value?.style.width + 'px',
+    width: selectRef.value?.getBoundingClientRect().width + 'px',
     maxHeight: props.height + 'px'
   }
 })
@@ -341,8 +341,8 @@ provide(SELECT_INJECTION_KEY, {
 })
 </script>
 
-<style>
-@import '@/theme-chalk/option.scss';
-@import '@/theme-chalk/select.scss';
-@import '@/theme-chalk/common/transition.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/option.scss';
+@use '@/theme-chalk/select.scss';
+@use '@/theme-chalk/common/transition.scss';
 </style>

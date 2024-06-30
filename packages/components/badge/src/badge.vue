@@ -40,6 +40,6 @@ const _value = computed(() => {
   </div>
 </template>
 
-<style>
-@import '@/theme-chalk/badge.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/badge.scss';
 </style>

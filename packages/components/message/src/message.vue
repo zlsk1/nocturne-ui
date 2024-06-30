@@ -116,6 +116,6 @@ defineExpose({
   </transition>
 </template>
 
-<style>
-@import '@/theme-chalk/message.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/message.scss';
 </style>

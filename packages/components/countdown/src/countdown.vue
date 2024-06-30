@@ -74,5 +74,4 @@ watch(
 </template>
 
 <style>
-@import '@/theme-chalk/countdown.scss';
 </style>

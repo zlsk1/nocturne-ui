@@ -63,6 +63,6 @@ const showContent = () => {
   </div>
 </template>
 
-<style>
-@import '@/theme-chalk/collapse-item.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/collapse-item.scss';
 </style>

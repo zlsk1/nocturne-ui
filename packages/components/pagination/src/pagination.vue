@@ -52,6 +52,6 @@ provide(
   </div>
 </template>
 
-<style>
-@import '@/theme-chalk/pagination.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/pagination.scss';
 </style>

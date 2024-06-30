@@ -79,5 +79,5 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-@import '@/theme-chalk/progress.scss';
+@use '@/theme-chalk/progress.scss';
 </style>

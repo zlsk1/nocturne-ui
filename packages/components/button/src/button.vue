@@ -53,7 +53,7 @@ const handleClick = (e: MouseEvent) => {
   </div>
 </template>
 
-<style>
-@import '@/theme-chalk/base.scss';
-@import '@/theme-chalk/button.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/base.scss';
+@use '@/theme-chalk/button.scss';
 </style>.

@@ -64,7 +64,7 @@ const on = {
   </transition>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .fr-collapse-transition-enter-active,
 .fr-collapse-transition-leave-active {
   transition: height .2s ease-out;

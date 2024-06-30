@@ -147,5 +147,5 @@ const changePage = (e: any) => {
 </script>
 
 <style>
-@import '@/theme-chalk/pagination.scss';
+@use '@/theme-chalk/pagination.scss';
 </style>

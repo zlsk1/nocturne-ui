@@ -146,6 +146,6 @@ provide(CAROUSEL_INJECT_KEY, {
 })
 </script>
 
-<style scoped>
-@import '@/theme-chalk/carousel.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/carousel.scss';
 </style>

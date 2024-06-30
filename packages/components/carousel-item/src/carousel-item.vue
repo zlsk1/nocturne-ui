@@ -59,6 +59,6 @@ watch(currentIndex, (val, oldVal) => {
 })
 </script>
 
-<style scoped>
-@import '@/theme-chalk/carousel.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/carousel.scss';
 </style>

@@ -3,7 +3,6 @@
     "outDir": "dist",
     "target": "es2018",
     "module": "esnext",
-    "baseUrl": ".",
     "sourceMap": false,
     "moduleResolution": "node",
     "allowJs": false,
@@ -15,9 +14,9 @@
     "removeComments": false,
     "rootDir": ".",
     "types": [],
+    "baseUrl": ".",
     "paths": {
       "@/*": ["packages/*"]
     }
   },
-  // "include": ["packages/**/*", "packages/**/*.vue"]
 }

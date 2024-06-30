@@ -74,6 +74,6 @@ const onSelect = () => {
 }
 </script>
 
-<style scoped>
-@import '@/theme-chalk/option.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/option.scss';
 </style>

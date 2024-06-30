@@ -10,6 +10,6 @@ defineOptions({
   </ul>
 </template>
 
-<style>
-@import '@/theme-chalk/timeline.scss';
+<style lang="scss" scoped>
+@use '@/theme-chalk/timeline.scss';
 </style>
