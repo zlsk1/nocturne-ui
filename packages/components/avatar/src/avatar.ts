@@ -1,6 +1,5 @@
-import { definePropType } from '@/utils'
+import { definePropType, isNumber, iconPropType } from '@/utils'
 import { componentSizes } from '@/constants'
-import { isNumber, iconPropType } from '@/utils'
 import Avatar from './avatar.vue'
 import type { ExtractPropTypes } from 'vue'
 

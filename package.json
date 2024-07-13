@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm -C playground dev --open",
-    "build": "pnpm -C packages build",
+    "build": "pnpm -C build start",
     "preview": "vite preview --open",
     "test:unit": "vitest",
+    "clean:dist": "rimraf dist",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write packages/",
     "prepare": "is-ci || husky install",
@@ -23,6 +24,8 @@
   "devDependencies": {
     "@commitlint/cli": "^19.0.3",
     "@commitlint/config-conventional": "^19.0.3",
+    "@esbuild-kit/cjs-loader": "2.2.1",
+    "@types/gulp": "4.0.9",
     "@types/node": "^20.13.0",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/eslint-config-typescript": "^13.0.0",
@@ -35,6 +38,7 @@
     "jsdom": "^24.0.0",
     "lint-staged": "^15.2.2",
     "prettier": "^3.0.3",
+    "rimraf": "^5.0.7",
     "sass": "^1.71.1",
     "typescript": "^5.4.5",
     "vitest": "^1.2.2",

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { avatarProps, avatarEmits } from './avatar'
+
 defineOptions({
   name: 'FrAvatar'
 })

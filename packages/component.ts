@@ -1,4 +1,4 @@
-import { FrAlert } from './components/alert'
+import { FrAlert } from '@/components/alert'
 import { FrAvatar } from '@/components/avatar'
 import { FrBadge } from '@/components/badge'
 import { FrButton } from '@/components/button'

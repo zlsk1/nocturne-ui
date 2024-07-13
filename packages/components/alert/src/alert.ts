@@ -1,3 +1,4 @@
+import { ExtractPropTypes } from 'vue'
 import Alert from './alert.vue'
 
 const types = ['success', 'warning', 'info', 'error'] as const
@@ -35,6 +36,7 @@ export const alertEmits = {
   close: (evt: MouseEvent) => evt instanceof MouseEvent
 }
 
+export type AlertProps = ExtractPropTypes<typeof alertProps>
 export type AlertEmits = typeof alertEmits
 
 export type AlertInstance = InstanceType<typeof Alert>

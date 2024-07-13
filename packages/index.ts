@@ -1,7 +1,6 @@
 import Components from './component'
+import { INSTALLED_KEY } from '@/constants'
 import type { App, Plugin } from 'vue'
-
-const INSTALLED_KEY = Symbol('INSTALLED_KEY')
 
 const makeInstaller = (components: Plugin[] = []) => {
   const install = (app: App) => {
