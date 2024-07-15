@@ -23,7 +23,6 @@ import { PAGINATION_INJECTION_KEY } from '../constants'
 import { FrSelect, FrOption } from '@/components'
 
 const {
-  pageSize,
   emit
 } = inject(PAGINATION_INJECTION_KEY, undefined)!
 
@@ -32,8 +31,6 @@ const props = defineProps(sizeProps)
 const selectedPage = ref<number>(props.pageSize)
 
 const onSelect = () => {
-  pageSize.value = selectedPage.value
-
   emit('update:page-size', selectedPage.value)
   emit('changeSize', selectedPage.value)
 }

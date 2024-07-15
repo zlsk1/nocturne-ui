@@ -15,12 +15,9 @@ const {
   isChecked,
   isDisabled,
   isFocused,
-  checkboxSize,
-  hasOwnLabel,
   model,
   actualValue,
-  handleChange,
-  onClickRoot
+  handleChange
 } = useCheckbox(props, slots)
 </script>
 

@@ -1,6 +1,6 @@
 import process from 'process'
 import path from 'path'
-import { mkdir, readFile, writeFile, cp } from 'fs/promises'
+import { mkdir, readFile, writeFile } from 'fs/promises'
 import * as vueCompiler from 'vue/compiler-sfc'
 import glob from 'fast-glob'
 import { Project } from 'ts-morph'
@@ -8,14 +8,12 @@ import {
   pkgRoot,
   distRoot,
   projRoot,
-  pkgOutput,
 
   excludeFiles,
   pathRewriter
 } from '../utils'
 
 import type { CompilerOptions, SourceFile, OutputFile } from 'ts-morph'
-import type { InputPluginOption } from 'rollup'
 
 const TSCONFIG_PATH = path.resolve(projRoot, 'tsconfig.node.json')
 const outDir = path.resolve(distRoot, 'types')
@@ -40,7 +38,7 @@ export const generateTypesDefinitions = async() => {
 
   const sourceFiles = await addSourceFiles(project)
 
-  // typeCheck(project)
+  typeCheck(project)
 
   await project.emit({
     emitOnlyDtsFiles: true
@@ -128,20 +126,7 @@ async function addSourceFiles(project: Project) {
 function typeCheck(project: Project) {
   const diagnostics = project.getPreEmitDiagnostics()
   if (diagnostics.length > 0) {
+    console.error(project.formatDiagnosticsWithColorAndContext(diagnostics))
     throw new Error('Failed to generate dts.')
-  }
-}
-
-export const copyTypesPlugin = (): InputPluginOption => {
-  return {
-    name: 'rollup-plugin-types',
-    async writeBundle() {
-      const outPutPaths = path.resolve(distRoot, 'types')
-      const outPutPkgPaths = path.resolve(outPutPaths, 'packages')
-
-      await generateTypesDefinitions()
-      await cp(outPutPkgPaths, path.resolve(pkgOutput, 'es'), { recursive: true })
-      await cp(outPutPkgPaths, path.resolve(pkgOutput, 'lib'), { recursive: true })
-    }
   }
 }

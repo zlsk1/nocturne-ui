@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, provide } from 'vue'
+import { computed, ref, provide, toRef } from 'vue'
 import { paginationProps, paginationEmits } from './pagination'
 import { PAGINATION_INJECTION_KEY } from './constants'
 import jumper from './components/jumper.vue'
@@ -27,7 +27,7 @@ provide(
     _currentPage,
     totalPages,
     disabled: props.disabled,
-    pageSize: props.pageSize,
+    pageSize: toRef(props.pageSize),
     emit
   }
 )

@@ -12,7 +12,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write packages/",
     "prepare": "is-ci || husky install",
-    "precommit": "lint-staged -c ./.husky/.lintstagedrc -q"
+    "precommit": "lint-staged -c ./.husky/.lintstagedrc -q",
+    "check": "vue-tsc -p tsconfig.node.json --composite false  --noEmit" 
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",

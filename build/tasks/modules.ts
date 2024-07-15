@@ -1,8 +1,5 @@
 import path from 'path'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
-import autoprefixer from 'autoprefixer'
-import cssnano from 'cssnano'
-import postcss from 'postcss'
 import vue from '@vitejs/plugin-vue'
 import esbuild from 'rollup-plugin-esbuild'
 import fg from 'fast-glob'
@@ -71,79 +68,4 @@ export const buildModules = async() => {
     })
   )
 }
-
-// const configArr: RollupOptions[] = [
-//   {
-//     input,
-//     output: [
-//       {
-//         dir: path.resolve(pkgOutput, 'es'),
-//         format: 'es',
-//         preserveModules: true,
-//         entryFileNames: '[name].mjs',
-//         sourcemap: true,
-//         globals: { vue: 'Vue' }
-//       },
-//       {
-//         dir: path.resolve(pkgOutput, 'lib'),
-//         name: 'NocturneUI',
-//         format: 'cjs',
-//         globals: { vue: 'Vue' },
-//         preserveModules: true,
-//         entryFileNames: '[name].js',
-//         sourcemap: true
-//       }
-//     ],
-//     external: ['vue', '@vue/shared', '@vueuse/core', '@popperjs/core', '@remixicon/vue'],
-//     plugins: [
-//       vue(),
-//       nodeResolve({ extensions }),
-//       commonjs(),
-//       esbuild({
-//         sourceMap: true,
-//         target: 'es2018',
-//         loaders: {
-//           '.vue': 'ts'
-//         }
-//       })
-//     ]
-//   },
-//   {
-//     input: './index.ts',
-//     output: {
-//       format: 'umd',
-//       file: path.resolve(pkgOutput, 'dist/index.full.js'),
-//       name: 'NocturneUI',
-//       globals: {
-//         vue: 'Vue',
-//         '@remixicon/vue': 'Remixicon'
-//       },
-//       exports: 'named'
-//     },
-//     external: ['vue', '@remixicon/vue'],
-//     plugins: [
-//       vue(),
-//       nodeResolve({ extensions }),
-//       commonjs(),
-//       esbuild({
-//         sourceMap: true,
-//         target: 'es2018',
-//         loaders: {
-//           '.vue': 'ts'
-//         }
-//       }),
-//       alias({
-//         entries: [
-//           { find: /^@\/(.*)/, replacement: path.resolve('../packages/$1') }
-//         ]
-//       }),
-//       replace(({
-//         'process.env.NODE_ENV': '"production"',
-//         preventAssignment: true
-//       }))
-//     ]
-//   }
-// ]
-
-// export default configArr
 
