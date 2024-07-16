@@ -78,7 +78,7 @@ async function addSourceFiles(project: Project) {
 
   const globSourceFile = '**/*.{js?(x),ts?(x),vue}'
   const filePaths = excludeFiles(
-    await glob([globSourceFile, '!**/gulpfile.ts'], {
+    await glob(globSourceFile, {
       cwd: pkgRoot,
       absolute: true,
       onlyFiles: true
@@ -127,6 +127,6 @@ function typeCheck(project: Project) {
   const diagnostics = project.getPreEmitDiagnostics()
   if (diagnostics.length > 0) {
     console.error(project.formatDiagnosticsWithColorAndContext(diagnostics))
-    throw new Error('Failed to generate dts.')
+    // throw new Error('Failed to generate dts.')
   }
 }

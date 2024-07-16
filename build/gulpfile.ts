@@ -45,16 +45,16 @@ export default series(
   withTaskName('createOutput', () => mkdir(pkgOutput, { recursive: true })),
 
   parallel(
-    // buildModules,
-    // buildFullBundle,
-    generateTypesDefinitions
-    // series(
-    //   withTaskName('buildThemeChalk', () =>
-    //     run('pnpm run -C packages/theme-chalk build')
-    //   ),
-    //   copyFullStyle
-    // )
-  )
+    buildModules,
+    buildFullBundle,
+    generateTypesDefinitions,
+    series(
+      withTaskName('buildThemeChalk', () =>
+        run('pnpm run -C packages/theme-chalk build')
+      ),
+      copyFullStyle
+    )
+  ),
 
-  // parallel(copyTypesDefinitions, copyFiles)
+  parallel(copyTypesDefinitions, copyFiles)
 )

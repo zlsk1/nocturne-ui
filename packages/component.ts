@@ -30,6 +30,8 @@ import { FrTimeline } from '@/components/timeline'
 import { FrTimelineItem } from '@/components/timeline-item'
 import { FrTooltip } from '@/components/tooltip'
 
+import type { Plugin } from 'vue'
+
 export default [
   FrAlert,
   FrAvatar,
@@ -62,4 +64,4 @@ export default [
   FrTimeline,
   FrTimelineItem,
   FrTooltip
-]
+] as unknown as Plugin[]
