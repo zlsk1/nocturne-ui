@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { avatarProps, avatarEmits } from './avatar'
 
 defineOptions({
-  name: 'FrAvatar'
+  name: 'NAvatar'
 })
 
 const props = defineProps(avatarProps)
@@ -21,9 +21,9 @@ const onError = (evt: Event) => {
 <template>
   <div
     :class="[
-      'fr-avatar',
-      sizeIsNumber ? '' : `fr-avatar--${size}`,
-      `fr-avatar--${shape}`
+      'n-avatar',
+      sizeIsNumber ? '' : `n-avatar--${size}`,
+      `n-avatar--${shape}`
     ]"
     :style="{
       width: sizeIsNumber ? size + 'px' : '',
@@ -34,16 +34,16 @@ const onError = (evt: Event) => {
       v-if="src"
       :src="src"
       :alt="alt"
-      class="fr-avatar__img"
+      class="n-avatar__img"
       :style="{ objectFit: fit }"
       @error="onError"
     >
-    <fr-icon
+    <n-icon
       v-else-if="icon"
-      class-name="fr-avatar__icon"
+      class-name="n-avatar__icon"
     >
       <component :is="icon"></component>
-    </fr-icon>
+    </n-icon>
     <slot></slot>
   </div>
 </template>

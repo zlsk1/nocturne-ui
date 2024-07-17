@@ -2,7 +2,7 @@ import type { InjectionKey, Ref } from 'vue'
 import type { SelectProps } from './select'
 import type { OptionProps } from '@/components/option'
 
-export type FrSelectInjectionContext = {
+export type NSelectInjectionContext = {
   actualVal: Ref<SelectProps['modelValue']>,
   options: Map<any, any>,
   valueKey: SelectProps['valueKey'],
@@ -15,5 +15,5 @@ export type OptionProxy = {
   disabled: OptionProps['disabled']
 }
 
-export const SELECT_INJECTION_KEY: InjectionKey<FrSelectInjectionContext> =
+export const SELECT_INJECTION_KEY: InjectionKey<NSelectInjectionContext> =
   Symbol('elTooltip')

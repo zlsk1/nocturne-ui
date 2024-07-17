@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 defineOptions({
-  name: 'FrCollapseTransition'
+  name: 'NCollapseTransition'
 })
 
 const reset = (el: HTMLElement) => {
@@ -59,14 +59,14 @@ const on = {
 </script>
 
 <template>
-  <transition name="fr-collapse-transition" v-on="on">
+  <transition name="n-collapse-transition" v-on="on">
     <slot></slot>
   </transition>
 </template>
 
 <style lang="scss" scoped>
-.fr-collapse-transition-enter-active,
-.fr-collapse-transition-leave-active {
+.n-collapse-transition-enter-active,
+.n-collapse-transition-leave-active {
   transition: height .2s ease-out;
 }
 </style>

@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { switchProps, switchEmits } from './switch'
 
 defineOptions({
-  name: 'FrSwitch'
+  name: 'NSwitch'
 })
 
 const props = defineProps(switchProps)
@@ -29,8 +29,8 @@ const handleSwitch = () => {
 <template>
   <div
     :class="[
-      'fr-switch',
-      `fr-switch--${size}`,
+      'n-switch',
+      `n-switch--${size}`,
       {
         'is-checked': isActive,
         'is-disabled': disabled
@@ -41,14 +41,14 @@ const handleSwitch = () => {
     <input
       type="checkbox"
       :disabled="disabled"
-      class="fr-switch__input"
+      class="n-switch__input"
       :value="modelValue"
       @change="handleChange"
     >
     <span
       :class="[
-        'fr-switch__label',
-        'fr-switch__label--left',
+        'n-switch__label',
+        'n-switch__label--left',
         {
           'is-active': !isActive
         }
@@ -57,13 +57,13 @@ const handleSwitch = () => {
     >
       <span>{{ inactiveText }}</span>
     </span>
-    <div class="fr-switch__wrap" @click="handleClick">
-      <div class="fr-switch__action"></div>
+    <div class="n-switch__wrap" @click="handleClick">
+      <div class="n-switch__action"></div>
     </div>
     <span
       :class="[
-        'fr-switch__label',
-        'fr-switch__label--right',
+        'n-switch__label',
+        'n-switch__label--right',
         {
           'is-active': isActive
         }

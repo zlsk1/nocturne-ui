@@ -7,7 +7,7 @@ import {
 } from '@remixicon/vue'
 
 defineOptions({
-  name: 'FrInput'
+  name: 'NInput'
 })
 
 const props = defineProps(inputProps)
@@ -97,8 +97,8 @@ defineExpose({
 <template>
   <div
     :class="[
-      !isTextarea ? 'fr-input' :'fr-textarea',
-      size ? `fr-input--${size}` : '',
+      !isTextarea ? 'n-input' :'n-textarea',
+      size ? `n-input--${size}` : '',
       {
         'is-disabled': disabled,
       }
@@ -111,14 +111,14 @@ defineExpose({
       <div
         ref="wrapperRef"
         :class="[
-          'fr-input__wrapper',
+          'n-input__wrapper',
           isFocus ? 'is-focus' : ''
         ]"
         tabindex="1"
       >
-        <span v-if="prefixIcon || slots.prefix" class="fr-input__prefix">
-          <span class="fr-input__prefix-inner">
-            <i class="fr-icon fr-input__icon">
+        <span v-if="prefixIcon || slots.prefix" class="n-input__prefix">
+          <span class="n-input__prefix-inner">
+            <i class="n-icon n-input__icon">
               <slot v-if="slots.prefix" name="prefix">
               </slot>
               <component :is="prefixIcon" v-else></component>
@@ -134,7 +134,7 @@ defineExpose({
           :min="min"
           :placeholder="placeholder"
           :tabindex="tabindex"
-          class="fr-input__inner"
+          class="n-input__inner"
           :value="modelValue"
           :readonly="readonly"
           :autofocus="autofocus"
@@ -144,14 +144,14 @@ defineExpose({
           @blur="handleBlur"
           @change="handleChange"
         >
-        <span v-if="showSuffix" class="fr-input__suffix">
-          <span class="fr-input__suffix-inner">
+        <span v-if="showSuffix" class="n-input__suffix">
+          <span class="n-input__suffix-inner">
             <i
               v-if="showPwdVisable"
               :class="[
-                'fr-icon',
-                'fr-input__icon',
-                'fr-input__password'
+                'n-icon',
+                'n-input__icon',
+                'n-input__password'
               ]"
             >
               <Eye @click="handleShowPwd"></Eye>
@@ -159,9 +159,9 @@ defineExpose({
             <i
               v-if="showClear"
               :class="[
-                'fr-icon',
-                'fr-input__icon',
-                'fr-input__clear'
+                'n-icon',
+                'n-input__icon',
+                'n-input__clear'
               ]"
             >
               <CloseCircle @click="clearValue"></CloseCircle>
@@ -169,8 +169,8 @@ defineExpose({
             <i
               v-if="suffixIcon"
               :class="[
-                'fr-icon',
-                'fr-input__icon',
+                'n-icon',
+                'n-input__icon',
               ]"
             >
               <component :is="suffixIcon"></component>
@@ -178,15 +178,15 @@ defineExpose({
             <i
               v-if="slots.suffix"
               :class="[
-                'fr-icon',
-                'fr-input__icon',
+                'n-icon',
+                'n-input__icon',
               ]"
             >
               <slot name="suffix">
               </slot>
             </i>
-            <span v-if="showLimit" class="fr-input__count">
-              <span class="fr-input__count-inner">{{ (modelValue as string).length }} / {{ maxlength }}</span>
+            <span v-if="showLimit" class="n-input__count">
+              <span class="n-input__count-inner">{{ (modelValue as string).length }} / {{ maxlength }}</span>
             </span>
           </span>
         </span>
@@ -204,7 +204,7 @@ defineExpose({
         :autofocus="autofocus"
         :rows="rows"
         :class="[
-          'fr-textarea__inner',
+          'n-textarea__inner',
           {
             'is-noResize': noResize
           }
@@ -213,8 +213,8 @@ defineExpose({
         @focus="handleFocus"
         @blur="handleBlur"
       ></textarea>
-      <span v-if="showLimit" class="fr-input__count">
-        <span class="fr-input__count-inner">{{ (modelValue as string).length }} / {{ maxlength }}</span>
+      <span v-if="showLimit" class="n-input__count">
+        <span class="n-input__count-inner">{{ (modelValue as string).length }} / {{ maxlength }}</span>
       </span>
     </template>
   </div>

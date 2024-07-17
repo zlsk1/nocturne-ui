@@ -4,7 +4,7 @@ import { radioGroupProps, radioGroupEmits } from './radio-group'
 import { RADIOGROUP_INJECTION_KEY } from './constants'
 
 defineOptions({
-  name: 'FrRadioGroup'
+  name: 'NRadioGroup'
 })
 
 const props = defineProps(radioGroupProps)
@@ -26,7 +26,7 @@ provide(
 
 <template>
   <div
-    class="fr-radio-group"
+    class="n-radio-group"
   >
     <slot></slot>
   </div>

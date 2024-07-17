@@ -1,12 +1,12 @@
 <template>
   <ul
-    class="fr-pagination__pages"
+    class="n-pagination__pages"
     :class="{ 'is-disabled': disabled }"
     @click="changePage"
   >
     <li
       v-if="totalPages > 0"
-      class="fr-pagination__num"
+      class="n-pagination__num"
       :class="_currentPage === 1 ? 'is-active' : ''"
     >
       1
@@ -14,7 +14,7 @@
     <!-- prevMore -->
     <li
       v-if="showPrevMore"
-      class="fr-pagination__num is-more prev"
+      class="n-pagination__num is-more prev"
       @mouseenter="isPrevHover = true"
       @mouseleave="isPrevHover = false"
     >
@@ -26,7 +26,7 @@
       v-for="item in pages"
       :key="item"
       :class="[
-        'fr-pagination__num',
+        'n-pagination__num',
         item === _currentPage ? 'is-active' : ''
       ]"
     >
@@ -35,7 +35,7 @@
     <!-- nextMore -->
     <li
       v-if="showNextMore"
-      class="fr-pagination__num is-more next"
+      class="n-pagination__num is-more next"
       :class="{ 'is-disabled': disabled }"
       @mouseenter="!disabled ? isNextHover = true : ''"
       @mouseleave="isNextHover = false"
@@ -45,7 +45,7 @@
     </li>
     <li
       v-if="totalPages > 1"
-      class="fr-pagination__num"
+      class="n-pagination__num"
       :class="_currentPage === totalPages ? 'is-active' : ''"
     >
       {{ totalPages }}

@@ -8,10 +8,10 @@ import { POPPER_INJECTION_KEY } from './constants'
 import { popperProps } from './popper'
 
 import type { Instance as PopperInstance } from '@popperjs/core'
-import type { ElPopperInjectionContext, ElPopperContentInjectionContext } from './constants'
+import type { NPopperInjectionContext, NPopperContentInjectionContext } from './constants'
 
 defineOptions({
-  name: 'FrPopper'
+  name: 'NPopper'
 })
 
 const props = defineProps(popperProps)
@@ -28,7 +28,7 @@ const popperProvide = {
   arrowRef,
   instancePopperRef,
   role
-} as ElPopperInjectionContext & ElPopperContentInjectionContext
+} as NPopperInjectionContext & NPopperContentInjectionContext
 
 defineExpose(popperProvide)
 provide(POPPER_INJECTION_KEY, popperProvide)

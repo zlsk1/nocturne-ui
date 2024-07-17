@@ -1,5 +1,5 @@
 import { withInstall } from '@/utils'
 import tag from './src/tag.vue'
 
-export const FrTag = withInstall(tag)
-export default FrTag
+export const NTag = withInstall(tag)
+export default NTag

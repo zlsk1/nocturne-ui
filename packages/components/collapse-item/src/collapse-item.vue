@@ -2,11 +2,11 @@
 import { ref, inject, computed } from 'vue'
 import { collapseItemProps } from './collapse-item'
 import { COLLAPSE_INJECTION_KEY } from '@/components/collapse/src/constants'
-import FrCollapseTransition from '../../collapse-transition/collapse-transition.vue'
+import NCollapseTransition from '../../collapse-transition/collapse-transition.vue'
 import { RiArrowRightWideLine as ArrowRight } from '@remixicon/vue'
 
 defineOptions({
-  name: 'FrCollapseItem'
+  name: 'NCollapseItem'
 })
 
 const { activelist, changeEvent } = inject(COLLAPSE_INJECTION_KEY, undefined)!
@@ -28,36 +28,36 @@ const showContent = () => {
 <template>
   <div
     :class="[
-      'fr-collapse-item',
+      'n-collapse-item',
       {
         'is-disabled': disabled
       }
     ]"
   >
-    <div class="fr-collapse-item__title" @click="showContent">
+    <div class="n-collapse-item__title" @click="showContent">
       <h3 v-if="title">
         {{ title }}
       </h3>
       <slot v-else name="title"></slot>
       <ArrowRight
         size="16"
-        class-name="fr-collapse-item__icon"
+        class-name="n-collapse-item__icon"
         :class="isActive ? 'is-rotate' : ''"
       ></ArrowRight>
     </div>
-    <fr-collapse-transition>
+    <n-collapse-transition>
       <div
         v-show="isActive"
-        class="fr-collapse-item__wrap"
+        class="n-collapse-item__wrap"
       >
         <div
           ref="contentRef"
-          class="fr-collapse-item__content"
+          class="n-collapse-item__content"
         >
           <slot></slot>
         </div>
       </div>
-    </fr-collapse-transition>
+    </n-collapse-transition>
   </div>
 </template>
 

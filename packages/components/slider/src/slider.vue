@@ -2,7 +2,7 @@
   <div
     ref="sliderRef"
     :class="[
-      'fr-slider',
+      'n-slider',
       { 'is-disabled': disabled,
         'is-vertical': vertical
       }
@@ -11,8 +11,8 @@
       height: vertical ? height + 'px' : ''
     }"
   >
-    <div class="fr-slider__track" @mousedown="onSliderDown">
-      <div class="fr-slider__track__bar" :style="barStyle"></div>
+    <div class="n-slider__track" @mousedown="onSliderDown">
+      <div class="n-slider__track__bar" :style="barStyle"></div>
       <reference
         ref="referenceRef"
         :show-tooltip="showTooltip"
@@ -27,11 +27,11 @@
         :height="height"
         @change="changeVal"
       ></reference>
-      <div v-if="step" class="fr-slider__step">
+      <div v-if="step" class="n-slider__step">
         <div
           v-for="(_, index) in step + 1"
           :key="index"
-          class="fr-slider__step__item"
+          class="n-slider__step__item"
         ></div>
       </div>
     </div>
@@ -47,7 +47,7 @@ import type { SliderReferenceInstance } from './reference'
 import type { CSSProperties } from 'vue'
 
 defineOptions({
-  name: 'FrSlider'
+  name: 'NSlider'
 })
 
 const props = defineProps(sliderProps)

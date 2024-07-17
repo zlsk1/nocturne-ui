@@ -2,8 +2,8 @@
   <div
     ref="selectRef"
     :class="[
-      'fr-select',
-      size ? `fr-select--${size}` : '',
+      'n-select',
+      size ? `n-select--${size}` : '',
       {
         'is-focus': visable,
         'is-disabled': disabled
@@ -13,7 +13,7 @@
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
   >
-    <FrTooltip
+    <NTooltip
       ref="tooltipRef"
       :visible="visable"
       trigger="click"
@@ -21,10 +21,10 @@
       :hide-after="0"
       effect="light"
       :popper-class="[
-        'fr-select__popper',
+        'n-select__popper',
         popperClass
       ]"
-      transition="fr-zoom-in-top"
+      transition="n-zoom-in-top"
       :disabled="disabled"
       :persistent="persistent"
       :gpu-acceleration="false"
@@ -33,36 +33,36 @@
       <template #default>
         <div
           :class="[
-            'fr-select__wrapper',
-            // size ? `fr-select--${size}` : '',
+            'n-select__wrapper',
+            // size ? `n-select--${size}` : '',
             {
               'is-multiple': existActualValue && multiple
             }
           ]"
         >
-          <div class="fr-select__input-wrapper">
+          <div class="n-select__input-wrapper">
             <input
               v-if="!multiple"
               ref="inputRef"
               type="text"
-              class="fr-select__input"
+              class="n-select__input"
               style="width: 10px;"
             >
-            <FrTag
+            <NTag
               v-for="(item, index) in taglist"
               v-else
               :key="index"
-              class="fr-select__tag"
+              class="n-select__tag"
               :type="tagType"
               closable
               @close="handleTagDel(item as never)"
               @mousedown.prevent="() => true"
             >
               {{ !isNil(item.label) ? item.label : item }}
-            </FrTag>
+            </NTag>
             <div
               :class="[
-                'fr-select__placeholder',
+                'n-select__placeholder',
                 {
                   'is-selecting': existActualValue,
                   'is-disabled': disabled
@@ -72,8 +72,8 @@
               {{ placeholder }}
             </div>
           </div>
-          <div class="fr-select__icon">
-            <fr-icon v-if="!shouldShowClearIcon">
+          <div class="n-select__icon">
+            <n-icon v-if="!shouldShowClearIcon">
               <ArrowDown
                 size="16"
                 :style="[
@@ -81,7 +81,7 @@
                   visable ? arrowIconStyle : ''
                 ]"
               ></ArrowDown>
-            </fr-icon>
+            </n-icon>
             <CloseCircle
               v-else
               size="16"
@@ -93,13 +93,13 @@
       <template #content>
         <ul
           ref="optionRef"
-          class="fr-select-option__wrapper"
+          class="n-select-option__wrapper"
           :style="selectWrapperStyle"
         >
           <slot></slot>
         </ul>
       </template>
-    </FrTooltip>
+    </NTooltip>
   </div>
 </template>
 
@@ -112,9 +112,9 @@ import {
   watch
 } from 'vue'
 import {
-  FrTooltip,
-  FrIcon,
-  FrTag
+  NTooltip,
+  NIcon,
+  NTag
 } from '@/components'
 import { SELECT_INJECTION_KEY } from './constants'
 import { selectProps, selectEmits } from './select'
@@ -133,7 +133,7 @@ import type { TooltipInstance } from '@/components/tooltip'
 import type { OptionProxy } from './constants'
 
 defineOptions({
-  name: 'FrSelect'
+  name: 'NSelect'
 })
 
 const props = defineProps(selectProps)

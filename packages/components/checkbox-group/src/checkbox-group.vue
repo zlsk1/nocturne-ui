@@ -5,7 +5,7 @@ import { checkboxGroupContextKey } from '../../checkbox/src/constants'
 import { CheckboxGroupValueType } from './checkbox-group'
 
 defineOptions({
-  name: 'FrCheckboxGroup'
+  name: 'NCheckboxGroup'
 })
 
 const props = defineProps(checkboxGroupProps)
@@ -34,7 +34,7 @@ provide(checkboxGroupContextKey, {
 </script>
 
 <template>
-  <div ref="groupRef" class="fr-checkbox-group">
+  <div ref="groupRef" class="n-checkbox-group">
     <slot></slot>
   </div>
 </template>

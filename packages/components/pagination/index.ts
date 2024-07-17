@@ -2,5 +2,5 @@ import { withInstall } from '@/utils'
 import pagination from './src/pagination'
 
 export * from './src/pagination'
-export const FrPagination = withInstall(pagination)
-export default FrPagination
+export const NPagination = withInstall(pagination)
+export default NPagination

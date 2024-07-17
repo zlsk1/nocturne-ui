@@ -2,7 +2,7 @@
 import { inject, ref } from 'vue'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { jumperProps } from './jumper'
-import { FrInputNumber } from '@/components'
+import { NInputNumber } from '@/components'
 
 defineProps(jumperProps)
 
@@ -18,15 +18,15 @@ const change = (value: number) => {
 </script>
 
 <template>
-  <div class="fr-pagination__jumper">
+  <div class="n-pagination__jumper">
     <span>{{ jumperText || '跳转到' }}</span>
-    <fr-input-number
+    <n-input-number
       :model-value="val"
       size="large"
       type="number"
       :controls="false"
       :disabled="disabled"
       @change="change"
-    ></fr-input-number>
+    ></n-input-number>
   </div>
 </template>

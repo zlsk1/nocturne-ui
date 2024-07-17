@@ -4,7 +4,7 @@ import { collapseProps, collapseEmits } from './collapse'
 import { COLLAPSE_INJECTION_KEY } from '@/components/collapse/src/constants'
 
 defineOptions({
-  name: 'FrCollapse'
+  name: 'NCollapse'
 })
 
 const props = defineProps(collapseProps)
@@ -30,7 +30,7 @@ provide(COLLAPSE_INJECTION_KEY, {
 <template>
   <div
     :class="[
-      'fr-collapse'
+      'n-collapse'
     ]"
   >
     <slot></slot>

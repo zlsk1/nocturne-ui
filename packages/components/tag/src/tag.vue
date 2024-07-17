@@ -6,10 +6,10 @@
   >
     <span
       :class="[
-        'fr-tag',
-        type ? 'fr-tag--' + type : '',
-        size ? 'fr-tag--' + size: '',
-        effect ? 'fr-tag--' + effect: '',
+        'n-tag',
+        type ? 'n-tag--' + type : '',
+        size ? 'n-tag--' + size: '',
+        effect ? 'n-tag--' + effect: '',
         {
           'is-round': round,
           'is-closable': closable,
@@ -19,13 +19,13 @@
       :style="{ backgroundColor: color }"
       @click="handleClick"
     >
-      <span class="fr-tag__content">
+      <span class="n-tag__content">
         <slot></slot>
       </span>
       <Close
         v-if="closable"
         size="14"
-        class-name="fr-tag__close"
+        class-name="n-tag__close"
         @click.stop="handleClose"
       ></Close>
     </span>
@@ -34,10 +34,10 @@
   <span
     v-else
     :class="[
-      'fr-tag',
-      type ? 'fr-tag--' + type : '',
-      size ? 'fr-tag--' + size: '',
-      effect ? 'fr-tag--' + effect: '',
+      'n-tag',
+      type ? 'n-tag--' + type : '',
+      size ? 'n-tag--' + size: '',
+      effect ? 'n-tag--' + effect: '',
       {
         'is-round': round,
         'is-closable': closable,
@@ -47,13 +47,13 @@
     :style="{ backgroundColor: color }"
     @click="handleClick"
   >
-    <span class="fr-tag__content">
+    <span class="n-tag__content">
       <slot></slot>
     </span>
     <Close
       v-if="closable"
       size="14"
-      class-name="fr-tag__close"
+      class-name="n-tag__close"
       @click.stop="handleClose"
     ></Close>
   </span>
@@ -65,14 +65,14 @@ import { tagProps, tagEmits } from './tag'
 import { RiCloseLine as Close } from '@remixicon/vue'
 
 defineOptions({
-  name: 'FrTag'
+  name: 'NTag'
 })
 
 const props = defineProps(tagProps)
 const emit = defineEmits(tagEmits)
 
 const transitionClass = computed(() => {
-  return props.transition ? 'fr-flip' : ''
+  return props.transition ? 'n-flip' : ''
 })
 
 const handleClose = (e: Event) => emit('close', e)

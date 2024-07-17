@@ -1,6 +1,6 @@
 <template>
-  <FrPopper ref="popperRef" :role="role">
-    <FrTooltipReference
+  <NPopper ref="popperRef" :role="role">
+    <NTooltipReference
       :trigger="trigger"
       :disabled="disabled"
       :trigger-keys="triggerKeys"
@@ -8,7 +8,7 @@
       :virtual-triggering="virtualTriggering"
     >
       <slot></slot>
-    </FrTooltipReference>
+    </NTooltipReference>
     <frTooltipContent
       ref="contentRef"
       :aria-label="ariaLabel"
@@ -42,9 +42,9 @@
         <span v-if="rawContent" v-html="content"></span>
         <span v-else>{{ content }}</span>
       </slot>
-      <FrPopperArrow v-if="showArrow" :arrow-offset="arrowOffset"></FrPopperArrow>
+      <NPopperArrow v-if="showArrow" :arrow-offset="arrowOffset"></NPopperArrow>
     </frTooltipContent>
-  </FrPopper>
+  </NPopper>
 </template>
 
 <script lang="ts" setup>
@@ -52,15 +52,15 @@ import { ref, provide, computed, unref, toRef, watch, onDeactivated } from 'vue'
 import { tooltipEmits, useTooltipModelToggle, useTooltipProps } from './tooltip'
 import { useDelayedToggle } from '@/composables'
 import frTooltipContent from './content.vue'
-import FrTooltipReference from './reference.vue'
-import FrPopper from '@/components/popper'
-import FrPopperArrow from '@/components/popper/src/arrow.vue'
+import NTooltipReference from './reference.vue'
+import NPopper from '@/components/popper'
+import NPopperArrow from '@/components/popper/src/arrow.vue'
 import { TOOLTIP_INJECTION_KEY } from './constants'
 import { isBoolean } from '@/utils'
 import type { PopperInstance } from '@/components/popper'
 
 defineOptions({
-  name: 'FrTooltip'
+  name: 'NTooltip'
 })
 
 const props = defineProps(useTooltipProps)

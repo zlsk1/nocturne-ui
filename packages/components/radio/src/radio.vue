@@ -4,7 +4,7 @@ import { radioProps, radioEmits } from './radio'
 import { RADIOGROUP_INJECTION_KEY } from '@/components/radio-group/src/constants'
 
 defineOptions({
-  name: 'FrRadio'
+  name: 'NRadio'
 })
 
 const props = defineProps(radioProps)
@@ -51,8 +51,8 @@ const handleChange = () => {
 <template>
   <label
     :class="[
-      'fr-radio',
-      `fr-radio--${groupRef?.size || size || 'default'}`,
+      'n-radio',
+      `n-radio--${groupRef?.size || size || 'default'}`,
       {
         'is-checked': modelValue === actualValue,
         'is-disabled': disabled,
@@ -62,7 +62,7 @@ const handleChange = () => {
   >
     <span
       :class="[
-        'fr-radio__input',
+        'n-radio__input',
         {
           'is-checked': modelValue === actualValue,
           'is-disabled': disabled
@@ -75,14 +75,14 @@ const handleChange = () => {
         :value="actualValue"
         type="radio"
         :disabled="disabled"
-        class="fr-radio__original"
+        class="n-radio__original"
         @change="handleChange"
         @focus="focus = true"
         @blur="focus = false"
       >
-      <span class="fr-radio__inner"></span>
+      <span class="n-radio__inner"></span>
     </span>
-    <span class="fr-radio__label"><slot></slot></span>
+    <span class="n-radio__label"><slot></slot></span>
   </label>
 </template>
 

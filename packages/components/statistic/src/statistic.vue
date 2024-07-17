@@ -4,7 +4,7 @@ import { statisticProps } from './statistic'
 import { isFunction, isNumber } from '@/utils'
 
 defineOptions({
-  name: 'FrStatistic'
+  name: 'NStatistic'
 })
 
 const props = defineProps(statisticProps)
@@ -27,13 +27,13 @@ defineExpose({
 <template>
   <div
     :class="[
-      'fr-statistic'
+      'n-statistic'
     ]"
   >
-    <div class="fr-statistic__title">
+    <div class="n-statistic__title">
       <slot></slot>
     </div>
-    <div class="fr-statistic__value" :style="valueStyle">
+    <div class="n-statistic__value" :style="valueStyle">
       <component :is="suffixIcon" v-if="suffixIcon"></component>
       {{ _value }}
       <component :is="prefixIcon" v-if="prefixIcon"></component>

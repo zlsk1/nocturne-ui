@@ -137,7 +137,7 @@ export default defineComponent({
         'div',
         {
           class: [
-            'fr-pagination',
+            'n-pagination',
             {
               'is-background': props.background,
               'is-small': props.small,

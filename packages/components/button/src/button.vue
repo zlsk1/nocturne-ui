@@ -4,7 +4,7 @@ import { buttonProps, buttonEmits } from './button'
 import { RiLoaderLine } from '@remixicon/vue'
 
 defineOptions({
-  name: 'FrButton'
+  name: 'NButton'
 })
 
 defineProps(buttonProps)
@@ -18,12 +18,12 @@ const handleClick = (e: MouseEvent) => {
 </script>
 
 <template>
-  <div class="fr-button-wrapper" @click="handleClick">
+  <div class="n-button-wrapper" @click="handleClick">
     <button
       :class="[
-        'fr-button',
-        type ? 'fr-button--' + type : '',
-        size ? 'fr-button--' + size : '',
+        'n-button',
+        type ? 'n-button--' + type : '',
+        size ? 'n-button--' + size : '',
         {
           'is-round': round,
           'is-plain': plain,
@@ -35,14 +35,14 @@ const handleClick = (e: MouseEvent) => {
       <template v-if="loading">
         <component
           :is="RiLoaderLine"
-          class="fr-icon"
+          class="n-icon"
           size="14"
         ></component>
       </template>
       <template v-else-if="icon">
         <component
           :is="icon"
-          class="fr-icon"
+          class="n-icon"
           size="14"
         ></component>
       </template>

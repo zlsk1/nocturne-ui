@@ -2,7 +2,7 @@
 import { timelineItemProps } from './timeline-item'
 
 defineOptions({
-  name: 'FrTimelineItem'
+  name: 'NTimelineItem'
 })
 
 defineProps(timelineItemProps)
@@ -11,49 +11,49 @@ defineProps(timelineItemProps)
 <template>
   <li
     :class="[
-      'fr-timeline-item',
+      'n-timeline-item',
       {
-        'fr-timeline-item__center': center
+        'n-timeline-item__center': center
       }
     ]"
   >
-    <div class="fr-timeline-item__tail"></div>
+    <div class="n-timeline-item__tail"></div>
 
     <div
       :class="[
-        'fr-timeline-item__dot',
-        'fr-timeline-item__dot--normal',
-        type ? 'fr-timeline-item__dot--' + type : '',
-        size ? 'fr-timeline-item__dot--' + size : '',
+        'n-timeline-item__dot',
+        'n-timeline-item__dot--normal',
+        type ? 'n-timeline-item__dot--' + type : '',
+        size ? 'n-timeline-item__dot--' + size : '',
         {
           'is-hollow': hollow
         }
       ]"
       :style="{backgroundColor: color}"
     >
-      <fr-icon v-if="icon" :icon="icon"></fr-icon>
+      <n-icon v-if="icon" :icon="icon"></n-icon>
     </div>
     <div
       :class="[
-        'fr-timeline-item__wrap'
+        'n-timeline-item__wrap'
       ]"
     >
       <div
         v-if="!hideTimestamp && placement === 'top'"
         :class="[
-          'fr-timeline-item__timestamp',
+          'n-timeline-item__timestamp',
           'is-top'
         ]"
       >
         {{ timestamp }}
       </div>
-      <div class="fr-timeline-itme__content">
+      <div class="n-timeline-itme__content">
         <slot></slot>
       </div>
       <div
         v-if="!hideTimestamp && placement === 'bottom'"
         :class="[
-          'fr-timeline-item__timestamp',
+          'n-timeline-item__timestamp',
           'is-bottom'
         ]"
       >

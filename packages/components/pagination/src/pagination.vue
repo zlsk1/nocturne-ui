@@ -9,7 +9,7 @@ import next from './components/next.vue'
 import total from './components/total.vue'
 
 defineOptions({
-  name: 'FrPagination'
+  name: 'NPagination'
 })
 
 const props = defineProps(paginationProps)
@@ -36,7 +36,7 @@ provide(
 <template>
   <div
     :class="[
-      'fr-pagination',
+      'n-pagination',
       {
         'is-background': background,
         'is-small': small,

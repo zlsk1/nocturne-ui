@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { alertProps, alertEmits } from './alert'
 
 defineOptions({
-  name: 'FrAlert'
+  name: 'NAlert'
 })
 
 defineProps(alertProps)
@@ -20,8 +20,8 @@ const handleClose = (e: MouseEvent) => {
 <template>
   <div
     :class="[
-      'fr-alert',
-      `fr-alert--${type}`,
+      'n-alert',
+      `n-alert--${type}`,
       effect === 'light' ? 'is-light' : 'is-dark',
       {
         'is-center': center
@@ -29,29 +29,29 @@ const handleClose = (e: MouseEvent) => {
     ]"
     :style="{display: isClose ? 'none' : ''}"
   >
-    <fr-icon
+    <n-icon
       v-if="showIcon"
-      class-name="fr-alert__icon"
+      class-name="n-alert__icon"
       :icon="type"
-    ></fr-icon>
-    <div class="fr-alert__content">
+    ></n-icon>
+    <div class="n-alert__content">
       <slot name="title">
       </slot>
-      <span v-if="title" class="fr-alert__title">
+      <span v-if="title" class="n-alert__title">
         {{ title }}
       </span>
-      <p v-if="description" class="fr-alert__description">
+      <p v-if="description" class="n-alert__description">
         {{ description }}
       </p>
-      <fr-icon
+      <n-icon
         v-if="closable && !closeText"
         icon="close"
-        class-name="fr-alert__close"
+        class-name="n-alert__close"
         @click="handleClose"
-      ></fr-icon>
+      ></n-icon>
       <div
         v-else
-        class="fr-alert__close is-close-text"
+        class="n-alert__close is-close-text"
         @click="handleClose"
       >
         {{ closeText }}

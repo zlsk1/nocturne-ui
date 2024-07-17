@@ -18,6 +18,4 @@ export const useTooltipTriggerProps = {
   }
 } as const
 
-export type ElTooltipTriggerProps = ExtractPropTypes<
-  typeof useTooltipTriggerProps
->
+export type TooltipTriggerProps = ExtractPropTypes<typeof useTooltipTriggerProps>

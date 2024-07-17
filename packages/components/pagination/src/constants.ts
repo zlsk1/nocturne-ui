@@ -1,6 +1,6 @@
 import type { ComputedRef, InjectionKey, Ref } from 'vue'
 
-export type FrPaginationInjectionContext = {
+export type NPaginationInjectionContext = {
   _currentPage: Ref<number>,
   disabled: boolean,
   totalPages: ComputedRef<number>,
@@ -8,5 +8,5 @@ export type FrPaginationInjectionContext = {
   emit: any,
 }
 
-export const PAGINATION_INJECTION_KEY: InjectionKey<FrPaginationInjectionContext> = Symbol('frPagination')
+export const PAGINATION_INJECTION_KEY: InjectionKey<NPaginationInjectionContext> = Symbol('frPagination')
 

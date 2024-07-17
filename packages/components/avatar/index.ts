@@ -1,6 +1,6 @@
 import { withInstall } from '@/utils'
 import avatar from './src/avatar.vue'
 
-export const FrAvatar = withInstall(avatar)
+export const NAvatar = withInstall(avatar)
 export * from './src/avatar'
-export default FrAvatar
+export default NAvatar

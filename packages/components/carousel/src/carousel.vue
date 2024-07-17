@@ -1,40 +1,40 @@
 <template>
   <div
-    class="fr-carousel"
+    class="n-carousel"
     @mouseenter="onMouseenter"
     @mouseleave="onMouseleave"
   >
     <button
       v-if="showArrow && !$slots.prev"
       :class="[
-        'fr-carousel__button',
-        'fr-carousel__button--left',
+        'n-carousel__button',
+        'n-carousel__button--left',
         { 'is-animation': isHover }
       ]"
       @click="handlePrev"
     >
-      <FrIcon icon="arrow-left"></FrIcon>
+      <NIcon icon="arrow-left"></NIcon>
     </button>
     <div
       v-else
-      class="fr-carousel__slot--prev"
+      class="n-carousel__slot--prev"
       @click="handlePrev"
     >
       <slot name="prev"></slot>
     </div>
     <div
       ref="contentRef"
-      class="fr-carousel__content"
+      class="n-carousel__content"
       :style="{ height: height + 'px' }"
     >
       <slot></slot>
     </div>
-    <ul v-if="!hideIndicator" class="fr-carousel__indicator">
+    <ul v-if="!hideIndicator" class="n-carousel__indicator">
       <li
         v-for="(_, i) in itemCount"
         :key="i"
         :class="[
-          'fr-carousel__indicator__item'
+          'n-carousel__indicator__item'
         ]"
         @click="clickIndicator(i)"
       >
@@ -50,17 +50,17 @@
     <button
       v-if="showArrow && !$slots.next"
       :class="[
-        'fr-carousel__button',
-        'fr-carousel__button--right',
+        'n-carousel__button',
+        'n-carousel__button--right',
         { 'is-animation': isHover }
       ]"
       @click="handleNext"
     >
-      <FrIcon v-if="!$slots.next" icon="arrow-right"></FrIcon>
+      <NIcon v-if="!$slots.next" icon="arrow-right"></NIcon>
     </button>
     <div
       v-else
-      class="fr-carousel__slot--next"
+      class="n-carousel__slot--next"
       @click="handleNext"
     >
       <slot name="next"></slot>
@@ -71,7 +71,7 @@
 <script lang="ts" setup>
 import { onMounted, provide, ref, watch } from 'vue'
 import { carouselProps, carouselEmits } from './carousel'
-import { FrIcon } from '@/components'
+import { NIcon } from '@/components'
 import { CAROUSEL_INJECT_KEY } from './constants'
 import { useIntervalFn, useThrottleFn } from '@vueuse/core'
 

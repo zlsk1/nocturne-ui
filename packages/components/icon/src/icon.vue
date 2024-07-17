@@ -2,7 +2,7 @@
 <template>
   <i
     v-if="$slots.default"
-    class="fr-icon"
+    class="n-icon"
     :class="svgClass"
     :style="svgStyle"
   >
@@ -20,23 +20,23 @@ import { isString } from '@/utils'
 import type { StyleValue, CSSProperties } from 'vue'
 
 defineOptions({
-  name: 'FrIcon'
+  name: 'NIcon'
 })
 
 const props = defineProps(iconProps)
 
 const svgClass = computed<StyleValue>(() => {
   if (isString(props.className)) {
-    return 'fr-icon ' + props.className
+    return 'n-icon ' + props.className
   }
   else if (Array.isArray(props.className)) {
     const className = props.className.map(v => {
       return v
     }).join(' ')
-    return 'fr-icon ' + className
+    return 'n-icon ' + className
   }
   else {
-    return 'fr-icon'
+    return 'n-icon'
   }
 })
 

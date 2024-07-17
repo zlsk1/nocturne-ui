@@ -1,7 +1,7 @@
 <template>
   <span
     ref="arrowRef"
-    class="fr-popper__arrow"
+    class="n-popper__arrow"
     data-popper-arrow
     :style="arrowStyle"
   ></span>
@@ -13,7 +13,7 @@ import { popperArrowProps } from './arrow'
 import { POPPER_CONTENT_INJECTION_KEY } from './constants'
 
 defineOptions({
-  name: 'FrPopperArrow'
+  name: 'NPopperArrow'
 })
 
 const props = defineProps(popperArrowProps)

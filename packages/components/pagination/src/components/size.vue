@@ -1,26 +1,26 @@
 <template>
-  <FrSelect
+  <NSelect
     v-model="selectedPage"
-    class="fr-pagination__size"
+    class="n-pagination__size"
     :size="small ? 'small' : ''"
     @update:model-value="onSelect"
   >
-    <FrOption
+    <NOption
       v-for="(item, index) in pageSizes"
       :key="index"
       :label="`${item}条/页`"
       :value="item"
     >
       {{ item }}条/页
-    </FrOption>
-  </FrSelect>
+    </NOption>
+  </NSelect>
 </template>
 
 <script lang="ts" setup>
 import { inject, ref } from 'vue'
 import { sizeProps } from './size'
 import { PAGINATION_INJECTION_KEY } from '../constants'
-import { FrSelect, FrOption } from '@/components'
+import { NSelect, NOption } from '@/components'
 
 const {
   emit

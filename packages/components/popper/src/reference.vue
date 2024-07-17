@@ -17,7 +17,7 @@ import { unrefElement } from '@vueuse/core'
 import type { WatchStopHandle } from 'vue'
 
 defineOptions({
-  name: 'FrPopperReference'
+  name: 'NPopperReference'
 })
 
 const props = defineProps(popperReferenceProps)

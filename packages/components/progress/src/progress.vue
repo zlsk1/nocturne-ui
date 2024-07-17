@@ -1,25 +1,25 @@
 <template>
-  <div class="fr-progress" :style="{ height: height + 'px' }">
-    <div v-if="type === 'line'" class="fr-progress--line">
-      <div class="fr-progress__bg"></div>
+  <div class="n-progress" :style="{ height: height + 'px' }">
+    <div v-if="type === 'line'" class="n-progress--line">
+      <div class="n-progress__bg"></div>
       <div
         ref="barRef"
-        class="fr-progress__bar"
+        class="n-progress__bar"
         :style="barStyle"
       >
-        <span v-if="$slots.inner" class="fr-progress__bar__inner">
+        <span v-if="$slots.inner" class="n-progress__bar__inner">
           <slot name="inner"></slot>
         </span>
       </div>
     </div>
-    <!-- <div v-if="type === 'round'" class="fr-progress--round">
-      <div class="fr-progress__bg"></div>
+    <!-- <div v-if="type === 'round'" class="n-progress--round">
+      <div class="n-progress__bg"></div>
       <div
-        class="fr-progress__bar"
+        class="n-progress__bar"
         :style="{ width: percentage + '%' }"
       ></div>
     </div> -->
-    <div v-if="$slots.default" class="fr-progress__slot">
+    <div v-if="$slots.default" class="n-progress__slot">
       <slot></slot>
     </div>
   </div>
@@ -32,7 +32,7 @@ import type { ProgressProps } from './progress'
 import type { CSSProperties } from 'vue'
 
 defineOptions({
-  name: 'FrProgress'
+  name: 'NProgress'
 })
 
 const props = defineProps(progressProps)

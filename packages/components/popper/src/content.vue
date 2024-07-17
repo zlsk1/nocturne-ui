@@ -1,7 +1,7 @@
 <template>
   <div
     ref="contentRef"
-    class="fr-popper"
+    class="n-popper"
     v-bind="contentAttrs"
     :style="contentStyle"
     :class="contentClass"
@@ -23,7 +23,7 @@ import { isElement } from '@/utils'
 import type { WatchStopHandle } from 'vue'
 
 defineOptions({
-  name: 'FrPopperContent'
+  name: 'NPopperContent'
 })
 
 const props = defineProps(popperContentProps)

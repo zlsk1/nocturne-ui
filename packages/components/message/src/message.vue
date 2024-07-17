@@ -3,7 +3,7 @@ import { ref, onMounted, computed, watch } from 'vue'
 import { messageProps, messageEmits } from './message'
 import { getOffsetOrSpace, getLastOffset } from './instance'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
-import { FrBadge } from '@/components'
+import { NBadge } from '@/components'
 import { BadgeProps } from '@/components/badge'
 import {
   RiInformationFill as info,
@@ -14,7 +14,7 @@ import {
 } from '@remixicon/vue'
 
 defineOptions({
-  name: 'FrMessage'
+  name: 'NMessage'
 })
 
 const props = defineProps(messageProps)
@@ -91,7 +91,7 @@ defineExpose({
 
 <template>
   <transition
-    name="fr-message-fade"
+    name="n-message-fade"
     @before-leave="onClose!"
     @after-leave="$emit('destroy')"
   >
@@ -99,8 +99,8 @@ defineExpose({
       v-show="visible"
       ref="messageRef"
       :class="[
-        'fr-message',
-        `fr-message--${type}`,
+        'n-message',
+        `n-message--${type}`,
         customClass
       ]"
       :style="{
@@ -109,26 +109,26 @@ defineExpose({
       @mouseenter="clearTimer"
       @mouseleave="startTimer"
     >
-      <FrBadge
+      <NBadge
         v-if="repeatNum > 1"
-        class="fr-message__badge"
+        class="n-message__badge"
         :value="repeatNum"
         :type="badgeType"
-      ></FrBadge>
+      ></NBadge>
       <component
         :is="icon"
-        :class-name="`fr-message-icon--${type}`"
+        :class-name="`n-message-icon--${type}`"
         size="18"
       ></component>
-      <div class="fr-message__content">
+      <div class="n-message__content">
         <slot name="title">
         </slot>
-        <span class="fr-message__title">
+        <span class="n-message__title">
           {{ message }}
         </span>
         <Close
           v-if="showClose"
-          class-name="fr-message__close"
+          class-name="n-message__close"
           size="18"
           @click.stop="close"
         ></Close>

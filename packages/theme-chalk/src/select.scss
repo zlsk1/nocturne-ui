@@ -60,7 +60,7 @@ $select-height: map.merge(
     }
   }
 
-  .fr-select__input-wrapper {
+  .#{$namespace}select__input-wrapper {
     position: relative;
     width: 100%;
 
@@ -128,7 +128,7 @@ $select-height: map.merge(
   }
 }
 
-.fr-select__popper {
+.#{$namespace}select__popper {
   padding: 4px 0 !important;
 }
   

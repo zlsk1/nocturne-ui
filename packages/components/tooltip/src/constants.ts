@@ -1,7 +1,7 @@
 import type { InjectionKey, Ref } from 'vue'
 import type { TooltipTriggerType } from './reference'
 
-export type FrTooltipInjectionContext = {
+export type NTooltipInjectionContext = {
   controlled: Ref<boolean>
   open: Ref<boolean>
   trigger: Ref<TooltipTriggerType>
@@ -15,5 +15,5 @@ export type FrTooltipInjectionContext = {
   updatePopper: () => void
 }
 
-export const TOOLTIP_INJECTION_KEY: InjectionKey<FrTooltipInjectionContext> =
+export const TOOLTIP_INJECTION_KEY: InjectionKey<NTooltipInjectionContext> =
   Symbol('elTooltip')

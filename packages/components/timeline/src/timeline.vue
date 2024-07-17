@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 defineOptions({
-  name: 'FrTimeline'
+  name: 'NTimeline'
 })
 </script>
 
 <template>
-  <ul class="fr-timeline">
+  <ul class="n-timeline">
     <slot></slot>
   </ul>
 </template>

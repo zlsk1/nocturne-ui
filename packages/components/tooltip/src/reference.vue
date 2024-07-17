@@ -1,5 +1,5 @@
 <template>
-  <FrPopperReference
+  <NPopperReference
     :open="open"
     @blur="onBlur"
     @click="onClick"
@@ -10,7 +10,7 @@
     @keydown="onKeydown"
   >
     <slot></slot>
-  </FrPopperReference>
+  </NPopperReference>
 </template>
 
 <script lang="ts" setup>
@@ -18,11 +18,11 @@ import { inject, ref, unref, toRef } from 'vue'
 import { useTooltipTriggerProps } from './reference.js'
 import { whenTrigger } from './utils'
 import { composeEventHandlers } from '@/utils/dom'
-import FrPopperReference from '@/components/popper/src/reference.vue'
+import NPopperReference from '@/components/popper/src/reference.vue'
 import { TOOLTIP_INJECTION_KEY } from './constants'
 
 defineOptions({
-  name: 'FrTooltipReference'
+  name: 'NTooltipReference'
 })
 
 const props = defineProps(useTooltipTriggerProps)

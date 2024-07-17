@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { inputNumberProps, inputNumberEmits } from './input-number'
-import { FrInput } from '@/components'
+import { NInput } from '@/components'
 import {
   RiAddLine as Add,
   RiSubtractLine as Subtract
@@ -9,7 +9,7 @@ import {
 import type { InputInstance } from '@/components/input/src/input'
 
 defineOptions({
-  name: 'FrInputNumber'
+  name: 'NInputNumber'
 })
 
 const props = defineProps(inputNumberProps)
@@ -72,7 +72,7 @@ defineExpose({
 <template>
   <div
     :class="[
-      'fr-input-number',
+      'n-input-number',
       {
         'is-disabled': disabled
       }
@@ -81,7 +81,7 @@ defineExpose({
     <template v-if="controls">
       <span
         :class="[
-          'fr-input-number__decrease',
+          'n-input-number__decrease',
           {
             'is-disabled': isLessMin
           }
@@ -92,7 +92,7 @@ defineExpose({
       </span>
       <span
         :class="[
-          'fr-input-number__increase',
+          'n-input-number__increase',
           {
             'is-disabled': isMoreMax
           }
@@ -102,7 +102,7 @@ defineExpose({
         <Add></Add>
       </span>
     </template>
-    <fr-input
+    <n-input
       ref="inputRef"
       :size="size"
       type="number"
@@ -114,7 +114,7 @@ defineExpose({
       @blur="handleBlur"
       @focus="handleFocus"
       @change="handleChange"
-    ></fr-input>
+    ></n-input>
   </div>
 </template>
 

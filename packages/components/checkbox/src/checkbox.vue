@@ -4,7 +4,7 @@ import { checkboxProps, checkboxEmits } from './checkbox'
 import { useCheckbox } from '../composables'
 
 defineOptions({
-  name: 'FrCheckbox'
+  name: 'NCheckbox'
 })
 
 const props = defineProps(checkboxProps)
@@ -24,8 +24,8 @@ const {
 <template>
   <label
     :class="[
-      'fr-checkbox',
-      `fr-checkbox--${size || 'default'}`,
+      'n-checkbox',
+      `n-checkbox--${size || 'default'}`,
       {
         'is-disabled': disabled || isDisabled,
         'is-checked': isChecked,
@@ -34,7 +34,7 @@ const {
   >
     <span
       :class="[
-        'fr-checkbox__input',
+        'n-checkbox__input',
         {
           'is-disabled': disabled || isDisabled,
           'is-checked': isChecked,
@@ -53,7 +53,7 @@ const {
         :true-value="trueValue"
         :false-value="falseValue"
         type="checkbox"
-        class="fr-checkbox__original"
+        class="n-checkbox__original"
         @change="handleChange"
         @focus="isFocused = true"
         @blur="isFocused = false"
@@ -68,15 +68,15 @@ const {
         :tabindex="tabindex"
         :disabled="isDisabled"
         type="checkbox"
-        class="fr-checkbox__original"
+        class="n-checkbox__original"
         @change="handleChange"
         @focus="isFocused = true"
         @blur="isFocused = false"
         @click.stop
       >
-      <span class="fr-checkbox__inner"></span>
+      <span class="n-checkbox__inner"></span>
     </span>
-    <span class="fr-checkbox__label">
+    <span class="n-checkbox__label">
       <slot></slot>
       <template v-if="!$slots.default">{{ label }}</template>
     </span>

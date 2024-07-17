@@ -2,7 +2,7 @@
   <div
     ref="itemRef"
     :class="[
-      'fr-carousel__content__item',
+      'n-carousel__content__item',
       {
         'is-animation': isAnimation
       }

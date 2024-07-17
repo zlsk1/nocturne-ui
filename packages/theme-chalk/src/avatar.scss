@@ -28,7 +28,7 @@
       height: getCssVar('component-size', $size);
       font-size: getCssVar('avatar-icon-size', $size);
 
-      .fr-avatar__icon {
+      .#{$namespace}-avatar__icon {
         font-size: getCssVar('avatar-icon-size', $size);
       }
     }

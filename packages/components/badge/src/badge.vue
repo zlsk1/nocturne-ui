@@ -4,7 +4,7 @@ import { badgeProps } from './badge'
 import { isNumber } from '@/utils'
 
 defineOptions({
-  name: 'FrBadge'
+  name: 'NBadge'
 })
 
 const props = defineProps(badgeProps)
@@ -18,16 +18,16 @@ const _value = computed(() => {
 </script>
 
 <template>
-  <div class="fr-badge">
+  <div class="n-badge">
     <span>
       <slot></slot>
     </span>
     <span
       v-if="!hidden"
       :class="[
-        'fr-badge__content',
+        'n-badge__content',
         'is-fixed',
-        type ? 'fr-badge__content--' + type: '',
+        type ? 'n-badge__content--' + type: '',
         {
           'is-dot': dot
         }

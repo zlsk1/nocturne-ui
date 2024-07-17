@@ -2,7 +2,7 @@
   <div
     ref="referenceRef"
     :class="[
-      'fr-slider__reference-wrapper',
+      'n-slider__reference-wrapper',
       { 'is-disabled': disabled,
         'is-active': isActive,
       }
@@ -12,18 +12,18 @@
     @mouseenter="onMouseenter"
     @mouseleave="onMouseleave"
   >
-    <FrTooltip
+    <NTooltip
       ref="tooltipRef"
       :disabled="!showTooltip"
       :placement="placement"
       :popper-class="tooltipClass"
       :visible="visible"
     >
-      <div class="fr-slider__reference"></div>
+      <div class="n-slider__reference"></div>
       <template #content>
         <span>{{ formatValue }}</span>
       </template>
-    </FrTooltip>
+    </NTooltip>
   </div>
 </template>
 
@@ -31,11 +31,11 @@
 import { ref, inject, computed, watch, nextTick } from 'vue'
 import { SLIDER_INJECT_KEY } from './constants'
 import { sliderReferenceProps, sliderReferenceEmits } from './reference'
-import { FrTooltip } from '@/components'
+import { NTooltip } from '@/components'
 import type { TooltipInstance } from '@/components/tooltip'
 
 defineOptions({
-  name: 'FrSliderReference'
+  name: 'NSliderReference'
 })
 
 const props = defineProps(sliderReferenceProps)

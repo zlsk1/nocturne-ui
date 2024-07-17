@@ -1,5 +1,5 @@
 <template>
-  <div class="fr-pagination__total">
+  <div class="n-pagination__total">
     总共{{ total }}条
   </div>
 </template>

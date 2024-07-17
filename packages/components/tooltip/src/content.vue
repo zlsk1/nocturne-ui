@@ -56,7 +56,7 @@ import { composeEventHandlers } from '@/utils/dom'
 import { TOOLTIP_INJECTION_KEY } from './constants'
 
 defineOptions({
-  name: 'FrTooltipContent'
+  name: 'NTooltipContent'
 })
 
 const props = defineProps(useTooltipContentProps)
@@ -77,7 +77,7 @@ const contentRef = ref()
 const destroyed = ref(false)
 
 const transitionClass = computed(() => {
-  return props.transition || 'fr-popper-transition'
+  return props.transition || 'n-popper-transition'
 })
 
 const persistentRef = computed(() => {

@@ -5,7 +5,7 @@
 @use 'mixins/function' as *;
 @use 'common/var' as *;
 
-$prefix: fr-select-option;
+$prefix: #{$namespace}-select-option;
 
 .#{$prefix}__wrapper {
   @include set-component-css-var('option', $option);

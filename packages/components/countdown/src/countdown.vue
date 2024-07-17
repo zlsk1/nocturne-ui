@@ -3,10 +3,10 @@ import { ref, onBeforeUnmount, watch } from 'vue'
 import { getTime, formatTime } from './utils'
 import { countdownProps, countdownEmits } from './countdown'
 import { setTimer, cancelTimer } from '@/utils/timer'
-import { FrStatistic } from '@/components'
+import { NStatistic } from '@/components'
 
 defineOptions({
-  name: 'FrCountdown'
+  name: 'NCountdown'
 })
 
 const props = defineProps(countdownProps)
@@ -61,7 +61,7 @@ watch(
 </script>
 
 <template>
-  <fr-statistic
+  <n-statistic
     :value="rawValue"
     :title="title"
     :suffix-icon="suffixIcon"
@@ -70,7 +70,7 @@ watch(
     :formatter="formatter"
   >
     <slot></slot>
-  </fr-statistic>
+  </n-statistic>
 </template>
 
 <style>

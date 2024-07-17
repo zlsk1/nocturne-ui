@@ -2,7 +2,7 @@
 import { linkProps } from './link'
 
 defineOptions({
-  name: 'FrLink'
+  name: 'NLink'
 })
 
 defineProps(linkProps)
@@ -11,8 +11,8 @@ defineProps(linkProps)
 <template>
   <a
     :class="[
-      'fr-link',
-      type ? 'fr-link--' + type : '',
+      'n-link',
+      type ? 'n-link--' + type : '',
       {
         'is-underline': !disabled && underline,
         'is-disabled': disabled,

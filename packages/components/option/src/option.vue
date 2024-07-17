@@ -1,7 +1,7 @@
 <template>
   <li
     :class="[
-      'fr-select-option__item',
+      'n-select-option__item',
       {
         'is-disabled': disabled,
         'is-selected': selected
@@ -9,7 +9,7 @@
     ]"
     @click.stop="onSelect"
   >
-    <span class="fr-select-option__inner">
+    <span class="n-select-option__inner">
       <template v-if="$slots.default">
         <slot></slot>
       </template>
@@ -30,7 +30,7 @@ import { RiCheckFill as Check } from '@remixicon/vue'
 import type { OptionProxy } from '@/components/select/src/constants'
 
 defineOptions({
-  name: 'FrOption'
+  name: 'NOption'
 })
 
 const props = defineProps(optionProps)

@@ -1,7 +1,7 @@
 <template>
   <button
     :class="[
-      'fr-pagination__button',
+      'n-pagination__button',
       {
         'is-not-allow': more,
         'is-text': nextText
@@ -9,7 +9,7 @@
     ]"
     @click="handleNextPage"
   >
-    <fr-icon v-if="!nextText" :icon="nextIcon"></fr-icon>
+    <n-icon v-if="!nextText" :icon="nextIcon"></n-icon>
     <span v-else>{{ nextText }}</span>
   </button>
 </template>
@@ -18,7 +18,7 @@
 import { inject, computed } from 'vue'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { nextProps } from './next'
-import { FrIcon } from '@/components'
+import { NIcon } from '@/components'
 
 defineProps(nextProps)
 

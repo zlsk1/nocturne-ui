@@ -1,5 +1,5 @@
 import { withInstall } from '@/utils'
 import timeline from './src/timeline.vue'
 
-export const FrTimeline = withInstall(timeline)
-export default FrTimeline
+export const NTimeline = withInstall(timeline)
+export default NTimeline
