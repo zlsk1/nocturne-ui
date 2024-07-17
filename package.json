@@ -13,7 +13,9 @@
     "format": "prettier --write packages/",
     "prepare": "is-ci || husky install",
     "precommit": "lint-staged -c ./.husky/.lintstagedrc -q",
-    "check": "vue-tsc -p tsconfig.node.json --composite false  --noEmit" 
+    "check": "vue-tsc -p tsconfig.node.json --composite false  --noEmit",
+    "docs:dev": "pnpm -C docs dev",
+    "docs:build": "pnpm -C docs dev"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",

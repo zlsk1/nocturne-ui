@@ -3,3 +3,4 @@ packages:
   - packages/theme-chalk
   - playground
   - build
+  - dosc
