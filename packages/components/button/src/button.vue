@@ -18,39 +18,39 @@ const handleClick = (e: MouseEvent) => {
 </script>
 
 <template>
-  <div class="n-button-wrapper" @click="handleClick">
-    <button
-      :class="[
-        'n-button',
-        type ? 'n-button--' + type : '',
-        size ? 'n-button--' + size : '',
-        {
-          'is-round': round,
-          'is-plain': plain,
-          'is-circle': circle,
-          'is-disabled': disabled,
-        }
-      ]"
-    >
-      <template v-if="loading">
-        <component
-          :is="RiLoaderLine"
-          class="n-icon"
-          size="14"
-        ></component>
-      </template>
-      <template v-else-if="icon">
-        <component
-          :is="icon"
-          class="n-icon"
-          size="14"
-        ></component>
-      </template>
-      <span v-if="slots.default">
-        <slot></slot>
-      </span>
-    </button>
-  </div>
+  <button
+    :class="[
+      'n-button-wrapper',
+      'n-button',
+      type ? 'n-button--' + type : '',
+      size ? 'n-button--' + size : '',
+      {
+        'is-round': round,
+        'is-plain': plain,
+        'is-circle': circle,
+        'is-disabled': disabled,
+      }
+    ]"
+    @click="handleClick"
+  >
+    <template v-if="loading">
+      <component
+        :is="RiLoaderLine"
+        class="n-icon"
+        size="14"
+      ></component>
+    </template>
+    <template v-else-if="icon">
+      <component
+        :is="icon"
+        class="n-icon"
+        size="14"
+      ></component>
+    </template>
+    <span v-if="slots.default">
+      <slot></slot>
+    </span>
+  </button>
 </template>
 
 <style lang="scss" scoped>

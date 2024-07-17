@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './src/App.vue'
-import NocturneUI from 'nocturne-ui'
-import 'nocturne-ui/dist/index.css'
+import NocturneUI from '../dist/nocturne-ui/dist/index.full'
+import '../dist/nocturne-ui/dist/index.css'
 
 const app = createApp(App)
 
