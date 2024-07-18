@@ -3,7 +3,7 @@ title: 按钮
 lang: ch-ZH
 ---
 
-# 按钮
+# Button 按钮
 
 常用化按钮
 

@@ -1,23 +1,44 @@
+<!-- eslint-disable vue/no-multiple-template-root -->
 <template>
-  <div class="flex justify-between mb-4">
-    <fr-button>
-      defualt
-    </fr-button>
-    <fr-button type="primary">
-      primary
-    </fr-button>
-    <fr-button type="danger">
-      danger
-    </fr-button>
-    <fr-button type="warning">
-      warning
-    </fr-button>
-    <fr-button type="info">
-      info
-    </fr-button>
-    <fr-button type="success">
-      success
-    </fr-button>
+  <div class="mb-4">
+    <n-button>
+      Defualt
+    </n-button>
+    <n-button type="primary">
+      Primary
+    </n-button>
+    <n-button type="danger">
+      Danger
+    </n-button>
+    <n-button type="warning">
+      Warning
+    </n-button>
+    <n-button type="info">
+      Info
+    </n-button>
+    <n-button type="success">
+      Success
+    </n-button>
+  </div>
+  <div class="mb-4">
+    <n-button circle>
+      Round
+    </n-button>
+    <n-button type="primary" circle>
+      Primary
+    </n-button>
+    <n-button type="danger" circle>
+      Danger
+    </n-button>
+    <n-button type="warning" circle>
+      Warning
+    </n-button>
+    <n-button type="info" circle>
+      Info
+    </n-button>
+    <n-button type="success" circle>
+      Success
+    </n-button>
   </div>
 </template>
 
