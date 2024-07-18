@@ -133,8 +133,8 @@ importers:
         specifier: ^14.1.0
         version: 14.1.0
       nocturne-ui:
-        specifier: 0.0.1-alpha.2
-        version: 0.0.1-alpha.2(vue@3.4.15)
+        specifier: 0.0.1-alpha.3
+        version: 0.0.1-alpha.3(vue@3.4.15)
       vue:
         specifier: 3.4.15
         version: 3.4.15
@@ -6364,8 +6364,8 @@ packages:
       - '@vue/composition-api'
     dev: false
 
-  /nocturne-ui@0.0.1-alpha.2(vue@3.4.15):
-    resolution: {integrity: sha512-DkwZJqu8FDbqfUL9BwjXr+/0Mwok/7/kzorgi0/RoRSdO6szIC4rhJG9KMYmpAPD2I9g/AIxW5agA3rO8j6P9w==}
+  /nocturne-ui@0.0.1-alpha.3(vue@3.4.15):
+    resolution: {integrity: sha512-8urGsf+2zP0q2pYuu8ZpXeoJEn4EMs/uZ+hzKYZHb/8cSxgeq7hqyHxGK0S3CbAORtU+hgvZIFNHnmGDo3Ldjw==}
     peerDependencies:
       vue: ^3.4.15
     dependencies:
