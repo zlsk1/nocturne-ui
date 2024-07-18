@@ -29,6 +29,8 @@ module.exports = {
       },
       'svg': 'always'
     }],
+    'vue/singleline-html-element-content-newline': 'off',
+    'vue/no-multiple/template/root': 'off',
     'arrow-spacing': [2, { 'before': true, 'after': true }],
     'block-spacing': [2, 'always'],
     'key-spacing': [2, { 'beforeColon': false, 'afterColon': true }], // 对象字面量中键和:中的间隔
