@@ -11,8 +11,7 @@
     "clean:dist": "rimraf dist",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write packages/",
-    "prepare": "is-ci || husky install",
-    "precommit": "lint-staged -c ./.husky/.lintstagedrc -q",
+    "prepare": "husky",
     "check": "vue-tsc -p tsconfig.node.json --composite false  --noEmit",
     "docs:dev": "pnpm -C docs dev",
     "docs:build": "pnpm -C docs dev"

@@ -1,3 +1,5 @@
+// improve speed to loading ts-config
+require('@esbuild-kit/cjs-loader')
 module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
