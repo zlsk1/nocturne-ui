@@ -1,11 +1,11 @@
 ---
-title: 按钮
+title: 警告
 lang: ch-ZH
 ---
 
-# Button 按钮
+# Alert 警告
 
-常用化按钮
+警告
 
 ## 基础用法
 
@@ -13,8 +13,6 @@ lang: ch-ZH
 
 :::demo
 
-button/basic
+alert/basic
 
 :::
-
-## 禁用按钮

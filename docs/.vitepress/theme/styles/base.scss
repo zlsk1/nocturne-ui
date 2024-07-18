@@ -1,4 +1,6 @@
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -52,7 +54,7 @@ h6:focus .header-anchor {
 a {
   font-weight: normal;
   text-decoration: inherit;
-  color: var(--theme-color);
+  color: #333;
 
   &.header-anchor {
     color: var(--theme-color);
@@ -71,4 +73,11 @@ a.header-anchor {
   :focus {
     text-decoration: none;
   }
+}
+
+ul,
+li,
+ol {
+  margin: 0;
+  list-style: none;
 }

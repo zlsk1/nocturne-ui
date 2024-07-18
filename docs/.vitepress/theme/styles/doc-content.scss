@@ -1,7 +1,6 @@
 .doc-content-wrapper {
   --vp-content-width: 800px;
-
-  padding: 32px 24px;
+  padding-left: calc(var(--sidebar-width) + 20px);
 
   .doc-content-container {
     .doc-content {

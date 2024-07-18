@@ -1,6 +1,6 @@
 import MarkdownIt from 'markdown-it'
 import mdContainer from 'markdown-it-container'
-import type { Token } from 'markdown-it'
+import type Token from 'markdown-it/lib/token.d.mts'
 
 export const mdPlugin = (md: MarkdownIt) => {
   md.use(useContainer)

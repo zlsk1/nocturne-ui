@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, markRaw, watchEffect } from 'vue'
+import { ref, markRaw, watchEffect, computed } from 'vue'
 
 const props = defineProps({
   src: {
