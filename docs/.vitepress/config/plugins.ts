@@ -1,10 +1,13 @@
 import MarkdownIt from 'markdown-it'
 import mdContainer from 'markdown-it-container'
+import mdTag from '../plugins/tag'
 import fs from 'fs'
 import path from 'path'
 import { highlight } from '../../utils'
 import type Token from 'markdown-it/lib/token.d.mts'
 import type Renderer from 'markdown-it/lib/renderer.d.mts'
+
+const localMd = MarkdownIt().use(mdTag)
 
 interface ContainerOpts {
   marker?: string | undefined
@@ -20,6 +23,7 @@ interface ContainerOpts {
 
 export const mdPlugin = (md: MarkdownIt) => {
   md.use(...createDemoContainer())
+    .use(mdTag)
 }
 
 /**
@@ -55,7 +59,7 @@ const createDemoContainer = () => {
 
           return `<Demo :demos="demos" codes="${encodeURIComponent(highlight(codes, 'vue'))}"
             src="${sourceFile}"
-            description="${encodeURIComponent(description)}"
+            description="${encodeURIComponent(localMd.render(description))}"
           >\n`
         }
         else {

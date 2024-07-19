@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="demo-container">
+    <p v-html="decodeDescription" class="demo-description mb-4"></p>
     <ClientOnly>
       <component :is="formatPathDemos[src]" v-if="formatPathDemos[src]"></component>
     </ClientOnly>
-    <div>
-      <div v-html="decoded"></div>
+    <div class="demo-source-wrapper">
+      <div v-html="decoded" class="demo-source language-vue"></div>
     </div>
   </div>
 </template>
@@ -24,11 +25,19 @@ const props = defineProps({
   codes: {
     type: String,
     default: ''
+  },
+  description: {
+    type: String,
+    default: ''
   }
 })
 
 const decoded = computed(() => {
   return decodeURIComponent(props.codes)
+})
+
+const decodeDescription = computed(() => {
+  return decodeURIComponent(props.description)
 })
 
 const formatPathDemos = computed(() => {
