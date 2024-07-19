@@ -1,11 +1,14 @@
 <template>
   <div>
-    <component :is="demo" v-if="demo"></component>
+    <ClientOnly>
+      <!-- <component :is="formatPathDemos[src]" v-if="formatPathDemos[src]"></component> -->
+      <component :is="formatPathDemos[src]"></component>
+    </ClientOnly>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, markRaw, watchEffect, computed } from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps({
   src: {
@@ -18,24 +21,19 @@ const props = defineProps({
   },
   codes: {
     type: Object,
-    default: () => ({})
   }
 })
 
-const demo = ref<Record<string, any>>()
-const code = ref(undefined)
-
-watchEffect(() => {
-  internalInit()
+const decoded = computed(() => {
+  return decodeURIComponent(props.codes as unknown as string)
 })
 
-function internalInit () {
-  const basePath = `/demo/${props.src}.vue`
-  const path = Object.keys(props.demos).find(path => path.endsWith(basePath))
+const formatPathDemos = computed(() => {
+  const demos = {}
 
-  if (path) {
-    demo.value = markRaw(props.demos[path] as any)
-    code.value = props.codes[path]
-  }
-}
+  Object.keys(props.demos).forEach((key) => {
+    demos[key.replace('/demo/', '').replace('.vue', '')] = props.demos[key]
+  })
+  return demos
+})
 </script>
