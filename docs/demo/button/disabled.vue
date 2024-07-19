@@ -12,7 +12,7 @@
     <n-button disabled type="primary" plain>Primary</n-button>
     <n-button disabled type="danger" plain>Danger</n-button>
     <n-button disabled type="warning" plain>Warning</n-button>
-    <n-button disabled="info" type="info" plain>Info</n-button>
+    <n-button disabled type="info" plain>Info</n-button>
     <n-button disabled type="success" plain>Success</n-button>
   </div>
 </template>
