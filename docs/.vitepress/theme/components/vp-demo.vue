@@ -1,9 +1,11 @@
 <template>
   <div>
     <ClientOnly>
-      <!-- <component :is="formatPathDemos[src]" v-if="formatPathDemos[src]"></component> -->
-      <component :is="formatPathDemos[src]"></component>
+      <component :is="formatPathDemos[src]" v-if="formatPathDemos[src]"></component>
     </ClientOnly>
+    <div>
+      <div v-html="decoded"></div>
+    </div>
   </div>
 </template>
 
@@ -20,12 +22,13 @@ const props = defineProps({
     default: () => ({})
   },
   codes: {
-    type: Object,
+    type: String,
+    default: ''
   }
 })
 
 const decoded = computed(() => {
-  return decodeURIComponent(props.codes as unknown as string)
+  return decodeURIComponent(props.codes)
 })
 
 const formatPathDemos = computed(() => {

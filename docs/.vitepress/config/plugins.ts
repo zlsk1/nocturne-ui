@@ -2,6 +2,7 @@ import MarkdownIt from 'markdown-it'
 import mdContainer from 'markdown-it-container'
 import fs from 'fs'
 import path from 'path'
+import { highlight } from '../../utils'
 import type Token from 'markdown-it/lib/token.d.mts'
 import type Renderer from 'markdown-it/lib/renderer.d.mts'
 
@@ -52,7 +53,7 @@ const createDemoContainer = () => {
 
           if (!codes) throw new Error(`Incorrect source file: ${sourceFile}`)
 
-          return `<Demo :demos="demos" codes="${encodeURIComponent(codes)}"
+          return `<Demo :demos="demos" codes="${encodeURIComponent(highlight(codes, 'vue'))}"
             src="${sourceFile}"
             description="${encodeURIComponent(description)}"
           >\n`
