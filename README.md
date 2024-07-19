@@ -1,41 +1,25 @@
-# freedom-ui
+# nocturne-ui
 
-This template should help get you started developing with Vue 3 in Vite.
+一个vue3组件库
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## 安装
 
 ```sh
-pnpm install
+
+npm install or pnpm install
+
 ```
 
-### Compile and Hot-Reload for Development
+## 使用
 
-```sh
-pnpm dev
-```
+```js
+import { createApp } from 'vue'
+import App from './src/App.vue'
+import NocturneUI from '../dist/nocturne-ui/dist/index.full'
+import '../dist/nocturne-ui/dist/index.css'
 
-### Compile and Minify for Production
+const app = createApp(App)
 
-```sh
-pnpm build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-pnpm test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
+app.use(NocturneUI)
+app.mount('#app')
 ```
