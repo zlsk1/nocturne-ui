@@ -95,12 +95,12 @@ $placement: (
   }
 }
 
-.#{$namespace}popper-transition-enter-active,
-.#{$namespace}popper-transition-leave-active {
+.#{$namespace}-popper-transition-enter-active,
+.#{$namespace}-popper-transition-leave-active {
   transition: opacity 0.3s ease;
 }
 
-.#{$namespace}popper-transition-enter-from,
-.#{$namespace}popper-transition-leave-to {
+.#{$namespace}-popper-transition-enter-from,
+.#{$namespace}-popper-transition-leave-to {
   opacity: 0;
 }
