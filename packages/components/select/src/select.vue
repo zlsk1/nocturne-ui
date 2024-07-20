@@ -347,7 +347,7 @@ provide(SELECT_INJECTION_KEY, {
 </script>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/option.scss';
-@use '@/theme-chalk/select.scss';
-@use '@/theme-chalk/common/transition.scss';
+@use '@/theme-chalk/src/option.scss';
+@use '@/theme-chalk/src/select.scss';
+@use '@/theme-chalk/src/common/transition.scss';
 </style>

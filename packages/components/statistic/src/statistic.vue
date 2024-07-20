@@ -42,5 +42,5 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/statistic.scss';
+@use '@/theme-chalk/src/statistic.scss';
 </style>

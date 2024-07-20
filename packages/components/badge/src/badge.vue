@@ -41,5 +41,5 @@ const _value = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/badge.scss';
+@use '@/theme-chalk/src/badge.scss';
 </style>

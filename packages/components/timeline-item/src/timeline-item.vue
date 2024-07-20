@@ -64,5 +64,5 @@ defineProps(timelineItemProps)
 </template>
 
 <style>
-@use '@/theme-chalk/timeline-item.scss';
+@use '@/theme-chalk/src/timeline-item.scss';
 </style>

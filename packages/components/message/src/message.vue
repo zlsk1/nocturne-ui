@@ -138,5 +138,5 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/message.scss';
+@use '@/theme-chalk/src/message.scss';
 </style>

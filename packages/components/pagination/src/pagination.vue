@@ -53,5 +53,5 @@ provide(
 </template>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/pagination.scss';
+@use '@/theme-chalk/src/pagination.scss';
 </style>

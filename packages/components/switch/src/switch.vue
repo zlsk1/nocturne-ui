@@ -76,5 +76,5 @@ const handleSwitch = () => {
 </template>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/switch.scss';
+@use '@/theme-chalk/src/switch.scss';
 </style>

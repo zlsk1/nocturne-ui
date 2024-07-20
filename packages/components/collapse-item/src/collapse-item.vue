@@ -62,5 +62,5 @@ const showContent = () => {
 </template>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/collapse-item.scss';
+@use '@/theme-chalk/src/collapse-item.scss';
 </style>

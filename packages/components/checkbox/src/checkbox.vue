@@ -84,5 +84,5 @@ const {
 </template>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/checkbox.scss';
+@use '@/theme-chalk/src/checkbox.scss';
 </style>

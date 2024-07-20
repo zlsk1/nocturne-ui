@@ -185,5 +185,5 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@use '@/theme-chalk/popper.scss';
+@use '@/theme-chalk/src/popper.scss';
 </style>

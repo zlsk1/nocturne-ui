@@ -11,5 +11,5 @@ defineOptions({
 </template>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/timeline.scss';
+@use '@/theme-chalk/src/timeline.scss';
 </style>

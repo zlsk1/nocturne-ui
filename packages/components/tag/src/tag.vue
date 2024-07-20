@@ -81,6 +81,6 @@ const handleClick = (e: Event) => emit('click', e)
 </script>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/common/transition.scss';
-@use '@/theme-chalk/tag.scss';
+@use '@/theme-chalk/src/common/transition.scss';
+@use '@/theme-chalk/src/tag.scss';
 </style>

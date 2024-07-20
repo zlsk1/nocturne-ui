@@ -151,5 +151,5 @@ const changePage = (e: any) => {
 </script>
 
 <style>
-@use '@/theme-chalk/pagination.scss';
+@use '@/theme-chalk/src/pagination.scss';
 </style>

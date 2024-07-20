@@ -49,5 +49,5 @@ const onError = (evt: Event) => {
 </template>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/avatar.scss';
+@use '@/theme-chalk/src/avatar.scss';
 </style>

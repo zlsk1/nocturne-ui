@@ -119,5 +119,5 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/input-number.scss';
+@use '@/theme-chalk/src/input-number.scss';
 </style>

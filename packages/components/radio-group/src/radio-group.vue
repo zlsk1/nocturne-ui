@@ -33,5 +33,5 @@ provide(
 </template>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/radio-group.scss';
+@use '@/theme-chalk/src/radio-group.scss';
 </style>

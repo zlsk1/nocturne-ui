@@ -61,5 +61,5 @@ const handleClose = (e: MouseEvent) => {
 </template>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/alert.scss';
+@use '@/theme-chalk/src/alert.scss';
 </style>

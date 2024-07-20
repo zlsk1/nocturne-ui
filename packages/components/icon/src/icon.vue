@@ -49,5 +49,5 @@ const svgStyle = computed<CSSProperties>(() => {
 </script>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/icon.scss';
+@use '@/theme-chalk/src/icon.scss';
 </style>.

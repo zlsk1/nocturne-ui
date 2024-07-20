@@ -38,5 +38,5 @@ provide(COLLAPSE_INJECTION_KEY, {
 </template>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/collapse.scss';
+@use '@/theme-chalk/src/collapse.scss';
 </style>

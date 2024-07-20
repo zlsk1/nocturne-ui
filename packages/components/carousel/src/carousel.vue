@@ -147,5 +147,5 @@ provide(CAROUSEL_INJECT_KEY, {
 </script>
 
 <style lang="scss" scoped>
-@use '@/theme-chalk/carousel.scss';
+@use '@/theme-chalk/src/carousel.scss';
 </style>
