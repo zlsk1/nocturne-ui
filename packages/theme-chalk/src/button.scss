@@ -142,7 +142,9 @@ $button-icon-span-gap: map.merge(
   }
 
   @include when(circle) {
-    border-radius: 20px;
+    width: 32px;
+    padding: 8px;
+    border-radius: 50%;
   }
 
   @include when(text) {
