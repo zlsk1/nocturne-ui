@@ -1,6 +1,5 @@
 <template>
   <NOnlyChild
-    ref="referenceRef"
     v-bind="$attrs"
   >
     <slot></slot>
@@ -13,7 +12,8 @@ import { popperReferenceProps } from './reference'
 import { POPPER_INJECTION_KEY } from './constants'
 import { isElement } from '@/utils'
 import { unrefElement } from '@vueuse/core'
-import { NOnlyChild } from '@components/slot'
+import { NOnlyChild } from '@/components/slot'
+import { useForwardRef } from '@/composables'
 
 import type { WatchStopHandle } from 'vue'
 
@@ -24,6 +24,8 @@ defineOptions({
 const props = defineProps(popperReferenceProps)
 
 const { referenceRef, role } = inject(POPPER_INJECTION_KEY, undefined)!
+
+useForwardRef(referenceRef)
 
 const ariaControls = computed<string | undefined>(() => {
   return ariaHaspopup.value ? props.id : undefined
