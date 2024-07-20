@@ -17,11 +17,17 @@ button/basic
 
 ## 禁用按钮
 
-添加 `disabled` 属性将按钮禁用
-
-:::demo
+:::demo 添加 `disabled` 属性将按钮禁用
 
 button/disabled
+
+:::
+
+## 加载按钮
+
+:::demo 添加 `loading` 属性应用loading图标
+
+button/loading
 
 :::
 
