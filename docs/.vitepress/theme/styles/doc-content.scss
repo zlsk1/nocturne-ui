@@ -24,4 +24,46 @@
       align-items: center;
     }
   }
+
+  > div {
+    .vp-table {
+      width: 100%;
+      overflow-y: hidden;
+      overflow-x: auto;
+      margin-bottom: 45px;
+      font-family: 'JetBrains Mono', 'Microsoft YaHei';
+
+      table {
+        width: 100%;
+        line-height: 1.5em;
+        font-size: 14px;
+        border-collapse: collapse;
+        background-color: var(--bg-color);
+
+        th {
+          white-space: nowrap;
+          border-top: 1px solid var(--border-color);
+          border-bottom: 1px solid var(--border-color);
+          padding: .6em 1em;
+          text-align: left;
+          max-width: 250px;
+          white-space: pre-wrap;
+        }
+
+        &:first-child th {
+          border-top: none;
+        }
+
+        td {
+          white-space: nowrap;
+          border-top: 1px solid var(--border-color);
+          border-bottom: 1px solid var(--border-color);
+          padding: .6em 1em;
+          text-align: left;
+          max-width: 250px;
+          white-space: pre-wrap;
+        }
+      }
+    }
+  }
 }

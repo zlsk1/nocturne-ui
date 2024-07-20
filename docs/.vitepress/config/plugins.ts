@@ -1,13 +1,16 @@
 import MarkdownIt from 'markdown-it'
 import mdContainer from 'markdown-it-container'
-import mdTag from '../plugins/tag'
+import tag from '../plugins/tag'
+import { ApiTableContainer } from '../plugins/api-table'
+import ApiTableWrapper from '../plugins/table-wrapper'
+import tooltip from '../plugins/tooltip'
 import fs from 'fs'
 import path from 'path'
 import { highlight } from '../../utils'
 import type Token from 'markdown-it/lib/token.d.mts'
 import type Renderer from 'markdown-it/lib/renderer.d.mts'
 
-const localMd = MarkdownIt().use(mdTag)
+const localMd = MarkdownIt().use(tag)
 
 interface ContainerOpts {
   marker?: string | undefined
@@ -23,7 +26,10 @@ interface ContainerOpts {
 
 export const mdPlugin = (md: MarkdownIt) => {
   md.use(...createDemoContainer())
-    .use(mdTag)
+    .use(ApiTableContainer)
+    .use(tag)
+    .use(ApiTableWrapper)
+    .use(tooltip)
 }
 
 /**
