@@ -2,12 +2,12 @@
   --vp-content-width: 800px;
   display: flex;
   justify-content: space-between;
-  padding-top: 100px;
+  margin-left: 40px;
+  padding-top: 80px;
   padding-left: calc(var(--sidebar-width) + 20px);
 
   .doc-content-container {
     width: 100%;
-    padding-right: 30px;
     .doc-content {
       width: 100%;
     }

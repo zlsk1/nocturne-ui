@@ -1,9 +1,19 @@
+@use './mixins.scss' as *;
+
 .sidebar {
   position: fixed;
   left: 0;
   top: 55px;
+  height: 100%;
   width: var(--sidebar-width);
-  padding: 40px 80px 40px 40px;
+  padding: 40px 20px 40px 40px;
+  overflow: auto;
+
+  @include scroll-bar;
+
+  div {
+    overflow: auto;
+  }
 
   .sidebar-content {
     .type-name {
@@ -15,8 +25,9 @@
     .sidebar-item {
       display: flex;
       align-items: center;
-      padding: 8px;
+      padding: 12px;
       font-size: 13px;
+      color: var(--text-color);
       border-radius: 6px;
       transition: color var(--duration-time);
   

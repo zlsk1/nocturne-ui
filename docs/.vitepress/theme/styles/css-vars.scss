@@ -1,11 +1,12 @@
 :root {
-  --theme-color: #9940ff;
-  --theme-bg-color: rgb(227, 202, 255);
+  --theme-color: var(--n-color-primary);
+  --theme-bg-color: var(--n-color-primary-light-9);
   --text-color: #727171;
   --duration-time: .3s;
   --duration-time-fast: .2s;
 
-  --sidebar-width: 320px;
+  --sidebar-width: 300px;
+  --api-content-width: 240px;
 
   --font-family: var(--n-font-family);
   --font-family-mono: 'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas,

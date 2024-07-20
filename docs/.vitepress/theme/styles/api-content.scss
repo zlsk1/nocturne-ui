@@ -1,10 +1,9 @@
 .api-content-aside {
-  padding-top: calc(1.5rem + 10px);
+  padding: calc(1.5rem + 10px) 0 0 100px;
   .api-content-container {
     position: sticky;
-    top: 140px;
+    top: 100px;
     width: 200px;
-    padding: 0 20px;
   
     .api-content-title {
       margin-bottom: 10px;
@@ -13,7 +12,7 @@
     .api-content-anchor {
       position: relative;
       display: block;
-      padding: 5px 0;
+      padding: 6px 0;
       font-size: 12px;
       color: var(--n-text-color);
     }
