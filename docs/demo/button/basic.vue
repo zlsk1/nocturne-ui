@@ -16,15 +16,15 @@
     <n-button type="success" plain>Success</n-button>
   </div>
   <div class="mb-4">
-    <n-button circle>Round</n-button>
-    <n-button type="primary" circle>Primary</n-button>
-    <n-button type="danger" circle>Danger</n-button>
-    <n-button type="warning" circle>Warning</n-button>
-    <n-button type="info" circle>Info</n-button>
-    <n-button type="success" circle>Success</n-button>
+    <n-button round>Round</n-button>
+    <n-button type="primary" round>Primary</n-button>
+    <n-button type="danger" round>Danger</n-button>
+    <n-button type="warning" round>Warning</n-button>
+    <n-button type="info" round>Info</n-button>
+    <n-button type="success" round>Success</n-button>
   </div>
   <div>
-    <n-button round :icon="Search"></n-button>
+    <n-button circle :icon="Search"></n-button>
     <n-button type="primary" circle :icon="Upload"></n-button>
     <n-button type="danger" circle :icon="Delete"></n-button>
     <n-button type="warning" circle :icon="Walk"></n-button>

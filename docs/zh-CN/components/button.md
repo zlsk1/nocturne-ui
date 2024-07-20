@@ -9,7 +9,7 @@ lang: ch-ZH
 
 ## 基础用法
 
-:::demo 添加 `type`, `plain`, `circle`和 `icon` 属性设置不同的样式 **deprecated** ^(3.0.0)
+:::demo 添加 `type`、`plain`、`round` 和 `circle` 属性设置不同的样式 **deprecated** ^(3.0.0)
 
 button/basic
 
