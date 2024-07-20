@@ -7,7 +7,7 @@
     <n-button disabled type="info">Info</n-button>
     <n-button disabled type="success">Success</n-button>
   </div>
-  <div class="mb-4">
+  <div>
     <n-button disabled plain>Defualt</n-button>
     <n-button disabled type="primary" plain>Primary</n-button>
     <n-button disabled type="danger" plain>Danger</n-button>

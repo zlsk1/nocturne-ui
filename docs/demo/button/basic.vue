@@ -23,7 +23,7 @@
     <n-button type="info" circle>Info</n-button>
     <n-button type="success" circle>Success</n-button>
   </div>
-  <div class="mb-4">
+  <div>
     <n-button round :icon="Search"></n-button>
     <n-button type="primary" circle :icon="Upload"></n-button>
     <n-button type="danger" circle :icon="Delete"></n-button>

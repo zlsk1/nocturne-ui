@@ -103,8 +103,8 @@ li > div[class*='language-'] {
 
 @media (min-width: 420px) {
   div[class*='language-'] {
-    margin: 1rem 0;
-    border-radius: 6px;
+    margin: 0;
+    // border-radius: 6px;
   }
 
   li > div[class*='language-'] {

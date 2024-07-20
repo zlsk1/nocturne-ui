@@ -1,13 +1,41 @@
 .demo-container {
 
-  .demo-description {
+  .demo-content {
+    border: 1px solid var(--n-border-color-light);
+    border-radius: 4px;
 
-    strong {
-      color: #333;
+    .demo-component {
+      padding: 15px;
     }
-  }
 
-  .demo-source-wrapper {
-    font-weight: 700;
+    .demo-operas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 0;
+      color: var(--n-text-color-secondary);
+      border-top: 1px solid var(--n-border-color-light);
+
+      .opera {
+        width: 34px;
+        cursor: pointer;
+        transition: color var(--duration-time);
+
+        &:hover {
+          color: #333;
+        }
+      }
+    }
+  
+    .demo-description {
+  
+      strong {
+        color: #333;
+      }
+    }
+  
+    .demo-source-wrapper {
+      font-weight: 700;
+    }
   }
 }
