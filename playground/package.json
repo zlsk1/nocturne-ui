@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",
-    "nocturne-ui": "0.0.1-alpha.0",
+    "nocturne-ui": "workspace:*",
     "vite": "^5.0.11"
   }
 }
