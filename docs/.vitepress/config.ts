@@ -65,7 +65,10 @@ export const config: UserConfig = {
     },
   },
   markdown: {
-    config: (md) => mdPlugin(md)
+    config: (md) => mdPlugin(md),
+    headers: {
+      level: [1, 2, 3, 4, 5, 6]
+    }
   }
 }
 

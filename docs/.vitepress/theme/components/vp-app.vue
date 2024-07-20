@@ -2,7 +2,6 @@
 import vpDocContent from './vp-doc-content.vue'
 import vpNav from './vp-nav.vue'
 import vpSidebar from './vp-sidebar.vue' 
-import vpContent from './vp-content.vue' 
 </script>
 
 <template>
@@ -10,6 +9,5 @@ import vpContent from './vp-content.vue'
     <vpNav></vpNav>
     <vpSidebar></vpSidebar>
     <vpDocContent></vpDocContent>
-    <vpContent></vpContent>
   </div>
 </template>

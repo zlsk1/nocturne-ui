@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue';
+import vpAPIContent from './vp-api-content.vue' 
 
 onMounted(() => {
   resolveZeroWidthSpace()
@@ -16,5 +17,6 @@ const resolveZeroWidthSpace = () => {
     <div class="doc-content-container">
       <Content class="doc-content" />
     </div>
+    <vpAPIContent></vpAPIContent>
   </div>
 </template>
