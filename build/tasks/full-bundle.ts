@@ -4,6 +4,7 @@ import { rollup } from 'rollup'
 import replace from '@rollup/plugin-replace'
 import commonjs from '@rollup/plugin-commonjs'
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import esbuild, { minify as minifyPlugin } from 'rollup-plugin-esbuild'
 import { parallel } from 'gulp'
 import { pkgRoot, pkgOutput } from '../utils'
@@ -23,6 +24,7 @@ async function buildFullEntry(minify: boolean) {
   const plugins: Plugin[] = [
     NAlias(),
     vue(),
+    vueJsx(),
     nodeResolve({
       extensions: ['.mjs', '.js', '.json', '.ts']
     }),

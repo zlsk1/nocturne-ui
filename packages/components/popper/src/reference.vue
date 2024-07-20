@@ -1,10 +1,10 @@
 <template>
-  <div
+  <NOnlyChild
     ref="referenceRef"
     v-bind="$attrs"
   >
     <slot></slot>
-  </div>
+  </NOnlyChild>
 </template>
 
 <script lang="ts" setup>
@@ -13,6 +13,7 @@ import { popperReferenceProps } from './reference'
 import { POPPER_INJECTION_KEY } from './constants'
 import { isElement } from '@/utils'
 import { unrefElement } from '@vueuse/core'
+import { NOnlyChild } from '@components/slot'
 
 import type { WatchStopHandle } from 'vue'
 

@@ -2,6 +2,7 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
+    "jsx": "preserve",
     "lib": ["ESNext", "ES2021", "DOM", "DOM.Iterable"],
     "types": ["node"],
     "skipLibCheck": true

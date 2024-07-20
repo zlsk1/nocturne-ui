@@ -1,6 +1,7 @@
 import path from 'path'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import esbuild from 'rollup-plugin-esbuild'
 import fg from 'fast-glob'
 import commonjs from '@rollup/plugin-commonjs'
@@ -33,6 +34,7 @@ export const buildModules = async() => {
     plugins: [
       NAlias(),
       vue(),
+      vueJsx(),
       nodeResolve({ extensions }),
       commonjs(),
       esbuild({
