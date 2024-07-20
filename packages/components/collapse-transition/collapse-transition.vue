@@ -65,8 +65,5 @@ const on = {
 </template>
 
 <style lang="scss" scoped>
-.n-collapse-transition-enter-active,
-.n-collapse-transition-leave-active {
-  transition: height .2s ease-out;
-}
+@use '@/theme-chalk/src/base.scss';
 </style>

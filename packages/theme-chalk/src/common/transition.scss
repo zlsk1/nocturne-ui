@@ -133,3 +133,8 @@
   transform: rotateY(180deg);
   opacity: 0;
 }
+
+.#{$namespace}-collapse-transition-enter-active,
+.#{$namespace}-collapse-transition-leave-active {
+  transition: height .2s ease-out;
+}
