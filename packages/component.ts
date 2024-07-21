@@ -2,6 +2,7 @@ import { NAlert } from '@/components/alert'
 import { NAvatar } from '@/components/avatar'
 import { NBadge } from '@/components/badge'
 import { NButton } from '@/components/button'
+import { NButtonGroup } from '@/components/button-group'
 import { NCarousel } from '@/components/carousel'
 import { NCarouselItem } from '@/components/carousel-item'
 import { NCheckbox } from '@/components/checkbox'
@@ -37,6 +38,7 @@ export default [
   NAvatar,
   NBadge,
   NButton,
+  NButtonGroup,
   NCarousel,
   NCarouselItem,
   NCheckbox,
