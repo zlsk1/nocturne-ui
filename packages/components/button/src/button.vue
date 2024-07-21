@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { useSlots } from 'vue'
 import { buttonProps, buttonEmits } from './button'
-import { RiLoaderLine } from '@remixicon/vue'
 
 defineOptions({
   name: 'NButton'
@@ -29,22 +28,26 @@ const handleClick = (e: MouseEvent) => {
         'is-plain': plain,
         'is-circle': circle,
         'is-disabled': disabled,
+        'is-loading': loading
       }
     ]"
     @click="handleClick"
   >
     <template v-if="loading">
       <component
-        :is="RiLoaderLine"
-        class="n-icon"
+        :is="loadingIcon"
         size="14"
+        :class="[
+          { 'loading-icon': loading },
+          'n-icon'
+        ]"
       ></component>
     </template>
     <template v-else-if="icon">
       <component
         :is="icon"
-        class="n-icon"
         size="14"
+        class-name="n-icon"
       ></component>
     </template>
     <span v-if="slots.default">

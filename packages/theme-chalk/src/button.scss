@@ -137,6 +137,19 @@ $button-icon-span-gap: map.merge(
     }
   }
 
+  .loading-icon {
+    animation: loopRotate 1s infinite linear;
+  }
+
+  @keyframes loopRotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
   @include when(round) {
     border-radius: getCssVar('border-radius', 'round');
   }
