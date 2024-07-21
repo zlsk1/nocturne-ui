@@ -6,7 +6,14 @@
         <nav class="nav-link">
           <a v-for="(item, index) in theme.nav" :key="item.text" :href="item.link" :class="{ 'actived': actived(theme.nav[index].link) }">{{ item.text }}</a>
         </nav>
-        <n-switch></n-switch>
+        <n-switch>
+          <template #active-icon>
+            <Sun></Sun>
+          </template>
+          <template #inactive-icon>
+            <Moon></Moon>
+          </template>
+        </n-switch>
         <a href="https://github.com/zlsk1/nocturne-ui" class="link-github" title="github" target="_blank">
           <Github></Github>
         </a>
@@ -17,7 +24,11 @@
 
 <script lang="ts" setup>
 import { useData, useRoute } from 'vitepress'
-import { RiGithubFill as Github } from '@remixicon/vue';
+import {
+  RiGithubFill as Github,
+  RiMoonLine as Moon,
+  RiSunLine as Sun,
+} from '@remixicon/vue';
 
 const { theme } = useData()
 const route = useRoute()
