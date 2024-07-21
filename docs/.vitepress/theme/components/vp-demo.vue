@@ -33,6 +33,10 @@
           <div v-html="decoded" class="demo-source language-vue"></div>
         </div>
       </n-collapse-transition>
+      <div class="demo-source-close" @click="handleShowCode" v-show="showCode">
+        <Triangle size="20"></Triangle>
+        <p>收起源代码</p>
+      </div>
     </div>
   </div>
 </template>
@@ -43,7 +47,8 @@ import {
   RiCodeView as codeView,
   RiFileCopyFill as fileCopy,
   RiGithubFill as github,
-  RiSendPlaneFill as Play
+  RiSendPlaneFill as Play,
+  RiArrowUpDoubleLine as Triangle
 } from '@remixicon/vue';
 
 const props = defineProps({
