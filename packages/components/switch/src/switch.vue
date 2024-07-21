@@ -67,7 +67,7 @@ const handleSwitch = () => {
           <slot name="inactive-action-icon"></slot>
         </template>
       </div>
-      <div class="n-switch__action--reverse">
+      <div v-if="activeText || $slots.activeIcon || $slots.inactiveIcon" class="n-switch__action--reverse">
         <template v-if="isActive">
           <slot name="active-icon"></slot>
         </template>
