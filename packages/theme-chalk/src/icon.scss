@@ -12,6 +12,7 @@ $marginRight: 6px;
   fill: currentColor;
   color: inherit;
   overflow: hidden;
+  font-size: 24px;
 
   @include m(left) {
     margin-left: 6px;
