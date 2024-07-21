@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { usePageSwitch } from '../composables/page-switch'
+import { usePageSwitch } from '../composables'
 import {
   RiArrowRightWideLine as ArrowRight,
   RiArrowLeftWideLine as ArrowLeft,
