@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { switchProps, switchEmits } from './switch'
+import { isBoolean, isString } from '@/utils'
+import { isPromise } from '@vue/shared'
 
 defineOptions({
   name: 'NSwitch'
@@ -9,33 +11,69 @@ defineOptions({
 const props = defineProps(switchProps)
 const emit = defineEmits(switchEmits)
 
-const isActive = ref(props.modelValue)
+const actived = ref(props.modelValue)
 
-const handleClick = () => {
-  if (props.disabled) return
-  isActive.value = !isActive.value
-}
+const newStyle = computed(() => {
+  return {
+    width: !isString(props.width) ? `${props.width}px` : props.width
+  }
+})
 
 const handleChange = () => {
-  const val = isActive.value ? props.activeValue : props.inactiveValue
+  actived.value = !actived.value
+  const val = actived.value ? props.activeValue : props.inactiveValue
+
   emit('change', val as boolean | string | number)
+  emit('update:modelValue', val as boolean | string | number)
 }
 
 const handleSwitch = () => {
-  handleChange()
+  if (props.disabled) return
+  if (!props.beforeChange) {
+    handleChange()
+    return
+  }
+
+  const beforeChange = props.beforeChange()
+  const showProcess = [
+    isBoolean(beforeChange),
+    isPromise(beforeChange)
+  ].includes(true)
+
+  if (!showProcess) {
+    throw new Error('before-change must be a boolean or promise')
+  }
+  else if (isPromise(beforeChange)) {
+    beforeChange
+      .then(res => {
+        if (res) {
+          handleChange()
+        }
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+  else if (beforeChange) {
+    handleChange()
+  }
 }
+
+defineExpose({
+  actived
+})
 </script>
 
 <template>
   <div
     :class="[
-      'n-switch',
       size ? `n-switch--${size}` : 'n-switch',
       {
-        'is-checked': isActive,
+        'is-checked': actived,
         'is-disabled': disabled
       }
     ]"
+    :style="newStyle"
     @click.prevent="handleSwitch"
   >
     <input
@@ -51,7 +89,7 @@ const handleSwitch = () => {
         'n-switch__label',
         'n-switch__label--left',
         {
-          'is-active': !isActive
+          'is-active': !actived
         }
       ]"
       @click="handleClick"
@@ -60,7 +98,7 @@ const handleSwitch = () => {
     </span>
     <div class="n-switch__wrap" @click="handleClick">
       <div class="n-switch__action">
-        <template v-if="isActive">
+        <template v-if="actived">
           <slot name="active-action-icon"></slot>
         </template>
         <template v-else>
@@ -68,14 +106,14 @@ const handleSwitch = () => {
         </template>
       </div>
       <div v-if="activeText || $slots.activeIcon || $slots.inactiveIcon" class="n-switch__action--reverse">
-        <template v-if="isActive">
+        <template v-if="actived">
           <slot name="active-icon"></slot>
         </template>
         <template v-else>
           <slot name="inactive-icon"></slot>
         </template>
-        <span v-if="activeText && inlineText && isActive" class="n-switch__action--text">{{ activeText }}</span>
-        <span v-if="activeText && inlineText && !isActive">{{ inactiveText }}</span>
+        <span v-if="activeText && inlineText && actived" class="n-switch__action--text">{{ activeText }}</span>
+        <span v-if="activeText && inlineText && !actived">{{ inactiveText }}</span>
       </div>
     </div>
     <span
@@ -84,10 +122,9 @@ const handleSwitch = () => {
         'n-switch__label',
         'n-switch__label--right',
         {
-          'is-active': isActive
+          'is-active': actived
         }
       ]"
-      @click="handleClick"
     >
       <span>{{ activeText }}</span>
     </span>
