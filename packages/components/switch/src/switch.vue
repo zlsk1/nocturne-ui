@@ -9,7 +9,7 @@ defineOptions({
 const props = defineProps(switchProps)
 const emit = defineEmits(switchEmits)
 
-const isActive = ref(true)
+const isActive = ref(props.modelValue)
 
 const handleClick = () => {
   if (props.disabled) return
@@ -30,7 +30,7 @@ const handleSwitch = () => {
   <div
     :class="[
       'n-switch',
-      `n-switch--${size}`,
+      size ? `n-switch--${size}` : 'n-switch',
       {
         'is-checked': isActive,
         'is-disabled': disabled
@@ -46,6 +46,7 @@ const handleSwitch = () => {
       @change="handleChange"
     >
     <span
+      v-if="inactiveText && !inlineText"
       :class="[
         'n-switch__label',
         'n-switch__label--left',
@@ -58,9 +59,27 @@ const handleSwitch = () => {
       <span>{{ inactiveText }}</span>
     </span>
     <div class="n-switch__wrap" @click="handleClick">
-      <div class="n-switch__action"></div>
+      <div class="n-switch__action">
+        <template v-if="isActive">
+          <slot name="active-action-icon"></slot>
+        </template>
+        <template v-else>
+          <slot name="inactive-action-icon"></slot>
+        </template>
+      </div>
+      <div class="n-switch__action--reverse">
+        <template v-if="isActive">
+          <slot name="active-icon"></slot>
+        </template>
+        <template v-else>
+          <slot name="inactive-icon"></slot>
+        </template>
+        <span v-if="activeText && inlineText && isActive" class="n-switch__action--text">{{ activeText }}</span>
+        <span v-if="activeText && inlineText && !isActive">{{ inactiveText }}</span>
+      </div>
     </div>
     <span
+      v-if="activeText && !inlineText"
       :class="[
         'n-switch__label',
         'n-switch__label--right',

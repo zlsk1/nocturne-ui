@@ -125,6 +125,7 @@ $switch-content-padding: map.merge(
 
       svg {
         vertical-align: middle;
+        flex-shrink: 0;
       }
     }
   }
@@ -159,11 +160,31 @@ $switch-content-padding: map.merge(
       background-color: getCssVar('color-white');
       border-radius: getCssVar('border-radius-circle');
       transition: all getCssVar('transition-duration');
+
+      &--text {
+        color: #fff;
+        margin-right: 3px;
+        margin-left: 0;
+      }
+    }
+
+    .#{$namespace}-switch__action--reverse {
+      position: absolute;
+      right: 1px;
+      top: 1px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: map.get($switch-button-size, 'default');
+      height: map.get($switch-button-size, 'default');
+      color: getCssVar('switch-off-color');
+      background-color: getCssVar('color-white');
+      border-radius: getCssVar('border-radius-circle');
+      transition: all getCssVar('transition-duration');
     }
   }
 
   @include when(checked) {
-    width: 100px;
     .#{$namespace}-switch__wrap {
       border-color: var(
         #{getCssVarName('switch-border-color')},
@@ -174,6 +195,17 @@ $switch-content-padding: map.merge(
       .#{$namespace}-switch__action {
         left: calc(100% - #{map.get($switch-button-size, 'default') + 1px});
         color: getCssVar('switch-on-color');
+      }
+
+      .#{$namespace}-switch__action--reverse {
+        right: calc(100% - #{map.get($switch-button-size, 'default') + 1px});
+        color: getCssVar('switch-on-color');
+      }
+
+      .#{$namespace}-switch__action--text {
+        color: #fff;
+        margin-left: 3px;
+        margin-right: 0;
       }
     }
   }
@@ -218,12 +250,22 @@ $switch-content-padding: map.merge(
           width: map.get($switch-button-size, $size);
           height: map.get($switch-button-size, $size);
         }
+
+        .#{$namespace}-switch__action--reverse {
+          width: map.get($switch-button-size, $size);
+          height: map.get($switch-button-size, $size);
+        }
       }
 
       @include when(checked) {
         .#{$namespace}-switch__wrap {
+
           .#{$namespace}-switch__action {
             left: calc(100% - #{map.get($switch-button-size, $size) + 1px});
+          }
+
+          .#{$namespace}-switch__action--reverse {
+            right: calc(100% - #{map.get($switch-button-size, $size) + 1px});
           }
 
           .#{$namespace}-switch__inner {

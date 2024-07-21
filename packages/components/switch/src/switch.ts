@@ -17,13 +17,23 @@ export const switchProps = {
   width: definePropType<string | number>([String, Number]),
   activeText: String,
   inactiveText: String,
-  inactiveValue: definePropType<boolean | string | number>([Boolean, String, Number]),
-  activeValue: definePropType<boolean | string | number>([Boolean, String, Number]),
+  inactiveValue: {
+    type: definePropType<boolean | string | number>([Boolean, String, Number]),
+    default: false
+  },
+  activeValue: {
+    type: definePropType<boolean | string | number>([Boolean, String, Number]),
+    default: true
+  },
   disabled: {
     type: Boolean,
     default: false
   },
-  tabindex: definePropType<string | number>([String, Number])
+  tabindex: definePropType<string | number>([String, Number]),
+  inlineText: {
+    type: Boolean,
+    default: true
+  }
 } as const
 
 export const switchEmits = {
