@@ -3,7 +3,7 @@
     <nav class="api-content-container">
       <p class="api-content-title">内容</p>
       <a
-        v-for="item in page.headers[0].children"
+        v-for="item in page.headers[0]?.children"
         :key="item.link"
         :href="item.link"
         :class="[

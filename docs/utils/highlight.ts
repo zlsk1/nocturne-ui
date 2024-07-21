@@ -2,10 +2,10 @@
 import escapeHtml from 'escape-html'
 import prism from 'prismjs'
 
-const loadLanguages = require('prismjs/components/index')
+// const loadLanguages = require('prismjs/components/index')
 
 // required to make embedded highlighting work...
-loadLanguages(['markup', 'css', 'javascript'])
+// loadLanguages(['markup', 'css', 'javascript'])
 
 function wrap(code: string, lang: string): string {
   if (lang === 'text') {
@@ -32,15 +32,15 @@ export const highlight = (str: string, lang: string) => {
   if (lang === 'py') {
     lang = 'python'
   }
-  if (!prism.languages[lang]) {
-    try {
-      loadLanguages([lang])
-    }
-    catch {
-      console.warn(`[vitepress] Syntax highlight for language "${lang}" is not supported.`
-      )
-    }
-  }
+  // if (!prism.languages[lang]) {
+  //   try {
+  //     loadLanguages([lang])
+  //   }
+  //   catch {
+  //     console.warn(`[vitepress] Syntax highlight for language "${lang}" is not supported.`
+  //     )
+  //   }
+  // }
   if (prism.languages[lang]) {
     const code = prism.highlight(str, prism.languages[lang], lang)
     return wrap(code, rawLang)
