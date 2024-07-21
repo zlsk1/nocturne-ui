@@ -184,18 +184,6 @@ $button-icon-span-gap: map.merge(
       &:active {
         background-color: getCssVar('fill-color');
       }
-
-      @include when(has-bg) {
-        background-color: getCssVar('fill-color', 'light');
-
-        &:hover {
-          background-color: getCssVar('fill-color');
-        }
-
-        &:active {
-          background-color: getCssVar('fill-color', 'dark');
-        }
-      }
     }
   }
 
@@ -208,37 +196,6 @@ $button-icon-span-gap: map.merge(
 
   @include when(changed) {
     width: 30%
-  }
-
-  @include when(link) {
-    border-color: transparent;
-    color: getCssVar('button', 'text-color');
-    background: transparent;
-    padding: 2px;
-    height: auto;
-
-    &:hover {
-      color: getCssVar('button', 'hover', 'link-text-color');
-    }
-
-    @include when(disabled) {
-      color: getCssVar('button', 'disabled', 'text-color');
-      background-color: transparent !important;
-      border-color: transparent !important;
-    }
-
-    &:not(.is-disabled) {
-      &:hover {
-        border-color: transparent;
-        background-color: transparent;
-      }
-
-      &:active {
-        color: getCssVar('button', 'active-color');
-        border-color: transparent;
-        background-color: transparent;
-      }
-    }
   }
 
   @include m(text) {

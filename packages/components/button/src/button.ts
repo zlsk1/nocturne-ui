@@ -43,6 +43,10 @@ export const buttonProps = {
   loadingIcon: {
     type: iconPropType,
     default: Loading
+  },
+  text: {
+    type: Boolean,
+    default: false
   }
 } as const
 

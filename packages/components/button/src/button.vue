@@ -28,7 +28,8 @@ const handleClick = (e: MouseEvent) => {
         'is-plain': plain,
         'is-circle': circle,
         'is-disabled': disabled,
-        'is-loading': loading
+        'is-loading': loading,
+        'is-text': text
       }
     ]"
     @click="handleClick"
