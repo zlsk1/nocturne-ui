@@ -7,6 +7,7 @@ export const config: UserConfig = {
   description: '一个vue3组件库',
   lastUpdated: true,
   appearance: false,
+  lang: 'zh-CH',
 
   themeConfig: {
     doscDir: '../../dosc',

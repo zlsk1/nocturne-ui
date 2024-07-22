@@ -1,12 +1,7 @@
----
-layout: home
+<script>
+import Home from './.vitepress/theme/components/vp-home.vue'
+</script>
 
-hero:
-  name: NocturneUI
-  text: 
-  tagline: 一个vue3组件库.
-  actions:
-    - theme: brand
-      text: Get Started
-      link: /example
----
+<ClientOnly>
+<Home></Home>
+</ClientOnly>

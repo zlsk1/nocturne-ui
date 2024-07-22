@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue';
+import { useData } from 'vitepress'
 import vpAPIContent from './vp-api-content.vue' 
 import vpPageSwitch from './vp-page-switch.vue' 
 
 onMounted(() => {
   resolveZeroWidthSpace()
 })
+
+const { page } = useData()
 
 const resolveZeroWidthSpace = () => {
   const anchor = document.querySelectorAll('.header-anchor')
@@ -19,6 +22,6 @@ const resolveZeroWidthSpace = () => {
       <Content class="doc-content" />
       <vpPageSwitch></vpPageSwitch>
     </div>
-    <vpAPIContent></vpAPIContent>
+    <vpAPIContent v-if="page.headers"></vpAPIContent>
   </div>
 </template>

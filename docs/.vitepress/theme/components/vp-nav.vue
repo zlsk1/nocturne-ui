@@ -1,7 +1,7 @@
 <template>
   <div class="nav-container">
     <div class="nav-wrapper">
-      <a href="">Nocturne-ui</a>
+      <a href="/index.html">Nocturne-ui</a>
       <div class="content">
         <nav class="nav-link">
           <a v-for="(item, index) in theme.nav" :key="item.text" :href="item.link" :class="{ 'actived': actived(theme.nav[index].link) }">{{ item.text }}</a>
