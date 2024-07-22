@@ -1,5 +1,4 @@
 import { mdPlugin }from './config/plugins'
-import path from 'path'
 
 import type { UserConfig } from "vitepress"
 
@@ -7,6 +6,7 @@ export const config: UserConfig = {
   title: 'Nocturne-ui',
   description: '一个vue3组件库',
   lastUpdated: true,
+  appearance: false,
 
   themeConfig: {
     doscDir: '../../dosc',

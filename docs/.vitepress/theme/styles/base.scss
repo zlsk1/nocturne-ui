@@ -57,7 +57,7 @@ h6:focus .header-anchor {
 a {
   font-weight: normal;
   text-decoration: inherit;
-  color: #333;
+  color: var(--n-text-color-regular);
 
   &.header-anchor {
     color: var(--theme-color);
@@ -83,4 +83,26 @@ li,
 ol {
   margin: 0;
   list-style: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2147483646;
+}
+
+.dark::view-transition-old(root) {
+  z-index: 2147483646;
+}
+
+.dark::view-transition-new(root) {
+  z-index: 1;
 }

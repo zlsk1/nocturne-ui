@@ -22,7 +22,7 @@
         transition: color var(--duration-time);
 
         &:hover {
-          color: #333;
+          color: var(--n-text-color-primary);
         }
       }
     }
@@ -48,10 +48,10 @@
       padding: 10px 0;
       font-size: 14px;
       color: var(--n-text-color-secondary);
-      background-color: #fff;
+      background-color: var(--n-bg-color);
       cursor: pointer;
       z-index: 200;
-      transition: color .3s;
+      transition: all .2s linear;
 
       &:hover {
         color: var(--theme-color);

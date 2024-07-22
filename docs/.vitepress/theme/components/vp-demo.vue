@@ -1,44 +1,48 @@
 <template>
-  <div class="demo-container">
-    <p v-html="decodeDescription" class="demo-description mb-4"></p>
-    <div class="demo-content">
-      <div class="demo-component">
-        <ClientOnly>
-          <component :is="formatPathDemos[src]" v-if="formatPathDemos[src]"></component>
-        </ClientOnly>
-      </div>
-      <div class="demo-operas">
-        <n-tooltip
-          content="展开代码"
-          :show-arrow="false"
-        >
-          <codeView
-            size="16"
-            class="opera"
-            @click="handleShowCode"
-          ></codeView>
-        </n-tooltip>
-        <n-tooltip content="在playround中编辑" :show-arrow="false">
-          <Play size="16" class="opera"></Play>
-        </n-tooltip>
-        <n-tooltip content="在github上编辑" :show-arrow="false">
-          <github size="16" class="opera"></github>
-        </n-tooltip>
-        <n-tooltip content="复制代码" :show-arrow="false">
-          <fileCopy size="16" class="opera"></fileCopy>
-        </n-tooltip>
-      </div>
-      <n-collapse-transition>
-        <div class="demo-source-wrapper" v-show="showCode">
-          <div v-html="decoded" class="demo-source language-vue"></div>
+  <ClientOnly>
+    <div class="demo-container">
+      <p v-html="decodeDescription" class="demo-description mb-4"></p>
+      <div class="demo-content">
+        <div class="demo-component">
+          <ClientOnly>
+            <component :is="formatPathDemos[src]" v-if="formatPathDemos[src]"></component>
+          </ClientOnly>
         </div>
-      </n-collapse-transition>
-      <div class="demo-source-close" @click="handleShowCode" v-show="showCode">
-        <Triangle size="20"></Triangle>
-        <p>收起源代码</p>
+        <div class="demo-operas">
+          <n-tooltip
+            content="展开代码"
+            :show-arrow="false"
+          >
+            <codeView
+              size="16"
+              class="opera"
+              @click="handleShowCode"
+            ></codeView>
+          </n-tooltip>
+          <n-tooltip content="在playround中编辑" :show-arrow="false">
+            <Play size="16" class="opera"></Play>
+          </n-tooltip>
+          <n-tooltip content="在github上编辑" :show-arrow="false">
+            <github size="16" class="opera"></github>
+          </n-tooltip>
+          <n-tooltip content="复制代码" :show-arrow="false">
+            <fileCopy size="16" class="opera"></fileCopy>
+          </n-tooltip>
+        </div>
+        <n-collapse-transition>
+          <div class="demo-source-wrapper" v-show="showCode">
+            <div v-html="decoded" class="demo-source language-vue"></div>
+          </div>
+        </n-collapse-transition>
+        <Transition name="n-fade-in-linear">
+          <div class="demo-source-close" @click="handleShowCode" v-show="showCode">
+            <Triangle size="20"></Triangle>
+            <p>收起源代码</p>
+          </div>
+        </Transition>
       </div>
     </div>
-  </div>
+  </ClientOnly>
 </template>
 
 <script lang="ts" setup>
@@ -89,7 +93,14 @@ const formatPathDemos = computed(() => {
   return demos
 })
 
-const handleShowCode = () => {
+const handleShowCode = async () => {
   showCode.value = !showCode.value
 }
 </script>
+
+<style lang="scss" scoped>
+.n-fade-in-linear-enter-active,
+.n-fade-in-linear-leave-active {
+  opacity: 0;
+}
+</style>

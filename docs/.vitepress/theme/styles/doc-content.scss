@@ -39,12 +39,12 @@
         line-height: 1.5em;
         font-size: 14px;
         border-collapse: collapse;
-        background-color: var(--bg-color);
+        background-color: var(--n-bg-color);
 
         th {
           white-space: nowrap;
-          border-top: 1px solid var(--border-color);
-          border-bottom: 1px solid var(--border-color);
+          border-top: 1px solid var(--n-border-color);
+          border-bottom: 1px solid var(--n-border-color);
           padding: .6em 1em;
           text-align: left;
           max-width: 250px;
@@ -57,8 +57,8 @@
 
         td {
           white-space: nowrap;
-          border-top: 1px solid var(--border-color);
-          border-bottom: 1px solid var(--border-color);
+          border-top: 1px solid var(--n-border-color);
+          border-bottom: 1px solid var(--n-border-color);
           padding: .6em 1em;
           text-align: left;
           max-width: 250px;
