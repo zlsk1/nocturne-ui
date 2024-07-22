@@ -17,20 +17,22 @@ const {
   isFocused,
   model,
   actualValue,
-  handleChange
+  handleChange,
+  onClickRoot
 } = useCheckbox(props, slots)
 </script>
 
 <template>
   <label
     :class="[
-      'n-checkbox',
-      `n-checkbox--${size || 'default'}`,
+      size ? `n-checkbox--${size}` : 'n-checkbox',
       {
         'is-disabled': disabled || isDisabled,
         'is-checked': isChecked,
       }
     ]"
+    :style="{ color: textColor }"
+    @click="onClickRoot"
   >
     <span
       :class="[

@@ -14,8 +14,6 @@ export const useCheckboxStatus = (
   const checkboxGroup = inject(checkboxGroupContextKey, undefined)
   const isFocused = ref(false)
   const actualValue = computed(() => {
-    // In version 2.x, if there's no props.value, props.label will act as props.value
-    // In version 3.x, remove this computed value, use props.value instead.
     if (!isPropAbsent(props.value)) {
       return props.value
     }

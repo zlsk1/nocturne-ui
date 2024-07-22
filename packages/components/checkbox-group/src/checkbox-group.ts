@@ -21,8 +21,6 @@ export const checkboxGroupProps = {
   },
   max: Number,
   min: Number,
-  textColor: String,
-  fill: String,
   label: String
 } as const
 

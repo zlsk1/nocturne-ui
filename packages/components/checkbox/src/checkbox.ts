@@ -48,7 +48,11 @@ export const checkboxProps = {
     type: String,
     default: undefined
   },
-  tabindex: definePropType<string | number>([String, Number])
+  tabindex: definePropType<string | number>([String, Number]),
+  textColor: {
+    type: String,
+    default: '#fff'
+  }
 } as const
 
 export const checkboxEmits = {

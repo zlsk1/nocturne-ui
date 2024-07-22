@@ -20,7 +20,7 @@ export const useCheckbox = (
     hasOwnLabel,
     actualValue
   } = useCheckboxStatus(props, slots, { model })
-  const { isDisabled } = useCheckboxDisabled({ model, isChecked })
+  const { isDisabled } = useCheckboxDisabled({ model, isChecked, disabled: props.disabled })
   const { handleChange, onClickRoot } = useCheckboxEvent(props, {
     model,
     isLimitExceeded,
