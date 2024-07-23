@@ -17,6 +17,10 @@
 import { inject, onMounted, ref, watch, computed } from 'vue'
 import { CAROUSEL_INJECT_KEY } from '../../carousel/src/constants'
 
+defineOptions({
+  name: 'NCarouselItem'
+})
+
 const { itemCount, contentRef, currentIndex } = inject(CAROUSEL_INJECT_KEY, undefined)!
 
 const itemRef = ref<HTMLLIElement>()

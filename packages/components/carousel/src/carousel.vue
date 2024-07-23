@@ -75,6 +75,10 @@ import { NIcon } from '@/components'
 import { CAROUSEL_INJECT_KEY } from './constants'
 import { useIntervalFn, useThrottleFn } from '@vueuse/core'
 
+defineOptions({
+  name: 'NCarousel'
+})
+
 const props = defineProps(carouselProps)
 const emit = defineEmits(carouselEmits)
 
