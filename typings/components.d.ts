@@ -2,38 +2,40 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    FrAlert: typeof import('packages')['FrAlert']
-    FrAvatar: typeof import('packages')['FrAvatar']
-    FrBadge: typeof import('packages')['FrBadge']
-    FrButton: typeof import('packages')['FrButton']
-    FrCarousel: typeof import('packages')['FrCarousel']
-    FrCarouselItem: typeof import('packages')['FrCarouselItem']
-    FrCheckbox: typeof import('packages')['FrCheckbox']
-    FrCheckboxGroup: typeof import('packages')['FrCheckboxGroup']
-    FrCollapse: typeof import('packages')['FrCollapse']
-    FrCollapseItem: typeof import('packages')['FrCollapseItem']
-    FrCollapseTransition: typeof import('packages')['FrCollapseTransition']
-    FrIcon: typeof import('packages')['FrIcon']
-    FrInput: typeof import('packages')['FrInput']
-    FrInputNumber: typeof import('packages')['FrInputNumber']
-    FrLink: typeof import('packages')['FrLink']
-    FrOption: typeof import('packages')['FrOption']
-    FrPagination: typeof import('packages')['FrPagination']
-    FrPopper: typeof import('packages')['FrPopper']
-    FrProgress: typeof import('packages')['FrProgress']
-    FrRadio: typeof import('packages')['FrRadio']
-    FrRadioGroup: typeof import('packages')['FrRadioGroup']
-    FrSelect: typeof import('packages')['FrSelect']
-    FrSlider: typeof import('packages')['FrSlider']
-    FrSwitch: typeof import('packages')['FrSwitch']
-    FrTag: typeof import('packages')['FrTag']
-    FrTooltip: typeof import('packages')['FrTooltip']
-    FrStatistic: typeof import('packages')['FrStatistic']
+    NAlert: typeof import('packages')['NAlert'],
+    NAvatar: typeof import('packages')['NAvatar'],
+    NBadge: typeof import('packages')['NBadge'],
+    NButton: typeof import('packages')['NButton'],
+    NButtonGroup: typeof import('packages')['NButtonGroup'],
+    NCarousel: typeof import('packages')['NCarousel'],
+    NCarouselItem: typeof import('packages')['NCarouselItem'],
+    NCheckbox: typeof import('packages')['NCheckbox'],
+    NCheckboxGroup: typeof import('packages')['NCheckboxGroup'],
+    NCollapse: typeof import('packages')['NCollapse'],
+    NCollapseItem: typeof import('packages')['NCollapseItem'],
+    NCollapseItemTransition: typeof import('packages')['NCollapseTransition'],
+    NCountdown: typeof import('packages')['NCountdown'],
+    NIcon: typeof import('packages')['NIcon'],
+    NInput: typeof import('packages')['NInput'],
+    NInputNumber: typeof import('packages')['NInputNumber'],
+    NLink: typeof import('packages')['NLink'],
+    NOption: typeof import('packages')['NOption'],
+    NPagination: typeof import('packages')['NPagination'],
+    NPopper: typeof import('packages')['NPopper'],
+    NProgress: typeof import('packages')['NProgress'],
+    NRadio: typeof import('packages')['NRadio'],
+    NRadioGroup: typeof import('packages')['NRadioGroup'],
+    NSelect: typeof import('packages')['NSelect'],
+    NSlider: typeof import('packages')['NSlider'],
+    NStatistic: typeof import('packages')['NStatistic'],
+    NSwitch: typeof import('packages')['NSwitch'],
+    NTag: typeof import('packages')['NTag'],
+    NTimeline: typeof import('packages')['NTimeline'],
+    NTimelineItem: typeof import('packages')['NTimelineItem'],
+    NTooltip: typeof import('packages')['NTooltip'],
   }
 
   interface ComponentCustomProperties {
-    $message: typeof import('packages')['FrMessage']
+    $message: typeof import('packages')['NMessage']
   }
 }
-
-export {}
