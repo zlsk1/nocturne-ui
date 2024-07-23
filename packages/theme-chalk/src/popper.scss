@@ -74,22 +74,30 @@ $placement: (
   }
 
   @include when(dark) {
-    color: #fff;
+    color: getCssVar('bg-color');
     background-color: getCssVar('text-color', 'primary');
-    border: 1px solid #414243;
-  }
-
-  @include when(light) {
-    color: #141414;
-    background-color: #fff;
-    box-shadow: 0px 0px 12px rgba(0, 0, 0, .12);
-    border: 1px solid getCssVar('border-color-light');
+    border: 1px solid getCssVar('text-color', 'primary');
 
     @include e(arrow) {
       
       &::after {
-        background-color: #fff;
-        border: 1px solid getCssVar('border-color-light');
+        border: 1px solid getCssVar('text-color', 'primary');
+        background: getCssVar('text-color', 'primary');
+        right: 0;
+      }
+    }
+  }
+
+  @include when(light) {
+    background: getCssVar('bg-color', 'overlay');
+    border: 1px solid getCssVar('border-color', 'light');
+
+    @include e(arrow) {
+      
+      &::after {
+        border: 1px solid getCssVar('border-color', 'light');
+        background: getCssVar('bg-color', 'overlay');
+        right: 0;
       }
     }
   }
