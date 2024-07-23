@@ -1,6 +1,7 @@
 import NocturneUI from 'nocturne-ui'
 import './styles/index.scss'
 import 'nocturne-ui/dist/index.css';
+import 'nocturne-ui/theme-chalk/n-message.css';
 import 'uno.css'
 import { vpComponents } from './global'
 import vpApp from './components/vp-app.vue'

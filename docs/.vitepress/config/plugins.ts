@@ -64,6 +64,7 @@ const createDemoContainer = () => {
           if (!codes) throw new Error(`Incorrect source file: ${sourceFile}`)
 
           return `<Demo :demos="demos" codes="${encodeURIComponent(highlight(codes, 'vue'))}"
+            raw-codes="${encodeURIComponent(codes)}"
             src="${sourceFile}"
             description="${encodeURIComponent(localMd.render(description))}"
           >\n`

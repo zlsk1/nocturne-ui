@@ -28,7 +28,7 @@
             </a>
           </n-tooltip>
           <n-tooltip content="复制代码" :show-arrow="false">
-            <fileCopy size="16" class="opera"></fileCopy>
+            <fileCopy size="16" class="opera" @click="copyCode"></fileCopy>
           </n-tooltip>
         </div>
         <n-collapse-transition>
@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, getCurrentInstance } from 'vue'
 import {
   RiCodeView as codeView,
   RiFileCopyFill as fileCopy,
@@ -56,6 +56,7 @@ import {
   RiSendPlaneFill as Play,
   RiArrowUpDoubleLine as Triangle
 } from '@remixicon/vue';
+import { useClipboard } from '@vueuse/core'
 
 const props = defineProps({
   src: {
@@ -70,6 +71,9 @@ const props = defineProps({
     type: String,
     default: ''
   },
+  rawCodes: {
+    type: String
+  },
   description: {
     type: String,
     default: ''
@@ -77,6 +81,13 @@ const props = defineProps({
 })
 
 const showCode = ref(false)
+
+const { copy, isSupported } = useClipboard({
+  source: decodeURIComponent(props.rawCodes),
+  read: false,
+})
+
+const vm = getCurrentInstance()!
 
 const decoded = computed(() => {
   return decodeURIComponent(props.codes)
@@ -101,6 +112,24 @@ const githubPath = computed(() => {
 
 const handleShowCode = async () => {
   showCode.value = !showCode.value
+}
+
+const copyCode = async () => {
+  const { $message } = vm.appContext.config.globalProperties
+  
+  if(!isSupported) {
+    $message.error({
+      offset: 55,
+      message: '复制失败'
+    })
+  }
+  else {
+    await copy()
+    $message.success({
+      offset: 55,
+      message: '复制成功'
+    })
+  }
 }
 </script>
 
