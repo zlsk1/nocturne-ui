@@ -25,7 +25,7 @@ export const messageDefaults = mutable({
   type: 'info',
   // plain: false,
   offset: 16,
-  // zIndex: 0,
+  zIndex: 0,
   grouping: false,
   repeatNum: 1,
   appendTo: isClient ? document.body : (undefined as never)
@@ -80,6 +80,10 @@ export const messageProps = {
   customClass: {
     type: String,
     default: messageDefaults.customClass
+  },
+  zIndex: {
+    type: Number,
+    default: 0
   }
 } as const
 

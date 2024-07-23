@@ -6,10 +6,10 @@ import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
 import { NBadge } from '@/components'
 import { BadgeProps } from '@/components/badge'
 import {
-  RiInformationFill as info,
-  RiCheckboxFill as success,
-  RiErrorWarningFill as warning,
-  RiCloseCircleFill as error,
+  RiInformationFill as Info,
+  RiCheckboxCircleFill as Success,
+  RiErrorWarningFill as Warning,
+  RiCloseCircleFill as Error,
   RiCloseLine as Close
 } from '@remixicon/vue'
 
@@ -52,15 +52,15 @@ const badgeType = computed<BadgeProps['type']>(() =>
 const icon = computed(() => {
   switch (props.type) {
     case 'info':
-      return info
+      return Info
     case 'success':
-      return success
+      return Success
     case 'error':
-      return error
+      return Error
     case 'warning':
-      return warning
+      return Warning
   }
-  return info
+  return Info
 })
 
 const close = () => {
@@ -104,7 +104,8 @@ defineExpose({
         customClass
       ]"
       :style="{
-        top: offset + 'px'
+        top: offset + 'px',
+        zIndex: zIndex
       }"
       @mouseenter="clearTimer"
       @mouseleave="startTimer"
