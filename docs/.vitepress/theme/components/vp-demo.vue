@@ -22,8 +22,10 @@
           <n-tooltip content="在playround中编辑" :show-arrow="false">
             <Play size="16" class="opera"></Play>
           </n-tooltip>
-          <n-tooltip content="在github上编辑" :show-arrow="false">
-            <github size="16" class="opera"></github>
+          <n-tooltip content="在github上查看" :show-arrow="false">
+            <a :href="githubPath" target="_blank">
+              <github size="16" class="opera"></github>
+            </a>
           </n-tooltip>
           <n-tooltip content="复制代码" :show-arrow="false">
             <fileCopy size="16" class="opera"></fileCopy>
@@ -93,12 +95,16 @@ const formatPathDemos = computed(() => {
   return demos
 })
 
+const githubPath = computed(() => {
+ return `https://github.com/zlsk1/nocturne-ui/tree/master/docs/demo/${props.src}.vue`
+})
+
 const handleShowCode = async () => {
   showCode.value = !showCode.value
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .n-fade-in-linear-enter-active,
 .n-fade-in-linear-leave-active {
   opacity: 0;

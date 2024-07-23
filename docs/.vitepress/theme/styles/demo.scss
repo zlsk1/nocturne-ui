@@ -25,6 +25,12 @@
           color: var(--n-text-color-primary);
         }
       }
+
+      a {
+        display: flex;
+        align-items: center;
+        color: var(--n-text-color-secondary);
+      }
     }
   
     .demo-description {
