@@ -136,8 +136,8 @@ importers:
         specifier: 4.2.0
         version: 4.2.0(vue@3.4.15)
       nocturne-ui:
-        specifier: 0.0.1-alpha.10
-        version: 0.0.1-alpha.10(vue@3.4.15)
+        specifier: 0.0.2-alpha.0
+        version: 0.0.2-alpha.0(vue@3.4.15)
       prism-theme-vars:
         specifier: 0.2.3
         version: 0.2.3
@@ -179,6 +179,9 @@ importers:
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
+      '@remixicon/vue':
+        specifier: ^4.2.0
+        version: 4.2.0(vue@3.4.32)
       '@vueuse/core':
         specifier: ^9.13.0
         version: 9.13.0(vue@3.4.32)
@@ -6231,12 +6234,13 @@ packages:
     resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
     dev: true
 
-  /nocturne-ui@0.0.1-alpha.10(vue@3.4.15):
-    resolution: {integrity: sha512-l49JBIMFY3plxSveyqMLMUZ5BxyrvHadKPIgM/BQpwCwvkVSwM6TZjcDSF4aCpmMxw/hIAdpYDId6Oq5zS6jkg==}
+  /nocturne-ui@0.0.2-alpha.0(vue@3.4.15):
+    resolution: {integrity: sha512-9XiFpFnWJn8IYDD6R8iXS0ToLlKV023/BSjfkQG32uIu0nDO0LOjxg8oCGnCp9U243w9KHHrjdavGn8b/88x6A==}
     peerDependencies:
       vue: ^3.4.15
     dependencies:
       '@popperjs/core': 2.11.8
+      '@remixicon/vue': 4.2.0(vue@3.4.15)
       '@vueuse/core': 9.13.0(vue@3.4.15)
       dayjs: 1.11.12
       vue: 3.4.15(typescript@5.5.3)
