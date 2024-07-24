@@ -3,7 +3,7 @@ import { popperArrowProps } from '@/components/popper/src/arrow'
 import { popperProps } from '@/components/popper/src/popper'
 import { useTooltipContentProps } from './content'
 import { useTooltipTriggerProps } from './reference'
-import type Tooltip from './tooltip.vue'
+import Tooltip from './tooltip.vue'
 
 import type { ExtractPropTypes } from 'vue'
 

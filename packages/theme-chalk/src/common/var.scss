@@ -810,7 +810,28 @@ $slider: map.merge(
 $carousel: () !default;
 $carousel: map.merge(
   (
-    'indicator-color': getCssVar('border-color-light')
+    'indicator-color': getCssVar('border-color')
   ),
   $carousel
+);
+
+// color-picker
+// css3 var in packages/theme-chalk/src/color-picker.scss
+$color-picker: () !default;
+$color-picker: map.merge(
+  (
+    'border-color': getCssVar('border-color'),
+    'border-radius': getCssVar('border-radius-base'),
+  ),
+  $color-picker
+);
+
+$color-picker-size: () !default;
+$color-picker-size: map.merge(
+  (
+    'large': 30px,
+    'default': 24px,
+    'small': 18px,
+  ),
+  $color-picker-size
 );

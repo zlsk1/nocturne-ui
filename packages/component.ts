@@ -10,6 +10,7 @@ import { NCheckboxGroup } from '@/components/checkbox-group'
 import { NCollapse } from '@/components/collapse'
 import { NCollapseItem } from '@/components/collapse-item'
 import { NCollapseTransition } from '@/components/collapse-transition'
+import { NColorPicker } from '@/components/color-picker'
 import { NCountdown } from '@/components/countdown'
 import { NIcon } from '@/components/icon'
 import { NInput } from '@/components/input'
@@ -46,6 +47,7 @@ export default [
   NCollapse,
   NCollapseItem,
   NCollapseTransition,
+  NColorPicker,
   NCountdown,
   NIcon,
   NInput,

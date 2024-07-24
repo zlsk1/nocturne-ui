@@ -1,0 +1,50 @@
+@use 'sass:map';
+
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+@include b(color-picker) {
+  @include set-component-css-var('color-picker', $color-picker);
+}
+
+@include b(color-picker) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: map.get($color-picker-size, 'default');
+  height: map.get($color-picker-size, 'default');
+  color: #fff;
+  border: 1px solid getCssVar('color-picker', 'border-color');
+  border-radius: getCssVar('color-picker', 'border-radius');
+  cursor: pointer;
+
+  @each $size in (large, small) {
+
+    @include m($size) {
+      width: map.get($color-picker-size, $size);
+      height: map.get($color-picker-size, $size);
+    }
+  }
+}
+
+$colorSelect: #{$namespace}-color-picker;
+
+@include b(color-picker__content) {
+
+  .#{$colorSelect}__operas {
+    // position: absolute;
+    // bottom: 10px;
+    // left: 0;
+    display: flex;
+    align-items: center;
+
+    .operas__input {
+      display: flex;
+      align-items: center;
+      width: 150px;
+      height: 30px;
+      margin-right: 30px;
+    }
+  }
+}
