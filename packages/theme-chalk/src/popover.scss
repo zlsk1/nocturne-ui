@@ -1,0 +1,19 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(popover) {
+  @include set-component-css-var('popover', $popover);
+}
+
+@include b(popover) {
+  
+  &.#{$namespace}-popper {
+    min-width: getCssVar('width');
+    color: #fff;
+
+    @include m(title) {
+      margin-bottom: 10px;
+    }
+  }
+}

@@ -1,7 +1,7 @@
-import { ExtractPropTypes } from "vue"
 import colorPicker from "./color-picker.vue"
 import { componentSizes } from "@/constants"
 import { isString } from "@/utils"
+import type { ExtractPropTypes } from "vue"
 
 export const colorPickerProps = {
   modelValue: String,

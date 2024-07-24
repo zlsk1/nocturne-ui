@@ -835,3 +835,11 @@ $color-picker-size: map.merge(
   ),
   $color-picker-size
 );
+
+$popover: () !default;
+$popover: map.merge(
+  (
+    witdh: 160px
+  ),
+  $popover
+);
