@@ -58,11 +58,6 @@ const diff = props.max - props.min
 const diffs: number[] = []
 
 watch(sliderRef, () => {
-  const rect = sliderRef.value!.getBoundingClientRect()
-  parentLeft = rect?.x
-  parentTop = rect?.y
-  parentWidth = rect?.width
-
   if (props.step) {
     for (let i = 0; i <= props.step; i++) {
       if (!props.vertical) {
@@ -104,6 +99,11 @@ const onMousedown = (e: MouseEvent) => {
   if (props.showTooltip && !visible.value) visible.value = true
 
   isActive.value = true
+
+  const rect = sliderRef.value!.getBoundingClientRect()
+  parentLeft = rect?.x
+  parentTop = rect?.y
+  parentWidth = rect?.width
 
   window.addEventListener('mousemove', handleMove)
   window.addEventListener('mouseup', handleMoveEnd)
