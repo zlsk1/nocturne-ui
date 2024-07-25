@@ -102,6 +102,7 @@ const formatValue = computed<number>(() => {
 })
 
 const onMousedown = (e: MouseEvent) => {
+  e.preventDefault()
   if (props.disabled) return
 
   if (props.showTooltip && !visible.value) visible.value = true
