@@ -50,9 +50,9 @@ const positionData = ref(0)
 const isActive = ref(false)
 const visible = ref(false)
 
-let parentLeft = 0
-let parentTop = 0
 let parentWidth = 0
+let distance = 0
+let rect: DOMRect
 const parentHeight = (props.height!)
 const diff = props.max - props.min
 const diffs: number[] = []
@@ -88,21 +88,19 @@ const formatValue = computed<number>(() => {
     return Math.round(positionPercent.value)
   }
   else {
-    return useFormat()
+    return handleFormat()
   }
 })
 
 const onMousedown = (e: MouseEvent) => {
   e.preventDefault()
-  if (props.disabled) return
 
+  if (props.disabled) return
   if (props.showTooltip && !visible.value) visible.value = true
 
   isActive.value = true
 
-  const rect = sliderRef.value!.getBoundingClientRect()
-  parentLeft = rect?.x
-  parentTop = rect?.y
+  rect = sliderRef.value?.getBoundingClientRect()!
   parentWidth = rect?.width
 
   window.addEventListener('mousemove', handleMove)
@@ -112,7 +110,7 @@ const onMousedown = (e: MouseEvent) => {
 const handleMove = (e: MouseEvent) => {
   e.preventDefault()
 
-  const distance = getClientDistance(e)
+  distance = getClientDistance(e, rect)
 
   if (!props.vertical) {
     setPositionData(distance, parentWidth)
@@ -127,8 +125,8 @@ const handleMove = (e: MouseEvent) => {
   nextTick(() => emit('change', formatValue.value))
 }
 
-const getClientDistance = (e: MouseEvent) => {
-  return !props.vertical ? e.clientX - parentLeft : e.clientY - parentTop
+const getClientDistance = (e: MouseEvent, rect: DOMRect) => {
+  return !props.vertical ? e.clientX - rect?.x : e.clientY - rect?.y
 }
 
 const handleMoveEnd = (e: MouseEvent) => {
@@ -153,7 +151,7 @@ const setPercent = (val: number) => {
   positionPercent.value = props.vertical ? 100 - (val / parentHeight * 100) : (val / parentWidth * 100)
 }
 
-const useFormat = () => {
+const handleFormat = () => {
   const calculateVal = props.min + Math.round(positionPercent.value * (diff) / 100)
   return props.formatValueFn!(calculateVal)
 }

@@ -44,7 +44,7 @@ $slider-height: map.merge(
     top: getCssVar('slider-button-offset');
     width: getCssVar('slider-button-size');
     height: getCssVar('slider-button-size');
-    background-color: getCssVar('slider-track-bg-color');
+    background-color: #e4e7ed;
     border-radius: 50%;
     transform: translateX(-50%);
     transition: box-shadow getCssVar('transition-duration-fast') linear;
@@ -81,7 +81,7 @@ $slider-height: map.merge(
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    background-color: #000;
+    background-color: getCssVar('text-color-primary');
   }
 
   @include when(disabled) {
