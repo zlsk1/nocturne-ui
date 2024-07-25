@@ -33,6 +33,7 @@ import { SLIDER_INJECT_KEY } from './constants'
 import { sliderReferenceProps, sliderReferenceEmits } from './reference'
 import { NTooltip } from '@/components'
 import type { TooltipInstance } from '@/components/tooltip'
+import type { CSSProperties } from 'vue'
 
 defineOptions({
   name: 'NSliderReference'
@@ -43,14 +44,9 @@ const emit = defineEmits(sliderReferenceEmits)
 
 const { sliderRef, positionPercent } = inject(SLIDER_INJECT_KEY, undefined)!
 
-type PositionData = {
-  top: number,
-  left: number
-}
-
 const referenceRef = ref<HTMLDivElement>()
 const tooltipRef = ref<TooltipInstance>()
-const positionData = ref<PositionData>({ top: 0, left: 0 })
+const positionData = ref(0)
 const isActive = ref(false)
 const visible = ref(false)
 
@@ -79,7 +75,7 @@ watch(sliderRef, () => {
   }
 })
 
-const positionStyle = computed(() => {
+const positionStyle = computed<CSSProperties>(() => {
   if (!props.vertical) {
     return {
       left: positionPercent.value + '%'
@@ -116,20 +112,23 @@ const onMousedown = (e: MouseEvent) => {
 const handleMove = (e: MouseEvent) => {
   e.preventDefault()
 
-  const left = e.clientX - parentLeft
-  const top = e.clientY - parentTop
+  const distance = getClientDistance(e)
 
   if (!props.vertical) {
-    setPositionData('left', left, parentWidth)
-    setPercent(positionData.value.left)
+    setPositionData(distance, parentWidth)
+    setPercent(positionData.value)
   }
   else {
-    setPositionData('top', top, parentHeight)
-    setPercent(positionData.value.top)
+    setPositionData(distance, parentHeight)
+    setPercent(positionData.value)
   }
 
   tooltipRef.value?.updatePopper()
   nextTick(() => emit('change', formatValue.value))
+}
+
+const getClientDistance = (e: MouseEvent) => {
+  return !props.vertical ? e.clientX - parentLeft : e.clientY - parentTop
 }
 
 const handleMoveEnd = (e: MouseEvent) => {
@@ -159,28 +158,28 @@ const useFormat = () => {
   return props.formatValueFn!(calculateVal)
 }
 
-const setPositionData = (direction: 'left' | 'top', directionVal: number, parent: number) => {
-  if (directionVal < 0) {
-    positionData.value[direction] = 0
+const setPositionData = (distance: number, parent: number) => {
+  if (distance < 0) {
+    positionData.value = 0
   }
-  else if (directionVal >= parent) {
-    positionData.value[direction] = parent
+  else if (distance >= parent) {
+    positionData.value = parent
   }
   else {
     if (props.step) {
       for (let i = 0; i < diffs.length; i++) {
-        if (directionVal > diffs[i] && directionVal < diffs[i + 1]) {
-          if (directionVal - diffs[i] < parent / props.step / 2) {
-            positionData.value[direction] = diffs[i]
+        if (distance > diffs[i] && distance < diffs[i + 1]) {
+          if (distance - diffs[i] < parent / props.step / 2) {
+            positionData.value = diffs[i]
           }
           else {
-            positionData.value[direction] = diffs[i + 1]
+            positionData.value = diffs[i + 1]
           }
         }
       }
     }
     else {
-      positionData.value[direction] = directionVal
+      positionData.value = distance
     }
   }
 }
