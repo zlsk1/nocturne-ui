@@ -30,7 +30,7 @@
     @show="afterEnter"
     @hide="afterLeave"
     @update:visible="updateVisible"
-  > 
+  >
     <template v-if="$slots.reference">
       <slot name="reference"></slot>
     </template>
@@ -43,9 +43,9 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import { popoverProps, popoverEmit } from './popover';
+import { popoverProps, popoverEmit } from './popover'
 import { NTooltip, TooltipInstance } from '@/components'
-import { isNumber } from '@/utils';
+import { isNumber } from '@/utils'
 
 defineOptions({
   name: 'NPopover'
@@ -59,7 +59,7 @@ const tooltipRef = ref<TooltipInstance>()
 const popoverRef = computed(() => tooltipRef.value?.popperRef)
 const popoverStyle = computed(() => {
   return [
-    { width: isNumber(props.width) ? props.width : props.width + 'px' },
+    { width: isNumber(props.width) ? props.width + 'px' : props.width },
     props.popperStyle
   ]
 })
@@ -97,7 +97,6 @@ defineExpose({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '@/theme-chalk/src/popover.scss';
-@use '@/theme-chalk/src/popper.scss'
 </style>

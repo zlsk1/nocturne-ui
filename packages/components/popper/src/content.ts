@@ -77,7 +77,7 @@ export const popperContentProps = {
   },
   effect: {
     type: String,
-    default: 'dark'
+    default: 'light'
   },
   visible: Boolean,
   enterable: {

@@ -77,6 +77,7 @@ $placement: (
     color: getCssVar('bg-color');
     background-color: getCssVar('text-color', 'primary');
     border: 1px solid getCssVar('text-color', 'primary');
+    box-shadow: getCssVar('box-shadow-dark');
 
     @include e(arrow) {
       
@@ -91,6 +92,7 @@ $placement: (
   @include when(light) {
     background: getCssVar('bg-color', 'overlay');
     border: 1px solid getCssVar('border-color', 'light');
+    box-shadow: getCssVar('box-shadow-light');
 
     @include e(arrow) {
       
@@ -101,14 +103,4 @@ $placement: (
       }
     }
   }
-}
-
-.#{$namespace}-popper-transition-enter-active,
-.#{$namespace}-popper-transition-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.#{$namespace}-popper-transition-enter-from,
-.#{$namespace}-popper-transition-leave-to {
-  opacity: 0;
 }

@@ -7,7 +7,7 @@ export const popoverProps = {
   ...useTooltipProps,
   width: {
     type: definePropType<string | number>([String, Number]),
-    default: '160px',
+    default: '160px'
   },
   title: String,
   updateVisible: Function as PropType<(visible: boolean) => void>
@@ -18,7 +18,7 @@ export const popoverEmit = {
   'after-enter': () => true,
   'after-leave': () => true,
   'before-enter': () => true,
-  'before-leave': () => true,
+  'before-leave': () => true
 }
 
 export type PopoverProps = ExtractPropTypes<typeof popoverProps>
