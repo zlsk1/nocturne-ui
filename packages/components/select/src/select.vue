@@ -46,7 +46,6 @@
               ref="inputRef"
               type="text"
               class="n-select__input"
-              style="width: 10px;"
             >
             <NTag
               v-for="(item, index) in taglist"

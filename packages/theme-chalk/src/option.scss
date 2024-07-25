@@ -14,13 +14,15 @@ $prefix: #{$namespace}-select-option;
 .#{$prefix}__wrapper {
   position: relative;
   width: 100%;
+  padding: 0;
+  margin: 0;
   overflow: auto;
   z-index: 100;
 
   @include scroll-bar;
 
   .#{$prefix}__item {
-    padding: 6px 20px 6px 15px;
+    padding: 6px 20px;
     list-style-type: none;
     text-align: start;
     font-size: 14px;
