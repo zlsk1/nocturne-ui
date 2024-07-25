@@ -1,0 +1,30 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(popconfirm) {
+
+  &.#{$namespace}-popper {
+
+    @include e(title) {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 14px;
+      
+      @include when(icon) {
+        margin: 0 0 0 10px;
+      }
+
+      > p {
+        margin: 0;
+        padding: 0;
+        margin: 0;
+      }
+    }
+
+    @include e(btns) {
+      text-align: end;
+    }
+  }
+}

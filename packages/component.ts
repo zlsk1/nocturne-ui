@@ -19,6 +19,7 @@ import { NLink } from '@/components/link'
 import { NMessage } from '@/components/message'
 import { NOption } from '@/components/option'
 import { NPagination } from '@/components/pagination'
+import { NPopconfirm } from '@/components/popconfirm'
 import { NPopover } from '@/components/popover'
 import { NPopper } from '@/components/popper'
 import { NProgress } from '@/components/progress'
@@ -57,6 +58,7 @@ export default [
   NMessage,
   NOption,
   NPagination,
+  NPopconfirm,
   NPopover,
   NPopper,
   NProgress,

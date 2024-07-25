@@ -10,7 +10,7 @@
   padding: 10px;
 
   &.#{$namespace}-popper {
-    min-width: getCssVar('width');
+    min-width: getCssVar('popover-width');
     padding: 10px 15px;
 
     @include e(title) {
