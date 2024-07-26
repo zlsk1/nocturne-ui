@@ -104,9 +104,6 @@ export type MessageOptions = Partial<
 >
 export type MessageParams = MessageOptions | MessageOptions['message']
 export type MessageParamsNormalized = Omit<MessageProps, 'id'> & {
-  /**
-   * @description set the root element for the message, default to `document.body`
-   */
   appendTo: HTMLElement
 }
 export type MessageOptionsWithType = Omit<MessageOptions, 'type'>
@@ -115,9 +112,6 @@ export type MessageParamsWithType =
   | MessageOptions['message']
 
 export interface MessageHandler {
-  /**
-   * @description close the Message
-   */
   close: () => void
 }
 

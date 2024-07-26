@@ -97,6 +97,7 @@ defineExpose({
   >
     <div
       v-show="visible"
+      :id="id"
       ref="messageRef"
       :class="[
         'n-message',

@@ -42,10 +42,7 @@ const normalizeOptions = (params?: MessageParams) => {
   else if (isString(normalized.appendTo)) {
     let appendTo = document.querySelector<HTMLElement>(normalized.appendTo)
     if (!isElement(appendTo)) {
-      console.warn(
-        'FrMessage',
-        'the appendTo option is not an HTMLElement. Falling back to document.body.'
-      )
+      console.warn('NMessage', 'the appendTo option is not an HTMLElement. Falling back to document.body.')
       appendTo = document.body
     }
     normalized.appendTo = appendTo
@@ -81,6 +78,7 @@ const createMessage = (
       render(null, container)
     }
   }
+
   const vnode = createVNode(
     MessageConstructor,
     props,

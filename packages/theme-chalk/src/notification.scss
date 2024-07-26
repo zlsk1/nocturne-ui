@@ -1,0 +1,95 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(notification) {
+  @include set-component-css-var('notification', $notification);
+}
+
+@include b(notification) {
+  position: fixed;
+  display: flex;
+  width: getCssVar('notification-width');
+  padding: getCssVar('notification-padding');
+  box-sizing: border-box;
+  background: getCssVar('bg-color');
+  border-radius: getCssVar('notification-border-radius');
+  box-shadow: getCssVar('notification-box-shadow');
+  transition: opacity getCssVar('transition-duration'), transform getCssVar('transition-duration-fast'), top .4s, bottom .4s;
+
+  @include m(main) {
+    margin-left: 10px;
+
+    @include e(close) {
+      position: absolute;
+      right: 20px;
+      top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: getCssVar('text-color-secondary');
+      cursor: pointer;
+      transition: .3s linear;
+  
+      &:hover {
+        color: getCssVar('text-color-regular');
+        background: getCssVar('text-color-placeholder');
+      }
+    }
+
+    @include e(title) {
+      margin-bottom: 10px;
+    }
+
+    @include e('content') {
+      margin-bottom: 2px;
+      color: getCssVar('text-color-regular');
+    }
+
+    > p, h4 {
+      margin: 0;
+      padding: 0;
+    }
+
+    > h4 {
+      font-weight: 500;
+    }
+  }
+
+  @include when(left) {
+    left: 20px;
+  }
+
+  @include when(right) {
+    right: 20px;
+  }
+
+  @each $type in (info, success, error, warn) {
+    @include m($type) {
+      @include css-var-from-global(
+        ('notification', 'icon-color'),
+        ('color', $type, 'light-3')
+      )
+    }
+
+    & .#{$namespace}-notification__icon {
+      width: 24px;
+      height: 24px;
+      color: getCssVar('notification', 'icon-color');
+    }
+  }
+}
+
+.#{$namespace}-notification-enter-from {
+  &.is-left {
+    transform: translateX(-50%);
+  }
+  &.is-right {
+    transform: translateX(50%);
+  }
+}
+
+.#{$namespace}-notification-leave-to {
+  opacity: 0;
+}

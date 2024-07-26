@@ -48,6 +48,7 @@
     }
 
     & .#{$namespace}-message-icon--#{$type} {
+      flex-shrink: 0;
       color: getCssVar('message', 'text-color');
     }
   }
