@@ -22,7 +22,10 @@
       </span>
       <div class="n-notification--main">
         <h4 v-if="title" class="n-notification__title">{{ title }}</h4>
-        <p class="n-notification__content">{{ content }}</p>
+        <p v-if="!isVNode(content)" class="n-notification__content">{{ content }}</p>
+        <p v-else class="n-notification__content">
+          <slot></slot>
+        </p>
         <i class="n-notification__close">
           <Close size="20" @click="close"></Close>
         </i>
@@ -32,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref, onMounted, isVNode } from 'vue'
 import { notificationProps, notificationEmit } from './notification'
 import {
   RiInformationFill as Info,

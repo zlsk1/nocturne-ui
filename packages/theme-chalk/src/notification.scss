@@ -44,7 +44,7 @@
 
     @include e('content') {
       margin-bottom: 2px;
-      color: getCssVar('text-color-regular');
+      color: getCssVar('notification-text-color');
     }
 
     > p, h4 {
@@ -83,10 +83,10 @@
 
 .#{$namespace}-notification-enter-from {
   &.is-left {
-    transform: translateX(-50%);
+    transform: translateX(-100%);
   }
   &.is-right {
-    transform: translateX(50%);
+    transform: translateX(100%);
   }
 }
 

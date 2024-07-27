@@ -7,7 +7,7 @@ import type { AppContext, ExtractPropTypes, VNode } from 'vue'
 export const notificationDefaultOptions = mutable({
   title: '',
   content: '',
-  duration: 40000000,
+  duration: 4000,
   type: 'info',
   zIndex: 2000,
   placement: 'top-right',

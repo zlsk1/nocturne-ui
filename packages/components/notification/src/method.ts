@@ -79,6 +79,7 @@ const createInstance = (props: MergeParamsNormalized, context?: AppContext | nul
       render(null, container)
     }
   }
+  console.log(isVNode(props.content))
 
   const vnode = createVNode(
     Notification,
@@ -135,9 +136,16 @@ const closeNotification = (id: string, placement: NotificationPlacements) => {
   _instance[idx].handler.close()
 
   for (let i = idx + 1; i < _instance.length; i++) {
-    _instance[i].vnode.component!.props.offset =
+    if (placement.startsWith('top')) {
+      _instance[i].vnode.component!.props.offset =
       Number.parseInt(_instance[i].vnode.el!.style.top, 10) - (_instance[i].vm.exposed?.height.value + GAP)
+    }
+    else if (placement.startsWith('bottom')) {
+      _instance[i].vnode.component!.props.offset =
+      Number.parseInt(_instance[i].vnode.el!.style.bottom, 10) - (_instance[i].vm.exposed?.height.value + GAP)
+    }
   }
+
   _instance.splice(idx, 1)
 }
 

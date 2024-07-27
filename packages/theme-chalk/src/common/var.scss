@@ -842,7 +842,8 @@ $notification: map.merge(
     'width': 320px,
     'padding': 14px 20px,
     'border-radius': 6px,
-    'box-shadow': getCssVar('box-shadow')
+    'box-shadow': getCssVar('box-shadow'),
+    'text-color': getCssVar('text-color-regular')
   ),
   $notification
 )

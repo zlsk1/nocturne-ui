@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, computed, watch, isVNode } from 'vue'
 import { messageProps, messageEmits } from './message'
 import { getOffsetOrSpace, getLastOffset } from './instance'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
@@ -123,10 +123,11 @@ defineExpose({
         size="18"
       ></component>
       <div class="n-message__content">
-        <slot name="title">
-        </slot>
-        <span class="n-message__title">
+        <span v-if="!isVNode(message)" class="n-message__title">
           {{ message }}
+        </span>
+        <span v-else class="n-message__title">
+          <slot></slot>
         </span>
         <Close
           v-if="showClose"
