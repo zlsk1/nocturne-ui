@@ -3,6 +3,7 @@ import { NAvatar } from '@/components/avatar'
 import { NBadge } from '@/components/badge'
 import { NButton } from '@/components/button'
 import { NButtonGroup } from '@/components/button-group'
+import { NCard } from '@/components/card'
 import { NCarousel } from '@/components/carousel'
 import { NCarouselItem } from '@/components/carousel-item'
 import { NCheckbox } from '@/components/checkbox'
@@ -41,6 +42,7 @@ export default [
   NBadge,
   NButton,
   NButtonGroup,
+  NCard,
   NCarousel,
   NCarouselItem,
   NCheckbox,

@@ -846,4 +846,18 @@ $notification: map.merge(
     'text-color': getCssVar('text-color-regular')
   ),
   $notification
+);
+
+$card: () !default;
+$card: map.merge(
+  ( 
+    'padding': 0 20px,
+    'inner-padding': 18px 0,
+    'txt-color': getCssVar('text-color-regular'),
+    'bg-color': getCssVar('bg-color'),
+    'box-shadow': getCssVar('box-shadow'),
+    'border': 1px solid getCssVar('border-color'),
+    'border-radius': getCssVar('border-radius-base')
+  ),
+  $card
 )

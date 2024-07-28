@@ -1,0 +1,26 @@
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+@include b(card) {
+  @include set-component-css-var('card', $card);
+}
+
+@include b(card) {
+  padding: getCssVar('card', 'padding');
+  color: getCssVar('card', 'txt-color');
+  background: getCssVar('card', 'bg-color');
+  border: getCssVar('card', 'border');
+  border-radius: getCssVar('card', 'border-radius');
+  box-shadow: getCssVar('card', 'box-shadow');
+
+  @include m(header) {
+  padding: getCssVar('card', 'inner-padding');
+  text-align: start;
+  }
+
+  @include m(footer) {
+    padding: getCssVar('card', 'inner-padding');
+    text-align: start;
+  }
+}
