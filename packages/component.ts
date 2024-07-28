@@ -16,8 +16,6 @@ import { NIcon } from '@/components/icon'
 import { NInput } from '@/components/input'
 import { NInputNumber } from '@/components/input-number'
 import { NLink } from '@/components/link'
-import { NMessage } from '@/components/message'
-import { NNotification } from '@/components/notification'
 import { NOption } from '@/components/option'
 import { NPagination } from '@/components/pagination'
 import { NPopconfirm } from '@/components/popconfirm'
@@ -56,8 +54,6 @@ export default [
   NInput,
   NInputNumber,
   NLink,
-  NMessage,
-  NNotification,
   NOption,
   NPagination,
   NPopconfirm,
