@@ -20,7 +20,9 @@
     "@popperjs/core": "^2.11.8",
     "@remixicon/vue": "^4.2.0",
     "@vueuse/core": "^9.13.0",
+    "async-validator": "^4.2.5",
     "dayjs": "^1.11.11",
+    "lodash": "^4.17.21",
     "vue": "^3.4.15"
   },
   "devDependencies": {
