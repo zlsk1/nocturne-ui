@@ -860,4 +860,28 @@ $card: map.merge(
     'border-radius': getCssVar('border-radius-base')
   ),
   $card
+);
+
+$form: () !default;
+$form: map.merge(
+  ( 
+    'padding': 0 20px,
+    'inner-padding': 18px 0,
+    'txt-color': getCssVar('text-color-regular'),
+    'bg-color': getCssVar('bg-color'),
+    'box-shadow': getCssVar('box-shadow'),
+    'border': 1px solid getCssVar('border-color'),
+    'border-radius': getCssVar('border-radius-base')
+  ),
+  $form
+);
+
+$formItem: () !default;
+$formItem: map.merge(
+  ( 
+    'label-color': getCssVar('text-color-regular'),
+    'margin': 16px,
+    'error-color': getCssVar('color-danger')
+  ),
+  $formItem
 )

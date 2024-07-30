@@ -13,6 +13,7 @@ import { NCollapseItem } from '@/components/collapse-item'
 import { NCollapseTransition } from '@/components/collapse-transition'
 import { NColorPicker } from '@/components/color-picker'
 import { NCountdown } from '@/components/countdown'
+import { NForm, NFormItem } from '@/components/form'
 import { NIcon } from '@/components/icon'
 import { NInput } from '@/components/input'
 import { NInputNumber } from '@/components/input-number'
@@ -52,6 +53,8 @@ export default [
   NCollapseTransition,
   NColorPicker,
   NCountdown,
+  NForm,
+  NFormItem,
   NIcon,
   NInput,
   NInputNumber,

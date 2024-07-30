@@ -1,0 +1,10 @@
+@use 'mixins/mixins' as *;
+@use 'common/var' as *;
+@use 'mixins/var' as *;
+
+@include b(form) {
+  @include set-component-css-var(form, $form)
+}
+
+@include b(form) {
+}

@@ -1,0 +1,37 @@
+@use 'mixins/mixins' as *;
+@use 'common/var' as *;
+@use 'mixins/var' as *;
+
+@include b(form-item) {
+  @include set-component-css-var(form-item, $formItem)
+}
+
+@include b(form-item) {
+  display: flex;
+  align-items: center;
+  margin-bottom: getCssVar('form-item', 'margin');
+
+  @include e(label) {
+    text-align: start;
+    color: getCssVar('form-item', 'label-color');
+
+    > label {
+      padding-right: 16px;
+    }
+  }
+
+  @include e('content') {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    @include e('error') {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      font-size: 12px;
+      color: getCssVar('form-item', 'error-color');
+      transition: opacity .3s;
+    }
+  }
+}

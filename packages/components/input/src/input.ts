@@ -65,7 +65,8 @@ export const inputProps = {
   noResize: {
     type: Boolean,
     deafult: false
-  }
+  },
+  id: Number
 } as const
 
 export const inputEmits = {

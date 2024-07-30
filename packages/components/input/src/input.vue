@@ -5,6 +5,7 @@ import {
   RiEyeLine as Eye,
   RiCloseCircleLine as CloseCircle
 } from '@remixicon/vue'
+import { useFormItemId } from '@/components/form'
 
 defineOptions({
   name: 'NInput'
@@ -19,6 +20,8 @@ const wrapperRef = ref<HTMLInputElement>()
 const isFocus = ref(false)
 const showPwd = ref(false)
 const hovering = ref(false)
+
+const labelId = useFormItemId()
 
 const showPwdVisable = computed(() => {
   return props.showPassword && !!props.modelValue
@@ -126,6 +129,7 @@ defineExpose({
           </span>
         </span>
         <input
+          :id="labelId"
           ref="inputRef"
           :type="showPassword ? (showPwd ? 'password' : 'text') : type"
           :maxlength="maxlength"
@@ -194,6 +198,7 @@ defineExpose({
     </template>
     <template v-else>
       <textarea
+        :id="labelId"
         :placeholder="placeholder"
         :minlength="minlength"
         :maxlength="maxlength"
