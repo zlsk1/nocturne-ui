@@ -43,6 +43,7 @@
           <div class="n-select__input-wrapper">
             <input
               v-if="!multiple"
+              :id="labelId"
               ref="inputRef"
               type="text"
               class="n-select__input"
@@ -127,6 +128,8 @@ import {
   RiArrowDownWideLine as ArrowDown,
   RiCloseCircleLine as CloseCircle
 } from '@remixicon/vue'
+import { useFormItemId } from '@/components'
+
 import type { CSSProperties } from 'vue'
 import type { TooltipInstance } from '@/components/tooltip'
 import type { OptionProxy } from './constants'
@@ -137,6 +140,8 @@ defineOptions({
 
 const props = defineProps(selectProps)
 const emit = defineEmits(selectEmits)
+
+const labelId = useFormItemId()
 
 const tooltipRef = ref<TooltipInstance>()
 const inputRef = ref<HTMLInputElement>()

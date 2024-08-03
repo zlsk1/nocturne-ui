@@ -11,6 +11,14 @@
   align-items: center;
   margin-bottom: getCssVar('form-item', 'margin');
 
+  @include m('top') {
+    display: block;
+
+    @include e(label) {
+      margin-bottom: getCssVar('form-item', 'margin');
+    }
+  }
+
   @include e(label) {
     text-align: start;
     color: getCssVar('form-item', 'label-color');
@@ -31,7 +39,6 @@
       left: 0;
       font-size: 12px;
       color: getCssVar('form-item', 'error-color');
-      transition: opacity .3s;
     }
   }
 }

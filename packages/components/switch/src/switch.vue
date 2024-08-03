@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { switchProps, switchEmits } from './switch'
 import { isBoolean, isString } from '@/utils'
 import { isPromise } from '@vue/shared'
+import { useFormItemId } from '@/components/form'
 
 defineOptions({
   name: 'NSwitch'
@@ -10,6 +11,8 @@ defineOptions({
 
 const props = defineProps(switchProps)
 const emit = defineEmits(switchEmits)
+
+const labelId = useFormItemId()
 
 const actived = ref(props.modelValue)
 
@@ -77,6 +80,7 @@ defineExpose({
     @click.prevent="handleSwitch"
   >
     <input
+      :id="labelId"
       type="checkbox"
       :disabled="disabled"
       class="n-switch__input"
@@ -92,11 +96,10 @@ defineExpose({
           'is-active': !actived
         }
       ]"
-      @click="handleClick"
     >
       <span>{{ inactiveText }}</span>
     </span>
-    <div class="n-switch__wrap" @click="handleClick">
+    <div class="n-switch__wrap">
       <div class="n-switch__action">
         <template v-if="actived">
           <slot name="active-action-icon"></slot>

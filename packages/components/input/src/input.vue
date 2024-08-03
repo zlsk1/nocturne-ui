@@ -5,7 +5,7 @@ import {
   RiEyeLine as Eye,
   RiCloseCircleLine as CloseCircle
 } from '@remixicon/vue'
-import { useFormItemId } from '@/components/form'
+import { useFormItemId, useForm } from '@/components/form'
 
 defineOptions({
   name: 'NInput'
@@ -22,6 +22,7 @@ const showPwd = ref(false)
 const hovering = ref(false)
 
 const labelId = useFormItemId()
+const { form, formItem } = useForm()
 
 const showPwdVisable = computed(() => {
   return props.showPassword && !!props.modelValue
@@ -73,6 +74,7 @@ const handleBlur = (e: FocusEvent) => {
   if (e.relatedTarget && wrapperRef.value?.contains(e.relatedTarget as Node)) return
   isFocus.value = false
   emit('blur', e)
+  formItem?.validate()
 }
 
 const handleShowPwd = () => {

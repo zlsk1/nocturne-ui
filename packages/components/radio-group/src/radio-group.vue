@@ -2,6 +2,7 @@
 import { provide, nextTick, toRefs, reactive } from 'vue'
 import { radioGroupProps, radioGroupEmits } from './radio-group'
 import { RADIOGROUP_INJECTION_KEY } from './constants'
+import { useFormItemId } from '@/components/form'
 
 defineOptions({
   name: 'NRadioGroup'
@@ -9,6 +10,8 @@ defineOptions({
 
 const props = defineProps(radioGroupProps)
 const emit = defineEmits(radioGroupEmits)
+
+const formId = useFormItemId()
 
 const changeGroup = (val: string | number | boolean) => {
   emit('update:modelValue', val)
@@ -26,6 +29,7 @@ provide(
 
 <template>
   <div
+    :id="formId"
     class="n-radio-group"
   >
     <slot></slot>

@@ -1,14 +1,21 @@
 import form from './form.vue'
-import { isObject } from '@/utils'
+import { isObject, definePropType } from '@/utils'
+import { positionValues } from './form-item'
 
 import type { ExtractPropTypes } from 'vue'
 
 export const formProps = {
-  model: {
-    type: Object,
-    required: true
+  model: Object,
+  rules: Object,
+  labelPosition: {
+    type: String,
+    values: positionValues,
+    default: 'left'
   },
-  rules: Object
+  labelWidth: {
+    type: definePropType<string | number>([String, Number]),
+    default: ''
+  }
 } as const
 
 export const formEmit = {
