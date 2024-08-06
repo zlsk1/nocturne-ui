@@ -1,0 +1,115 @@
+@use 'mixins/mixins' as *;
+@use 'common/var' as *;
+@use 'mixins/var' as *;
+
+$placements: top, bottom, left, right;
+
+@include b(drawer) {
+  @include set-component-css-var(drawer, $drawer);
+  display: flex;
+  flex-direction: column;
+  padding: getCssVar('drawer', 'padding-vertical') getCssVar('drawer', 'padding-horizonal');
+  background-color: getCssVar('drawer', 'bg-color');
+  transition: getCssVar('transition-duration');
+  box-sizing: border-box;
+
+  @include e(header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @include e(close) {
+      display: flex;
+      align-items: center;
+      padding: 2px;
+      transition: .3s;
+      cursor: pointer;
+
+      &:hover {
+        color: getCssVar('color-primary')
+      }
+    }
+  }
+
+  @include e('content') {
+    flex: 1;
+    padding: 30px 0;
+  }
+
+  @include e('footer') {
+    text-align: end;
+  }
+
+  @each $placement in ('left', 'right') {
+    @include when($placement) {
+      position: absolute;
+      top: 0;
+      width: getCssVar('drawer', 'width');
+      height: 100%;
+    }
+  }
+
+  @each $placement in ('top', 'bottom') {
+    @include when($placement) {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: getCssVar('drawer', 'height');
+    }
+  }
+
+  @include when('right') {
+    right: 0;
+  }
+
+  @include when('left') {
+    left: 0;
+  }
+
+  @include when('top') {
+    top: 0;
+  }
+
+  @include when('bottom') {
+    bottom: 0;
+  }
+}
+
+.#{$namespace}-drawer {
+
+  &-enter-active,
+  &-leave-active {
+    transition: getCssVar('transition-duration');
+  }
+
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+  }
+
+  &-enter-to,
+  &-leave-from {
+    opacity: 1;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    @each $placement in $placements {
+      .is-#{$placement} {
+        @if $placement == right {
+          transform: translateX(100%);
+        }
+        @if $placement == left {
+          transform: translateX(-100%);
+        }
+        @if $placement == top {
+          transform: translateY(-100%);
+        }
+        @if $placement == bottom {
+          transform: translateY(100%);
+        }
+      }
+    }
+  }
+}
+ 

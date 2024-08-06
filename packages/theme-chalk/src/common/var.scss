@@ -898,4 +898,17 @@ $dialog: map.merge(
     'border-radius': getCssVar('border-radius-base')
   ),
   $dialog
+);
+
+$drawer: () !default;
+$drawer: map.merge(
+  ( 
+    'width': 30%,
+    'height': 24%,
+    'padding-vertical': 20px,
+    'padding-horizonal': 18px,
+    'bg-color': getCssVar('bg-color'),
+    'box-shadow': getCssVar('box-shadow'),
+  ),
+  $drawer
 )

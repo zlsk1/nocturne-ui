@@ -51,7 +51,7 @@ import { computed, onMounted, ref } from 'vue'
 import { NButton, NOverlay } from '@/components'
 import { RiCloseLine as Close } from '@remixicon/vue'
 import { dialogProps, dialogEmits } from './dialog'
-import { isString } from 'lodash'
+import { isString, isFunction } from 'lodash'
 import { onClickOutside } from '@vueuse/core'
 import { useDialog } from './composables/use-dialog'
 
@@ -78,7 +78,7 @@ const dialogStyle = computed<CSSProperties>(() => {
 const dialogMargin = computed(() => isString(props.offsetTop) ? props.offsetTop : props.offsetTop + 'vh')
 
 const close = () => {
-  if (props.beforeClose) {
+  if (isFunction(props.beforeClose)) {
     props.beforeClose(() => emit('update:modelValue', false))
   }
   else {

@@ -3,6 +3,7 @@
   "compilerOptions": {
     "composite": true,
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     "lib": ["ESNext", "ES2021", "DOM", "DOM.Iterable"],
     "types": ["node"],
     "skipLibCheck": true
