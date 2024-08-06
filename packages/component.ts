@@ -13,12 +13,14 @@ import { NCollapseItem } from '@/components/collapse-item'
 import { NCollapseTransition } from '@/components/collapse-transition'
 import { NColorPicker } from '@/components/color-picker'
 import { NCountdown } from '@/components/countdown'
+import { NDialog } from '@/components/dialog'
 import { NForm, NFormItem } from '@/components/form'
 import { NIcon } from '@/components/icon'
 import { NInput } from '@/components/input'
 import { NInputNumber } from '@/components/input-number'
 import { NLink } from '@/components/link'
 import { NOption } from '@/components/option'
+import { NOverlay } from '@/components/overlay'
 import { NPagination } from '@/components/pagination'
 import { NPopconfirm } from '@/components/popconfirm'
 import { NPopover } from '@/components/popover'
@@ -53,6 +55,7 @@ export default [
   NCollapseTransition,
   NColorPicker,
   NCountdown,
+  NDialog,
   NForm,
   NFormItem,
   NIcon,
@@ -60,6 +63,7 @@ export default [
   NInputNumber,
   NLink,
   NOption,
+  NOverlay,
   NPagination,
   NPopconfirm,
   NPopover,

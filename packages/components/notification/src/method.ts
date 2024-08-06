@@ -79,7 +79,6 @@ const createInstance = (props: MergeParamsNormalized, context?: AppContext | nul
       render(null, container)
     }
   }
-  console.log(isVNode(props.content))
 
   const vnode = createVNode(
     Notification,
