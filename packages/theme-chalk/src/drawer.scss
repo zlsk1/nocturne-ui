@@ -75,6 +75,14 @@ $placements: top, bottom, left, right;
   }
 }
 
+.#{$namespace}-overlay-drawer {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
 .#{$namespace}-drawer {
 
   &-enter-active,

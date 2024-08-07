@@ -4,56 +4,68 @@
     @enter="$emit('open')"
     @leave="$emit('close')"
   >
-    <n-overlay v-show="modelValue" :custom-class="maskerClass">
+    <n-overlay
+      v-show="modelValue"
+      :custom-class="maskerClass"
+      :masker="masker"
+      custom-event
+      :z-index="zIndex"
+    >
       <div
-        ref="dialogRef"
-        :class="['n-dialog', { 'is-center': center }, customClass]"
-        :style="dialogStyle"
+        class="n-overlay-dialog"
+        @click="overlayEvent.onClick"
+        @mousedown="overlayEvent.onMousedown"
+        @mouseup="overlayEvent.onMouseup"
       >
-        <div v-if="!$slots.header" class="n-dialog__header">
-          <div class="n-dialog__title">{{ title }}</div>
-          <component
-            :is="closeIcon"
-            v-if="closeIcon"
-            class="n-dialog__close"
-            @click="close"
-          ></component>
-          <Close
-            v-else-if="showClose"
-            size="18"
-            class="n-dialog__close"
-            @click="close"
-          ></Close>
+        <div
+          ref="dialogRef"
+          :class="['n-dialog', { 'is-center': center }, customClass]"
+          :style="dialogStyle"
+        >
+          <div v-if="!$slots.header" class="n-dialog__header">
+            <div class="n-dialog__title">{{ title }}</div>
+            <component
+              :is="closeIcon"
+              v-if="closeIcon"
+              class="n-dialog__close"
+              @click="close"
+            ></component>
+            <Close
+              v-else-if="showClose"
+              size="18"
+              class="n-dialog__close"
+              @click="close"
+            ></Close>
+          </div>
+          <slot v-else name="header"></slot>
+          <div class="n-dialog__content">
+            <div v-if="content">{{ content }}</div>
+            <slot v-else></slot>
+          </div>
+          <div v-if="!$slots.footer" class="n-dialog__footer">
+            <n-button v-if="showCancel" @click="handleCancel">{{ cancelText }}</n-button>
+            <n-button
+              v-if="showConfirm"
+              type="primary"
+              @click="handleConfirm"
+            >
+              {{ confirmText }}
+            </n-button>
+          </div>
+          <slot v-else name="footer"></slot>
         </div>
-        <slot v-else name="header"></slot>
-        <div class="n-dialog__content">
-          <div v-if="content">{{ content }}</div>
-          <slot v-else></slot>
-        </div>
-        <div v-if="!$slots.footer" class="n-dialog__footer">
-          <n-button v-if="showCancel" @click="handleCancel">{{ cancelText }}</n-button>
-          <n-button
-            v-if="showConfirm"
-            type="primary"
-            @click="handleConfirm"
-          >
-            {{ confirmText }}
-          </n-button>
-        </div>
-        <slot v-else name="footer"></slot>
       </div>
     </n-overlay>
   </transition>
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { NButton, NOverlay } from '@/components'
 import { RiCloseLine as Close } from '@remixicon/vue'
 import { dialogProps, dialogEmits } from './dialog'
 import { isString, isFunction } from 'lodash'
-import { onClickOutside } from '@vueuse/core'
-import { useDialog } from './composables/use-dialog'
+import { useSameTarget, useZIndex } from '@/composables'
 
 import type { CSSProperties } from 'vue'
 
@@ -65,12 +77,12 @@ const props = defineProps(dialogProps)
 const emit = defineEmits(dialogEmits)
 
 const dialogRef = ref<HTMLElement>()
-
-const { width } = useDialog(dialogRef, props)
+const { nextZIndex } = useZIndex()
+const zIndex = nextZIndex()
 
 const dialogStyle = computed<CSSProperties>(() => {
   return {
-    width: width.value,
+    width: isString(props.width) ? props.width : props.width + 'px',
     margin: `${dialogMargin.value} auto auto`
   }
 })
@@ -94,18 +106,13 @@ const handleCancel = () => {
   props.callback?.('cancel')
 }
 
-const onClickOutsideToClose = () => {
-  onClickOutside(dialogRef, () => {
-    if (!props.modelValue) return
-    close()
-  })
+const clickMaskerToClose = () => {
+  if (props.clickMaskerToClose) {
+    emit('update:modelValue', false)
+  }
 }
 
-onMounted(() => {
-  if (props.clickMaskerToClose) {
-    onClickOutsideToClose()
-  }
-})
+const overlayEvent = useSameTarget(clickMaskerToClose)
 </script>
 
 <style lang="scss" scoped>

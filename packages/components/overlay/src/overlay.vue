@@ -1,50 +1,72 @@
-<template>
-  <div :class="['n-overlay', customClass]" :style="overlayStyle">
-    <div class="n-overlay__content" :style="contentZIndex">
-      <slot></slot>
-    </div>
-  </div>
-</template>
-
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useZIndex } from '@/composables'
-import type { CSSProperties } from 'vue'
+import { defineComponent, h } from 'vue'
+import { useSameTarget } from '@/composables'
+
+import type { ExtractPropTypes } from 'vue'
+
+export const overlayProps = {
+  zIndex: Number,
+  customClass: String,
+  masker: {
+    type: Boolean,
+    default: true
+  },
+  customEvent: {
+    type: Boolean,
+    default: false
+  }
+} as const
+
+export const overlayEmit = {
+  click: (e: MouseEvent) => e instanceof MouseEvent
+}
+
+export type OverlayProps = ExtractPropTypes<typeof overlayProps>
+export type OverlayEmit = typeof overlayEmit
 
 export default defineComponent({
   name: 'NOverlay',
   inheritAttrs: false,
-  props: {
-    // eslint-disable-next-line vue/require-default-prop
-    zIndex: Number,
-    bg: {
-      type: String,
-      default: 'rgba(0, 0, 0, .5)'
-    },
-    customClass: {
-      type: String,
-      default: ''
+  props: overlayProps,
+  emit: overlayEmit,
+  setup(props, { emit, slots }) {
+    const onMaskerClick = (e: MouseEvent) => {
+      emit('click', e)
     }
-  },
-  setup(props) {
-    const { nextZIndex } = useZIndex()
-    const zIndex = nextZIndex()
-
-    const overlayStyle = computed(() => {
-      return {
-        zIndex: props.zIndex || zIndex,
-        backgroundColor: props.bg
-      }
-    })
-    const contentZIndex = computed<CSSProperties>(() => {
-      return {
-        zIndex
-      }
-    })
-
-    return {
-      overlayStyle,
-      contentZIndex
+    const { onClick, onMousedown, onMouseup } = useSameTarget(props.customEvent ? undefined : onMaskerClick)
+    return () => {
+      return props.masker
+        ? h(
+          'div',
+          {
+            class: 'n-overlay',
+            style: {
+              zIndex: props.zIndex
+            },
+            onClick,
+            onMousedown,
+            onMouseup
+          },
+          slots.default()
+        )
+        : h(
+          'div',
+          {
+            class: 'n-overlay',
+            style: {
+              zIndex: props.zIndex,
+              position: 'fixed',
+              top: '0px',
+              right: '0px',
+              bottom: '0px',
+              left: '0px'
+            },
+            onClick,
+            onMousedown,
+            onMouseup
+          },
+          slots.default()
+        )
     }
   }
 })

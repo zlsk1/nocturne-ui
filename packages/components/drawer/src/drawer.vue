@@ -1,10 +1,10 @@
 <script lang="ts">
-import { defineComponent, ref, onMounted, computed } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import { drawerProps, drawerEmits } from './drawer'
 import { RiCloseLine as Close } from '@remixicon/vue'
 import NOverlay from '@/components/overlay'
-import { onClickOutside } from '@vueuse/core'
 import { isString, isFunction } from '@/utils'
+import { useSameTarget, useZIndex } from '@/composables'
 
 import type { CSSProperties } from 'vue'
 
@@ -19,6 +19,8 @@ export default defineComponent({
   emits: drawerEmits,
   setup(props, { emit }) {
     const drawerRef = ref<HTMLElement>()
+    const { nextZIndex } = useZIndex()
+    const zIndex = nextZIndex()
 
     const size = computed<CSSProperties>(() => {
       if (!props.size) return
@@ -35,18 +37,20 @@ export default defineComponent({
       return {}
     })
 
-    const zIndex = computed<CSSProperties>(() => {
-      if (!props.zIndex) return
-      return {
-        zIndex: isString(props.zIndex) ? props.zIndex : Number(props.zIndex)
+    const actualZIndex = computed(() => {
+      if (!props.zIndex) {
+        return zIndex
       }
+      return isString(props.zIndex) ? props.zIndex : Number(props.zIndex)
     })
 
-    onMounted(() => {
-      onClickOutside(drawerRef, () => {
-        close()
-      })
-    })
+    function clickMaskerToClose() {
+      if (props.clickMaskerToClose) {
+        emit('update:modelValue', false)
+      }
+    }
+
+    const overlayEvent = useSameTarget(clickMaskerToClose)
 
     function close() {
       if (isFunction(props.beforeClose)) {
@@ -56,10 +60,12 @@ export default defineComponent({
         emit('update:modelValue', false)
       }
     }
+
     return {
       drawerRef,
       size,
-      zIndex,
+      actualZIndex,
+      overlayEvent,
       close
     }
   }
@@ -72,27 +78,40 @@ export default defineComponent({
     @leave="$emit('close')"
     @enter="$emit('open')"
   >
-    <n-overlay v-show="modelValue" :class="maskerClass">
+    <n-overlay
+      v-show="modelValue"
+      :custom-class="maskerClass"
+      :masker="masker"
+      custom-event
+      :z-index="actualZIndex"
+    >
       <div
-        ref="drawerRef"
-        :class="['n-drawer', `is-${placement}`]"
-        :style="[size, zIndex]"
+        class="n-overlay-drawer"
+        @click="overlayEvent.onClick"
+        @mousedown="overlayEvent.onMousedown"
+        @mouseup="overlayEvent.onMouseup"
       >
-        <div class="n-drawer__header">
-          <slot name="header"></slot>
-          <i
-            v-if="showClose"
-            class="n-drawer__close"
-            @click="close"
-          >
-            <Close size="20"></Close>
-          </i>
-        </div>
-        <div class="n-drawer__content">
-          <slot name="content"></slot>
-        </div>
-        <div class="n-drawer__footer">
-          <slot name="footer"></slot>
+        <div
+          ref="drawerRef"
+          :class="['n-drawer', `is-${placement}`]"
+          :style="[size, zIndex]"
+        >
+          <div class="n-drawer__header">
+            <slot name="header"></slot>
+            <i
+              v-if="showClose"
+              class="n-drawer__close"
+              @click="close"
+            >
+              <Close size="20"></Close>
+            </i>
+          </div>
+          <div class="n-drawer__content">
+            <slot name="content"></slot>
+          </div>
+          <div class="n-drawer__footer">
+            <slot name="footer"></slot>
+          </div>
         </div>
       </div>
     </n-overlay>

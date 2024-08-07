@@ -62,6 +62,10 @@ export const dialogProps = {
     type: String,
     default: ''
   },
+  masker: {
+    type: Boolean,
+    default: true
+  },
   customClass: {
     type: String,
     default: ''

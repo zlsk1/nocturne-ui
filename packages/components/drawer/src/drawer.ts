@@ -15,6 +15,14 @@ export const drawerProps = {
     type: definePropType<string | number>([String, Number])
   },
   maskerClass: String,
+  masker: {
+    type: Boolean,
+    default: true
+  },
+  clickMaskerToClose: {
+    type: Boolean,
+    default: true
+  },
   beforeClose: {
     type: definePropType<(success: () => void) => void>(Function)
   },

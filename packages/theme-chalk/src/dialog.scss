@@ -57,6 +57,14 @@
   }
 }
 
+.#{$namespace}-overlay-dialog {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
 .#{$namespace}-dialog-fade-enter-active {
   animation: masker-fade-in getCssVar('transition-duration-fast') ease-in;
   .#{$namespace}-dialog {
