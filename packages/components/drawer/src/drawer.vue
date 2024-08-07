@@ -21,6 +21,7 @@ export default defineComponent({
     const drawerRef = ref<HTMLElement>()
 
     const size = computed<CSSProperties>(() => {
+      if (!props.size) return
       if (props.placement === 'right' || props.placement === 'left') {
         return {
           width: isString(props.size) ? props.size : props.size + '%'
@@ -35,6 +36,7 @@ export default defineComponent({
     })
 
     const zIndex = computed<CSSProperties>(() => {
+      if (!props.zIndex) return
       return {
         zIndex: isString(props.zIndex) ? props.zIndex : Number(props.zIndex)
       }
