@@ -28,16 +28,17 @@ export default defineComponent({
   },
   setup(props) {
     const { nextZIndex } = useZIndex()
+    const zIndex = nextZIndex()
 
     const overlayStyle = computed(() => {
       return {
-        zIndex: props.zIndex || nextZIndex.value,
+        zIndex: props.zIndex || zIndex,
         backgroundColor: props.bg
       }
     })
     const contentZIndex = computed<CSSProperties>(() => {
       return {
-        zIndex: overlayStyle.value.zIndex + 1
+        zIndex
       }
     })
 
