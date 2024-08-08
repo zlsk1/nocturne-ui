@@ -22,7 +22,6 @@ import { NInput } from '@/components/input'
 import { NInputNumber } from '@/components/input-number'
 import { NLink } from '@/components/link'
 import { NOption } from '@/components/option'
-import { NOverlay } from '@/components/overlay'
 import { NPagination } from '@/components/pagination'
 import { NPopconfirm } from '@/components/popconfirm'
 import { NPopover } from '@/components/popover'
@@ -68,7 +67,6 @@ export default [
   NInputNumber,
   NLink,
   NOption,
-  NOverlay,
   NPagination,
   NPopconfirm,
   NPopover,

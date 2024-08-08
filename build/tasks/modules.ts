@@ -51,7 +51,7 @@ export const buildModules = async() => {
         ]
       })
     ],
-    external: ['vue', '@vue/shared', '@vueuse/core', '@popperjs/core', '@remixicon/vue'],
+    external: ['vue', '@vue/shared', '@vueuse/core', '@popperjs/core', '@remixicon/vue', '@types/lodash', 'async-validator', 'lodash'],
     treeshake: false
   })
 
