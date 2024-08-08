@@ -8,6 +8,7 @@ import { NCarousel } from '@/components/carousel'
 import { NCarouselItem } from '@/components/carousel-item'
 import { NCheckbox } from '@/components/checkbox'
 import { NCheckboxGroup } from '@/components/checkbox-group'
+import { NCol } from '@/components/col'
 import { NCollapse } from '@/components/collapse'
 import { NCollapseItem } from '@/components/collapse-item'
 import { NCollapseTransition } from '@/components/collapse-transition'
@@ -29,6 +30,7 @@ import { NPopper } from '@/components/popper'
 import { NProgress } from '@/components/progress'
 import { NRadio } from '@/components/radio'
 import { NRadioGroup } from '@/components/radio-group'
+import { NRow } from '@/components/row'
 import { NSelect } from '@/components/select'
 import { NSlider } from '@/components/slider'
 import { NStatistic } from '@/components/statistic'
@@ -51,6 +53,7 @@ export default [
   NCarouselItem,
   NCheckbox,
   NCheckboxGroup,
+  NCol,
   NCollapse,
   NCollapseItem,
   NCollapseTransition,
@@ -73,6 +76,7 @@ export default [
   NProgress,
   NRadio,
   NRadioGroup,
+  NRow,
   NSelect,
   NSlider,
   NStatistic,
