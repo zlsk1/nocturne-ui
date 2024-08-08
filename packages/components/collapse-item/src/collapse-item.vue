@@ -2,7 +2,7 @@
 import { ref, inject, computed } from 'vue'
 import { collapseItemProps } from './collapse-item'
 import { COLLAPSE_INJECTION_KEY } from '@/components/collapse/src/constants'
-import NCollapseTransition from '../../collapse-transition/collapse-transition.vue'
+import NCollapseTransition from '../../collapse-transition/src/collapse-transition.vue'
 import { RiArrowRightWideLine as ArrowRight } from '@remixicon/vue'
 
 defineOptions({
