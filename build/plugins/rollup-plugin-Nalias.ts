@@ -2,11 +2,11 @@ import type { Plugin } from 'rollup'
 
 export function NAlias(): Plugin {
   const themeChalk = 'theme-chalk'
-  const sourceThemeChalk = `@/themeChalk/${themeChalk}` as const
+  const sourceThemeChalk = `@/${themeChalk}` as const
   const bundleThemeChalk = `nocturne-ui/${themeChalk}` as const
 
   return {
-    name: 'element-plus-alias-plugin',
+    name: 'nocturn-ui-alias-plugin',
     resolveId(id) {
       if (!id.startsWith(sourceThemeChalk)) return
       return {
