@@ -84,7 +84,3 @@ const {
     </span>
   </label>
 </template>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/checkbox.scss';
-</style>

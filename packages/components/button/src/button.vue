@@ -56,8 +56,3 @@ const handleClick = (e: MouseEvent) => {
     </span>
   </button>
 </template>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/base.scss';
-@use '@/theme-chalk/src/button.scss';
-</style>.

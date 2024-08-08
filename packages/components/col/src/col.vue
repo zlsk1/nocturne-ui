@@ -70,7 +70,3 @@ const colClass = computed(() => {
   return [classes]
 })
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/col.scss';
-</style>

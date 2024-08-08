@@ -62,7 +62,3 @@ watch(currentIndex, (val, oldVal) => {
   isAnimation.value = val === itemIndex.value || oldVal === itemIndex.value
 })
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/carousel.scss';
-</style>

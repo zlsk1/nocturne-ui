@@ -84,7 +84,3 @@ provide(SLIDER_INJECT_KEY, {
   positionPercent
 })
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/slider.scss';
-</style>

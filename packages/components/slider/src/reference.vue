@@ -186,7 +186,3 @@ defineExpose({
   handleMove
 })
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/slider.scss';
-</style>

@@ -9,7 +9,3 @@ defineOptions({
     <slot></slot>
   </ul>
 </template>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/timeline.scss';
-</style>

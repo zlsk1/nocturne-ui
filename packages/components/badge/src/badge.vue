@@ -39,7 +39,3 @@ const _value = computed(() => {
     </span>
   </div>
 </template>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/badge.scss';
-</style>

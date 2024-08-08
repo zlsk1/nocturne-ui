@@ -62,7 +62,3 @@ defineProps(timelineItemProps)
     </div>
   </li>
 </template>
-
-<style>
-@use '@/theme-chalk/src/timeline-item.scss';
-</style>

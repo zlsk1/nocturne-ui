@@ -71,7 +71,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/overlay.scss';
-</style>

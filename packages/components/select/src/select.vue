@@ -349,9 +349,3 @@ provide(SELECT_INJECTION_KEY, {
   clickOption
 })
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/option.scss';
-@use '@/theme-chalk/src/select.scss';
-@use '@/theme-chalk/src/common/transition.scss';
-</style>

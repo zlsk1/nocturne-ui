@@ -117,7 +117,3 @@ export default defineComponent({
     </n-overlay>
   </transition>
 </template>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/drawer.scss';
-</style>

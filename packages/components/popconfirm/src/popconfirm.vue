@@ -69,7 +69,3 @@ const confirm = () => {
   popoverRef.value?.hide()
 }
 </script>
-
-<style lang="scss">
-@use '@/theme-chalk/src/popconfirm.scss'
-</style>

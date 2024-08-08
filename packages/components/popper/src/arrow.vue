@@ -38,7 +38,3 @@ defineExpose({
   arrowRef
 })
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/popper.scss';
-</style>

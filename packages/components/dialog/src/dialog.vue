@@ -115,6 +115,3 @@ const clickMaskerToClose = () => {
 const overlayEvent = useSameTarget(clickMaskerToClose)
 </script>
 
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/dialog.scss';
-</style>

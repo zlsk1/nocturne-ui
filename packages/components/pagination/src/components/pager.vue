@@ -149,7 +149,3 @@ const changePage = (e: any) => {
   _currentPage.value = newPage
 }
 </script>
-
-<style>
-@use '@/theme-chalk/src/pagination.scss';
-</style>

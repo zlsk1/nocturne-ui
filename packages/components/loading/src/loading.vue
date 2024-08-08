@@ -31,7 +31,3 @@ const style = computed<CSSProperties>(() => {
   }
 })
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/loading.scss';
-</style>

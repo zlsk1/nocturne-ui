@@ -139,7 +139,3 @@ defineExpose({
     </div>
   </transition>
 </template>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/message.scss';
-</style>

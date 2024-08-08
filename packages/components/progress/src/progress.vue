@@ -77,7 +77,3 @@ defineExpose({
   ref: barRef
 })
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/progress.scss';
-</style>

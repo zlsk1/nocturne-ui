@@ -183,7 +183,3 @@ defineExpose({
   contentRef
 })
 </script>
-
-<style lang="scss">
-@use '@/theme-chalk/src/popper.scss';
-</style>

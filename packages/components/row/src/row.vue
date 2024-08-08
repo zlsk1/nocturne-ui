@@ -41,7 +41,3 @@ provide(ROW_INJECTION_KEY, {
   gutter
 })
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/col.scss';
-</style>

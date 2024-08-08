@@ -181,7 +181,3 @@ defineExpose({
   clearField
 })
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/form-item.scss'
-</style>

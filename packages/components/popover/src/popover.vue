@@ -96,7 +96,3 @@ defineExpose({
   hide
 })
 </script>
-
-<style lang="scss">
-@use '@/theme-chalk/src/popover.scss';
-</style>

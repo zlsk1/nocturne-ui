@@ -121,7 +121,3 @@ defineExpose({
   height
 })
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/notification.scss';
-</style>

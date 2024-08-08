@@ -85,7 +85,3 @@ const handleChange = () => {
     <span class="n-radio__label"><slot></slot></span>
   </label>
 </template>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/radio.scss';
-</style>

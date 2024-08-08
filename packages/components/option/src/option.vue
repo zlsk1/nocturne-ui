@@ -73,7 +73,3 @@ const onSelect = () => {
   if (props.disabled !== true) clickOption(vm)
 }
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/option.scss';
-</style>

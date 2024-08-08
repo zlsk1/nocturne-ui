@@ -51,7 +51,3 @@ provide(
     <next></next>
   </div>
 </template>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/pagination.scss';
-</style>

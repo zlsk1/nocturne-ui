@@ -10,7 +10,3 @@ defineOptions({
   name: 'NButtonGroup'
 })
 </script>
-
-<style lang="scss">
-@use '@/theme-chalk/src/button-group.scss';
-</style>

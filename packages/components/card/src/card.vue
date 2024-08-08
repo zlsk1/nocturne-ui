@@ -17,7 +17,3 @@ defineOptions({
 
 defineProps(cardProps)
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/card.scss';
-</style>

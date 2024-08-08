@@ -35,7 +35,3 @@ provide(
     <slot></slot>
   </div>
 </template>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/radio-group.scss';
-</style>

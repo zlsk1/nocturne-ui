@@ -155,7 +155,3 @@ defineExpose({
   update
 })
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/color-picker.scss';
-</style>

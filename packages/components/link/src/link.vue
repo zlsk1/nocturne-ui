@@ -31,7 +31,3 @@ defineProps(linkProps)
     ></component>
   </a>
 </template>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/link.scss'
-</style>

@@ -63,7 +63,3 @@ const on = {
     <slot></slot>
   </transition>
 </template>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/base.scss';
-</style>

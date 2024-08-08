@@ -79,8 +79,3 @@ const handleClose = (e: Event) => emit('close', e)
 
 const handleClick = (e: Event) => emit('click', e)
 </script>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/common/transition.scss';
-@use '@/theme-chalk/src/tag.scss';
-</style>

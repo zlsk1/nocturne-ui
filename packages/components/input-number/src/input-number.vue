@@ -117,7 +117,3 @@ defineExpose({
     ></n-input>
   </div>
 </template>
-
-<style lang="scss" scoped>
-@use '@/theme-chalk/src/input-number.scss';
-</style>
