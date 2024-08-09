@@ -1,4 +1,4 @@
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface GlobalComponents {
     NAlert: typeof import('nocturne-ui')['NAlert'],
     NAvatar: typeof import('nocturne-ui')['NAvatar'],
@@ -48,3 +48,5 @@ declare module '@vue/runtime-core' {
     $notify: typeof import('nocturne-ui')['NNotification']
   }
 }
+
+export {}
