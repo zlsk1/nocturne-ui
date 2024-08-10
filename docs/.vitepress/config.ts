@@ -21,14 +21,19 @@ export const config: UserConfig = {
           text: '基础',
           items: [
             { text: 'Button 按钮', link: '/zh-CN/components/button' },
+            { text: 'Icon 图标', link: '/zh-CN/components/icon' },
+            { text: 'Link 链接', link: '/zh-CN/components/link' },
+            { text: 'Layout 布局', link: '/zh-CN/components/layout' }
           ],
         },
         { 
           text: '表单',
           items: [
             { text: 'Checkbox 多选框', link: '/zh-CN/components/checkbox' },
+            { text: 'ColorPicker 多选框', link: '/zh-CN/components/color-picker' },
             { text: 'Input 输入框', link: '/zh-CN/components/input' },
             { text: 'Input Number 数字输入框', link: '/zh-CN/components/input-number' },
+            { text: 'Form 表单', link: '/zh-CN/components/form' },
             { text: 'Radio 单选框', link: '/zh-CN/components/radio' },
             { text: 'Select 选择器', link: '/zh-CN/components/select' },
             { text: 'Slider 滑块', link: '/zh-CN/components/slider' },
@@ -51,7 +56,13 @@ export const config: UserConfig = {
           text: '响应',
           items: [
             { text: 'Alert 警告', link: '/zh-CN/components/alert' },
+            { text: 'Dialog 对话框', link: '/zh-CN/components/alert' },
+            { text: 'Drawer 抽屉', link: '/zh-CN/components/drawer' },
+            { text: 'Loading 加载中', link: '/zh-CN/components/loading' },
             { text: 'Message 消息通知', link: '/zh-CN/components/message' },
+            { text: 'Notification 通知', link: '/zh-CN/components/notification' },
+            { text: 'Popconfirm 气泡提示', link: '/zh-CN/components/popconfirm' },
+            { text: 'Popover 弹出层', link: '/zh-CN/components/popover' },
             { text: 'Tooltip 文字提示', link: '/zh-CN/components/tooltip' },
           ],
         },
