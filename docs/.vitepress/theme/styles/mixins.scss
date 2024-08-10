@@ -5,14 +5,13 @@
 
   &::-webkit-scrollbar {
     z-index: 11;
-    width: 6px;
+    width: 8px;
 
     &:horizontal {
       height: 6px;
     }
 
     &-thumb {
-      border-radius: 5px;
       width: 6px;
       background: $scrollbar-thumb-background;
     }

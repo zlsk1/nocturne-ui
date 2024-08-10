@@ -83,7 +83,7 @@ const props = defineProps({
 const showCode = ref(false)
 
 const { copy, isSupported } = useClipboard({
-  source: decodeURIComponent(props.rawCodes),
+  source: decodeURIComponent(props.rawCodes as string),
   read: false,
 })
 

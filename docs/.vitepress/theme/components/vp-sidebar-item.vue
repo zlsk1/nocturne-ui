@@ -5,10 +5,10 @@
       'sidebar-item',
       { 'active': actived }
     ]"
-    :href="item.link"
+    :href="item?.link"
     @click="$emit('close')"
   >
-    <p>{{ item.text }}</p>
+    <p>{{ item?.text }}</p>
   </a>
 </template>
 
