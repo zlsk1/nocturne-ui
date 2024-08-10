@@ -157,8 +157,8 @@ importers:
         specifier: 4.2.0
         version: 4.2.0(vue@3.4.15)
       nocturne-ui:
-        specifier: 0.0.2-alpha.0
-        version: 0.0.2-alpha.0(vue@3.4.15)
+        specifier: 0.0.2-alpha.4
+        version: 0.0.2-alpha.4(vue@3.4.15)
       prism-theme-vars:
         specifier: 0.2.3
         version: 0.2.3
@@ -6436,15 +6436,18 @@ packages:
     resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
     dev: true
 
-  /nocturne-ui@0.0.2-alpha.0(vue@3.4.15):
-    resolution: {integrity: sha512-9XiFpFnWJn8IYDD6R8iXS0ToLlKV023/BSjfkQG32uIu0nDO0LOjxg8oCGnCp9U243w9KHHrjdavGn8b/88x6A==}
+  /nocturne-ui@0.0.2-alpha.4(vue@3.4.15):
+    resolution: {integrity: sha512-EVHIh1vd45vEzsbSOwQoLJltzu5dx2205TCW+0omUIhVFR5pN0YJQFWdfG1PwjlV8AaHa3v/VH50TfcU+9ZBKw==}
     peerDependencies:
       vue: ^3.4.15
     dependencies:
       '@popperjs/core': 2.11.8
       '@remixicon/vue': 4.2.0(vue@3.4.15)
+      '@types/lodash': 4.17.7
       '@vueuse/core': 9.13.0(vue@3.4.15)
+      async-validator: 4.2.5
       dayjs: 1.11.12
+      lodash: 4.17.21
       vue: 3.4.15(typescript@5.5.3)
     transitivePeerDependencies:
       - '@vue/composition-api'

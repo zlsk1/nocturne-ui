@@ -16,7 +16,7 @@
     <n-button type="success" plain>Success</n-button>
   </div>
   <div class="mb-4">
-    <n-button round>Round</n-button>
+    <n-button round>Circle</n-button>
     <n-button type="primary" round>Primary</n-button>
     <n-button type="danger" round>Danger</n-button>
     <n-button type="warning" round>Warning</n-button>
