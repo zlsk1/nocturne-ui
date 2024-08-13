@@ -1,18 +1,22 @@
 <template>
   <div class="page-switch-container">
-    <a v-if="switchPage?.prev" :href="switchPage.prev.link" class="switcher left">
-      <div class="indicator">
-        <ArrowLeft size="14"></ArrowLeft>
-        <span>上一篇</span>
+    <a :href="switchPage?.prev?.link" class="switcher">
+      <div v-if="switchPage?.prev">
+        <div class="indicator">
+          <ArrowLeft size="14"></ArrowLeft>
+          <span>上一篇</span>
+        </div>
+        <span class="desc">{{ switchPage.prev.text }}</span>
       </div>
-      <span class="desc">{{ switchPage.prev.text }}</span>
     </a>
-    <a v-if="switchPage?.next" :href="switchPage.next.link" class="switcher right">
-      <div class="indicator">
-        <span>下一篇</span>
-        <ArrowRight size="14"></ArrowRight>
+    <a :href="switchPage?.next?.link" class="switcher">
+      <div v-if="switchPage?.next">
+        <div class="indicator">
+          <span>下一篇</span>
+          <ArrowRight size="14"></ArrowRight>
+        </div>
+        <span class="desc" :title="switchPage.next.text">{{ switchPage.next.text }}</span>
       </div>
-      <span class="desc" :title="switchPage.next.text">{{ switchPage.next.text }}</span>
     </a>
   </div>
 </template>
@@ -29,33 +33,28 @@ const switchPage = usePageSwitch()
 
 <style lang="scss" scoped>
 .page-switch-container {
-  position: relative;
-  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  min-width: 100%;
+  margin-top: 28px;
 
   .switcher {
-    position: absolute;
     display: block;
     width: 200px;
-    padding: 10px 20px;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    transition: border-color .3s;
+    height: 60px;
 
-    &:hover {
-      border-color: var(--theme-color);
-      .indicator, .desc {
-        color: var(--theme-color);
+    > div {
+      padding: 10px 20px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      transition: border-color .3s;
+
+      &:hover {
+        border-color: var(--theme-color);
+        .indicator, .desc {
+          color: var(--theme-color);
+        }
       }
-    }
-
-    &.left {
-      left: 0;
-      top: 0;
-    }
-
-    &.right {
-      right: 0;
-      top: 0;
     }
 
     .indicator {
