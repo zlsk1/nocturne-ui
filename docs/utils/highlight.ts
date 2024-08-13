@@ -11,7 +11,12 @@ function wrap(code: string, lang: string): string {
   if (lang === 'text') {
     code = escapeHtml(code)
   }
-  return `<pre v-pre><code>${code}</code></pre>`
+  return `<div class="language-${lang} vp-adaptive-theme">
+      <button title="Copy Title" class="copy"></button>
+      <span class="lang">${lang}</span>
+      <pre v-pre><code>${code}</code></pre>
+    </div>
+  `
 }
 
 export const highlight = (str: string, lang: string) => {

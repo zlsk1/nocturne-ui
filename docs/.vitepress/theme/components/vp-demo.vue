@@ -33,7 +33,7 @@
         </div>
         <n-collapse-transition>
           <div class="demo-source-wrapper" v-show="showCode">
-            <div v-html="decoded" class="demo-source language-vue"></div>
+            <div v-html="decoded" class="demo-source"></div>
           </div>
         </n-collapse-transition>
         <Transition name="n-fade-in-linear">

@@ -1,13 +1,18 @@
 /* https://github.com/antfu/prism-theme-vars */
 @use 'prism-theme-vars/base.css';
-@use 'prism-theme-vars/marker.css';
+// @use 'prism-theme-vars/marker.css';
 
+// override prism
 [class*='language-']:before {
   font-family: var(--code-font-family);
 }
 
 span[class~='language-css']:before {
   content: '';
+}
+
+div[class*='language-'] {
+  white-space: inherit;
 }
 
 :root {
@@ -182,4 +187,93 @@ div[class*='language-'].line-numbers-mode {
   font-family: var(--code-font-family);
   font-size: var(--code-font-size);
   color: #888;
+}
+
+[class*='language-'] > button.copy {
+  direction: ltr;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  background-color: var(--n-bg-color-overlay);
+  opacity: 0;
+  cursor: pointer;
+  background-image: var(--code-icon-copy);
+  background-position: 50%;
+  background-size: 20px;
+  z-index: 3;
+  border: 1px solid var(--n-border-color);
+  border-radius: 4px;
+  background-repeat: no-repeat;
+  transition:
+    border-color 0.25s,
+    background-color 0.25s,
+    opacity 0.25s;
+}
+
+[class*='language-']:hover > button.copy,
+[class*='language-'] > button.copy:focus {
+  opacity: 1;
+}
+
+[class*='language-'] > button.copy:hover,
+[class*='language-'] > button.copy.copied {
+  border-color: var(--n-border-color-light);
+  background-color: var(--n-bg-color);
+}
+
+[class*='language-'] > button.copy.copied,
+[class*='language-'] > button.copy:hover.copied {
+  border-radius: 0 4px 4px 0;
+  background-color: var(--n-bg-color);
+  background-image: var(--code-icon-copied);
+}
+
+[class*='language-'] > button.copy.copied::before,
+[class*='language-'] > button.copy:hover.copied::before {
+  content: var(--code-copy-copied-text-content);
+  position: relative;
+  top: -1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: 36px;
+  padding: 0 10px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--n-text-color-secondary);
+  background-color: var(--n-bg-color);
+  border: 1px solid var(--n-border-color);
+  border-right: 0;
+  border-radius: 4px 0 0 4px;
+  transform: translateX(calc(-100% - 1px));
+}
+
+[class*='language-'] > span.lang {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--code-font-family);
+  color: var(--n-text-color-secondary);
+  transition: color 0.4s, opacity 0.4s;
+  z-index: 2;
+}
+
+[class*='language-']:hover > button.copy + span.lang,
+[class*='language-'] > button.copy:focus + span.lang {
+  opacity: 0;
+}
+
+html:not(.dark) .vp-code .line span {
+  color: var(--shiki-light);
+}
+
+.dark .vp-code .line span {
+  color: var(--shiki-dark);
 }

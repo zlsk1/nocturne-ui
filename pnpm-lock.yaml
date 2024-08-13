@@ -157,8 +157,8 @@ importers:
         specifier: 4.2.0
         version: 4.2.0(vue@3.4.15)
       nocturne-ui:
-        specifier: 0.0.2-alpha.4
-        version: 0.0.2-alpha.4(vue@3.4.15)
+        specifier: 0.0.2-alpha.5
+        version: 0.0.2-alpha.5(vue@3.4.15)
       prism-theme-vars:
         specifier: 0.2.3
         version: 0.2.3
@@ -6436,8 +6436,8 @@ packages:
     resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
     dev: true
 
-  /nocturne-ui@0.0.2-alpha.4(vue@3.4.15):
-    resolution: {integrity: sha512-EVHIh1vd45vEzsbSOwQoLJltzu5dx2205TCW+0omUIhVFR5pN0YJQFWdfG1PwjlV8AaHa3v/VH50TfcU+9ZBKw==}
+  /nocturne-ui@0.0.2-alpha.5(vue@3.4.15):
+    resolution: {integrity: sha512-sr/aP976MJiIYYux5fHPNa/GzoRnn9W/NV0WBe3810aDL4v942y2dfUA3rcIASnSwNhTu7Dm9hAncq2VG9StsQ==}
     peerDependencies:
       vue: ^3.4.15
     dependencies:

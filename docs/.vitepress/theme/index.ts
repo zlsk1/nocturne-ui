@@ -5,7 +5,7 @@ import 'nocturne-ui/theme-chalk/n-message.css';
 import 'uno.css'
 import { vpComponents } from './global'
 import vpApp from './components/vp-app.vue'
-import type { App, Component } from 'vue'
+import type { App } from 'vue'
 
 export default {
   Layout: vpApp,

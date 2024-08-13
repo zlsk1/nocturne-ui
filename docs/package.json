@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@remixicon/vue": "4.2.0",
-    "nocturne-ui": "0.0.2-alpha.4",
+    "nocturne-ui": "0.0.2-alpha.5",
     "prism-theme-vars": "0.2.3",
     "vue": "3.4.15"
   },
