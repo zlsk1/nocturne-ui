@@ -1,8 +1,7 @@
 .vp-link {
   position: relative;
-  margin: 0 2px;
+  margin: 0 5px;
   color: var(--n-color-primary);
-  transition: .2s;
 
   &::after {
     content: '';

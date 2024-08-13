@@ -70,7 +70,8 @@ export const config: UserConfig = {
       '/zh-CN/guide': [
         {
           items: [
-            { text: '快速上手 ', link: '/zh-CN/guide/use' },
+            { text: '安装', link: '/zh-CN/guide/install' },
+            { text: '快速上手 ', link: '/zh-CN/guide/quickstart' },
           ],
         },
       ]
