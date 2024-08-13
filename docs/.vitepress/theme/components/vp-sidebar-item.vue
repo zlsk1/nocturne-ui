@@ -8,7 +8,7 @@
     :href="item?.link"
     @click="$emit('close')"
   >
-    <p>{{ item?.text }}</p>
+    <span>{{ item?.text }}</span>
   </a>
 </template>
 

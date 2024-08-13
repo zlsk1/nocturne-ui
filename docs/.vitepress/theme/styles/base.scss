@@ -88,6 +88,10 @@ ol {
   list-style: none;
 }
 
+p {
+  margin: 1rem 0;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;

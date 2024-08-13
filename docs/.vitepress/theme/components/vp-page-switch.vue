@@ -5,14 +5,14 @@
         <ArrowLeft size="14"></ArrowLeft>
         <span>上一篇</span>
       </div>
-      <p class="desc">{{ switchPage.prev.text }}</p>
+      <span class="desc">{{ switchPage.prev.text }}</span>
     </a>
     <a v-if="switchPage?.next" :href="switchPage.next.link" class="switcher right">
       <div class="indicator">
         <span>下一篇</span>
         <ArrowRight size="14"></ArrowRight>
       </div>
-      <p class="desc" :title="switchPage.next.text">{{ switchPage.next.text }}</p>
+      <span class="desc" :title="switchPage.next.text">{{ switchPage.next.text }}</span>
     </a>
   </div>
 </template>
