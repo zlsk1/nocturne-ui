@@ -36,7 +36,7 @@ const switchPage = usePageSwitch()
   display: flex;
   justify-content: space-between;
   min-width: 100%;
-  margin-top: 28px;
+  margin-top: 20px;
 
   .switcher {
     display: block;
