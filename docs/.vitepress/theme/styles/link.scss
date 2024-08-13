@@ -1,0 +1,21 @@
+.vp-link {
+  position: relative;
+  margin: 0 2px;
+  color: var(--n-color-primary);
+  transition: .2s;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1.5px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background-color: var(--n-color-primary);
+    transition: .3s;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}

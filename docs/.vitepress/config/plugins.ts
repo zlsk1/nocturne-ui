@@ -4,6 +4,7 @@ import tag from '../plugins/tag'
 import { ApiTableContainer } from '../plugins/api-table'
 import ApiTableWrapper from '../plugins/table-wrapper'
 import tooltip from '../plugins/tooltip'
+import link from '../plugins/link'
 import fs from 'fs'
 import path from 'path'
 import { highlight } from '../../utils'
@@ -30,6 +31,7 @@ export const mdPlugin = (md: MarkdownIt) => {
     .use(tag)
     .use(ApiTableWrapper)
     .use(tooltip)
+    .use(link)
 }
 
 /**

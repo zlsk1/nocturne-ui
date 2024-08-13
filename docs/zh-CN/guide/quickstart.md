@@ -66,6 +66,8 @@ import 'nocturne-ui/theme-chalk/src/button.scss'
 
 自动引入时你需要将 ```unplugin-vue-component``` 、```unplugin-auto-import``` 和 ```nocturne-ui-resolver``` 这三个依赖下载至你的项目中
 
+关于[unplugin-vue-components](./link.md#basic)
+
 ```ts
 // vite.config.ts
 import { defineConfig } from 'vite'
@@ -88,5 +90,3 @@ export default defineConfig({
   ],
 })
 ```
-
-关于[Link](./link.md#basic)
