@@ -3,6 +3,7 @@
     <div class="nav-wrapper">
       <a href="/index.html">Nocturne-ui</a>
       <div class="content">
+        <vpDocSearch></vpDocSearch>
         <nav class="nav-link">
           <a v-for="(item, index) in theme.nav" :key="item.text" :href="item.link" :class="{ 'actived': actived(theme.nav[index].link) }">{{ item.text }}</a>
         </nav>
@@ -21,6 +22,7 @@ import {
   RiGithubFill as Github,
 } from '@remixicon/vue';
 import vpThemeToggle from './common/vp-theme-toggle.vue'
+import vpDocSearch from './vp-doc-search.vue'
 
 const { theme } = useData()
 const route = useRoute()
