@@ -1,0 +1,45 @@
+.custom-block {
+  position: relative;
+  margin: 20px 0;
+  padding: 8px 12px;
+  border-radius: var(--n-border-radius-base);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    border-radius: var(--n-border-radius-base) 0 0 var(--n-border-radius-base);
+  }
+
+  .custom-block-title {
+    font-weight: 700;
+  }
+
+  p {
+    margin: .6rem;
+  }
+}
+
+.tip.custom-block {
+  background-color: var(--n-color-primary-light-9);
+  &::after {
+    background-color: var(--n-color-primary);
+  }
+}
+
+.warning.custom-block {
+  background-color: var(--n-color-warning-light-9);
+  &::after {
+    background-color: var(--n-color-warning);
+  }
+}
+
+.danger.custom-block {
+  background-color: var(--n-color-danger-light-9);
+  &::after {
+    background-color: var(--n-color-danger);
+  }
+}
