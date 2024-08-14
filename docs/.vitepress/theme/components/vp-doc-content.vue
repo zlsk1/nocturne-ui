@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue';
 import { useData } from 'vitepress'
-import vpAPIContent from './vp-api-content.vue' 
+import vpAPIAside from './vp-api-aside.vue' 
 import vpPageSwitch from './vp-page-switch.vue'
 import vpLastUpdate from './vp-last-update.vue'
 
@@ -24,6 +24,6 @@ const resolveZeroWidthSpace = () => {
       <vpLastUpdate></vpLastUpdate>
       <vpPageSwitch></vpPageSwitch>
     </div>
-    <vpAPIContent v-if="page.headers"></vpAPIContent>
+    <vpAPIAside v-if="page.headers"></vpAPIAside>
   </div>
 </template>

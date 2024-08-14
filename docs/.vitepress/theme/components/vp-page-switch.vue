@@ -21,7 +21,7 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { usePageSwitch } from '../composables'
 import {
   RiArrowRightWideLine as ArrowRight,
