@@ -56,7 +56,7 @@ export const config: UserConfig = {
           text: '响应',
           items: [
             { text: 'Alert 警告', link: '/zh-CN/components/alert' },
-            { text: 'Dialog 对话框', link: '/zh-CN/components/alert' },
+            { text: 'Dialog 对话框', link: '/zh-CN/components/dialog' },
             { text: 'Drawer 抽屉', link: '/zh-CN/components/drawer' },
             { text: 'Loading 加载中', link: '/zh-CN/components/loading' },
             { text: 'Message 消息通知', link: '/zh-CN/components/message' },
