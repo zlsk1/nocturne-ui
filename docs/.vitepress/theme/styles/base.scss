@@ -57,7 +57,7 @@ h4 {
   font-size: 1.2rem;
 }
 
-h5{
+h5 {
   margin: 1.25rem 0;
   line-height: 1.25;
   font-size: 1rem;
@@ -92,9 +92,10 @@ a.header-anchor {
   position: absolute;
   margin-top: 0.125em;
   margin-left: -0.87em;
-  padding-right: 1em;
+  // padding-right: 1em;
   font-size: 0.85em;
   opacity: 0;
+  text-align: start;
 
   &:hover,
   :focus {
