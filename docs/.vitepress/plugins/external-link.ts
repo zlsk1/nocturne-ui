@@ -8,8 +8,12 @@ export default (md: MarkDownIt) => {
   const defaultLinkCloseRenderer = md.renderer.rules.link_open || renderToken
 
   md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
-    tokens[idx].attrJoin("class", "vp-link");
+    const token = tokens[idx]
+    const href = token.attrGet('href')
     
+    if(href?.startsWith('https') || href?.startsWith('http')) {
+      token.attrJoin("class", "vp-link");
+    }
     return defaultLinkOpenRenderer(tokens, idx, options, env, self)
   }
   
