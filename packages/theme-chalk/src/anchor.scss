@@ -1,0 +1,58 @@
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+@include b(anchor) {
+  @include set-component-css-var(anchor, $anchor);
+
+  font-size: 13px;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul, li {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: getCssVar(text-color-primary);
+  }
+
+  @include m('content') {
+    position: relative;
+    padding: getCssVar('anchor', 'padding');
+
+    @include e(items) {
+      padding-left: getCssVar('anchor', 'items-padding');
+
+      a {
+        display: block;
+        padding: 4px 0;
+        transition: color getCssVar('transition-duration');
+      }
+
+      .active {
+        color: getCssVar(color-primary);
+      }
+    }
+
+    @include e(marker) {
+      position: absolute;
+      left: 0;
+      top: 5px;
+      width: 2px;
+      height: 1rem;
+      border-radius: 2px;
+      background-color: getCssVar(color-primary);
+      z-index: 0;
+      opacity: 0;
+      transition:
+        top getCssVar('transition-duration-fast'),
+        opacity getCssVar('transition-duration')
+      ;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { NAlert } from '@/components/alert'
+import { NAnchor, NAnchorItem } from '@/components/anchor'
 import { NAvatar } from '@/components/avatar'
 import { NBadge } from '@/components/badge'
 import { NButton } from '@/components/button'
@@ -43,6 +44,8 @@ import type { Plugin } from 'vue'
 
 export default [
   NAlert,
+  NAnchor,
+  NAnchorItem,
   NAvatar,
   NBadge,
   NButton,

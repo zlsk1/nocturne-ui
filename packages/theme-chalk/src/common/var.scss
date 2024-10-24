@@ -940,4 +940,13 @@ $drawer: map.merge(
     'box-shadow': getCssVar('box-shadow'),
   ),
   $drawer
+);
+
+$anchor: () !default;;
+$anchor: map.merge(
+  (
+    'padding': 0 6px,
+    'items-padding': 10px,
+  ),
+  $anchor
 )
