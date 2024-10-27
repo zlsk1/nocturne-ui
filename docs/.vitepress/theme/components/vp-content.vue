@@ -1,8 +1,9 @@
 <template>
-  <main class="main-content">
-    <vpNotFound v-if="isNotFound"></vpNotFound>
-    <Content v-else-if="isPage"></Content>
-    <vpDocContent v-else></vpDocContent>
+  <vpNotFound v-if="isNotFound"></vpNotFound>
+  <!-- <Content v-else-if="isPage"></Content> -->
+  <vpHome v-else-if="isPage"></vpHome>
+  <main v-else class="main-content">
+    <vpDocContent></vpDocContent>
   </main>
 </template>
 
@@ -11,6 +12,7 @@ import { computed } from 'vue'
 import { useData } from 'vitepress'
 import vpDocContent from './vp-doc-content.vue'
 import vpNotFound from './common/vp-not-found.vue'
+import vpHome from './vp-home.vue'
 
 const { page } = useData()
 
