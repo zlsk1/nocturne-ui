@@ -51,7 +51,7 @@ export const notificationProps = {
     default: notificationDefaultOptions.placement
   },
   appendTo: {
-    type: definePropType<HTMLElement | String>([String, HTMLElement]),
+    type: {},
     default: notificationDefaultOptions.appendTo
   },
   id: {

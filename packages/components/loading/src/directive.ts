@@ -1,7 +1,7 @@
 import { createVNode, render } from 'vue'
 import Loading from './loading.vue'
 import { loadingDefault } from './loading'
-import { isObject } from '@/utils'
+import { isObject, isClient } from '@/utils'
 
 import type { DirectiveBinding, Directive } from 'vue'
 import type { LoadingProps, LoadingIntance } from './loading'
@@ -14,7 +14,7 @@ export interface NLoading extends HTMLElement {
   }
 }
 
-const container = document.createElement('div')
+const container = isClient() ? document.createElement('div') : (undefined as never)
 
 const _getAttribute = (el: NLoading, name: Attributes) => {
   return el.getAttribute(`n-loading-${name}`) || loadingDefault[name]

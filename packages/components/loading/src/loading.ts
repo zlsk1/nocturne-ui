@@ -14,7 +14,7 @@ export const loadingDefault = mutable({
 
 export const loadingProps = {
   target: {
-    type: definePropType<string | HTMLElement>([String, HTMLElement]),
+    type: {},
     default: loadingDefault.target
   },
   text: {

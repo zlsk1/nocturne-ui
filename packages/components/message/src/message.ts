@@ -58,7 +58,7 @@ export const messageProps = {
     default: messageDefaults.offset
   },
   appendTo: {
-    type: definePropType<string | HTMLElement>([String, HTMLElement]),
+    type: {},
     default: messageDefaults.appendTo
   },
   onClose: {
