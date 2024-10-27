@@ -70,7 +70,7 @@ export const config: UserConfig = {
       '/zh-CN/guide': [
         {
           items: [
-            { text: 'NocturneUI', link: '/zh-CN/guide/nocturne-ui' },
+            { text: 'Nocturne UI', link: '/zh-CN/guide/nocturne-ui' },
             { text: '快速上手 ', link: '/zh-CN/guide/quickstart' },
           ],
         },

@@ -23,13 +23,21 @@
     <n-button type="info" round>Info</n-button>
     <n-button type="success" round>Success</n-button>
   </div>
-  <div>
+  <div class="mb-4">
     <n-button circle :icon="Search"></n-button>
     <n-button type="primary" circle :icon="Upload"></n-button>
     <n-button type="danger" circle :icon="Delete"></n-button>
     <n-button type="warning" circle :icon="Walk"></n-button>
     <n-button type="info" circle :icon="CodeView"></n-button>
     <n-button type="success"circle :icon="Game"></n-button>
+  </div>
+  <div>
+    <n-button text>Default</n-button>
+    <n-button type="primary" text>Primary</n-button>
+    <n-button type="danger" text>Danger</n-button>
+    <n-button type="warning" text>Warning</n-button>
+    <n-button type="info" text>Info</n-button>
+    <n-button type="success"text>Success</n-button>
   </div>
 </template>
 

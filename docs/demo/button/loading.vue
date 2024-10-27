@@ -20,6 +20,6 @@ const isloading = ref(false)
 
 const click = () => {
   isloading.value = true
-  setTimeout(() => isloading.value = false, 3000)
+  setTimeout(() => isloading.value = false, 1000)
 }
 </script>

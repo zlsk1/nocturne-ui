@@ -1,8 +1,8 @@
 <template>
   <div>
-    <n-button type="primary" :icon="GoBack">go back</n-button>
+    <n-button type="primary" :icon="GoBack">返回</n-button>
     <n-button type="primary">
-      search
+      搜索
       <Search size="16" ml="2"></Search>
     </n-button>
   </div>

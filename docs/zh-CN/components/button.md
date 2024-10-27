@@ -9,7 +9,7 @@ lang: ch-ZH
 
 ## 基础用法
 
-:::demo 添加 `type`、`plain`、`round` 和 `circle` 属性设置不同的样式 **deprecated** ^(3.0.0)
+:::demo 设置 `type`、`plain`、`circle`、`round` 和 `text` 展现不同的样式 **deprecated** ^(3.0.0)
 
 button/basic
 
@@ -36,6 +36,14 @@ button/loading
 :::demo 添加 `icon` 属性为按钮添加图标，也可以通过默认插槽的方式
 
 button/icon
+
+:::
+
+## 尺寸
+
+:::demo 提供 `small`、`medium` 和 `large` 三种尺寸
+
+button/size
 
 :::
 
