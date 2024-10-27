@@ -9,8 +9,6 @@ lang: ch-ZH
 
 ### 全量引入
 
-如果你不怎么在乎代码体积，全量引入也许更加方便
-
 ```ts
 // main.ts
 import { createApp } from 'vue'
@@ -35,12 +33,13 @@ app.mount('#app')
 }
 ```
 
-
 ### 按需引入
 
 根据你的需要来使用组件，未使用的组件将不会出现在当前项目的打包结果中
 
 #### 手动引入
+
+在 `vue` 文件中键入
 
 ```vue
 <script lang="ts" setup>
@@ -71,6 +70,7 @@ import 'nocturne-ui/theme-chalk/src/button.scss'
 ##### Vite
 
 ```ts
+// vite.config.ts
 import { defineConfig } from 'vite'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -95,6 +95,7 @@ export default defineConfig({
 ##### Webpack
 
 ```ts
+// webpack.config.js
 const AutoImport = require('unplugin-auto-import/webpack')
 const Components = require('unplugin-vue-components/webpack')
 const { NocturneUIReslover } = require('nocturne-ui-resolver')

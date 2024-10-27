@@ -12,7 +12,7 @@ export const config: UserConfig = {
   themeConfig: {
     doscDir: '../../dosc',
     nav: [
-      { text: '指南', link: '/zh-CN/guide/install' },
+      { text: '指南', link: '/zh-CN/guide/nocturne-ui' },
       { text: '组件', link: '/zh-CN/components/button', activeMatch: true },
     ],
     sidebar: {
@@ -70,7 +70,7 @@ export const config: UserConfig = {
       '/zh-CN/guide': [
         {
           items: [
-            { text: '安装', link: '/zh-CN/guide/install' },
+            { text: 'NocturneUI', link: '/zh-CN/guide/nocturne-ui' },
             { text: '快速上手 ', link: '/zh-CN/guide/quickstart' },
           ],
         },
