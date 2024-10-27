@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "vitepress dev",
-    "build": "vite build"
+    "build": "vitepress build",
+    "preview": "vitepress preview"
   },
   "dependencies": {
     "@remixicon/vue": "4.2.0",

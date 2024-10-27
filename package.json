@@ -14,7 +14,8 @@
     "prepare": "husky",
     "check": "vue-tsc -p tsconfig.node.json --composite false  --noEmit",
     "docs:dev": "pnpm -C docs dev",
-    "docs:build": "pnpm -C docs dev"
+    "docs:build": "pnpm -C docs build",
+    "docs:preview": "pnpm -C docs preview"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
