@@ -1,0 +1,10 @@
+<template>
+  <div>
+    <n-link disabled href="https://github.com/zlsk1/nocturne-ui" class="mx-2">Default</n-link>
+    <n-link disabled type="primary" href="https://github.com/zlsk1/nocturne-ui" class="mx-2">Primary</n-link>
+    <n-link disabled type="danger" href="https://github.com/zlsk1/nocturne-ui" class="mx-2">Danger</n-link>
+    <n-link disabled type="warning" href="https://github.com/zlsk1/nocturne-ui" class="mx-2">Wearning</n-link>
+    <n-link disabled type="info" href="https://github.com/zlsk1/nocturne-ui" class="mx-2">Info</n-link>
+    <n-link disabled type="success" href="https://github.com/zlsk1/nocturne-ui" class="mx-2">Success</n-link>
+  </div>
+</template>
