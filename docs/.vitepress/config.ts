@@ -12,7 +12,7 @@ export const config: UserConfig = {
   themeConfig: {
     doscDir: '../../dosc',
     nav: [
-      { text: '指南', link: '/zh-CN/guide/quickstart' },
+      { text: '指南', link: '/zh-CN/guide/install' },
       { text: '组件', link: '/zh-CN/components/button', activeMatch: true },
     ],
     sidebar: {

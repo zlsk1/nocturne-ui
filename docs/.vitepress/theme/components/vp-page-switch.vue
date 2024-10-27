@@ -15,7 +15,7 @@
           <span>下一篇</span>
           <ArrowRight size="14"></ArrowRight>
         </div>
-        <span class="desc" :title="switchPage.next.text">{{ switchPage.next.text }}</span>
+        <p class="desc" :title="switchPage.next.text">{{ switchPage.next.text }}</p>
       </div>
     </a>
   </div>
@@ -68,6 +68,7 @@ const switchPage = usePageSwitch()
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      margin: 0;
     }
 
     .indicator, .desc {

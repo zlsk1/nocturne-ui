@@ -25,6 +25,6 @@ onMounted(() => {
 <style>
 .vp-last-update {
   margin-top: 40px;
-  color: var(--n-color-primary);
+  color: var(--theme-color);
 }
 </style>

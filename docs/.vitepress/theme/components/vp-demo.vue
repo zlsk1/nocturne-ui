@@ -9,25 +9,22 @@
           </ClientOnly>
         </div>
         <div class="demo-operas">
-          <n-tooltip
-            content="展开代码"
-            :show-arrow="false"
-          >
+          <n-tooltip content="展开代码">
             <codeView
               size="16"
               class="opera"
               @click="handleShowCode"
             ></codeView>
           </n-tooltip>
-          <n-tooltip content="在playround中编辑" :show-arrow="false">
+          <n-tooltip content="在playround中编辑">
             <Play size="16" class="opera"></Play>
           </n-tooltip>
-          <n-tooltip content="在github上查看" :show-arrow="false">
+          <n-tooltip content="在github上查看">
             <a :href="githubPath" target="_blank">
               <github size="16" class="opera"></github>
             </a>
           </n-tooltip>
-          <n-tooltip content="复制代码" :show-arrow="false">
+          <n-tooltip content="复制代码">
             <fileCopy size="16" class="opera" @click="copyCode"></fileCopy>
           </n-tooltip>
         </div>
@@ -39,7 +36,7 @@
         <Transition name="n-fade-in-linear">
           <div class="demo-source-close" @click="handleShowCode" v-show="showCode">
             <Triangle size="20"></Triangle>
-            <p>收起源代码</p>
+            <span>收起源代码</span>
           </div>
         </Transition>
       </div>
