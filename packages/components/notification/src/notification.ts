@@ -1,6 +1,6 @@
 import notification from './notification.vue'
 import { messageTypes } from '@/components/message'
-import { definePropType, mutable, iconPropType } from '@/utils'
+import { definePropType, mutable, iconPropType, isClient } from '@/utils'
 
 import type { AppContext, ExtractPropTypes, VNode } from 'vue'
 
@@ -11,7 +11,7 @@ export const notificationDefaultOptions = mutable({
   type: 'info',
   zIndex: 2000,
   placement: 'top-right',
-  appendTo: document.body,
+  appendTo: isClient() ? document.body : (undefined as never),
   id: '',
   offset: 16,
   onClose: undefined,

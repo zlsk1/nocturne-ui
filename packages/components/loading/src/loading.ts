@@ -1,10 +1,10 @@
 import loading from './loading.vue'
-import { iconPropType, definePropType, mutable } from '@/utils'
+import { iconPropType, definePropType, mutable, isClient } from '@/utils'
 
 import type { ExtractPropTypes } from 'vue'
 
 export const loadingDefault = mutable({
-  target: document.body,
+  target: isClient() ? document.body : (undefined as never),
   text: '',
   icon: 'Loader',
   maskBg: 'rgba(0, 0, 0, 0.8)',
