@@ -1,7 +1,10 @@
 <template>
   <div class="nav-container">
     <div class="nav-wrapper">
-      <a href="/index.html">Nocturne-ui</a>
+      <a href="/index.html" class="flex items-center">
+        <img src="../../../logo.svg" alt="">
+        <span class="ml-2 text-lg" style="font-family: var(--code-font-family); color: #409eff">Nocturne</span>
+      </a>
       <div class="content">
         <vpDocSearch></vpDocSearch>
         <nav class="nav-link">

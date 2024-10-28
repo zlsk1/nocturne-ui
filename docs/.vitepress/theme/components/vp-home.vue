@@ -9,7 +9,7 @@
           一个由typescirpt编写的vue3组件库
         </h3>
       </div>
-      <n-button round type="primary" @click="router.go('zh-CN/guide/install.html')">快速开始</n-button>
+      <n-button round type="primary" @click="router.go('zh-CN/guide/nocturne-ui.html')">快速开始</n-button>
       <n-button round @click="router.go('zh-CN/components/button.html')">浏览组件</n-button>
       <div class="color-picker">
         应用主题色<n-color-picker v-model="themeColor" showText :predefine="['#409eff', '#9eff64']"></n-color-picker>

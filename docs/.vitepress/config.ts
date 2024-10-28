@@ -75,7 +75,7 @@ export const config: UserConfig = {
           ],
         },
       ]
-    },
+    }
   },
   markdown: {
     config: (md) => mdPlugin(md),
