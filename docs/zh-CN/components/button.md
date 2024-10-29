@@ -57,7 +57,7 @@ button/button-group
 
 ## Button API
 
-### Button 属性
+### Button Props
 
 | 属性名                | 描述                   | 类型                                 | 默认值   |
 | -------------------- | ---------------------- | ------------------------------------ | ------- |
@@ -72,7 +72,7 @@ button/button-group
 | icon              | 要添加的icon组件            | ^[string] / ^[Component]             | —       |
 | text              | 是否为文字按钮           | ^[boolean]                               | —       |
 
-### Button 插槽
+### Button Slots
 
 | 插槽名  | 描述              |
 | ------ | ----------------- |
@@ -80,7 +80,7 @@ button/button-group
 
 ## ButtonGroup API
 
-### ButtonGroup 插槽
+### ButtonGroup Slots
 
 | 插槽名  | 描述              |
 | ------ | ----------------- |

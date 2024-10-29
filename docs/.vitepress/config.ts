@@ -30,7 +30,7 @@ export const config: UserConfig = {
           text: '表单',
           items: [
             { text: 'Checkbox 多选框', link: '/zh-CN/components/checkbox' },
-            { text: 'ColorPicker 多选框', link: '/zh-CN/components/color-picker' },
+            { text: 'ColorPicker 颜色选择器', link: '/zh-CN/components/color-picker' },
             { text: 'Input 输入框', link: '/zh-CN/components/input' },
             { text: 'Input Number 数字输入框', link: '/zh-CN/components/input-number' },
             { text: 'Form 表单', link: '/zh-CN/components/form' },
