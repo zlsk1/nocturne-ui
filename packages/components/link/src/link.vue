@@ -5,7 +5,13 @@ defineOptions({
   name: 'NLink'
 })
 
-defineProps(linkProps)
+const props = defineProps(linkProps)
+
+const handleClick = (e: Event) => {
+  if (props.disabled) {
+    e.preventDefault()
+  }
+}
 </script>
 
 <template>
@@ -20,6 +26,7 @@ defineProps(linkProps)
     ]"
     :href="href"
     :target="target"
+    @click="handleClick"
   >
     <span>
       <slot></slot>
