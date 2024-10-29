@@ -25,7 +25,8 @@ const {
 <template>
   <label
     :class="[
-      size ? `n-checkbox--${size}` : 'n-checkbox',
+      'n-checkbox',
+      `n-checkbox--${size}`,
       {
         'is-disabled': disabled || isDisabled,
         'is-checked': isChecked,
