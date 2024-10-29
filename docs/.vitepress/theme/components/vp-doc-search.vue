@@ -1,177 +1,93 @@
 <script lang="ts" setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-import {
-  RiSearchLine as Search,
-  RiCornerDownLeftLine as CornerDown,
-  RiArrowUpLine as ArrowUp,
-  RiArrowDownLine as ArrowDown,
-} from '@remixicon/vue'
-
-const visible = ref(false)
-const searchField = ref()
-const inputRef = ref<HTMLInputElement>()
+import { onMounted } from 'vue'
+import docsearch from '@docsearch/js';
+import '@docsearch/css';
 
 onMounted(() => {
-  window.addEventListener('keydown', onKeyDownEsc)
+  docsearch({
+    appId: "TJHTPTANLO",
+    apiKey: "4340be1d4a77adb4a66feb9a7e5485f6",
+    indexName: "nocturne-org",
+    container: "#doc-search",
+    translations: {
+      button: {
+        buttonText: '搜索',
+      },
+      modal: {
+        searchBox: {
+          resetButtonTitle: '清除',
+          resetButtonAriaLabel: 'Clear the query',
+          cancelButtonText: '取消',
+          cancelButtonAriaLabel: 'Cancel',
+          searchInputLabel: '搜索',
+        },
+        startScreen: {
+          recentSearchesTitle: 'Recent',
+          noRecentSearchesText: '暂无搜索记录',
+          saveRecentSearchButtonTitle: 'Save this search',
+          removeRecentSearchButtonTitle: 'Remove this search from history',
+          favoriteSearchesTitle: 'Favorite',
+          removeFavoriteSearchButtonTitle: 'Remove this search from favorites',
+        },
+        errorScreen: {
+          titleText: 'Unable to fetch results',
+          helpText: 'You might want to check your network connection.',
+        },
+        footer: {
+          selectText: '选择',
+          selectKeyAriaLabel: 'Enter key',
+          navigateText: '切换',
+          navigateUpKeyAriaLabel: 'Arrow up',
+          navigateDownKeyAriaLabel: 'Arrow down',
+          closeText: '取消',
+          closeKeyAriaLabel: 'Escape key',
+          searchByText: '提供者',
+        },
+        noResultsScreen: {
+          noResultsText: 'No results for',
+          suggestedQueryText: 'Try searching for',
+          reportMissingResultsText: 'Believe this query should return results?',
+          reportMissingResultsLinkText: 'Let us know.',
+        },
+      },
+    }
+  });
 })
-
-onBeforeUnmount(() => {
-  window.removeEventListener('keydown', onKeyDownEsc)
-})
-
-const onOpen = () => {
-  inputRef.value?.focus ? inputRef.value?.focus() : ''
-}
-
-const onKeyDownEsc = (e: KeyboardEvent) => {
-  if(e.key === 'Escape') {
-    visible.value = false
-  }
-}
 </script>
 
 <template>
-  <div class="vp-search" @click="visible = true">
-    <div class="search">
-      <Search size="13"></Search>
-      <span class="placeholder">搜索文档</span>
-      <div class="tips">Ctrl K</div>
-    </div>
-  </div>
-  <n-dialog v-model="visible" :showClose="false" width="25%" custom-class="search-dialog" @open="onOpen">
-    <div class="search-dialog-input">
-      <Search size="18"></Search>
-      <input ref="inputRef" v-model="searchField" placeholder="搜索文档"></input>
-    </div>
-    <div class="search-dialog-content">
-      <div class="title"></div>
-      <ul class="list">
-        <li class="item">
-          <a href="" class="item__inner">
-            <Search size="18"></Search>
-            <div>
-              <p></p>
-              <span></span>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <template #footer>
-      <div class="search-dialog-footer">
-        <div>
-          <CornerDown size="16"></CornerDown>
-          <span>选择</span>
-        </div>
-        <div>
-          <ArrowUp size="16"></ArrowUp>
-          <ArrowDown size="16"></ArrowDown>
-          <span>切换</span>
-        </div>
-        <div>
-          <span>esc</span>
-          <span>关闭</span>
-        </div>
-      </div>
-    </template>
-  </n-dialog>
+  <div id="doc-search"></div>
 </template>
 
 <style lang="scss">
 .vp-search {
   width: 150px;
-  cursor: pointer;
-  .search {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 13px;
-    border-radius: 6px;
-    color: var(--n-text-color-placeholder);
-    background-color: var(--n-fill-color-lighter);
-    border: 1px solid transparent;
-    transition: .3s;
+}
 
-    &:hover {
-      color: var(--n-text-color-regular);
-      background-color: var(--n-bg-color);
-      border: 1px solid #a8b1ff;
-    }
+.DocSearch-Button {
+  --docsearch-searchbox-background: var(--n-bg-color-page);
+  --docsearch-muted-color: var(--n-text-color-placeholder);
+  --docsearch-key-gradient: var(--n-bg-color-overlay);
+  --docsearch-text-color: var(--n-text-color-placeholder);
+  // --docsearch-searchbox-shadow: inset 0 0 0 2px var(--n-color-primary);
+  transition: all var(--n-transition-duration-fast);
 
-    .placeholder {
-      margin-left: 5px;
-      margin-right: 10px;
-    }
+  &:hover {
+    background: var(--n-bg-color-page);
+    color: var(--n-text-color-secondary);
+  }
 
-    .tips {
-      padding: 2px 4px;
-      font-weight: 550;
-      font-size: 12px;
-      color: var(--n-text-color-placeholder);
-      border: 1px solid var(--n-border-color-light);
-      border-radius: var(--n-border-radius-base);
-    }
+  .DocSearch-Button-Key {
+    box-shadow: none;
   }
 }
 
-.search-dialog {
-  width: 100%;
-  padding: 10px 0;
-  .search-dialog-input {
-    display: flex;
-    align-items: center;
-    margin: 0 14px 6px 14px;
-    padding: 5px 10px;
-    border: 1px solid #a8b1ff;
-    border-radius: var(--n-border-radius-base);
+.DocSearch-Modal {
+  --docsearch-modal-background: var(--n-bg-color-overlay);
+  --docsearch-footer-background: var(--n-bg-color);
+  --docsearch-searchbox-focus-background: var(--n-bg-color-overlay);
+  --docsearch-text-color: var(--n-text-color-regular);
 
-    input {
-      width: 100%;
-      height: 40px;
-      margin-left: 10px;
-      font-size: 18px;
-      border: none;
-      outline: none;
-    }
-  }
-  .search-dialog-content {
-    padding: 0 10px 20px 10px;
-    margin-bottom: 6px;
-    border-radius: var(--n-border-radius-base);
-
-    .list {
-      .item {
-        .item__inner {
-          display: flex;
-          align-items: center;
-
-          > p {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
-        }
-      }
-    }
-  }
-  .search-dialog-footer {
-    display: flex;
-    justify-content: start;
-    padding: 10px 14px 0 14px;
-    font-size: 12px;
-    color: var(--n-text-color-placeholder);
-    border-top: 1px solid var(--n-border-color-light);
-
-    > div {
-      display: flex;
-      align-items: center;
-      margin-right: 14px;
-
-      > span {
-        margin-left: 4px;
-      }
-    }
-  }
+  box-shadow: none;
 }
 </style>
