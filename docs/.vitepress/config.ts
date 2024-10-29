@@ -87,6 +87,9 @@ export const config: UserConfig = {
     ssr: {
       noExternal: ['nocturne-ui', 'lodash', '@popperjs/core']
     }
+  },
+  sitemap: {
+    hostname: 'https://nocturne.org.cn'
   }
 }
 
