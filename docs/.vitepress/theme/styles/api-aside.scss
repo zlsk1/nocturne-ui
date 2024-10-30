@@ -1,11 +1,12 @@
 .api-content-aside {
-  padding: calc(1.5rem + 10px) 0 0 100px;
+  width: var(--api-content-width);
+  padding: calc(1.5rem + 10px) 30px 0 30px;
   .api-content-container {
     position: sticky;
     top: 100px;
     width: 200px;
     padding-left: 20px;
-    border-left: 1px solid var(--n-border-color);
+    border-left: 1px solid var(--n-border-color-light);
   
     .api-content-title {
       margin-bottom: 10px;

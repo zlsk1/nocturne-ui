@@ -47,7 +47,7 @@ export default defineComponent({
             onMousedown,
             onMouseup
           },
-          slots.default()
+          slots.default?.()
         )
         : h(
           'div',
@@ -65,7 +65,7 @@ export default defineComponent({
             onMousedown,
             onMouseup
           },
-          slots.default()
+          slots.default?.()
         )
     }
   }

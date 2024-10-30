@@ -6,7 +6,7 @@ import NOverlay from '@/components/overlay'
 import { isString, isFunction } from '@/utils'
 import { useSameTarget, useZIndex } from '@/composables'
 
-import type { CSSProperties } from 'vue'
+import type { StyleValue } from 'vue'
 
 export default defineComponent({
   name: 'NDrawer',
@@ -22,7 +22,7 @@ export default defineComponent({
     const { nextZIndex } = useZIndex()
     const zIndex = nextZIndex()
 
-    const size = computed<CSSProperties>(() => {
+    const size = computed<StyleValue>(() => {
       if (!props.size) return
       if (props.placement === 'right' || props.placement === 'left') {
         return {
@@ -41,7 +41,7 @@ export default defineComponent({
       if (!props.zIndex) {
         return zIndex
       }
-      return isString(props.zIndex) ? props.zIndex : Number(props.zIndex)
+      return isString(props.zIndex) ? Number(props.zIndex) : props.zIndex
     })
 
     function clickMaskerToClose() {
@@ -94,7 +94,7 @@ export default defineComponent({
         <div
           ref="drawerRef"
           :class="['n-drawer', `is-${placement}`]"
-          :style="[size, zIndex]"
+          :style="[size, { zIndex }]"
         >
           <div class="n-drawer__header">
             <slot name="header"></slot>

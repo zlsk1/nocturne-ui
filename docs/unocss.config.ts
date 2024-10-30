@@ -16,12 +16,12 @@ export default defineConfig({
       xl: '1280px',
       '2xl': '1536px',
       '3xl': '1920px'
-    },
-    colors: {
-      primary: {
-        DEFAULT: '#2563eb',
-        deep: '#1d4ed8'
-      }
     }
+    // colors: {
+    //   primary: {
+    //     DEFAULT: '#2563eb',
+    //     deep: '#1d4ed8'
+    //   }
+    // }
   }
 })

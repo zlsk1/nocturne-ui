@@ -23,9 +23,9 @@ color-picker/alpha
 
 :::
 
-## 透明度
+## 预设
 
-:::demo 定义 `preset` 绑定预设颜色，为用户提供选择
+:::demo 定义 `predefine` 绑定预设颜色，为用户提供选择
 
 color-picker/preset
 

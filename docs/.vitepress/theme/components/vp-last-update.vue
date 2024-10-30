@@ -1,30 +1,41 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed, watchEffect } from 'vue';
 import { useData } from 'vitepress'
 
-const date = ref<string | undefined>('') 
+const { theme, page, lang } = useData()
 
-const { page } = useData()
+const date = computed(
+  () => new Date(page.value.lastUpdated!)
+)
 
+const isoDatetime = computed(() => date.value.toISOString())
+const datetime = ref('')
+
+// set time on mounted hook to avoid hydration mismatch due to
+// potential differences in timezones of the server and clients
 onMounted(() => {
-  if(page.value.lastUpdated) {
-    date.value = new Date(page.value.lastUpdated).toLocaleString()
-  }
-  else {
-    date.value = undefined
-  }
+  watchEffect(() => {
+    datetime.value = new Intl.DateTimeFormat(
+      theme.value.lastUpdated?.formatOptions?.forceLocale ? lang.value : undefined,
+      theme.value.lastUpdated?.formatOptions ?? {
+        dateStyle: 'short',
+        timeStyle: 'short'
+      }
+    ).format(date.value)
+  })
 })
 </script>
 
 <template>
   <div class="vp-last-update" v-if="date">
-    上次更新时间：<span>{{ date }}</span>
+    上次更新时间：<span>{{ datetime }}</span>
   </div>
 </template>
 
 <style>
 .vp-last-update {
   margin-top: 40px;
+  font-size: 14px;
   color: var(--theme-color);
 }
 </style>

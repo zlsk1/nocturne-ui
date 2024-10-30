@@ -1,0 +1,81 @@
+@media screen and (max-width: 1440px) {
+  .api-content-aside {
+    display: none;
+  }
+
+  .main-content {
+    .doc-content-wrapper {
+      .doc-content-container {
+        padding: 0 28px;
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 968px) {
+  .doc-content-wrapper {
+    padding-left: 0 !important;
+  }
+
+  .nav-wrapper {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+  .vp-nav-menu {
+    position: sticky;
+    left: 0;
+    top: 0;
+    display: flex;
+    background-color: var(--n-bg-color);
+    z-index: 10;
+  }
+
+  .main-content {
+    .doc-content-wrapper {
+      padding-top: 20px;
+    }
+  }
+
+  .sidebar {
+    transform: translate(-100%, 0);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .nav-wrapper {
+    padding: 0 20px;
+    .nav-link, .theme-toggle {
+      display: none !important;
+    }
+    .content {
+      .menu {
+        height: 24px;
+        display: block;
+        cursor: pointer;
+      }
+    }
+  }
+  .vp-nav-menu {
+    padding: 0 20px;
+  }
+
+  .doc-search {
+    .DocSearch-Button {
+      width: 30px;
+      height: 35px;
+      --docsearch-searchbox-background: none;
+    }
+  }
+
+  .main-content {
+    .doc-content-wrapper {
+      padding-top: 20px;
+      .doc-content-container {
+        padding: 0 28px;
+        margin-right: 0;
+      }
+    }
+  }
+}

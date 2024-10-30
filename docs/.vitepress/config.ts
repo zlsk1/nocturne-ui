@@ -69,11 +69,20 @@ export const config: UserConfig = {
       ],
       '/zh-CN/guide': [
         {
+          text: '基础',
           items: [
             { text: 'Nocturne UI', link: '/zh-CN/guide/nocturne-ui' },
             { text: '快速上手 ', link: '/zh-CN/guide/quickstart' },
           ],
         },
+        {
+          text: '进阶',
+          items: [
+            { text: '主题', link: '/zh-CN/guide/theme' },
+            { text: '命名空间', link: '/zh-CN/guide/namespace' },
+            { text: '开发指南', link: '/zh-CN/guide/dev' }
+          ]
+        }
       ]
     }
   },
@@ -90,7 +99,11 @@ export const config: UserConfig = {
   },
   sitemap: {
     hostname: 'https://nocturne.org.cn'
-  }
+  },
+  head: [
+    ['link', { rel: 'icon', href: '/logo.svg' }]
+  ]
+  
 }
 
 export default config

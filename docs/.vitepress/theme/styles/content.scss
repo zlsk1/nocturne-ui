@@ -1,16 +1,15 @@
 .main-content {
   
   .doc-content-wrapper {
-    --vp-content-width: 800px;
     display: flex;
     justify-content: space-between;
-    margin-left: 40px;
     padding-top: 80px;
     padding-left: calc(var(--sidebar-width) + 20px);
     padding-bottom: 80px;
   
     .doc-content-container {
       width: 100%;
+      padding-left: 40px;
       .doc-content {
         width: 100%;
       }
@@ -18,6 +17,7 @@
   }
   
   .doc-content {
+    flex-shrink: 0;
     h1, h2, h3, h4, h5, h6 {
       position: relative;
       display: flex;

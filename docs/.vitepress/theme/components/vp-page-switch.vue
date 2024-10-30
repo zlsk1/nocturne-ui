@@ -6,7 +6,7 @@
           <ArrowLeft size="14"></ArrowLeft>
           <span>上一篇</span>
         </div>
-        <span class="desc">{{ switchPage.prev.text }}</span>
+        <p class="desc" :title="switchPage.prev.text">{{ switchPage?.prev?.text }}</p>
       </div>
     </a>
     <a :href="switchPage?.next?.link" class="switcher">
@@ -15,7 +15,7 @@
           <span>下一篇</span>
           <ArrowRight size="14"></ArrowRight>
         </div>
-        <p class="desc" :title="switchPage.next.text">{{ switchPage.next.text }}</p>
+        <p class="desc" :title="switchPage?.next?.text">{{ switchPage?.next?.text }}</p>
       </div>
     </a>
   </div>

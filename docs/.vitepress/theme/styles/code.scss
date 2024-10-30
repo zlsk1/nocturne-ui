@@ -99,6 +99,7 @@ code .token.inserted {
 div[class*='language-'] {
   position: relative;
   margin: 1rem -1.5rem;
+  padding: 0;
   background-color: var(--code-bg-color);
   overflow-x: auto;
 }
@@ -135,14 +136,15 @@ li > div[class*='language-'] {
   position: relative;
   z-index: 1;
   margin: 0;
-  padding: 0.25rem;
+  padding: 20px 0;
   background: transparent;
   overflow-x: auto;
 }
 
 [class*='language-'] code {
-  padding: 0;
-  line-height: var(--code-line-height);
+  display: block;
+  padding: 0 24px;
+  line-height: 1.6;
   font-size: var(--code-font-size);
   color: var(--code-text-color);
 }

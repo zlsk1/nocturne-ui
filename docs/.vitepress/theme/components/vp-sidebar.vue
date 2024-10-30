@@ -15,3 +15,6 @@ import vpSidebarLink from './vp-sidebar-item.vue'
 
 const sidebar = useSidebar()
 </script>
+
+<style lang="scss" scoped>
+</style>
