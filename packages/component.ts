@@ -42,8 +42,6 @@ import { NTimeline } from '@/components/timeline'
 import { NTimelineItem } from '@/components/timeline-item'
 import { NTooltip } from '@/components/tooltip'
 
-import type { Plugin } from 'vue'
-
 export default [
   NAlert,
   NAnchor,
@@ -90,4 +88,4 @@ export default [
   NTimeline,
   NTimelineItem,
   NTooltip
-] as unknown as Plugin[]
+]

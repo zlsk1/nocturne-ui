@@ -8,4 +8,4 @@ export default [
   NLoading,
   NMessage,
   NNotification
-] as unknown as Plugin[]
+] as Plugin[]

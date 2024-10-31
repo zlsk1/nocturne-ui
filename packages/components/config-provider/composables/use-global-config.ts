@@ -7,7 +7,7 @@ import {
 } from '@/composables'
 import { CONFIGPROVIDER_INJECT_KEY } from '../src/constants'
 
-import type { MaybeRef } from 'vue'
+import type { App, MaybeRef } from 'vue'
 
 export const useGlobalConfig = () => {
   const config = getCurrentInstance() ? inject(CONFIGPROVIDER_INJECT_KEY, null) : null
@@ -15,11 +15,14 @@ export const useGlobalConfig = () => {
   return config
 }
 
-export const provideGlobalConfig = (config: MaybeRef<ConfigProviderProps>) => {
-  const _provide = getCurrentInstance() ? provide : undefined
-  const oldConfig = getCurrentInstance() ? useGlobalConfig() : null
-
+export const provideGlobalConfig = (
+  config: MaybeRef<Partial<ConfigProviderProps>>,
+  app?: App
+) => {
+  const _provide = app?.provide ?? (getCurrentInstance() ? provide : undefined)
   if (!_provide) return
+
+  const oldConfig = getCurrentInstance() ? useGlobalConfig() : null
 
   const newConfig = computed(() => {
     const props = unref(config)
