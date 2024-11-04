@@ -101,7 +101,19 @@ export const config: UserConfig = {
     hostname: 'https://nocturne.org.cn'
   },
   head: [
-    ['link', { rel: 'icon', href: '/logo.svg' }]
+    ['link', { rel: 'icon', href: '/logo.svg' }],
+    ['script', { async: '', src:'https://www.googletagmanager.com/gtag/js?id=G-37MYXEYMJF' }],
+    [
+      'script',
+      {},
+      `
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-37MYXEYMJF')
+      `
+    ]
   ]
   
 }
