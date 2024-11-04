@@ -7,7 +7,7 @@
       @after-enter="onAfterShow"
       @before-leave="onBeforeLeave"
     >
-      <frPopperContent
+      <NPopperContent
         v-if="shouldRender"
         v-show="shouldShow"
         :id="id"
@@ -42,7 +42,7 @@
         <template v-if="!destroyed">
           <slot></slot>
         </template>
-      </frPopperContent>
+      </NPopperContent>
     </transition>
   </teleport>
 </template>
@@ -51,7 +51,7 @@
 import { inject, computed, ref, onBeforeUnmount, unref, watch } from 'vue'
 import { useTooltipContentProps } from './content'
 import { onClickOutside } from '@vueuse/core'
-import frPopperContent from '@/components/popper/src/content.vue'
+import NPopperContent from '@/components/popper/src/content.vue'
 import { composeEventHandlers } from '@/utils/dom'
 import { TOOLTIP_INJECTION_KEY } from './constants'
 

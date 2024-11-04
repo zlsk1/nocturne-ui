@@ -1,0 +1,123 @@
+@use 'sass:map';
+
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+@include b(menu) {
+  @include set-component-css-var('menu', $menu);
+}
+
+@include b(menu) {
+  user-select: none;
+
+  @include m(horizonal) {
+    display: flex;
+  }
+
+  @include m(vertical) {
+    
+  }
+
+  @include e(item) {
+    display: flex;
+    align-items: center;
+    padding: getCssVar('menu', 'padding');
+    border-radius: getCssVar('border-radius-base');
+    transition: background getCssVar('transition-duration');
+    cursor: pointer;
+    
+    &:hover {
+      background: getCssVar('border-color-darker');
+    }
+
+    &__arrow {
+      margin-left: 5px;
+      transition: all getCssVar('transition-duration');
+    }
+  }
+
+  .#{$namespace}-sub-menu--container {
+    border-radius: getCssVar('border-radius-base');
+    transition: background getCssVar('transition-duration');
+    cursor: pointer;
+    
+    &:hover {
+      background: getCssVar('border-color-darker');
+    }
+
+    .#{$namespace}-sub-reference {
+      display: flex;
+      align-items: center;
+      padding: getCssVar('menu', 'padding');
+    }
+  }
+
+  .active {
+    background: getCssVar('border-color-darker');
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+  }
+}
+
+.n-popper {
+  .#{$namespace}-sub-menu {
+    min-width: 150px;
+    user-select: none;
+    @include set-component-css-var('menu', $menu);
+
+    .#{$namespace}-menu__item {
+      padding: getCssVar('menu', 'inner-padding');
+      border-radius: getCssVar('border-radius-base');
+      transition: background getCssVar('transition-duration');
+      cursor: pointer;
+  
+      &:hover {
+        background: getCssVar('border-color-darker');
+      }
+    }
+
+    .#{$namespace}-sub-menu--container {
+      border-radius: getCssVar('border-radius-base');
+      transition: background getCssVar('transition-duration');
+      cursor: pointer;
+      
+      &:hover {
+        background: getCssVar('border-color-darker');
+      }
+
+      .#{$namespace}-sub-reference {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 15px;
+      }
+    }
+
+    .#{$namespace}-menu__item__arrow {
+      margin-left: 5px;
+      transition: all getCssVar('transition-duration');
+    }
+
+  }
+
+  .active {
+    background: getCssVar('border-color-darker');
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+  }
+}

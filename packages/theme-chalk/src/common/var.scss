@@ -949,4 +949,13 @@ $anchor: map.merge(
     'items-padding': 10px,
   ),
   $anchor
+);
+
+$menu: () !default;;
+$menu: map.merge(
+  (
+    'padding': 10px 20px,
+    'inner-padding': 8px 15px,
+  ),
+  $menu
 )

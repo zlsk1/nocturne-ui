@@ -6,8 +6,8 @@ import type { Options, Placement } from '@popperjs/core'
 import type { Measurable } from './constants'
 import type Content from './content.vue'
 
-type ClassObjectType = Record<string, boolean>
-type ClassType = string | ClassObjectType | ClassType[]
+export type ClassObjectType = Record<string, boolean>
+export type ClassType = string | ClassObjectType | ClassType[]
 
 const POSITIONING_STRATEGIES = ['fixed', 'absolute'] as const
 

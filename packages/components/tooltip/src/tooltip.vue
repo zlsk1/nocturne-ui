@@ -9,7 +9,7 @@
     >
       <slot></slot>
     </NTooltipReference>
-    <frTooltipContent
+    <NTooltipContent
       ref="contentRef"
       :aria-label="ariaLabel"
       :boundaries-padding="boundariesPadding"
@@ -43,7 +43,7 @@
         <span v-else>{{ content }}</span>
       </slot>
       <NPopperArrow v-if="showArrow" :arrow-offset="arrowOffset"></NPopperArrow>
-    </frTooltipContent>
+    </NTooltipContent>
   </NPopper>
 </template>
 
@@ -51,7 +51,7 @@
 import { ref, provide, computed, unref, toRef, watch, onDeactivated } from 'vue'
 import { tooltipEmits, useTooltipModelToggle, useTooltipProps } from './tooltip'
 import { useDelayedToggle } from '@/composables'
-import frTooltipContent from './content.vue'
+import NTooltipContent from './content.vue'
 import NTooltipReference from './reference.vue'
 import NPopper from '@/components/popper'
 import NPopperArrow from '@/components/popper/src/arrow.vue'

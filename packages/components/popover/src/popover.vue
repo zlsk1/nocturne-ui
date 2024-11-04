@@ -25,6 +25,7 @@
     :virtual-triggering="virtualTriggering"
     :z-index="zIndex"
     :append-to="appendTo"
+    :show-arrow="showArrow"
     @before-show="beforeEnter"
     @before-hide="beforeLeave"
     @show="afterEnter"

@@ -23,6 +23,7 @@ import { NIcon } from '@/components/icon'
 import { NInput } from '@/components/input'
 import { NInputNumber } from '@/components/input-number'
 import { NLink } from '@/components/link'
+import { NMenu, NMenuItem, NSubMenu } from '@/components/menu'
 import { NOption } from '@/components/option'
 import { NOverlay } from '@/components/overlay'
 import { NPagination } from '@/components/pagination'
@@ -70,6 +71,9 @@ export default [
   NInput,
   NInputNumber,
   NLink,
+  NMenu,
+  NMenuItem,
+  NSubMenu,
   NOption,
   NOverlay,
   NPagination,
