@@ -4,7 +4,7 @@
     class="n-popper"
     v-bind="contentAttrs"
     :style="contentStyle"
-    :class="contentClass"
+    :class="[contentClass, pure && 'is-pure']"
     tabindex="-1"
     @mouseenter="(e) => $emit('mouseenter', e)"
     @mouseleave="(e) => $emit('mouseleave', e)"

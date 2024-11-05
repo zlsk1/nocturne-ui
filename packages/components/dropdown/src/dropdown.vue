@@ -1,17 +1,15 @@
 <template>
   <div :class="['n-dropdown', disabled && 'is-disabled']">
     <NTooltip
+      :visible="visible"
       transition="n-zoom-in-top"
       :gpu-acceleration="false"
       :trigger="trigger"
       :placement="placement"
       :pure="true"
-      :popper-style="{paddingLeft: 0, paddingRight: 0}"
       :popper-class="popperClass"
       :popper-options="popperOptions"
       :disabled="disabled"
-      @onOpen="onOpen"
-      @onClose="onClose"
     >
       <slot name="default"></slot>
       <template #content>
@@ -22,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { provide } from 'vue'
+import { provide, ref, watch } from 'vue'
 import { NTooltip } from '@/components'
 import { dropdownProps, dropdownEmit } from './dropdown'
 import { NDROPDOWN_INJECTION_KEY } from './constants'
@@ -34,13 +32,11 @@ defineOptions({
 const props = defineProps(dropdownProps)
 const emit = defineEmits(dropdownEmit)
 
-const onOpen = () => {
-  emit('visibleChange', true)
-}
+const visible = ref()
 
-const onClose = () => {
-  emit('visibleChange', false)
-}
+watch(visible, (val) => {
+  emit('visibleChange', val)
+})
 
 const handleClick = (e: Event) => {
   emit('click', e)

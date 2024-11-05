@@ -20,6 +20,7 @@
       :offset="15"
       :persistent="true"
       :gpu-acceleration="false"
+      :pure="true"
     >
       <div
         ref="subReferenceRef"

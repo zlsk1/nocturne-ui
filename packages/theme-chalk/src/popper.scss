@@ -19,14 +19,20 @@ $placement: (
 @include b(popper) {
   position: absolute;
   padding: 6px 10px;
+  line-height: 20px;
   font-size: 12px;
   border-radius: 4px;
   z-index: 2000;
+
+  @include when(pure) {
+    padding: 0;
+  }
 
   @include e(arrow) {
     position: absolute;
     width: 10px;
     height: 10px;
+    z-index: -1;
     
     &::after {
       content: '';
