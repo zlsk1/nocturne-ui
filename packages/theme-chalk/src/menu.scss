@@ -24,7 +24,7 @@
     align-items: center;
     padding: getCssVar('menu', 'padding');
     border-radius: getCssVar('border-radius-base');
-    transition: background getCssVar('transition-duration');
+    transition: all getCssVar('transition-duration');
     cursor: pointer;
     
     &:hover {
@@ -35,21 +35,60 @@
       margin-left: 5px;
       transition: all getCssVar('transition-duration');
     }
+
+    @include when(collapse) {
+      > span {
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        opacity: 0;
+      }
+    }
   }
 
   .#{$namespace}-sub-menu--container {
     border-radius: getCssVar('border-radius-base');
-    transition: background getCssVar('transition-duration');
-    cursor: pointer;
-    
-    &:hover {
-      background: getCssVar('border-color-darker');
+    transition: all getCssVar('transition-duration');
+
+    @include e(hover) {
+      &:hover {
+        background: getCssVar('border-color-darker');
+      }
     }
 
     .#{$namespace}-sub-reference {
       display: flex;
       align-items: center;
       padding: getCssVar('menu', 'padding');
+      border-radius: getCssVar('border-radius-base');
+      transition: all getCssVar('transition-duration');
+      cursor: pointer;
+
+      &:hover {
+        background: getCssVar('border-color-darker');
+      }
+
+      @include when(collapse) {
+        > span {
+          width: 0;
+          height: 0;
+          overflow: hidden;
+          opacity: 0;
+        }
+      }
+    }
+
+    @for $index from 1 through 10 {
+      .level-#{$index} {
+        margin-left: calc(10px * $index);
+      }
+    }
+  }
+
+  .#{$namespace}-menu__item__group {
+    > span {
+      padding: getCssVar('menu', 'padding');
+      color: getCssVar('text-color-secondary')
     }
   }
 
@@ -76,7 +115,7 @@
     .#{$namespace}-menu__item {
       padding: getCssVar('menu', 'inner-padding');
       border-radius: getCssVar('border-radius-base');
-      transition: background getCssVar('transition-duration');
+      transition: all getCssVar('transition-duration');
       cursor: pointer;
   
       &:hover {
@@ -86,7 +125,7 @@
 
     .#{$namespace}-sub-menu--container {
       border-radius: getCssVar('border-radius-base');
-      transition: background getCssVar('transition-duration');
+      transition: all getCssVar('transition-duration');
       cursor: pointer;
       
       &:hover {
@@ -98,6 +137,16 @@
         align-items: center;
         justify-content: space-between;
         padding: 8px 15px;
+        cursor: pointer;
+
+        @include when(collapse) {
+          > span {
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+          }
+        }
       }
     }
 

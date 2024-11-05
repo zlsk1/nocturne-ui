@@ -11,11 +11,11 @@ export type NMenuInjectionContext = {
   openMenu: (index: string) => void,
   closeMenu: (index: string) => void,
   handleSubMenuClick: (index: string) => void,
-  handleMenuItemClick: (index: string) => void
+  handleMenuItemClick: (items: ExtistMenuItem) => void,
 } & ToRefs<
   Pick<
     MenuProps,
-    'trigger' | 'direction' | 'popperOffset' | 'popperClass' | 'popperStyle'
+    'defaultOpened' | 'trigger' | 'direction' | 'popperOffset' | 'popperClass' | 'popperStyle' | 'path' | 'collapse'
   >
 >
 

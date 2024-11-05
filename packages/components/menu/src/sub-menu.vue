@@ -1,11 +1,15 @@
 <template>
   <li
-    class="n-sub-menu--container"
-    :class="{'active' : active}"
+    :class="[
+      'n-sub-menu--container',
+      `level-${subMenu?.level}`,
+      {'is-hover': trigger === 'hover'}
+    ]"
     @mouseenter="() => handleMouseEnter()"
     @mouseleave="() => handleMouseLeave()"
   >
     <NTooltip
+      v-if="direction === 'horizonal' || (direction === 'vertical' && collapse)"
       :visible="opened"
       :show-arrow="false"
       :trigger="trigger"
@@ -50,6 +54,34 @@
         </ul>
       </template>
     </NTooltip>
+    <div
+      v-else
+      :class="[
+        'n-sub-reference',
+        {'is-hover': trigger === 'hover'},
+        collapse && 'is-collapse'
+      ]"
+      @click="handleClick"
+    >
+      <slot name="title"></slot>
+      <Arrow
+        size="16"
+        class="n-menu__item__arrow"
+        :style="{
+          transform: opened ? 'rotate(-90deg)' : 'rotate(90deg)'
+        }"
+      ></Arrow>
+    </div>
+    <NCollapseTransition v-if="!collapse">
+      <ul
+        v-show="opened"
+        class="n-sub-menu"
+        @mouseenter="() => handleMouseEnter(100)"
+        @mouseleave="() => handleMouseLeave(true)"
+      >
+        <slot name="default"></slot>
+      </ul>
+    </NCollapseTransition>
   </li>
 </template>
 
@@ -61,9 +93,10 @@ import {
   onMounted,
   onBeforeUnmount,
   computed,
-  provide
+  provide,
+  watch
 } from 'vue'
-import { NTooltip } from '@/components'
+import { NTooltip, NCollapseTransition } from '@/components'
 import useMenu from './compoables/use-menu'
 import { subMenuProps, ExtistMenuItem } from './menu'
 import {
@@ -109,7 +142,10 @@ const active = computed(() => {
 
   return isActive
 })
-const trigger = computed(() => rootMenu.trigger.value)
+const trigger = computed(() => {
+  if (collapse.value) return 'hover'
+  return rootMenu.trigger.value
+})
 const direction = computed(() => rootMenu.direction.value)
 const popperStyle = computed<StyleValue>(() => {
   return rootMenu.popperStyle?.value || {
@@ -125,6 +161,21 @@ const popoverPlacement = computed(() => {
 const appendToBody = computed(() => {
   return isFirstLevel.value
 })
+const collapse = computed(() => rootMenu.collapse.value)
+const data = ref({
+  index: props.index,
+  path: rootMenu.path?.value,
+  active
+})
+
+watch(collapse, (val) => {
+  if (val) {
+    rootMenu.closeMenu(props.index)
+  }
+  else {
+    rootMenu.openMenu(props.index)
+  }
+})
 
 const addSubMenu = (item: ExtistMenuItem) => {
   subMenus.value[item.index] = item
@@ -134,10 +185,8 @@ const removeSubMenu = (item: ExtistMenuItem) => {
   delete subMenus.value[item.index]
 }
 
-const handleMouseEnter = (
-  delay = 300
-) => {
-  if (direction.value === 'horizonal' && trigger.value === 'click') {
+const handleMouseEnter = (delay = 300) => {
+  if (direction.value === 'horizonal' && trigger.value === 'click' || direction.value === 'vertical' && trigger.value === 'click') {
     subMenu.mouseInChild.value = true
     return
   }
@@ -148,14 +197,10 @@ const handleMouseEnter = (
   ;({ stop: timeout } = useTimeoutFn(() => {
     rootMenu.openMenu(props.index)
   }, delay))
-
-  if (appendToBody.value) {
-    parentMenu.value.vnode.el?.dispatchEvent(new MouseEvent('mouseenter'))
-  }
 }
 
 const handleMouseLeave = (deepDispatch = false) => {
-  if (direction.value === 'horizonal' && trigger.value === 'click') {
+  if (direction.value === 'horizonal' && trigger.value === 'click' || direction.value === 'vertical' && trigger.value === 'click') {
     subMenu.mouseInChild.value = false
     return
   }
@@ -189,24 +234,12 @@ provide<NSubMenuInjectionContext>(`subMenu:${instance.uid}`, {
 })
 
 onMounted(() => {
-  rootMenu.addSubMenu({
-    index: props.index,
-    active
-  })
-  subMenu.addSubMenu({
-    index: props.index,
-    active
-  })
+  rootMenu.addSubMenu(data.value)
+  subMenu.addSubMenu(data.value)
 })
 
 onBeforeUnmount(() => {
-  rootMenu.removeSubMenu({
-    index: props.index,
-    active
-  })
-  subMenu.addSubMenu({
-    index: props.index,
-    active
-  })
+  rootMenu.removeSubMenu(data.value)
+  subMenu.addSubMenu(data.value)
 })
 </script>

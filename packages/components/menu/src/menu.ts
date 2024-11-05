@@ -1,7 +1,7 @@
 import Menu from './menu.vue'
-import { definePropType } from '@/utils'
+import { definePropType, isString } from '@/utils'
 
-import type { ExtractPropTypes, ComputedRef, StyleValue } from 'vue'
+import type { ExtractPropTypes, StyleValue } from 'vue'
 import type { TooltipTriggerType } from '@/components/tooltip'
 import type { ClassType } from '@/components/popper'
 
@@ -23,6 +23,11 @@ export const menuProps = {
   },
   popperStyle: {
     type: definePropType<StyleValue>([String, Array, Object])
+  },
+  path: String,
+  collapse: {
+    type: Boolean,
+    default: false
   }
 } as const
 
@@ -42,8 +47,16 @@ export const menuItemProps = {
 
 export type ExtistMenuItem = {
   index: string,
-  active: ComputedRef<boolean>
+  active: boolean,
+  path?: string
+}
+
+export const menuEmit = {
+  select: (index: string, path?: string) => isString(index) && (isString(path) || typeof (path) === 'undefined'),
+  open: (openIndexs: string[]) => true,
+  close: (openIndexs: string[]) => true
 }
 
 export type MenuProps = ExtractPropTypes<typeof menuProps>
+export type NMenuEmit = typeof menuEmit
 export type MenuInstance = InstanceType<typeof Menu>

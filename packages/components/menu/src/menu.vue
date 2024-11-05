@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import { provide, ref, toRefs, getCurrentInstance } from 'vue'
-import { menuProps } from './menu'
+import { menuProps, menuEmit } from './menu'
 import { NMENU_INJECTION_KEY, NMenuInjectionContext, NSubMenuInjectionContext } from './constants'
 
 import type { ExtistMenuItem } from './menu'
@@ -19,10 +19,11 @@ defineOptions({
 })
 
 const props = defineProps(menuProps)
+const emit = defineEmits(menuEmit)
 
 const instance = getCurrentInstance()!
 
-const activeIndex = ref<string>()
+const activeIndex = ref<string>(props.defaultOpened || '')
 const menuItems = ref<Record<string, any>>({})
 const subMenus = ref<Record<string, any>>({})
 const openedMenus: NMenuInjectionContext['openedMenus'] = ref([])
@@ -48,33 +49,35 @@ const openMenu = (index: string) => {
   if (openedMenus.value.includes(index)) return
 
   openedMenus.value.push(index)
+  emit('open', openedMenus.value)
 }
 
 const closeMenu = (index: string) => {
   const target = openedMenus.value.indexOf(index)
   if (target > -1) {
     openedMenus.value.splice(target, 1)
+    emit('close', openedMenus.value)
   }
 }
 
-const onClick = (index: string) => {
+const handleSubMenuClick = (index: string) => {
   const opened = openedMenus.value.includes(index)
 
   if (opened) closeMenu(index)
   else openMenu(index)
 }
 
-const handleSubMenuClick = (index: string) => {
-  onClick(index)
-}
-
-const handleMenuItemClick = (index: string) => {
+const handleMenuItemClick = (items: ExtistMenuItem) => {
   if (props.direction === 'horizonal') {
     openedMenus.value = []
   }
+  const { index, path } = items
+
   if (isNil(index)) return
 
   activeIndex.value = index
+
+  emit('select', index, path)
 }
 
 provide(NMENU_INJECTION_KEY, {

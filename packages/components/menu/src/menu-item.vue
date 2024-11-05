@@ -1,7 +1,11 @@
 <template>
   <li
-    class="n-menu__item"
-    :class="{'active' : active}"
+    :class="[
+      'n-menu__item',
+      {'active' : active},
+      `level-${subMenu?.level}`,
+      collapse && 'is-collapse'
+    ]"
     @click="handleClick"
   >
     <slot></slot>
@@ -13,7 +17,8 @@ import {
   inject,
   getCurrentInstance,
   onMounted,
-  computed
+  computed,
+  ref
 } from 'vue'
 import { menuItemProps } from './menu'
 import { NMENU_INJECTION_KEY, NSubMenuInjectionContext } from './constants'
@@ -38,19 +43,20 @@ if (!subMenu) {
 }
 
 const active = computed(() => props.index === rootMenu.activeIndex.value)
+const collapse = computed(() => rootMenu.collapse.value)
+
+const data = ref({
+  index: props.index,
+  path: rootMenu.path?.value,
+  active
+})
 
 const handleClick = () => {
-  rootMenu.handleMenuItemClick(props.index)
+  rootMenu.handleMenuItemClick(data.value)
 }
 
 onMounted(() => {
-  rootMenu.addSubMenu({
-    index: props.index,
-    active
-  })
-  subMenu.addSubMenu({
-    index: props.index,
-    active
-  })
+  rootMenu.addSubMenu(data.value)
+  subMenu.addSubMenu(data.value)
 })
 </script>
