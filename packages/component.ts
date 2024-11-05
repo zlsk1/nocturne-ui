@@ -19,6 +19,7 @@ import { NConfigProvider } from '@/components/config-provider'
 import { NCountdown } from '@/components/countdown'
 import { NDialog } from '@/components/dialog'
 import { NDrawer } from '@/components/drawer'
+import { NDropdown, NDropdownItem } from '@/components/dropdown'
 import { NForm, NFormItem } from '@/components/form'
 import { NIcon } from '@/components/icon'
 import { NInput } from '@/components/input'
@@ -68,6 +69,8 @@ export default [
   NCountdown,
   NDialog,
   NDrawer,
+  NDropdown,
+  NDropdownItem,
   NForm,
   NFormItem,
   NIcon,

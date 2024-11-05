@@ -942,7 +942,7 @@ $drawer: map.merge(
   $drawer
 );
 
-$anchor: () !default;;
+$anchor: () !default;
 $anchor: map.merge(
   (
     'padding': 0 6px,
@@ -951,7 +951,7 @@ $anchor: map.merge(
   $anchor
 );
 
-$menu: () !default;;
+$menu: () !default;
 $menu: map.merge(
   (
     'padding': 10px 20px,
@@ -960,7 +960,7 @@ $menu: map.merge(
   $menu
 );
 
-$breadcrumb: () !default;;
+$breadcrumb: () !default;
 $breadcrumb: map.merge(
   (
     'padding-separator': 0 5px,
@@ -969,4 +969,17 @@ $breadcrumb: map.merge(
     'hover-color': getCssVar('color-primary')
   ),
   $breadcrumb
+);
+
+$dropdown: () !default;
+$dropdown: map.merge(
+  (
+    'item-padding': 8px 12px,
+    'hover-bg-color': getCssVar('color-primary-light-9'),
+    'hover-text-color': getCssVar('color-primary'),
+    'divided-color': getCssVar('border-color'),
+    'disabled-color': getCssVar('disabled-text-color'),
+    'disabled-bg-color': getCssVar('disabled-bg-color')
+  ),
+  $dropdown
 )
