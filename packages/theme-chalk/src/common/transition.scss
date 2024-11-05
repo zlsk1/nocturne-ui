@@ -30,6 +30,19 @@
   opacity: 0;
 }
 
+.#{$namespace}-zoom-in-enter-active,
+.#{$namespace}-zoom-in-leave-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: all getCssVar('transition-duration-fast') getCssVar('transition-function-ease-in-out-bezier');
+  transform-origin: center;
+}
+.#{$namespace}-zoom-in-enter-from,
+.#{$namespace}-zoom-in-leave-active {
+  opacity: 0;
+  transform: scale(0);
+}
+
 .#{$namespace}-zoom-in-center-enter-active,
 .#{$namespace}-zoom-in-center-leave-active {
   transition: all getCssVar('transition-duration') cubic-bezier(0.55, 0, 0.1, 1);

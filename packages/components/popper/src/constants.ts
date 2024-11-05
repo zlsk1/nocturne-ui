@@ -27,5 +27,5 @@ export type NPopperContentInjectionContext = {
 export const POPPER_INJECTION_KEY: InjectionKey<NPopperInjectionContext> =
   Symbol('popper')
 
-export const POPPER_CONTENT_INJECTION_KEY: InjectionKey<NPopperInjectionContext> =
+export const POPPER_CONTENT_INJECTION_KEY: InjectionKey<NPopperContentInjectionContext> =
   Symbol('popperContent')

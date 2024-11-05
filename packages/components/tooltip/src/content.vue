@@ -77,7 +77,7 @@ const contentRef = ref()
 const destroyed = ref(false)
 
 const transitionClass = computed(() => {
-  return props.transition || 'n-zoom-in-center'
+  return props.transition || 'n-zoom-in'
 })
 
 const persistentRef = computed(() => {

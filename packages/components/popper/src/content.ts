@@ -27,7 +27,7 @@ export const popperCoreConfigProps = {
     default: undefined
   },
   /**
-   * @description use transform: translate3d or inset to positioning
+   * @description use transform: translate3d or inset to positioning, transition would be effect
    */
   gpuAcceleration: {
     type: Boolean,
