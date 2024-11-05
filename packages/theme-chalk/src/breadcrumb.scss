@@ -1,0 +1,51 @@
+@use 'sass:map';
+
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+@include b('breadcrumb') {
+  @include set-component-css-var('breadcrumb', $breadcrumb);
+
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__items:last-child .#{$namespace}-breadcrumb__content:last-child span {
+    display: none;
+  }
+
+  @include e(items) {
+    .#{$namespace}-breadcrumb__content {
+      display: flex;
+      align-items: center;
+      color: getCssVar('breadcrumb', 'text-color-secondary');
+      a {
+        color: getCssVar('breadcrumb', 'text-color');
+        transition: color getCssVar('transition-duration');
+        &:hover {
+          color: getCssVar('breadcrumb', 'hover-color');
+        }
+      }
+    }
+
+    @include when(link) {
+      color: getCssVar('breadcrumb', 'text-color')
+    }
+  }
+
+  @include e(separator) {
+    padding: getCssVar('breadcrumb', 'padding-separator');
+  }
+}

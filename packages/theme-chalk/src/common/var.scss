@@ -958,4 +958,15 @@ $menu: map.merge(
     'inner-padding': 8px 15px,
   ),
   $menu
+);
+
+$breadcrumb: () !default;;
+$breadcrumb: map.merge(
+  (
+    'padding-separator': 0 5px,
+    'text-color': getCssVar('text-color-primary'),
+    'text-color-secondary': getCssVar('text-color-secondary'),
+    'hover-color': getCssVar('color-primary')
+  ),
+  $breadcrumb
 )

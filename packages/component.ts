@@ -2,6 +2,7 @@ import { NAlert } from '@/components/alert'
 import { NAnchor, NAnchorItem } from '@/components/anchor'
 import { NAvatar } from '@/components/avatar'
 import { NBadge } from '@/components/badge'
+import { NBreadcrumb, NBreadcrumbItem } from '@/components/breadcrumb'
 import { NButton } from '@/components/button'
 import { NButtonGroup } from '@/components/button-group'
 import { NCard } from '@/components/card'
@@ -49,6 +50,8 @@ export default [
   NAnchorItem,
   NAvatar,
   NBadge,
+  NBreadcrumb,
+  NBreadcrumbItem,
   NButton,
   NButtonGroup,
   NCard,
