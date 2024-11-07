@@ -41,6 +41,7 @@ import { NSlider } from '@/components/slider'
 import { NStatistic } from '@/components/statistic'
 import { NSwitch } from '@/components/switch'
 import { NTag } from '@/components/tag'
+import { NTimePicker } from '@/components/time-picker'
 import { NTimeline } from '@/components/timeline'
 import { NTimelineItem } from '@/components/timeline-item'
 import { NTooltip } from '@/components/tooltip'
@@ -96,6 +97,7 @@ export default [
   NStatistic,
   NSwitch,
   NTag,
+  NTimePicker,
   NTimeline,
   NTimelineItem,
   NTooltip

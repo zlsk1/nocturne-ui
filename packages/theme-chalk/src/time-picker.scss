@@ -1,0 +1,78 @@
+@use 'sass:map';
+
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(time-picker) {
+  @include set-component-css-var('time-picker', $time-picker);
+}
+
+@include b(time-picker) {
+}
+
+.#{$namespace}-popper {
+  .#{$namespace}-time-picker--panel {
+    @include set-component-css-var('time-picker', $time-picker);
+
+    &__main {
+      display: flex;
+      width: 100%;
+      height: getCssVar('time-picker', 'panel-height');
+      border-bottom: 1px solid getCssVar('border-color');
+      box-sizing: border-box;
+
+      .#{$namespace}-panel__children {
+        @include scroll-bar;
+        width: getCssVar('time-picker', 'panel-children-width');
+        padding: 0 5px;
+        flex: 1 0 auto;
+        text-align: center;
+        font-size: 12px;
+        color: getCssVar('time-picker', 'text-color');
+        list-style: none;
+        box-sizing: border-box;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    
+        &:hover {
+          overflow-y: auto;
+        }
+
+        &::after {
+          content: '';
+          display: block;
+          height: getCssVar('time-picker', 'panel-height');
+        }
+  
+        li {
+          width: getCssVar('time-picker', 'panel-inner-children-width');
+          height: getCssVar('time-picker', 'panel-inner-children-height');
+          line-height: getCssVar('time-picker', 'panel-inner-children-height');
+          border-radius: getCssVar('border-radius-base');
+          cursor: pointer;
+  
+          &:hover {
+            background: getCssVar('border-color-light');
+          }
+        }
+
+        .active {
+          color: getCssVar('time-picker', 'active-text-color');
+          background: getCssVar('time-picker', 'active-bg-color') !important;
+        }
+      }
+
+      .#{$namespace}-panel__children:nth-child(-n+2) {
+        border-right: 1px solid getCssVar('border-color');
+      }
+    }
+
+    &__btns {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+    }
+  }
+}

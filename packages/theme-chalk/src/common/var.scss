@@ -982,4 +982,18 @@ $dropdown: map.merge(
     'disabled-bg-color': getCssVar('disabled-bg-color')
   ),
   $dropdown
+);
+
+$time-picker: () !default;
+$time-picker: map.merge(
+  (
+  'panel-height':  212px,
+  'panel-children-width':  62px,
+  'panel-inner-children-width':  52px,
+  'panel-inner-children-height':  32px,
+  'text-color': getCssVar('text-color-regular'),
+  'active-bg-color': getCssVar('border-color'),
+  'active-text-color': getCssVar('text-color-primary'),
+  ),
+  $time-picker
 )
