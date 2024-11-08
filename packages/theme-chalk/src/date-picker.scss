@@ -1,0 +1,106 @@
+@use 'sass:map';
+
+@use 'mixins/mixins' as *;
+@use 'common/var' as *;
+@use 'mixins/var' as *;
+
+@include b(date-picker) {
+  @include set-component-css-var('date-picker', $date-picker)
+}
+
+@include b(date-picker) {
+}
+
+.#{$namespace}-popper {
+  .#{$namespace}-date-picker {
+    @include m(panel) {
+      color: getCssVar('text-color-primary');
+
+      .#{$namespace}-date__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+
+        @each $placement in (left, right) {
+          .#{$namespace}-date__header__#{$placement} {
+            display: flex;
+            align-items: center;
+          }
+        }
+
+        svg {
+          cursor: pointer;
+          transition: getCssVar('transition-duration-fast');
+
+          &:hover {
+            color: getCssVar('color-primary');
+          }
+        }
+
+        .#{$namespace}-date__header__view {
+          button {
+            background: none;
+            border: none;
+            outline: none;
+            transition: getCssVar('transition-duration-fast');
+            cursor: pointer;
+  
+            &:hover {
+              color: getCssVar('color-primary');
+            }
+          }
+        }
+      }
+
+      .#{$namespace}-date__content {
+
+        .#{$namespace}-date__table {
+          width: 100%;
+          padding: 10px 10px 5px 10px;
+          border-top: 1px solid getCssVar('border-color');
+          border-bottom: 1px solid getCssVar('border-color');
+
+          .#{$namespace}-date__table__header {
+            height: 34px;
+          }
+
+          .#{$namespace}-date__table__row {
+            width: 100%;
+          }
+
+          .#{$namespace}-date__table__cell {
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            text-align: center;
+            border-radius: getCssVar('border-radius-base');
+            transition: getCssVar('transition-duration');
+            cursor: pointer;
+
+            &:hover {
+              background: getCssVar('border-color');
+            }
+          }
+        }
+      }
+
+      .#{$namespace}-date--external__btn {
+        padding: 8px 0;
+        text-align: center;
+        button {
+          background: none;
+          border: none;
+          outline: none;
+          color: getCssVar('color-primary');
+          transition: getCssVar('transition-duration-fast');
+          cursor: pointer;
+
+          &:hover {
+            color: getCssVar('color-primary-light-3');
+          }
+        }
+      }
+    }
+  }
+}

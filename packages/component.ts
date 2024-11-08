@@ -17,6 +17,7 @@ import { NCollapseTransition } from '@/components/collapse-transition'
 import { NColorPicker } from '@/components/color-picker'
 import { NConfigProvider } from '@/components/config-provider'
 import { NCountdown } from '@/components/countdown'
+import { NDatePicker } from '@/components/date-picker'
 import { NDialog } from '@/components/dialog'
 import { NDrawer } from '@/components/drawer'
 import { NDropdown, NDropdownItem } from '@/components/dropdown'
@@ -68,6 +69,7 @@ export default [
   NColorPicker,
   NConfigProvider,
   NCountdown,
+  NDatePicker,
   NDialog,
   NDrawer,
   NDropdown,
