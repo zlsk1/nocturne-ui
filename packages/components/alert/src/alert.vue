@@ -1,57 +1,88 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { alertProps, alertEmits } from './alert'
+import { useNamespace } from '@/composables'
+import {
+  RiInformationFill as Info,
+  RiCheckboxCircleFill as Success,
+  RiErrorWarningFill as Warning,
+  RiCloseCircleFill as Error,
+  RiCloseLine as Close
+} from '@remixicon/vue'
 
 defineOptions({
   name: 'NAlert'
 })
 
-defineProps(alertProps)
+const props = defineProps(alertProps)
 const emit = defineEmits(alertEmits)
 
+const ns = useNamespace('alert')
+
 const isClose = ref(false)
+
+const alertCls = computed(() => [
+  ns.b(),
+  ns.m(props.type),
+  ns.is('center', props.center)
+])
+
+const icon = computed(() => {
+  switch (props.type) {
+    case 'info':
+      return Info
+    case 'success':
+      return Success
+    case 'error':
+      return Error
+    case 'warning':
+      return Warning
+  }
+  return Info
+})
 
 const handleClose = (e: MouseEvent) => {
   isClose.value = true
   emit('close', e)
 }
+
 </script>
 
 <template>
   <div
     :class="[
-      'n-alert',
-      `n-alert--${type}`,
-      effect === 'light' ? 'is-light' : 'is-dark',
-      {
-        'is-center': center
-      }
+      ...alertCls,
+      effect === 'light' ? ns.is('light') : ns.is('dark')
     ]"
     :style="{display: isClose ? 'none' : ''}"
   >
     <n-icon
       v-if="showIcon"
-      class-name="n-alert__icon"
-      :icon="type"
-    ></n-icon>
-    <div class="n-alert__content">
+      :class="ns.e('icon')"
+      size="18"
+    >
+      <component :is="icon"></component>
+    </n-icon>
+    <div :class="ns.e('content')">
       <slot name="title">
       </slot>
-      <span v-if="title" class="n-alert__title">
+      <span v-if="title" :class="ns.e('title')">
         {{ title }}
       </span>
-      <p v-if="description" class="n-alert__description">
+      <p v-if="description" :class="ns.e('description')">
         {{ description }}
       </p>
       <n-icon
         v-if="closable && !closeText"
-        icon="close"
-        class-name="n-alert__close"
+        :class="ns.e('close')"
+        size="18"
         @click="handleClose"
-      ></n-icon>
+      >
+        <component :is="Close"></component>
+      </n-icon>
       <div
         v-else
-        class="n-alert__close is-close-text"
+        :class="[ns.e('close'), ns.is('close-text')]"
         @click="handleClose"
       >
         {{ closeText }}

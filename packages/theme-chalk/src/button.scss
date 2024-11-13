@@ -137,8 +137,10 @@ $button-icon-span-gap: map.merge(
     }
   }
 
-  .loading-icon {
-    animation: loopRotate 1s infinite linear;
+  .#{$namespace}-icon {
+    @include when(loading-icon) {
+      animation: loopRotate 1s infinite linear;
+    }
   }
 
   @keyframes loopRotate {

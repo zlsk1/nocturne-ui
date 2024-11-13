@@ -12,12 +12,18 @@ $marginRight: 6px;
   fill: currentColor;
   color: inherit;
   overflow: hidden;
+  font-size: inherit;
 
   @include m(left) {
-    margin-left: 6px;
+    margin-left: $marginLeft;
   }
 
   @include m(right) {
     margin-right: $marginRight;
+  }
+
+  svg {
+    width: 1em;
+    height: 1em;
   }
 } 
