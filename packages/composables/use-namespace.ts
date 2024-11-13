@@ -1,4 +1,4 @@
-import { getCurrentInstance, inject, ref } from 'vue'
+import { getCurrentInstance, inject, ref, computed } from 'vue'
 
 import type { InjectionKey, Ref } from 'vue'
 
@@ -13,5 +13,9 @@ export const useNamesapce = (namespaceOverrides?: Ref<string>) => {
       ? inject(NAMESPACE_INJECTION_KEY, ref(defualtNamespace)) // 接收config-provider的值
       : ref(defualtNamespace)
 
-  return newNamespace
+  const namespace = computed(() => {
+    return newNamespace.value || defualtNamespace
+  })
+
+  return namespace
 }
