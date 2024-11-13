@@ -8,55 +8,70 @@
         class="n-panel__children"
       >
         <li
-          v-for="(_, index) in timelist[item]"
-          :key="index"
+          v-for="({ value, disabled }, _key) in timelist[item]"
+          :key="_key"
           :class="[
-            {'active': timeObj[item] === index}
+            {'is-active': timeObj[item] === value},
+            {'is-disabled': disabled}
           ]"
-          @mouseenter="handleMouseEnter"
-          @click="handleClick(item, index)"
+          @click="handleClick(item, value, disabled)"
         >
-          {{ index < 10 ? `0${index}` : index }}
+          {{ value < 10 ? `0${value}` : value }}
         </li>
       </ul>
     </div>
     <div class="n-time-picker--panel__btns">
-      <NButton
+      <n-button
         size="small"
         text
-        @click="getNow"
+        @mousedown="getNow"
       >
         此刻
-      </NButton>
-      <NButton
+      </n-button>
+      <n-button
         type="primary"
         size="small"
-        @click="handleConfirm"
+        @mousedown="handleConfirm"
       >
         确定
-      </NButton>
+      </n-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, inject, watch, onMounted } from 'vue'
-import { timePickerPanelProps, timePickerPanelEmit } from './time-picker-panel'
+import { computed, ref, watch, onMounted, nextTick, unref } from 'vue'
+import { timePickerPanelProps, timePickerPanelEmit } from './props/time-picker-panel'
 import { timeUnits } from './constants'
-import { getTimeList } from './composables/use-time-picker'
+import { getTimelist } from './composables/use-time-picker'
 import dayjs from 'dayjs'
-import { TIMEPICKER_INJECTION_KEY, TimeUnits } from './constants'
 import { NButton } from '@/components'
+import { usePickPanel } from './composables/use-pick-panel'
+
 import type { Ref } from 'vue'
+import type { TimeUnits } from './constants'
+import type { Timelist } from './type'
+import type { Dayjs } from 'dayjs'
 
 defineOptions({
   name: 'NPickerPanel'
 })
 
-// const { currentValue } = inject(TIMEPICKER_INJECTION_KEY, undefined)!
-
 const props = defineProps(timePickerPanelProps)
 const emit = defineEmits(timePickerPanelEmit)
+
+const { getHourlist, getMinutelist, getSecondlist } = getTimelist(
+  {
+    hour: props.step.hourStep,
+    minute: props.step.minuteStep,
+    second: props.step.secondStep
+  },
+  {
+    disabledHours: props.disabled?.disabledHours,
+    disabledMinutes: props.disabled?.disabledMinutes,
+    disabledSeconds: props.disabled?.disabledSeconds
+  }
+)
 
 const typeHourRef = ref<HTMLElement>()
 const typeMinuteRef = ref<HTMLElement>()
@@ -70,13 +85,11 @@ const typeRefs = ref<Record<TimeUnits, Ref<HTMLElement | undefined>>>({
 const timeChoosed = computed(() => {
   return props.showSecond ? timeUnits : timeUnits.slice(0, 2)
 })
-const timelist = computed(() => {
-  return getTimeList()
-})
 const timeObj = computed<Record<TimeUnits, number>>(() => {
-  const hour = props.currentTime.hour()
-  const minute = props.currentTime.minute()
-  const second = props.currentTime.second()
+  const { calculatedValue } = props
+  const hour = calculatedValue.hour()
+  const minute = calculatedValue.minute()
+  const second = calculatedValue.second()
 
   return {
     hour,
@@ -84,14 +97,33 @@ const timeObj = computed<Record<TimeUnits, number>>(() => {
     second
   }
 })
+const timelist = computed<Timelist>(() => {
+  const { hour, minute } = unref(timeObj)
+  return {
+    hour: getHourlist(),
+    minute: getMinutelist(hour),
+    second: getSecondlist(hour, minute)
+  }
+})
 
-const handleMouseEnter = (e: Event) => {
-  // console.log(e.target.dataset, (e.target as HTMLElement).parentElement?.dataset)
-}
+const { getAvailableTime } = usePickPanel(timelist.value)
 
-const handleClick = (type: TimeUnits, value: number) => {
-  doScroll(type, value)
-  modifyValue(type, value)
+watch(
+  () => props.visible,
+  (val) => {
+    if (val) {
+      nextTick(() => {
+        doScroll('hour', timeObj.value['hour'])
+        doScroll('minute', timeObj.value['minute'])
+        doScroll('second', timeObj.value['second'])
+      })
+    }
+  }
+)
+
+const handleClick = (type: TimeUnits, value: number, disabled?: boolean) => {
+  doScroll(type, value, disabled)
+  modifyValue(type, value, disabled)
 }
 
 const handleScroll = (type: TimeUnits, target: number) => {
@@ -102,41 +134,50 @@ const setRef = (el: any, type: TimeUnits) => {
   typeRefs.value[type] = el ?? undefined
 }
 
-const getNow = () => {
-  emit('change', dayjs(new Date()))
-  props.tooltipRef?.hide()
-}
-
 const getScrollEl = (type: TimeUnits) => typeRefs.value[type]?.querySelector('li') as HTMLElement
 
 const getItemHeight = (el: HTMLElement) => parseFloat(document.defaultView?.getComputedStyle((el)).height || el.style.height)
 
-const doScroll = (type: TimeUnits, value: number) => {
+const doScroll = (type: TimeUnits, value: number, disabled?: boolean) => {
+  if (disabled) return
   const scrollEl = getScrollEl(type)
-  const height = getItemHeight(scrollEl) * value
+  const height = getItemHeight(scrollEl) * (value / props.step[`${type}Step`])
   handleScroll(type, height)
 }
 
-const modifyValue = (type: TimeUnits, value: number) => {
+const modifyValue = (type: TimeUnits, value: number, disabled?: boolean) => {
+  if (disabled) return
   const { hour, minute, second } = timeObj.value
 
   let changeTo
   switch (type) {
     case 'hour':
-      changeTo = props.currentTime.hour(value).minute(minute).second(second)
+      changeTo = props.calculatedValue.hour(value).minute(minute).second(second)
       break
     case 'minute':
-      changeTo = props.currentTime.hour(hour).minute(value).second(second)
+      changeTo = props.calculatedValue.hour(hour).minute(value).second(second)
       break
     case 'second':
-      changeTo = props.currentTime.hour(hour).minute(minute).second(value)
+      changeTo = props.calculatedValue.hour(hour).minute(minute).second(value)
       break
   }
   emit('change', changeTo)
 }
 
 const handleConfirm = () => {
-  props.tooltipRef?.hide()
+  emit('pick', props.calculatedValue)
+}
+
+const getNow = () => {
+  const date = dayjs(new Date())
+
+  emit('change', date, true)
+}
+
+const getDefaultValue = () => dayjs(props.defaultValue)
+
+const getAvailableValue = (date: Dayjs) => {
+  return getAvailableTime(date)
 }
 
 onMounted(() => {
@@ -144,4 +185,7 @@ onMounted(() => {
   doScroll('minute', timeObj.value['minute'])
   doScroll('second', timeObj.value['second'])
 })
+
+emit('setPickerMethods', ['getDefaultValue', getDefaultValue])
+emit('setPickerMethods', ['getAvailableValue', getAvailableValue])
 </script>

@@ -1,4 +1,4 @@
-import type { InjectionKey, Ref } from 'vue'
+import type { InjectionKey } from 'vue'
 
 export const timeUnits = ['hour', 'minute', 'second'] as const
 export type TimeUnits = typeof timeUnits[number]

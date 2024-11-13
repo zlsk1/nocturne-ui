@@ -9,6 +9,20 @@
 }
 
 @include b(time-picker) {
+  .#{$namespace}-picker {
+    .#{$namespace}-picker__clearicon {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      transition: getCssVar('transition-duration');
+      z-index: 10;
+      cursor: pointer;
+
+      &:hover {
+        color: getCssVar('text-color-secondary')
+      }
+    }
+  }
 }
 
 .#{$namespace}-popper {
@@ -19,6 +33,7 @@
       display: flex;
       width: 100%;
       height: getCssVar('time-picker', 'panel-height');
+      padding: 4px 0;
       border-bottom: 1px solid getCssVar('border-color');
       box-sizing: border-box;
 
@@ -43,6 +58,7 @@
           content: '';
           display: block;
           height: getCssVar('time-picker', 'panel-height');
+          margin-top: -42px;
         }
   
         li {
@@ -57,9 +73,18 @@
           }
         }
 
-        .active {
+        .is-active {
           color: getCssVar('time-picker', 'active-text-color');
           background: getCssVar('time-picker', 'active-bg-color') !important;
+        }
+
+        .is-disabled {
+          color: getCssVar('text-color-disabled');
+          cursor: not-allowed;
+  
+          &:hover {
+            background: none;
+          }
         }
       }
 
