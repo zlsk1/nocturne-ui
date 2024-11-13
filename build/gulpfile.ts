@@ -19,7 +19,7 @@ const copyFiles = () => {
   return Promise.all([
     copyFile(path.resolve(pkgRoot, 'package.json'), path.resolve(pkgOutput, 'package.json')),
     copyFile(path.resolve(projRoot, 'README.md'), path.resolve(pkgOutput, 'README.md')),
-    copyFile(path.resolve(projRoot, 'global.d.ts'), path.resolve(pkgOutput, 'global.d.ts'))
+    copyFile(path.resolve(projRoot, 'typings', 'global.d.ts'), path.resolve(pkgOutput, 'global.d.ts'))
   ])
 }
 

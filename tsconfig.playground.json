@@ -5,7 +5,10 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
   },
   "include": [
+    "packages",
+    "typings",
     "playground",
-    "typings"
+    "playground",
+    "playground"
   ]
 }

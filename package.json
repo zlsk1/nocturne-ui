@@ -18,6 +18,7 @@
     "docs:preview": "pnpm -C docs preview"
   },
   "dependencies": {
+    "nocturne-ui": "workspace:*",
     "@popperjs/core": "^2.11.8",
     "@remixicon/vue": "^4.2.0",
     "@vueuse/core": "^9.13.0",
