@@ -267,10 +267,6 @@
         map.get($input, 'icon-color')
       );
       transition: all getCssVar('transition-duration');
-
-      &:hover {
-        cursor: pointer;
-      }
     }
 
     @include e(#{$slot}-inner) {
