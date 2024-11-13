@@ -24,7 +24,7 @@
         :placeholder="placeholder"
         :disabled="disabled"
         :size="size"
-        :read-only="readonly"
+        :readonly="readonly"
         :name="name"
         :tabindex="tabindex"
         @click.stop
@@ -182,6 +182,10 @@ const formatDayjsToString = (value: Dayjs, format: string = props.format) => {
 }
 
 const onBeforeShow = () => {
+  if (props.readonly) {
+    visible.value = false
+    return
+  }
   visible.value = true
   emit('visible-change', true)
 }
