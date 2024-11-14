@@ -27,6 +27,13 @@ export const dropdownProps = {
   disabled: {
     type: Boolean,
     default: false
+  },
+  tabindex: {
+    type: definePropType<number | string>([Number, String])
+  },
+  hideAfterClick: {
+    type: Boolean,
+    default: true
   }
 } as const
 

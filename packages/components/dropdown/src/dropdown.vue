@@ -1,7 +1,7 @@
 <template>
   <div :class="[ns.b(), ns.is('disabled', disabled)]">
     <NTooltip
-      :visible="visible"
+      v-model:visible="visible"
       :transition="`${ns.ns.value}-zoom-in-top`"
       :gpu-acceleration="false"
       :trigger="trigger"
@@ -10,6 +10,9 @@
       :popper-class="popperClass"
       :popper-options="popperOptions"
       :disabled="disabled"
+      :tabindex="tabindex"
+      @before-show="handleShow"
+      @close="handleClose"
     >
       <slot name="default"></slot>
       <template #content>
@@ -35,14 +38,23 @@ const emit = defineEmits(dropdownEmit)
 
 const ns = useNamespace('dropdown')
 
-const visible = ref()
+const visible = ref(false)
 
 watch(visible, (val) => {
   emit('visibleChange', val)
 })
 
 const handleClick = (e: Event) => {
+  if (props.hideAfterClick) visible.value = true
   emit('click', e)
+}
+
+const handleShow = () => {
+  visible.value = true
+}
+
+const handleClose = () => {
+  visible.value = false
 }
 
 provide(NDROPDOWN_INJECTION_KEY, {
