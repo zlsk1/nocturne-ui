@@ -11,12 +11,12 @@ $colors: map.deep-merge(
   (
     'white': #ffffff,
     'black': #000000,
-    'primary': ('base': #409eff,),
-    'success': ('base': #67c23a,),
-    'warning': ('base': #e6a23c,),
-    'danger': ('base': #f56c6c,),
-    'error': ('base': #f56c6c,),
-    'info': ('base': #909399,),
+    'primary': ('base': #0080ff,),
+    'success': ('base': #60ca2b,),
+    'warning': ('base': #ff8a0d,),
+    'danger': ('base': #f46262,),
+    'error': ('base': #f46262,),
+    'info': ('base': #838383,),
   ),
   $colors
 );
