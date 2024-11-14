@@ -80,7 +80,11 @@
         </div>
       </template>
       <template #content>
-        <ul ref="optionRef" :style="selectWrapperStyle">
+        <ul
+          ref="optionRef"
+          :style="selectWrapperStyle"
+          :class="`${ns.ns.value}-select-option__wrapper`"
+        >
           <slot></slot>
         </ul>
       </template>
