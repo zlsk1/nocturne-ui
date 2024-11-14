@@ -1,12 +1,12 @@
 <template>
-  <div class="n-color-predefine">
-    <div class="n-color-predefine__colors">
+  <div :class="ns.b()">
+    <div :class="ns.e('colors')">
       <div
         v-for="(item, index) in rgbaColors"
         :key="colors[index]"
         :class="[
-          'n-color-predefine__color-selector',
-          { 'alpha': item._alpha < 100 },
+          ns.e('color-selector'),
+          ns.is('alpha', item._alpha < 100),
           { selected: item.selected },
         ]"
         @click="handleSelect(index)"
@@ -21,6 +21,7 @@
 import { inject, ref, watch, watchEffect } from 'vue'
 import { colorPickerContextKey } from './color-picker'
 import Color from './utils/color'
+import { useNamespace } from '@/composables'
 
 import type { PropType, Ref } from 'vue'
 
@@ -43,6 +44,8 @@ const props = defineProps({
   }
 })
 const { currentColor } = inject(colorPickerContextKey)!
+
+const ns = useNamespace('color-predefine')
 
 const rgbaColors = ref(parseColors(props.colors, props.color)) as Ref<
       Color[]

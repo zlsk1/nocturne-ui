@@ -2,7 +2,7 @@
   <n-popover
     ref="popoverRef"
     trigger="click"
-    popper-class="n-popconfirm"
+    :popper-class="ns.b()"
   >
     <template #reference>
       <slot></slot>
@@ -10,8 +10,8 @@
     <template #default>
       <div
         :class="[
-          'n-popconfirm__title',
-          { 'is-icon': showIcon }
+          ns.e('title'),
+          ns.is('icon', showIcon),
         ]"
       >
         <Quesition
@@ -22,7 +22,7 @@
         <slot v-else name="icon"></slot>
         <p>{{ title }}</p>
       </div>
-      <div class="n-popconfirm__btns">
+      <div :class="ns.e('btns')">
         <n-button
           text
           size="small"
@@ -47,6 +47,7 @@ import { ref } from 'vue'
 import { popconfirmProps, popconfirmEmit } from './popconfirm'
 import { NPopover, NButton } from '@/components'
 import { RiQuestionFill as Quesition } from '@remixicon/vue'
+import { useNamespace } from '@/composables'
 
 import type { PopoverInstance } from '@/components'
 
@@ -56,6 +57,8 @@ defineOptions({
 
 defineProps(popconfirmProps)
 const emit = defineEmits(popconfirmEmit)
+
+const ns = useNamespace('popconfirm')
 
 const popoverRef = ref<PopoverInstance>()
 

@@ -1,18 +1,18 @@
 <template>
-  <div class="n-time-picker--panel">
-    <div class="n-time-picker--panel__main">
+  <div :class="ns.m('panel')">
+    <div :class="ns.m('panel__main')">
       <ul
         v-for="(item, key) in timeChoosed"
         :key="key"
         :ref="(el: unknown) => setRef(el as any, item)"
-        class="n-panel__children"
+        :class="`${ns.ns.value}-panel__children`"
       >
         <li
           v-for="({ value, disabled }, _key) in timelist[item]"
           :key="_key"
           :class="[
-            {'is-active': timeObj[item] === value},
-            {'is-disabled': disabled}
+            ns.is('active', timeObj[item] === value),
+            ns.is('disabled', disabled),
           ]"
           @click="handleClick(item, value, disabled)"
         >
@@ -20,7 +20,7 @@
         </li>
       </ul>
     </div>
-    <div class="n-time-picker--panel__btns">
+    <div :class="ns.m('panel__btns')">
       <n-button
         size="small"
         text
@@ -47,6 +47,7 @@ import { getTimelist } from './composables/use-time-picker'
 import dayjs from 'dayjs'
 import { NButton } from '@/components'
 import { usePickPanel } from './composables/use-pick-panel'
+import { useNamespace } from '@/composables'
 
 import type { Ref } from 'vue'
 import type { TimeUnits } from './constants'
@@ -59,6 +60,8 @@ defineOptions({
 
 const props = defineProps(timePickerPanelProps)
 const emit = defineEmits(timePickerPanelEmit)
+
+const ns = useNamespace('time-picker')
 
 const { getHourlist, getMinutelist, getSecondlist } = getTimelist(
   {

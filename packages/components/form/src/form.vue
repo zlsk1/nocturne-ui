@@ -1,5 +1,5 @@
 <template>
-  <div class="n-form">
+  <div :class="ns.b()">
     <slot name="default"></slot>
   </div>
 </template>
@@ -8,6 +8,7 @@
 import { provide, toRefs, reactive, computed, ref, type Ref } from 'vue'
 import { formProps, formEmit } from './form'
 import { FORM_INJECTION_KEY } from './constants'
+import { useNamespace } from '@/composables'
 
 import type { NFormItemInjectionContext, Callback } from './types'
 import type { ValidateFieldsError } from 'async-validator'
@@ -19,6 +20,8 @@ defineOptions({
 
 const props = defineProps(formProps)
 const emit = defineEmits(formEmit)
+
+const ns = useNamespace('form')
 
 const fields: Ref<NFormItemInjectionContext[]> = ref([])
 

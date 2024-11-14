@@ -1,19 +1,22 @@
 <template>
-  <div class="n-card">
-    <div class="n-card--header">{{ header }}</div>
-    <div :class="['n-card--content', ContentClass]">
+  <div :class="ns.b()">
+    <div :class="ns.e('header')">{{ header }}</div>
+    <div :class="[ns.e('content'), ContentClass]">
       <slot name="default"></slot>
     </div>
-    <div class="n-card--footer">{{ footer }}</div>
+    <div :class="ns.e('footer')">{{ footer }}</div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { cardProps } from './card'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NCard'
 })
 
 defineProps(cardProps)
+
+const ns = useNamespace('card')
 </script>

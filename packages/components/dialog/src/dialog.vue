@@ -19,30 +19,30 @@
       >
         <div
           ref="dialogRef"
-          :class="['n-dialog', { 'is-center': center }, customClass]"
+          :class="dialogCls"
           :style="dialogStyle"
         >
-          <div v-if="!$slots.header" class="n-dialog__header">
-            <div class="n-dialog__title">{{ title }}</div>
+          <div v-if="!$slots.header" :class="ns.e('header')">
+            <div :class="ns.e('title')">{{ title }}</div>
             <component
               :is="closeIcon"
               v-if="closeIcon"
-              class="n-dialog__close"
+              :class="ns.e('close')"
               @click="close"
             ></component>
             <Close
               v-else-if="showClose"
               size="18"
-              class="n-dialog__close"
+              :class="ns.e('close')"
               @click="close"
             ></Close>
           </div>
           <slot v-else name="header"></slot>
-          <div class="n-dialog__content">
+          <div :class="ns.e('content')">
             <div v-if="content">{{ content }}</div>
             <slot v-else></slot>
           </div>
-          <div v-if="!$slots.footer" class="n-dialog__footer">
+          <div v-if="!$slots.footer" :class="ns.e('footer')">
             <n-button v-if="showCancel" @click="handleCancel">{{ cancelText }}</n-button>
             <n-button
               v-if="showConfirm"
@@ -65,7 +65,7 @@ import { NButton, NOverlay } from '@/components'
 import { RiCloseLine as Close } from '@remixicon/vue'
 import { dialogProps, dialogEmits } from './dialog'
 import { isString, isFunction } from 'lodash'
-import { useSameTarget, useZIndex } from '@/composables'
+import { useSameTarget, useZIndex, useNamespace } from '@/composables'
 
 import type { CSSProperties } from 'vue'
 
@@ -79,6 +79,7 @@ const emit = defineEmits(dialogEmits)
 const dialogRef = ref<HTMLElement>()
 const { nextZIndex } = useZIndex()
 const zIndex = nextZIndex()
+const ns = useNamespace('dialog')
 
 const dialogStyle = computed<CSSProperties>(() => {
   return {
@@ -86,6 +87,12 @@ const dialogStyle = computed<CSSProperties>(() => {
     margin: `${dialogMargin.value} auto auto`
   }
 })
+
+const dialogCls = computed(() => [
+  ns.b(),
+  ns.is('center', props.center),
+  props.customClass
+])
 
 const dialogMargin = computed(() => isString(props.offsetTop) ? props.offsetTop : props.offsetTop + 'vh')
 

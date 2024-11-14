@@ -1,6 +1,7 @@
 import { defineComponent, h, provide, toRef } from 'vue'
 import { NBREADCRUMBINJECTIONKEY } from './constants'
 import { iconPropType, isString } from '@/utils'
+import { useNamespace } from '@/composables'
 
 import type { ExtractPropTypes } from 'vue'
 
@@ -24,6 +25,8 @@ export default defineComponent({
   props: breadcrumbProps,
   emits: breadcrumbEmit,
   setup(props, { emit, slots }) {
+    const ns = useNamespace('breadcrumb')
+
     const handleClick = (path?: string) => emit('onClick', path)
 
     provide(NBREADCRUMBINJECTIONKEY, {
@@ -33,7 +36,7 @@ export default defineComponent({
 
     return () => h(
       'ol',
-      { class: 'n-breadcrumb' },
+      { class: ns.b() },
       slots.default?.()
     )
   }

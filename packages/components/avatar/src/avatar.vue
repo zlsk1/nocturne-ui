@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { avatarProps, avatarEmits } from './avatar'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NAvatar'
@@ -9,9 +10,17 @@ defineOptions({
 const props = defineProps(avatarProps)
 const emit = defineEmits(avatarEmits)
 
+const ns = useNamespace('avatar')
+
 const sizeIsNumber = computed(() => {
   return typeof (props.size) === 'number'
 })
+
+const avatarCls = computed(() => [
+  ns.b(),
+  ns.m(typeof (props.size) !== 'number' ? props.size : ''),
+  ns.m(props.shape)
+])
 
 const onError = (evt: Event) => {
   emit('error', evt)
@@ -20,11 +29,7 @@ const onError = (evt: Event) => {
 
 <template>
   <div
-    :class="[
-      'n-avatar',
-      sizeIsNumber ? '' : `n-avatar--${size}`,
-      `n-avatar--${shape}`
-    ]"
+    :class="avatarCls"
     :style="{
       width: sizeIsNumber ? size + 'px' : '',
       height: sizeIsNumber ? size + 'px' : '',
@@ -34,13 +39,13 @@ const onError = (evt: Event) => {
       v-if="src"
       :src="src"
       :alt="alt"
-      class="n-avatar__img"
+      :class="ns.e('img')"
       :style="{ objectFit: fit }"
       @error="onError"
     >
     <n-icon
       v-else-if="icon"
-      class-name="n-avatar__icon"
+      :class="ns.e('icon')"
     >
       <component :is="icon"></component>
     </n-icon>

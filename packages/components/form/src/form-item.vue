@@ -1,17 +1,17 @@
 <template>
-  <div :class="['n-form-item', labelPosition === 'top' ? 'n-form-item--top' : '']">
+  <div :class="[ns.b(), labelPosition === 'top' ? ns.e('top') : '']">
     <div
       v-if="label"
       ref="labelRef"
-      class="n-form-item__label"
+      :class="ns.e('label')"
       :style="labelStyle"
     >
       <label :for="labelId">{{ label }}</label>
     </div>
-    <div class="n-form-item__content">
+    <div :class="ns.e('content')">
       <slot></slot>
-      <transition name="n-zoom-in-top">
-        <div v-if="invalidMessage" class="n-form-item__error">{{ invalidMessage }}</div>
+      <transition :name="`${ns.ns.value}-zoom-in-top`">
+        <div v-if="invalidMessage" :class="ns.e('error')">{{ invalidMessage }}</div>
       </transition>
     </div>
   </div>
@@ -21,7 +21,7 @@
 import { inject, provide, ref, onMounted, nextTick, computed, reactive, toRefs } from 'vue'
 import { FORM_INJECTION_KEY, FORMITEM_INJECTION_KEY } from './constants'
 import { formItemProps } from './form-item'
-import { useId } from '@/composables'
+import { useId, useNamespace } from '@/composables'
 import { getProp, isString } from '@/utils'
 import Schema from 'async-validator'
 import { clone } from 'lodash'
@@ -34,6 +34,8 @@ defineOptions({
 })
 
 const props = defineProps(formItemProps)
+
+const ns = useNamespace('form-item')
 
 const formContext = inject(FORM_INJECTION_KEY, undefined)!
 

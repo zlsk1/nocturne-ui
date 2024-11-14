@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-v-model-argument -->
 <template>
-  <div class="n-picker">
+  <div :class="ns.b()">
     <n-tooltip
       v-bind="$attrs"
       v-model:visible="visible"
@@ -34,7 +34,7 @@
         @change="onInputChange"
       >
         <template #suffix>
-          <transition name="n-fade-in">
+          <transition :name="`${ns.ns.value}-fade-in`">
             <n-icon
               v-if="!disabled && showClose && clearIcon && displayedValue"
               @click.stop="onClearValue"
@@ -43,7 +43,7 @@
               <component
                 :is="clearIcon"
                 size="14"
-                class="n-picker__clearicon"
+                :class="ns.e('clearicon')"
               ></component>
             </n-icon>
           </transition>
@@ -81,6 +81,7 @@ import { pickerProps, pickerEmit } from './props/picker'
 import dayjs from 'dayjs'
 import { parseDate, formatter } from './util'
 import { isEqual } from 'lodash'
+import { useNamespace } from '@/composables'
 
 import type { Dayjs } from 'dayjs'
 import type { InputInstance } from '@/components'
@@ -92,6 +93,8 @@ defineOptions({
 
 const props = defineProps(pickerProps)
 const emit = defineEmits(pickerEmit)
+
+const ns = useNamespace('picker')
 
 const visible = ref(false)
 const inputValue = ref<string | null>(null)

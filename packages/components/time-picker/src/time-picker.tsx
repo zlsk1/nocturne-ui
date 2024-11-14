@@ -4,6 +4,7 @@ import PickPanel from './time-picker-panel.vue'
 import Picker from './picker.vue'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
+import { useNamespace } from '@/composables'
 
 import type { PickerInstance } from './props/picker'
 
@@ -14,6 +15,8 @@ export default defineComponent({
   props: pickerProps,
   emits: ['update:modelValue', 'change'],
   setup(props, { emit, expose }) {
+    const ns = useNamespace('time-picker')
+
     const pickerRef = ref<PickerInstance>()
 
     const onUpdate = (time: number | string | Date | object) => {
@@ -31,7 +34,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <div class="n-time-picker">
+        <div class={ns.b()}>
           <Picker
             ref={pickerRef}
             {...props}

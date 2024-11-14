@@ -2,10 +2,9 @@
   <div
     ref="referenceRef"
     :class="[
-      'n-slider__reference-wrapper',
-      { 'is-disabled': disabled,
-        'is-active': isActive,
-      }
+      ns.em('reference', 'wrapper'),
+      ns.is('disabled', disabled),
+      ns.is('active', isActive),
     ]"
     :style="positionStyle"
     @mousedown.stop="onMousedown"
@@ -19,7 +18,7 @@
       :popper-class="tooltipClass"
       :visible="visible"
     >
-      <div class="n-slider__reference"></div>
+      <div :class="ns.e('reference')"></div>
       <template #content>
         <span>{{ formatValue }}</span>
       </template>
@@ -32,6 +31,7 @@ import { ref, inject, computed, watch, nextTick } from 'vue'
 import { SLIDER_INJECT_KEY } from './constants'
 import { sliderReferenceProps, sliderReferenceEmits } from './reference'
 import { NTooltip } from '@/components'
+import { useNamespace } from '@/composables'
 import type { TooltipInstance } from '@/components/tooltip'
 import type { CSSProperties } from 'vue'
 
@@ -41,6 +41,8 @@ defineOptions({
 
 const props = defineProps(sliderReferenceProps)
 const emit = defineEmits(sliderReferenceEmits)
+
+const ns = useNamespace('reference')
 
 const { sliderRef, positionPercent } = inject(SLIDER_INJECT_KEY, undefined)!
 

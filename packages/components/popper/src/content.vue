@@ -1,10 +1,9 @@
 <template>
   <div
     ref="contentRef"
-    class="n-popper"
+    :class="contentCls"
     v-bind="contentAttrs"
     :style="contentStyle"
-    :class="[contentClass, pure && 'is-pure']"
     tabindex="-1"
     @mouseenter="(e) => $emit('mouseenter', e)"
     @mouseleave="(e) => $emit('mouseleave', e)"
@@ -14,11 +13,12 @@
 </template>
 
 <script lang="ts" setup>
-import { provide, ref, watch, onMounted, unref, onBeforeUnmount } from 'vue'
+import { provide, ref, watch, onMounted, unref, onBeforeUnmount, computed } from 'vue'
 import { usePopperContentDOM, usePopperContent } from './composables'
 import { popperContentProps } from './content'
 import { POPPER_CONTENT_INJECTION_KEY } from './constants'
 import { isElement } from '@/utils'
+import { useNamespace } from '@/composables'
 
 import type { WatchStopHandle } from 'vue'
 
@@ -27,6 +27,8 @@ defineOptions({
 })
 
 const props = defineProps(popperContentProps)
+
+const ns = useNamespace('popper')
 
 const arrowOffset = ref()
 
@@ -48,6 +50,12 @@ const updatePopper = (shouldUpdateZIndex = true) => {
   update()
   shouldUpdateZIndex
 }
+
+const contentCls = computed(() => [
+  ns.b(),
+  ns.is('pure', props.pure),
+  contentClass.value
+])
 
 const togglePopperAlive = () => {
   updatePopper(false)

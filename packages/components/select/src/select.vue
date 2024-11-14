@@ -1,30 +1,23 @@
 <template>
   <div
     ref="selectRef"
-    :class="[
-      'n-select',
-      size ? `n-select--${size}` : '',
-      {
-        'is-focus': visable,
-        'is-disabled': disabled
-      }
-    ]"
+    :class="selectCls"
     @click.stop="handleSelectClick"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
   >
     <NTooltip
       ref="tooltipRef"
-      :visible="visable"
+      :visible="visible"
       trigger="click"
       :show-after="0"
       :hide-after="0"
       effect="light"
       :popper-class="[
-        'n-select__popper',
+        ns.e('popper'),
         popperClass
       ]"
-      transition="n-zoom-in-top"
+      :transition="`${ns.ns.value}-zoom-in-top`"
       :disabled="disabled"
       :persistent="persistent"
       :gpu-acceleration="false"
@@ -33,26 +26,24 @@
       <template #default>
         <div
           :class="[
-            'n-select__wrapper',
+            ns.e('wrapper'),
+            ns.is('multiple', existActualValue && multiple)
             // size ? `n-select--${size}` : '',
-            {
-              'is-multiple': existActualValue && multiple
-            }
           ]"
         >
-          <div class="n-select__input-wrapper">
+          <div :class="ns.em('input', 'wrapper')">
             <input
               v-if="!multiple"
               :id="labelId"
               ref="inputRef"
               type="text"
-              class="n-select__input"
+              :class="ns.e('input')"
             >
             <NTag
               v-for="(item, index) in taglist"
               v-else
               :key="index"
-              class="n-select__tag"
+              :class="ns.e('tag')"
               :type="tagType"
               closable
               @close="handleTagDel(item as never)"
@@ -62,23 +53,21 @@
             </NTag>
             <div
               :class="[
-                'n-select__placeholder',
-                {
-                  'is-selecting': existActualValue,
-                  'is-disabled': disabled
-                }
+                ns.e('placeholder'),
+                ns.is('selecting', existActualValue),
+                ns.is('disabled', disabled),
               ]"
             >
               {{ placeholder }}
             </div>
           </div>
-          <div class="n-select__icon">
+          <div :class="ns.e('icon')">
             <n-icon v-if="!shouldShowClearIcon">
               <ArrowDown
                 size="16"
                 :style="[
                   { transition: 'all .3s' },
-                  visable ? arrowIconStyle : ''
+                  visible ? arrowIconStyle : ''
                 ]"
               ></ArrowDown>
             </n-icon>
@@ -91,11 +80,7 @@
         </div>
       </template>
       <template #content>
-        <ul
-          ref="optionRef"
-          class="n-select-option__wrapper"
-          :style="selectWrapperStyle"
-        >
+        <ul ref="optionRef" :style="selectWrapperStyle">
           <slot></slot>
         </ul>
       </template>
@@ -129,6 +114,7 @@ import {
   RiCloseCircleLine as CloseCircle
 } from '@remixicon/vue'
 import { useFormItemId } from '@/components'
+import { useNamespace } from '@/composables'
 
 import type { CSSProperties } from 'vue'
 import type { TooltipInstance } from '@/components/tooltip'
@@ -141,6 +127,8 @@ defineOptions({
 const props = defineProps(selectProps)
 const emit = defineEmits(selectEmits)
 
+const ns = useNamespace('select')
+
 const labelId = useFormItemId()
 
 const tooltipRef = ref<TooltipInstance>()
@@ -149,7 +137,7 @@ const selectRef = ref<HTMLElement>()
 const optionRef = ref<HTMLUListElement>()
 
 const isHover = ref(false)
-const visable = ref(false)
+const visible = ref(false)
 const actualVal = ref(props.modelValue)
 const actualLabel = ref<any>([])
 const options = new Map()
@@ -161,7 +149,7 @@ onMounted(() => {
 onClickOutside(selectRef, (e: MouseEvent) => {
   if (optionRef.value?.contains(e.target as Node)) return
 
-  visable.value = false
+  visible.value = false
 })
 
 const { height } = useElementSize(selectRef)
@@ -219,10 +207,17 @@ const taglist = computed(() => {
   return []
 })
 
+const selectCls = computed(() => [
+  ns.b(),
+  ns.m(props.size),
+  ns.is('disabled', props.disabled),
+  ns.is('focus', visible.value)
+])
+
 const handleSelectClick = () => {
   if (props.disabled) return
 
-  visable.value = !visable.value
+  visible.value = !visible.value
 }
 
 const handleMouseEnter = () => {
@@ -296,7 +291,7 @@ const clickOption = (vm: OptionProxy) => {
     }
   }
   else {
-    visable.value = false
+    visible.value = false
     actualVal.value = isObject(value) ? options.get(value).value : value
     actualLabel.value = isObject(value) ? options.get(value).label : label
   }

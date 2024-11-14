@@ -1,13 +1,13 @@
 <template>
-  <div class="n-progress" :style="{ height: height + 'px' }">
-    <div v-if="type === 'line'" class="n-progress--line">
-      <div class="n-progress__bg"></div>
+  <div :class="ns.b()" :style="{ height: height + 'px' }">
+    <div v-if="type === 'line'" :class="ns.m('line')">
+      <div :class="ns.e('bg')"></div>
       <div
         ref="barRef"
-        class="n-progress__bar"
+        :class="ns.e('bar')"
         :style="barStyle"
       >
-        <span v-if="$slots.inner" class="n-progress__bar__inner">
+        <span v-if="$slots.inner" :class="ns.e('bar__inner')">
           <slot name="inner"></slot>
         </span>
       </div>
@@ -19,7 +19,7 @@
         :style="{ width: percentage + '%' }"
       ></div>
     </div> -->
-    <div v-if="$slots.default" class="n-progress__slot">
+    <div v-if="$slots.default" :class="ns.e('slot')">
       <slot></slot>
     </div>
   </div>
@@ -28,6 +28,7 @@
 <script lang="ts" setup>
 import { computed, ref, onMounted } from 'vue'
 import { progressProps } from './progress'
+import { useNamespace } from '@/composables'
 import type { ProgressProps } from './progress'
 import type { CSSProperties } from 'vue'
 
@@ -36,6 +37,8 @@ defineOptions({
 })
 
 const props = defineProps(progressProps)
+
+const ns = useNamespace('progress')
 
 const barRef = ref<HTMLElement>()
 

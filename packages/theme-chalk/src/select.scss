@@ -52,6 +52,7 @@ $select-height: map.merge(
     display: flex;
     align-items: center;
     justify-content: space-between;
+    word-break: break-all;
     min-height: 32px;
     color: getCssVar('border-color', 'darker');
 
@@ -60,9 +61,13 @@ $select-height: map.merge(
     }
   }
 
-  .#{$namespace}-select__input-wrapper {
+  .#{$namespace}-select__input--wrapper {
     position: relative;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
+    min-width: 0;
 
     @include e(input) {
       max-width: 100%;

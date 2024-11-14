@@ -1,14 +1,14 @@
 <template>
-  <div class="n-color-alpha-slider">
+  <div :class="rootCls">
     <div
       ref="bar"
-      class="n-color-alpha-slider__bar"
+      :class="barCls"
       :style="barStyle"
       @click="handleClick"
     ></div>
     <div
       ref="thumb"
-      class="n-color-alpha-slider__thumb"
+      :class="thumbCls"
       :style="thumbStyle"
     >
       <div></div>
@@ -33,7 +33,7 @@ const props = defineProps(alphaSliderProps)
 
 const { bar, thumb, handleDrag, handleClick } = useAlphaSlider(props)
 
-const { barStyle, thumbStyle, update } = useAlphaSliderDOM(props, {
+const { rootCls, barCls, thumbCls, barStyle, thumbStyle, update } = useAlphaSliderDOM(props, {
   bar,
   thumb,
   handleDrag

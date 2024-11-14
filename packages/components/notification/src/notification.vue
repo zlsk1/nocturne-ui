@@ -1,6 +1,6 @@
 <template>
   <transition
-    name="n-notification"
+    :name="ns.b()"
     @before-leave="onClose"
     @after-leave="$emit('destroy')"
   >
@@ -8,25 +8,21 @@
       v-show="visible"
       :id="id"
       ref="notificationRef"
-      :class="[
-        'n-notification',
-        type ? `n-notification--${type}`: '',
-        positionClass
-      ]"
+      :class="notifyCls"
       :style="style"
       @mouseenter="onMouseenter"
       @mouseleave="onMouseleave"
     >
-      <span class="n-notification__icon">
+      <span :class="ns.e('icon')">
         <component :is="icon || customIcon"></component>
       </span>
-      <div class="n-notification--main">
-        <h4 v-if="title" class="n-notification__title">{{ title }}</h4>
-        <p v-if="!isVNode(content)" class="n-notification__content">{{ content }}</p>
-        <p v-else class="n-notification__content">
+      <div :class="ns.m('main')">
+        <h4 v-if="title" :class="ns.e('title')">{{ title }}</h4>
+        <p v-if="!isVNode(content)" :class="ns.e('content')">{{ content }}</p>
+        <p v-else :class="ns.e('content')">
           <slot></slot>
         </p>
-        <i class="n-notification__close">
+        <i :class="ns.e('close')">
           <Close size="20" @click="close"></Close>
         </i>
       </div>
@@ -45,6 +41,7 @@ import {
   RiCloseLine as Close
 } from '@remixicon/vue'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
+import { useNamespace } from '@/composables'
 
 import type { CSSProperties } from 'vue'
 
@@ -55,6 +52,8 @@ defineOptions({
 const props = defineProps(notificationProps)
 
 defineEmits(notificationEmit)
+
+const ns = useNamespace('notification')
 
 let stopTimer: (() => void) | undefined
 
@@ -86,6 +85,12 @@ const style = computed<CSSProperties>(() => {
     zIndex: props.zIndex
   }
 })
+
+const notifyCls = computed(() => [
+  ns.b(),
+  ns.m(props.type),
+  positionClass.value
+])
 
 useResizeObserver(notificationRef, () => {
   height.value = notificationRef.value!.getBoundingClientRect().height

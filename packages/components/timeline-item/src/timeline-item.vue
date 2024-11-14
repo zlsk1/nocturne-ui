@@ -1,60 +1,55 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
 import { timelineItemProps } from './timeline-item'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NTimelineItem'
 })
 
-defineProps(timelineItemProps)
+const props = defineProps(timelineItemProps)
+
+const ns = useNamespace('timeline-item')
+
+const itemCls = computed(() => [
+  ns.b(),
+  { [ns.e('center')]: props.center }
+])
+
+const dotCls = computed(() => [
+  ns.e('dot'),
+  ns.em('dot', 'normal'),
+  ns.em('dot', props.type),
+  ns.em('dot', props.size),
+  ns.is('hollow', props.hollow)
+])
 </script>
 
 <template>
-  <li
-    :class="[
-      'n-timeline-item',
-      {
-        'n-timeline-item__center': center
-      }
-    ]"
-  >
-    <div class="n-timeline-item__tail"></div>
+  <li :class="itemCls">
+    <div :class="ns.is('tail')"></div>
 
-    <div
-      :class="[
-        'n-timeline-item__dot',
-        'n-timeline-item__dot--normal',
-        type ? 'n-timeline-item__dot--' + type : '',
-        size ? 'n-timeline-item__dot--' + size : '',
-        {
-          'is-hollow': hollow
-        }
-      ]"
-      :style="{backgroundColor: color}"
-    >
+    <div :class="dotCls" :style="{backgroundColor: color}">
       <n-icon v-if="icon" :icon="icon"></n-icon>
     </div>
-    <div
-      :class="[
-        'n-timeline-item__wrap'
-      ]"
-    >
+    <div :class="ns.e('wrap')">
       <div
         v-if="!hideTimestamp && placement === 'top'"
         :class="[
-          'n-timeline-item__timestamp',
-          'is-top'
+          ns.e('timestamp'),
+          ns.is('top')
         ]"
       >
         {{ timestamp }}
       </div>
-      <div class="n-timeline-itme__content">
+      <div :class="ns.e('content')">
         <slot></slot>
       </div>
       <div
         v-if="!hideTimestamp && placement === 'bottom'"
         :class="[
-          'n-timeline-item__timestamp',
-          'is-bottom'
+          ns.e('timestamp'),
+          ns.is('bottom')
         ]"
       >
         {{ timestamp }}

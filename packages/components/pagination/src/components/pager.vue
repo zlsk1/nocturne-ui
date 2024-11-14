@@ -1,20 +1,15 @@
 <template>
   <ul
-    class="n-pagination__pages"
-    :class="{ 'is-disabled': disabled }"
+    :class="[ns.e('pages'), ns.is('disables', disabled)]"
     @click="changePage"
   >
-    <li
-      v-if="totalPages > 0"
-      class="n-pagination__num"
-      :class="_currentPage === 1 ? 'is-active' : ''"
-    >
+    <li v-if="totalPages > 0" :class="[ns.e('num'), ns.is('active', _currentPage === 1)]">
       1
     </li>
     <!-- prevMore -->
     <li
       v-if="showPrevMore"
-      class="n-pagination__num is-more prev"
+      :class="ns.e('num')"
       @mouseenter="isPrevHover = true"
       @mouseleave="isPrevHover = false"
     >
@@ -26,8 +21,8 @@
       v-for="item in pages"
       :key="item"
       :class="[
-        'n-pagination__num',
-        item === _currentPage ? 'is-active' : ''
+        ns.e('num'),
+        ns.is('active', item === _currentPage)
       ]"
     >
       {{ item }}
@@ -35,19 +30,14 @@
     <!-- nextMore -->
     <li
       v-if="showNextMore"
-      class="n-pagination__num is-more next"
-      :class="{ 'is-disabled': disabled }"
+      :class="[ns.e('num'), ns.is('disabled', disabled)]"
       @mouseenter="!disabled ? isNextHover = true : ''"
       @mouseleave="isNextHover = false"
     >
       <More v-if="!isNextHover" size="16"></More>
       <ArrowRightDouble v-else size="16"></ArrowRightDouble>
     </li>
-    <li
-      v-if="totalPages > 1"
-      class="n-pagination__num"
-      :class="_currentPage === totalPages ? 'is-active' : ''"
-    >
+    <li v-if="totalPages > 1" :class="[ns.e('num'), ns.is('active', _currentPage === totalPages)]">
       {{ totalPages }}
     </li>
   </ul>
@@ -62,6 +52,7 @@ import {
   RiArrowLeftDoubleFill as ArrowLeftDouble,
   RiMoreFill as More
 } from '@remixicon/vue'
+import { useNamespace } from '@/composables'
 
 const {
   totalPages,
@@ -71,6 +62,8 @@ const {
 } = inject(PAGINATION_INJECTION_KEY, undefined)!
 
 const props = defineProps(pagerProps)
+
+const ns = useNamespace('pagination')
 
 const isPrevHover = ref(false)
 const isNextHover = ref(false)

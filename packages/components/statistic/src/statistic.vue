@@ -2,12 +2,15 @@
 import { computed } from 'vue'
 import { statisticProps } from './statistic'
 import { isFunction, isNumber } from '@/utils'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NStatistic'
 })
 
 const props = defineProps(statisticProps)
+
+const ns = useNamespace('statistic')
 
 const _value = computed(() => {
   const { formatter, precision, value } = props
@@ -25,15 +28,11 @@ defineExpose({
 </script>
 
 <template>
-  <div
-    :class="[
-      'n-statistic'
-    ]"
-  >
-    <div class="n-statistic__title">
+  <div :class="ns.b()">
+    <div :class="ns.e('title')">
       <slot></slot>
     </div>
-    <div class="n-statistic__value" :style="valueStyle">
+    <div :class="ns.e('value')" :style="valueStyle">
       <component :is="suffixIcon" v-if="suffixIcon"></component>
       {{ _value }}
       <component :is="prefixIcon" v-if="prefixIcon"></component>

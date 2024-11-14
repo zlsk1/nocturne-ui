@@ -1,8 +1,8 @@
 <template>
-  <div :class="['n-dropdown', disabled && 'is-disabled']">
+  <div :class="[ns.b(), ns.is('disabled', disabled)]">
     <NTooltip
       :visible="visible"
-      transition="n-zoom-in-top"
+      :transition="`${ns.ns.value}-zoom-in-top`"
       :gpu-acceleration="false"
       :trigger="trigger"
       :placement="placement"
@@ -24,6 +24,7 @@ import { provide, ref, watch } from 'vue'
 import { NTooltip } from '@/components'
 import { dropdownProps, dropdownEmit } from './dropdown'
 import { NDROPDOWN_INJECTION_KEY } from './constants'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NDropdown'
@@ -31,6 +32,8 @@ defineOptions({
 
 const props = defineProps(dropdownProps)
 const emit = defineEmits(dropdownEmit)
+
+const ns = useNamespace('dropdown')
 
 const visible = ref()
 

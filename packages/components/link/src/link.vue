@@ -1,11 +1,22 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
 import { linkProps } from './link'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NLink'
 })
 
 const props = defineProps(linkProps)
+
+const ns = useNamespace('link')
+
+const linkCls = computed(() => [
+  ns.b(),
+  ns.m(props.type),
+  ns.is('disabled', props.disabled),
+  ns.is('underline', !props.disabled && props.underline)
+])
 
 const handleClick = (e: Event) => {
   if (props.disabled) {
@@ -16,14 +27,7 @@ const handleClick = (e: Event) => {
 
 <template>
   <a
-    :class="[
-      'n-link',
-      type ? 'n-link--' + type : '',
-      {
-        'is-underline': !disabled && underline,
-        'is-disabled': disabled,
-      }
-    ]"
+    :class="linkCls"
     :href="href"
     :target="target"
     @click="handleClick"

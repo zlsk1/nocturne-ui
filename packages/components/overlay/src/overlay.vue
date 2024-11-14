@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, h } from 'vue'
-import { useSameTarget } from '@/composables'
+import { useSameTarget, useNamespace } from '@/composables'
 
 import type { ExtractPropTypes } from 'vue'
 
@@ -30,6 +30,8 @@ export default defineComponent({
   props: overlayProps,
   emit: overlayEmit,
   setup(props, { emit, slots }) {
+    const ns = useNamespace('overlay')
+
     const onMaskerClick = (e: MouseEvent) => {
       emit('click', e)
     }
@@ -39,7 +41,7 @@ export default defineComponent({
         ? h(
           'div',
           {
-            class: 'n-overlay',
+            class: ns.b(),
             style: {
               zIndex: props.zIndex
             },
@@ -52,7 +54,7 @@ export default defineComponent({
         : h(
           'div',
           {
-            class: 'n-overlay',
+            class: ns.b(),
             style: {
               zIndex: props.zIndex,
               position: 'fixed',

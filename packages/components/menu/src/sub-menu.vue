@@ -1,9 +1,9 @@
 <template>
   <li
     :class="[
-      'n-sub-menu--container',
+      ns.m('container'),
+      ns.is('hover', trigger === 'hover'),
       `level-${subMenu?.level}`,
-      {'is-hover': trigger === 'hover'}
     ]"
     @mouseenter="() => handleMouseEnter()"
     @mouseleave="() => handleMouseLeave()"
@@ -24,14 +24,14 @@
     >
       <div
         ref="subReferenceRef"
-        class="n-sub-reference"
+        :class="ns.m('reference')"
         @click="handleClick"
       >
         <slot name="title"></slot>
         <Arrow
           v-if="!subMenu.level"
           size="16"
-          class="n-menu__item__arrow"
+          :class="ns.e('item__arrow')"
           :style="{
             transform: opened ? 'rotate(-90deg)' : 'rotate(90deg)'
           }"
@@ -39,7 +39,7 @@
         <Arrow
           v-else
           size="16"
-          class="n-menu__item__arrow"
+          :class="ns.e('item__arrow')"
           :style="{
             transform: opened ? 'rotate(180deg)' : 'none'
           }"
@@ -47,7 +47,7 @@
       </div>
       <template #content>
         <ul
-          class="n-sub-menu"
+          :class="ns.b()"
           @mouseenter="() => handleMouseEnter(100)"
           @mouseleave="() => handleMouseLeave(true)"
         >
@@ -58,16 +58,16 @@
     <div
       v-else
       :class="[
-        'n-sub-reference',
-        {'is-hover': trigger === 'hover'},
-        collapse && 'is-collapse'
+        ns.m('reference'),
+        ns.is('hover', trigger === 'hover'),
+        ns.is('collapse', collapse),
       ]"
       @click="handleClick"
     >
       <slot name="title"></slot>
       <Arrow
         size="16"
-        class="n-menu__item__arrow"
+        :class="ns.e('item__arrow')"
         :style="{
           transform: opened ? 'rotate(-90deg)' : 'rotate(90deg)'
         }"
@@ -76,7 +76,7 @@
     <NCollapseTransition v-if="!collapse">
       <ul
         v-show="opened"
-        class="n-sub-menu"
+        :class="ns.b()"
         @mouseenter="() => handleMouseEnter(100)"
         @mouseleave="() => handleMouseLeave(true)"
       >
@@ -105,6 +105,7 @@ import {
 } from '@remixicon/vue'
 import { NMENU_INJECTION_KEY, NSubMenuInjectionContext } from './constants'
 import { useTimeoutFn } from '@vueuse/core'
+import { useNamespace } from '@/composables'
 
 import type { StyleValue } from 'vue'
 
@@ -114,6 +115,8 @@ defineOptions({
 
 const instance = getCurrentInstance()!
 const { parentMenu } = useMenu(instance)
+
+const ns = useNamespace('sub-menu')
 
 const rootMenu = inject(NMENU_INJECTION_KEY, undefined)!
 if (!rootMenu) {

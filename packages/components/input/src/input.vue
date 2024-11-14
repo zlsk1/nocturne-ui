@@ -6,6 +6,8 @@ import {
   RiCloseCircleLine as CloseCircle
 } from '@remixicon/vue'
 import { useFormItemId, useForm } from '@/components/form'
+import { NIcon } from '@/components'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NInput'
@@ -14,6 +16,8 @@ defineOptions({
 const props = defineProps(inputProps)
 const emit = defineEmits(inputEmits)
 const slots = useSlots()
+
+const ns = useNamespace('input')
 
 const inputRef = ref<HTMLInputElement>()
 const wrapperRef = ref<HTMLInputElement>()
@@ -102,11 +106,9 @@ defineExpose({
 <template>
   <div
     :class="[
-      !isTextarea ? 'n-input' :'n-textarea',
-      size ? `n-input--${size}` : '',
-      {
-        'is-disabled': disabled,
-      }
+      !isTextarea ? ns.b() :'n-textarea',
+      ns.m(size),
+      ns.is('disabled', disabled)
     ]"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
@@ -116,18 +118,18 @@ defineExpose({
       <div
         ref="wrapperRef"
         :class="[
-          'n-input__wrapper',
-          isFocus ? 'is-focus' : ''
+          ns.e('wrapper'),
+          ns.is('focus', isFocus)
         ]"
         tabindex="1"
       >
-        <span v-if="prefixIcon || slots.prefix" class="n-input__prefix">
-          <span class="n-input__prefix-inner">
-            <i class="n-icon n-input__icon">
+        <span v-if="prefixIcon || slots.prefix" :class="ns.e('prefix')">
+          <span :class="ns.e('prefix-inner')">
+            <n-icon :class="ns.e('icon')">
               <slot v-if="slots.prefix" name="prefix">
               </slot>
               <component :is="prefixIcon" v-else></component>
-            </i>
+            </n-icon>
           </span>
         </span>
         <input
@@ -140,7 +142,7 @@ defineExpose({
           :min="min"
           :placeholder="placeholder"
           :tabindex="tabindex"
-          class="n-input__inner"
+          :class="ns.e('inner')"
           :value="modelValue"
           :readonly="readonly"
           :autofocus="autofocus"
@@ -150,49 +152,23 @@ defineExpose({
           @blur="handleBlur"
           @change="handleChange"
         >
-        <span v-if="showSuffix" class="n-input__suffix">
-          <span class="n-input__suffix-inner">
-            <i
-              v-if="showPwdVisable"
-              :class="[
-                'n-icon',
-                'n-input__icon',
-                'n-input__password'
-              ]"
-            >
+        <span v-if="showSuffix" :class="ns.e('suffix')">
+          <span :class="ns.e('suffix-inner')">
+            <n-icon v-if="showPwdVisable" :class="[ns.e('icon'), ns.e('password')]">
               <Eye @click="handleShowPwd"></Eye>
-            </i>
-            <i
-              v-if="showClear"
-              :class="[
-                'n-icon',
-                'n-input__icon',
-                'n-input__clear'
-              ]"
-            >
+            </n-icon>
+            <n-icon v-if="showClear" :class="[ns.e('icon'), ns.e('clear')]">
               <CloseCircle @click="clearValue"></CloseCircle>
-            </i>
-            <i
-              v-if="suffixIcon"
-              :class="[
-                'n-icon',
-                'n-input__icon',
-              ]"
-            >
+            </n-icon>
+            <n-icon v-if="suffixIcon" :class="[ns.e('icon')]">
               <component :is="suffixIcon"></component>
-            </i>
-            <i
-              v-if="slots.suffix"
-              :class="[
-                'n-icon',
-                'n-input__icon',
-              ]"
-            >
+            </n-icon>
+            <n-icon v-if="slots.suffix" :class="[ns.e('icon')]">
               <slot name="suffix">
               </slot>
-            </i>
-            <span v-if="showLimit" class="n-input__count">
-              <span class="n-input__count-inner">{{ (modelValue as string).length }} / {{ maxlength }}</span>
+            </n-icon>
+            <span v-if="showLimit" :class="ns.e('count')">
+              <span :class="ns.e('count-inner')">{{ (modelValue as string).length }} / {{ maxlength }}</span>
             </span>
           </span>
         </span>
@@ -211,17 +187,15 @@ defineExpose({
         :autofocus="autofocus"
         :rows="rows"
         :class="[
-          'n-textarea__inner',
-          {
-            'is-noResize': noResize
-          }
+          `${ns.ns.value}-textarea__inner`,
+          ns.is('noResize', noResize)
         ]"
         @input="handleInput"
         @focus="handleFocus"
         @blur="handleBlur"
       ></textarea>
-      <span v-if="showLimit" class="n-input__count">
-        <span class="n-input__count-inner">{{ (modelValue as string).length }} / {{ maxlength }}</span>
+      <span v-if="showLimit" :class="ns.e('count')">
+        <span :class="ns.e('count-inner')">{{ (modelValue as string).length }} / {{ maxlength }}</span>
       </span>
     </template>
   </div>

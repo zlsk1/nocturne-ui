@@ -36,7 +36,7 @@
       <slot name="reference"></slot>
     </template>
     <template #content>
-      <div v-if="title" class="n-popover__title">{{ title }}</div>
+      <div v-if="title" :class="ns.e('title')">{{ title }}</div>
       <slot>{{ content }}</slot>
     </template>
   </n-tooltip>
@@ -47,6 +47,7 @@ import { ref, computed } from 'vue'
 import { popoverProps, popoverEmit } from './popover'
 import { NTooltip, TooltipInstance } from '@/components'
 import { isNumber } from '@/utils'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NPopover'
@@ -54,6 +55,8 @@ defineOptions({
 
 const props = defineProps(popoverProps)
 const emit = defineEmits(popoverEmit)
+
+const ns = useNamespace('popover')
 
 const tooltipRef = ref<TooltipInstance>()
 
@@ -67,7 +70,7 @@ const popoverStyle = computed(() => {
 const popoverClass = computed(() => {
   return [
     props.popperClass!,
-    'n-popover'
+    ns.b()
   ]
 })
 

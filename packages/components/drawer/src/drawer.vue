@@ -4,7 +4,7 @@ import { drawerProps, drawerEmits } from './drawer'
 import { RiCloseLine as Close } from '@remixicon/vue'
 import NOverlay from '@/components/overlay'
 import { isString, isFunction } from '@/utils'
-import { useSameTarget, useZIndex } from '@/composables'
+import { useSameTarget, useZIndex, useNamespace } from '@/composables'
 
 import type { StyleValue } from 'vue'
 
@@ -21,6 +21,7 @@ export default defineComponent({
     const drawerRef = ref<HTMLElement>()
     const { nextZIndex } = useZIndex()
     const zIndex = nextZIndex()
+    const ns = useNamespace('drawer')
 
     const size = computed<StyleValue>(() => {
       if (!props.size) return
@@ -66,7 +67,8 @@ export default defineComponent({
       size,
       actualZIndex,
       overlayEvent,
-      close
+      close,
+      ns
     }
   }
 })
@@ -93,23 +95,23 @@ export default defineComponent({
       >
         <div
           ref="drawerRef"
-          :class="['n-drawer', `is-${placement}`]"
+          :class="[ns.b(), ns.is(placement)]"
           :style="[size, { zIndex }]"
         >
-          <div class="n-drawer__header">
+          <div :class="ns.e('header')">
             <slot name="header"></slot>
             <i
               v-if="showClose"
-              class="n-drawer__close"
+              :class="ns.e('close')"
               @click="close"
             >
               <Close size="20"></Close>
             </i>
           </div>
-          <div class="n-drawer__content">
+          <div :class="ns.e('content')">
             <slot name="content"></slot>
           </div>
-          <div class="n-drawer__footer">
+          <div :class="ns.e('footer')">
             <slot name="footer"></slot>
           </div>
         </div>

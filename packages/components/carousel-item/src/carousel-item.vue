@@ -1,12 +1,7 @@
 <template>
   <div
     ref="itemRef"
-    :class="[
-      'n-carousel__content__item',
-      {
-        'is-animation': isAnimation
-      }
-    ]"
+    :class="carouselItemCls"
     :style="{ transform: `translateX(${elTranslateX})`}"
   >
     <slot></slot>
@@ -16,12 +11,15 @@
 <script lang="ts" setup>
 import { inject, onMounted, ref, watch, computed } from 'vue'
 import { CAROUSEL_INJECT_KEY } from '../../carousel/src/constants'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NCarouselItem'
 })
 
 const { itemCount, contentRef, currentIndex } = inject(CAROUSEL_INJECT_KEY, undefined)!
+
+const ns = useNamespace('carousel__content')
 
 const itemRef = ref<HTMLLIElement>()
 const itemIndex = ref<number>(0)
@@ -31,6 +29,11 @@ const isAnimation = ref(false)
 onMounted(() => {
   itemCount.value += 1
 })
+
+const carouselItemCls = computed(() => [
+  ns.e('item'),
+  ns.is('animation', isAnimation.value)
+])
 
 const elTranslateX = computed<string>(() => {
   if (currentIndex.value === itemCount.value - 1 && itemIndex.value === 0) {

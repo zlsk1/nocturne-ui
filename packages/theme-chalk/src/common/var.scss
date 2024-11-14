@@ -721,7 +721,7 @@ $message: map.merge(
 $pagination: () !default;
 $pagination: map.merge(
   ( 
-    'text-color': #141414,
+    'text-color': getCssVar('text-color', 'primary'),
     'color': getCssVar('color', 'primary'),
     'num-margin': 3px,
     'default-size': 30px,

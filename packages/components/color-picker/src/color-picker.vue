@@ -6,18 +6,18 @@
     :fallback-placements="['bottom', 'top', 'right', 'left']"
     :offset="10"
     :gpu-acceleration="false"
-    :popper-class="['n-color-picker__panel', 'n-color-dropdown', popperClass]"
+    :popper-class="[ns.be('picker', 'panel'), ns.b('dropdown'), popperClass]"
     :stop-popper-mouse-event="false"
     effect="light"
     trigger="click"
     :teleported="teleported"
-    :transition="`n-zoom-in-top`"
+    :transition="`${ns.ns.value}-zoom-in-top`"
     persistent
     @hide="setShowPicker(false)"
   >
     <template #content>
       <div ref="contentRef" @keydown.esc="handleEsc">
-        <div class="n-color-dropdown__main-wrapper">
+        <div :class="ns.be('dropdown', 'main-wrapper')">
           <color-panel ref="cp" :color="color"></color-panel>
         </div>
         <hue-bar
@@ -37,8 +37,8 @@
           :color="color"
           :colors="predefine"
         ></predefine>
-        <div class="n-color-dropdown__btns">
-          <span class="n-color-dropdown__value">
+        <div :class="ns.be('dropdown', 'btns')">
+          <span :class="ns.be('dropdown', 'value')">
             <n-input
               ref="inputRef"
               v-model="customInput"
@@ -49,7 +49,7 @@
             ></n-input>
           </span>
           <n-button
-            class="n-color-dropdown__link-btn"
+            :class="ns.be('dropdown', 'link-btn')"
             text
             size="small"
             @click="clear"
@@ -59,7 +59,7 @@
           <n-button
             plain
             size="small"
-            class="n-color-dropdown__btn"
+            :class="ns.be('dropdown', 'btn')"
             @click="confirmValue"
           >
             确定
@@ -71,31 +71,25 @@
       <div
         ref="triggerRef"
         v-bind="$attrs"
-        :class="[
-          'n-color-picker',
-          size ? `n-color-picker--${size}` : '',
-          {
-            'is-disabled': disabled,
-          }
-        ]"
+        :class="btnCls"
         role="button"
         :tabindex="tabindex"
         @focus="handleFocus"
         @blur="handleBlur"
       >
-        <div v-if="disabled" :class="{ 'n-color-picker__mask': disabled }"></div>
-        <div class="n-color-picker__trigger" @click="handleTrigger">
-          <div :class="['n-color-picker__color', { 'is-alpha': showAlpha }]">
+        <div v-if="disabled" :class="ns.be('picker', 'mask')"></div>
+        <div :class="ns.be('picker', 'trigger')" @click="handleTrigger">
+          <div :class="[ns.be('picker', 'color'), ns.is('alpha', showAlpha)]">
             <span
-              class="n-color-picker__color-inner"
+              :class="ns.be('picker', 'color-inner')"
               :style="{
                 backgroundColor: displayedColor,
               }"
             >
             </span>
           </div>
-          <div v-if="showText" class="n-color-picker__value">{{ modelValue }}</div>
-          <i v-if="$slots.icon" :class="['n-color-picker__icon', 'is-icon-arrow-down']">
+          <div v-if="showText" :class="ns.be('picker', 'value')">{{ modelValue }}</div>
+          <i v-if="$slots.icon" :class="[ns.be('picker', 'icon'), ns.is('icon-arrow-down')]">
             <slot name="icon"></slot>
           </i>
         </div>
@@ -126,7 +120,7 @@ import {
   colorPickerEmits,
   colorPickerProps
 } from './color-picker'
-import { useFocusController } from '@/composables'
+import { useFocusController, useNamespace } from '@/composables'
 import type { TooltipInstance } from '@/components/tooltip'
 
 defineOptions({
@@ -134,6 +128,8 @@ defineOptions({
 })
 const props = defineProps(colorPickerProps)
 const emit = defineEmits(colorPickerEmits)
+
+const ns = useNamespace('color')
 
 const hue = ref<InstanceType<typeof HueBar>>()
 const cp = ref<InstanceType<typeof ColorPanel>>()
@@ -185,6 +181,15 @@ const displayedColor = computed(() => {
 
 const currentColor = computed(() => {
   return !props.modelValue && !showPanelColor.value ? '' : color.value
+})
+
+const btnCls = computed(() => {
+  return [
+    ns.b('picker'),
+    ns.is('disabled', props.disabled),
+    ns.bm('picker', props.size),
+    ns.is('focused', isFocused.value)
+  ]
 })
 
 function displayedRgb(color: Color, showAlpha: boolean) {

@@ -4,6 +4,7 @@ import { collapseItemProps } from './collapse-item'
 import { COLLAPSE_INJECTION_KEY } from '@/components/collapse/src/constants'
 import NCollapseTransition from '../../collapse-transition/src/collapse-transition.vue'
 import { RiArrowRightWideLine as ArrowRight } from '@remixicon/vue'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NCollapseItem'
@@ -13,8 +14,14 @@ const { activelist, changeEvent } = inject(COLLAPSE_INJECTION_KEY, undefined)!
 
 const props = defineProps(collapseItemProps)
 
+const ns = useNamespace('collapse-item')
+
 const contentRef = ref<HTMLElement>()
 
+const itemCls = computed(() => [
+  ns.b(),
+  ns.is('disabled', props.disabled)
+])
 const isActive = computed(() => {
   return activelist.value.includes(props.name as never)
 })
@@ -26,34 +33,23 @@ const showContent = () => {
 </script>
 
 <template>
-  <div
-    :class="[
-      'n-collapse-item',
-      {
-        'is-disabled': disabled
-      }
-    ]"
-  >
-    <div class="n-collapse-item__title" @click="showContent">
+  <div :class="itemCls">
+    <div :class="ns.e('title')" @click="showContent">
       <h3 v-if="title">
         {{ title }}
       </h3>
       <slot v-else name="title"></slot>
       <ArrowRight
         size="16"
-        class-name="n-collapse-item__icon"
-        :class="isActive ? 'is-rotate' : ''"
+        :class="[
+          ns.e('icon'),
+          ns.is('rotate', isActive)
+        ]"
       ></ArrowRight>
     </div>
     <n-collapse-transition>
-      <div
-        v-show="isActive"
-        class="n-collapse-item__wrap"
-      >
-        <div
-          ref="contentRef"
-          class="n-collapse-item__content"
-        >
+      <div v-show="isActive" :class="ns.e('wrap')">
+        <div ref="contentRef" :class="ns.e('content')">
           <slot></slot>
         </div>
       </div>

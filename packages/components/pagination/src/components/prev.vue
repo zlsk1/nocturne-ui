@@ -1,15 +1,11 @@
 <template>
   <button
-    :class="[
-      'n-pagination__button',
-      {
-        'is-not-allow': less,
-        'is-text': prevText
-      }
-    ]"
+    :class="prevCls"
     @click="handlePrevPage"
   >
-    <n-icon v-if="!prevText" :icon="prevIcon"></n-icon>
+    <n-icon v-if="!prevText">
+      <component :is="prevIcon"></component>
+    </n-icon>
     <span v-else>{{ prevText }}</span>
   </button>
 </template>
@@ -19,8 +15,9 @@ import { inject, computed } from 'vue'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { prevProps } from './prev'
 import { NIcon } from '@/components'
+import { useNamespace } from '@/composables'
 
-defineProps(prevProps)
+const props = defineProps(prevProps)
 
 const {
   _currentPage,
@@ -28,9 +25,17 @@ const {
   emit
 } = inject(PAGINATION_INJECTION_KEY, undefined)!
 
+const ns = useNamespace('pagination')
+
 const less = computed(() => {
   return _currentPage.value <= 1
 })
+
+const prevCls = computed(() => [
+  ns.e('button'),
+  ns.is('not-allow', less.value),
+  ns.is('text', !!props.prevText)
+])
 
 const handlePrevPage = () => {
   if (less.value || disabled) return

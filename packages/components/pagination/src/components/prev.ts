@@ -1,10 +1,12 @@
+import { RiArrowLeftWideFill as ArrowLeftWide } from '@remixicon/vue'
+import { iconPropType } from '@/utils'
 import type { ExtractPropTypes } from 'vue'
 
 export const prevProps = {
   prevText: String,
   prevIcon: {
-    type: String,
-    default: 'arrow-left'
+    type: iconPropType,
+    default: ArrowLeftWide
   }
 } as const
 

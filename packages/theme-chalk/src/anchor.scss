@@ -21,38 +21,38 @@
     color: getCssVar(text-color-primary);
   }
 
-  @include m('content') {
+  @include e('content') {
     position: relative;
     padding: getCssVar('anchor', 'padding');
+  }
 
-    @include e(items) {
-      padding-left: getCssVar('anchor', 'items-padding');
+  @include e(items) {
+    padding-left: getCssVar('anchor', 'items-padding');
 
-      a {
-        display: block;
-        padding: 4px 0;
-        transition: color getCssVar('transition-duration');
-      }
-
-      .active {
-        color: getCssVar(color-primary);
-      }
+    a {
+      display: block;
+      padding: 4px 0;
+      transition: color getCssVar('transition-duration');
     }
+  }
 
-    @include e(marker) {
-      position: absolute;
-      left: 0;
-      top: 5px;
-      width: 2px;
-      height: 1rem;
-      border-radius: 2px;
-      background-color: getCssVar(color-primary);
-      z-index: 0;
-      opacity: 0;
-      transition:
-        top getCssVar('transition-duration-fast'),
-        opacity getCssVar('transition-duration')
-      ;
-    }
+  @include when('active') {
+    color: getCssVar(color-primary);
+  }
+
+  @include e(marker) {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 2px;
+    height: 1rem;
+    border-radius: 2px;
+    background-color: getCssVar(color-primary);
+    z-index: 0;
+    opacity: 0;
+    transition:
+      top getCssVar('transition-duration-fast'),
+      opacity getCssVar('transition-duration')
+    ;
   }
 }

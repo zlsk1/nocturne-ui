@@ -1,13 +1,13 @@
 <template>
-  <div :class="['n-color-hue-slider', 'hue-slider', { 'is-vertical': vertical }]">
+  <div :class="[ns.b(), ns.is('vertical', vertical)]">
     <div
       ref="bar"
-      class="n-color-hue-slider__bar"
+      :class="ns.e('bar')"
       @click="handleClick"
     ></div>
     <div
       ref="thumb"
-      class="n-color-hue-slider__thumb"
+      :class="ns.e('thumb')"
       :style="{
         left: thumbLeft + 'px',
         top: thumbTop + 'px',
@@ -28,6 +28,7 @@ import {
 } from 'vue'
 import { getClientXY } from '@/utils'
 import { draggable } from './utils/draggable'
+import { useNamespace } from '@/composables'
 
 import type { PropType } from 'vue'
 import type Color from './utils/color'
@@ -43,6 +44,8 @@ const props = defineProps({
   },
   vertical: Boolean
 })
+
+const ns = useNamespace('color-hue-slider')
 
 const instance = getCurrentInstance()!
 const thumb = ref<HTMLElement>()

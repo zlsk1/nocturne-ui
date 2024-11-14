@@ -2,7 +2,7 @@
   <component
     :is="tag"
     :class="[
-      'n-row',
+      ns.b(),
       `is-justify-${justify}`,
       `is-align-${align}`
     ]"
@@ -16,6 +16,7 @@
 import { rowProps } from './row'
 import { ROW_INJECTION_KEY } from './constants'
 import { provide, computed } from 'vue'
+import { useNamespace } from '@/composables'
 
 import type { CSSProperties } from 'vue'
 
@@ -24,6 +25,8 @@ defineOptions({
 })
 
 const props = defineProps(rowProps)
+
+const ns = useNamespace('row')
 
 const gutter = computed(() => props.gutter)
 

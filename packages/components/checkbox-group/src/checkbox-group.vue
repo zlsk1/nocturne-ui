@@ -4,6 +4,7 @@ import { checkboxGroupProps, checkboxGroupEmits } from './checkbox-group'
 import { checkboxGroupContextKey } from '../../checkbox/src/constants'
 import { CheckboxGroupValueType } from './checkbox-group'
 import { useFormItemId } from '@/components/form'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NCheckboxGroup'
@@ -11,6 +12,8 @@ defineOptions({
 
 const props = defineProps(checkboxGroupProps)
 const emit = defineEmits(checkboxGroupEmits)
+
+const ns = useNamespace('checkbox')
 
 const formId = useFormItemId()
 
@@ -40,7 +43,7 @@ provide(checkboxGroupContextKey, {
   <div
     :id="formId"
     ref="groupRef"
-    class="n-checkbox-group"
+    :class="ns.b('group')"
   >
     <slot></slot>
   </div>

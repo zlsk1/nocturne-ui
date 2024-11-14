@@ -8,6 +8,7 @@ import {
 } from 'vue'
 import { PAGINATION_INJECTION_KEY } from './constants'
 import { isNumber } from '@/utils'
+import { useNamespace } from '@/composables'
 
 import { jumperProps } from './components/jumper'
 import { pagerProps } from './components/pager'
@@ -71,17 +72,26 @@ export type PaginationProps = ExtractPropTypes<typeof paginationProps>
 export type PaginationEmits = typeof paginationEmits
 
 export default defineComponent({
-  name: 'FrPagination',
+  name: 'NPagination',
   props: paginationProps,
   emit: paginationEmits,
 
   setup(props, { slots, emit }) {
+    const ns = useNamespace('pagination')
+
     const _currentPage = ref(props.currentPage || props.defaultPage)
     const pageSize = ref(props.pageSize)
 
     const totalPages = computed(() => {
       return props.pageCount || Math.ceil(props.total! / pageSize.value)
     })
+
+    const paginationCls = computed(() => [
+      ns.b(),
+      ns.is('background', props.background),
+      ns.is('small', props.small),
+      ns.is('disabled', props.disabled)
+    ])
 
     watch(pageSize, () => {
       if (totalPages.value < _currentPage.value) {
@@ -136,14 +146,7 @@ export default defineComponent({
       return h(
         'div',
         {
-          class: [
-            'n-pagination',
-            {
-              'is-background': props.background,
-              'is-small': props.small,
-              'is-disabled': props.disabled
-            }
-          ]
+          class: paginationCls.value
         },
         template
       )

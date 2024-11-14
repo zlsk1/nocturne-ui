@@ -17,7 +17,7 @@ const _bem = (namespace: string, block: string, blockSuffix?: string, element?: 
 
 export const NAMESPACE_INJECTION_KEY: InjectionKey<Ref<string | undefined>> = Symbol('namespace')
 
-export const getNamesapce = (namespaceOverrides?: Ref<string>) => {
+export const useGetOverRidesNamesapce = (namespaceOverrides?: Ref<string>) => {
   const newNamespace =
     namespaceOverrides ||
     getCurrentInstance()
@@ -32,12 +32,12 @@ export const getNamesapce = (namespaceOverrides?: Ref<string>) => {
 }
 
 export const useNamespace = (block: string, namespaceOverrides?: Ref<string>) => {
-  const ns = getNamesapce(namespaceOverrides)
+  const ns = useGetOverRidesNamesapce(namespaceOverrides)
 
   const b = (blockSuffix = '') => _bem(ns.value, block, blockSuffix)
 
-  const e = (element?: string, blockSuffix = '') =>
-    element ? _bem(ns.value, block, blockSuffix, element) : ''
+  const e = (element?: string) =>
+    element ? _bem(ns.value, block, '', element) : ''
 
   const m = (modifier?: string, blockSuffix = '') =>
     modifier ? _bem(ns.value, block, blockSuffix, '', modifier) : ''
@@ -47,10 +47,15 @@ export const useNamespace = (block: string, namespaceOverrides?: Ref<string>) =>
       ? _bem(ns.value, block, blockSuffix, element, modifier)
       : ''
 
-  const be = (element?: string, blockSuffix = '') =>
+  const be = (blockSuffix = '', element?: string) =>
     element ? _bem(ns.value, block, blockSuffix, element) : ''
 
-  const bem = (element?: string, modifier?: string, blockSuffix = '') =>
+  const bm = (blockSuffix?: string, modifier?: string) =>
+    blockSuffix && modifier
+      ? _bem(ns.value, block, blockSuffix, '', modifier)
+      : ''
+
+  const bem = (blockSuffix = '', element?: string, modifier?: string) =>
     element && modifier
       ? _bem(ns.value, block, blockSuffix, element, modifier)
       : ''
@@ -70,6 +75,7 @@ export const useNamespace = (block: string, namespaceOverrides?: Ref<string>) =>
     e,
     m,
     be,
+    bm,
     em,
     bem,
     is

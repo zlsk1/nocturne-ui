@@ -2,6 +2,7 @@
 import { nextTick, computed, inject, ref } from 'vue'
 import { radioProps, radioEmits } from './radio'
 import { RADIOGROUP_INJECTION_KEY } from '@/components/radio-group/src/constants'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NRadio'
@@ -9,6 +10,8 @@ defineOptions({
 
 const props = defineProps(radioProps)
 const emit = defineEmits(radioEmits)
+
+const ns = useNamespace('radio')
 
 const groupRef = inject(RADIOGROUP_INJECTION_KEY, undefined)!
 
@@ -26,7 +29,7 @@ const actualValue = computed(() => {
 
 const modelValue = computed({
   get() {
-    return isGroup.value ? groupRef.modelValue : props.modelValue
+    return isGroup.value ? groupRef?.modelValue : props.modelValue
   },
   set(val) {
     if (isGroup.value) {
@@ -40,8 +43,20 @@ const modelValue = computed({
 })
 
 const disabled = computed(() => {
-  return groupRef.disabled || props.disabled
+  return groupRef?.disabled || props.disabled
 })
+
+const commonCls = computed(() => [
+  ns.is('checked', modelValue.value === actualValue.value),
+  ns.is('disabled', disabled.value)
+])
+
+const radioCls = computed(() => [
+  ns.b(),
+  ns.m(groupRef?.size || props.size || 'default'),
+  ns.is('focus', focus.value),
+  ...commonCls.value
+])
 
 const handleChange = () => {
   nextTick(() => emit('change', modelValue.value as string | number | boolean))
@@ -50,24 +65,10 @@ const handleChange = () => {
 
 <template>
   <label
-    :class="[
-      'n-radio',
-      `n-radio--${groupRef?.size || size || 'default'}`,
-      {
-        'is-checked': modelValue === actualValue,
-        'is-disabled': disabled,
-        'is-focus': focus,
-      }
-    ]"
+    :class="radioCls"
   >
     <span
-      :class="[
-        'n-radio__input',
-        {
-          'is-checked': modelValue === actualValue,
-          'is-disabled': disabled
-        }
-      ]"
+      :class="[ns.e('input'),...commonCls]"
     >
       <input
         ref="radioRef"
@@ -75,13 +76,13 @@ const handleChange = () => {
         :value="actualValue"
         type="radio"
         :disabled="disabled"
-        class="n-radio__original"
+        :class="ns.e('original')"
         @change="handleChange"
         @focus="focus = true"
         @blur="focus = false"
       >
-      <span class="n-radio__inner"></span>
+      <span :class="ns.e('inner')"></span>
     </span>
-    <span class="n-radio__label"><slot></slot></span>
+    <span :class="ns.e('label')"><slot></slot></span>
   </label>
 </template>

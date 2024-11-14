@@ -12,24 +12,24 @@
   align-items: center;
   justify-content: center;
 
-  @include m(content) {
+  @include e(content) {
     text-align: center;
-
-    @include e(icon) {
-      animation: rotate 1s infinite cubic-bezier(.9, .4, .3, .33);
-    }
-  
-    @keyframes rotate {
-      from {
-        transform: rotate(0def);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
   
     > span {
       color: getCssVar('text-color-regular');
+    }
+  }
+
+  @include e(icon) {
+    animation: rotate 1s infinite cubic-bezier(.9, .4, .3, .33);
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0def);
+    }
+    to {
+      transform: rotate(360deg);
     }
   }
 }

@@ -12,6 +12,7 @@ import {
   RiCloseCircleFill as Error,
   RiCloseLine as Close
 } from '@remixicon/vue'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NMessage'
@@ -19,6 +20,8 @@ defineOptions({
 
 const props = defineProps(messageProps)
 defineEmits(messageEmits)
+
+const ns = useNamespace('message')
 
 const visible = ref(false)
 const height = ref(0)
@@ -91,7 +94,7 @@ defineExpose({
 
 <template>
   <transition
-    name="n-message-fade"
+    :name="`${ns.ns.value}-message-fade`"
     @before-leave="onClose!"
     @after-leave="$emit('destroy')"
   >
@@ -100,8 +103,8 @@ defineExpose({
       :id="id"
       ref="messageRef"
       :class="[
-        'n-message',
-        `n-message--${type}`,
+        ns.b(),
+        ns.m(type),
         customClass
       ]"
       :style="{
@@ -113,25 +116,25 @@ defineExpose({
     >
       <NBadge
         v-if="repeatNum > 1"
-        class="n-message__badge"
+        :class="ns.m(badge)"
         :value="repeatNum"
         :type="badgeType"
       ></NBadge>
       <component
         :is="icon"
-        :class-name="`n-message-icon--${type}`"
+        :class="ns.bm(icon, type)"
         size="18"
       ></component>
-      <div class="n-message__content">
-        <span v-if="!isVNode(message)" class="n-message__title">
+      <div :class="ns.e('content')">
+        <span v-if="!isVNode(message)" :class="ns.e('title')">
           {{ message }}
         </span>
-        <span v-else class="n-message__title">
+        <span v-else :class="ns.e('title')">
           <slot></slot>
         </span>
         <Close
           v-if="showClose"
-          class-name="n-message__close"
+          :class="ns.e('close')"
           size="18"
           @click.stop="close"
         ></Close>

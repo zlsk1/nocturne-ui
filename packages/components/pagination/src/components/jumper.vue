@@ -3,10 +3,13 @@ import { inject, ref } from 'vue'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { jumperProps } from './jumper'
 import { NInputNumber } from '@/components'
+import { useNamespace } from '@/composables'
 
 defineProps(jumperProps)
 
 const { _currentPage, emit } = inject(PAGINATION_INJECTION_KEY, undefined)!
+
+const ns = useNamespace('pagination')
 
 const val = ref(_currentPage)
 
@@ -18,7 +21,7 @@ const change = (value: number) => {
 </script>
 
 <template>
-  <div class="n-pagination__jumper">
+  <div :class="ns.e('jumper')">
     <span>{{ jumperText || '跳转到' }}</span>
     <n-input-number
       :model-value="val"

@@ -2,10 +2,13 @@
 import { inject, onMounted, onUnmounted, ref } from 'vue'
 import { anchorItemProps } from './anchor-item'
 import { ANCHOR_INJECTION_KEY } from './constants'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NAnchorItem'
 })
+
+const ns = useNamespace('anchor')
 
 const props = defineProps(anchorItemProps)
 
@@ -26,7 +29,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <ul v-if="items" class="n-anchor__items">
+  <ul v-if="items" :class="ns.e('items')">
     <li v-for="({ href, text, title, children = [] }, index) in items" :key="index">
       <a
         ref="linkRef"
@@ -40,11 +43,11 @@ onUnmounted(() => {
       </template>
     </li>
   </ul>
-  <div v-else class="n-anchor__items">
+  <div v-else :class="ns.e('items')">
     <a
       :href="href"
       :title="title"
-      :class="{ 'active': activeLink === href }"
+      :class="ns.is('active', activeLink === href)"
       @click="onClick"
     >{{ text }}</a>
     <slot></slot>

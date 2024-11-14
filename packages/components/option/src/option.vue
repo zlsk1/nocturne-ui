@@ -1,15 +1,13 @@
 <template>
   <li
     :class="[
-      'n-select-option__item',
-      {
-        'is-disabled': disabled,
-        'is-selected': selected
-      }
+      ns.be('option', 'item'),
+      ns.is('disabled', disabled),
+      ns.is('selected', selected),
     ]"
     @click.stop="onSelect"
   >
-    <span class="n-select-option__inner">
+    <span :class="ns.be('option', 'inner')">
       <template v-if="$slots.default">
         <slot></slot>
       </template>
@@ -27,6 +25,7 @@ import { SELECT_INJECTION_KEY } from '@/components/select/src/constants'
 import { optionEmits, optionProps } from './option'
 import { isObject, isArray } from '@/utils'
 import { RiCheckFill as Check } from '@remixicon/vue'
+import { useNamespace } from '@/composables'
 import type { OptionProxy } from '@/components/select/src/constants'
 
 defineOptions({
@@ -35,6 +34,8 @@ defineOptions({
 
 const props = defineProps(optionProps)
 defineEmits(optionEmits)
+
+const ns = useNamespace('select')
 
 const {
   actualVal,

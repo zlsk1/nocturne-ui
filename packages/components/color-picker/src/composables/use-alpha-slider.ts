@@ -8,6 +8,7 @@ import {
 } from 'vue'
 import { getClientXY, isNumber } from '@/utils'
 import { draggable } from '../utils/draggable'
+import { useNamespace } from '@/composables'
 
 import type { AlphaSliderProps } from '../props/alpha-slider'
 
@@ -80,7 +81,7 @@ export const useAlphaSliderDOM = (
 ) => {
   const instance = getCurrentInstance()!
 
-  // refs
+  const ns = useNamespace('color-alpha-slider')
 
   const thumbLeft = ref(0)
   const thumbTop = ref(0)
@@ -152,12 +153,21 @@ export const useAlphaSliderDOM = (
     () => props.color.value,
     () => update()
   )
-
+  const rootCls = computed(() => [ns.b(), ns.is('vertical', props.vertical)])
+  const barCls = computed(() => ns.e('bar'))
+  const thumbCls = computed(() => ns.e('thumb'))
   const barStyle = computed(() => ({ background: background.value }))
   const thumbStyle = computed(() => ({
     left: !isNumber(thumbLeft.value) ? thumbLeft.value : thumbLeft.value + 'px',
     top: !isNumber(thumbTop.value) ? thumbTop.value : thumbTop.value + 'px'
   }))
 
-  return { barStyle, thumbStyle, update }
+  return {
+    rootCls,
+    barCls,
+    thumbCls,
+    barStyle,
+    thumbStyle,
+    update
+  }
 }

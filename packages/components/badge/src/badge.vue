@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { badgeProps } from './badge'
 import { isNumber } from '@/utils'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NBadge'
@@ -9,6 +10,14 @@ defineOptions({
 
 const props = defineProps(badgeProps)
 
+const ns = useNamespace('badge')
+
+const badgeCls = computed(() => [
+  ns.e('content'),
+  ns.em('content', props.type),
+  ns.is('fixed'),
+  ns.is('dot', props.dot)
+])
 const _value = computed(() => {
   if (isNumber(props.value) && props.value > props.max) {
     return `${props.max}+`
@@ -18,20 +27,13 @@ const _value = computed(() => {
 </script>
 
 <template>
-  <div class="n-badge">
+  <div :class="ns.b()">
     <span>
       <slot></slot>
     </span>
     <span
       v-if="!hidden"
-      :class="[
-        'n-badge__content',
-        'is-fixed',
-        type ? 'n-badge__content--' + type: '',
-        {
-          'is-dot': dot
-        }
-      ]"
+      :class="badgeCls"
     >
       <template v-if="!dot">
         {{ _value }}

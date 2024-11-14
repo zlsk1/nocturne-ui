@@ -1,11 +1,6 @@
 <template>
   <li
-    :class="[
-      'n-menu__item',
-      {'active' : active},
-      `level-${subMenu?.level}`,
-      collapse && 'is-collapse'
-    ]"
+    :class="menuItemCls"
     @click="handleClick"
   >
     <slot></slot>
@@ -23,6 +18,7 @@ import {
 import { menuItemProps } from './menu'
 import { NMENU_INJECTION_KEY, NSubMenuInjectionContext } from './constants'
 import useMenu from './compoables/use-menu'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NMenuItem'
@@ -32,6 +28,8 @@ const props = defineProps(menuItemProps)
 
 const instance = getCurrentInstance()!
 const { parentMenu } = useMenu(instance)
+
+const ns = useNamespace('menu')
 
 const rootMenu = inject(NMENU_INJECTION_KEY, undefined)!
 if (!rootMenu) {
@@ -44,6 +42,12 @@ if (!subMenu) {
 
 const active = computed(() => props.index === rootMenu.activeIndex.value)
 const collapse = computed(() => rootMenu.collapse.value)
+const menuItemCls = computed(() => [
+  ns.e('item'),
+  ns.is('active', active.value),
+  ns.is('collapse', collapse.value),
+  `level-${subMenu?.level}`
+])
 
 const data = ref({
   index: props.index,

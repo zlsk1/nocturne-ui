@@ -3,6 +3,7 @@ import { provide, nextTick, toRefs, reactive } from 'vue'
 import { radioGroupProps, radioGroupEmits } from './radio-group'
 import { RADIOGROUP_INJECTION_KEY } from './constants'
 import { useFormItemId } from '@/components/form'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NRadioGroup'
@@ -10,6 +11,8 @@ defineOptions({
 
 const props = defineProps(radioGroupProps)
 const emit = defineEmits(radioGroupEmits)
+
+const ns = useNamespace('radio-group')
 
 const formId = useFormItemId()
 
@@ -30,7 +33,7 @@ provide(
 <template>
   <div
     :id="formId"
-    class="n-radio-group"
+    :class="ns.b()"
   >
     <slot></slot>
   </div>

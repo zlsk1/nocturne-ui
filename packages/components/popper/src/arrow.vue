@@ -1,7 +1,7 @@
 <template>
   <span
     ref="arrowRef"
-    class="n-popper__arrow"
+    :class="ns.e('arrow')"
     data-popper-arrow
     :style="arrowStyle"
   ></span>
@@ -11,6 +11,7 @@
 import { inject, watch, onBeforeUnmount } from 'vue'
 import { popperArrowProps } from './arrow'
 import { POPPER_CONTENT_INJECTION_KEY } from './constants'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NPopperArrow'
@@ -22,6 +23,8 @@ const { arrowOffset, arrowRef, arrowStyle } = inject(
   POPPER_CONTENT_INJECTION_KEY,
   undefined
 )!
+
+const ns = useNamespace('popper')
 
 watch(
   () => props.arrowOffset,

@@ -39,7 +39,7 @@ $slider-height: map.merge(
     border-radius: getCssVar('slider-radius');
   }
 
-  @include e(reference-wrapper) {
+  @include e(reference--wrapper) {
     position: absolute;
     top: getCssVar('slider-button-offset');
     width: getCssVar('slider-button-size');

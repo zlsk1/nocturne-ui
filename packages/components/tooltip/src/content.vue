@@ -54,6 +54,7 @@ import { onClickOutside } from '@vueuse/core'
 import NPopperContent from '@/components/popper/src/content.vue'
 import { composeEventHandlers } from '@/utils/dom'
 import { TOOLTIP_INJECTION_KEY } from './constants'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NTooltipContent'
@@ -73,11 +74,13 @@ const {
   onBeforeHide
 } = inject(TOOLTIP_INJECTION_KEY, undefined)!
 
+const ns = useNamespace('tooltip')
+
 const contentRef = ref()
 const destroyed = ref(false)
 
 const transitionClass = computed(() => {
-  return props.transition || 'n-zoom-in'
+  return props.transition || `${ns.ns.value}-zoom-in`
 })
 
 const persistentRef = computed(() => {

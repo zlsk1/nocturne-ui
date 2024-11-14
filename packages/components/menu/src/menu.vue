@@ -1,6 +1,6 @@
 <template>
-  <div :class="['n-menu']">
-    <ul :class="[`n-menu--${direction}`]">
+  <div :class="[ns.b()]">
+    <ul :class="[ns.m('direction')]">
       <slot></slot>
     </ul>
   </div>
@@ -10,6 +10,7 @@
 import { provide, ref, toRefs, getCurrentInstance } from 'vue'
 import { menuProps, menuEmit } from './menu'
 import { NMENU_INJECTION_KEY, NMenuInjectionContext, NSubMenuInjectionContext } from './constants'
+import { useNamespace } from '@/composables'
 
 import type { ExtistMenuItem } from './menu'
 import { isNil } from 'lodash'
@@ -20,6 +21,8 @@ defineOptions({
 
 const props = defineProps(menuProps)
 const emit = defineEmits(menuEmit)
+
+const ns = useNamespace('menu')
 
 const instance = getCurrentInstance()!
 

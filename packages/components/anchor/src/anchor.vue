@@ -5,6 +5,7 @@ import AnchorItem from './anchor-item.vue'
 import { anchorProps, anchorEmits, type AnchorItems } from './anchor'
 import { isNil } from '@/utils'
 import { ANCHOR_INJECTION_KEY } from './constants'
+import { useNamespace } from '@/composables'
 
 import type { CSSProperties } from 'vue'
 
@@ -14,6 +15,8 @@ defineOptions({
 
 const props = defineProps(anchorProps)
 const emit = defineEmits(anchorEmits)
+
+const ns = useNamespace('anchor')
 
 export type Links = {
   el: HTMLElement,
@@ -170,12 +173,12 @@ provide(ANCHOR_INJECTION_KEY, {
 </script>
 
 <template>
-  <div ref="containerRef" class="n-anchor">
-    <div class="n-anchor--content">
+  <div ref="containerRef" :class="ns.b()">
+    <div :class="ns.e('content')">
       <span
         v-if="marker"
         ref="markerRef"
-        class="n-anchor__marker"
+        :class="ns.e('marker')"
         :style="maskerStyle"
       ></span>
       <AnchorItem v-if="items" :items="items"></AnchorItem>

@@ -1,7 +1,7 @@
 <template>
   <NSelect
     v-model="selectedPage"
-    class="n-pagination__size"
+    :class="ns.e('size')"
     :size="small ? 'small' : ''"
     @update:model-value="onSelect"
   >
@@ -21,12 +21,15 @@ import { inject, ref } from 'vue'
 import { sizeProps } from './size'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { NSelect, NOption } from '@/components'
+import { useNamespace } from '@/composables'
 
 const {
   emit
 } = inject(PAGINATION_INJECTION_KEY, undefined)!
 
 const props = defineProps(sizeProps)
+
+const ns = useNamespace('pagination')
 
 const selectedPage = ref<number>(props.pageSize)
 

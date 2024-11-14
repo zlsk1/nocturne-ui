@@ -6,6 +6,7 @@ import {
   RiAddLine as Add,
   RiSubtractLine as Subtract
 } from '@remixicon/vue'
+import { useNamespace } from '@/composables'
 import type { InputInstance } from '@/components/input/src/input'
 
 defineOptions({
@@ -14,6 +15,8 @@ defineOptions({
 
 const props = defineProps(inputNumberProps)
 const emit = defineEmits(inputNumberEmits)
+
+const ns = useNamespace('input-number')
 
 const inputRef = ref<InputInstance>()
 
@@ -72,19 +75,15 @@ defineExpose({
 <template>
   <div
     :class="[
-      'n-input-number',
-      {
-        'is-disabled': disabled
-      }
+      ns.b(),
+      ns.is('disabled', disabled),
     ]"
   >
     <template v-if="controls">
       <span
         :class="[
-          'n-input-number__decrease',
-          {
-            'is-disabled': isLessMin
-          }
+          ns.e('decrease'),
+          ns.is('disabled', disabled),
         ]"
         @click="handleDecrease"
       >
@@ -92,10 +91,8 @@ defineExpose({
       </span>
       <span
         :class="[
-          'n-input-number__increase',
-          {
-            'is-disabled': isMoreMax
-          }
+          ns.e('increase'),
+          ns.is('disabled', disabled),
         ]"
         @click="handleIncrease"
       >

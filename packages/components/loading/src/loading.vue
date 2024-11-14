@@ -1,9 +1,9 @@
 <template>
-  <div class="n-loading" :style="style">
-    <div class="n-loading--content">
+  <div :class="ns.b()" :style="style">
+    <div :class="ns.e('content')">
       <Loader
         v-if="icon"
-        class="n-loading__icon"
+        :class="ns.e('icon')"
         color="#409eff"
       ></Loader>
       <component :is="icon" v-else></component>
@@ -16,6 +16,7 @@
 import { computed } from 'vue'
 import { loadingProps } from './loading'
 import { RiLoaderLine as Loader } from '@remixicon/vue'
+import { useNamespace } from '@/composables'
 
 import type { CSSProperties } from 'vue'
 
@@ -24,6 +25,8 @@ defineOptions({
 })
 
 const props = defineProps(loadingProps)
+
+const ns = useNamespace('loading')
 
 const style = computed<CSSProperties>(() => {
   return {

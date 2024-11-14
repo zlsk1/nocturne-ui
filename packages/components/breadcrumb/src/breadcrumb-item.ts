@@ -1,8 +1,9 @@
 import { defineComponent, h, inject } from 'vue'
 import { NBREADCRUMBINJECTIONKEY } from './constants'
+import { isString, isUndefined } from '@/utils'
+import { useNamespace } from '@/composables'
 
 import type { ExtractPropTypes } from 'vue'
-import { isString } from '@/utils'
 
 export const breadcrumbItemProps = {
   path: String
@@ -14,11 +15,13 @@ export default defineComponent({
   name: 'NBreadcrumbItem',
   props: breadcrumbItemProps,
   setup(props, { slots }) {
+    const ns = useNamespace('breadcrumb')
+
     const { separator, onClick } = inject(NBREADCRUMBINJECTIONKEY, undefined)!
 
     const separatorEl = isString(separator.value)
-      ? h('span', { class: 'n-breadcrumb__separator' }, separator.value)
-      : h(separator.value, { class: 'n-breadcrumb__separator' })
+      ? h('span', { class: ns.be('separator') }, separator.value)
+      : h(separator.value, { class: ns.be('separator') })
 
     const linkEl = props.path
       ? h('a', { href: props.path }, slots.default?.())
@@ -27,7 +30,7 @@ export default defineComponent({
     const children = h(
       'span',
       {
-        class: ['n-breadcrumb__content', props.path && 'is-link'],
+        class: [ns.be('content'), ns.is('link', !isUndefined(props.path))],
         onClick: () => onClick(props?.path)
       },
       [
@@ -38,7 +41,7 @@ export default defineComponent({
 
     return () => h(
       'li',
-      { class: 'n-breadcrumb__items' },
+      { class: ns.be('items') },
       children
     )
   }

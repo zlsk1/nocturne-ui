@@ -2,6 +2,7 @@
 import { provide, ref } from 'vue'
 import { collapseProps, collapseEmits } from './collapse'
 import { COLLAPSE_INJECTION_KEY } from '@/components/collapse/src/constants'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NCollapse'
@@ -9,6 +10,8 @@ defineOptions({
 
 const props = defineProps(collapseProps)
 const emit = defineEmits(collapseEmits)
+
+const ns = useNamespace('collapse')
 
 const activelist = ref<string[] | number[]>([])
 
@@ -28,11 +31,7 @@ provide(COLLAPSE_INJECTION_KEY, {
 </script>
 
 <template>
-  <div
-    :class="[
-      'n-collapse'
-    ]"
-  >
+  <div :class="ns.b()">
     <slot></slot>
   </div>
 </template>

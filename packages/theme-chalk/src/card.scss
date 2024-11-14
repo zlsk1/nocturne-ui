@@ -14,12 +14,15 @@
   border-radius: getCssVar('card', 'border-radius');
   box-shadow: getCssVar('card', 'box-shadow');
 
-  @include m(header) {
-  padding: getCssVar('card', 'inner-padding');
-  text-align: start;
+  @include e(header) {
+    padding: getCssVar('card', 'inner-padding');
+    text-align: start;
   }
 
-  @include m(footer) {
+  @include e(content) {
+  }
+
+  @include e(footer) {
     padding: getCssVar('card', 'inner-padding');
     text-align: start;
   }

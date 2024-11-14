@@ -92,7 +92,7 @@
     }
   }
 
-  .active {
+  @include when(active) {
     background: getCssVar('border-color-darker');
   }
 
@@ -132,7 +132,7 @@
         background: getCssVar('border-color-darker');
       }
 
-      .#{$namespace}-sub-reference {
+      .#{$namespace}-sub--reference {
         display: flex;
         align-items: center;
         justify-content: space-between;

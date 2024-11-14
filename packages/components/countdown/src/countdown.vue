@@ -72,6 +72,3 @@ watch(
     <slot></slot>
   </n-statistic>
 </template>
-
-<style>
-</style>

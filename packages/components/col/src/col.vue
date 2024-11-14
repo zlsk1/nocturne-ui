@@ -1,7 +1,6 @@
 <template>
   <component
     :is="tag"
-    class="n-col"
     :class="colClass"
     :style="colStyle"
   >
@@ -15,6 +14,7 @@ import { colProps } from './col'
 import { ROW_INJECTION_KEY } from '@/components/row/src/constants'
 import { isNumber } from '@/utils'
 import { isObject } from 'lodash'
+import { useNamespace } from '@/composables'
 
 import type { CSSProperties } from 'vue'
 
@@ -25,6 +25,8 @@ defineOptions({
 const props = defineProps(colProps)
 
 const { gutter } = inject(ROW_INJECTION_KEY, { gutter: computed(() => 0) })
+
+const ns = useNamespace('col')
 
 const colStyle = computed<CSSProperties>(() => {
   if (gutter.value) {
@@ -43,30 +45,30 @@ const colClass = computed(() => {
   pos.forEach((prop) => {
     const size = props[prop]
     if (isNumber(size)) {
-      if (prop === 'span') classes.push(`n-col-${props[prop]}`)
-      else if (size > 0) classes.push(`n-col-${prop}-${props[prop]}`)
+      if (prop === 'span') classes.push(ns.b(`${props[prop]}`))
+      else if (size > 0) classes.push(ns.b(`${prop}-${props[prop]}`))
     }
   })
 
   const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const
   sizes.forEach((size) => {
     if (isNumber(props[size])) {
-      classes.push(`n-col-${size}-${props[size]}`)
+      classes.push(ns.b(`${size}-${props[size]}`))
     }
     else if (isObject(props[size])) {
       Object.entries(props[size]).forEach(([prop, sizeProp]) => {
         classes.push(
           prop !== 'span'
-            ? `n-col-${size}-${prop}-${sizeProp}`
-            : `n-col-${size}-${sizeProp}`
+            ? ns.b(`${size}-${prop}-${sizeProp}`)
+            : ns.b(`${size}-${sizeProp}`)
         )
       })
     }
   })
 
   if (gutter.value) {
-    classes.push('is-guttered')
+    classes.push(ns.is('guttered'))
   }
-  return [classes]
+  return [ns.b(), classes]
 })
 </script>

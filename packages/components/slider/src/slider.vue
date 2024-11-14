@@ -1,18 +1,13 @@
 <template>
   <div
     ref="sliderRef"
-    :class="[
-      'n-slider',
-      { 'is-disabled': disabled,
-        'is-vertical': vertical
-      }
-    ]"
+    :class="sliderCls"
     :style="{
       height: vertical ? height + 'px' : ''
     }"
   >
-    <div class="n-slider__track" @mousedown="onSliderDown">
-      <div class="n-slider__track__bar" :style="barStyle"></div>
+    <div :class="ns.e('track')" @mousedown="onSliderDown">
+      <div :class="ns.e('track__bar')" :style="barStyle"></div>
       <reference
         ref="referenceRef"
         :show-tooltip="showTooltip"
@@ -27,11 +22,11 @@
         :height="height"
         @change="changeVal"
       ></reference>
-      <div v-if="step" class="n-slider__step">
+      <div v-if="step" :class="ns.e('step')">
         <div
           v-for="(_, index) in step + 1"
           :key="index"
-          class="n-slider__step__item"
+          :class="ns.e('step__item')"
         ></div>
       </div>
     </div>
@@ -43,6 +38,7 @@ import { ref, provide, computed } from 'vue'
 import { SLIDER_INJECT_KEY } from './constants'
 import { sliderProps, sliderEmits } from './slider'
 import reference from './reference.vue'
+import { useNamespace } from '@/composables'
 import type { SliderReferenceInstance } from './reference'
 import type { CSSProperties } from 'vue'
 
@@ -52,6 +48,8 @@ defineOptions({
 
 const props = defineProps(sliderProps)
 const emit = defineEmits(sliderEmits)
+
+const ns = useNamespace('slider')
 
 const sliderRef = ref<HTMLDivElement>()
 const referenceRef = ref<SliderReferenceInstance>()
@@ -69,6 +67,12 @@ const barStyle = computed<CSSProperties>(() => {
     }
   }
 })
+
+const sliderCls = computed(() => [
+  ns.b(),
+  ns.is('disabled', props.disabled),
+  ns.is('vertical', props.vertical)
+])
 
 const onSliderDown = (e: MouseEvent) => {
   if (props.disabled) return
