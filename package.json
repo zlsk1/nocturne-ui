@@ -18,13 +18,13 @@
     "docs:preview": "pnpm -C docs preview"
   },
   "dependencies": {
-    "nocturne-ui": "workspace:*",
     "@popperjs/core": "^2.11.8",
     "@remixicon/vue": "^4.2.0",
     "@vueuse/core": "^9.13.0",
     "async-validator": "^4.2.5",
     "dayjs": "^1.11.11",
     "lodash": "^4.17.21",
+    "nocturne-ui": "workspace:*",
     "vue": "^3.4.15"
   },
   "devDependencies": {
@@ -34,11 +34,16 @@
     "@types/gulp": "4.0.9",
     "@types/lodash": "^4.17.7",
     "@types/node": "^20.13.0",
+    "@typescript-eslint/eslint-plugin": "^8.14.0",
+    "@typescript-eslint/parser": "^8.14.0",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vitejs/plugin-vue-jsx": "^4.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/test-utils": "^2.4.4",
     "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-vue": "^9.17.0",
     "fast-glob": "^3.3.2",
     "husky": "^9.0.11",
