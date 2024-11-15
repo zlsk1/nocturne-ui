@@ -1,18 +1,24 @@
 import Components from './component'
 import Plugins from './plugin'
-import { INSTALLED_KEY } from '@/constants'
 import { provideGlobalConfig } from './components/config-provider'
 import type { App } from 'vue'
 import type { ConfigProviderProps } from './components/config-provider'
+import { INSTALLED_KEY } from '@/constants'
 
 const makeInstaller = (components: any[] = []) => {
-  const install = (app: App, options?: Partial<ConfigProviderProps> & { prefix?: string }) => {
+  const install = (
+    app: App,
+    options?: Partial<ConfigProviderProps> & { prefix?: string }
+  ) => {
     if (app[INSTALLED_KEY as unknown as keyof typeof app]) return
-
-    (app[INSTALLED_KEY as unknown as keyof typeof app] as boolean) = true
+    ;(app[INSTALLED_KEY as unknown as keyof typeof app] as boolean) = true
 
     components.forEach((component) => {
-      if (component.name && typeof component !== 'function' && options?.prefix) {
+      if (
+        component.name &&
+        typeof component !== 'function' &&
+        options?.prefix
+      ) {
         component.name = component.name.replace(/^[N]/, options?.prefix)
       }
       app.use(component)

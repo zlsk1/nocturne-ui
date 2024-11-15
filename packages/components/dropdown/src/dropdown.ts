@@ -1,10 +1,10 @@
-import { TooltipTriggerType } from '@/components/tooltip'
-import { definePropType, isBoolean } from '@/utils'
-import Dropdown from './dropdown.vue'
 import { placements } from '@popperjs/core'
-import { ClassType } from '@/components/popper'
+import Dropdown from './dropdown.vue'
 import type { ExtractPropTypes } from 'vue'
 import type { Options } from '@popperjs/core'
+import { TooltipTriggerType } from '@/components/tooltip'
+import { definePropType, isBoolean } from '@/utils'
+import { ClassType } from '@/components/popper'
 
 export const dropdownProps = {
   trigger: {
@@ -22,7 +22,9 @@ export const dropdownProps = {
   },
   popperOptions: {
     type: definePropType<Partial<Options>>(Object),
-    default: () => { return {} }
+    default: () => {
+      return {}
+    }
   },
   disabled: {
     type: Boolean,

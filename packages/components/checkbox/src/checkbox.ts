@@ -1,9 +1,7 @@
-import { componentSizes } from '@/constants'
-import { isBoolean, isNumber, isString } from '@/utils'
-import { definePropType } from '@/utils'
 import Check from './checkbox.vue'
-
 import type { ExtractPropTypes } from 'vue'
+import { componentSizes } from '@/constants'
+import { definePropType, isBoolean, isNumber, isString } from '@/utils'
 
 export type CheckModelValueType = string | number | boolean
 
@@ -13,7 +11,12 @@ export const checkboxProps = {
     default: undefined
   },
   value: {
-    type: definePropType<string | number | boolean | object>([String, Number, Boolean, Object]),
+    type: definePropType<string | number | boolean | object>([
+      String,
+      Number,
+      Boolean,
+      Object
+    ]),
     default: undefined
   },
   disabled: {
@@ -33,7 +36,12 @@ export const checkboxProps = {
     default: false
   },
   label: {
-    type: definePropType<string | number | boolean | object>([String, Number, Boolean, Object]),
+    type: definePropType<string | number | boolean | object>([
+      String,
+      Number,
+      Boolean,
+      Object
+    ]),
     default: undefined
   },
   trueValue: {
@@ -53,8 +61,10 @@ export const checkboxProps = {
 } as const
 
 export const checkboxEmits = {
-  change: (val: CheckModelValueType) => isString(val) || isNumber(val) || isBoolean(val),
-  'update:modelValue': (val: CheckModelValueType) => isString(val) || isNumber(val) || isBoolean(val)
+  change: (val: CheckModelValueType) =>
+    isString(val) || isNumber(val) || isBoolean(val),
+  'update:modelValue': (val: CheckModelValueType) =>
+    isString(val) || isNumber(val) || isBoolean(val)
 }
 
 export type CheckboxProps = ExtractPropTypes<typeof checkboxProps>

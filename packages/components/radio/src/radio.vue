@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { nextTick, computed, inject, ref } from 'vue'
-import { radioProps, radioEmits } from './radio'
+import { computed, inject, nextTick, ref } from 'vue'
+import { radioEmits, radioProps } from './radio'
 import { RADIOGROUP_INJECTION_KEY } from '@/components/radio-group/src/constants'
 import { useNamespace } from '@/composables'
 
@@ -34,8 +34,7 @@ const modelValue = computed({
   set(val) {
     if (isGroup.value) {
       groupRef.changeGroup(val)
-    }
-    else {
+    } else {
       emit && emit('update:modelValue', val as string | number | boolean)
     }
     radioRef.value!.checked = props.modelValue === actualValue.value
@@ -64,12 +63,8 @@ const handleChange = () => {
 </script>
 
 <template>
-  <label
-    :class="radioCls"
-  >
-    <span
-      :class="[ns.e('input'),...commonCls]"
-    >
+  <label :class="radioCls">
+    <span :class="[ns.e('input'), ...commonCls]">
       <input
         ref="radioRef"
         v-model="modelValue"
@@ -80,9 +75,9 @@ const handleChange = () => {
         @change="handleChange"
         @focus="focus = true"
         @blur="focus = false"
-      >
-      <span :class="ns.e('inner')"></span>
+      />
+      <span :class="ns.e('inner')" />
     </span>
-    <span :class="ns.e('label')"><slot></slot></span>
+    <span :class="ns.e('label')"><slot /></span>
   </label>
 </template>

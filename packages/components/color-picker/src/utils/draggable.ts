@@ -11,11 +11,11 @@ export interface DraggableOptions {
 export function draggable(element: HTMLElement, options: DraggableOptions) {
   if (!isClient) return
 
-  const moveFn = function(event: MouseEvent | TouchEvent) {
+  const moveFn = function (event: MouseEvent | TouchEvent) {
     options.drag?.(event)
   }
 
-  const upFn = function(event: MouseEvent | TouchEvent) {
+  const upFn = function (event: MouseEvent | TouchEvent) {
     document.removeEventListener('mousemove', moveFn)
     document.removeEventListener('mouseup', upFn)
     document.removeEventListener('touchmove', moveFn)
@@ -28,7 +28,7 @@ export function draggable(element: HTMLElement, options: DraggableOptions) {
     options.end?.(event)
   }
 
-  const downFn = function(event: MouseEvent | TouchEvent) {
+  const downFn = function (event: MouseEvent | TouchEvent) {
     if (isDragging) return
     event.preventDefault()
     document.onselectstart = () => false

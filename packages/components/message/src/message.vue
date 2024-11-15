@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed, watch, isVNode } from 'vue'
-import { messageProps, messageEmits } from './message'
-import { getOffsetOrSpace, getLastOffset } from './instance'
+import { computed, isVNode, onMounted, ref, watch } from 'vue'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
-import { NBadge } from '@/components'
-import { BadgeProps } from '@/components/badge'
 import {
+  RiCloseLine as Close,
+  RiCloseCircleFill as Error,
   RiInformationFill as Info,
   RiCheckboxCircleFill as Success,
-  RiErrorWarningFill as Warning,
-  RiCloseCircleFill as Error,
-  RiCloseLine as Close
+  RiErrorWarningFill as Warning
 } from '@remixicon/vue'
+import { messageEmits, messageProps } from './message'
+import { getLastOffset, getOffsetOrSpace } from './instance'
+import type { BadgeProps } from '@/components/badge'
+import { NBadge } from '@/components'
 import { useNamespace } from '@/composables'
 
 defineOptions({
@@ -44,7 +44,9 @@ watch(
 
 const lastOffset = computed(() => getLastOffset(props.id))
 
-const offset = computed(() => getOffsetOrSpace(props.id, props.offset) + lastOffset.value)
+const offset = computed(
+  () => getOffsetOrSpace(props.id, props.offset) + lastOffset.value
+)
 
 const bottom = computed(() => height.value + offset.value)
 
@@ -72,7 +74,7 @@ const close = () => {
 
 const startTimer = () => {
   if (props.duration === 0) return
-  ({ stop: stopTimer } = useTimeoutFn(() => {
+  ;({ stop: stopTimer } = useTimeoutFn(() => {
     close()
   }, props.duration))
 }
@@ -102,11 +104,7 @@ defineExpose({
       v-show="visible"
       :id="id"
       ref="messageRef"
-      :class="[
-        ns.b(),
-        ns.m(type),
-        customClass
-      ]"
+      :class="[ns.b(), ns.m(type), customClass]"
       :style="{
         top: offset + 'px',
         zIndex: zIndex
@@ -119,25 +117,21 @@ defineExpose({
         :class="ns.m(badge)"
         :value="repeatNum"
         :type="badgeType"
-      ></NBadge>
-      <component
-        :is="icon"
-        :class="ns.bm(icon, type)"
-        size="18"
-      ></component>
+      />
+      <component :is="icon" :class="ns.bm(icon, type)" size="18" />
       <div :class="ns.e('content')">
         <span v-if="!isVNode(message)" :class="ns.e('title')">
           {{ message }}
         </span>
         <span v-else :class="ns.e('title')">
-          <slot></slot>
+          <slot />
         </span>
         <Close
           v-if="showClose"
           :class="ns.e('close')"
           size="18"
           @click.stop="close"
-        ></Close>
+        />
       </div>
     </div>
   </transition>

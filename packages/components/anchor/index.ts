@@ -1,6 +1,6 @@
-import { withInstall } from '@/utils'
 import anchor from './src/anchor.vue'
 import anchorItem from './src/anchor-item.vue'
+import { withInstall } from '@/utils'
 
 export * from './src/anchor'
 export const NAnchor = withInstall(anchor)

@@ -1,9 +1,5 @@
 <template>
-  <transition
-    :name="transition"
-    @enter="$emit('open')"
-    @leave="$emit('close')"
-  >
+  <transition :name="transition" @enter="$emit('open')" @leave="$emit('close')">
     <n-overlay
       v-show="modelValue"
       :custom-class="maskerClass"
@@ -17,11 +13,7 @@
         @mousedown="overlayEvent.onMousedown"
         @mouseup="overlayEvent.onMouseup"
       >
-        <div
-          ref="dialogRef"
-          :class="dialogCls"
-          :style="dialogStyle"
-        >
+        <div ref="dialogRef" :class="dialogCls" :style="dialogStyle">
           <div v-if="!$slots.header" :class="ns.e('header')">
             <div :class="ns.e('title')">{{ title }}</div>
             <component
@@ -29,30 +21,28 @@
               v-if="closeIcon"
               :class="ns.e('close')"
               @click="close"
-            ></component>
+            />
             <Close
               v-else-if="showClose"
               size="18"
               :class="ns.e('close')"
               @click="close"
-            ></Close>
+            />
           </div>
-          <slot v-else name="header"></slot>
+          <slot v-else name="header" />
           <div :class="ns.e('content')">
             <div v-if="content">{{ content }}</div>
-            <slot v-else></slot>
+            <slot v-else />
           </div>
           <div v-if="!$slots.footer" :class="ns.e('footer')">
-            <n-button v-if="showCancel" @click="handleCancel">{{ cancelText }}</n-button>
-            <n-button
-              v-if="showConfirm"
-              type="primary"
-              @click="handleConfirm"
-            >
+            <n-button v-if="showCancel" @click="handleCancel">{{
+              cancelText
+            }}</n-button>
+            <n-button v-if="showConfirm" type="primary" @click="handleConfirm">
               {{ confirmText }}
             </n-button>
           </div>
-          <slot v-else name="footer"></slot>
+          <slot v-else name="footer" />
         </div>
       </div>
     </n-overlay>
@@ -61,13 +51,13 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { NButton, NOverlay } from '@/components'
 import { RiCloseLine as Close } from '@remixicon/vue'
-import { dialogProps, dialogEmits } from './dialog'
-import { isString, isFunction } from 'lodash'
-import { useSameTarget, useZIndex, useNamespace } from '@/composables'
-
+import { isFunction, isString } from 'lodash'
+import { dialogEmits, dialogProps } from './dialog'
 import type { CSSProperties } from 'vue'
+import { useNamespace, useSameTarget, useZIndex } from '@/composables'
+
+import { NButton, NOverlay } from '@/components'
 
 defineOptions({
   name: 'NDialog'
@@ -83,7 +73,7 @@ const ns = useNamespace('dialog')
 
 const dialogStyle = computed<CSSProperties>(() => {
   return {
-    width: isString(props.width) ? props.width : props.width + 'px',
+    width: isString(props.width) ? props.width : `${props.width}px`,
     margin: `${dialogMargin.value} auto auto`
   }
 })
@@ -94,13 +84,14 @@ const dialogCls = computed(() => [
   props.customClass
 ])
 
-const dialogMargin = computed(() => isString(props.offsetTop) ? props.offsetTop : props.offsetTop + 'vh')
+const dialogMargin = computed(() =>
+  isString(props.offsetTop) ? props.offsetTop : `${props.offsetTop}vh`
+)
 
 const close = () => {
   if (isFunction(props.beforeClose)) {
     props.beforeClose(() => emit('update:modelValue', false))
-  }
-  else {
+  } else {
     emit('update:modelValue', false)
   }
 }
@@ -121,4 +112,3 @@ const clickMaskerToClose = () => {
 
 const overlayEvent = useSameTarget(clickMaskerToClose)
 </script>
-

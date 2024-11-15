@@ -1,7 +1,7 @@
 import { spawn } from 'child_process'
 import { projRoot } from './path'
 
-export const run = async(command: string, cwd: string = projRoot) => {
+export const run = async (command: string, cwd: string = projRoot) => {
   return new Promise<void>((resolve, reject) => {
     const [cmd, ...args] = command.split(' ')
     const app = spawn(cmd, args, {
@@ -24,4 +24,3 @@ export const run = async(command: string, cwd: string = projRoot) => {
     process.on('exit', onProcessExit)
   })
 }
-

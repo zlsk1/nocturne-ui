@@ -1,25 +1,25 @@
 <template>
   <div :class="ns.b()">
-    <slot name="default"></slot>
+    <slot name="default" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { provide, toRefs, reactive, computed, ref, type Ref } from 'vue'
-import { formProps, formEmit } from './form'
+import { type Ref, computed, provide, reactive, ref, toRefs } from 'vue'
+import { formEmit, formProps } from './form'
 import { FORM_INJECTION_KEY } from './constants'
-import { useNamespace } from '@/composables'
 
-import type { NFormItemInjectionContext, Callback } from './types'
+import type { Callback, NFormItemInjectionContext } from './types'
 import type { ValidateFieldsError } from 'async-validator'
 import type { FormItemProps } from './form-item'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NForm'
 })
 
 const props = defineProps(formProps)
-const emit = defineEmits(formEmit)
+defineEmits(formEmit)
 
 const ns = useNamespace('form')
 
@@ -29,25 +29,25 @@ const maxLabelWidth = computed(() => {
   if (fields.value.length === 0) return 0
 
   return fields.value
-    .map(v => v.labelWidth)
+    .map((v) => v.labelWidth)
     .reduce((prev, next) => {
       const max = Math.max(prev, next)
       return max
     })
 })
 
-const validate = (callback: Callback): Promise<boolean> => handleValidate(callback)
+const validate = (callback: Callback): Promise<boolean> =>
+  handleValidate(callback)
 
-const handleValidate = async(callback: Callback): Promise<boolean> => {
+const handleValidate = async (callback: Callback): Promise<boolean> => {
   let validateErrors: ValidateFieldsError = {}
   for (const field of fields.value) {
     try {
       await field.validate()
-    }
-    catch (field) {
+    } catch (field) {
       validateErrors = {
         ...validateErrors,
-        ...field as ValidateFieldsError
+        ...(field as ValidateFieldsError)
       }
     }
   }
@@ -55,8 +55,7 @@ const handleValidate = async(callback: Callback): Promise<boolean> => {
   if (Object.keys(validateErrors).length === 0) {
     callback(true)
     return true
-  }
-  else {
+  } else {
     callback(false, validateErrors)
     return Promise.reject(validateErrors)
   }
@@ -73,17 +72,19 @@ const addField = (formItemContext: NFormItemInjectionContext) => {
 }
 
 const clearField = (prop: FormItemProps['prop']) => {
-  const field = fields.value.find(field => field.prop === prop)
+  const field = fields.value.find((field) => field.prop === prop)
   if (field === undefined) return
   field.clearField()
 }
 
-provide(FORM_INJECTION_KEY,
+provide(
+  FORM_INJECTION_KEY,
   reactive({
     ...toRefs(props),
     addField,
     maxLabelWidth
-  }))
+  })
+)
 
 defineExpose({
   validate,

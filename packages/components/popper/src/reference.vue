@@ -1,21 +1,18 @@
 <template>
-  <NOnlyChild
-    v-bind="$attrs"
-  >
-    <slot></slot>
+  <NOnlyChild v-bind="$attrs">
+    <slot />
   </NOnlyChild>
 </template>
 
 <script lang="ts" setup>
-import { inject, onMounted, watch, computed, onBeforeUnmount } from 'vue'
+import { computed, inject, onBeforeUnmount, onMounted, watch } from 'vue'
+import { unrefElement } from '@vueuse/core'
 import { popperReferenceProps } from './reference'
 import { POPPER_INJECTION_KEY } from './constants'
+import type { WatchStopHandle } from 'vue'
 import { isElement } from '@/utils'
-import { unrefElement } from '@vueuse/core'
 import { NOnlyChild } from '@/components/slot'
 import { useForwardRef } from '@/composables'
-
-import type { WatchStopHandle } from 'vue'
 
 defineOptions({
   name: 'NPopperReference'
@@ -70,7 +67,7 @@ onMounted(() => {
       virtualTriggerAriaStopWatch?.()
       virtualTriggerAriaStopWatch = undefined
       if (isElement(el)) {
-        (
+        ;(
           [
             'onMouseenter',
             'onMouseleave',
@@ -83,11 +80,11 @@ onMounted(() => {
         ).forEach((eventName) => {
           const handler = props[eventName]
           if (handler) {
-            (el as HTMLElement).addEventListener(
+            ;(el as HTMLElement).addEventListener(
               eventName.slice(2).toLowerCase(),
               handler
-            );
-            (prevEl as HTMLElement)?.removeEventListener?.(
+            )
+            ;(prevEl as HTMLElement)?.removeEventListener?.(
               eventName.slice(2).toLowerCase(),
               handler
             )
@@ -96,7 +93,7 @@ onMounted(() => {
         virtualTriggerAriaStopWatch = watch(
           [ariaControls, ariaDescribedby, ariaHaspopup, ariaExpanded],
           (watches) => {
-            [
+            ;[
               'aria-controls',
               'aria-describedby',
               'aria-haspopup',
@@ -111,7 +108,7 @@ onMounted(() => {
         )
       }
       if (isElement(prevEl)) {
-        [
+        ;[
           'aria-controls',
           'aria-describedby',
           'aria-haspopup',

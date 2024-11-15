@@ -1,18 +1,18 @@
 import { createVNode, isVNode, render } from 'vue'
 import Notification from './notification.vue'
-import { isElement, isString } from '@/utils'
 import { notificationDefaultOptions, notificationType } from './notification'
 
 import type {
-  NotificationFn,
-  NotificationType,
-  closeHandler,
   MergeParamsNormalized,
-  NotificationPlacements,
+  NotificationFn,
   NotificationOptions,
-  NotificationProps
+  NotificationPlacements,
+  NotificationProps,
+  NotificationType,
+  closeHandler
 } from './notification'
-import type { AppContext, VNode, ComponentInternalInstance } from 'vue'
+import type { AppContext, ComponentInternalInstance, VNode } from 'vue'
+import { isElement, isString } from '@/utils'
 
 type InstanceType = {
   id: string
@@ -41,8 +41,7 @@ const normalizedProps = (props: NotificationOptions) => {
 
   if (!mergeParams.appendTo) {
     mergeParams.appendTo = document.body
-  }
-  else if (isString(mergeParams.appendTo)) {
+  } else if (isString(mergeParams.appendTo)) {
     let appendTo = document.querySelector<HTMLElement>(mergeParams.appendTo)
 
     if (!isElement(appendTo)) {
@@ -56,7 +55,10 @@ const normalizedProps = (props: NotificationOptions) => {
   return mergeParams as MergeParamsNormalized
 }
 
-const createInstance = (props: MergeParamsNormalized, context?: AppContext | null) => {
+const createInstance = (
+  props: MergeParamsNormalized,
+  context?: AppContext | null
+) => {
   const id = `notification--${instaceCount++}`
   const container = document.createElement('div')
   const _close = props.onClose
@@ -83,9 +85,7 @@ const createInstance = (props: MergeParamsNormalized, context?: AppContext | nul
   const vnode = createVNode(
     Notification,
     options,
-    isVNode(props.content)
-      ? { default: () => props.content }
-      : null
+    isVNode(props.content) ? { default: () => props.content } : null
   )
 
   vnode.appContext = context || notification._context || null
@@ -111,7 +111,10 @@ const createInstance = (props: MergeParamsNormalized, context?: AppContext | nul
   return instance
 }
 
-const notification: NotificationFn & Partial<NotificationType> & { _context?: AppContext | null } & { closeAll: () => void } = (props, context): closeHandler => {
+const notification: NotificationFn &
+  Partial<NotificationType> & { _context?: AppContext | null } & {
+    closeAll: () => void
+  } = (props, context): closeHandler => {
   const normalized = normalizedProps(props)
   const instance = createInstance(normalized, context)
   instances[normalized.placement].push(instance)
@@ -119,8 +122,11 @@ const notification: NotificationFn & Partial<NotificationType> & { _context?: Ap
   return instance.handler
 }
 
-notificationType.forEach(type => {
-  notification[type] = (props: NotificationOptions, context?: AppContext | null) => {
+notificationType.forEach((type) => {
+  notification[type] = (
+    props: NotificationOptions,
+    context?: AppContext | null
+  ) => {
     const normalized = normalizedProps(props)
 
     return notification({ ...normalized, type }, context)
@@ -129,7 +135,7 @@ notificationType.forEach(type => {
 
 const closeNotification = (id: string, placement: NotificationPlacements) => {
   const _instance = instances[placement]
-  const idx = _instance.findIndex(instace => instace.id === id)
+  const idx = _instance.findIndex((instace) => instace.id === id)
   if (idx <= -1) return
 
   _instance[idx].handler.close()
@@ -137,11 +143,12 @@ const closeNotification = (id: string, placement: NotificationPlacements) => {
   for (let i = idx + 1; i < _instance.length; i++) {
     if (placement.startsWith('top')) {
       _instance[i].vnode.component!.props.offset =
-      Number.parseInt(_instance[i].vnode.el!.style.top, 10) - (_instance[i].vm.exposed?.height.value + GAP)
-    }
-    else if (placement.startsWith('bottom')) {
+        Number.parseInt(_instance[i].vnode.el!.style.top, 10) -
+        (_instance[i].vm.exposed?.height.value + GAP)
+    } else if (placement.startsWith('bottom')) {
       _instance[i].vnode.component!.props.offset =
-      Number.parseInt(_instance[i].vnode.el!.style.bottom, 10) - (_instance[i].vm.exposed?.height.value + GAP)
+        Number.parseInt(_instance[i].vnode.el!.style.bottom, 10) -
+        (_instance[i].vm.exposed?.height.value + GAP)
     }
   }
 
@@ -149,8 +156,10 @@ const closeNotification = (id: string, placement: NotificationPlacements) => {
 }
 
 notification.closeAll = () => {
-  Object.keys(instances).forEach(placement => {
-    instances[placement as keyof typeof instances].forEach(instance => instance.handler.close())
+  Object.keys(instances).forEach((placement) => {
+    instances[placement as keyof typeof instances].forEach((instance) =>
+      instance.handler.close()
+    )
   })
 }
 

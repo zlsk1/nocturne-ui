@@ -1,7 +1,7 @@
 import popover from './popover.vue'
-import { useTooltipProps } from '@/components/tooltip'
-import { isBoolean, definePropType } from '@/utils'
 import type { ExtractPropTypes, PropType } from 'vue'
+import { useTooltipProps } from '@/components/tooltip'
+import { definePropType, isBoolean } from '@/utils'
 
 export const popoverProps = {
   ...useTooltipProps,

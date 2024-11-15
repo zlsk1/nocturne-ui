@@ -1,6 +1,6 @@
-import { isNumber } from '@/utils'
 import SliderReference from './reference.vue'
 import type { ExtractPropTypes } from 'vue'
+import { isNumber } from '@/utils'
 
 export const sliderReferenceProps = {
   showTooltip: {

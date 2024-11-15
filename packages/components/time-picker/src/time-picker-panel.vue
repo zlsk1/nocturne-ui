@@ -12,7 +12,7 @@
           :key="_key"
           :class="[
             ns.is('active', timeObj[item] === value),
-            ns.is('disabled', disabled),
+            ns.is('disabled', disabled)
           ]"
           @click="handleClick(item, value, disabled)"
         >
@@ -21,18 +21,8 @@
       </ul>
     </div>
     <div :class="ns.m('panel__btns')">
-      <n-button
-        size="small"
-        text
-        @mousedown="getNow"
-      >
-        此刻
-      </n-button>
-      <n-button
-        type="primary"
-        size="small"
-        @mousedown="handleConfirm"
-      >
+      <n-button size="small" text @mousedown="getNow"> 此刻 </n-button>
+      <n-button type="primary" size="small" @mousedown="handleConfirm">
         确定
       </n-button>
     </div>
@@ -40,19 +30,22 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch, onMounted, nextTick, unref } from 'vue'
-import { timePickerPanelProps, timePickerPanelEmit } from './props/time-picker-panel'
-import { timeUnits } from './constants'
-import { getTimelist } from './composables/use-time-picker'
+import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
 import dayjs from 'dayjs'
-import { NButton } from '@/components'
+import { getTimelist } from './composables/use-time-picker'
+import { timeUnits } from './constants'
+import {
+  timePickerPanelEmit,
+  timePickerPanelProps
+} from './props/time-picker-panel'
 import { usePickPanel } from './composables/use-pick-panel'
-import { useNamespace } from '@/composables'
 
 import type { Ref } from 'vue'
 import type { TimeUnits } from './constants'
 import type { Timelist } from './type'
 import type { Dayjs } from 'dayjs'
+import { NButton } from '@/components'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NPickerPanel'
@@ -137,9 +130,13 @@ const setRef = (el: any, type: TimeUnits) => {
   typeRefs.value[type] = el ?? undefined
 }
 
-const getScrollEl = (type: TimeUnits) => typeRefs.value[type]?.querySelector('li') as HTMLElement
+const getScrollEl = (type: TimeUnits) =>
+  typeRefs.value[type]?.querySelector('li') as HTMLElement
 
-const getItemHeight = (el: HTMLElement) => parseFloat(document.defaultView?.getComputedStyle((el)).height || el.style.height)
+const getItemHeight = (el: HTMLElement) =>
+  parseFloat(
+    document.defaultView?.getComputedStyle(el).height || el.style.height
+  )
 
 const doScroll = (type: TimeUnits, value: number, disabled?: boolean) => {
   if (disabled) return

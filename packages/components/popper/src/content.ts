@@ -1,10 +1,10 @@
 import { placements } from '@popperjs/core'
-import { definePropType } from '@/utils'
 
 import type { ExtractPropTypes, StyleValue } from 'vue'
 import type { Options, Placement } from '@popperjs/core'
 import type { Measurable } from './constants'
 import type Content from './content.vue'
+import { definePropType } from '@/utils'
 
 export type ClassObjectType = Record<string, boolean>
 export type ClassType = string | ClassObjectType | ClassType[]
@@ -53,7 +53,9 @@ export const popperCoreConfigProps = {
    */
   popperOptions: {
     type: definePropType<Partial<Options>>(Object),
-    default: () => { return {} }
+    default: () => {
+      return {}
+    }
   },
   strategy: {
     type: String,

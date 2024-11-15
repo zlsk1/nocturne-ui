@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { ref, onBeforeUnmount, watch } from 'vue'
-import { getTime, formatTime } from './utils'
-import { countdownProps, countdownEmits } from './countdown'
-import { setTimer, cancelTimer } from '@/utils/timer'
+import { onBeforeUnmount, ref, watch } from 'vue'
+import { formatTime, getTime } from './utils'
+import { countdownEmits, countdownProps } from './countdown'
+import { cancelTimer, setTimer } from '@/utils/timer'
 import { NStatistic } from '@/components'
 
 defineOptions({
@@ -39,8 +39,7 @@ const startTimer = () => {
       diff = 0
       stopTimer()
       emit('finish')
-    }
-    else {
+    } else {
       timer = setTimer(frameFunc)
     }
     rawValue.value = diff
@@ -69,6 +68,6 @@ watch(
     :value-style="valueStyle"
     :formatter="formatter"
   >
-    <slot></slot>
+    <slot />
   </n-statistic>
 </template>

@@ -1,35 +1,27 @@
 <template>
-  <div
-    :class="ns.b()"
-    @mouseenter="onMouseenter"
-    @mouseleave="onMouseleave"
-  >
+  <div :class="ns.b()" @mouseenter="onMouseenter" @mouseleave="onMouseleave">
     <button
       v-if="showArrow && !$slots.prev"
       :class="[
         ns.e('button'),
         ns.em('button', 'left'),
-        ns.is('animation', isHover),
+        ns.is('animation', isHover)
       ]"
       @click="handlePrev"
     >
       <NIcon>
-        <component :is="ArrowLeft"></component>
+        <component :is="ArrowLeft" />
       </NIcon>
     </button>
-    <div
-      v-else
-      :class="ns.em('slot', 'prev')"
-      @click="handlePrev"
-    >
-      <slot name="prev"></slot>
+    <div v-else :class="ns.em('slot', 'prev')" @click="handlePrev">
+      <slot name="prev" />
     </div>
     <div
       ref="contentRef"
       :class="ns.e('content')"
       :style="{ height: height + 'px' }"
     >
-      <slot></slot>
+      <slot />
     </div>
     <ul v-if="!hideIndicator" :class="ns.e('indicator')">
       <li
@@ -43,7 +35,7 @@
             ns.is('active', i === currentIndex),
             ns.is('round', indicatorShape === 'round')
           ]"
-        ></button>
+        />
       </li>
     </ul>
     <button
@@ -51,35 +43,31 @@
       :class="[
         ns.e('button'),
         ns.em('button', 'right'),
-        ns.is('animation', isHover),
+        ns.is('animation', isHover)
       ]"
       @click="handleNext"
     >
       <NIcon v-if="!$slots.next">
-        <component :is="ArrowRight"></component>
+        <component :is="ArrowRight" />
       </NIcon>
     </button>
-    <div
-      v-else
-      :class="ns.em('slot', 'next')"
-      @click="handleNext"
-    >
-      <slot name="next"></slot>
+    <div v-else :class="ns.em('slot', 'next')" @click="handleNext">
+      <slot name="next" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { onMounted, provide, ref, watch } from 'vue'
-import { carouselProps, carouselEmits } from './carousel'
-import { NIcon } from '@/components'
-import { CAROUSEL_INJECT_KEY } from './constants'
 import { useIntervalFn, useThrottleFn } from '@vueuse/core'
-import { useNamespace } from '@/composables'
 import {
   RiArrowLeftSFill as ArrowLeft,
   RiArrowRightSFill as ArrowRight
 } from '@remixicon/vue'
+import { carouselEmits, carouselProps } from './carousel'
+import { CAROUSEL_INJECT_KEY } from './constants'
+import { NIcon } from '@/components'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NCarousel'
@@ -111,16 +99,14 @@ watch(currentIndex, (newVal, oldVal) => {
 const onPrev = () => {
   if (currentIndex.value === 0) {
     currentIndex.value = itemCount.value - 1
-  }
-  else {
+  } else {
     --currentIndex.value
   }
 }
 const onNext = () => {
   if (currentIndex.value === itemCount.value - 1) {
     currentIndex.value = 0
-  }
-  else {
+  } else {
     ++currentIndex.value
   }
 }
@@ -146,7 +132,7 @@ const onMouseleave = () => {
 
 const setInterval = () => {
   if (!props.autoplay) return
-  ({ pause: stopInterval, resume: startInterval } = useIntervalFn(() => {
+  ;({ pause: stopInterval, resume: startInterval } = useIntervalFn(() => {
     handleNext()
   }, props.interval))
 }

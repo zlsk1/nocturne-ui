@@ -1,8 +1,8 @@
 import form from './form.vue'
-import { isObject, definePropType } from '@/utils'
 import { positionValues } from './form-item'
 
 import type { ExtractPropTypes } from 'vue'
+import { definePropType, isObject } from '@/utils'
 
 export const formProps = {
   model: Object,

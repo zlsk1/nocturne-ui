@@ -1,6 +1,6 @@
 import { ExtractPropTypes } from 'vue'
-import { definePropType } from '@/utils'
 import Badge from './badge.vue'
+import { definePropType } from '@/utils'
 
 export const badgeProps = {
   value: {

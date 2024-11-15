@@ -1,8 +1,7 @@
 import notification from './notification.vue'
-import { messageTypes } from '@/components/message'
-import { definePropType, mutable, iconPropType, isClient } from '@/utils'
-
 import type { AppContext, ExtractPropTypes, VNode } from 'vue'
+import { messageTypes } from '@/components/message'
+import { definePropType, iconPropType, isClient, mutable } from '@/utils'
 
 export const notificationDefaultOptions = mutable({
   title: '',
@@ -20,7 +19,11 @@ export const notificationDefaultOptions = mutable({
   max: 3
 } as const)
 
-export type NotificationPlacements = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+export type NotificationPlacements =
+  | 'top-right'
+  | 'top-left'
+  | 'bottom-right'
+  | 'bottom-left'
 
 export const notificationType = [...messageTypes]
 
@@ -96,16 +99,22 @@ export type NotificationParams = Partial<Omit<NotificationProps, 'id'>>
 export type WithoutType = Partial<Omit<NotificationParams, 'type'>>
 export type NotificationOptions = WithoutType | NotificationParams['content']
 export type MergeParams = Omit<NotificationProps, 'id'> | WithoutType
-export type MergeParamsNormalized = MergeParams & { appendTo: HTMLElement, placement: NotificationPlacements }
+export type MergeParamsNormalized = MergeParams & {
+  appendTo: HTMLElement
+  placement: NotificationPlacements
+}
 
-export type NotificationTypeFn = (props: NotificationOptions, context?: AppContext | null) => closeHandler
+export type NotificationTypeFn = (
+  props: NotificationOptions,
+  context?: AppContext | null
+) => closeHandler
 export type NotificationFn = {
   (props: MergeParams, context?: AppContext | null): closeHandler
 }
 
 export interface NotificationType extends NotificationFn {
-  info: NotificationTypeFn,
-  success: NotificationTypeFn,
-  error: NotificationTypeFn,
-  warning: NotificationTypeFn,
+  info: NotificationTypeFn
+  success: NotificationTypeFn
+  error: NotificationTypeFn
+  warning: NotificationTypeFn
 }

@@ -1,6 +1,6 @@
 <template>
   <div :class="ns.b()">
-    <slot></slot>
+    <slot />
   </div>
 </template>
 

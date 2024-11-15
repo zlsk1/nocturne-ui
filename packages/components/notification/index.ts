@@ -1,5 +1,5 @@
-import { withInstallFunction } from '@/utils'
 import notification from './src/method'
+import { withInstallFunction } from '@/utils'
 
 export * from './src/notification'
 export const NNotification = withInstallFunction(notification, '$notification')

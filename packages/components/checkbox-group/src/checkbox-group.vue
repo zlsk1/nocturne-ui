@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { nextTick, provide, toRefs, computed } from 'vue'
-import { checkboxGroupProps, checkboxGroupEmits } from './checkbox-group'
+import { computed, nextTick, provide, toRefs } from 'vue'
 import { checkboxGroupContextKey } from '../../checkbox/src/constants'
-import { CheckboxGroupValueType } from './checkbox-group'
+import { checkboxGroupEmits, checkboxGroupProps } from './checkbox-group'
+import type { CheckboxGroupValueType } from './checkbox-group'
 import { useFormItemId } from '@/components/form'
 import { useNamespace } from '@/composables'
 
@@ -17,7 +17,7 @@ const ns = useNamespace('checkbox')
 
 const formId = useFormItemId()
 
-const changeEvent = async(value: CheckboxGroupValueType) => {
+const changeEvent = async (value: CheckboxGroupValueType) => {
   emit('update:modelValue', value)
   await nextTick()
   emit('change', value)
@@ -40,11 +40,7 @@ provide(checkboxGroupContextKey, {
 </script>
 
 <template>
-  <div
-    :id="formId"
-    ref="groupRef"
-    :class="ns.b('group')"
-  >
-    <slot></slot>
+  <div :id="formId" ref="groupRef" :class="ns.b('group')">
+    <slot />
   </div>
 </template>

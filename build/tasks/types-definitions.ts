@@ -5,15 +5,14 @@ import * as vueCompiler from 'vue/compiler-sfc'
 import glob from 'fast-glob'
 import { Project } from 'ts-morph'
 import {
-  pkgRoot,
   distRoot,
-  projRoot,
-
   excludeFiles,
-  pathRewriter
+  pathRewriter,
+  pkgRoot,
+  projRoot
 } from '../utils'
 
-import type { CompilerOptions, SourceFile, OutputFile } from 'ts-morph'
+import type { CompilerOptions, OutputFile, SourceFile } from 'ts-morph'
 
 const TSCONFIG_PATH = path.resolve(projRoot, 'tsconfig.node.json')
 const outDir = path.resolve(distRoot, 'types')
@@ -21,7 +20,7 @@ const outDir = path.resolve(distRoot, 'types')
 /**
  * fork = require( https://github.com/egoist/vue-dts-gen/blob/main/src/index.ts
  */
-export const generateTypesDefinitions = async() => {
+export const generateTypesDefinitions = async () => {
   const compilerOptions: CompilerOptions = {
     emitDeclarationOnly: true,
     outDir,
@@ -44,7 +43,7 @@ export const generateTypesDefinitions = async() => {
     emitOnlyDtsFiles: true
   })
 
-  const tasks = sourceFiles.map(async(sourceFile) => {
+  const tasks = sourceFiles.map(async (sourceFile) => {
     const relativePath = path.relative(pkgRoot, sourceFile.getFilePath())
 
     const emitOutput = sourceFile.getEmitOutput()
@@ -54,17 +53,13 @@ export const generateTypesDefinitions = async() => {
       throw new Error(`Emit no file: ${relativePath}`)
     }
 
-    const subTasks = emitFiles.map(async(outputFile: OutputFile) => {
+    const subTasks = emitFiles.map(async (outputFile: OutputFile) => {
       const filepath = outputFile.getFilePath()
       await mkdir(path.dirname(filepath), {
         recursive: true
       })
 
-      await writeFile(
-        filepath,
-        pathRewriter()(outputFile.getText()),
-        'utf8'
-      )
+      await writeFile(filepath, pathRewriter()(outputFile.getText()), 'utf8')
     })
 
     await Promise.all(subTasks)
@@ -87,7 +82,7 @@ async function addSourceFiles(project: Project) {
 
   const sourceFiles: SourceFile[] = []
   await Promise.all([
-    ...filePaths.map(async(file) => {
+    ...filePaths.map(async (file) => {
       if (file.endsWith('.vue')) {
         const content = await readFile(file, 'utf-8')
         const hasTsNoCheck = content.includes('@ts-nocheck')
@@ -112,8 +107,7 @@ async function addSourceFiles(project: Project) {
           )
           sourceFiles.push(sourceFile)
         }
-      }
-      else {
+      } else {
         const sourceFile = project.addSourceFileAtPath(file)
         sourceFiles.push(sourceFile)
       }

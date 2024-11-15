@@ -7,9 +7,9 @@ export const usePickPanel = (timelist: Timelist) => {
   const getAvailableTime = (date: Dayjs) => {
     let result = date
 
-    timeUnits.forEach(type => {
+    timeUnits.forEach((type) => {
       const availableValue: number[] = []
-      timelist[type].forEach(time => {
+      timelist[type].forEach((time) => {
         if (time.value && !time.disabled) availableValue.push(time.value)
       })
 

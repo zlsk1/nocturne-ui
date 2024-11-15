@@ -1,37 +1,27 @@
 <template>
   <div :class="[ns.b(), ns.is('vertical', vertical)]">
-    <div
-      ref="bar"
-      :class="ns.e('bar')"
-      @click="handleClick"
-    ></div>
+    <div ref="bar" :class="ns.e('bar')" @click="handleClick" />
     <div
       ref="thumb"
       :class="ns.e('thumb')"
       :style="{
         left: thumbLeft + 'px',
-        top: thumbTop + 'px',
+        top: thumbTop + 'px'
       }"
     >
-      <div></div>
+      <div />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {
-  computed,
-  getCurrentInstance,
-  onMounted,
-  ref,
-  watch
-} from 'vue'
-import { getClientXY } from '@/utils'
+import { computed, getCurrentInstance, onMounted, ref, watch } from 'vue'
 import { draggable } from './utils/draggable'
-import { useNamespace } from '@/composables'
 
 import type { PropType } from 'vue'
 import type Color from './utils/color'
+import { useNamespace } from '@/composables'
+import { getClientXY } from '@/utils'
 
 defineOptions({
   name: 'NColorHueBar'
@@ -87,19 +77,18 @@ function handleDrag(event: MouseEvent | TouchEvent) {
 
     hue = Math.round(
       ((left - thumb.value.offsetWidth / 2) /
-          (rect.width - thumb.value.offsetWidth)) *
-          360
+        (rect.width - thumb.value.offsetWidth)) *
+        360
     )
-  }
-  else {
+  } else {
     let top = clientY - rect.top
 
     top = Math.min(top, rect.height - thumb.value.offsetHeight / 2)
     top = Math.max(thumb.value.offsetHeight / 2, top)
     hue = Math.round(
       ((top - thumb.value.offsetHeight / 2) /
-          (rect.height - thumb.value.offsetHeight)) *
-          360
+        (rect.height - thumb.value.offsetHeight)) *
+        360
     )
   }
   props.color.set('hue', hue)

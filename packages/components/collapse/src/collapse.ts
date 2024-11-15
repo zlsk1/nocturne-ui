@@ -1,8 +1,6 @@
 import { ExtractPropTypes } from 'vue'
 import Collapse from './collapse.vue'
-import {
-  definePropType
-} from '@/utils'
+import { definePropType } from '@/utils'
 
 export const collapseProps = {
   modelValue: definePropType<string | []>([String, Array]),

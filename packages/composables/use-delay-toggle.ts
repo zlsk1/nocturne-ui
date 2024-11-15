@@ -1,8 +1,7 @@
 import { unref } from 'vue'
+import type { ExtractPropTypes, ToRefs } from 'vue'
 import { useTimeout } from '@/composables'
 import { isNumber } from '@/utils'
-
-import type { ExtractPropTypes, ToRefs } from 'vue'
 
 export const useDelayedToggleProps = {
   /**

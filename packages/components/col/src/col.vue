@@ -1,22 +1,17 @@
 <template>
-  <component
-    :is="tag"
-    :class="colClass"
-    :style="colStyle"
-  >
-    <slot></slot>
+  <component :is="tag" :class="colClass" :style="colStyle">
+    <slot />
   </component>
 </template>
 
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
+import { isObject } from 'lodash'
 import { colProps } from './col'
+import type { CSSProperties } from 'vue'
 import { ROW_INJECTION_KEY } from '@/components/row/src/constants'
 import { isNumber } from '@/utils'
-import { isObject } from 'lodash'
 import { useNamespace } from '@/composables'
-
-import type { CSSProperties } from 'vue'
 
 defineOptions({
   name: 'NCol'
@@ -54,8 +49,7 @@ const colClass = computed(() => {
   sizes.forEach((size) => {
     if (isNumber(props[size])) {
       classes.push(ns.b(`${size}-${props[size]}`))
-    }
-    else if (isObject(props[size])) {
+    } else if (isObject(props[size])) {
       Object.entries(props[size]).forEach(([prop, sizeProp]) => {
         classes.push(
           prop !== 'span'

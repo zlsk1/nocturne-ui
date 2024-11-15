@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { avatarProps, avatarEmits } from './avatar'
+import { avatarEmits, avatarProps } from './avatar'
 import { useNamespace } from '@/composables'
 
 defineOptions({
@@ -13,12 +13,12 @@ const emit = defineEmits(avatarEmits)
 const ns = useNamespace('avatar')
 
 const sizeIsNumber = computed(() => {
-  return typeof (props.size) === 'number'
+  return typeof props.size === 'number'
 })
 
 const avatarCls = computed(() => [
   ns.b(),
-  ns.m(typeof (props.size) !== 'number' ? props.size : ''),
+  ns.m(typeof props.size !== 'number' ? props.size : ''),
   ns.m(props.shape)
 ])
 
@@ -32,7 +32,7 @@ const onError = (evt: Event) => {
     :class="avatarCls"
     :style="{
       width: sizeIsNumber ? size + 'px' : '',
-      height: sizeIsNumber ? size + 'px' : '',
+      height: sizeIsNumber ? size + 'px' : ''
     }"
   >
     <img
@@ -42,13 +42,10 @@ const onError = (evt: Event) => {
       :class="ns.e('img')"
       :style="{ objectFit: fit }"
       @error="onError"
-    >
-    <n-icon
-      v-else-if="icon"
-      :class="ns.e('icon')"
-    >
-      <component :is="icon"></component>
+    />
+    <n-icon v-else-if="icon" :class="ns.e('icon')">
+      <component :is="icon" />
     </n-icon>
-    <slot></slot>
+    <slot />
   </div>
 </template>

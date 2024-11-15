@@ -1,9 +1,7 @@
-import { definePropType } from '@/utils'
 import { ExtractPropTypes } from 'vue'
 import Input from './input.vue'
-import { isString, isNumber } from '@/utils'
+import { definePropType, iconPropType, isNumber, isString } from '@/utils'
 import { componentSizes } from '@/constants'
-import { iconPropType } from '@/utils'
 
 export const inputProps = {
   type: {

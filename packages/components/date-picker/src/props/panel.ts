@@ -1,6 +1,6 @@
-import { definePropType } from '@/utils'
-import { Dayjs } from 'dayjs'
 import { ExtractPropTypes } from 'vue'
+import { Dayjs } from 'dayjs'
+import { definePropType } from '@/utils'
 
 export const panelProps = {
   date: {

@@ -1,9 +1,8 @@
 import { defineComponent, h, inject } from 'vue'
 import { NBREADCRUMBINJECTIONKEY } from './constants'
+import type { ExtractPropTypes } from 'vue'
 import { isString, isUndefined } from '@/utils'
 import { useNamespace } from '@/composables'
-
-import type { ExtractPropTypes } from 'vue'
 
 export const breadcrumbItemProps = {
   path: String
@@ -33,16 +32,9 @@ export default defineComponent({
         class: [ns.be('content'), ns.is('link', !isUndefined(props.path))],
         onClick: () => onClick(props?.path)
       },
-      [
-        linkEl,
-        separatorEl
-      ]
+      [linkEl, separatorEl]
     )
 
-    return () => h(
-      'li',
-      { class: ns.be('items') },
-      children
-    )
+    return () => h('li', { class: ns.be('items') }, children)
   }
 })

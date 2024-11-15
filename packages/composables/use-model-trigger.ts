@@ -1,12 +1,8 @@
 import { computed, getCurrentInstance, onMounted, watch } from 'vue'
-import {
-  definePropType,
-  isBoolean,
-  isFunction
-} from '@/utils'
 
 import type { ExtractPropType } from '@/utils'
 import type { ComponentPublicInstance, ExtractPropTypes, Ref } from 'vue'
+import { definePropType, isBoolean, isFunction } from '@/utils'
 
 const _prop = {
   type: definePropType<boolean | null>(Boolean),
@@ -68,7 +64,7 @@ export const createModelToggleComposable = <T extends string>(name: T) => {
       if (toggleReason) {
         toggleReason.value = event
       }
-      if (typeof (onShow) === 'function') {
+      if (typeof onShow === 'function') {
         onShow(event)
       }
     }
@@ -82,7 +78,7 @@ export const createModelToggleComposable = <T extends string>(name: T) => {
       if (toggleReason) {
         toggleReason.value = event
       }
-      if (typeof (onHide) === 'function') {
+      if (typeof onHide === 'function') {
         onHide(event)
       }
     }
@@ -90,8 +86,10 @@ export const createModelToggleComposable = <T extends string>(name: T) => {
     const show = (event?: Event) => {
       if (
         props.disabled === true ||
-        (typeof (shouldProceed) === 'function' && !shouldProceed())
-      ) { return }
+        (typeof shouldProceed === 'function' && !shouldProceed())
+      ) {
+        return
+      }
 
       const shouldEmit = hasUpdateHandler.value
 
@@ -124,12 +122,10 @@ export const createModelToggleComposable = <T extends string>(name: T) => {
         if (hasUpdateHandler.value) {
           emit(updateEventKey, false)
         }
-      }
-      else if (indicator.value !== val) {
+      } else if (indicator.value !== val) {
         if (val) {
           doShow()
-        }
-        else {
+        } else {
           doHide()
         }
       }
@@ -138,8 +134,7 @@ export const createModelToggleComposable = <T extends string>(name: T) => {
     const toggle = () => {
       if (indicator.value) {
         hide()
-      }
-      else {
+      } else {
         show()
       }
     }

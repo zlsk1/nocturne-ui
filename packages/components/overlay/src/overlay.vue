@@ -1,8 +1,7 @@
 <script lang="ts">
 import { defineComponent, h } from 'vue'
-import { useSameTarget, useNamespace } from '@/composables'
-
 import type { ExtractPropTypes } from 'vue'
+import { useNamespace, useSameTarget } from '@/composables'
 
 export const overlayProps = {
   zIndex: Number,
@@ -35,40 +34,42 @@ export default defineComponent({
     const onMaskerClick = (e: MouseEvent) => {
       emit('click', e)
     }
-    const { onClick, onMousedown, onMouseup } = useSameTarget(props.customEvent ? undefined : onMaskerClick)
+    const { onClick, onMousedown, onMouseup } = useSameTarget(
+      props.customEvent ? undefined : onMaskerClick
+    )
     return () => {
       return props.masker
         ? h(
-          'div',
-          {
-            class: ns.b(),
-            style: {
-              zIndex: props.zIndex
+            'div',
+            {
+              class: ns.b(),
+              style: {
+                zIndex: props.zIndex
+              },
+              onClick,
+              onMousedown,
+              onMouseup
             },
-            onClick,
-            onMousedown,
-            onMouseup
-          },
-          slots.default?.()
-        )
+            slots.default?.()
+          )
         : h(
-          'div',
-          {
-            class: ns.b(),
-            style: {
-              zIndex: props.zIndex,
-              position: 'fixed',
-              top: '0px',
-              right: '0px',
-              bottom: '0px',
-              left: '0px'
+            'div',
+            {
+              class: ns.b(),
+              style: {
+                zIndex: props.zIndex,
+                position: 'fixed',
+                top: '0px',
+                right: '0px',
+                bottom: '0px',
+                left: '0px'
+              },
+              onClick,
+              onMousedown,
+              onMouseup
             },
-            onClick,
-            onMousedown,
-            onMouseup
-          },
-          slots.default?.()
-        )
+            slots.default?.()
+          )
     }
   }
 })

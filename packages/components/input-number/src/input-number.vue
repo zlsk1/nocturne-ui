@@ -1,13 +1,10 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { inputNumberProps, inputNumberEmits } from './input-number'
-import { NInput } from '@/components'
-import {
-  RiAddLine as Add,
-  RiSubtractLine as Subtract
-} from '@remixicon/vue'
-import { useNamespace } from '@/composables'
+import { RiAddLine as Add, RiSubtractLine as Subtract } from '@remixicon/vue'
+import { inputNumberEmits, inputNumberProps } from './input-number'
 import type { InputInstance } from '@/components/input/src/input'
+import { NInput } from '@/components'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NInputNumber'
@@ -29,19 +26,21 @@ const isMoreMax = computed(() => {
 })
 
 const _modelValue = computed<string | number | undefined>(() => {
-  return props.precision ? props.modelValue.toFixed(props.precision) : props.modelValue
+  return props.precision
+    ? props.modelValue.toFixed(props.precision)
+    : props.modelValue
 })
 
 const handleIncrease = () => {
   if (isMoreMax.value || props.disabled) return
   let { modelValue } = props
-  emit('update:modelValue', modelValue += props.step)
+  emit('update:modelValue', (modelValue += props.step))
 }
 
 const handleDecrease = () => {
   if (isLessMin.value || props.disabled) return
   let { modelValue } = props
-  emit('update:modelValue', modelValue -= props.step)
+  emit('update:modelValue', (modelValue -= props.step))
 }
 
 const handleBlur = (e: FocusEvent) => {
@@ -57,9 +56,13 @@ const handleFocus = (e: FocusEvent) => {
   emit('focus', e)
 }
 
-const blur = () => { inputRef.value?.inputRef?.blur() }
+const blur = () => {
+  inputRef.value?.inputRef?.blur()
+}
 
-const focus = () => { inputRef.value?.inputRef?.focus() }
+const focus = () => {
+  inputRef.value?.inputRef?.focus()
+}
 
 const handleChange = (val: number | string) => {
   emit('change', Number(val))
@@ -73,30 +76,19 @@ defineExpose({
 </script>
 
 <template>
-  <div
-    :class="[
-      ns.b(),
-      ns.is('disabled', disabled),
-    ]"
-  >
+  <div :class="[ns.b(), ns.is('disabled', disabled)]">
     <template v-if="controls">
       <span
-        :class="[
-          ns.e('decrease'),
-          ns.is('disabled', disabled),
-        ]"
+        :class="[ns.e('decrease'), ns.is('disabled', disabled)]"
         @click="handleDecrease"
       >
-        <Subtract></Subtract>
+        <Subtract />
       </span>
       <span
-        :class="[
-          ns.e('increase'),
-          ns.is('disabled', disabled),
-        ]"
+        :class="[ns.e('increase'), ns.is('disabled', disabled)]"
         @click="handleIncrease"
       >
-        <Add></Add>
+        <Add />
       </span>
     </template>
     <n-input
@@ -111,6 +103,6 @@ defineExpose({
       @blur="handleBlur"
       @focus="handleFocus"
       @change="handleChange"
-    ></n-input>
+    />
   </div>
 </template>

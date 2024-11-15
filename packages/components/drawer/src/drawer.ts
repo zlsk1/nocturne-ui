@@ -1,6 +1,6 @@
+import drawer from './drawer.vue'
 import type { ExtractPropTypes } from 'vue'
 import { definePropType, isBoolean } from '@/utils'
-import drawer from './drawer.vue'
 
 export const drawerPlacement = ['top', 'bottom', 'left', 'right']
 

@@ -1,19 +1,22 @@
 <template>
   <div :class="[ns.b()]">
     <ul :class="[ns.m('direction')]">
-      <slot></slot>
+      <slot />
     </ul>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { provide, ref, toRefs, getCurrentInstance } from 'vue'
-import { menuProps, menuEmit } from './menu'
-import { NMENU_INJECTION_KEY, NMenuInjectionContext, NSubMenuInjectionContext } from './constants'
-import { useNamespace } from '@/composables'
-
-import type { ExtistMenuItem } from './menu'
+import { getCurrentInstance, provide, ref, toRefs } from 'vue'
 import { isNil } from 'lodash'
+import { menuEmit, menuProps } from './menu'
+import { NMENU_INJECTION_KEY } from './constants'
+import type {
+  NMenuInjectionContext,
+  NSubMenuInjectionContext
+} from './constants'
+import type { ExtistMenuItem } from './menu'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NMenu'
@@ -31,14 +34,6 @@ const menuItems = ref<Record<string, any>>({})
 const subMenus = ref<Record<string, any>>({})
 const openedMenus: NMenuInjectionContext['openedMenus'] = ref([])
 const mouseInChild = ref(false)
-
-const addMenu = (item: ExtistMenuItem) => {
-  menuItems.value[item.index] = item
-}
-
-const removeMenu = (item: ExtistMenuItem) => {
-  delete menuItems.value[item.index]
-}
 
 const addSubMenu = (item: ExtistMenuItem) => {
   subMenus.value[item.index] = item

@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
-import { alertProps, alertEmits } from './alert'
-import { useNamespace } from '@/composables'
+import { computed, ref } from 'vue'
 import {
+  RiCloseLine as Close,
+  RiCloseCircleFill as Error,
   RiInformationFill as Info,
   RiCheckboxCircleFill as Success,
-  RiErrorWarningFill as Warning,
-  RiCloseCircleFill as Error,
-  RiCloseLine as Close
+  RiErrorWarningFill as Warning
 } from '@remixicon/vue'
+import { alertEmits, alertProps } from './alert'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NAlert'
@@ -45,27 +45,18 @@ const handleClose = (e: MouseEvent) => {
   isClose.value = true
   emit('close', e)
 }
-
 </script>
 
 <template>
   <div
-    :class="[
-      ...alertCls,
-      effect === 'light' ? ns.is('light') : ns.is('dark')
-    ]"
-    :style="{display: isClose ? 'none' : ''}"
+    :class="[...alertCls, effect === 'light' ? ns.is('light') : ns.is('dark')]"
+    :style="{ display: isClose ? 'none' : '' }"
   >
-    <n-icon
-      v-if="showIcon"
-      :class="ns.e('icon')"
-      size="18"
-    >
-      <component :is="icon"></component>
+    <n-icon v-if="showIcon" :class="ns.e('icon')" size="18">
+      <component :is="icon" />
     </n-icon>
     <div :class="ns.e('content')">
-      <slot name="title">
-      </slot>
+      <slot name="title" />
       <span v-if="title" :class="ns.e('title')">
         {{ title }}
       </span>
@@ -78,7 +69,7 @@ const handleClose = (e: MouseEvent) => {
         size="18"
         @click="handleClose"
       >
-        <component :is="Close"></component>
+        <component :is="Close" />
       </n-icon>
       <div
         v-else

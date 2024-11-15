@@ -2,12 +2,13 @@ import path from 'path'
 import { copyFile, cp, mkdir } from 'fs/promises'
 import { parallel, series } from 'gulp'
 import {
-  projRoot,
-  pkgRoot,
+  distRoot,
   pkgOutput,
-  distRoot
+  pkgRoot,
+  projRoot,
+  run,
+  withTaskName
 } from './utils'
-import { run, withTaskName } from './utils'
 import { buildConfig } from './build-info'
 import { buildModules } from './tasks/modules'
 import { buildFullBundle } from './tasks/full-bundle'
@@ -17,9 +18,18 @@ import type { Module } from './build-info'
 
 const copyFiles = () => {
   return Promise.all([
-    copyFile(path.resolve(pkgRoot, 'package.json'), path.resolve(pkgOutput, 'package.json')),
-    copyFile(path.resolve(projRoot, 'README.md'), path.resolve(pkgOutput, 'README.md')),
-    copyFile(path.resolve(projRoot, 'typings', 'global.d.ts'), path.resolve(pkgOutput, 'global.d.ts'))
+    copyFile(
+      path.resolve(pkgRoot, 'package.json'),
+      path.resolve(pkgOutput, 'package.json')
+    ),
+    copyFile(
+      path.resolve(projRoot, 'README.md'),
+      path.resolve(pkgOutput, 'README.md')
+    ),
+    copyFile(
+      path.resolve(projRoot, 'typings', 'global.d.ts'),
+      path.resolve(pkgOutput, 'global.d.ts')
+    )
   ])
 }
 
@@ -33,7 +43,7 @@ export const copyTypesDefinitions: TaskFunction = (done) => {
   return parallel(copyTypes('esm'), copyTypes('cjs'))(done)
 }
 
-export const copyFullStyle = async() => {
+export const copyFullStyle = async () => {
   await mkdir(path.resolve(pkgOutput, 'dist'), { recursive: true })
   await copyFile(
     path.resolve(pkgOutput, 'theme-chalk/index.css'),

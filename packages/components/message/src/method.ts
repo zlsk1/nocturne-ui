@@ -1,11 +1,4 @@
-import { createVNode, render, isVNode } from 'vue'
-import {
-  isClient,
-  isElement,
-  isFunction,
-  isNumber,
-  isString
-} from '@/utils'
+import { createVNode, isVNode, render } from 'vue'
 import { instances } from './instance'
 import MessageConstructor from './message.vue'
 import { messageDefaults, messageTypes } from './message'
@@ -14,14 +7,15 @@ import type { MessageContext } from './instance'
 import type { AppContext } from 'vue'
 import type {
   Message,
+  MessageConfigContext,
   MessageFn,
   MessageHandler,
   MessageOptions,
   MessageParams,
   MessageParamsNormalized,
-  messageType,
-  MessageConfigContext
+  messageType
 } from './message'
+import { isClient, isElement, isFunction, isNumber, isString } from '@/utils'
 
 let instaceCount = 1
 
@@ -38,11 +32,13 @@ const normalizeOptions = (params?: MessageParams) => {
 
   if (!normalized.appendTo) {
     normalized.appendTo = document.body
-  }
-  else if (isString(normalized.appendTo)) {
+  } else if (isString(normalized.appendTo)) {
     let appendTo = document.querySelector<HTMLElement>(normalized.appendTo)
     if (!isElement(appendTo)) {
-      console.warn('NMessage', 'the appendTo option is not an HTMLElement. Falling back to document.body.')
+      console.warn(
+        'NMessage',
+        'the appendTo option is not an HTMLElement. Falling back to document.body.'
+      )
       appendTo = document.body
     }
     normalized.appendTo = appendTo
@@ -84,10 +80,10 @@ const createMessage = (
     props,
     isFunction(props.message) || isVNode(props.message)
       ? {
-        default: isFunction(props.message) // 创建一个组件的 vnode 时，子节点必须以插槽函数进行传递
-          ? props.message
-          : () => props.message
-      }
+          default: isFunction(props.message) // 创建一个组件的 vnode 时，子节点必须以插槽函数进行传递
+            ? props.message
+            : () => props.message
+        }
       : null
   )
 
@@ -117,32 +113,32 @@ const createMessage = (
 
 const message: MessageFn &
   Partial<Message> & { _context: AppContext | null } = (
-    options = {},
-    context
-  ) => {
-    const messageConfig: MessageConfigContext = {}
-    if (!isClient) return { close: () => undefined }
+  options = {},
+  context
+) => {
+  const messageConfig: MessageConfigContext = {}
+  if (!isClient) return { close: () => undefined }
 
-    if (isNumber(messageConfig.max) && instances.length >= messageConfig.max) {
-      return { close: () => undefined }
-    }
-    const normalized = normalizeOptions(options)
-
-    if (normalized.grouping && instances.length) {
-      const instance = instances.find(
-        ({ vnode: vm }) => vm.props?.message === normalized.message
-      )
-      if (instance) {
-        instance.props.repeatNum += 1
-        instance.props.type = normalized.type
-        return instance.handler
-      }
-    }
-
-    const instance = createMessage(normalized, context)
-    instances.push(instance)
-    return instance.handler
+  if (isNumber(messageConfig.max) && instances.length >= messageConfig.max) {
+    return { close: () => undefined }
   }
+  const normalized = normalizeOptions(options)
+
+  if (normalized.grouping && instances.length) {
+    const instance = instances.find(
+      ({ vnode: vm }) => vm.props?.message === normalized.message
+    )
+    if (instance) {
+      instance.props.repeatNum += 1
+      instance.props.type = normalized.type
+      return instance.handler
+    }
+  }
+
+  const instance = createMessage(normalized, context)
+  instances.push(instance)
+  return instance.handler
+}
 
 // 实例方法
 messageTypes.forEach((type) => {

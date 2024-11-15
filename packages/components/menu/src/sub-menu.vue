@@ -3,7 +3,7 @@
     :class="[
       ns.m('container'),
       ns.is('hover', trigger === 'hover'),
-      `level-${subMenu?.level}`,
+      `level-${subMenu?.level}`
     ]"
     @mouseenter="() => handleMouseEnter()"
     @mouseleave="() => handleMouseLeave()"
@@ -27,7 +27,7 @@
         :class="ns.m('reference')"
         @click="handleClick"
       >
-        <slot name="title"></slot>
+        <slot name="title" />
         <Arrow
           v-if="!subMenu.level"
           size="16"
@@ -35,7 +35,7 @@
           :style="{
             transform: opened ? 'rotate(-90deg)' : 'rotate(90deg)'
           }"
-        ></Arrow>
+        />
         <Arrow
           v-else
           size="16"
@@ -43,7 +43,7 @@
           :style="{
             transform: opened ? 'rotate(180deg)' : 'none'
           }"
-        ></Arrow>
+        />
       </div>
       <template #content>
         <ul
@@ -51,7 +51,7 @@
           @mouseenter="() => handleMouseEnter(100)"
           @mouseleave="() => handleMouseLeave(true)"
         >
-          <slot name="default"></slot>
+          <slot name="default" />
         </ul>
       </template>
     </NTooltip>
@@ -60,18 +60,18 @@
       :class="[
         ns.m('reference'),
         ns.is('hover', trigger === 'hover'),
-        ns.is('collapse', collapse),
+        ns.is('collapse', collapse)
       ]"
       @click="handleClick"
     >
-      <slot name="title"></slot>
+      <slot name="title" />
       <Arrow
         size="16"
         :class="ns.e('item__arrow')"
         :style="{
           transform: opened ? 'rotate(-90deg)' : 'rotate(90deg)'
         }"
-      ></Arrow>
+      />
     </div>
     <NCollapseTransition v-if="!collapse">
       <ul
@@ -80,7 +80,7 @@
         @mouseenter="() => handleMouseEnter(100)"
         @mouseleave="() => handleMouseLeave(true)"
       >
-        <slot name="default"></slot>
+        <slot name="default" />
       </ul>
     </NCollapseTransition>
   </li>
@@ -88,26 +88,26 @@
 
 <script lang="ts" setup>
 import {
-  ref,
-  inject,
-  getCurrentInstance,
-  onMounted,
-  onBeforeUnmount,
   computed,
+  getCurrentInstance,
+  inject,
+  onBeforeUnmount,
+  onMounted,
   provide,
+  ref,
   watch
 } from 'vue'
-import { NTooltip, NCollapseTransition } from '@/components'
-import useMenu from './compoables/use-menu'
-import { subMenuProps, ExtistMenuItem } from './menu'
-import {
-  RiArrowRightWideFill as Arrow
-} from '@remixicon/vue'
-import { NMENU_INJECTION_KEY, NSubMenuInjectionContext } from './constants'
+import { RiArrowRightWideFill as Arrow } from '@remixicon/vue'
 import { useTimeoutFn } from '@vueuse/core'
+import useMenu from './compoables/use-menu'
+import { subMenuProps } from './menu'
+import { NMENU_INJECTION_KEY } from './constants'
+import type { ExtistMenuItem } from './menu'
+import type { NSubMenuInjectionContext } from './constants'
+import type { StyleValue } from 'vue'
 import { useNamespace } from '@/composables'
 
-import type { StyleValue } from 'vue'
+import { NCollapseTransition, NTooltip } from '@/components'
 
 defineOptions({
   name: 'NSubMenu'
@@ -122,7 +122,9 @@ const rootMenu = inject(NMENU_INJECTION_KEY, undefined)!
 if (!rootMenu) {
   throw new Error('n-sub-menu, can not inject the root-menu')
 }
-const subMenu = inject<NSubMenuInjectionContext>(`subMenu:${parentMenu.value.uid}`)
+const subMenu = inject<NSubMenuInjectionContext>(
+  `subMenu:${parentMenu.value.uid}`
+)
 if (!subMenu) {
   throw new Error('n-sub-menu, can not inject the sub-menu')
 }
@@ -138,7 +140,7 @@ const opened = computed(() => rootMenu.openedMenus.value.includes(props.index))
 const active = computed(() => {
   let isActive = false
 
-  Object.values(subMenus.value).forEach(item => {
+  Object.values(subMenus.value).forEach((item) => {
     if (item.active) {
       isActive = true
     }
@@ -152,14 +154,17 @@ const trigger = computed(() => {
 })
 const direction = computed(() => rootMenu.direction.value)
 const popperStyle = computed<StyleValue>(() => {
-  return rootMenu.popperStyle?.value || {
-    padding: '10px'
-  }
+  return (
+    rootMenu.popperStyle?.value || {
+      padding: '10px'
+    }
+  )
 })
 const popperClass = computed(() => rootMenu.popperClass?.value)
 const isFirstLevel = computed(() => subMenu.level === 0)
 const popoverPlacement = computed(() => {
-  if (rootMenu.direction.value === 'horizonal' && isFirstLevel.value) return 'bottom'
+  if (rootMenu.direction.value === 'horizonal' && isFirstLevel.value)
+    return 'bottom'
   return 'right-start'
 })
 const appendToBody = computed(() => {
@@ -175,8 +180,7 @@ const data = ref({
 watch(collapse, (val) => {
   if (val) {
     rootMenu.closeMenu(props.index)
-  }
-  else {
+  } else {
     rootMenu.openMenu(props.index)
   }
 })
@@ -190,7 +194,10 @@ const removeSubMenu = (item: ExtistMenuItem) => {
 }
 
 const handleMouseEnter = (delay = 300) => {
-  if (direction.value === 'horizonal' && trigger.value === 'click' || direction.value === 'vertical' && trigger.value === 'click') {
+  if (
+    (direction.value === 'horizonal' && trigger.value === 'click') ||
+    (direction.value === 'vertical' && trigger.value === 'click')
+  ) {
     subMenu.mouseInChild.value = true
     return
   }
@@ -204,7 +211,10 @@ const handleMouseEnter = (delay = 300) => {
 }
 
 const handleMouseLeave = (deepDispatch = false) => {
-  if (direction.value === 'horizonal' && trigger.value === 'click' || direction.value === 'vertical' && trigger.value === 'click') {
+  if (
+    (direction.value === 'horizonal' && trigger.value === 'click') ||
+    (direction.value === 'vertical' && trigger.value === 'click')
+  ) {
     subMenu.mouseInChild.value = false
     return
   }
@@ -212,7 +222,6 @@ const handleMouseLeave = (deepDispatch = false) => {
   timeout?.()
 
   subMenu.mouseInChild.value = false
-
   ;({ stop: timeout } = useTimeoutFn(() => {
     !mouseInChild.value && rootMenu.closeMenu(props.index)
   }, 300))
@@ -223,7 +232,10 @@ const handleMouseLeave = (deepDispatch = false) => {
 }
 
 const handleClick = () => {
-  if (rootMenu.direction.value === 'horizonal' && rootMenu.trigger.value === 'hover') {
+  if (
+    rootMenu.direction.value === 'horizonal' &&
+    rootMenu.trigger.value === 'hover'
+  ) {
     return
   }
   rootMenu.handleSubMenuClick(props.index)

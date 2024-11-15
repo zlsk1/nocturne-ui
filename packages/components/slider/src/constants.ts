@@ -1,7 +1,7 @@
 import type { InjectionKey, Ref } from 'vue'
 
 export type NSliderInjectionContent = {
-  sliderRef: Ref<HTMLDivElement | undefined>,
+  sliderRef: Ref<HTMLDivElement | undefined>
   positionPercent: Ref<number>
 }
 

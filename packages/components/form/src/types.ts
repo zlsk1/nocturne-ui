@@ -11,19 +11,19 @@ export type Callback = (valid: boolean, fields?: ValidateFieldsError) => void
 export type TriggerType = 'blur' | 'change'
 
 export type NFormInjectionContext = {
-  model?: FormProps['model'],
-  rules?: FormProps['rules'],
-  maxLabelWidth: number,
-  labelPosition: FormProps['labelPosition'],
+  model?: FormProps['model']
+  rules?: FormProps['rules']
+  maxLabelWidth: number
+  labelPosition: FormProps['labelPosition']
   labelWidth: string | number
-  addField: (formItemContext: NFormItemInjectionContext) => void,
+  addField: (formItemContext: NFormItemInjectionContext) => void
 }
 
 export type NFormItemInjectionContext = {
-  labelId: string,
-  prop?: FormItemProps['prop'],
-  labelWidth: number,
-  validate: (callback?: Callback) => Promise<true | void>,
-  resetField: () => Promise<void>,
+  labelId: string
+  prop?: FormItemProps['prop']
+  labelWidth: number
+  validate: (callback?: Callback) => Promise<true | void>
+  resetField: () => Promise<void>
   clearField: () => void
 }

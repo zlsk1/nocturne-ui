@@ -1,5 +1,5 @@
-import { definePropType } from '@/utils'
 import type { Component } from 'vue'
+import { definePropType } from '@/utils'
 
 export const iconPropType = definePropType<string | Component>([
   String,

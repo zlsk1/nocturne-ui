@@ -1,6 +1,6 @@
 import { defineComponent, renderSlot } from 'vue'
-import { configProviderProps } from './props'
 import { provideGlobalConfig } from '../composables/use-global-config'
+import { configProviderProps } from './props'
 
 const configProvider = defineComponent({
   name: 'NConfigProvider',

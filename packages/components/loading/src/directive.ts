@@ -1,20 +1,22 @@
 import { createVNode, render } from 'vue'
 import Loading from './loading.vue'
 import { loadingDefault } from './loading'
-import { isObject, isClient } from '@/utils'
 
-import type { DirectiveBinding, Directive } from 'vue'
-import type { LoadingProps, LoadingIntance } from './loading'
+import type { Directive, DirectiveBinding } from 'vue'
+import type { LoadingIntance, LoadingProps } from './loading'
+import { isClient, isObject } from '@/utils'
 
 type Attributes = keyof Omit<typeof loadingDefault, 'onClose' | 'target'>
 export interface NLoading extends HTMLElement {
-  'NLoading': {
-    instance: LoadingIntance,
+  NLoading: {
+    instance: LoadingIntance
     options: LoadingProps
   }
 }
 
-const container = isClient() ? document.createElement('div') : (undefined as never)
+const container = isClient()
+  ? document.createElement('div')
+  : (undefined as never)
 
 const _getAttribute = (el: NLoading, name: Attributes) => {
   return el.getAttribute(`n-loading-${name}`) || loadingDefault[name]
@@ -35,8 +37,7 @@ export const VLoading: Directive = {
 
     if (isObject(binding)) {
       props = binding.value
-    }
-    else {
+    } else {
       props = getProps(el)
     }
 

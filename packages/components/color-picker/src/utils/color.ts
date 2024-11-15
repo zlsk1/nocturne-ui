@@ -1,6 +1,6 @@
 import { hasOwn } from '@vue/shared'
 
-const hsv2hsl = function(hue: number, sat: number, val: number) {
+const hsv2hsl = function (hue: number, sat: number, val: number) {
   return [
     hue,
     (sat * val) / ((hue = (2 - sat) * val) < 1 ? hue : 2 - hue) || 0,
@@ -10,16 +10,16 @@ const hsv2hsl = function(hue: number, sat: number, val: number) {
 
 // Need to handle 1.0 as 100%, since once it is a number, there is no difference between it and 1
 // <http://stackoverflow.com/questions/7422072/javascript-how-to-detect-number-as-a-decimal-including-1-0>
-const isOnePointZero = function(n: unknown) {
+const isOnePointZero = function (n: unknown) {
   return typeof n === 'string' && n.includes('.') && Number.parseFloat(n) === 1
 }
 
-const isPercentage = function(n: unknown) {
+const isPercentage = function (n: unknown) {
   return typeof n === 'string' && n.includes('%')
 }
 
 // Take input from [0, n] and return it as [0, 1]
-const bound01 = function(value: number | string, max: number | string) {
+const bound01 = function (value: number | string, max: number | string) {
   if (isOnePointZero(value)) value = '100%'
 
   const processPercent = isPercentage(value)
@@ -55,7 +55,7 @@ const hexOne = (value: number) => {
   return `${INT_HEX_MAP[high] || high}${INT_HEX_MAP[low] || low}`
 }
 
-const toHex = function({ r, g, b }: { r: number; g: number; b: number }) {
+const toHex = function ({ r, g, b }: { r: number; g: number; b: number }) {
   if (Number.isNaN(+r) || Number.isNaN(+g) || Number.isNaN(+b)) return ''
   return `#${hexOne(r)}${hexOne(g)}${hexOne(b)}`
 }
@@ -69,7 +69,7 @@ const HEX_INT_MAP: Record<string, number> = {
   F: 15
 }
 
-const parseHexChannel = function(hex: string) {
+const parseHexChannel = function (hex: string) {
   if (hex.length === 2) {
     return (
       (HEX_INT_MAP[hex[0].toUpperCase()] || +hex[0]) * 16 +
@@ -80,7 +80,7 @@ const parseHexChannel = function(hex: string) {
   return HEX_INT_MAP[hex[1].toUpperCase()] || +hex[1]
 }
 
-const hsl2hsv = function(hue: number, sat: number, light: number) {
+const hsl2hsv = function (hue: number, sat: number, light: number) {
   sat = sat / 100
   light = light / 100
   let smin = sat
@@ -121,8 +121,7 @@ const rgb2hsv = (r: number, g: number, b: number) => {
 
   if (max === min) {
     h = 0 // achromatic
-  }
-  else {
+  } else {
     switch (max) {
       case r: {
         h = (g - b) / d + (g < b ? 6 : 0)
@@ -147,7 +146,7 @@ const rgb2hsv = (r: number, g: number, b: number) => {
 // Converts an HSV color value to RGB.
 // *Assumes:* h is contained in [0, 1] or [0, 360] and s and v are contained in [0, 1] or [0, 100]
 // *Returns:* { r, g, b } in the set [0, 255]
-const hsv2rgb = function(h: number, s: number, v: number) {
+const hsv2rgb = function (h: number, s: number, v: number) {
   h = bound01(h, 360) * 6
   s = bound01(s, 100)
   v = bound01(v, 100)
@@ -193,8 +192,7 @@ export default class Color {
     }
     if (options.value) {
       this.fromString(options.value)
-    }
-    else {
+    } else {
       this.doOnChange()
     }
   }
@@ -210,7 +208,7 @@ export default class Color {
       return
     }
 
-    (this as any)[`_${prop}`] = value
+    ;(this as any)[`_${prop}`] = value
     this.doOnChange()
   }
 
@@ -255,16 +253,14 @@ export default class Color {
       if (parts.length === 4) {
         // @ts-expect-error
         this._alpha = Number.parseFloat(parts[3]) * 100
-      }
-      else if (parts.length === 3) {
+      } else if (parts.length === 3) {
         this._alpha = 100
       }
       if (parts.length >= 3) {
         const { h, s, v } = hsl2hsv(parts[0], parts[1], parts[2])
         fromHSV(h, s, v)
       }
-    }
-    else if (value.includes('hsv')) {
+    } else if (value.includes('hsv')) {
       const parts = value
         .replace(/hsva|hsv|\(|\)/gm, '')
         .split(/\s|,/g)
@@ -276,15 +272,13 @@ export default class Color {
       if (parts.length === 4) {
         // @ts-expect-error
         this._alpha = Number.parseFloat(parts[3]) * 100
-      }
-      else if (parts.length === 3) {
+      } else if (parts.length === 3) {
         this._alpha = 100
       }
       if (parts.length >= 3) {
         fromHSV(parts[0], parts[1], parts[2])
       }
-    }
-    else if (value.includes('rgb')) {
+    } else if (value.includes('rgb')) {
       const parts = value
         .replace(/rgba|rgb|\(|\)/gm, '')
         .split(/\s|,/g)
@@ -296,16 +290,14 @@ export default class Color {
       if (parts.length === 4) {
         // @ts-expect-error
         this._alpha = Number.parseFloat(parts[3]) * 100
-      }
-      else if (parts.length === 3) {
+      } else if (parts.length === 3) {
         this._alpha = 100
       }
       if (parts.length >= 3) {
         const { h, s, v } = rgb2hsv(parts[0], parts[1], parts[2])
         fromHSV(h, s, v)
       }
-    }
-    else if (value.includes('#')) {
+    } else if (value.includes('#')) {
       const hex = value.replace('#', '').trim()
       if (!/^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$|^[0-9a-fA-F]{8}$/.test(hex))
         return
@@ -315,8 +307,7 @@ export default class Color {
         r = parseHexChannel(hex[0] + hex[0])
         g = parseHexChannel(hex[1] + hex[1])
         b = parseHexChannel(hex[2] + hex[2])
-      }
-      else if (hex.length === 6 || hex.length === 8) {
+      } else if (hex.length === 6 || hex.length === 8) {
         r = parseHexChannel(hex.slice(0, 2))
         g = parseHexChannel(hex.slice(2, 4))
         b = parseHexChannel(hex.slice(4, 6))
@@ -324,8 +315,7 @@ export default class Color {
 
       if (hex.length === 8) {
         this._alpha = (parseHexChannel(hex.slice(6)) / 255) * 100
-      }
-      else if (hex.length === 3 || hex.length === 6) {
+      } else if (hex.length === 3 || hex.length === 6) {
         this._alpha = 100
       }
 
@@ -372,8 +362,7 @@ export default class Color {
           this.value = `rgba(${r}, ${g}, ${b}, ${this.get('alpha') / 100})`
         }
       }
-    }
-    else {
+    } else {
       switch (format) {
         case 'hsl': {
           const hsl = hsv2hsl(_hue, _saturation / 100, _value / 100)

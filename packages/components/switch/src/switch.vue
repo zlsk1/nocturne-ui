@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
-import { switchProps, switchEmits } from './switch'
-import { isBoolean, isString } from '@/utils'
+import { computed, ref } from 'vue'
 import { isPromise } from '@vue/shared'
+import { switchEmits, switchProps } from './switch'
+import { isBoolean, isString } from '@/utils'
 import { useFormItemId } from '@/components/form'
 import { useNamespace } from '@/composables'
 
@@ -48,19 +48,17 @@ const handleSwitch = () => {
 
   if (!showProcess) {
     throw new Error('before-change must be a boolean or promise')
-  }
-  else if (isPromise(beforeChange)) {
+  } else if (isPromise(beforeChange)) {
     beforeChange
-      .then(res => {
+      .then((res) => {
         if (res) {
           handleChange()
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err)
       })
-  }
-  else if (beforeChange) {
+  } else if (beforeChange) {
     handleChange()
   }
 }
@@ -76,7 +74,7 @@ defineExpose({
       ns.b(),
       ns.m(size),
       ns.is('checked', !!actived),
-      ns.is('disabled', disabled),
+      ns.is('disabled', disabled)
     ]"
     :style="newStyle"
     @click.prevent="handleSwitch"
@@ -88,44 +86,45 @@ defineExpose({
       :class="ns.e('input')"
       :value="modelValue"
       @change="handleChange"
-    >
+    />
     <span
       v-if="inactiveText && !inlineText"
-      :class="[
-        ns.e('label'),
-        ns.e('label--left'),
-        ns.is('active', !actived)
-      ]"
+      :class="[ns.e('label'), ns.e('label--left'), ns.is('active', !actived)]"
     >
       <span>{{ inactiveText }}</span>
     </span>
     <div :class="ns.e('wrap')">
       <div :class="ns.e('action')">
         <template v-if="actived">
-          <slot name="active-action-icon"></slot>
+          <slot name="active-action-icon" />
         </template>
         <template v-else>
-          <slot name="inactive-action-icon"></slot>
+          <slot name="inactive-action-icon" />
         </template>
       </div>
-      <div v-if="activeText || $slots.activeIcon || $slots.inactiveIcon" :class="ns.em('action', 'reverse')">
+      <div
+        v-if="activeText || $slots.activeIcon || $slots.inactiveIcon"
+        :class="ns.em('action', 'reverse')"
+      >
         <template v-if="actived">
-          <slot name="active-icon"></slot>
+          <slot name="active-icon" />
         </template>
         <template v-else>
-          <slot name="inactive-icon"></slot>
+          <slot name="inactive-icon" />
         </template>
-        <span v-if="activeText && inlineText && actived" :class="ns.em('action', 'text')">{{ activeText }}</span>
-        <span v-if="activeText && inlineText && !actived">{{ inactiveText }}</span>
+        <span
+          v-if="activeText && inlineText && actived"
+          :class="ns.em('action', 'text')"
+          >{{ activeText }}</span
+        >
+        <span v-if="activeText && inlineText && !actived">{{
+          inactiveText
+        }}</span>
       </div>
     </div>
     <span
       v-if="activeText && !inlineText"
-      :class="[
-        ns.e('label'),
-        ns.e('label--right'),
-        ns.is('active', !!actived)
-      ]"
+      :class="[ns.e('label'), ns.e('label--right'), ns.is('active', !!actived)]"
     >
       <span>{{ activeText }}</span>
     </span>

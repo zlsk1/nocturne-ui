@@ -1,6 +1,6 @@
-import { componentSizes } from '@/constants'
 import { ExtractPropTypes } from 'vue'
 import tag from './tag.vue'
+import { componentSizes } from '@/constants'
 
 export const tagProps = {
   size: {

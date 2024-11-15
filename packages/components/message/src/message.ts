@@ -1,12 +1,12 @@
-import { definePropType, mutable } from '@/utils'
 import { isClient } from '@vueuse/core'
 import type { AppContext, ExtractPropTypes, VNode } from 'vue'
 import type { Mutable } from '@/utils'
 import type MessageConstructor from './message.vue'
+import { definePropType, mutable } from '@/utils'
 
 export const messageTypes = ['success', 'info', 'warning', 'error'] as const
 
-export type messageType = typeof messageTypes[number]
+export type messageType = (typeof messageTypes)[number]
 
 export interface MessageConfigContext {
   max?: number
@@ -38,7 +38,7 @@ export const messageProps = {
     default: messageDefaults.type
   },
   message: {
-    type: definePropType<string | VNode |(() => VNode)>([
+    type: definePropType<string | VNode | (() => VNode)>([
       String,
       Object,
       Function

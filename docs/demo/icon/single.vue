@@ -1,17 +1,17 @@
 <template>
-  <Vuejs color="#409eff" class="mx-2 cursor-pointer"></Vuejs>
-  <Javascript color="#409eff" class="mx-2 cursor-pointer"></Javascript>
-  <Tiktok color="#409eff" class="mx-2 cursor-pointer"></Tiktok>
-  <Ubuntu color="#409eff" class="mx-2 cursor-pointer"></Ubuntu>
-  <Chrome color="#409eff" class="mx-2 cursor-pointer"></Chrome>
+  <Vuejs color="#409eff" class="mx-2 cursor-pointer" />
+  <Javascript color="#409eff" class="mx-2 cursor-pointer" />
+  <Tiktok color="#409eff" class="mx-2 cursor-pointer" />
+  <Ubuntu color="#409eff" class="mx-2 cursor-pointer" />
+  <Chrome color="#409eff" class="mx-2 cursor-pointer" />
 </template>
 
 <script lang="ts" setup>
 import {
-  RiVuejsFill as Vuejs,
+  RiChromeFill as Chrome,
   RiJavascriptFill as Javascript,
   RiTiktokFill as Tiktok,
   RiUbuntuFill as Ubuntu,
-  RiChromeFill as Chrome
+  RiVuejsFill as Vuejs
 } from '@remixicon/vue'
 </script>

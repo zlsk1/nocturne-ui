@@ -11,7 +11,7 @@ export const buildRoot = resolve(pkgRoot, 'build')
 
 export const excludeFiles = (files: string[]) => {
   const excludes = ['node_modules', 'build', 'gulpfile.ts']
-  return files.filter(path => !excludes.some(exP => path.includes(exP)))
+  return files.filter((path) => !excludes.some((exP) => path.includes(exP)))
 }
 
 /** used for type generator */

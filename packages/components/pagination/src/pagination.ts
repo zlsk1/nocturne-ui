@@ -1,14 +1,5 @@
-import {
-  defineComponent,
-  computed,
-  ref,
-  provide,
-  h,
-  watch
-} from 'vue'
+import { computed, defineComponent, h, provide, ref, watch } from 'vue'
 import { PAGINATION_INJECTION_KEY } from './constants'
-import { isNumber } from '@/utils'
-import { useNamespace } from '@/composables'
 
 import { jumperProps } from './components/jumper'
 import { pagerProps } from './components/pager'
@@ -17,14 +8,15 @@ import { nextProps } from './components/next'
 import { totalProps } from './components/total'
 import { sizeProps } from './components/size'
 
-import type { ExtractPropTypes, VNode } from 'vue'
-
 import jumper from './components/jumper.vue'
 import pager from './components/pager.vue'
 import prev from './components/prev.vue'
 import next from './components/next.vue'
 import total from './components/total.vue'
 import size from './components/size.vue'
+import type { ExtractPropTypes, VNode } from 'vue'
+import { useNamespace } from '@/composables'
+import { isNumber } from '@/utils'
 
 type layoutType =
   | 'total'
@@ -125,22 +117,19 @@ export default defineComponent({
       }),
       slot: slots?.default?.() ?? null
     }
-    const layouts = props.layout.split(',').map(v => v.trim())
+    const layouts = props.layout.split(',').map((v) => v.trim())
 
     layouts.forEach((v) => {
       template.push(components[v as keyof typeof components])
     })
 
-    provide(
-      PAGINATION_INJECTION_KEY,
-      {
-        _currentPage,
-        totalPages,
-        disabled: props.disabled,
-        pageSize,
-        emit
-      }
-    )
+    provide(PAGINATION_INJECTION_KEY, {
+      _currentPage,
+      totalPages,
+      disabled: props.disabled,
+      pageSize,
+      emit
+    })
 
     return () => {
       return h(
@@ -153,4 +142,3 @@ export default defineComponent({
     }
   }
 })
-

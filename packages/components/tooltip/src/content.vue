@@ -31,16 +31,14 @@
         :trigger-target-el="triggerTargetEl"
         :visible="shouldShow"
         :z-index="zIndex"
-        :class="[
-          effect === 'dark' ? 'is-dark' : 'is-light'
-        ]"
+        :class="[effect === 'dark' ? 'is-dark' : 'is-light']"
         @mouseenter="onContentEnter"
         @mouseleave="onContentLeave"
         @blur="onBlur"
         @close="onClose"
       >
         <template v-if="!destroyed">
-          <slot></slot>
+          <slot />
         </template>
       </NPopperContent>
     </transition>
@@ -48,12 +46,12 @@
 </template>
 
 <script lang="ts" setup>
-import { inject, computed, ref, onBeforeUnmount, unref, watch } from 'vue'
-import { useTooltipContentProps } from './content'
+import { computed, inject, onBeforeUnmount, ref, unref, watch } from 'vue'
 import { onClickOutside } from '@vueuse/core'
+import { useTooltipContentProps } from './content'
+import { TOOLTIP_INJECTION_KEY } from './constants'
 import NPopperContent from '@/components/popper/src/content.vue'
 import { composeEventHandlers } from '@/utils/dom'
-import { TOOLTIP_INJECTION_KEY } from './constants'
 import { useNamespace } from '@/composables'
 
 defineOptions({

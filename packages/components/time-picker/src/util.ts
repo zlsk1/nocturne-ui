@@ -6,11 +6,13 @@ export const formatter = (time: Dayjs, valueFormat: string | undefined) => {
   else return dayjs(time, valueFormat).format(valueFormat)
 }
 
-export const parseDate = (date: string | number | Date | Dayjs | undefined, format: string | undefined) => {
+export const parseDate = (
+  date: string | number | Date | Dayjs | undefined,
+  format: string | undefined
+) => {
   if (dayjs.isDayjs(date)) {
     return date
-  }
-  else if (dayjs(date, format).isValid()) {
+  } else if (dayjs(date, format).isValid()) {
     return dayjs(date, format)
   }
   return dayjs(undefined)

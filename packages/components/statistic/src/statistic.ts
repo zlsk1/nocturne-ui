@@ -1,7 +1,7 @@
-import { definePropType } from '@/utils'
 import statistic from './statistic.vue'
-import type { StyleValue, ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes, StyleValue } from 'vue'
 import type { Dayjs } from 'dayjs'
+import { definePropType } from '@/utils'
 
 export const statisticProps = {
   value: {

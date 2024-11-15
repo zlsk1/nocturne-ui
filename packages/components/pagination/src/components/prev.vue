@@ -1,17 +1,14 @@
 <template>
-  <button
-    :class="prevCls"
-    @click="handlePrevPage"
-  >
+  <button :class="prevCls" @click="handlePrevPage">
     <n-icon v-if="!prevText">
-      <component :is="prevIcon"></component>
+      <component :is="prevIcon" />
     </n-icon>
     <span v-else>{{ prevText }}</span>
   </button>
 </template>
 
 <script lang="ts" setup>
-import { inject, computed } from 'vue'
+import { computed, inject } from 'vue'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { prevProps } from './prev'
 import { NIcon } from '@/components'
@@ -19,11 +16,10 @@ import { useNamespace } from '@/composables'
 
 const props = defineProps(prevProps)
 
-const {
-  _currentPage,
-  disabled,
-  emit
-} = inject(PAGINATION_INJECTION_KEY, undefined)!
+const { _currentPage, disabled, emit } = inject(
+  PAGINATION_INJECTION_KEY,
+  undefined
+)!
 
 const ns = useNamespace('pagination')
 

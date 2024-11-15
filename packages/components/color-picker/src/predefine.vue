@@ -7,11 +7,11 @@
         :class="[
           ns.e('color-selector'),
           ns.is('alpha', item._alpha < 100),
-          { selected: item.selected },
+          { selected: item.selected }
         ]"
         @click="handleSelect(index)"
       >
-        <div :style="{ backgroundColor: item.value }"></div>
+        <div :style="{ backgroundColor: item.value }" />
       </div>
     </div>
   </div>
@@ -21,9 +21,8 @@
 import { inject, ref, watch, watchEffect } from 'vue'
 import { colorPickerContextKey } from './color-picker'
 import Color from './utils/color'
-import { useNamespace } from '@/composables'
-
 import type { PropType, Ref } from 'vue'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NColorPredefine'
@@ -47,9 +46,7 @@ const { currentColor } = inject(colorPickerContextKey)!
 
 const ns = useNamespace('color-predefine')
 
-const rgbaColors = ref(parseColors(props.colors, props.color)) as Ref<
-      Color[]
-    >
+const rgbaColors = ref(parseColors(props.colors, props.color)) as Ref<Color[]>
 
 watch(
   () => currentColor.value,

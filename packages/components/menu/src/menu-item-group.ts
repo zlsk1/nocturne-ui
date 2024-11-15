@@ -1,4 +1,4 @@
-import { defineComponent, h, getCurrentInstance, inject } from 'vue'
+import { defineComponent, getCurrentInstance, h, inject } from 'vue'
 import useMenu from './compoables/use-menu'
 import { NSubMenuInjectionContext } from './constants'
 
@@ -12,25 +12,22 @@ export default defineComponent({
   setup(props, { slots }) {
     const instance = getCurrentInstance()!
     const { parentMenu } = useMenu(instance)
-    const subMenu = inject<NSubMenuInjectionContext>(`subMenu:${parentMenu.value.uid}`)
+    const subMenu = inject<NSubMenuInjectionContext>(
+      `subMenu:${parentMenu.value.uid}`
+    )
     if (!subMenu) {
       throw new Error('n-sub-menu, can not inject the sub-menu')
     }
-    return () => h(
-      'div',
-      { class: ['n-menu__item__group'] },
-      [
+    return () =>
+      h('div', { class: ['n-menu__item__group'] }, [
         h(
           'span',
           {
-            class: [
-              `level-${subMenu?.level}`
-            ]
+            class: [`level-${subMenu?.level}`]
           },
           props.title
         ),
         slots.default?.()
-      ]
-    )
+      ])
   }
 })

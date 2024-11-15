@@ -1,8 +1,8 @@
 import { ExtractPropTypes } from 'vue'
 import { CheckModelValueType } from '../../checkbox/src/checkbox'
+import CheckboxGroup from './checkbox-group.vue'
 import { definePropType } from '@/utils'
 import { componentSizes } from '@/constants'
-import CheckboxGroup from './checkbox-group.vue'
 
 export type CheckboxGroupValueType = Exclude<CheckModelValueType, boolean>[]
 

@@ -1,33 +1,38 @@
 <template>
   <div :class="[ns.b(), labelPosition === 'top' ? ns.e('top') : '']">
-    <div
-      v-if="label"
-      ref="labelRef"
-      :class="ns.e('label')"
-      :style="labelStyle"
-    >
+    <div v-if="label" ref="labelRef" :class="ns.e('label')" :style="labelStyle">
       <label :for="labelId">{{ label }}</label>
     </div>
     <div :class="ns.e('content')">
-      <slot></slot>
+      <slot />
       <transition :name="`${ns.ns.value}-zoom-in-top`">
-        <div v-if="invalidMessage" :class="ns.e('error')">{{ invalidMessage }}</div>
+        <div v-if="invalidMessage" :class="ns.e('error')">
+          {{ invalidMessage }}
+        </div>
       </transition>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { inject, provide, ref, onMounted, nextTick, computed, reactive, toRefs } from 'vue'
-import { FORM_INJECTION_KEY, FORMITEM_INJECTION_KEY } from './constants'
-import { formItemProps } from './form-item'
-import { useId, useNamespace } from '@/composables'
-import { getProp, isString } from '@/utils'
+import {
+  computed,
+  inject,
+  nextTick,
+  onMounted,
+  provide,
+  reactive,
+  ref,
+  toRefs
+} from 'vue'
 import Schema from 'async-validator'
 import { clone } from 'lodash'
-
+import { FORMITEM_INJECTION_KEY, FORM_INJECTION_KEY } from './constants'
+import { formItemProps } from './form-item'
 import type { RuleItem } from 'async-validator'
-import type { RuleItemWithTrigger, NFormItemInjectionContext } from './types'
+import type { NFormItemInjectionContext, RuleItemWithTrigger } from './types'
+import { useId, useNamespace } from '@/composables'
+import { getProp, isString } from '@/utils'
 
 defineOptions({
   name: 'NFormItem'
@@ -52,27 +57,28 @@ const formItemValue = computed(() => {
   return getProp(formContext.model, props.prop).value
 })
 
-const labelWidth = computed(() => labelRef.value?.getBoundingClientRect().width!)
+const labelWidth = computed(
+  () => labelRef.value?.getBoundingClientRect().width!
+)
 
 const widthDiff = computed(() => formContext.maxLabelWidth - labelWidth.value)
 
-const labelPosition = computed(() => formContext.labelPosition || props.labelPosition)
+const labelPosition = computed(
+  () => formContext.labelPosition || props.labelPosition
+)
 
 const propWidth = computed(() => {
   if (formContext.labelWidth) {
     if (isString(formContext.labelWidth)) {
       return formContext.labelWidth
+    } else {
+      return `${formContext.labelWidth}px`
     }
-    else {
-      return formContext.labelWidth + 'px'
-    }
-  }
-  else if (props.labelWidth) {
+  } else if (props.labelWidth) {
     if (isString(props.labelWidth)) {
       return props.labelWidth
-    }
-    else {
-      return props.labelWidth + 'px'
+    } else {
+      return `${props.labelWidth}px`
     }
   }
   return ''
@@ -82,13 +88,12 @@ const labelStyle = computed(() => {
   if (labelPosition.value === 'left') {
     return {
       width: propWidth.value,
-      marginLeft: widthDiff.value + 'px'
+      marginLeft: `${widthDiff.value}px`
     }
-  }
-  else if (labelPosition.value === 'right') {
+  } else if (labelPosition.value === 'right') {
     return {
       width: propWidth.value,
-      marginRight: widthDiff.value + 'px'
+      marginRight: `${widthDiff.value}px`
     }
   }
   return {
@@ -103,7 +108,7 @@ onMounted(() => {
   }
 })
 
-const validate: NFormItemInjectionContext['validate'] = async(callback) => {
+const validate: NFormItemInjectionContext['validate'] = async (callback) => {
   const rules = filterRules(formContext.rules?.[props.prop!])
 
   if (rules.length === 0) {
@@ -116,15 +121,14 @@ const validate: NFormItemInjectionContext['validate'] = async(callback) => {
       callback?.(true)
       handleSuccessStatus()
     })
-    .catch(err => {
+    .catch((err) => {
       callback?.(false, err.fields)
       handleFailStatus(err.fields[props.prop!][0].message)
-      console.warn(err.fields)
       return Promise.reject(err.fields)
     })
 }
 
-const handleValidate = async(rules: RuleItem[]): Promise<boolean> => {
+const handleValidate = async (rules: RuleItem[]): Promise<boolean> => {
   const key = props.prop!
   const validator = new Schema({ [key]: rules })
   return validator
@@ -132,12 +136,12 @@ const handleValidate = async(rules: RuleItem[]): Promise<boolean> => {
     .then(() => {
       return true
     })
-    .catch(err => {
+    .catch((err) => {
       return Promise.reject(err)
     })
 }
 
-const resetField = async() => {
+const resetField = async () => {
   if (!formContext.model || !props.prop) return
 
   const value = getProp(formContext.model, props.prop)
@@ -148,9 +152,11 @@ const resetField = async() => {
 }
 
 const filterRules = (rules: RuleItemWithTrigger[]): RuleItem[] => {
-  return rules
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    .map(({ trigger, ...rule }) => rule)
+  return (
+    rules
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      .map(({ trigger, ...rule }) => rule)
+  )
 }
 
 const handleFailStatus = (message: string) => {

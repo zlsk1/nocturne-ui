@@ -1,9 +1,9 @@
 import type { InjectionKey } from 'vue'
 
 export const timeUnits = ['hour', 'minute', 'second'] as const
-export type TimeUnits = typeof timeUnits[number]
+export type TimeUnits = (typeof timeUnits)[number]
 
-export type TimePickerContext = {
-}
+// export type TimePickerContext = {}
 
-export const TIMEPICKER_INJECTION_KEY: InjectionKey<TimePickerContext> = Symbol('n-time-picker')
+// export const TIMEPICKER_INJECTION_KEY: InjectionKey<TimePickerContext> =
+//   Symbol('n-time-picker')

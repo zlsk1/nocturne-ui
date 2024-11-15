@@ -1,5 +1,5 @@
-import { withInstall } from '@/utils'
 import popconfirm from './src/popconfirm.vue'
+import { withInstall } from '@/utils'
 
 export const NPopconfirm = withInstall(popconfirm)
 export default NPopconfirm

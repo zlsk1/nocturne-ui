@@ -29,12 +29,9 @@ const _value = computed(() => {
 <template>
   <div :class="ns.b()">
     <span>
-      <slot></slot>
+      <slot />
     </span>
-    <span
-      v-if="!hidden"
-      :class="badgeCls"
-    >
+    <span v-if="!hidden" :class="badgeCls">
       <template v-if="!dot">
         {{ _value }}
       </template>

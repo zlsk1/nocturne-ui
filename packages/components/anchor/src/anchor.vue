@@ -1,13 +1,20 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted, shallowRef, ref, nextTick, computed, provide } from 'vue'
+import {
+  computed,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  provide,
+  ref,
+  shallowRef
+} from 'vue'
 import { useThrottleFn } from '@vueuse/core'
 import AnchorItem from './anchor-item.vue'
-import { anchorProps, anchorEmits, type AnchorItems } from './anchor'
-import { isNil } from '@/utils'
+import { type AnchorItems, anchorEmits, anchorProps } from './anchor'
 import { ANCHOR_INJECTION_KEY } from './constants'
-import { useNamespace } from '@/composables'
-
 import type { CSSProperties } from 'vue'
+import { isNil } from '@/utils'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NAnchor'
@@ -19,8 +26,8 @@ const emit = defineEmits(anchorEmits)
 const ns = useNamespace('anchor')
 
 export type Links = {
-  el: HTMLElement,
-  href: string,
+  el: HTMLElement
+  href: string
   top: number
 }
 
@@ -35,8 +42,7 @@ onMounted(() => {
   if (props.items) {
     getlinks(props.items)
     sortLinks()
-  }
-  else {
+  } else {
     getlinks()
     sortLinks()
   }
@@ -49,7 +55,9 @@ onUnmounted(() => {
 })
 
 const maskerStyle = computed<CSSProperties | undefined>(() => {
-  const currentLink = containerRef.value?.querySelector(`a[href='${decodeURIComponent(activeLink.value)}']`)
+  const currentLink = containerRef.value?.querySelector(
+    `a[href='${decodeURIComponent(activeLink.value)}']`
+  )
   if (!currentLink) return
 
   const linkTop = currentLink?.getBoundingClientRect().top!
@@ -57,12 +65,12 @@ const maskerStyle = computed<CSSProperties | undefined>(() => {
 
   if (activeLink.value) {
     return {
-      top: linkTop - containerTop + 5 + 'px',
+      top: `${linkTop - containerTop + 5}px`,
       opacity: '1'
     }
   }
   return {
-    top: 5 + 'px',
+    top: `${5}px`,
     opacity: '0'
   }
 })
@@ -91,7 +99,10 @@ const handleScroll = () => {
   function findAnchor(scrollY: number) {
     for (let i = 0; i < links.value.length; i++) {
       const { href, top } = links.value[i]
-      if (scrollY > top - props.offset && scrollY < links.value[i + 1].top - props.offset) {
+      if (
+        scrollY > top - props.offset &&
+        scrollY < links.value[i + 1].top - props.offset
+      ) {
         return href
       }
     }
@@ -102,8 +113,7 @@ const handleScroll = () => {
 const activateAnchor = (href: string | null) => {
   if (!href) {
     activeLink.value = ''
-  }
-  else {
+  } else {
     if (href === activeLink.value) return
     else {
       activeLink.value = href
@@ -161,7 +171,9 @@ const handleClick = (href: string) => {
 
   scrolling = true
   window.scrollTo({ top: target.offsetTop - props.offset, behavior: 'smooth' })
-  timer = setTimeout(() => { scrolling = false }, 0) as unknown as number
+  timer = setTimeout(() => {
+    scrolling = false
+  }, 0) as unknown as number
 }
 
 provide(ANCHOR_INJECTION_KEY, {
@@ -180,9 +192,9 @@ provide(ANCHOR_INJECTION_KEY, {
         ref="markerRef"
         :class="ns.e('marker')"
         :style="maskerStyle"
-      ></span>
-      <AnchorItem v-if="items" :items="items"></AnchorItem>
-      <slot></slot>
+      />
+      <AnchorItem v-if="items" :items="items" />
+      <slot />
     </div>
   </div>
 </template>

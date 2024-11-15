@@ -1,6 +1,6 @@
 import { RiArrowRightWideFill as ArrowRightWide } from '@remixicon/vue'
-import { iconPropType } from '@/utils'
 import type { ExtractPropTypes } from 'vue'
+import { iconPropType } from '@/utils'
 
 export const nextProps = {
   nextText: String,

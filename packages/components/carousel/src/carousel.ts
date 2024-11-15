@@ -1,5 +1,5 @@
-import type { ExtractPropTypes } from 'vue'
 import Carousel from './carousel.vue'
+import type { ExtractPropTypes } from 'vue'
 import { isNumber } from '@/utils'
 
 export const carouselProps = {
@@ -28,7 +28,8 @@ export const carouselProps = {
 }
 
 export const carouselEmits = {
-  change: (newVal: number, oldVal: number) => isNumber(newVal) || isNumber(oldVal)
+  change: (newVal: number, oldVal: number) =>
+    isNumber(newVal) || isNumber(oldVal)
 }
 
 export type CarouselInstance = InstanceType<typeof Carousel>

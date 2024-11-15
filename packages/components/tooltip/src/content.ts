@@ -1,9 +1,8 @@
+import type TooltipContent from './content.vue'
+import type { ExtractPropTypes } from 'vue'
 import { popperContentProps } from '@/components/popper/src/content'
 import { useDelayedToggleProps } from '@/composables'
 import { definePropType } from '@/utils'
-
-import type TooltipContent from './content.vue'
-import type { ExtractPropTypes } from 'vue'
 
 export const useTooltipContentProps = {
   ...useDelayedToggleProps,
@@ -37,6 +36,8 @@ export const useTooltipContentProps = {
   disabled: Boolean
 } as const
 
-export type TooltipContentProps = ExtractPropTypes<typeof useTooltipContentProps>
+export type TooltipContentProps = ExtractPropTypes<
+  typeof useTooltipContentProps
+>
 
 export type TooltipContentInstance = InstanceType<typeof TooltipContent>

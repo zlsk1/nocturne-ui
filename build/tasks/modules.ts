@@ -5,30 +5,27 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import esbuild from 'rollup-plugin-esbuild'
 import fg from 'fast-glob'
 import commonjs from '@rollup/plugin-commonjs'
-import { NAlias } from '../plugins/rollup-plugin-Nalias'
 import scss from 'rollup-plugin-scss'
 import alias from '@rollup/plugin-alias'
 
-import {
-  excludeFiles,
-
-  pkgRoot
-} from '../utils'
-
 import { rollup } from 'rollup'
-import { writeBundles } from '../utils'
+import { excludeFiles, pkgRoot, writeBundles } from '../utils'
+
+import { NAlias } from '../plugins/rollup-plugin-Nalias'
 import { buildConfigEntries } from '../build-info'
 
 import type { OutputOptions } from 'rollup'
 
 const extensions = ['.mjs', '.js', '.ts', '.json']
 
-export const buildModules = async() => {
-  const input = excludeFiles(fg.sync(['**/*.{js,ts,vue}', '!**/gulpfile.ts'], {
-    cwd: pkgRoot,
-    absolute: true,
-    onlyFiles: true
-  }))
+export const buildModules = async () => {
+  const input = excludeFiles(
+    fg.sync(['**/*.{js,ts,vue}', '!**/gulpfile.ts'], {
+      cwd: pkgRoot,
+      absolute: true,
+      onlyFiles: true
+    })
+  )
   const bundle = await rollup({
     input,
     plugins: [
@@ -51,7 +48,16 @@ export const buildModules = async() => {
         ]
       })
     ],
-    external: ['vue', '@vue/shared', '@vueuse/core', '@popperjs/core', '@remixicon/vue', '@types/lodash', 'async-validator', 'lodash'],
+    external: [
+      'vue',
+      '@vue/shared',
+      '@vueuse/core',
+      '@popperjs/core',
+      '@remixicon/vue',
+      '@types/lodash',
+      'async-validator',
+      'lodash'
+    ],
     treeshake: false
   })
 
@@ -70,4 +76,3 @@ export const buildModules = async() => {
     })
   )
 }
-

@@ -2,36 +2,30 @@
   <div
     class="n-color-panel"
     :style="{
-      backgroundColor: background,
+      backgroundColor: background
     }"
   >
-    <div class="n-color-panel__white"></div>
-    <div class="n-color-panel__black"></div>
+    <div class="n-color-panel__white" />
+    <div class="n-color-panel__black" />
     <div
       class="n-color-panel__cursor"
       :style="{
         top: cursorTop + 'px',
-        left: cursorLeft + 'px',
+        left: cursorLeft + 'px'
       }"
     >
-      <div></div>
+      <div />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {
-  computed,
-  getCurrentInstance,
-  onMounted,
-  ref,
-  watch
-} from 'vue'
-import { getClientXY } from '@/utils'
+import { computed, getCurrentInstance, onMounted, ref, watch } from 'vue'
 import { draggable } from './utils/draggable'
 
 import type { PropType } from 'vue'
 import type Color from './utils/color'
+import { getClientXY } from '@/utils'
 
 defineOptions({
   name: 'NColorPanel'

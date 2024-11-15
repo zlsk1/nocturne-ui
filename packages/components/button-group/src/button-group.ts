@@ -1,3 +1,1 @@
-export const buttonGroupProps = {
-
-}
+export const buttonGroupProps = {}

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useSlots, computed } from 'vue'
-import { buttonProps, buttonEmits } from './button'
+import { computed, useSlots } from 'vue'
+import { buttonEmits, buttonProps } from './button'
 import { useNamespace } from '@/composables'
 import { NIcon } from '@/components'
 
@@ -34,24 +34,17 @@ const handleClick = (e: MouseEvent) => {
 </script>
 
 <template>
-  <button
-    :class="buttonCls"
-    @click="handleClick"
-  >
+  <button :class="buttonCls" @click="handleClick">
     <template v-if="loading">
-      <n-icon
-        :class="[
-          ns.is('loading-icon', loading),
-        ]"
-      >
-        <component :is="loadingIcon" size="14"></component>
+      <n-icon :class="[ns.is('loading-icon', loading)]">
+        <component :is="loadingIcon" size="14" />
       </n-icon>
     </template>
     <n-icon v-else-if="icon">
-      <component :is="icon" size="14"></component>
+      <component :is="icon" size="14" />
     </n-icon>
     <span v-if="slots.default">
-      <slot></slot>
+      <slot />
     </span>
   </button>
 </template>

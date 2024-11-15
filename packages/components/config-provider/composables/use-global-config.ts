@@ -1,16 +1,18 @@
-import { getCurrentInstance, provide, computed, unref, inject } from 'vue'
+import { computed, getCurrentInstance, inject, provide, unref } from 'vue'
 import { ConfigProviderProps } from '../src/props'
-import {
-  NAMESPACE_INJECTION_KEY,
-  ZINDEX_INJECTION_KEY,
-  COMPONENT_SIZE_INJECTION_KEY
-} from '@/composables'
 import { CONFIGPROVIDER_INJECT_KEY } from '../src/constants'
 
 import type { App, MaybeRef } from 'vue'
+import {
+  COMPONENT_SIZE_INJECTION_KEY,
+  NAMESPACE_INJECTION_KEY,
+  ZINDEX_INJECTION_KEY
+} from '@/composables'
 
 export const useGlobalConfig = () => {
-  const config = getCurrentInstance() ? inject(CONFIGPROVIDER_INJECT_KEY, null) : null
+  const config = getCurrentInstance()
+    ? inject(CONFIGPROVIDER_INJECT_KEY, null)
+    : null
 
   return config
 }
@@ -33,9 +35,18 @@ export const provideGlobalConfig = (
 
   _provide(CONFIGPROVIDER_INJECT_KEY, newConfig)
 
-  _provide(NAMESPACE_INJECTION_KEY, computed(() => newConfig.value.namespace))
-  _provide(ZINDEX_INJECTION_KEY, computed(() => newConfig.value.zIndex))
-  _provide(COMPONENT_SIZE_INJECTION_KEY, computed(() => newConfig.value.componentSize))
+  _provide(
+    NAMESPACE_INJECTION_KEY,
+    computed(() => newConfig.value.namespace)
+  )
+  _provide(
+    ZINDEX_INJECTION_KEY,
+    computed(() => newConfig.value.zIndex)
+  )
+  _provide(
+    COMPONENT_SIZE_INJECTION_KEY,
+    computed(() => newConfig.value.componentSize)
+  )
 
   return newConfig
 }

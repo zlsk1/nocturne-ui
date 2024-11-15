@@ -9,17 +9,17 @@
     @mouseleave="onMouseleave"
     @keydown="onKeydown"
   >
-    <slot></slot>
+    <slot />
   </NPopperReference>
 </template>
 
 <script lang="ts" setup>
-import { inject, ref, unref, toRef } from 'vue'
+import { inject, ref, toRef, unref } from 'vue'
 import { useTooltipTriggerProps } from './reference.js'
 import { whenTrigger } from './utils'
+import { TOOLTIP_INJECTION_KEY } from './constants'
 import { composeEventHandlers } from '@/utils/dom'
 import NPopperReference from '@/components/popper/src/reference.vue'
-import { TOOLTIP_INJECTION_KEY } from './constants'
 
 defineOptions({
   name: 'NTooltipReference'

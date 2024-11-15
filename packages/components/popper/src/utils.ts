@@ -22,7 +22,9 @@ export const buildPopperOptions = (
   return options
 }
 
-export const unwrapMeasurableEl = ($el: MaybeRef<Measurable | undefined | ComponentPublicInstance>) => unrefElement($el as HTMLElement)
+export const unwrapMeasurableEl = (
+  $el: MaybeRef<Measurable | undefined | ComponentPublicInstance>
+) => unrefElement($el as HTMLElement)
 
 function genModifiers(options: PopperCoreConfigProps) {
   const { offset, gpuAcceleration, fallbackPlacements } = options

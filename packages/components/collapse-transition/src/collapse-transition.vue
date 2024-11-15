@@ -19,11 +19,9 @@ const on = {
   enter(el: any) {
     if (el.dataset.elExistsHeight) {
       el.style.height = el.dataset.elExistsHeight
-    }
-    else if (el.scrollHeight !== 0) {
+    } else if (el.scrollHeight !== 0) {
       el.style.height = `${el.scrollHeight}px`
-    }
-    else {
+    } else {
       el.style.height = 0
     }
   },
@@ -60,6 +58,6 @@ const on = {
 
 <template>
   <transition name="n-collapse-transition" v-on="on">
-    <slot></slot>
+    <slot />
   </transition>
 </template>

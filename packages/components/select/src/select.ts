@@ -1,15 +1,15 @@
 import select from './select.vue'
-import {
-  definePropType,
-  isString,
-  isNumber,
-  isBoolean,
-  isObject,
-  isArray
-} from '@/utils'
-import { componentSizes } from '@/constants'
 import type { ExtractPropTypes } from 'vue'
 import type { Options } from '@popperjs/core'
+import {
+  definePropType,
+  isArray,
+  isBoolean,
+  isNumber,
+  isObject,
+  isString
+} from '@/utils'
+import { componentSizes } from '@/constants'
 
 export const selectProps = {
   placeholder: {
@@ -17,8 +17,14 @@ export const selectProps = {
     default: '请选择'
   },
   modelValue: {
-    type: definePropType<string | number | boolean | Array<string | number | boolean | Object> | Object>([String, Number, Boolean, Object]),
-    validator: (val: string | number | boolean | [] | Object, props: any) => {
+    type: definePropType<
+      | string
+      | number
+      | boolean
+      | Array<string | number | boolean | object>
+      | object
+    >([String, Number, Boolean, Object]),
+    validator: (val: string | number | boolean | [] | object, props: any) => {
       if (props.multiple && !isArray(val)) return false
       return true
     }
@@ -46,13 +52,13 @@ export const selectProps = {
   valueKey: {
     type: String,
     validator(value: string, props: any) {
-      return Object.keys(props.modelValue).includes(value) ||
-        (
-          props.modelValue.length > 0
-            ? isArray(props.modelValue) &&
-              props.modelValue.some((v: any) => Object.keys(v).includes(value))
-            : true
-        )
+      return (
+        Object.keys(props.modelValue).includes(value) ||
+        (props.modelValue.length > 0
+          ? isArray(props.modelValue) &&
+            props.modelValue.some((v: any) => Object.keys(v).includes(value))
+          : true)
+      )
     }
   },
   persistent: {
@@ -65,7 +71,9 @@ export const selectProps = {
   },
   popperOption: {
     type: definePropType<Partial<Options>>(Object),
-    default: () => { return {} }
+    default: () => {
+      return {}
+    }
   },
   placement: {
     type: String,
@@ -84,9 +92,12 @@ export const selectProps = {
 }
 
 export const selectEmits = {
-  'update:modelValue': (
-    val: string | number | boolean | Object | Array<any>
-  ) => isString(val) || isNumber(val) || isBoolean(val) || isObject(val) || isArray(val)
+  'update:modelValue': (val: string | number | boolean | object | Array<any>) =>
+    isString(val) ||
+    isNumber(val) ||
+    isBoolean(val) ||
+    isObject(val) ||
+    isArray(val)
 }
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>

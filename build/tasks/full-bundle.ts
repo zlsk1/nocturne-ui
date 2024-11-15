@@ -7,15 +7,16 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import esbuild, { minify as minifyPlugin } from 'rollup-plugin-esbuild'
 import { parallel } from 'gulp'
-import { pkgRoot, pkgOutput } from '../utils'
-import { NAlias } from '../plugins/rollup-plugin-Nalias'
 import alias from '@rollup/plugin-alias'
 import scss from 'rollup-plugin-scss'
 import {
   formatBundleFilename,
+  pkgOutput,
+  pkgRoot,
   withTaskName,
   writeBundles
 } from '../utils'
+import { NAlias } from '../plugins/rollup-plugin-Nalias'
 import { target } from '../build-info'
 import type { TaskFunction } from 'gulp'
 import type { Plugin } from 'rollup'

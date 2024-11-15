@@ -14,9 +14,9 @@
       @before-show="handleShow"
       @close="handleClose"
     >
-      <slot name="default"></slot>
+      <slot name="default" />
       <template #content>
-        <slot name="content"></slot>
+        <slot name="content" />
       </template>
     </NTooltip>
   </div>
@@ -24,9 +24,9 @@
 
 <script lang="ts" setup>
 import { provide, ref, watch } from 'vue'
-import { NTooltip } from '@/components'
-import { dropdownProps, dropdownEmit } from './dropdown'
+import { dropdownEmit, dropdownProps } from './dropdown'
 import { NDROPDOWN_INJECTION_KEY } from './constants'
+import { NTooltip } from '@/components'
 import { useNamespace } from '@/composables'
 
 defineOptions({

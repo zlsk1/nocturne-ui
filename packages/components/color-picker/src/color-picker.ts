@@ -1,9 +1,8 @@
-import { definePropType, isString, isNil } from '@/utils'
-import { componentSizes } from '@/constants'
-import { useTooltipContentProps } from '@/components/tooltip'
-
 import type { ComputedRef, ExtractPropTypes, InjectionKey } from 'vue'
 import type ColorPicker from './color-picker.vue'
+import { definePropType, isNil, isString } from '@/utils'
+import { componentSizes } from '@/constants'
+import { useTooltipContentProps } from '@/components/tooltip'
 
 export const colorPickerProps = {
   modelValue: {
@@ -49,7 +48,7 @@ export const colorPickerProps = {
 
 export const colorPickerEmits = {
   'update:modelValue': (val: string | null) => isString(val) || isNil(val),
-  'change': (val: string | null) => isString(val) || isNil(val),
+  change: (val: string | null) => isString(val) || isNil(val),
   activeChange: (val: string | null) => isString(val) || isNil(val),
   focus: (event: FocusEvent) => event instanceof FocusEvent,
   blur: (event: FocusEvent) => event instanceof FocusEvent

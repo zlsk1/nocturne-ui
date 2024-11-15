@@ -26,19 +26,10 @@ const handleClick = (e: Event) => {
 </script>
 
 <template>
-  <a
-    :class="linkCls"
-    :href="href"
-    :target="target"
-    @click="handleClick"
-  >
+  <a :class="linkCls" :href="href" :target="target" @click="handleClick">
     <span>
-      <slot></slot>
+      <slot />
     </span>
-    <component
-      :is="icon"
-      v-if="icon"
-      size="16"
-    ></component>
+    <component :is="icon" v-if="icon" size="16" />
   </a>
 </template>

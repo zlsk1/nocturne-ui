@@ -19,12 +19,10 @@ export const getClientXY = (event: MouseEvent | TouchEvent) => {
   if (event.type === 'touchend') {
     clientY = (event as TouchEvent).changedTouches[0].clientY
     clientX = (event as TouchEvent).changedTouches[0].clientX
-  }
-  else if (event.type.startsWith('touch')) {
+  } else if (event.type.startsWith('touch')) {
     clientY = (event as TouchEvent).touches[0].clientY
     clientX = (event as TouchEvent).touches[0].clientX
-  }
-  else {
+  } else {
     clientY = (event as MouseEvent).clientY
     clientX = (event as MouseEvent).clientX
   }

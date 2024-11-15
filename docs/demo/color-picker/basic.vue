@@ -1,11 +1,11 @@
 <template>
   <div class="mb-4">
-    <n-color-picker v-model="value1"></n-color-picker>
+    <n-color-picker v-model="value1" />
   </div>
   <div>
-    <n-color-picker v-model="value2" size="large" class="mr-4"></n-color-picker>
-    <n-color-picker v-model="value3" size="default" class="mx-4"></n-color-picker>
-    <n-color-picker v-model="value4" size="small" class="mx-4"></n-color-picker>
+    <n-color-picker v-model="value2" size="large" class="mr-4" />
+    <n-color-picker v-model="value3" size="default" class="mx-4" />
+    <n-color-picker v-model="value4" size="small" class="mx-4" />
   </div>
 </template>
 

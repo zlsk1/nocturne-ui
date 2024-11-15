@@ -1,7 +1,7 @@
 import type { InjectionKey, Ref } from 'vue'
 
 export type NCollapseInjection = {
-  activelist: Ref<string[] | number[]>,
+  activelist: Ref<string[] | number[]>
   changeEvent: (val: string | number) => void
 }
 

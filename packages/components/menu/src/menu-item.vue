@@ -1,23 +1,15 @@
 <template>
-  <li
-    :class="menuItemCls"
-    @click="handleClick"
-  >
-    <slot></slot>
+  <li :class="menuItemCls" @click="handleClick">
+    <slot />
   </li>
 </template>
 
 <script lang="ts" setup>
-import {
-  inject,
-  getCurrentInstance,
-  onMounted,
-  computed,
-  ref
-} from 'vue'
+import { computed, getCurrentInstance, inject, onMounted, ref } from 'vue'
 import { menuItemProps } from './menu'
-import { NMENU_INJECTION_KEY, NSubMenuInjectionContext } from './constants'
+import { NMENU_INJECTION_KEY } from './constants'
 import useMenu from './compoables/use-menu'
+import type { NSubMenuInjectionContext } from './constants'
 import { useNamespace } from '@/composables'
 
 defineOptions({
@@ -35,7 +27,9 @@ const rootMenu = inject(NMENU_INJECTION_KEY, undefined)!
 if (!rootMenu) {
   throw new Error('n-sub-menu, can not inject the root-menu')
 }
-const subMenu = inject<NSubMenuInjectionContext>(`subMenu:${parentMenu.value.uid}`)
+const subMenu = inject<NSubMenuInjectionContext>(
+  `subMenu:${parentMenu.value.uid}`
+)
 if (!subMenu) {
   throw new Error('n-sub-menu, can not inject the sub-menu')
 }

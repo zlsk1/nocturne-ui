@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useSlots, computed } from 'vue'
-import { checkboxProps, checkboxEmits } from './checkbox'
+import { computed, useSlots } from 'vue'
 import { useCheckbox } from '../composables'
+import { checkboxEmits, checkboxProps } from './checkbox'
 import { useNamespace } from '@/composables'
 
 defineOptions({
@@ -48,9 +48,7 @@ const checkboxInputCls = computed(() => [
     :style="{ color: textColor }"
     @click="onClickRoot"
   >
-    <span
-      :class="checkboxInputCls"
-    >
+    <span :class="checkboxInputCls">
       <input
         v-if="trueValue || falseValue"
         v-model="model"
@@ -67,7 +65,7 @@ const checkboxInputCls = computed(() => [
         @focus="isFocused = true"
         @blur="isFocused = false"
         @click.stop
-      >
+      />
       <input
         v-else
         v-model="model"
@@ -82,11 +80,11 @@ const checkboxInputCls = computed(() => [
         @focus="isFocused = true"
         @blur="isFocused = false"
         @click.stop
-      >
-      <span :class="ns.e('inner')"></span>
+      />
+      <span :class="ns.e('inner')" />
     </span>
     <span :class="ns.e('label')">
-      <slot></slot>
+      <slot />
       <template v-if="!$slots.default">{{ label }}</template>
     </span>
   </label>

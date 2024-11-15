@@ -11,10 +11,7 @@ const props = defineProps(timelineItemProps)
 
 const ns = useNamespace('timeline-item')
 
-const itemCls = computed(() => [
-  ns.b(),
-  { [ns.e('center')]: props.center }
-])
+const itemCls = computed(() => [ns.b(), { [ns.e('center')]: props.center }])
 
 const dotCls = computed(() => [
   ns.e('dot'),
@@ -27,30 +24,24 @@ const dotCls = computed(() => [
 
 <template>
   <li :class="itemCls">
-    <div :class="ns.is('tail')"></div>
+    <div :class="ns.is('tail')" />
 
-    <div :class="dotCls" :style="{backgroundColor: color}">
-      <n-icon v-if="icon" :icon="icon"></n-icon>
+    <div :class="dotCls" :style="{ backgroundColor: color }">
+      <n-icon v-if="icon" :icon="icon" />
     </div>
     <div :class="ns.e('wrap')">
       <div
         v-if="!hideTimestamp && placement === 'top'"
-        :class="[
-          ns.e('timestamp'),
-          ns.is('top')
-        ]"
+        :class="[ns.e('timestamp'), ns.is('top')]"
       >
         {{ timestamp }}
       </div>
       <div :class="ns.e('content')">
-        <slot></slot>
+        <slot />
       </div>
       <div
         v-if="!hideTimestamp && placement === 'bottom'"
-        :class="[
-          ns.e('timestamp'),
-          ns.is('bottom')
-        ]"
+        :class="[ns.e('timestamp'), ns.is('bottom')]"
       >
         {{ timestamp }}
       </div>

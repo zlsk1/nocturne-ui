@@ -4,7 +4,7 @@
     :class="[
       ns.em('reference', 'wrapper'),
       ns.is('disabled', disabled),
-      ns.is('active', isActive),
+      ns.is('active', isActive)
     ]"
     :style="positionStyle"
     @mousedown.stop="onMousedown"
@@ -18,7 +18,7 @@
       :popper-class="tooltipClass"
       :visible="visible"
     >
-      <div :class="ns.e('reference')"></div>
+      <div :class="ns.e('reference')" />
       <template #content>
         <span>{{ formatValue }}</span>
       </template>
@@ -27,13 +27,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, inject, computed, watch, nextTick } from 'vue'
+import { computed, inject, nextTick, ref, watch } from 'vue'
 import { SLIDER_INJECT_KEY } from './constants'
-import { sliderReferenceProps, sliderReferenceEmits } from './reference'
-import { NTooltip } from '@/components'
-import { useNamespace } from '@/composables'
+import { sliderReferenceEmits, sliderReferenceProps } from './reference'
 import type { TooltipInstance } from '@/components/tooltip'
 import type { CSSProperties } from 'vue'
+import { NTooltip } from '@/components'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NSliderReference'
@@ -55,7 +55,7 @@ const visible = ref(false)
 let parentWidth = 0
 let distance = 0
 let rect: DOMRect
-const parentHeight = (props.height!)
+const parentHeight = props.height!
 const diff = props.max - props.min
 const diffs: number[] = []
 
@@ -64,8 +64,7 @@ watch(sliderRef, () => {
     for (let i = 0; i <= props.step; i++) {
       if (!props.vertical) {
         diffs.push((parentWidth / props.step) * i)
-      }
-      else {
+      } else {
         diffs.push((parentHeight / props.step) * i)
       }
     }
@@ -75,12 +74,11 @@ watch(sliderRef, () => {
 const positionStyle = computed<CSSProperties>(() => {
   if (!props.vertical) {
     return {
-      left: positionPercent.value + '%'
+      left: `${positionPercent.value}%`
     }
-  }
-  else {
+  } else {
     return {
-      bottom: positionPercent.value + '%'
+      bottom: `${positionPercent.value}%`
     }
   }
 })
@@ -88,8 +86,7 @@ const positionStyle = computed<CSSProperties>(() => {
 const formatValue = computed<number>(() => {
   if (!props.formatValueFn) {
     return Math.round(positionPercent.value)
-  }
-  else {
+  } else {
     return handleFormat()
   }
 })
@@ -117,8 +114,7 @@ const handleMove = (e: MouseEvent) => {
   if (!props.vertical) {
     setPositionData(distance, parentWidth)
     setPercent(positionData.value)
-  }
-  else {
+  } else {
     setPositionData(distance, parentHeight)
     setPercent(positionData.value)
   }
@@ -150,35 +146,34 @@ const onMouseleave = () => {
 }
 
 const setPercent = (val: number) => {
-  positionPercent.value = props.vertical ? 100 - (val / parentHeight * 100) : (val / parentWidth * 100)
+  positionPercent.value = props.vertical
+    ? 100 - (val / parentHeight) * 100
+    : (val / parentWidth) * 100
 }
 
 const handleFormat = () => {
-  const calculateVal = props.min + Math.round(positionPercent.value * (diff) / 100)
+  const calculateVal =
+    props.min + Math.round((positionPercent.value * diff) / 100)
   return props.formatValueFn!(calculateVal)
 }
 
 const setPositionData = (distance: number, parent: number) => {
   if (distance < 0) {
     positionData.value = 0
-  }
-  else if (distance >= parent) {
+  } else if (distance >= parent) {
     positionData.value = parent
-  }
-  else {
+  } else {
     if (props.step) {
       for (let i = 0; i < diffs.length; i++) {
         if (distance > diffs[i] && distance < diffs[i + 1]) {
           if (distance - diffs[i] < parent / props.step / 2) {
             positionData.value = diffs[i]
-          }
-          else {
+          } else {
             positionData.value = diffs[i + 1]
           }
         }
       }
-    }
-    else {
+    } else {
       positionData.value = distance
     }
   }

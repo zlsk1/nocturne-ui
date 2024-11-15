@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { provide, nextTick, toRefs, reactive } from 'vue'
-import { radioGroupProps, radioGroupEmits } from './radio-group'
+import { nextTick, provide, reactive, toRefs } from 'vue'
+import { radioGroupEmits, radioGroupProps } from './radio-group'
 import { RADIOGROUP_INJECTION_KEY } from './constants'
 import { useFormItemId } from '@/components/form'
 import { useNamespace } from '@/composables'
@@ -31,10 +31,7 @@ provide(
 </script>
 
 <template>
-  <div
-    :id="formId"
-    :class="ns.b()"
-  >
-    <slot></slot>
+  <div :id="formId" :class="ns.b()">
+    <slot />
   </div>
 </template>

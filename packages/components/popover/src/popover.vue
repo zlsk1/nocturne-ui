@@ -33,7 +33,7 @@
     @update:visible="updateVisible"
   >
     <template v-if="$slots.reference">
-      <slot name="reference"></slot>
+      <slot name="reference" />
     </template>
     <template #content>
       <div v-if="title" :class="ns.e('title')">{{ title }}</div>
@@ -43,9 +43,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
-import { popoverProps, popoverEmit } from './popover'
-import { NTooltip, TooltipInstance } from '@/components'
+import { computed, ref } from 'vue'
+import { popoverEmit, popoverProps } from './popover'
+import type { TooltipInstance } from '@/components'
+import { NTooltip } from '@/components'
 import { isNumber } from '@/utils'
 import { useNamespace } from '@/composables'
 
@@ -63,15 +64,12 @@ const tooltipRef = ref<TooltipInstance>()
 const popoverRef = computed(() => tooltipRef.value?.popperRef)
 const popoverStyle = computed(() => {
   return [
-    { width: isNumber(props.width) ? props.width + 'px' : props.width },
+    { width: isNumber(props.width) ? `${props.width}px` : props.width },
     props.popperStyle
   ]
 })
 const popoverClass = computed(() => {
-  return [
-    props.popperClass!,
-    ns.b()
-  ]
+  return [props.popperClass!, ns.b()]
 })
 
 const beforeEnter = () => {

@@ -1,5 +1,5 @@
-import { withInstall } from '@/utils'
 import input from './src/input.vue'
+import { withInstall } from '@/utils'
 
 export * from './src/input'
 export const NInput = withInstall(input)

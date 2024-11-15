@@ -1,10 +1,10 @@
 import { computed, inject, ref, toRaw } from 'vue'
-import { isArray, isBoolean, isObject, isPropAbsent, isEqual } from '@/utils'
 import { checkboxGroupContextKey } from '../src/constants'
 
 import type { ComponentInternalInstance } from 'vue'
 import type { CheckboxProps } from '../src/checkbox'
 import type { CheckboxModel } from '../composables'
+import { isArray, isBoolean, isEqual, isObject, isPropAbsent } from '@/utils'
 
 export const useCheckboxStatus = (
   props: CheckboxProps,
@@ -23,19 +23,15 @@ export const useCheckboxStatus = (
     const value = model.value
     if (isBoolean(value)) {
       return value
-    }
-    else if (isArray(value)) {
+    } else if (isArray(value)) {
       if (isObject(actualValue.value)) {
         return value.map(toRaw).some((o) => isEqual(o, actualValue.value))
-      }
-      else {
+      } else {
         return value.map(toRaw).includes(actualValue.value as never)
       }
-    }
-    else if (value !== null && value !== undefined) {
+    } else if (value !== null && value !== undefined) {
       return value === props.trueValue
-    }
-    else {
+    } else {
       return !!value
     }
   })

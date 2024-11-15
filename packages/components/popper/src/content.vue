@@ -8,19 +8,26 @@
     @mouseenter="(e) => $emit('mouseenter', e)"
     @mouseleave="(e) => $emit('mouseleave', e)"
   >
-    <slot></slot>
+    <slot />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { provide, ref, watch, onMounted, unref, onBeforeUnmount, computed } from 'vue'
-import { usePopperContentDOM, usePopperContent } from './composables'
+import {
+  computed,
+  onBeforeUnmount,
+  onMounted,
+  provide,
+  ref,
+  unref,
+  watch
+} from 'vue'
+import { usePopperContent, usePopperContentDOM } from './composables'
 import { popperContentProps } from './content'
 import { POPPER_CONTENT_INJECTION_KEY } from './constants'
+import type { WatchStopHandle } from 'vue'
 import { isElement } from '@/utils'
 import { useNamespace } from '@/composables'
-
-import type { WatchStopHandle } from 'vue'
 
 defineOptions({
   name: 'NPopperContent'
@@ -32,19 +39,15 @@ const ns = useNamespace('popper')
 
 const arrowOffset = ref()
 
-const { attributes, arrowRef, contentRef, styles, instanceRef, role, update } = usePopperContent(props)
+const { attributes, arrowRef, contentRef, styles, instanceRef, role, update } =
+  usePopperContent(props)
 
-const {
-  ariaModal,
-  arrowStyle,
-  contentAttrs,
-  contentClass,
-  contentStyle
-} = usePopperContentDOM(props, {
-  styles,
-  attributes,
-  role
-})
+const { ariaModal, arrowStyle, contentAttrs, contentClass, contentStyle } =
+  usePopperContentDOM(props, {
+    styles,
+    attributes,
+    role
+  })
 
 const updatePopper = (shouldUpdateZIndex = true) => {
   update()
@@ -82,7 +85,7 @@ onMounted(() => {
         triggerTargetAriaStopWatch = watch(
           [role, () => props.ariaLabel, ariaModal, () => props.id],
           (watches) => {
-            ['role', 'aria-label', 'aria-modal', 'id'].forEach((key, idx) => {
+            ;['role', 'aria-label', 'aria-modal', 'id'].forEach((key, idx) => {
               !watches[idx]
                 ? el.removeAttribute(key)
                 : el.setAttribute(key, watches[idx] as string)
@@ -92,7 +95,7 @@ onMounted(() => {
         )
       }
       if (prevEl !== el && isElement(prevEl)) {
-        ['role', 'aria-label', 'aria-modal', 'id'].forEach((key) => {
+        ;['role', 'aria-label', 'aria-modal', 'id'].forEach((key) => {
           prevEl.removeAttribute(key)
         })
       }

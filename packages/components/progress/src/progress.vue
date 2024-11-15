@@ -1,14 +1,10 @@
 <template>
   <div :class="ns.b()" :style="{ height: height + 'px' }">
     <div v-if="type === 'line'" :class="ns.m('line')">
-      <div :class="ns.e('bg')"></div>
-      <div
-        ref="barRef"
-        :class="ns.e('bar')"
-        :style="barStyle"
-      >
+      <div :class="ns.e('bg')" />
+      <div ref="barRef" :class="ns.e('bar')" :style="barStyle">
         <span v-if="$slots.inner" :class="ns.e('bar__inner')">
-          <slot name="inner"></slot>
+          <slot name="inner" />
         </span>
       </div>
     </div>
@@ -20,17 +16,17 @@
       ></div>
     </div> -->
     <div v-if="$slots.default" :class="ns.e('slot')">
-      <slot></slot>
+      <slot />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { progressProps } from './progress'
-import { useNamespace } from '@/composables'
 import type { ProgressProps } from './progress'
 import type { CSSProperties } from 'vue'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NProgress'
@@ -44,7 +40,7 @@ const barRef = ref<HTMLElement>()
 
 const barStyle = computed<CSSProperties>(() => {
   return {
-    width: props.percentage + '%',
+    width: `${props.percentage}%`,
     backgroundColor: props.color as string
   }
 })
@@ -54,13 +50,16 @@ onMounted(() => {
 })
 
 const setAnimation = () => {
-  const { percentage, animationDuration }: Pick<ProgressProps, 'percentage' | 'animationDuration'> = props
+  const {
+    percentage,
+    animationDuration
+  }: Pick<ProgressProps, 'percentage' | 'animationDuration'> = props
 
   const progressKeyframeEffect = new KeyframeEffect(
     barRef.value as Element, // element to animate
     [
       { width: '0%' }, // keyframe
-      { width: percentage + '%' } // keyframe
+      { width: `${percentage}%` } // keyframe
     ],
     {
       duration: animationDuration,

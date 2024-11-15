@@ -1,4 +1,3 @@
-import { isArray } from '@/utils'
 import { useCheckboxDisabled } from './use-checkbox-disabled'
 import { useCheckboxEvent } from './use-checkbox-event'
 import { useCheckboxModel } from './use-checkbox-model'
@@ -6,6 +5,7 @@ import { useCheckboxStatus } from './use-checkbox-status'
 import type { ComponentInternalInstance } from 'vue'
 
 import type { CheckboxProps } from '../src/checkbox'
+import { isArray } from '@/utils'
 
 export const useCheckbox = (
   props: CheckboxProps,
@@ -20,7 +20,11 @@ export const useCheckbox = (
     hasOwnLabel,
     actualValue
   } = useCheckboxStatus(props, slots, { model })
-  const { isDisabled } = useCheckboxDisabled({ model, isChecked, disabled: props.disabled })
+  const { isDisabled } = useCheckboxDisabled({
+    model,
+    isChecked,
+    disabled: props.disabled
+  })
   const { handleChange, onClickRoot } = useCheckboxEvent(props, {
     model,
     isLimitExceeded,
@@ -30,10 +34,12 @@ export const useCheckbox = (
 
   const setStoreValue = () => {
     function addToStore() {
-      if (isArray(model.value) && !model.value.includes(actualValue.value as never)) {
+      if (
+        isArray(model.value) &&
+        !model.value.includes(actualValue.value as never)
+      ) {
         model.value.push(actualValue.value as never)
-      }
-      else {
+      } else {
         model.value = props.trueValue ?? true
       }
     }

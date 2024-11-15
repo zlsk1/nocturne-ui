@@ -24,12 +24,12 @@
     <n-button type="success" round>Success</n-button>
   </div>
   <div class="mb-4">
-    <n-button circle :icon="Search"></n-button>
-    <n-button type="primary" circle :icon="Upload"></n-button>
-    <n-button type="danger" circle :icon="Delete"></n-button>
-    <n-button type="warning" circle :icon="Walk"></n-button>
-    <n-button type="info" circle :icon="CodeView"></n-button>
-    <n-button type="success"circle :icon="Game"></n-button>
+    <n-button circle :icon="Search" />
+    <n-button type="primary" circle :icon="Upload" />
+    <n-button type="danger" circle :icon="Delete" />
+    <n-button type="warning" circle :icon="Walk" />
+    <n-button type="info" circle :icon="CodeView" />
+    <n-button type="success" circle :icon="Game" />
   </div>
   <div>
     <n-button text>Default</n-button>
@@ -37,17 +37,17 @@
     <n-button type="danger" text>Danger</n-button>
     <n-button type="warning" text>Warning</n-button>
     <n-button type="info" text>Info</n-button>
-    <n-button type="success"text>Success</n-button>
+    <n-button type="success" text>Success</n-button>
   </div>
 </template>
 
 <script lang="ts" setup>
 import {
+  RiCodeView as CodeView,
+  RiDeleteBinLine as Delete,
+  RiGameLine as Game,
   RiSearchLine as Search,
   RiUploadLine as Upload,
-  RiDeleteBinLine as Delete,
-  RiWalkLine as Walk,
-  RiCodeView as CodeView,
-  RiGameLine as Game
+  RiWalkLine as Walk
 } from '@remixicon/vue'
 </script>

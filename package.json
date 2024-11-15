@@ -9,7 +9,7 @@
     "preview": "vite preview --open",
     "test:unit": "vitest",
     "clean:dist": "rimraf dist",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "lint": "eslint . --ext .vue,.js,.ts,.tsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write packages/",
     "prepare": "husky",
     "check": "vue-tsc -p tsconfig.node.json --composite false  --noEmit",

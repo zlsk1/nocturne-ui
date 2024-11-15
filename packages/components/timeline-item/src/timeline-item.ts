@@ -1,5 +1,5 @@
-import type { ExtractPropTypes } from 'vue'
 import timelineItem from './timeline-item.vue'
+import type { ExtractPropTypes } from 'vue'
 
 export const timelineItemProps = {
   timestamp: {

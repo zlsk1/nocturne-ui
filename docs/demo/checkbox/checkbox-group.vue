@@ -1,16 +1,26 @@
 <template>
   <div class="mb-4">
     <n-checkbox-group v-model="list">
-      <n-checkbox value="choosen 1" label="choosen 1"></n-checkbox>
-      <n-checkbox value="choosen 2" label="choosen 2"></n-checkbox>
-      <n-checkbox value="choosen 3" label="choosen 3" disabled></n-checkbox>
-      <n-checkbox value="choosen 4" label="choosen 4"></n-checkbox>
+      <n-checkbox value="choosen 1" label="choosen 1" />
+      <n-checkbox value="choosen 2" label="choosen 2" />
+      <n-checkbox value="choosen 3" label="choosen 3" disabled />
+      <n-checkbox value="choosen 4" label="choosen 4" />
     </n-checkbox-group>
   </div>
   <div>
-    <n-checkbox v-model="checkAll" :indeterminate="indeterminate" label="check-all" @change="handleCheckAll"></n-checkbox>
+    <n-checkbox
+      v-model="checkAll"
+      :indeterminate="indeterminate"
+      label="check-all"
+      @change="handleCheckAll"
+    />
     <n-checkbox-group v-model="checkedNames" @change="handleChange">
-      <n-checkbox v-for="name in names" :value="name" :label="name"></n-checkbox>
+      <n-checkbox
+        v-for="name in names"
+        :key="name"
+        :value="name"
+        :label="name"
+      />
     </n-checkbox-group>
   </div>
 </template>
@@ -19,7 +29,6 @@
 import { ref } from 'vue'
 
 const list = ref(['choosen 1', 'choosen 2'])
-
 
 const checkAll = ref(false)
 const indeterminate = ref(true)

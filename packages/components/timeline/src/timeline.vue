@@ -10,6 +10,6 @@ const ns = useNamespace('timeline')
 
 <template>
   <ul :class="ns.b()">
-    <slot></slot>
+    <slot />
   </ul>
 </template>

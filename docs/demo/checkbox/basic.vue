@@ -5,9 +5,9 @@
     <n-checkbox v-model="checkbox3" size="large">choosen 3</n-checkbox>
   </div>
   <div class="mb-2">
-    <n-checkbox v-model="checkbox4" label="choosen 1"></n-checkbox>
-    <n-checkbox v-model="checkbox5" label="choosen 2"></n-checkbox>
-    <n-checkbox v-model="checkbox6" label="choosen 3"></n-checkbox>
+    <n-checkbox v-model="checkbox4" label="choosen 1" />
+    <n-checkbox v-model="checkbox5" label="choosen 2" />
+    <n-checkbox v-model="checkbox6" label="choosen 3" />
   </div>
   <div>
     <n-checkbox v-model="checkbox7" size="small">choosen 1</n-checkbox>

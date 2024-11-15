@@ -1,9 +1,8 @@
 import { defineComponent, h, provide, toRef } from 'vue'
 import { NBREADCRUMBINJECTIONKEY } from './constants'
+import type { ExtractPropTypes } from 'vue'
 import { iconPropType, isString } from '@/utils'
 import { useNamespace } from '@/composables'
-
-import type { ExtractPropTypes } from 'vue'
 
 export const breadcrumbProps = {
   separator: {
@@ -15,7 +14,7 @@ export const breadcrumbProps = {
 export type BreadcrumbProps = ExtractPropTypes<typeof breadcrumbProps>
 
 export const breadcrumbEmit = {
-  onClick: (path?: string) => isString(path) || typeof (path) === 'undefined'
+  onClick: (path?: string) => isString(path) || typeof path === 'undefined'
 }
 
 export type BreadcrumbEmit = typeof breadcrumbEmit
@@ -34,10 +33,6 @@ export default defineComponent({
       onClick: handleClick
     })
 
-    return () => h(
-      'ol',
-      { class: ns.b() },
-      slots.default?.()
-    )
+    return () => h('ol', { class: ns.b() }, slots.default?.())
   }
 })

@@ -1,15 +1,15 @@
-import { defineConfig } from 'tsup'
 import { copyFile, mkdir } from 'fs/promises'
 import { resolve } from 'path'
+import { defineConfig } from 'tsup'
 
 const distRoot = resolve('nocturne-ui/resolver')
 
-const createdir = async() => {
+const createdir = async () => {
   await mkdir(distRoot, { recursive: true })
 }
 createdir()
 
-const copyPackage = async() => {
+const copyPackage = async () => {
   await copyFile(resolve('./package.json'), resolve(distRoot, 'package.json'))
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="mb-4">
-    <n-color-picker v-model="value1" showAlpha></n-color-picker>
+    <n-color-picker v-model="value1" show-alpha />
   </div>
 </template>
 

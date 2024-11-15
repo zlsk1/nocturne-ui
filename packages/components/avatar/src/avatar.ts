@@ -1,7 +1,7 @@
-import { definePropType, isNumber, iconPropType } from '@/utils'
-import { componentSizes } from '@/constants'
 import Avatar from './avatar.vue'
 import type { ExtractPropTypes } from 'vue'
+import { definePropType, iconPropType, isNumber } from '@/utils'
+import { componentSizes } from '@/constants'
 
 const shape = ['circle', 'square'] as const
 type fit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down'

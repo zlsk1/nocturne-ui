@@ -6,11 +6,10 @@ import {
   shallowRef,
   watch
 } from 'vue'
-import { getClientXY, isNumber } from '@/utils'
 import { draggable } from '../utils/draggable'
-import { useNamespace } from '@/composables'
-
 import type { AlphaSliderProps } from '../props/alpha-slider'
+import { getClientXY, isNumber } from '@/utils'
+import { useNamespace } from '@/composables'
 
 export const useAlphaSlider = (props: AlphaSliderProps) => {
   const instance = getCurrentInstance()!
@@ -46,8 +45,7 @@ export const useAlphaSlider = (props: AlphaSliderProps) => {
             100
         )
       )
-    }
-    else {
+    } else {
       let top = clientY - rect.top
       top = Math.max(thumb.value.offsetHeight / 2, top)
       top = Math.min(top, rect.height - thumb.value.offsetHeight / 2)
@@ -97,7 +95,8 @@ export const useAlphaSliderDOM = (
 
     if (!el) return 0
     return Math.round(
-      (alpha * (el.offsetWidth - thumb.value.offsetWidth / 2 - thumbWidth)) / 100
+      (alpha * (el.offsetWidth - thumb.value.offsetWidth / 2 - thumbWidth)) /
+        100
     )
   }
 
@@ -158,8 +157,8 @@ export const useAlphaSliderDOM = (
   const thumbCls = computed(() => ns.e('thumb'))
   const barStyle = computed(() => ({ background: background.value }))
   const thumbStyle = computed(() => ({
-    left: !isNumber(thumbLeft.value) ? thumbLeft.value : thumbLeft.value + 'px',
-    top: !isNumber(thumbTop.value) ? thumbTop.value : thumbTop.value + 'px'
+    left: !isNumber(thumbLeft.value) ? thumbLeft.value : `${thumbLeft.value}px`,
+    top: !isNumber(thumbTop.value) ? thumbTop.value : `${thumbTop.value}px`
   }))
 
   return {

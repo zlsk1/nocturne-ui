@@ -7,7 +7,7 @@
       :virtual-ref="virtualRef"
       :virtual-triggering="virtualTriggering"
     >
-      <slot></slot>
+      <slot />
     </NTooltipReference>
     <NTooltipContent
       ref="contentRef"
@@ -39,25 +39,25 @@
       :append-to="appendTo"
     >
       <slot name="content">
-        <span v-if="rawContent" v-html="content"></span>
+        <span v-if="rawContent" v-html="content" />
         <span v-else>{{ content }}</span>
       </slot>
-      <NPopperArrow v-if="showArrow" :arrow-offset="arrowOffset"></NPopperArrow>
+      <NPopperArrow v-if="showArrow" :arrow-offset="arrowOffset" />
     </NTooltipContent>
   </NPopper>
 </template>
 
 <script lang="ts" setup>
-import { ref, provide, computed, unref, toRef, watch, onDeactivated } from 'vue'
+import { computed, onDeactivated, provide, ref, toRef, unref, watch } from 'vue'
 import { tooltipEmits, useTooltipModelToggle, useTooltipProps } from './tooltip'
-import { useDelayedToggle } from '@/composables'
 import NTooltipContent from './content.vue'
 import NTooltipReference from './reference.vue'
+import { TOOLTIP_INJECTION_KEY } from './constants'
+import type { PopperInstance } from '@/components/popper'
+import { useDelayedToggle } from '@/composables'
 import NPopper from '@/components/popper'
 import NPopperArrow from '@/components/popper/src/arrow.vue'
-import { TOOLTIP_INJECTION_KEY } from './constants'
 import { isBoolean } from '@/utils'
-import type { PopperInstance } from '@/components/popper'
 
 defineOptions({
   name: 'NTooltip'
@@ -76,7 +76,9 @@ const { show, hide, hasUpdateHandler } = useTooltipModelToggle({
   toggleReason
 })
 
-const controlled = computed(() => isBoolean(props.visible) && !hasUpdateHandler.value)
+const controlled = computed(
+  () => isBoolean(props.visible) && !hasUpdateHandler.value
+)
 
 watch(
   () => props.disabled,
@@ -106,7 +108,7 @@ const updatePopper = () => {
 
 const isFocusInsideContent = (event?: FocusEvent) => {
   const popperContent = contentRef.value?.contentRef?.popperContentRef
-  const activeElement = (event?.relatedTarget) || document.activeElement
+  const activeElement = event?.relatedTarget || document.activeElement
 
   return popperContent && popperContent.contains(activeElement)
 }
@@ -124,8 +126,7 @@ provide(TOOLTIP_INJECTION_KEY, {
   onToggle: (event?: Event) => {
     if (unref(open)) {
       onClose(event)
-    }
-    else {
+    } else {
       onOpen(event)
     }
   },

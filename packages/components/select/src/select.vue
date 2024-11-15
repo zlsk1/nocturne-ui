@@ -13,10 +13,7 @@
       :show-after="0"
       :hide-after="0"
       effect="light"
-      :popper-class="[
-        ns.e('popper'),
-        popperClass
-      ]"
+      :popper-class="[ns.e('popper'), popperClass]"
       :transition="`${ns.ns.value}-zoom-in-top`"
       :disabled="disabled"
       :persistent="persistent"
@@ -38,7 +35,7 @@
               ref="inputRef"
               type="text"
               :class="ns.e('input')"
-            >
+            />
             <NTag
               v-for="(item, index) in taglist"
               v-else
@@ -55,7 +52,7 @@
               :class="[
                 ns.e('placeholder'),
                 ns.is('selecting', existActualValue),
-                ns.is('disabled', disabled),
+                ns.is('disabled', disabled)
               ]"
             >
               {{ placeholder }}
@@ -69,13 +66,9 @@
                   { transition: 'all .3s' },
                   visible ? arrowIconStyle : ''
                 ]"
-              ></ArrowDown>
+              />
             </n-icon>
-            <CloseCircle
-              v-else
-              size="16"
-              @click.stop="clearValue"
-            ></CloseCircle>
+            <CloseCircle v-else size="16" @click.stop="clearValue" />
           </div>
         </div>
       </template>
@@ -85,7 +78,7 @@
           :style="selectWrapperStyle"
           :class="`${ns.ns.value}-select-option__wrapper`"
         >
-          <slot></slot>
+          <slot />
         </ul>
       </template>
     </NTooltip>
@@ -93,36 +86,20 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  computed,
-  onMounted,
-  provide,
-  ref,
-  watch
-} from 'vue'
-import {
-  NTooltip,
-  NIcon,
-  NTag
-} from '@/components'
-import { SELECT_INJECTION_KEY } from './constants'
-import { selectProps, selectEmits } from './select'
+import { computed, onMounted, provide, ref, watch } from 'vue'
 import { onClickOutside, useElementSize } from '@vueuse/core'
-import {
-  isNil,
-  isArray,
-  isObject
-} from '@/utils'
 import {
   RiArrowDownWideLine as ArrowDown,
   RiCloseCircleLine as CloseCircle
 } from '@remixicon/vue'
-import { useFormItemId } from '@/components'
-import { useNamespace } from '@/composables'
-
+import { SELECT_INJECTION_KEY } from './constants'
+import { selectEmits, selectProps } from './select'
 import type { CSSProperties } from 'vue'
 import type { TooltipInstance } from '@/components/tooltip'
 import type { OptionProxy } from './constants'
+import { isArray, isNil, isObject } from '@/utils'
+import { NIcon, NTag, NTooltip, useFormItemId } from '@/components'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NSelect'
@@ -174,8 +151,8 @@ const arrowIconStyle = computed<CSSProperties>(() => {
 
 const selectWrapperStyle = computed<CSSProperties>(() => {
   return {
-    width: selectRef.value?.getBoundingClientRect().width + 'px',
-    maxHeight: props.height + 'px'
+    width: `${selectRef.value?.getBoundingClientRect().width}px`,
+    maxHeight: `${props.height}px`
   }
 })
 
@@ -183,8 +160,7 @@ const existActualValue = computed(() => {
   if (!isNil(actualVal.value)) {
     if (isArray(actualVal.value)) {
       return actualVal.value.length > 0
-    }
-    else return actualVal.value !== ''
+    } else return actualVal.value !== ''
   }
   return false
 })
@@ -204,8 +180,7 @@ const placeholder = computed(() => {
 const taglist = computed(() => {
   if (props.valueKey) {
     return actualLabel.value
-  }
-  else if (props.multiple && isArray(actualVal.value)) {
+  } else if (props.multiple && isArray(actualVal.value)) {
     return actualVal.value
   }
   return []
@@ -239,7 +214,9 @@ const clearValue = () => {
 }
 
 const handleTagDel = (val: any) => {
-  const _actualVal = actualVal.value as Array<string | number | boolean | Object>
+  const _actualVal = actualVal.value as Array<
+    string | number | boolean | object
+  >
 
   if (props.multiple) {
     let index = -1
@@ -247,10 +224,10 @@ const handleTagDel = (val: any) => {
       if (!isObject(val)) {
         index = _actualVal.indexOf(val)
         break
-      }
-      else {
-        index = _actualVal.findIndex(v =>
-          v[props.valueKey as keyof typeof v] === val.value[props.valueKey!]
+      } else {
+        index = _actualVal.findIndex(
+          (v) =>
+            v[props.valueKey as keyof typeof v] === val.value[props.valueKey!]
         )
         break
       }
@@ -280,7 +257,9 @@ const setSelected = () => {
 
 const clickOption = (vm: OptionProxy) => {
   const { value, label } = vm
-  const _actualVal = actualVal.value as Array<string | number | boolean | Object>
+  const _actualVal = actualVal.value as Array<
+    string | number | boolean | object
+  >
 
   if (props.multiple) {
     const index = getOptionIndex(actualVal.value as [], value)
@@ -288,13 +267,11 @@ const clickOption = (vm: OptionProxy) => {
     if (index > -1) {
       _actualVal?.splice(index, 1)
       actualLabel.value.splice(index, 1)
-    }
-    else {
+    } else {
       _actualVal.push(value!)
       actualLabel.value.push({ value, label })
     }
-  }
-  else {
+  } else {
     visible.value = false
     actualVal.value = isObject(value) ? options.get(value).value : value
     actualLabel.value = isObject(value) ? options.get(value).label : label
@@ -303,7 +280,9 @@ const clickOption = (vm: OptionProxy) => {
 
 const getOptionValue = (value: any) => {
   let newOption
-  const _actualVal = actualVal.value as Array<string | number | boolean | Object>
+  const _actualVal = actualVal.value as Array<
+    string | number | boolean | object
+  >
 
   for (let i = 0; i < options.size - 1; i++) {
     const option = props.multiple ? _actualVal[i] : _actualVal
@@ -329,12 +308,16 @@ const getOptionIndex = (arr: any[] = [], val: any) => {
 
   let index = -1
 
-  arr.some((v, i) => {
-    if (v[props.valueKey as keyof typeof v] === val[props.valueKey as string]) {
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i]
+    if (
+      item[props.valueKey as keyof typeof item] ===
+      val[props.valueKey as string]
+    ) {
       index = i
       return
     }
-  })
+  }
 
   return index
 }

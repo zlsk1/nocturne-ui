@@ -1,40 +1,19 @@
 <template>
-  <n-popover
-    ref="popoverRef"
-    trigger="click"
-    :popper-class="ns.b()"
-  >
+  <n-popover ref="popoverRef" trigger="click" :popper-class="ns.b()">
     <template #reference>
-      <slot></slot>
+      <slot />
     </template>
     <template #default>
-      <div
-        :class="[
-          ns.e('title'),
-          ns.is('icon', showIcon),
-        ]"
-      >
-        <Quesition
-          v-if="!$slots.icon && showIcon"
-          size="16"
-          color="#f0bb40"
-        ></Quesition>
-        <slot v-else name="icon"></slot>
+      <div :class="[ns.e('title'), ns.is('icon', showIcon)]">
+        <Quesition v-if="!$slots.icon && showIcon" size="16" color="#f0bb40" />
+        <slot v-else name="icon" />
         <p>{{ title }}</p>
       </div>
       <div :class="ns.e('btns')">
-        <n-button
-          text
-          size="small"
-          @click="cancel"
-        >
+        <n-button text size="small" @click="cancel">
           {{ cancelText }}
         </n-button>
-        <n-button
-          type="primary"
-          size="small"
-          @click="confirm"
-        >
+        <n-button type="primary" size="small" @click="confirm">
           {{ confirmText }}
         </n-button>
       </div>
@@ -44,12 +23,11 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { popconfirmProps, popconfirmEmit } from './popconfirm'
-import { NPopover, NButton } from '@/components'
 import { RiQuestionFill as Quesition } from '@remixicon/vue'
-import { useNamespace } from '@/composables'
-
+import { popconfirmEmit, popconfirmProps } from './popconfirm'
 import type { PopoverInstance } from '@/components'
+import { NButton, NPopover } from '@/components'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NPopconfirm'

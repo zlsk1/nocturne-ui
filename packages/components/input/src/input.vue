@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { ref, computed, nextTick, useSlots } from 'vue'
-import { inputProps, inputEmits } from './input'
+import { computed, nextTick, ref, useSlots } from 'vue'
 import {
-  RiEyeLine as Eye,
-  RiCloseCircleLine as CloseCircle
+  RiCloseCircleLine as CloseCircle,
+  RiEyeLine as Eye
 } from '@remixicon/vue'
-import { useFormItemId, useForm } from '@/components/form'
+import { inputEmits, inputProps } from './input'
+import { useForm, useFormItemId } from '@/components/form'
 import { NIcon } from '@/components'
 import { useNamespace } from '@/composables'
 
@@ -26,14 +26,16 @@ const showPwd = ref(false)
 const hovering = ref(false)
 
 const labelId = useFormItemId()
-const { form, formItem } = useForm()
+const { formItem } = useForm()
 
 const showPwdVisable = computed(() => {
   return props.showPassword && !!props.modelValue
 })
 
 const showClear = computed(() => {
-  return props.clearable && (hovering.value || isFocus.value) && !!props.modelValue
+  return (
+    props.clearable && (hovering.value || isFocus.value) && !!props.modelValue
+  )
 })
 
 const isTextarea = computed(() => {
@@ -41,7 +43,12 @@ const isTextarea = computed(() => {
 })
 
 const showSuffix = computed<boolean>(() => {
-  return !!props.suffixIcon || showClear.value || showPwdVisable.value || !!slots.suffix
+  return (
+    !!props.suffixIcon ||
+    showClear.value ||
+    showPwdVisable.value ||
+    !!slots.suffix
+  )
 })
 
 const handleInput = (e: Event) => {
@@ -75,7 +82,8 @@ const handleFocus = (e: FocusEvent) => {
 }
 
 const handleBlur = (e: FocusEvent) => {
-  if (e.relatedTarget && wrapperRef.value?.contains(e.relatedTarget as Node)) return
+  if (e.relatedTarget && wrapperRef.value?.contains(e.relatedTarget as Node))
+    return
   isFocus.value = false
   emit('blur', e)
   formItem?.validate()
@@ -85,12 +93,12 @@ const handleShowPwd = () => {
   showPwd.value = !showPwd.value
 }
 
-const focus = async() => {
+const focus = async () => {
   await nextTick()
   inputRef.value?.focus()
 }
 
-const blur = async() => {
+const blur = async () => {
   await nextTick()
   inputRef.value?.blur()
 }
@@ -106,7 +114,7 @@ defineExpose({
 <template>
   <div
     :class="[
-      !isTextarea ? ns.b() :'n-textarea',
+      !isTextarea ? ns.b() : 'n-textarea',
       ns.m(size),
       ns.is('disabled', disabled)
     ]"
@@ -117,18 +125,14 @@ defineExpose({
     <template v-if="!isTextarea">
       <div
         ref="wrapperRef"
-        :class="[
-          ns.e('wrapper'),
-          ns.is('focus', isFocus)
-        ]"
+        :class="[ns.e('wrapper'), ns.is('focus', isFocus)]"
         tabindex="1"
       >
         <span v-if="prefixIcon || slots.prefix" :class="ns.e('prefix')">
           <span :class="ns.e('prefix-inner')">
             <n-icon :class="ns.e('icon')">
-              <slot v-if="slots.prefix" name="prefix">
-              </slot>
-              <component :is="prefixIcon" v-else></component>
+              <slot v-if="slots.prefix" name="prefix" />
+              <component :is="prefixIcon" v-else />
             </n-icon>
           </span>
         </span>
@@ -151,24 +155,28 @@ defineExpose({
           @focus="handleFocus"
           @blur="handleBlur"
           @change="handleChange"
-        >
+        />
         <span v-if="showSuffix" :class="ns.e('suffix')">
           <span :class="ns.e('suffix-inner')">
-            <n-icon v-if="showPwdVisable" :class="[ns.e('icon'), ns.e('password')]">
-              <Eye @click="handleShowPwd"></Eye>
+            <n-icon
+              v-if="showPwdVisable"
+              :class="[ns.e('icon'), ns.e('password')]"
+            >
+              <Eye @click="handleShowPwd" />
             </n-icon>
             <n-icon v-if="showClear" :class="[ns.e('icon'), ns.e('clear')]">
-              <CloseCircle @click="clearValue"></CloseCircle>
+              <CloseCircle @click="clearValue" />
             </n-icon>
             <n-icon v-if="suffixIcon" :class="[ns.e('icon')]">
-              <component :is="suffixIcon"></component>
+              <component :is="suffixIcon" />
             </n-icon>
             <n-icon v-if="slots.suffix" :class="[ns.e('icon')]">
-              <slot name="suffix">
-              </slot>
+              <slot name="suffix" />
             </n-icon>
             <span v-if="showLimit" :class="ns.e('count')">
-              <span :class="ns.e('count-inner')">{{ (modelValue as string).length }} / {{ maxlength }}</span>
+              <span :class="ns.e('count-inner')"
+                >{{ (modelValue as string).length }} / {{ maxlength }}</span
+              >
             </span>
           </span>
         </span>
@@ -186,16 +194,15 @@ defineExpose({
         :value="modelValue"
         :autofocus="autofocus"
         :rows="rows"
-        :class="[
-          `${ns.ns.value}-textarea__inner`,
-          ns.is('noResize', noResize)
-        ]"
+        :class="[`${ns.ns.value}-textarea__inner`, ns.is('noResize', noResize)]"
         @input="handleInput"
         @focus="handleFocus"
         @blur="handleBlur"
-      ></textarea>
+      />
       <span v-if="showLimit" :class="ns.e('count')">
-        <span :class="ns.e('count-inner')">{{ (modelValue as string).length }} / {{ maxlength }}</span>
+        <span :class="ns.e('count-inner')"
+          >{{ (modelValue as string).length }} / {{ maxlength }}</span
+        >
       </span>
     </template>
   </div>

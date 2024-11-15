@@ -1,7 +1,12 @@
 <template>
   <div>
     <n-checkbox-group v-model="checkedCountries" :max="3" :min="1">
-      <n-checkbox v-for="name in countries" :value="name" :label="name"></n-checkbox>
+      <n-checkbox
+        v-for="name in countries"
+        :key="name"
+        :value="name"
+        :label="name"
+      />
     </n-checkbox-group>
   </div>
 </template>

@@ -5,7 +5,5 @@ export const useDatePicker = () => {
   const nowMonth = dayjs().month()
   const nowDayInMonth = dayjs(nowMonth).daysInMonth()
 
-  return {
-
-  }
+  return {}
 }

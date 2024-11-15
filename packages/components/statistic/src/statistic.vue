@@ -30,12 +30,12 @@ defineExpose({
 <template>
   <div :class="ns.b()">
     <div :class="ns.e('title')">
-      <slot></slot>
+      <slot />
     </div>
     <div :class="ns.e('value')" :style="valueStyle">
-      <component :is="suffixIcon" v-if="suffixIcon"></component>
+      <component :is="suffixIcon" v-if="suffixIcon" />
       {{ _value }}
-      <component :is="prefixIcon" v-if="prefixIcon"></component>
+      <component :is="prefixIcon" v-if="prefixIcon" />
     </div>
   </div>
 </template>

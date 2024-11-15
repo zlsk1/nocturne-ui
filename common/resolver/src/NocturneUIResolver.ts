@@ -1,8 +1,12 @@
-import type { ComponentResolver, SideEffectsInfo, ComponentInfo } from 'unplugin-vue-components'
+import type {
+  ComponentInfo,
+  ComponentResolver,
+  SideEffectsInfo
+} from 'unplugin-vue-components'
 
 export interface NUROptions {
-  importStyle?: 'css' | 'sass',
-  exclude?: RegExp,
+  importStyle?: 'css' | 'sass'
+  exclude?: RegExp
   directives?: true
 }
 
@@ -11,7 +15,10 @@ function kebabCase(key: string) {
   return result.split(' ').join('-').toLowerCase()
 }
 
-function resolveStyle(name: string, options: NUROptions): SideEffectsInfo | undefined {
+function resolveStyle(
+  name: string,
+  options: NUROptions
+): SideEffectsInfo | undefined {
   const { importStyle } = options
 
   if (importStyle === 'sass') {
@@ -20,8 +27,7 @@ function resolveStyle(name: string, options: NUROptions): SideEffectsInfo | unde
       'nocturne-ui/theme-chalk/src/dark/css-vars.scss',
       `nocturne-ui/theme-chalk/src/${name.split('-')[1]}.scss`
     ]
-  }
-  else if (importStyle === 'css') {
+  } else if (importStyle === 'css') {
     return [
       'nocturne-ui/theme-chalk/base.css',
       'nocturne-ui/theme-chalk/dark/css-vars.css',
@@ -30,7 +36,10 @@ function resolveStyle(name: string, options: NUROptions): SideEffectsInfo | unde
   }
 }
 
-function resolveComponent(name: string, options: NUROptions): ComponentInfo | undefined {
+function resolveComponent(
+  name: string,
+  options: NUROptions
+): ComponentInfo | undefined {
   if (options.exclude && name.match(options.exclude)) return
 
   if (!name.match(/^N[A-Z]/)) return
@@ -51,12 +60,16 @@ function resolveComponent(name: string, options: NUROptions): ComponentInfo | un
   }
 }
 
-function resolveDirective(name: string, options: NUROptions): ComponentInfo | undefined {
+function resolveDirective(
+  name: string,
+  options: NUROptions
+): ComponentInfo | undefined {
   if (!options.directives) return
 
-  const directives: Record<string, { importName: string, styleName: string }> = {
-    Loading: { importName: 'NLoadingDirective', styleName: 'n-loading' }
-  }
+  const directives: Record<string, { importName: string; styleName: string }> =
+    {
+      Loading: { importName: 'NLoadingDirective', styleName: 'n-loading' }
+    }
 
   const directive = directives[name]
 
@@ -67,12 +80,13 @@ function resolveDirective(name: string, options: NUROptions): ComponentInfo | un
   }
 }
 
-export function NocturneUIReslover(options: NUROptions = {}): ComponentResolver[] {
+export function NocturneUIReslover(
+  options: NUROptions = {}
+): ComponentResolver[] {
   let _options: NUROptions
 
   function resolveOptions() {
-    if (_options)
-      return _options
+    if (_options) return _options
     _options = {
       importStyle: 'css',
       exclude: undefined,

@@ -13,7 +13,14 @@ export const rowProps = {
   },
   justify: {
     type: String,
-    values: ['center', 'space-between', 'space-around', 'start', 'end', 'space-evenly'],
+    values: [
+      'center',
+      'space-between',
+      'space-around',
+      'start',
+      'end',
+      'space-evenly'
+    ],
     default: 'center'
   },
   gutter: {

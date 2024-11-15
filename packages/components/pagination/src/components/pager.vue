@@ -1,9 +1,9 @@
 <template>
-  <ul
-    :class="[ns.e('pages'), ns.is('disables', disabled)]"
-    @click="changePage"
-  >
-    <li v-if="totalPages > 0" :class="[ns.e('num'), ns.is('active', _currentPage === 1)]">
+  <ul :class="[ns.e('pages'), ns.is('disables', disabled)]" @click="changePage">
+    <li
+      v-if="totalPages > 0"
+      :class="[ns.e('num'), ns.is('active', _currentPage === 1)]"
+    >
       1
     </li>
     <!-- prevMore -->
@@ -13,17 +13,14 @@
       @mouseenter="isPrevHover = true"
       @mouseleave="isPrevHover = false"
     >
-      <More v-if="!isPrevHover" size="16"></More>
-      <ArrowLeftDouble v-else size="16"></ArrowLeftDouble>
+      <More v-if="!isPrevHover" size="16" />
+      <ArrowLeftDouble v-else size="16" />
     </li>
     <!-- pages -->
     <li
       v-for="item in pages"
       :key="item"
-      :class="[
-        ns.e('num'),
-        ns.is('active', item === _currentPage)
-      ]"
+      :class="[ns.e('num'), ns.is('active', item === _currentPage)]"
     >
       {{ item }}
     </li>
@@ -31,35 +28,36 @@
     <li
       v-if="showNextMore"
       :class="[ns.e('num'), ns.is('disabled', disabled)]"
-      @mouseenter="!disabled ? isNextHover = true : ''"
+      @mouseenter="!disabled ? (isNextHover = true) : ''"
       @mouseleave="isNextHover = false"
     >
-      <More v-if="!isNextHover" size="16"></More>
-      <ArrowRightDouble v-else size="16"></ArrowRightDouble>
+      <More v-if="!isNextHover" size="16" />
+      <ArrowRightDouble v-else size="16" />
     </li>
-    <li v-if="totalPages > 1" :class="[ns.e('num'), ns.is('active', _currentPage === totalPages)]">
+    <li
+      v-if="totalPages > 1"
+      :class="[ns.e('num'), ns.is('active', _currentPage === totalPages)]"
+    >
       {{ totalPages }}
     </li>
   </ul>
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, inject, watchEffect } from 'vue'
-import { PAGINATION_INJECTION_KEY } from '../constants'
-import { pagerProps } from './pager'
+import { computed, inject, ref, watchEffect } from 'vue'
 import {
-  RiArrowRightDoubleFill as ArrowRightDouble,
   RiArrowLeftDoubleFill as ArrowLeftDouble,
+  RiArrowRightDoubleFill as ArrowRightDouble,
   RiMoreFill as More
 } from '@remixicon/vue'
+import { PAGINATION_INJECTION_KEY } from '../constants'
+import { pagerProps } from './pager'
 import { useNamespace } from '@/composables'
 
-const {
-  totalPages,
-  _currentPage,
-  disabled,
-  emit
-} = inject(PAGINATION_INJECTION_KEY, undefined)!
+const { totalPages, _currentPage, disabled, emit } = inject(
+  PAGINATION_INJECTION_KEY,
+  undefined
+)!
 
 const props = defineProps(pagerProps)
 
@@ -89,19 +87,20 @@ const pages = computed(() => {
     for (let i = startPage; i < totalPages.value; i++) {
       array.push(i)
     }
-  }
-  else if (!showPrevMore && showNextMore) {
+  } else if (!showPrevMore && showNextMore) {
     for (let i = 2; i < pagerCount; i++) {
       array.push(i)
     }
-  }
-  else if (showPrevMore && showNextMore) {
+  } else if (showPrevMore && showNextMore) {
     const offset = Math.floor(pagerCount / 2) - 1
-    for (let i = _currentPage.value - offset; i <= _currentPage.value + offset; i++) {
+    for (
+      let i = _currentPage.value - offset;
+      i <= _currentPage.value + offset;
+      i++
+    ) {
       array.push(i)
     }
-  }
-  else {
+  } else {
     for (let i = 2; i < totalPages.value; i++) {
       array.push(i)
     }
@@ -132,8 +131,7 @@ const changePage = (e: any) => {
   if (className.includes('more')) {
     if (className.includes('prev')) {
       newPage = _currentPage.value - pageOffset
-    }
-    else if (className.includes('next')) {
+    } else if (className.includes('next')) {
       newPage = _currentPage.value + pageOffset
     }
   }

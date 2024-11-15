@@ -1,6 +1,6 @@
 import progress from './progress.vue'
-import { definePropType } from '@/utils'
 import type { ExtractPropTypes } from 'vue'
+import { definePropType } from '@/utils'
 
 export const progressProps = {
   percentage: {
@@ -18,7 +18,7 @@ export const progressProps = {
     values: ['line', 'round']
   },
   color: {
-    type: definePropType<string | Function>([String, Object]),
+    type: definePropType<string>([String]),
     default: '#409eff'
   },
   animationDuration: {

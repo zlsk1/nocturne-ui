@@ -1,7 +1,5 @@
 <template>
-  <div :class="ns.e('total')">
-    总共{{ total }}条
-  </div>
+  <div :class="ns.e('total')">总共{{ total }}条</div>
 </template>
 
 <script lang="ts" setup>

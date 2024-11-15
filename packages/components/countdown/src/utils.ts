@@ -1,6 +1,5 @@
-import { isNumber } from '@/utils'
-
 import type { Dayjs } from 'dayjs'
+import { isNumber } from '@/utils'
 
 const timeUnits = [
   ['Y', 1000 * 60 * 60 * 24 * 365], // years

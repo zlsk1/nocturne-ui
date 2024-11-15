@@ -1,24 +1,19 @@
 <template>
   <component
     :is="tag"
-    :class="[
-      ns.b(),
-      `is-justify-${justify}`,
-      `is-align-${align}`
-    ]"
+    :class="[ns.b(), `is-justify-${justify}`, `is-align-${align}`]"
     :style="style"
   >
-    <slot></slot>
+    <slot />
   </component>
 </template>
 
 <script lang="ts" setup>
+import { computed, provide } from 'vue'
 import { rowProps } from './row'
 import { ROW_INJECTION_KEY } from './constants'
-import { provide, computed } from 'vue'
-import { useNamespace } from '@/composables'
-
 import type { CSSProperties } from 'vue'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NRow'

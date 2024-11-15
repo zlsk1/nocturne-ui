@@ -18,25 +18,17 @@
     <template #content>
       <div ref="contentRef" @keydown.esc="handleEsc">
         <div :class="ns.be('dropdown', 'main-wrapper')">
-          <color-panel ref="cp" :color="color"></color-panel>
+          <color-panel ref="cp" :color="color" />
         </div>
-        <hue-bar
-          ref="hue"
-          class="hue-slider"
-          :color="color"
-        ></hue-bar>
-        <alpha-bar
-          v-if="showAlpha"
-          ref="alpha"
-          :color="color"
-        ></alpha-bar>
+        <hue-bar ref="hue" class="hue-slider" :color="color" />
+        <alpha-bar v-if="showAlpha" ref="alpha" :color="color" />
         <predefine
           v-if="predefine"
           ref="predefine"
           :enable-alpha="showAlpha"
           :color="color"
           :colors="predefine"
-        ></predefine>
+        />
         <div :class="ns.be('dropdown', 'btns')">
           <span :class="ns.be('dropdown', 'value')">
             <n-input
@@ -46,7 +38,7 @@
               size="small"
               @keyup.enter="handleConfirm"
               @blur="handleConfirm"
-            ></n-input>
+            />
           </span>
           <n-button
             :class="ns.be('dropdown', 'link-btn')"
@@ -77,20 +69,24 @@
         @focus="handleFocus"
         @blur="handleBlur"
       >
-        <div v-if="disabled" :class="ns.be('picker', 'mask')"></div>
+        <div v-if="disabled" :class="ns.be('picker', 'mask')" />
         <div :class="ns.be('picker', 'trigger')" @click="handleTrigger">
           <div :class="[ns.be('picker', 'color'), ns.is('alpha', showAlpha)]">
             <span
               :class="ns.be('picker', 'color-inner')"
               :style="{
-                backgroundColor: displayedColor,
+                backgroundColor: displayedColor
               }"
-            >
-            </span>
+            />
           </div>
-          <div v-if="showText" :class="ns.be('picker', 'value')">{{ modelValue }}</div>
-          <i v-if="$slots.icon" :class="[ns.be('picker', 'icon'), ns.is('icon-arrow-down')]">
-            <slot name="icon"></slot>
+          <div v-if="showText" :class="ns.be('picker', 'value')">
+            {{ modelValue }}
+          </div>
+          <i
+            v-if="$slots.icon"
+            :class="[ns.be('picker', 'icon'), ns.is('icon-arrow-down')]"
+          >
+            <slot name="icon" />
           </i>
         </div>
       </div>
@@ -108,8 +104,7 @@ import {
   ref,
   watch
 } from 'vue'
-import { useDebounceFn, onClickOutside } from '@vueuse/core'
-import { NButton, NTooltip, NInput } from '@/components'
+import { onClickOutside, useDebounceFn } from '@vueuse/core'
 import AlphaBar from './alpha-bar.vue'
 import HueBar from './hue-bar.vue'
 import Predefine from './predefine.vue'
@@ -120,8 +115,9 @@ import {
   colorPickerEmits,
   colorPickerProps
 } from './color-picker'
-import { useFocusController, useNamespace } from '@/composables'
 import type { TooltipInstance } from '@/components/tooltip'
+import { useFocusController, useNamespace } from '@/composables'
+import { NButton, NInput, NTooltip } from '@/components'
 
 defineOptions({
   name: 'NColorPicker'
@@ -223,8 +219,7 @@ function resetColor() {
   nextTick(() => {
     if (props.modelValue) {
       color.fromString(props.modelValue)
-    }
-    else {
+    } else {
       color.value = ''
       nextTick(() => {
         showPanelColor.value = false
@@ -304,8 +299,7 @@ watch(
   (newVal) => {
     if (!newVal) {
       showPanelColor.value = false
-    }
-    else if (newVal && newVal !== color.value) {
+    } else if (newVal && newVal !== color.value) {
       shouldActiveChange = false
       color.fromString(newVal)
     }

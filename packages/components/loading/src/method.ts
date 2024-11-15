@@ -1,9 +1,9 @@
 import { AppContext, createVNode, render } from 'vue'
 import { loadingDefault } from './loading'
-import { isElement, isString } from '@/utils'
 import Loading from './loading.vue'
 
-import type { loadingParams, normilizedParams, closeHandler } from './loading'
+import type { closeHandler, loadingParams, normilizedParams } from './loading'
+import { isElement, isString } from '@/utils'
 
 const normilizeParams = (props?: loadingParams) => {
   const mergeParams = {
@@ -13,14 +13,12 @@ const normilizeParams = (props?: loadingParams) => {
 
   if (!mergeParams.target) {
     mergeParams.target = document.body
-  }
-  else if (isString(mergeParams.target)) {
+  } else if (isString(mergeParams.target)) {
     const _target = document.querySelector<HTMLElement>(mergeParams.target)
     if (!isElement(_target)) {
       console.warn('n-loading', 'target must be a exist HTMLElement')
       mergeParams.target = document.body
-    }
-    else {
+    } else {
       mergeParams.target = _target
     }
   }
@@ -28,7 +26,10 @@ const normilizeParams = (props?: loadingParams) => {
   return mergeParams as normilizedParams
 }
 
-const loading = (props?: loadingParams, context?: AppContext | null): closeHandler => {
+const loading = (
+  props?: loadingParams,
+  context?: AppContext | null
+): closeHandler => {
   const container = document.createElement('div')
   const normilizedParam = normilizeParams(props)
   const onDestroy = () => {
@@ -44,10 +45,7 @@ const loading = (props?: loadingParams, context?: AppContext | null): closeHandl
     ...normilizedParam
   }
 
-  const vnode = createVNode(
-    Loading,
-    options
-  )
+  const vnode = createVNode(Loading, options)
 
   vnode.appContext = context || null
 
@@ -55,8 +53,7 @@ const loading = (props?: loadingParams, context?: AppContext | null): closeHandl
 
   options.target.appendChild(container.firstElementChild!)
 
-  document.body.style.overflow =
-    normilizedParam.locked ? 'hidden' : 'auto'
+  document.body.style.overflow = normilizedParam.locked ? 'hidden' : 'auto'
 
   return close
 }

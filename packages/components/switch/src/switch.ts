@@ -1,15 +1,14 @@
-import {
-  definePropType,
-  isBoolean,
-  isString,
-  isNumber
-} from '@/utils'
-import { componentSizes } from '@/constants'
 import Switch from './switch.vue'
 import type { ExtractPropTypes } from 'vue'
+import { definePropType, isBoolean, isNumber, isString } from '@/utils'
+import { componentSizes } from '@/constants'
 
 export const switchProps = {
-  modelValue: definePropType<boolean | string | number>([Boolean, String, Number]),
+  modelValue: definePropType<boolean | string | number>([
+    Boolean,
+    String,
+    Number
+  ]),
   size: {
     type: String,
     values: componentSizes
@@ -35,13 +34,15 @@ export const switchProps = {
     default: true
   },
   beforeChange: {
-    type: definePropType<Boolean | Promise<boolean>>([Boolean, Function])
+    type: definePropType<boolean | Promise<boolean>>([Boolean, Function])
   }
 } as const
 
 export const switchEmits = {
-  change: (val: boolean | string | number) => isNumber(val) || isString(val) || isBoolean(val),
-  'update:modelValue': (val: boolean | string | number) => isNumber(val) || isString(val) || isBoolean(val)
+  change: (val: boolean | string | number) =>
+    isNumber(val) || isString(val) || isBoolean(val),
+  'update:modelValue': (val: boolean | string | number) =>
+    isNumber(val) || isString(val) || isBoolean(val)
 }
 
 export type SwitchProps = ExtractPropTypes<typeof switchProps>

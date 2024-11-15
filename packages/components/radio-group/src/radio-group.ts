@@ -1,12 +1,7 @@
-import { componentSizes } from '@/constants'
 import radioGroup from './radio-group.vue'
-import {
-  definePropType,
-  isString,
-  isBoolean,
-  isNumber
-} from '@/utils'
 import type { ExtractPropTypes } from 'vue'
+import { componentSizes } from '@/constants'
+import { definePropType, isBoolean, isNumber, isString } from '@/utils'
 
 export const radioGroupProps = {
   modelValue: {
@@ -24,8 +19,10 @@ export const radioGroupProps = {
 } as const
 
 export const radioGroupEmits = {
-  'update:modelValue': (val: string | number | boolean) => isString(val) || isBoolean(val) || isNumber(val),
-  change: (val: string | number | boolean) => isString(val) || isBoolean(val) || isNumber(val)
+  'update:modelValue': (val: string | number | boolean) =>
+    isString(val) || isBoolean(val) || isNumber(val),
+  change: (val: string | number | boolean) =>
+    isString(val) || isBoolean(val) || isNumber(val)
 }
 
 export type RadioGroupProps = ExtractPropTypes<typeof radioGroupProps>

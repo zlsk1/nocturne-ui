@@ -1,16 +1,21 @@
 import option from './option.vue'
+import type { ExtractPropTypes } from 'vue'
 import {
   definePropType,
-  isString,
-  isNumber,
   isBoolean,
-  isObject
+  isNumber,
+  isObject,
+  isString
 } from '@/utils'
-import type { ExtractPropTypes } from 'vue'
 
 export const optionProps = {
   value: {
-    type: definePropType<string | number | boolean | Object>([String, Number, Boolean, Object]),
+    type: definePropType<string | number | boolean | object>([
+      String,
+      Number,
+      Boolean,
+      Object
+    ]),
     required: true
   },
   label: {
@@ -24,10 +29,8 @@ export const optionProps = {
 }
 
 export const optionEmits = {
-  select: (
-    val: string | number | boolean | Object
-  ) => isString(val) || isNumber(val) || isBoolean(val) || isObject(val)
-
+  select: (val: string | number | boolean | object) =>
+    isString(val) || isNumber(val) || isBoolean(val) || isObject(val)
 }
 
 export type OptionProps = ExtractPropTypes<typeof optionProps>

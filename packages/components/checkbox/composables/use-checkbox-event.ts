@@ -22,8 +22,8 @@ export const useCheckboxEvent = (
 
   function getLabeledValue(value: string | number | boolean) {
     return [true, props.trueValue].includes(value)
-      ? props.trueValue ?? true
-      : props.falseValue ?? false
+      ? (props.trueValue ?? true)
+      : (props.falseValue ?? false)
   }
 
   function emitChangeEvent(

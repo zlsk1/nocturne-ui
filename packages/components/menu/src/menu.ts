@@ -1,9 +1,9 @@
 import Menu from './menu.vue'
-import { definePropType, isString } from '@/utils'
 
 import type { ExtractPropTypes, StyleValue } from 'vue'
 import type { TooltipTriggerType } from '@/components/tooltip'
 import type { ClassType } from '@/components/popper'
+import { definePropType, isString } from '@/utils'
 
 export const menuProps = {
   direction: {
@@ -46,13 +46,14 @@ export const menuItemProps = {
 } as const
 
 export type ExtistMenuItem = {
-  index: string,
-  active: boolean,
+  index: string
+  active: boolean
   path?: string
 }
 
 export const menuEmit = {
-  select: (index: string, path?: string) => isString(index) && (isString(path) || typeof (path) === 'undefined'),
+  select: (index: string, path?: string) =>
+    isString(index) && (isString(path) || typeof path === 'undefined'),
   open: (openIndexs: string[]) => true,
   close: (openIndexs: string[]) => true
 }

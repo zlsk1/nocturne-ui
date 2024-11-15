@@ -1,7 +1,6 @@
 import loading from './loading.vue'
-import { iconPropType, definePropType, mutable, isClient } from '@/utils'
-
 import type { ExtractPropTypes } from 'vue'
+import { definePropType, iconPropType, isClient, mutable } from '@/utils'
 
 export const loadingDefault = mutable({
   target: isClient() ? document.body : (undefined as never),
@@ -34,7 +33,10 @@ export const loadingProps = {
     default: loadingDefault.locked
   },
   onClose: {
-    type: definePropType<Function | undefined>([Function, undefined]),
+    type: definePropType<(...args: any[]) => void | undefined>([
+      Function,
+      undefined
+    ]),
     default: loadingDefault.onClose
   }
 }
@@ -42,6 +44,8 @@ export const loadingProps = {
 export type LoadingProps = ExtractPropTypes<typeof loadingProps>
 export type LoadingIntance = InstanceType<typeof loading>
 
-export type loadingParams = Partial<LoadingProps> & { target?: string | HTMLElement }
+export type loadingParams = Partial<LoadingProps> & {
+  target?: string | HTMLElement
+}
 export type normilizedParams = Partial<LoadingProps> & { target: HTMLElement }
 export type closeHandler = () => void

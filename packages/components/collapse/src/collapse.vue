@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { provide, ref } from 'vue'
-import { collapseProps, collapseEmits } from './collapse'
+import { collapseEmits, collapseProps } from './collapse'
 import { COLLAPSE_INJECTION_KEY } from '@/components/collapse/src/constants'
 import { useNamespace } from '@/composables'
 
@@ -19,8 +19,7 @@ const changeEvent = (val: string | number) => {
   if (!activelist.value.includes(val as never)) {
     if (!props.accordion) activelist.value.push(val as never)
     else activelist.value = [val as never]
-  }
-  else activelist.value.splice(activelist.value.indexOf(val as never), 1)
+  } else activelist.value.splice(activelist.value.indexOf(val as never), 1)
   emit('change', val)
 }
 
@@ -32,6 +31,6 @@ provide(COLLAPSE_INJECTION_KEY, {
 
 <template>
   <div :class="ns.b()">
-    <slot></slot>
+    <slot />
   </div>
 </template>

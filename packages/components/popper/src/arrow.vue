@@ -4,11 +4,11 @@
     :class="ns.e('arrow')"
     data-popper-arrow
     :style="arrowStyle"
-  ></span>
+  />
 </template>
 
 <script lang="ts" setup>
-import { inject, watch, onBeforeUnmount } from 'vue'
+import { inject, onBeforeUnmount, watch } from 'vue'
 import { popperArrowProps } from './arrow'
 import { POPPER_CONTENT_INJECTION_KEY } from './constants'
 import { useNamespace } from '@/composables'

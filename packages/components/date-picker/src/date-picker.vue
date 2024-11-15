@@ -1,18 +1,9 @@
 <template>
   <div class="n-date-picker">
-    <NTooltip
-      pure
-      persistent
-      :gpu-acceleration="false"
-      trigger="click"
-    >
-      <NInput
-        v-model="currentDate"
-        clearable
-        :prefix-icon="Calendar"
-      ></NInput>
+    <NTooltip pure persistent :gpu-acceleration="false" trigger="click">
+      <NInput v-model="currentDate" clearable :prefix-icon="Calendar" />
       <template #content>
-        <DatePickerPanel></DatePickerPanel>
+        <DatePickerPanel />
       </template>
     </NTooltip>
   </div>
@@ -20,16 +11,16 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { NTooltip, NInput } from '@/components'
-import DatePickerPanel from './date-picker-panel.vue'
 import { RiCalendarFill as Calendar } from '@remixicon/vue'
+import DatePickerPanel from './date-picker-panel.vue'
 import { datePickerProps } from './date-picker'
+import { NInput, NTooltip } from '@/components'
 
 defineOptions({
   name: 'NDatePicker'
 })
 
-const props = defineProps(datePickerProps)
+defineProps(datePickerProps)
 
 const currentDate = ref()
 </script>

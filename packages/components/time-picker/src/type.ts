@@ -8,19 +8,19 @@ export type GetDisabledMinute = (hour: number) => number[]
 export type GetDisabledSecond = (hour: number, minute: number) => number[]
 
 export type Disabled = {
-  disabledHours?: GetDisabledHour,
-  disabledMinutes?: GetDisabledMinute,
+  disabledHours?: GetDisabledHour
+  disabledMinutes?: GetDisabledMinute
   disabledSeconds?: GetDisabledSecond
 }
 
 export type TimelistItem = {
-  value: number,
+  value: number
   disabled: boolean
 }
 
 export type Timelist = Record<TimeUnits, TimelistItem[]>
 
 export type PickerMethods = {
-  getDefaultValue: () => Dayjs,
-  getAvailableValue: (date: Dayjs) => Dayjs,
+  getDefaultValue: () => Dayjs
+  getAvailableValue: (date: Dayjs) => Dayjs
 }

@@ -2,7 +2,7 @@
   <div :class="ns.b()">
     <div :class="ns.e('header')">{{ header }}</div>
     <div :class="[ns.e('content'), ContentClass]">
-      <slot name="default"></slot>
+      <slot name="default" />
     </div>
     <div :class="ns.e('footer')">{{ footer }}</div>
   </div>

@@ -1,6 +1,5 @@
 <template>
-  <n-alert type="success" title="Success">
-  </n-alert>
+  <n-alert type="success" title="Success" />
 </template>
 
 <script lang="ts" setup></script>

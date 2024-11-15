@@ -30,6 +30,6 @@ const change = (value: number) => {
       :controls="false"
       :disabled="disabled"
       @change="change"
-    ></n-input-number>
+    />
   </div>
 </template>

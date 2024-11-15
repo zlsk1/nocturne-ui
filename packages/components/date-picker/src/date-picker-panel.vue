@@ -2,16 +2,16 @@
   <div class="n-date-picker--panel">
     <div class="n-date__header">
       <div class="n-date__header__left">
-        <ArrowLeftDouble size="18"></ArrowLeftDouble>
-        <ArrowLeft size="18"></ArrowLeft>
+        <ArrowLeftDouble size="18" />
+        <ArrowLeft size="18" />
       </div>
       <div class="n-date__header__view">
         <button class="n-date-year-btn">2024年</button>
         <button class="n-date-month-btn">11月</button>
       </div>
       <div class="n-date__header__right">
-        <ArrowRight size="18"></ArrowRight>
-        <ArrowRightDouble size="18"></ArrowRightDouble>
+        <ArrowRight size="18" />
+        <ArrowRightDouble size="18" />
       </div>
     </div>
     <div class="n-date__content">
@@ -28,11 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(row, key) in rows"
-            :key="key"
-            class="n-date__table__row"
-          >
+          <tr v-for="(row, key) in rows" :key="key" class="n-date__table__row">
             <td
               v-for="(cell, _key) in row"
               :key="_key"
@@ -76,7 +72,7 @@ defineOptions({
 
 const props = defineProps(panelProps)
 
-const firstDayOfWeek = (props.date || dayjs() as any).$locale().weekStart || 7
+const firstDayOfWeek = (props.date || (dayjs() as any)).$locale().weekStart || 7
 
 const tableDatas = ref([[], [], [], [], [], []])
 
@@ -84,7 +80,9 @@ const startDate = computed(() => {
   const startDayOfMonth = (props.date || dayjs()).startOf('month')
   return startDayOfMonth.subtract(startDayOfMonth.day() || 7, 'day')
 })
-const offsetDay = computed(() => firstDayOfWeek > 3 ? 7 - firstDayOfWeek : -firstDayOfWeek)
+const offsetDay = computed(() =>
+  firstDayOfWeek > 3 ? 7 - firstDayOfWeek : -firstDayOfWeek
+)
 const rows = computed(() => {
   // TODO: refactory rows / getCellClasses
   const startOfMonth = (props.date || dayjs()).startOf('month')
@@ -128,26 +126,25 @@ const rows = computed(() => {
       const calTime = startDate.value.add(index - offset, 'day')
       cell.type = 'normal'
 
-      const calEndDate = props.rangeState.endDate || props.maxDate ||
-            props.rangeState.selecting && props.minDate
+      const calEndDate =
+        props.rangeState.endDate ||
+        props.maxDate ||
+        (props.rangeState.selecting && props.minDate)
 
-      cell.inRange = (
-        props.minDate &&
-              calTime.isSameOrAfter(props.minDate, 'day')
-      ) && (calEndDate &&
-              calTime.isSameOrBefore(calEndDate, 'day')
-      ) || (
-        props.minDate &&
-            calTime.isSameOrBefore(props.minDate, 'day')
-      ) && (calEndDate &&
-            calTime.isSameOrAfter(calEndDate, 'day')
-      )
+      cell.inRange =
+        (props.minDate &&
+          calTime.isSameOrAfter(props.minDate, 'day') &&
+          calEndDate &&
+          calTime.isSameOrBefore(calEndDate, 'day')) ||
+        (props.minDate &&
+          calTime.isSameOrBefore(props.minDate, 'day') &&
+          calEndDate &&
+          calTime.isSameOrAfter(calEndDate, 'day'))
 
       if (props.minDate?.isSameOrAfter(calEndDate)) {
         cell.start = calEndDate && calTime.isSame(calEndDate, 'day')
         cell.end = props.minDate && calTime.isSame(props.minDate, 'day')
-      }
-      else {
+      } else {
         cell.start = props.minDate && calTime.isSame(props.minDate, 'day')
         cell.end = calEndDate && calTime.isSame(calEndDate, 'day')
       }
@@ -159,28 +156,34 @@ const rows = computed(() => {
       }
 
       if (i >= 0 && i <= 1) {
-        const numberOfDaysFromPreviousMonth = startOfMonthDay + offset < 0 ? 7 + startOfMonthDay + offset : startOfMonthDay + offset
+        const numberOfDaysFromPreviousMonth =
+          startOfMonthDay + offset < 0
+            ? 7 + startOfMonthDay + offset
+            : startOfMonthDay + offset
 
         if (j + i * 7 >= numberOfDaysFromPreviousMonth) {
           cell.text = count++
-        }
-        else {
-          cell.text = dateCountOfLastMonth - (numberOfDaysFromPreviousMonth - j % 7) + 1 + i * 7
+        } else {
+          cell.text =
+            dateCountOfLastMonth -
+            (numberOfDaysFromPreviousMonth - (j % 7)) +
+            1 +
+            i * 7
           cell.type = 'prev-month'
         }
-      }
-      else {
+      } else {
         if (count <= dateCountOfMonth) {
           cell.text = count++
-        }
-        else {
+        } else {
           cell.text = count++ - dateCountOfMonth
           cell.type = 'next-month'
         }
       }
 
       const cellDate = calTime.toDate()
-      cell.selected = selectedDate.find(_ => _.valueOf() === calTime.valueOf())
+      cell.selected = selectedDate.find(
+        (_) => _.valueOf() === calTime.valueOf()
+      )
       cell.disabled = props.disabledDate && props.disabledDate(cellDate)
       // cell.customClass = props.cellClassName && props.cellClassName(cellDate)
       row[props.showWeekNumber ? j + 1 : j] = cell
@@ -214,11 +217,10 @@ const isWeekActive = (cell: any) => {
   newDate = newDate.date(parseInt(cell.text, 10))
 
   if (props.parsedValue && !Array.isArray(props.parsedValue)) {
-    const dayOffset = (props.parsedValue.day() - firstDayOfWeek + 7) % 7 - 1
+    const dayOffset = ((props.parsedValue.day() - firstDayOfWeek + 7) % 7) - 1
     const weekDate = props.parsedValue.subtract(dayOffset, 'day')
     return weekDate.isSame(newDate, 'day')
   }
   return false
 }
-
 </script>

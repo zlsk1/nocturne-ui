@@ -1,11 +1,11 @@
-import { createModelToggleComposable } from '@/composables'
-import { popperArrowProps } from '@/components/popper/src/arrow'
-import { popperProps } from '@/components/popper/src/popper'
 import { useTooltipContentProps } from './content'
 import { useTooltipTriggerProps } from './reference'
 import Tooltip from './tooltip.vue'
 
 import type { ExtractPropTypes } from 'vue'
+import { popperProps } from '@/components/popper/src/popper'
+import { popperArrowProps } from '@/components/popper/src/arrow'
+import { createModelToggleComposable } from '@/composables'
 
 export const {
   useModelToggleProps: useTooltipModelToggleProps,

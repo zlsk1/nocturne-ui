@@ -1,12 +1,11 @@
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
-import { drawerProps, drawerEmits } from './drawer'
+import { computed, defineComponent, ref } from 'vue'
 import { RiCloseLine as Close } from '@remixicon/vue'
-import NOverlay from '@/components/overlay'
-import { isString, isFunction } from '@/utils'
-import { useSameTarget, useZIndex, useNamespace } from '@/composables'
-
+import { drawerEmits, drawerProps } from './drawer'
 import type { StyleValue } from 'vue'
+import NOverlay from '@/components/overlay'
+import { isFunction, isString } from '@/utils'
+import { useNamespace, useSameTarget, useZIndex } from '@/composables'
 
 export default defineComponent({
   name: 'NDrawer',
@@ -27,12 +26,11 @@ export default defineComponent({
       if (!props.size) return
       if (props.placement === 'right' || props.placement === 'left') {
         return {
-          width: isString(props.size) ? props.size : props.size + '%'
+          width: isString(props.size) ? props.size : `${props.size}%`
         }
-      }
-      else if (props.placement === 'top' || props.placement === 'bottom') {
+      } else if (props.placement === 'top' || props.placement === 'bottom') {
         return {
-          height: isString(props.size) ? props.size : props.size + '%'
+          height: isString(props.size) ? props.size : `${props.size}%`
         }
       }
       return {}
@@ -56,8 +54,7 @@ export default defineComponent({
     function close() {
       if (isFunction(props.beforeClose)) {
         props.beforeClose(() => emit('update:modelValue', false))
-      }
-      else {
+      } else {
         emit('update:modelValue', false)
       }
     }
@@ -75,11 +72,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <transition
-    name="n-drawer"
-    @leave="$emit('close')"
-    @enter="$emit('open')"
-  >
+  <transition name="n-drawer" @leave="$emit('close')" @enter="$emit('open')">
     <n-overlay
       v-show="modelValue"
       :custom-class="maskerClass"
@@ -99,20 +92,16 @@ export default defineComponent({
           :style="[size, { zIndex }]"
         >
           <div :class="ns.e('header')">
-            <slot name="header"></slot>
-            <i
-              v-if="showClose"
-              :class="ns.e('close')"
-              @click="close"
-            >
-              <Close size="20"></Close>
+            <slot name="header" />
+            <i v-if="showClose" :class="ns.e('close')" @click="close">
+              <Close size="20" />
             </i>
           </div>
           <div :class="ns.e('content')">
-            <slot name="content"></slot>
+            <slot name="content" />
           </div>
           <div :class="ns.e('footer')">
-            <slot name="footer"></slot>
+            <slot name="footer" />
           </div>
         </div>
       </div>

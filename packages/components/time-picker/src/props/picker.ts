@@ -1,13 +1,29 @@
-import { definePropType, iconPropType, isBoolean, isNumber, isString } from '@/utils'
-import Picker from '../picker.vue'
-import { RiTimeFill as Time, RiCloseCircleLine as CloseCircle } from '@remixicon/vue'
+import {
+  RiCloseCircleLine as CloseCircle,
+  RiTimeFill as Time
+} from '@remixicon/vue'
 import { isObject } from 'lodash'
+import Picker from '../picker.vue'
 
 import type { ExtractPropTypes } from 'vue'
 import type { Dayjs } from 'dayjs'
 import type { ComponentSize } from '@/constants'
-import type { GetDisabledHour, GetDisabledMinute, GetDisabledSecond } from '../type'
-import type { PopperCoreConfigProps, PopperContentProps } from '@/components/popper'
+import type {
+  GetDisabledHour,
+  GetDisabledMinute,
+  GetDisabledSecond
+} from '../type'
+import type {
+  PopperContentProps,
+  PopperCoreConfigProps
+} from '@/components/popper'
+import {
+  definePropType,
+  iconPropType,
+  isBoolean,
+  isNumber,
+  isString
+} from '@/utils'
 
 export const pickerPropsBase = {
   /**
@@ -24,7 +40,12 @@ export const pickerPropsBase = {
 
 export const pickerProps = {
   modelValue: {
-    type: definePropType<number | string | Dayjs | Date>([Number, String, Date, Object]),
+    type: definePropType<number | string | Dayjs | Date>([
+      Number,
+      String,
+      Date,
+      Object
+    ]),
     default: ''
   },
   placeholder: {
@@ -55,7 +76,11 @@ export const pickerProps = {
     default: false
   },
   popperClass: {
-    type: definePropType<PopperContentProps['popperClass']>([String, Array, Object])
+    type: definePropType<PopperContentProps['popperClass']>([
+      String,
+      Array,
+      Object
+    ])
   },
   transition: {
     type: String,
@@ -92,14 +117,18 @@ export const pickerProps = {
   valueFormat: String,
   popperOptions: {
     type: definePropType<PopperCoreConfigProps['popperOptions']>(Object),
-    default: () => { return {} }
+    default: () => {
+      return {}
+    }
   },
   ...pickerPropsBase
 } as const
 
 export const pickerEmit = {
-  'update:modelValue': (val: PickerProps['modelValue']) => isString(val) || isNumber(val) || isObject(val),
-  'change': (val: PickerProps['modelValue']) => isString(val) || isNumber(val) || isObject(val),
+  'update:modelValue': (val: PickerProps['modelValue']) =>
+    isString(val) || isNumber(val) || isObject(val),
+  change: (val: PickerProps['modelValue']) =>
+    isString(val) || isNumber(val) || isObject(val),
   'visible-change': (visible: boolean) => isBoolean(visible)
 }
 

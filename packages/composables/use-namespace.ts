@@ -1,11 +1,17 @@
-import { getCurrentInstance, inject, ref, computed } from 'vue'
+import { computed, getCurrentInstance, inject, ref } from 'vue'
 
 import type { InjectionKey, Ref } from 'vue'
 
 export const defualtNamespace = 'n'
 const statePrefix = 'is-'
 
-const _bem = (namespace: string, block: string, blockSuffix?: string, element?: string, modifier?: string) => {
+const _bem = (
+  namespace: string,
+  block: string,
+  blockSuffix?: string,
+  element?: string,
+  modifier?: string
+) => {
   let cls = `${namespace}-${block}`
 
   if (blockSuffix) cls += `-${blockSuffix}`
@@ -15,12 +21,12 @@ const _bem = (namespace: string, block: string, blockSuffix?: string, element?: 
   return cls
 }
 
-export const NAMESPACE_INJECTION_KEY: InjectionKey<Ref<string | undefined>> = Symbol('namespace')
+export const NAMESPACE_INJECTION_KEY: InjectionKey<Ref<string | undefined>> =
+  Symbol('namespace')
 
 export const useGetOverRidesNamesapce = (namespaceOverrides?: Ref<string>) => {
   const newNamespace =
-    namespaceOverrides ||
-    getCurrentInstance()
+    namespaceOverrides || getCurrentInstance()
       ? inject(NAMESPACE_INJECTION_KEY, ref(defualtNamespace)) // 接收config-provider的值
       : ref(defualtNamespace)
 
@@ -31,7 +37,10 @@ export const useGetOverRidesNamesapce = (namespaceOverrides?: Ref<string>) => {
   return namespace
 }
 
-export const useNamespace = (block: string, namespaceOverrides?: Ref<string>) => {
+export const useNamespace = (
+  block: string,
+  namespaceOverrides?: Ref<string>
+) => {
   const ns = useGetOverRidesNamesapce(namespaceOverrides)
 
   const b = (blockSuffix = '') => _bem(ns.value, block, blockSuffix)

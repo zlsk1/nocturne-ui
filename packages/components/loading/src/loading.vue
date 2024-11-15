@@ -1,12 +1,8 @@
 <template>
   <div :class="ns.b()" :style="style">
     <div :class="ns.e('content')">
-      <Loader
-        v-if="icon"
-        :class="ns.e('icon')"
-        color="#409eff"
-      ></Loader>
-      <component :is="icon" v-else></component>
+      <Loader v-if="icon" :class="ns.e('icon')" color="#409eff" />
+      <component :is="icon" v-else />
       <div>{{ text }}</div>
     </div>
   </div>
@@ -14,11 +10,10 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { loadingProps } from './loading'
 import { RiLoaderLine as Loader } from '@remixicon/vue'
-import { useNamespace } from '@/composables'
-
+import { loadingProps } from './loading'
 import type { CSSProperties } from 'vue'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NLoading'

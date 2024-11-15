@@ -7,7 +7,7 @@
     }"
   >
     <div :class="ns.e('track')" @mousedown="onSliderDown">
-      <div :class="ns.e('track__bar')" :style="barStyle"></div>
+      <div :class="ns.e('track__bar')" :style="barStyle" />
       <reference
         ref="referenceRef"
         :show-tooltip="showTooltip"
@@ -21,26 +21,26 @@
         :vertical="vertical"
         :height="height"
         @change="changeVal"
-      ></reference>
+      />
       <div v-if="step" :class="ns.e('step')">
         <div
           v-for="(_, index) in step + 1"
           :key="index"
           :class="ns.e('step__item')"
-        ></div>
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, provide, computed } from 'vue'
+import { computed, provide, ref } from 'vue'
 import { SLIDER_INJECT_KEY } from './constants'
-import { sliderProps, sliderEmits } from './slider'
+import { sliderEmits, sliderProps } from './slider'
 import reference from './reference.vue'
-import { useNamespace } from '@/composables'
 import type { SliderReferenceInstance } from './reference'
 import type { CSSProperties } from 'vue'
+import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NSlider'
@@ -58,12 +58,11 @@ const positionPercent = ref<number>(props.modelValue)
 const barStyle = computed<CSSProperties>(() => {
   if (!props.vertical) {
     return {
-      width: positionPercent.value + '%'
+      width: `${positionPercent.value}%`
     }
-  }
-  else {
+  } else {
     return {
-      height: positionPercent.value + '%'
+      height: `${positionPercent.value}%`
     }
   }
 })

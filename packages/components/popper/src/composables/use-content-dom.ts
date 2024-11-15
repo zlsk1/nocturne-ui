@@ -1,6 +1,6 @@
-import { computed, unref, ref } from 'vue'
+import { computed, ref, unref } from 'vue'
 
-import type { CSSProperties, StyleValue, ComputedRef } from 'vue'
+import type { CSSProperties, ComputedRef, StyleValue } from 'vue'
 import type { UsePopperReturn } from '@/composables'
 import type { UsePopperContentReturn } from './use-content'
 import type { PopperContentProps } from '../content'
@@ -12,7 +12,7 @@ export const usePopperContentDOM = (
     styles,
     role
   }: Pick<UsePopperReturn, 'attributes' | 'styles'> &
-  Pick<UsePopperContentReturn, 'role'>
+    Pick<UsePopperContentReturn, 'role'>
 ) => {
   const contentAttrs = computed(() => unref(attributes).popper)
   const contentZIndex = ref<number>(props.zIndex as number)
@@ -25,8 +25,12 @@ export const usePopperContentDOM = (
     ]
   })
 
-  const ariaModal = computed<string | undefined>(() => role.value === 'dialog' ? 'false' : undefined)
-  const arrowStyle = computed(() => unref(styles).arrow || {}) as unknown as CSSProperties
+  const ariaModal = computed<string | undefined>(() =>
+    role.value === 'dialog' ? 'false' : undefined
+  )
+  const arrowStyle = computed(
+    () => unref(styles).arrow || {}
+  ) as unknown as CSSProperties
 
   return {
     ariaModal,

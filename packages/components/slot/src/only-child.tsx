@@ -8,12 +8,11 @@ import {
   withDirectives
 } from 'vue'
 import { NOOP, isObject } from '@vue/shared'
+import type { Ref, VNode } from 'vue'
 import {
   FORWARD_REF_INJECTION_KEY,
   useForwardRefDirective
 } from '@/composables'
-
-import type { Ref, VNode } from 'vue'
 
 const NAME = 'NOnlyChild'
 
@@ -29,13 +28,11 @@ export const OnlyChild = defineComponent({
       if (!defaultSlot) return null
 
       if (defaultSlot.length > 1) {
-        console.warn(NAME, 'requires exact only one valid child.')
         return null
       }
 
       const firstLegitNode = findFirstLegitChild(defaultSlot)
       if (!firstLegitNode) {
-        console.warn(NAME, 'no valid child node found')
         return null
       }
 

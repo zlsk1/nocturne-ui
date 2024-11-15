@@ -1,4 +1,4 @@
-import type { vShow, Component } from 'vue'
+import type { Component, vShow } from 'vue'
 import { INSTALLED_KEY } from '@/constants'
 
 // declare global {
