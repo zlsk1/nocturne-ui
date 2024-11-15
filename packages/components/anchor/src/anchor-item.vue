@@ -12,7 +12,10 @@ const ns = useNamespace('anchor')
 
 const props = defineProps(anchorItemProps)
 
-const { activeLink, onClick, addLink, removeAnchor } = inject(ANCHOR_INJECTION_KEY, undefined)!
+const { activeLink, onClick, addLink, removeAnchor } = inject(
+  ANCHOR_INJECTION_KEY,
+  undefined
+)!
 
 const linkRef = ref<HTMLAnchorElement>()
 
@@ -30,16 +33,20 @@ onUnmounted(() => {
 
 <template>
   <ul v-if="items" :class="ns.e('items')">
-    <li v-for="({ href, text, title, children = [] }, index) in items" :key="index">
+    <li
+      v-for="({ href, text, title, children = [] }, index) in items"
+      :key="index"
+    >
       <a
         ref="linkRef"
         :href="href"
         :title="title"
-        :class="{ 'active': activeLink === href }"
+        :class="{ active: activeLink === href }"
         @click="onClick"
-      >{{ text }}</a>
+        >{{ text }}</a
+      >
       <template v-if="children.length">
-        <NAnchorItem :items="children"></NAnchorItem>
+        <NAnchorItem :items="children" />
       </template>
     </li>
   </ul>
@@ -49,11 +56,8 @@ onUnmounted(() => {
       :title="title"
       :class="ns.is('active', activeLink === href)"
       @click="onClick"
-    >{{ text }}</a>
-    <slot></slot>
+      >{{ text }}</a
+    >
+    <slot />
   </div>
 </template>
-
-<style lang="scss">
-@use '@/theme-chalk/src/anchor.scss';
-</style>

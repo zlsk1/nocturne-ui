@@ -1,26 +1,21 @@
 <template>
-  <transition
-    v-if="transition"
-    :name="transitionClass"
-    appear
-  >
+  <transition v-if="transition" :name="transitionClass" appear>
     <span
       :class="tagCls"
       :style="{ backgroundColor: color }"
       @click="handleClick"
     >
       <span :class="ns.e('content')">
-        <slot></slot>
+        <slot />
       </span>
       <Close
         v-if="closable"
         size="14"
         :class="ns.e('close')"
         @click.stop="handleClose"
-      ></Close>
+      />
     </span>
   </transition>
-  <!-- eslint-disable-next-line vue/no-multiple-template-root -->
   <span
     v-else
     :class="tagCls"
@@ -28,21 +23,21 @@
     @click="handleClick"
   >
     <span :class="ns.e('content')">
-      <slot></slot>
+      <slot />
     </span>
     <Close
       v-if="closable"
       size="14"
       :class="ns.e('close')"
       @click.stop="handleClose"
-    ></Close>
+    />
   </span>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { tagProps, tagEmits } from './tag'
 import { RiCloseLine as Close } from '@remixicon/vue'
+import { tagEmits, tagProps } from './tag'
 import { useNamespace } from '@/composables'
 
 defineOptions({

@@ -1,14 +1,16 @@
 <template>
-  <!-- eslint-disable-next-line vue/no-multiple-template-root -->
-  <slot></slot>
+  <slot />
 </template>
 <script lang="ts" setup>
-import { ref, provide, computed } from 'vue'
+import { computed, provide, ref } from 'vue'
 import { POPPER_INJECTION_KEY } from './constants'
 import { popperProps } from './popper'
 
 import type { Instance as PopperInstance } from '@popperjs/core'
-import type { NPopperInjectionContext, NPopperContentInjectionContext } from './constants'
+import type {
+  NPopperContentInjectionContext,
+  NPopperInjectionContext
+} from './constants'
 
 defineOptions({
   name: 'NPopper'

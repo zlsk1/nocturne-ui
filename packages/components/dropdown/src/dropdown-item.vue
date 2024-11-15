@@ -1,14 +1,10 @@
-<!-- eslint-disable vue/no-multiple-template-root -->
 <template>
-  <div v-if="divided" :class="ns.e('separator')"></div>
+  <div v-if="divided" :class="ns.e('separator')" />
   <div
-    :class="[
-      ns.e('item'),
-      ns.is('disabled', disabled),
-    ]"
+    :class="[ns.e('item'), ns.is('disabled', disabled)]"
     @click="(e) => handleClick(e)"
   >
-    <slot></slot>
+    <slot />
   </div>
 </template>
 
@@ -22,7 +18,7 @@ defineOptions({
   name: 'NDropdownItem'
 })
 
-const props = defineProps(dropdownItemProps)
+defineProps(dropdownItemProps)
 
 const ns = useNamespace('dropdown')
 

@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-v-model-argument -->
 <template>
   <div :class="ns.b()">
     <n-tooltip
@@ -40,11 +39,7 @@
               @click.stop="onClearValue"
               @mousedown.prevent
             >
-              <component
-                :is="clearIcon"
-                size="14"
-                :class="ns.e('clearicon')"
-              ></component>
+              <component :is="clearIcon" size="14" :class="ns.e('clearicon')" />
             </n-icon>
           </transition>
         </template>
@@ -56,19 +51,19 @@
           :step="{
             hourStep,
             minuteStep,
-            secondStep,
+            secondStep
           }"
           :disabled="{
             disabledHours,
             disabledMinutes,
-            disabledSeconds,
+            disabledSeconds
           }"
           :format="format"
           :default-value="defaultValue"
           @change="handleChange"
           @pick="handlePick"
           @set-picker-methods="setPickerMethods"
-        ></slot>
+        />
       </template>
     </n-tooltip>
   </div>
@@ -76,16 +71,16 @@
 
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue'
-import { NInput, NTooltip, NIcon } from '@/components'
-import { pickerProps, pickerEmit } from './props/picker'
 import dayjs from 'dayjs'
-import { parseDate, formatter } from './util'
 import { isEqual } from 'lodash'
-import { useNamespace } from '@/composables'
+import { formatter, parseDate } from './util'
+import { pickerEmit, pickerProps } from './props/picker'
 
 import type { Dayjs } from 'dayjs'
 import type { InputInstance } from '@/components'
 import type { PickerMethods } from './type'
+import { useNamespace } from '@/composables'
+import { NIcon, NInput, NTooltip } from '@/components'
 
 defineOptions({
   name: 'NPicker'
@@ -110,12 +105,10 @@ const calculatedValue = computed(() => {
     if (pickerMethods.value.getDefaultValue) {
       day = pickerMethods.value.getDefaultValue()
     }
-  }
-  else {
+  } else {
     if (inputValue.value) {
       day = parseDate(inputValue.value, props.valueFormat)
-    }
-    else if (inputValue.value === null) {
+    } else if (inputValue.value === null) {
       day = parseDate(modelValue, props.valueFormat)
     }
   }
@@ -125,7 +118,10 @@ const calculatedValue = computed(() => {
     if (!isEqual(availableValue, day!)) {
       day = availableValue
 
-      if (!modelValue || (Array.isArray(modelValue) && modelValue.length !== 0)) {
+      if (
+        !modelValue ||
+        (Array.isArray(modelValue) && modelValue.length !== 0)
+      ) {
         emit('change', day.toDate())
       }
     }
@@ -193,8 +189,7 @@ const onBeforeShow = () => {
   emit('visible-change', true)
 }
 
-const onShow = () => {
-}
+const onShow = () => {}
 
 const onHide = () => {
   visible.value = false
@@ -217,7 +212,9 @@ const onInput = (e: string) => {
 const focus = () => inputRef.value?.focus()
 const blur = () => inputRef.value?.blur()
 
-const setPickerMethods = <T extends keyof PickerMethods>(val: [T, PickerMethods[T]]) => {
+const setPickerMethods = <T extends keyof PickerMethods>(
+  val: [T, PickerMethods[T]]
+) => {
   pickerMethods.value[val[0]] = val[1]
 }
 
