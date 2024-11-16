@@ -56,8 +56,10 @@ const handleClose = (e: MouseEvent) => {
       <component :is="icon" />
     </n-icon>
     <div :class="ns.e('content')">
-      <slot name="title" />
-      <span v-if="title" :class="ns.e('title')">
+      <span v-if="$slots.title" :class="ns.e('title')">
+        <slot name="title" />
+      </span>
+      <span v-else-if="title" :class="ns.e('title')">
         {{ title }}
       </span>
       <p v-if="description" :class="ns.e('description')">

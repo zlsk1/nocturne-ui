@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { avatarEmits, avatarProps } from './avatar'
 import { useNamespace } from '@/composables'
 
@@ -12,6 +12,8 @@ const emit = defineEmits(avatarEmits)
 
 const ns = useNamespace('avatar')
 
+const isError = ref(false)
+
 const sizeIsNumber = computed(() => {
   return typeof props.size === 'number'
 })
@@ -22,7 +24,13 @@ const avatarCls = computed(() => [
   ns.m(props.shape)
 ])
 
+watch(
+  () => props.src,
+  () => (isError.value = !isError.value)
+)
+
 const onError = (evt: Event) => {
+  isError.value = true
   emit('error', evt)
 }
 </script>
@@ -36,7 +44,7 @@ const onError = (evt: Event) => {
     }"
   >
     <img
-      v-if="src"
+      v-if="src && !isError"
       :src="src"
       :alt="alt"
       :class="ns.e('img')"

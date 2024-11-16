@@ -43,4 +43,9 @@ describe('Alert', () => {
     await closeBtn.trigger('click')
     expect(wrapper.emitted()).toBeDefined()
   })
+
+  test('slot title', () => {
+    const wrapper = mount(() => <Alert v-slots={{ title: () => VARIABLE }} />)
+    expect(wrapper.find('.n-alert__title').text()).toEqual(VARIABLE)
+  })
 })
