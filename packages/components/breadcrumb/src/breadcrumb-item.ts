@@ -19,8 +19,8 @@ export default defineComponent({
     const { separator, onClick } = inject(NBREADCRUMBINJECTIONKEY, undefined)!
 
     const separatorEl = isString(separator.value)
-      ? h('span', { class: ns.be('separator') }, separator.value)
-      : h(separator.value, { class: ns.be('separator') })
+      ? h('span', { class: ns.e('separator') }, separator.value)
+      : h(separator.value, { class: ns.e('separator') })
 
     const linkEl = props.path
       ? h('a', { href: props.path }, slots.default?.())
@@ -29,12 +29,12 @@ export default defineComponent({
     const children = h(
       'span',
       {
-        class: [ns.be('content'), ns.is('link', !isUndefined(props.path))],
+        class: [ns.e('content'), ns.is('link', !isUndefined(props.path))],
         onClick: () => onClick(props?.path)
       },
       [linkEl, separatorEl]
     )
 
-    return () => h('li', { class: ns.be('items') }, children)
+    return () => h('li', { class: ns.e('items') }, children)
   }
 })

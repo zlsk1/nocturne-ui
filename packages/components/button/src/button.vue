@@ -2,7 +2,7 @@
 import { computed, useSlots } from 'vue'
 import { buttonEmits, buttonProps } from './button'
 import { useNamespace } from '@/composables'
-import { NIcon } from '@/components'
+import NIcon from '@/components/icon'
 
 defineOptions({
   name: 'NButton'
@@ -35,11 +35,9 @@ const handleClick = (e: MouseEvent) => {
 
 <template>
   <button :class="buttonCls" @click="handleClick">
-    <template v-if="loading">
-      <n-icon :class="[ns.is('loading-icon', loading)]">
-        <component :is="loadingIcon" size="14" />
-      </n-icon>
-    </template>
+    <n-icon v-if="loading" :class="[ns.is('loading-icon', loading)]">
+      <component :is="loadingIcon" size="14" />
+    </n-icon>
     <n-icon v-else-if="icon">
       <component :is="icon" size="14" />
     </n-icon>

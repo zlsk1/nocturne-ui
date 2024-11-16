@@ -5,7 +5,7 @@ import type { ExtractPropTypes } from 'vue'
 export const cardProps = {
   header: String,
   footer: String,
-  ContentClass: String
+  contentClass: String
 }
 
 export type CardProps = ExtractPropTypes<typeof cardProps>
