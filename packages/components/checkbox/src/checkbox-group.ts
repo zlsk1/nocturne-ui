@@ -1,5 +1,5 @@
 import { ExtractPropTypes } from 'vue'
-import { CheckModelValueType } from '../../checkbox/src/checkbox'
+import { CheckModelValueType } from './checkbox'
 import CheckboxGroup from './checkbox-group.vue'
 import { definePropType } from '@/utils'
 import { componentSizes } from '@/constants'

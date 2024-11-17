@@ -7,6 +7,7 @@ import {
   RiUploadLine as Upload
 } from '@remixicon/vue'
 import Button from '../src/button.vue'
+import ButtonGroup from '../src/button-group.vue'
 
 describe('Button', () => {
   test('render & type', () => {
@@ -79,5 +80,18 @@ describe('Button', () => {
     const wrapper = mount(() => <Button>button</Button>)
     await wrapper.trigger('click')
     expect(wrapper.emitted()).toBeDefined()
+  })
+})
+
+describe('Button Group', () => {
+  test('render', () => {
+    const wrapper = mount(() => (
+      <ButtonGroup>
+        <Button>button1</Button>
+        <Button>button2</Button>
+      </ButtonGroup>
+    ))
+    expect(wrapper.find('.n-button-group').exists()).toBe(true)
+    expect(wrapper.findAll('button')).length(2)
   })
 })

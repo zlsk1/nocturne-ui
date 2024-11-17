@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, nextTick, provide, toRefs } from 'vue'
-import { checkboxGroupContextKey } from '../../checkbox/src/constants'
+import { checkboxGroupContextKey } from './constants'
 import { checkboxGroupEmits, checkboxGroupProps } from './checkbox-group'
 import type { CheckboxGroupValueType } from './checkbox-group'
 import { useFormItemId } from '@/components/form'

@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import { computed, inject, onMounted, ref, watch } from 'vue'
-import { CAROUSEL_INJECT_KEY } from '../../carousel/src/constants'
+import { CAROUSEL_INJECT_KEY } from './constants'
 import { useNamespace } from '@/composables'
 
 defineOptions({

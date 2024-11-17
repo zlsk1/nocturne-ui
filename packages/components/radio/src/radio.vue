@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, inject, nextTick, ref } from 'vue'
 import { radioEmits, radioProps } from './radio'
-import { RADIOGROUP_INJECTION_KEY } from '@/components/radio-group/src/constants'
+import { RADIOGROUP_INJECTION_KEY } from './constants'
 import { useNamespace } from '@/composables'
 
 defineOptions({

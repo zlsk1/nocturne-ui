@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { provide, ref } from 'vue'
 import { collapseEmits, collapseProps } from './collapse'
-import { COLLAPSE_INJECTION_KEY } from '@/components/collapse/src/constants'
+import { COLLAPSE_INJECTION_KEY } from './constants'
 import { useNamespace } from '@/composables'
 
 defineOptions({

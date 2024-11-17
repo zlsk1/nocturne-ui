@@ -9,7 +9,7 @@ export const radioProps = {
     default: undefined
   },
   value: {
-    type: [Number, String, Boolean],
+    type: definePropType<number | string | boolean>([Number, String, Boolean]),
     default: undefined
   },
   size: {
@@ -21,10 +21,10 @@ export const radioProps = {
     default: false
   },
   label: {
-    type: [Number, String, Boolean],
+    type: definePropType<number | string | boolean>([Number, String, Boolean]),
     default: undefined
   }
-}
+} as const
 
 export const radioEmits = {
   'update:modelValue': (val: string | number | boolean) =>

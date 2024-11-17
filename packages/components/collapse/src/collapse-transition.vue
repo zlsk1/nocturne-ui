@@ -1,7 +1,11 @@
 <script lang="ts" setup>
+import { useGetOverRidesNamesapce } from '@/composables/use-namespace'
+
 defineOptions({
   name: 'NCollapseTransition'
 })
+
+const ns = useGetOverRidesNamesapce()
 
 const reset = (el: HTMLElement) => {
   el.style.height = ''
@@ -57,7 +61,7 @@ const on = {
 </script>
 
 <template>
-  <transition name="n-collapse-transition" v-on="on">
+  <transition :name="`${ns}-collapse-transition`" v-on="on">
     <slot />
   </transition>
 </template>
