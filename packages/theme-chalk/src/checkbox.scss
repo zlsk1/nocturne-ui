@@ -38,20 +38,20 @@ $checkbox-bordered-input-width: map.merge(
 }
 
 @include b(checkbox) {
-  color: getCssVar('checkbox-text-color');
-  font-weight: getCssVar('checkbox-font-weight');
-  font-size: getCssVar('font-size', 'base');
-  position: relative;
-  cursor: pointer;
   display: inline-flex;
   align-items: center;
-  white-space: nowrap;
-  user-select: none;
-  margin-right: 30px;
   height: getCssVarWithDefault(
     'checkbox-height',
     map.get($checkbox-height, 'default')
   );
+  margin-right: 30px;
+  font-weight: getCssVar('checkbox-font-weight');
+  font-size: getCssVar('font-size', 'base');
+  color: getCssVar('checkbox-text-color');
+  position: relative;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
 
   @include when(disabled) {
     cursor: not-allowed;
@@ -111,11 +111,11 @@ $checkbox-bordered-input-width: map.merge(
   }
 
   @include e(input) {
-    white-space: nowrap;
-    cursor: pointer;
-    outline: none;
-    display: inline-flex;
     position: relative;
+    display: inline-flex;
+    white-space: nowrap;
+    outline: none;
+    cursor: pointer;
 
     @include when(disabled) {
       .#{$namespace}-checkbox__inner {
@@ -168,7 +168,7 @@ $checkbox-bordered-input-width: map.merge(
         border-color: getCssVar('checkbox-checked-input-border-color');
 
         &::after {
-          transform: rotate(45deg) scaleY(1);
+          transform: rotate(45deg) scale(1);
           border-color: getCssVar('checkbox-checked-icon-color');
         }
       }
@@ -178,7 +178,6 @@ $checkbox-bordered-input-width: map.merge(
       }
     }
     @include when(focus) {
-      // Visually distinguish when focus
       &:not(.is-checked) {
         .#{$namespace}-checkbox__original:not(:focus-visible) {
           border-color: getCssVar('checkbox-input-border-color-hover');
@@ -193,13 +192,13 @@ $checkbox-bordered-input-width: map.merge(
         &::before {
           content: '';
           position: absolute;
-          display: block;
-          background-color: getCssVar('checkbox-checked-icon-color');
-          height: 2px;
-          transform: scale(0.5);
           left: 0;
           right: 0;
           top: 5px;
+          display: block;
+          height: 2px;
+          background-color: getCssVar('checkbox-checked-icon-color');
+          transform: scale(0.5);
         }
 
         &::after {
@@ -209,52 +208,51 @@ $checkbox-bordered-input-width: map.merge(
     }
   }
   @include e(inner) {
+    $cubic-fun: cubic-bezier(0.71, -0.32, 0.53, 1.86);
+    box-sizing: border-box;
     display: inline-block;
     position: relative;
-    border: getCssVar('checkbox-input-border');
-    border-radius: getCssVar('checkbox-border-radius');
-    box-sizing: border-box;
     width: getCssVar('checkbox-input-width');
     height: getCssVar('checkbox-input-height');
+    border: getCssVar('checkbox-input-border');
+    border-radius: getCssVar('checkbox-border-radius');
     background-color: getCssVar('checkbox-bg-color');
     z-index: getCssVar('index-normal');
-    transition: border-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46),
-      background-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46),
-      outline 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46);
+    transition: border-color 0.25s $cubic-fun,
+      background-color 0.25s $cubic-fun,
+      outline 0.25s $cubic-fun;
 
     &:hover {
       border-color: getCssVar('checkbox-input-border-color-hover');
     }
 
     &::after {
-      box-sizing: content-box;
       content: '';
+      box-sizing: content-box;
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      width: 3px;
+      height: 7px;
       border: 1px solid transparent;
       border-left: 0;
       border-top: 0;
-      height: 7px;
-      left: 4px;
-      position: absolute;
-      top: 1px;
-      transform: rotate(45deg) scaleY(0);
-      width: 3px;
-      transition: transform 0.15s ease-in 0.05s;
-      transform-origin: center;
+      transform: rotate(45deg) scale(0);
+      transition: transform 0.15s $cubic-fun;
     }
   }
 
   @include e(original) {
-    opacity: 0;
-    outline: none;
     position: absolute;
-    margin: 0;
     width: 0;
     height: 0;
+    margin: 0;
+    opacity: 0;
+    outline: none;
     z-index: -1;
   }
 
   @include e(label) {
-    display: inline-block;
     padding-left: 8px;
     line-height: 1;
     font-size: getCssVar('checkbox-font-size');

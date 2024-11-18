@@ -16,6 +16,7 @@ const ns = useNamespace('checkbox')
 
 const {
   isChecked,
+  checkboxSize,
   isDisabled,
   isFocused,
   model,
@@ -31,7 +32,7 @@ const commonCls = computed(() => [
 
 const checkboxCls = computed(() => [
   ns.b(),
-  ns.m(props.size),
+  ns.m(checkboxSize.value || props.size),
   ...commonCls.value
 ])
 
