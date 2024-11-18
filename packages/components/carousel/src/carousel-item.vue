@@ -2,7 +2,12 @@
   <div
     ref="itemRef"
     :class="carouselItemCls"
-    :style="{ transform: `translateX(${elTranslateX})` }"
+    :style="{
+      transform:
+        mode === 'horizontal'
+          ? `translateX(${translateStyle})`
+          : `translateY(${translateStyle})`
+    }"
   >
     <slot />
   </div>
@@ -11,13 +16,14 @@
 <script lang="ts" setup>
 import { computed, inject, onMounted, ref, watch } from 'vue'
 import { CAROUSEL_INJECT_KEY } from './constants'
+import { useCarouselItem } from './use-carousel-item'
 import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NCarouselItem'
 })
 
-const { itemCount, contentRef, currentIndex } = inject(
+const { itemCount, contentRef, currentIndex, mode, addItem } = inject(
   CAROUSEL_INJECT_KEY,
   undefined
 )!
@@ -26,45 +32,31 @@ const ns = useNamespace('carousel__content')
 
 const itemRef = ref<HTMLLIElement>()
 const itemIndex = ref<number>(0)
-const itemWidth = ref<number>()
+const itemRect = ref<number>(0)
 const isAnimation = ref(false)
 
-onMounted(() => {
-  itemCount.value += 1
-})
+onMounted(() => addItem())
 
 const carouselItemCls = computed(() => [
   ns.e('item'),
   ns.is('animation', isAnimation.value)
 ])
 
-const elTranslateX = computed<string>(() => {
-  if (currentIndex.value === itemCount.value - 1 && itemIndex.value === 0) {
-    return `${itemWidth.value!}px`
-  }
-
-  if (currentIndex.value === 0 && itemIndex.value === itemCount.value - 1) {
-    return `${-itemWidth.value!}px`
-  }
-
-  if (itemIndex.value <= Math.floor(itemCount.value / 2)) {
-    return Math.abs(currentIndex.value - itemIndex.value) >
-      Math.floor(itemCount.value / 2)
-      ? `${Math.ceil((currentIndex.value - itemIndex.value) / 2) * itemWidth.value!}px`
-      : `${(itemIndex.value - currentIndex.value) * itemWidth.value!}px`
-  } else {
-    return Math.abs(currentIndex.value - itemIndex.value) >
-      Math.floor(itemCount.value / 2)
-      ? `${-Math.ceil((itemIndex.value - currentIndex.value) / 2) * itemWidth.value!}px`
-      : `${(itemIndex.value - currentIndex.value) * itemWidth.value!}px`
-  }
-})
+const { translateStyle } = useCarouselItem(
+  currentIndex,
+  itemCount,
+  itemIndex,
+  itemRect
+)
 
 watch(contentRef, (val) => {
   itemIndex.value = Array.from(val!.children).findIndex(
     (v) => v === itemRef.value
   )
-  itemWidth.value = val!.getBoundingClientRect().width
+  itemRect.value =
+    mode.value === 'horizontal'
+      ? val!.getBoundingClientRect().width
+      : val!.getBoundingClientRect().height
 })
 
 watch(currentIndex, (val, oldVal) => {

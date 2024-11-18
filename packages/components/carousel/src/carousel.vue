@@ -1,21 +1,20 @@
 <template>
   <div :class="ns.b()" @mouseenter="onMouseenter" @mouseleave="onMouseleave">
     <button
-      v-if="showArrow && !$slots.prev"
+      v-if="showArrow && !$slots.prev && mode !== 'vertical'"
       :class="[
         ns.e('button'),
         ns.em('button', 'left'),
         ns.is('animation', isHover)
       ]"
+      :style="{ display: !loop && currentIndex === 0 ? 'none' : 'block' }"
       @click="handlePrev"
     >
-      <NIcon>
+      <n-icon>
         <component :is="ArrowLeft" />
-      </NIcon>
+      </n-icon>
     </button>
-    <div v-else :class="ns.em('slot', 'prev')" @click="handlePrev">
-      <slot name="prev" />
-    </div>
+    <slot v-else name="prev" @click="handlePrev" @mouseenter="handlePrev" />
     <div
       ref="contentRef"
       :class="ns.e('content')"
@@ -23,50 +22,55 @@
     >
       <slot />
     </div>
-    <ul v-if="!hideIndicator" :class="ns.e('indicator')">
+    <ul
+      v-if="!hideIndicator"
+      :class="[ns.e('indicator'), ns.em('indicator', indicatorPlacement)]"
+    >
       <li
         v-for="(_, i) in itemCount"
         :key="i"
         :class="ns.e('indicator__item')"
         @click="clickIndicator(i)"
+        @mouseenter="() => trigger === 'hover' && switchTo(i)"
       >
         <button
           :class="[
             ns.is('active', i === currentIndex),
-            ns.is('round', indicatorShape === 'round')
+            ns.is('circle', indicatorShape === 'circle')
           ]"
         />
       </li>
     </ul>
     <button
-      v-if="showArrow && !$slots.next"
+      v-if="showArrow && !$slots.next && mode !== 'vertical'"
       :class="[
         ns.e('button'),
         ns.em('button', 'right'),
         ns.is('animation', isHover)
       ]"
+      :style="{
+        display: !loop && currentIndex === itemCount - 1 ? 'none' : 'block'
+      }"
       @click="handleNext"
     >
-      <NIcon v-if="!$slots.next">
+      <n-icon>
         <component :is="ArrowRight" />
-      </NIcon>
+      </n-icon>
     </button>
-    <div v-else :class="ns.em('slot', 'next')" @click="handleNext">
-      <slot name="next" />
-    </div>
+    <slot v-else name="next" @click="handleNext" @mouseenter="handleNext" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, provide, ref, watch } from 'vue'
+import { computed, onMounted, provide, reactive, ref, toRefs, watch } from 'vue'
 import { useIntervalFn, useThrottleFn } from '@vueuse/core'
 import {
-  RiArrowLeftSFill as ArrowLeft,
-  RiArrowRightSFill as ArrowRight
+  RiArrowLeftSLine as ArrowLeft,
+  RiArrowRightSLine as ArrowRight
 } from '@remixicon/vue'
 import { carouselEmits, carouselProps } from './carousel'
 import { CAROUSEL_INJECT_KEY } from './constants'
-import { NIcon } from '@/components'
+import { NIcon } from '@/components/icon'
 import { useNamespace } from '@/composables'
 
 defineOptions({
@@ -88,8 +92,14 @@ const itemCount = ref<number>(0)
 const currentIndex = ref(0)
 const isHover = ref(false)
 
-onMounted(() => {
-  setInterval()
+const indicatorPlacement = computed(() => {
+  const { mode, indicatorPlacement } = props
+  if (mode === 'horizontal') {
+    return indicatorPlacement || 'bottom'
+  } else if (mode === 'vertical') {
+    return indicatorPlacement || 'right'
+  }
+  return 'bottom'
 })
 
 watch(currentIndex, (newVal, oldVal) => {
@@ -137,9 +147,31 @@ const setInterval = () => {
   }, props.interval))
 }
 
+const switchTo = (index: number) => {
+  currentIndex.value = index
+}
+
+const addItem = () => {
+  itemCount.value++
+}
+
+onMounted(() => {
+  setInterval()
+})
+
 provide(CAROUSEL_INJECT_KEY, {
   itemCount,
   currentIndex,
-  contentRef
+  contentRef,
+  addItem,
+  ...toRefs(
+    reactive({
+      mode: props.mode
+    })
+  )
+})
+
+defineExpose({
+  switchTo
 })
 </script>

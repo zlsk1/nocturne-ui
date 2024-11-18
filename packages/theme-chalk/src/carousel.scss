@@ -5,6 +5,17 @@
 @use 'mixins/mixins' as *;
 @use 'mixins/var' as *;
 
+$placements: () !default;
+$placements: map.merge(
+  (
+    'bottom': (bottom: 3%, left: 50%, transform: translateX(-50%)),
+    'top': (top: 3%, left: 50%, transform: translateX(-50%)),
+    'left': (left: 3%, top: 50%, transform: translateY(-50%)),
+    'right': (right: 3%, top: 50%, transform: translateY(-50%)),
+  ),
+  $placements
+);
+
 @include b(carousel) {
   @include set-component-css-var('carousel', $carousel);
 }
@@ -14,6 +25,7 @@
 
   ul, li {
     list-style: none;
+    margin: 0;
   }
 
   button {
@@ -23,36 +35,68 @@
 
   @include e(indicator) {
     position: absolute;
-    bottom: 3%;
-    left: 50%;
-    display: flex;
-    transform: translateX(-50%);
+    padding-left: 0;
   }
 
-  .is-active {
-    background-color: #fff !important;
+  @each $placement in (bottom, top, left, right) {
+    .#{$namespace}-carousel__indicator--#{$placement} {
+      @if $placement == bottom or $placement == top {
+        display: flex;
+        transform: map.get($placements, $placement, transform);
+        left: map.get($placements, $placement, left);
+  
+        @if $placement == bottom {
+          bottom: map.get($placements, $placement, bottom);
+        }
+        @else {
+          top: map.get($placements, $placement, top);
+        }
+      }
+      @else if $placement == left or $placement == right {
+        top: map.get($placements, $placement, top);
+        transform: map.get($placements, $placement, transform);
+      
+        @include e(indicator__item) {
+          button {
+            width: map.get($carousel-indicator-size, 'vertical' ,'width');
+            height: map.get($carousel-indicator-size, 'vertical' ,'height');
+            padding: 0;
+          }
+        }
+        @if $placement == left {
+          left: map.get($placements, $placement, right);
+        }
+        @else if $placement == right {
+          right: map.get($placements, $placement, right);
+        }
+      }
+    }
   }
 
   @include e(indicator__item) {
-    padding: 10px 5px;
+    padding: getCssVar('carousel', 'indicator-item-padding');
     cursor: pointer;
 
     button {
       display: block;
-      width: 30px;
-      height: 2px;
-      background-color: getCssVar('carousel', 'indicator-color');
+      width: map.get($carousel-indicator-size, 'horizontal' ,'width');
+      height: map.get($carousel-indicator-size, 'horizontal' ,'height');
+      background-color: getCssVar('carousel', 'indicator-bg');
       transition: all getCssVar('transition-duration-fast');
       cursor: pointer;
 
-      @include when(round) {
-        width: 12px;
-        height: 12px;
+      @include when(circle) {
+        width: map.get($carousel-indicator-size, 'circle' ,'width');
+        height: map.get($carousel-indicator-size, 'circle' ,'height');
         border-radius: 50%;
       }
     }
 
     &:hover button {
+      background-color: getCssVar('carousel', 'indicator-active-bg');
+    }
+
+    .is-active {
       background-color: #fff;
     }
   }
@@ -68,57 +112,48 @@
     top: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 
     @include when(animation) {
-      transition: transform getCssVar('transition-duration') ease-in-out;
+      transition: getCssVar('carousel', 'item-transition');
     }
   }
 
   @include e(button) {
     position: absolute;
     top: 50%;
-    padding: 10px;
-    background-color: #fff;
+    padding: 6px;
+    text-align: center;
+    font-size: getCssVar('carousel-button-size');
+    line-height: getCssVar('carousel-button-size');
+    background-color: getCssVar('carousel', 'button-bg');
     border-radius: 50%;
     transform: translateY(-50%);
-    transition: all getCssVar('transition-duration-fast') linear;
+    transition: all getCssVar('transition-duration-fast') ease-in-out;
     cursor: pointer;
     z-index: 10;
+    opacity: 0;
 
     &:hover {
-      opacity: .7;
+      background-color: getCssVar('carousel', 'button-hover-bg');
     }
 
     @include m(left) {
-      left: -10%;
+      left: -2%;
 
       @include when(animation) {
         left: 2%;
+        opacity: 1;
       }
     }
 
     @include m(right) {
-      right: -10%;
+      right: -2%;
 
       @include when(animation) {
         right: 2%;
+        opacity: 1;
       }
     }
-  }
-
-  @include e(slot--prev) {
-    position: absolute;
-    top: 50%;
-    left: 2%;
-    transform: translateY(-50%);
-    z-index: 10;
-  }
-
-  @include e(slot--next) {
-    position: absolute;
-    top: 50%;
-    right: 2%;
-    transform: translateY(-50%);
-    z-index: 10;
   }
 }

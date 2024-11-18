@@ -839,9 +839,25 @@ $slider: map.merge(
 $carousel: () !default;
 $carousel: map.merge(
   (
-    'indicator-color': getCssVar('border-color')
+    'indicator-bg': getCssVar('border-color'),
+    'indicator-active-bg': getCssVar('color-white'),
+    'indicator-item-padding': 10px 8px,
+    'button-bg': transparent,
+    'button-hover-bg': getCssVar('text-color-secondary'),
+    'button-size': 24px,
+    'item-transition': transform getCssVar('transition-duration') ease-in-out
   ),
   $carousel
+);
+
+$carousel-indicator-size: () !default;
+$carousel-indicator-size: map.merge(
+  (
+    'horizontal': ('width': 30px, 'height': 2px),
+    'vertical': ('width': 2px, 'height': 15px),
+    'circle': ('width': 15px, 'height': 15px),
+  ),
+  $carousel-indicator-size
 );
 
 // color-picker
