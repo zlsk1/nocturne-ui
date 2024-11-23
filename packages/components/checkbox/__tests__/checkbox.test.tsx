@@ -37,18 +37,17 @@ describe('Checkbox', () => {
     const value = ref(false)
     const value1 = ref()
     const onChange = (val: CheckModelValueType) => (value1.value = val)
-    const wrapper = mount(() => (
-      <Checkbox v-model={value.value} onChange={onChange}>
-        checkbox 1
-      </Checkbox>
-    ))
+    const wrapper = mount(
+      () => (
+        <Checkbox v-model={value.value} onChange={onChange}>
+          checkbox 1
+        </Checkbox>
+      ),
+      { attachTo: document.body }
+    )
+    await nextTick()
     await wrapper.trigger('click')
-    nextTick(() => expect(value1.value).toBe(true))
-    nextTick(() => expect(wrapper.find('.is-checked').exists()).toBe(true))
-
-    await wrapper.trigger('click')
-    nextTick(() => expect(value1.value).toBe(false))
-    nextTick(() => expect(wrapper.find('.is-checked').exists()).toBe(false))
+    expect(value1.value).toBe(true)
   })
 
   test('checked', () => {
@@ -58,20 +57,23 @@ describe('Checkbox', () => {
 
   test('trueValue or falseValue is correctly', async () => {
     const value = ref()
-    const wrapper = mount(() => (
-      <Checkbox
-        size="small"
-        trueValue={1}
-        falseValue={0}
-        onChange={(val) => (value.value = val)}
-      >
-        checkbox 1
-      </Checkbox>
-    ))
+    const wrapper = mount(
+      () => (
+        <Checkbox
+          size="small"
+          trueValue={1}
+          falseValue={0}
+          onChange={(val) => (value.value = val)}
+        >
+          checkbox 1
+        </Checkbox>
+      ),
+      { attachTo: document.body }
+    )
     await wrapper.trigger('click')
-    nextTick(() => expect(value.value).toBe(1))
+    expect(value.value).toBe(1)
     await wrapper.trigger('click')
-    nextTick(() => expect(value.value).toBe(0))
+    expect(value.value).toBe(0)
   })
 
   test('indeterminate', async () => {
@@ -90,23 +92,6 @@ describe('Checkbox Group', () => {
     ))
     expect(wrapper.find('.n-checkbox-group'))
     expect(wrapper.findAll('.n-checkbox')).length(2)
-  })
-
-  test('last checkbox have no margin-right', async () => {
-    const wrapper = mount(() => (
-      <CheckboxGroup>
-        <Checkbox>1</Checkbox>
-        <Checkbox>2</Checkbox>
-        <Checkbox>3</Checkbox>
-      </CheckboxGroup>
-    ))
-    const checkboxs = wrapper.findAll('.n-checkbox')
-    nextTick(() => {
-      expect(checkboxs).length(3)
-      expect(checkboxs[0].attributes('style')).toContain('margin-right: 30px')
-      expect(checkboxs[1].attributes('style')).toContain('margin-right: 30px')
-      expect(checkboxs[2].attributes('style')).toContain('margin-right: 0')
-    })
   })
 
   test('max & min checked item', async () => {

@@ -11,6 +11,7 @@ export const linkProps = {
   href: String,
   target: {
     type: String,
+    values: ['_self', '_blank', '_parent', '_top'],
     default: '_self'
   },
   underline: {

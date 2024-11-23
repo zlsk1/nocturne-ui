@@ -6,7 +6,8 @@
       :gpu-acceleration="false"
       :trigger="trigger"
       :placement="placement"
-      :pure="true"
+      pure
+      persistent
       :popper-class="popperClass"
       :popper-options="popperOptions"
       :disabled="disabled"
@@ -26,7 +27,7 @@
 import { provide, ref, watch } from 'vue'
 import { dropdownEmit, dropdownProps } from './dropdown'
 import { NDROPDOWN_INJECTION_KEY } from './constants'
-import { NTooltip } from '@/components'
+import NTooltip from '@/components/tooltip'
 import { useNamespace } from '@/composables'
 
 defineOptions({

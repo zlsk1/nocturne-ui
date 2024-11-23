@@ -1,9 +1,15 @@
 import { ExtractPropTypes } from 'vue'
 import Collapse from './collapse.vue'
-import { definePropType } from '@/utils'
+import {
+  definePropType,
+  isArray,
+  isNumber,
+  isString,
+  isUndefined
+} from '@/utils'
 
 export const collapseProps = {
-  modelValue: definePropType<string | []>([String, Array]),
+  modelValue: definePropType<string | string[] | number[]>([String, Array]),
   accordion: {
     type: Boolean,
     default: false
@@ -11,7 +17,10 @@ export const collapseProps = {
 }
 
 export const collapseEmits = {
-  change: (val: string | number) => val
+  change: (val: string | number | undefined) =>
+    isNumber(val) || isString(val) || isUndefined(val),
+  'update:modelValue': (val: string | string[] | number[]) =>
+    isString(val) || isArray(val)
 }
 
 export type CollapseProps = ExtractPropTypes<typeof collapseProps>

@@ -1,7 +1,7 @@
 import statistic from './statistic.vue'
 import type { ExtractPropTypes, StyleValue } from 'vue'
 import type { Dayjs } from 'dayjs'
-import { definePropType } from '@/utils'
+import { definePropType, iconPropType } from '@/utils'
 
 export const statisticProps = {
   value: {
@@ -9,8 +9,8 @@ export const statisticProps = {
     default: 0
   },
   title: String,
-  suffixIcon: String,
-  prefixIcon: String,
+  suffixIcon: iconPropType,
+  prefixIcon: iconPropType,
   precision: {
     type: Number,
     default: 0

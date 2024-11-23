@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { provide, ref } from 'vue'
+import { onMounted, provide, ref } from 'vue'
 import { collapseEmits, collapseProps } from './collapse'
 import { COLLAPSE_INJECTION_KEY } from './constants'
 import { useNamespace } from '@/composables'
+import { isString } from '@/utils'
 
 defineOptions({
   name: 'NCollapse'
@@ -15,7 +16,7 @@ const ns = useNamespace('collapse')
 
 const activelist = ref<string[] | number[]>([])
 
-const changeEvent = (val: string | number) => {
+const changeEvent = (val: string | number | undefined) => {
   if (!activelist.value.includes(val as never)) {
     if (!props.accordion) activelist.value.push(val as never)
     else activelist.value = [val as never]
@@ -23,8 +24,23 @@ const changeEvent = (val: string | number) => {
   emit('change', val)
 }
 
+const onUpdate = (val: string | string[] | number[]) => {
+  emit('update:modelValue', val)
+}
+
+onMounted(() => {
+  if (props.modelValue) {
+    if (isString(props.modelValue)) {
+      activelist.value.push(props.modelValue as never)
+    } else {
+      activelist.value = props.modelValue
+    }
+  }
+})
+
 provide(COLLAPSE_INJECTION_KEY, {
   changeEvent,
+  onUpdate,
   activelist
 })
 </script>

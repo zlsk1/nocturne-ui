@@ -6,8 +6,8 @@ import {
 } from '@remixicon/vue'
 import { inputEmits, inputProps } from './input'
 import { useForm, useFormItemId } from '@/components/form'
-import { NIcon } from '@/components'
-import { useNamespace } from '@/composables'
+import NIcon from '@/components/icon'
+import { useComposition, useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NInput'
@@ -53,9 +53,19 @@ const showSuffix = computed<boolean>(() => {
 
 const handleInput = (e: Event) => {
   const { value } = e.target as HTMLInputElement
+
+  if (isComposed.value) return
+
   emit('update:modelValue', value)
   emit('input', value)
 }
+
+const {
+  isComposed,
+  hadnleCompositionEnd,
+  handleCompositionStart,
+  handleCompositionUpdate
+} = useComposition({ emit, afterComposition: handleInput })
 
 const clearValue = () => {
   emit('update:modelValue', '')
@@ -155,6 +165,9 @@ defineExpose({
           @focus="handleFocus"
           @blur="handleBlur"
           @change="handleChange"
+          @compositionend="hadnleCompositionEnd"
+          @compositionstart="handleCompositionStart"
+          @compositionupdate="handleCompositionUpdate"
         />
         <span v-if="showSuffix" :class="ns.e('suffix')">
           <span :class="ns.e('suffix-inner')">
@@ -198,6 +211,9 @@ defineExpose({
         @input="handleInput"
         @focus="handleFocus"
         @blur="handleBlur"
+        @compositionend="hadnleCompositionEnd"
+        @compositionstart="handleCompositionStart"
+        @compositionupdate="handleCompositionUpdate"
       />
       <span v-if="showLimit" :class="ns.e('count')">
         <span :class="ns.e('count-inner')"

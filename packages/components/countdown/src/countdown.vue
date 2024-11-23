@@ -3,7 +3,7 @@ import { onBeforeUnmount, ref, watch } from 'vue'
 import { formatTime, getTime } from './utils'
 import { countdownEmits, countdownProps } from './countdown'
 import { cancelTimer, setTimer } from '@/utils/timer'
-import { NStatistic } from '@/components'
+import NStatistic from '@/components/statistic'
 
 defineOptions({
   name: 'NCountdown'

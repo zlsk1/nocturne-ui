@@ -13,7 +13,7 @@
         @mousedown="overlayEvent.onMousedown"
         @mouseup="overlayEvent.onMouseup"
       >
-        <div ref="dialogRef" :class="dialogCls" :style="dialogStyle">
+        <div :class="dialogCls" :style="dialogStyle">
           <div v-if="!$slots.header" :class="ns.e('header')">
             <div :class="ns.e('title')">{{ title }}</div>
             <component
@@ -50,14 +50,15 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { RiCloseLine as Close } from '@remixicon/vue'
 import { isFunction, isString } from 'lodash'
 import { dialogEmits, dialogProps } from './dialog'
 import type { CSSProperties } from 'vue'
 import { useNamespace, useSameTarget, useZIndex } from '@/composables'
 
-import { NButton, NOverlay } from '@/components'
+import NButton from '@/components/button'
+import NOverlay from '@/components/overlay'
 
 defineOptions({
   name: 'NDialog'
@@ -66,14 +67,13 @@ defineOptions({
 const props = defineProps(dialogProps)
 const emit = defineEmits(dialogEmits)
 
-const dialogRef = ref<HTMLElement>()
 const { nextZIndex } = useZIndex()
 const zIndex = nextZIndex()
 const ns = useNamespace('dialog')
 
 const dialogStyle = computed<CSSProperties>(() => {
   return {
-    width: isString(props.width) ? props.width : `${props.width}px`,
+    width: isString(props.width) ? props.width : `${props.width}%`,
     margin: `${dialogMargin.value} auto auto`
   }
 })

@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import { RiAddLine as Add, RiSubtractLine as Subtract } from '@remixicon/vue'
 import { inputNumberEmits, inputNumberProps } from './input-number'
 import type { InputInstance } from '@/components/input/src/input'
-import { NInput } from '@/components'
+import NInput from '@/components/input'
 import { useNamespace } from '@/composables'
 
 defineOptions({
@@ -25,7 +25,7 @@ const isMoreMax = computed(() => {
   return props.modelValue >= props.max
 })
 
-const _modelValue = computed<string | number | undefined>(() => {
+const model = computed<string | number | undefined>(() => {
   return props.precision
     ? props.modelValue.toFixed(props.precision)
     : props.modelValue
@@ -95,7 +95,7 @@ defineExpose({
       ref="inputRef"
       :size="size"
       type="number"
-      :model-value="_modelValue"
+      :model-value="model"
       :disabled="disabled"
       :readonly="readonly"
       :max="max"

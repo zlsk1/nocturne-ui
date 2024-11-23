@@ -52,7 +52,7 @@ const commonCls = computed(() => [
 
 const radioCls = computed(() => [
   ns.b(),
-  ns.m(groupRef?.size || props.size || 'default'),
+  ns.m(groupRef?.size || props.size),
   ns.is('focus', focus.value),
   ...commonCls.value
 ])
@@ -78,6 +78,7 @@ const handleChange = () => {
       />
       <span :class="ns.e('inner')" />
     </span>
-    <span :class="ns.e('label')"><slot /></span>
+    <span v-if="$slots.default" :class="ns.e('label')"><slot /></span>
+    <span v-else :class="ns.e('label')">{{ label }}</span>
   </label>
 </template>

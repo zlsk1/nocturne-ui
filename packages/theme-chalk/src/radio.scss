@@ -159,12 +159,12 @@ $radio-font-size: map.merge(
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 4px;
-      height: 4px;
+      width: 5px;
+      height: 5px;
       border-radius: getCssVar('radio-input-border-radius');
       background-color: getCssVar('color-white');
       transform: translate(-50%, -50%) scale(0);
-      transition: transform 0.15s ease-in;
+      transition: transform 0.15s linear;
     }
   }
 

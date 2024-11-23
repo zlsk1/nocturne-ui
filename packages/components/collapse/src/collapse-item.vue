@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, inject, ref } from 'vue'
+import { computed, inject } from 'vue'
 import { RiArrowRightWideLine as ArrowRight } from '@remixicon/vue'
 import NCollapseTransition from './collapse-transition.vue'
 import { collapseItemProps } from './collapse-item'
@@ -10,13 +10,14 @@ defineOptions({
   name: 'NCollapseItem'
 })
 
-const { activelist, changeEvent } = inject(COLLAPSE_INJECTION_KEY, undefined)!
+const { activelist, changeEvent, onUpdate } = inject(
+  COLLAPSE_INJECTION_KEY,
+  undefined
+)!
 
 const props = defineProps(collapseItemProps)
 
 const ns = useNamespace('collapse-item')
-
-const contentRef = ref<HTMLElement>()
 
 const itemCls = computed(() => [ns.b(), ns.is('disabled', props.disabled)])
 const isActive = computed(() => {
@@ -25,7 +26,8 @@ const isActive = computed(() => {
 
 const showContent = () => {
   if (props.disabled) return
-  changeEvent(props.name as string)
+  changeEvent(props.name || undefined)
+  onUpdate(activelist.value)
 }
 </script>
 
@@ -43,7 +45,7 @@ const showContent = () => {
     </div>
     <n-collapse-transition>
       <div v-show="isActive" :class="ns.e('wrap')">
-        <div ref="contentRef" :class="ns.e('content')">
+        <div :class="ns.e('content')">
           <slot />
         </div>
       </div>

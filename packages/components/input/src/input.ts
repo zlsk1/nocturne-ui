@@ -1,6 +1,6 @@
 import { ExtractPropTypes } from 'vue'
 import Input from './input.vue'
-import { definePropType, iconPropType, isNumber, isString } from '@/utils'
+import { definePropType, iconPropType, isString } from '@/utils'
 import { componentSizes } from '@/constants'
 
 export const inputProps = {
@@ -68,12 +68,15 @@ export const inputProps = {
 } as const
 
 export const inputEmits = {
-  'update:modelValue': (val: string | number) => isString(val) || isNumber(val),
-  input: (val: string | number) => isString(val) || isNumber(val),
-  change: (val: string | number) => isString(val) || isNumber(val),
+  'update:modelValue': (val: string) => isString(val),
+  input: (val: string) => isString(val),
+  change: (val: string) => isString(val),
   clearValue: () => true,
   focus: (e: FocusEvent) => e instanceof FocusEvent,
-  blur: (e: FocusEvent) => e instanceof FocusEvent
+  blur: (e: FocusEvent) => e instanceof FocusEvent,
+  compositionstart: (e: CompositionEvent) => e instanceof CompositionEvent,
+  compositionupdate: (e: CompositionEvent) => e instanceof CompositionEvent,
+  compositionend: (e: CompositionEvent) => e instanceof CompositionEvent
 }
 
 export type InputInstance = InstanceType<typeof Input>

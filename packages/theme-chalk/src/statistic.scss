@@ -18,6 +18,8 @@
   }
 
   @include e(value) {
+    display: flex;
+    align-items: center;
     font-size: getCssVar('statistic-value-font-size');
   }
 }
