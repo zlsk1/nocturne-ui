@@ -19,6 +19,7 @@ declare module 'vue' {
     NCollapseItem: (typeof import('nocturne-ui'))['NCollapseItem']
     NCollapseTransition: (typeof import('nocturne-ui'))['NCollapseTransition']
     NColorPicker: (typeof import('nocturne-ui'))['NColorPicker']
+    NConfigProvider: (typeof import('nocturne-ui'))['NConfigProvider']
     NCountdown: (typeof import('nocturne-ui'))['NCountdown']
     NDatePicker: (typeof import('nocturne-ui'))['NDatePicker']
     NDialog: (typeof import('nocturne-ui'))['NDialog']

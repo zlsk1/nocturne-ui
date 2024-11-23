@@ -21,6 +21,7 @@ declare module '@vue/runtime-core' {
     NCollapseItem: (typeof import('packages'))['NCollapseItem']
     NCollapseTransition: (typeof import('packages'))['NCollapseTransition']
     NColorPicker: (typeof import('packages'))['NColorPicker']
+    NConfigProvider: (typeof import('packages'))['NConfigProvider']
     NCountdown: (typeof import('packages'))['NCountdown']
     NDatePicker: (typeof import('packages'))['NDatePicker']
     NDialog: (typeof import('packages'))['NDialog']

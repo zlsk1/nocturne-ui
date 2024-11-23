@@ -26,9 +26,10 @@ export const NAMESPACE_INJECTION_KEY: InjectionKey<Ref<string | undefined>> =
 
 export const useGetOverRidesNamesapce = (namespaceOverrides?: Ref<string>) => {
   const newNamespace =
-    namespaceOverrides || getCurrentInstance()
+    namespaceOverrides ||
+    (getCurrentInstance()
       ? inject(NAMESPACE_INJECTION_KEY, ref(defualtNamespace)) // 接收config-provider的值
-      : ref(defualtNamespace)
+      : ref(defualtNamespace))
 
   const namespace = computed(() => {
     return newNamespace.value || defualtNamespace

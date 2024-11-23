@@ -1,15 +1,16 @@
-import { tryOnScopeDispose } from '@vueuse/core'
+import { onUnmounted } from 'vue'
 
 export function useTimeout() {
-  let timeoutHandle: number
+  let timeout: number
+
+  const cancelTimeout = () => window.clearTimeout(timeout)
 
   const registerTimeout = (fn: (...args: any[]) => any, delay: number) => {
     cancelTimeout()
-    timeoutHandle = window.setTimeout(fn, delay)
+    timeout = window.setTimeout(fn, delay)
   }
-  const cancelTimeout = () => window.clearTimeout(timeoutHandle)
 
-  tryOnScopeDispose(() => cancelTimeout())
+  onUnmounted(() => cancelTimeout())
 
   return {
     registerTimeout,

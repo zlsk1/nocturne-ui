@@ -61,6 +61,12 @@ module.exports = {
         'import/no-unresolved': 'off',
         '@typescript-eslint/no-unused-vars': 'off'
       }
+    },
+    {
+      files: ['*.tsx'],
+      rules: {
+        'vue/one-component-per-file': 'off'
+      }
     }
   ],
   rules: {

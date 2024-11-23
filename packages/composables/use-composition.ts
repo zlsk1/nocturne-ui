@@ -1,6 +1,6 @@
 import { nextTick, ref } from 'vue'
 
-type CompositionType = {
+export type CompositionType = {
   emit?: ((event: 'compositionstart', evt: CompositionEvent) => void) &
     ((event: 'compositionupdate', evt: CompositionEvent) => void) &
     ((event: 'compositionend', evt: CompositionEvent) => void)

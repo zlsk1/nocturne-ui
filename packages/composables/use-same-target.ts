@@ -1,12 +1,12 @@
-import { NOOP } from '@vue/shared'
+import { noop } from 'lodash'
 
-// 事件触发源与绑定源是否相同的相关行为
+// 事件触发源与绑定源是否相同
 export const useSameTarget = (handler?: (e: MouseEvent) => void) => {
   if (!handler) {
-    return { onClick: NOOP, onMousedown: NOOP, onMouseup: NOOP }
+    return { onClick: noop, onMousedown: noop, onMouseup: noop }
   }
 
-  let isSameMdTarget = false
+  let isSameMDTarget = false
   let isSameMUTarget = false
 
   function onMousedown(e: MouseEvent) {
@@ -14,14 +14,14 @@ export const useSameTarget = (handler?: (e: MouseEvent) => void) => {
   }
 
   function onMouseup(e: MouseEvent) {
-    isSameMdTarget = e.target === e.currentTarget
+    isSameMDTarget = e.target === e.currentTarget
   }
 
   function onClick(e: MouseEvent) {
-    if (isSameMUTarget && isSameMdTarget) {
+    if (isSameMUTarget && isSameMDTarget) {
       handler?.(e)
     }
-    isSameMdTarget = false
+    isSameMDTarget = false
     isSameMUTarget = false
   }
   return { onMousedown, onMouseup, onClick }
