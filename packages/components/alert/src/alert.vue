@@ -1,14 +1,9 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import {
-  RiCloseLine as Close,
-  RiCloseCircleFill as Error,
-  RiInformationFill as Info,
-  RiCheckboxCircleFill as Success,
-  RiErrorWarningFill as Warning
-} from '@remixicon/vue'
+import { RiCloseLine as Close } from '@remixicon/vue'
 import { alertEmits, alertProps } from './alert'
 import { useNamespace } from '@/composables'
+import { typeIcons } from '@/utils'
 
 defineOptions({
   name: 'NAlert'
@@ -28,17 +23,19 @@ const alertCls = computed(() => [
 ])
 
 const icon = computed(() => {
-  switch (props.type) {
+  const { type } = props
+  switch (type) {
     case 'info':
-      return Info
+      return typeIcons[type]
     case 'success':
-      return Success
+      return typeIcons[type]
     case 'error':
-      return Error
+      return typeIcons[type]
     case 'warning':
-      return Warning
+      return typeIcons[type]
+    default:
+      return typeIcons['info']
   }
-  return Info
 })
 
 const handleClose = (e: MouseEvent) => {

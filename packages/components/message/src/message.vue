@@ -1,18 +1,13 @@
 <script lang="ts" setup>
 import { computed, isVNode, onMounted, ref, watch } from 'vue'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
-import {
-  RiCloseLine as Close,
-  RiCloseCircleFill as Error,
-  RiInformationFill as Info,
-  RiCheckboxCircleFill as Success,
-  RiErrorWarningFill as Warning
-} from '@remixicon/vue'
+import { RiCloseLine as Close } from '@remixicon/vue'
 import { messageEmits, messageProps } from './message'
 import { getLastOffset, getOffsetOrSpace } from './instance'
 import type { BadgeProps } from '@/components/badge'
 import { NBadge } from '@/components'
 import { useNamespace } from '@/composables'
+import { typeIcons } from '@/utils'
 
 defineOptions({
   name: 'NMessage'
@@ -55,17 +50,19 @@ const badgeType = computed<BadgeProps['type']>(() =>
 )
 
 const icon = computed(() => {
-  switch (props.type) {
+  const { type } = props
+  switch (type) {
     case 'info':
-      return Info
+      return typeIcons[type]
     case 'success':
-      return Success
+      return typeIcons[type]
     case 'error':
-      return Error
+      return typeIcons[type]
     case 'warning':
-      return Warning
+      return typeIcons[type]
+    default:
+      return typeIcons['info']
   }
-  return Info
 })
 
 const close = () => {
@@ -114,11 +111,11 @@ defineExpose({
     >
       <NBadge
         v-if="repeatNum > 1"
-        :class="ns.m(badge)"
+        :class="ns.m('badge')"
         :value="repeatNum"
         :type="badgeType"
       />
-      <component :is="icon" :class="ns.bm(icon, type)" size="18" />
+      <component :is="icon" :class="ns.bm(icon.value, type)" size="18" />
       <div :class="ns.e('content')">
         <span v-if="!isVNode(message)" :class="ns.e('title')">
           {{ message }}

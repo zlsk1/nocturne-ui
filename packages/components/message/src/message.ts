@@ -58,7 +58,7 @@ export const messageProps = {
     default: messageDefaults.offset
   },
   appendTo: {
-    type: {},
+    type: definePropType<object | never>([Object, undefined]),
     default: messageDefaults.appendTo
   },
   onClose: {

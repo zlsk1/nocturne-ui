@@ -32,17 +32,12 @@
 
 <script lang="ts" setup>
 import { computed, isVNode, onMounted, ref } from 'vue'
-import {
-  RiCloseLine as Close,
-  RiCloseCircleFill as Error,
-  RiInformationFill as Info,
-  RiCheckboxCircleFill as Success,
-  RiErrorWarningFill as Warning
-} from '@remixicon/vue'
+import { RiCloseLine as Close } from '@remixicon/vue'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
 import { notificationEmit, notificationProps } from './notification'
 import type { CSSProperties } from 'vue'
 import { useNamespace } from '@/composables'
+import { typeIcons } from '@/utils'
 
 defineOptions({
   name: 'NNotification'
@@ -61,17 +56,19 @@ const height = ref(0)
 const notificationRef = ref<HTMLDivElement>()
 
 const icon = computed(() => {
-  switch (props.type) {
+  const { type } = props
+  switch (type) {
     case 'info':
-      return Info
+      return typeIcons[type]
     case 'success':
-      return Success
+      return typeIcons[type]
     case 'error':
-      return Error
+      return typeIcons[type]
     case 'warning':
-      return Warning
+      return typeIcons[type]
+    default:
+      return typeIcons['info']
   }
-  return Info
 })
 
 const positionClass = computed(() =>
