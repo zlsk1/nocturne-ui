@@ -2,7 +2,7 @@
 import { onBeforeUnmount, ref, watch } from 'vue'
 import { formatTime, getTime } from './utils'
 import { countdownEmits, countdownProps } from './countdown'
-import { cancelTimer, setTimer } from '@/utils/timer'
+import { cAF, rAF } from '@/utils/raf'
 import NStatistic from '@/components/statistic'
 
 defineOptions({
@@ -14,7 +14,7 @@ const emit = defineEmits(countdownEmits)
 
 const rawValue = ref(getTime(props.value) - Date.now())
 
-let timer: ReturnType<typeof setTimer> | undefined
+let timer: ReturnType<typeof rAF> | undefined
 
 onBeforeUnmount(() => {
   stopTimer()
@@ -24,7 +24,7 @@ const formatter = (val: number) => formatTime(val, props.format)
 
 const stopTimer = () => {
   if (timer) {
-    cancelTimer(timer)
+    cAF(timer)
     timer = undefined
   }
 }
@@ -40,11 +40,11 @@ const startTimer = () => {
       stopTimer()
       emit('finish')
     } else {
-      timer = setTimer(frameFunc)
+      timer = rAF(frameFunc)
     }
     rawValue.value = diff
   }
-  timer = setTimer(frameFunc)
+  timer = rAF(frameFunc)
 }
 
 watch(

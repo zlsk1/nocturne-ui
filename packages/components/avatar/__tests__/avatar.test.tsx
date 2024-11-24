@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
 import { RiHazeLine as Haze } from '@remixicon/vue'
 import Avatar from '../src/avatar.vue'
-import { IMAGE_FAIL, IMAGE_SUCCESS, mockImageEvent } from '@/utils/tests/image'
+import { IMAGE_FAIL, IMAGE_SUCCESS, mockImageEvent } from '@/tests-utils/image'
 
 describe('Avatar', () => {
   mockImageEvent()

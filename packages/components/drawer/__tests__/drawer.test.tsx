@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest'
 import { RiCloseLine as Close } from '@remixicon/vue'
 import Drawer from '../src/drawer.vue'
 import { drawerPlacement } from '../src/drawer'
-import { triggerCompositeClick } from '@/utils/tests/composite-click'
+import { triggerCompositeClick } from '@/tests-utils/composite-click'
 
 describe('Drawer', () => {
   test('render', () => {
