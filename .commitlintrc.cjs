@@ -1,5 +1,21 @@
 // improve speed to loading ts-config
 require('@esbuild-kit/cjs-loader')
+const fg = require('fast-glob')
+
+const findScope = (path) => fg.sync('*', { cwd: path, onlyDirectories: true })
+
+const scopes = [
+  ...findScope('packages'),
+  'docs',
+  'playground',
+  'style',
+  'color',
+  'var',
+  'ci',
+  'types',
+  'deps',
+]
+
 module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
@@ -8,6 +24,8 @@ module.exports = {
     'header-max-length': [2, 'always', 100],
     'subject-empty': [2, 'never'],
     'type-empty': [2, 'never'],
+
+    'scope-enum': [2, 'always', scopes],
     'type-enum': [
       2,
       'always',
