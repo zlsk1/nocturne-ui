@@ -1,11 +1,6 @@
 {
   "name": "@nocturne/theme-chalk",
   "version": "0.1.0",
-  "keywords": [
-    "vue-components",
-    "theme-chalk",
-    "theme-light"
-  ],
   "main": "index.css",
   "style": "index.css",
   "scripts": {

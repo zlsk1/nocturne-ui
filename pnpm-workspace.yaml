@@ -4,4 +4,4 @@ packages:
   - playground
   - build
   - docs
-  - common/resolver
+  - common/*
