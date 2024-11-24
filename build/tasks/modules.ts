@@ -5,7 +5,6 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import esbuild from 'rollup-plugin-esbuild'
 import fg from 'fast-glob'
 import commonjs from '@rollup/plugin-commonjs'
-import scss from 'rollup-plugin-scss'
 import alias from '@rollup/plugin-alias'
 
 import { rollup } from 'rollup'
@@ -41,7 +40,6 @@ export const buildModules = async () => {
           '.vue': 'ts'
         }
       }),
-      scss(),
       alias({
         entries: [
           { find: /^@\/(.*)/, replacement: path.resolve('../packages/$1') }

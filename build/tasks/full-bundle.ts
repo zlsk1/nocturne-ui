@@ -8,7 +8,6 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import esbuild, { minify as minifyPlugin } from 'rollup-plugin-esbuild'
 import { parallel } from 'gulp'
 import alias from '@rollup/plugin-alias'
-import scss from 'rollup-plugin-scss'
 import {
   formatBundleFilename,
   pkgOutput,
@@ -51,8 +50,7 @@ async function buildFullEntry(minify: boolean) {
       entries: [
         { find: /^@\/(.*)/, replacement: path.resolve('../packages/$1') }
       ]
-    }),
-    scss()
+    })
   ]
   if (minify) {
     plugins.push(
