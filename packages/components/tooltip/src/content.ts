@@ -1,11 +1,11 @@
 import type TooltipContent from './content.vue'
 import type { ExtractPropTypes } from 'vue'
 import { popperContentProps } from '@/components/popper/src/content'
-import { useDelayedToggleProps } from '@/composables'
+import { useDelayedToggleOptions } from '@/composables'
 import { definePropType } from '@/utils'
 
 export const useTooltipContentProps = {
-  ...useDelayedToggleProps,
+  ...useDelayedToggleOptions,
   ...popperContentProps,
   appendTo: {
     type: definePropType<string | HTMLElement>([String, Object]),

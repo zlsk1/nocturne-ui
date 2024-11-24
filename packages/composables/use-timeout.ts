@@ -1,4 +1,4 @@
-import { onUnmounted } from 'vue'
+import { tryOnScopeDispose } from '@vueuse/core'
 
 export function useTimeout() {
   let timeout: number
@@ -10,7 +10,8 @@ export function useTimeout() {
     timeout = window.setTimeout(fn, delay)
   }
 
-  onUnmounted(() => cancelTimeout())
+  // in component, equal onUnmounted(() => cancelTimeout())
+  tryOnScopeDispose(() => cancelTimeout())
 
   return {
     registerTimeout,

@@ -1,36 +1,26 @@
 import { unref } from 'vue'
+import { useTimeout } from './use-timeout'
 import type { ExtractPropTypes, ToRefs } from 'vue'
-import { useTimeout } from '@/composables'
-import { isNumber } from '@/utils'
 
-export const useDelayedToggleProps = {
-  /**
-   * @description delay of appearance, in millisecond
-   */
+export const useDelayedToggleOptions = {
   showAfter: {
     type: Number,
     default: 0
   },
-  /**
-   * @description delay of disappear, in millisecond
-   */
   hideAfter: {
     type: Number,
     default: 200
   },
-  /**
-   * @description disappear automatically, in millisecond
-   */
   autoClose: {
     type: Number,
     default: 0
   }
 } as const
 
-export type UseDelayedToggleProps = {
+export type UseDelayedToggleOptions = {
   open: (event?: Event) => void
   close: (event?: Event) => void
-} & ToRefs<ExtractPropTypes<typeof useDelayedToggleProps>>
+} & ToRefs<ExtractPropTypes<typeof useDelayedToggleOptions>>
 
 export const useDelayedToggle = ({
   showAfter,
@@ -38,31 +28,31 @@ export const useDelayedToggle = ({
   autoClose,
   open,
   close
-}: UseDelayedToggleProps) => {
+}: UseDelayedToggleOptions) => {
   const { registerTimeout } = useTimeout()
   const {
     registerTimeout: registerTimeoutForAutoClose,
     cancelTimeout: cancelTimeoutForAutoClose
   } = useTimeout()
 
-  const onOpen = (event?: Event) => {
+  const onOpen = (e?: Event) => {
     registerTimeout(() => {
-      open(event)
+      open(e)
 
-      const _autoClose = unref(autoClose)
-      if (isNumber(_autoClose) && _autoClose > 0) {
+      const auto = unref(autoClose)
+      if (auto > 0) {
         registerTimeoutForAutoClose(() => {
-          close(event)
-        }, _autoClose)
+          close(e)
+        }, auto)
       }
     }, unref(showAfter))
   }
 
-  const onClose = (event?: Event) => {
+  const onClose = (e?: Event) => {
     cancelTimeoutForAutoClose()
 
     registerTimeout(() => {
-      close(event)
+      close(e)
     }, unref(hideAfter))
   }
 

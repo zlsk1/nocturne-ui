@@ -1,5 +1,5 @@
 export * from './use-timeout'
-export * from './use-delay-toggle'
+export * from './use-delayed-toggle'
 export * from './use-model-trigger'
 export * from './use-popper'
 export * from './use-forward-ref'
