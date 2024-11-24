@@ -40,7 +40,7 @@ const handleSwitch = () => {
     return
   }
 
-  const beforeChange = props.beforeChange()
+  const beforeChange = props.beforeChange
   const showProcess = [
     isBoolean(beforeChange),
     isPromise(beforeChange)
