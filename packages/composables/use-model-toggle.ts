@@ -83,6 +83,7 @@ export const createModelToggleComposable = <T extends string>(name: T) => {
       }
     }
 
+    // 当在外部手动改变model时，不触发emit
     const show = (event?: Event) => {
       if (
         props.disabled === true ||

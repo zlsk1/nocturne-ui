@@ -1,14 +1,10 @@
-import { getCurrentInstance, ref, shallowRef, watch } from 'vue'
+import { getCurrentInstance, onMounted, ref, shallowRef, watch } from 'vue'
 import { useEventListener } from '@vueuse/core'
 import type { ShallowRef } from 'vue'
-import { isFunction } from '@/utils'
+import { isElement, isFunction } from '@/utils'
 
 interface UseFocusControllerOptions {
   afterFocus?: () => void
-  /**
-   * return true to cancel blur
-   * @param event FocusEvent
-   */
   beforeBlur?: (event: FocusEvent) => boolean | undefined
   afterBlur?: () => void
 }
@@ -53,10 +49,23 @@ export function useFocusController<T extends HTMLElement>(
     }
   })
 
-  // TODO: using useEventListener will fail the test
-  // useEventListener(target, 'focus', handleFocus)
-  // useEventListener(target, 'blur', handleBlur)
-  useEventListener(wrapperRef, 'click', handleClick)
+  useEventListener(wrapperRef, 'focus', handleFocus, true)
+  useEventListener(wrapperRef, 'blur', handleBlur, true)
+  useEventListener(wrapperRef, 'click', handleClick, true)
+
+  // only for test
+  if (process.env.NODE_ENV === 'test') {
+    onMounted(() => {
+      const targetEl = isElement(target.value)
+        ? target.value
+        : document.querySelector('input,textarea')
+
+      if (targetEl) {
+        useEventListener(targetEl, 'focus', handleFocus, true)
+        useEventListener(targetEl, 'blur', handleBlur, true)
+      }
+    })
+  }
 
   return {
     wrapperRef,

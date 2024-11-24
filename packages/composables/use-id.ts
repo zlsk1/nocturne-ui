@@ -34,7 +34,7 @@ export const useId = (overrides?: MaybeRef<string>): ComputedRef<string> => {
   const namespace = useGetOverRidesNamesapce()
 
   const id = computed(() => {
-    return `${namespace.value}--${injection.prefix}--${injection.suffix++}`
+    return `${namespace.value}-id--${injection.prefix}--${injection.suffix++}`
   })
 
   return id
