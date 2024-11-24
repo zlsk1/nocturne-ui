@@ -11,7 +11,7 @@ import { rollup } from 'rollup'
 import { excludeFiles, pkgRoot, writeBundles } from '../utils'
 
 import { NAlias } from '../plugins/rollup-plugin-Nalias'
-import { buildConfigEntries } from '../build-info'
+import { buildConfigEntries, target } from '../build-info'
 
 import type { OutputOptions } from 'rollup'
 
@@ -35,7 +35,7 @@ export const buildModules = async () => {
       commonjs(),
       esbuild({
         sourceMap: true,
-        target: 'es2021',
+        target,
         loaders: {
           '.vue': 'ts'
         }

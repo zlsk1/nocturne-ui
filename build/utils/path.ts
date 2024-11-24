@@ -10,7 +10,7 @@ export const pkgOutput = resolve(distRoot, 'nocturne-ui')
 export const buildRoot = resolve(pkgRoot, 'build')
 
 export const excludeFiles = (files: string[]) => {
-  const excludes = ['node_modules', 'build', 'gulpfile.ts']
+  const excludes = ['node_modules', 'build', 'gulpfile', 'test']
   return files.filter((path) => !excludes.some((exP) => path.includes(exP)))
 }
 
