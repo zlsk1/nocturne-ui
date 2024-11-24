@@ -1,3 +1,4 @@
+import type { Plugin } from 'vue'
 import { NAlert } from '@/components/alert'
 import { NAnchor, NAnchorItem } from '@/components/anchor'
 import { NAvatar } from '@/components/avatar'
@@ -101,4 +102,4 @@ export default [
   NTimeline,
   NTimelineItem,
   NTooltip
-]
+] as Plugin[]
