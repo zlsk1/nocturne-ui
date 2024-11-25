@@ -10,6 +10,8 @@ export const isEqual = (val: any, other: any): boolean => Object.is(val, other)
 export const isObject = (val: any): val is Record<any, any> =>
   val instanceof Object && !Array.isArray(val)
 export const isClient = (): boolean => typeof window !== 'undefined'
+export const isPromise = <T = any>(o: any): o is Promise<T> =>
+  o && typeof o.then === 'function' && typeof o.catch === 'function'
 
 export const isElement = (e: any): e is Element => {
   if (typeof Element === 'undefined') return false
