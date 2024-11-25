@@ -8,6 +8,7 @@ export const pkgRoot = resolve(projRoot, 'packages')
 /** /dist/nocturne-ui */
 export const pkgOutput = resolve(distRoot, 'nocturne-ui')
 export const buildRoot = resolve(pkgRoot, 'build')
+export const nuPackage = resolve(pkgRoot, 'package.json')
 
 export const excludeFiles = (files: string[]) => {
   const excludes = ['node_modules', 'build', 'gulpfile', 'test']
