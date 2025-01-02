@@ -38,6 +38,7 @@ declare module '@vue/runtime-core' {
     NSubMenu: (typeof import('packages'))['NSubMenu']
     NMenuItemGroup: (typeof import('packages'))['NMenuItemGroup']
     NOption: (typeof import('packages'))['NOption']
+    NOptionGroup: (typeof import('packages'))['NOptionGroup']
     NPagination: (typeof import('packages'))['NPagination']
     NPopconfirm: (typeof import('packages'))['NPopconfirm']
     NPopover: (typeof import('packages'))['NPopover']

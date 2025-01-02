@@ -5,7 +5,7 @@ export const isFunction = (val: any): val is (...args: any[]) => void =>
   typeof val === 'function'
 export const isString = (val: any): val is string => typeof val === 'string'
 export const isNil = (val: any): val is undefined | null => val == null
-export const isArray = (val: any): val is [] => Array.isArray(val)
+export const isArray = (val: any): val is any[] => Array.isArray(val)
 export const isEqual = (val: any, other: any): boolean => Object.is(val, other)
 export const isObject = (val: any): val is Record<any, any> =>
   val instanceof Object && !Array.isArray(val)

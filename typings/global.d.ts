@@ -36,6 +36,7 @@ declare module 'vue' {
     NSubMenu: (typeof import('nocturne-ui'))['NSubMenu']
     NMenuItemGroup: (typeof import('nocturne-ui'))['NMenuItemGroup']
     NOption: (typeof import('nocturne-ui'))['NOption']
+    NOptionGroup: (typeof import('nocturne-ui'))['NOptionGroup']
     NPagination: (typeof import('nocturne-ui'))['NPagination']
     NPopconfirm: (typeof import('nocturne-ui'))['NPopconfirm']
     NPopover: (typeof import('nocturne-ui'))['NPopover']

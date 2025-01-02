@@ -1,74 +1,91 @@
 <template>
   <div
-    ref="selectRef"
+    ref="wrapperRef"
     :class="selectCls"
     @click.stop="handleSelectClick"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
   >
-    <NTooltip
+    <n-tooltip
       ref="tooltipRef"
       :visible="visible"
       trigger="click"
       :show-after="0"
       :hide-after="0"
       effect="light"
-      :popper-class="[ns.e('popper'), popperClass]"
+      :popper-class="[ns.e('popper'), popperClass!]"
       :transition="`${ns.ns.value}-zoom-in-top`"
       :disabled="disabled"
       :persistent="persistent"
       :gpu-acceleration="false"
       :placement="placement"
+      pure
+      popper-style="padding: 4px 0"
     >
       <template #default>
         <div
           :class="[
             ns.e('wrapper'),
             ns.is('multiple', existActualValue && multiple)
-            // size ? `n-select--${size}` : '',
           ]"
         >
-          <div :class="ns.em('input', 'wrapper')">
-            <input
-              v-if="!multiple"
-              :id="labelId"
-              ref="inputRef"
-              type="text"
-              :class="ns.e('input')"
-            />
-            <NTag
+          <div :class="ns.e('content')">
+            <n-tag
               v-for="(item, index) in taglist"
-              v-else
               :key="index"
               :class="ns.e('tag')"
               :type="tagType"
               closable
-              @close="handleTagDel(item as never)"
+              @close="handleTagDel(item)"
               @mousedown.prevent="() => true"
             >
-              {{ !isNil(item.label) ? item.label : item }}
-            </NTag>
+              {{ isObject(item) && !isNil(item.label) ? item.label : item }}
+            </n-tag>
             <div
-              :class="[
-                ns.e('placeholder'),
-                ns.is('selecting', existActualValue),
-                ns.is('disabled', disabled)
-              ]"
+              v-if="!inputValue"
+              :class="[ns.e('placeholder'), ns.is('disabled', disabled)]"
             >
-              {{ placeholder }}
+              <span>{{ displayedValue }}</span>
+            </div>
+            <div
+              v-if="filterable"
+              :class="ns.em('input', 'wrapper')"
+              :style="{ width: (calculateWidth || MINIMAL_INPUT_WIDTH) + 'px' }"
+            >
+              <input
+                :id="labelId"
+                ref="inputRef"
+                :value="inputValue"
+                type="text"
+                :class="ns.e('input')"
+                @input="handleInput"
+                @compositionend="hadnleCompositionEnd"
+                @compositionstart="handleCompositionStart"
+                @compositionupdate="handleCompositionUpdate"
+                @keydown.esc.stop="handleEsc"
+                @keydown.esc.enter="handleEnter"
+                @keydown.up.enter="handleUp"
+                @keydown.down.enter="handleDown"
+              />
+              <span
+                ref="calculateInputWidthRef"
+                arial-hidden="true"
+                :class="ns.em('input', 'calculator')"
+              >
+                {{ inputValue }}
+              </span>
             </div>
           </div>
           <div :class="ns.e('icon')">
             <n-icon v-if="!shouldShowClearIcon">
               <ArrowDown
                 size="16"
-                :style="[
-                  { transition: 'all .3s' },
-                  visible ? arrowIconStyle : ''
-                ]"
+                :style="[{ transition: 'all .3s' }, arrowIconStyle]"
               />
             </n-icon>
-            <CloseCircle v-else size="16" @click.stop="clearValue" />
+            <n-icon v-else>
+              <CloseCircle size="16" @click.stop="clearValue" />
+            </n-icon>
           </div>
         </div>
       </template>
@@ -80,16 +97,28 @@
         >
           <slot />
         </ul>
+        <span v-if="noMatchValue" class="empty-value">
+          {{ emptyText }}
+        </span>
       </template>
-    </NTooltip>
+    </n-tooltip>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, provide, ref, watch } from 'vue'
+import {
+  computed,
+  nextTick,
+  onMounted,
+  provide,
+  reactive,
+  ref,
+  toRef,
+  watch
+} from 'vue'
 import { onClickOutside, useElementSize } from '@vueuse/core'
 import {
-  RiArrowDownWideLine as ArrowDown,
+  RiArrowDownSLine as ArrowDown,
   RiCloseCircleLine as CloseCircle
 } from '@remixicon/vue'
 import { SELECT_INJECTION_KEY } from './constants'
@@ -98,8 +127,11 @@ import type { CSSProperties } from 'vue'
 import type { TooltipInstance } from '@/components/tooltip'
 import type { OptionProxy } from './constants'
 import { isArray, isNil, isObject } from '@/utils'
-import { NIcon, NTag, NTooltip, useFormItemId } from '@/components'
-import { useNamespace } from '@/composables'
+import NIcon from '@/components/icon'
+import NTag from '@/components/tag'
+import NTooltip from '@/components/tooltip'
+import { useFormItemId } from '@/components/form'
+import { useComposition, useFocusController, useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NSelect'
@@ -109,35 +141,44 @@ const props = defineProps(selectProps)
 const emit = defineEmits(selectEmits)
 
 const ns = useNamespace('select')
-
 const labelId = useFormItemId()
+
+const MINIMAL_INPUT_WIDTH = 8
 
 const tooltipRef = ref<TooltipInstance>()
 const inputRef = ref<HTMLInputElement>()
-const selectRef = ref<HTMLElement>()
 const optionRef = ref<HTMLUListElement>()
+const calculateInputWidthRef = ref<HTMLSpanElement>()
 
 const isHover = ref(false)
 const visible = ref(false)
-const actualVal = ref(props.modelValue)
-const actualLabel = ref<any>([])
-const options = new Map()
+const multipleValue = ref<any[]>([])
+const singleValue = ref('')
+const inputValue = ref('')
+const options = ref(new Map())
+const calculateWidth = ref(MINIMAL_INPUT_WIDTH)
+const hoveringIndex = ref(0)
 
-onMounted(() => {
-  setSelected()
-})
+const {
+  isComposed,
+  hadnleCompositionEnd,
+  handleCompositionStart,
+  handleCompositionUpdate
+} = useComposition({ afterComposition: (e) => handleInput(e) })
 
-onClickOutside(selectRef, (e: MouseEvent) => {
+const { wrapperRef, isFocused, handleFocus, handleBlur } =
+  useFocusController(inputRef)
+
+onClickOutside(wrapperRef, (e: MouseEvent) => {
   if (optionRef.value?.contains(e.target as Node)) return
 
   visible.value = false
+  const event = new FocusEvent('focus', e)
+  handleBlur(event)
+  nextTick(() => nextTick(() => (inputValue.value = '')))
 })
 
-const { height } = useElementSize(selectRef)
-
-watch(actualVal, (val) => {
-  if (!isNil(val)) emit('update:modelValue', val)
-})
+const { height } = useElementSize(wrapperRef)
 
 watch(height, () => {
   tooltipRef.value?.updatePopper()
@@ -145,22 +186,22 @@ watch(height, () => {
 
 const arrowIconStyle = computed<CSSProperties>(() => {
   return {
-    transform: 'rotate(180deg)'
+    transform: visible.value ? 'rotate(180deg)' : ''
   }
 })
 
 const selectWrapperStyle = computed<CSSProperties>(() => {
   return {
-    width: `${selectRef.value?.getBoundingClientRect().width}px`,
+    width: `${wrapperRef.value?.getBoundingClientRect().width}px`,
     maxHeight: `${props.height}px`
   }
 })
 
 const existActualValue = computed(() => {
-  if (!isNil(actualVal.value)) {
-    if (isArray(actualVal.value)) {
-      return actualVal.value.length > 0
-    } else return actualVal.value !== ''
+  if (!isNil(multipleValue.value)) {
+    if (props.multiple) {
+      return multipleValue.value.length > 0
+    } else return singleValue.value !== ''
   }
   return false
 })
@@ -169,19 +210,21 @@ const shouldShowClearIcon = computed(() => {
   return props.clearValue && existActualValue.value && isHover.value
 })
 
-const placeholder = computed(() => {
+const displayedValue = computed(() => {
   return existActualValue.value
     ? props.multiple
       ? ''
-      : actualLabel.value
+      : singleValue.value
     : props.placeholder
 })
 
-const taglist = computed(() => {
-  if (props.valueKey) {
-    return actualLabel.value
-  } else if (props.multiple && isArray(actualVal.value)) {
-    return actualVal.value
+const taglist = computed<any[]>(() => {
+  if (props.multiple) {
+    if (props.valueKey) {
+      return multipleValue.value as []
+    } else if (isArray(multipleValue.value)) {
+      return multipleValue.value
+    }
   }
   return []
 })
@@ -190,13 +233,29 @@ const selectCls = computed(() => [
   ns.b(),
   ns.m(props.size),
   ns.is('disabled', props.disabled),
-  ns.is('focus', visible.value)
+  ns.is('focus', isFocused.value),
+  ns.is('filterable', props.filterable),
+  ns.is('selecting', existActualValue.value)
 ])
 
-const handleSelectClick = () => {
+const optionsArray = computed(() => Array.from(options.value.values()))
+
+const noMatchValue = computed(() => {
+  return (
+    inputValue.value &&
+    !optionsArray.value.find((o) => o.label.includes(inputValue.value))
+  )
+})
+
+const handleSelectClick = (e: MouseEvent) => {
   if (props.disabled) return
 
   visible.value = !visible.value
+  setSelected()
+
+  if (props.filterable) {
+    handleFocus(e)
+  }
 }
 
 const handleMouseEnter = () => {
@@ -208,93 +267,87 @@ const handleMouseLeave = () => {
 }
 
 const clearValue = () => {
-  actualVal.value = props.multiple ? [] : ''
-  actualLabel.value = props.multiple ? [] : ''
-  emit('update:modelValue', actualVal.value)
+  multipleValue.value = []
+  singleValue.value = ''
+  if (props.multiple) {
+    emit('update:modelValue', multipleValue.value)
+  } else {
+    emit('update:modelValue', singleValue.value)
+  }
 }
 
-const handleTagDel = (val: any) => {
-  const _actualVal = actualVal.value as Array<
-    string | number | boolean | object
-  >
+const handleTagDel = (val: string | number | boolean | object) => {
+  if (!props.multiple) return
 
-  if (props.multiple) {
+  if (isArray(multipleValue.value)) {
     let index = -1
-    for (let i = 0; i < _actualVal.length; i++) {
+    for (let i = 0; i < multipleValue.value.length; i++) {
       if (!isObject(val)) {
-        index = _actualVal.indexOf(val)
+        index = multipleValue.value.indexOf(val)
         break
       } else {
-        index = _actualVal.findIndex(
-          (v) =>
-            v[props.valueKey as keyof typeof v] === val.value[props.valueKey!]
+        index = multipleValue.value.findIndex(
+          (v) => v[props.valueKey!] === val.value[props.valueKey!]
         )
         break
       }
     }
-    _actualVal.splice(index, 1)
-    actualLabel.value.splice(index, 1)
+    multipleValue.value.splice(index, 1)
   }
 }
 
 const setSelected = () => {
-  if (!props.multiple) {
+  if (props.modelValue && !isArray(props.modelValue)) {
     const option = getOptionValue(props.modelValue)
+    hoveringIndex.value = optionsArray.value.findIndex(
+      (o) => o.label === option?.label
+    )
 
-    actualLabel.value = option?.label
+    singleValue.value = String(option?.label)
     return
+  } else if (props.modelValue && isArray(props.modelValue)) {
+    multipleValue.value = props.modelValue
+    hoveringIndex.value = 0
   }
-
-  const result: any[] = []
-
-  if (isArray(props.modelValue)) {
-    props.modelValue.forEach((value) => {
-      result.push(getOptionValue(value))
-    })
-  }
-  actualLabel.value = result
 }
 
 const clickOption = (vm: OptionProxy) => {
   const { value, label } = vm
-  const _actualVal = actualVal.value as Array<
-    string | number | boolean | object
-  >
 
   if (props.multiple) {
-    const index = getOptionIndex(actualVal.value as [], value)
+    if (isArray(multipleValue.value)) {
+      const index = getOptionIndex(multipleValue.value, value)
 
-    if (index > -1) {
-      _actualVal?.splice(index, 1)
-      actualLabel.value.splice(index, 1)
-    } else {
-      _actualVal.push(value!)
-      actualLabel.value.push({ value, label })
+      if (index > -1) {
+        multipleValue.value?.splice(index, 1)
+      } else {
+        multipleValue.value.push(value)
+      }
     }
   } else {
     visible.value = false
-    actualVal.value = isObject(value) ? options.get(value).value : value
-    actualLabel.value = isObject(value) ? options.get(value).label : label
+    singleValue.value = String(label)
+  }
+  if (props.multiple) {
+    emit('update:modelValue', multipleValue.value)
+  } else {
+    emit('update:modelValue', singleValue.value)
   }
 }
 
 const getOptionValue = (value: any) => {
   let newOption
-  const _actualVal = actualVal.value as Array<
-    string | number | boolean | object
-  >
 
-  for (let i = 0; i < options.size - 1; i++) {
-    const option = props.multiple ? _actualVal[i] : _actualVal
-
-    const isEqual = isObject(option)
-      ? option[props.valueKey!] === value[props.valueKey!]
-      : option === value
+  for (let i = 0; i < options.value.size; i++) {
+    const option = optionsArray.value[i]
+    const isEqual = isObject(value)
+      ? option.value[props.valueKey!] === value[props.valueKey!]
+      : option.value === value
 
     if (isEqual) {
       newOption = {
         value,
-        label: options.get(value)?.label
+        label: options.value.get(value)?.label
       }
       break
     }
@@ -308,26 +361,101 @@ const getOptionIndex = (arr: any[] = [], val: any) => {
 
   let index = -1
 
-  for (let i = 0; i < arr.length; i++) {
-    const item = arr[i]
-    if (
-      item[props.valueKey as keyof typeof item] ===
-      val[props.valueKey as string]
-    ) {
-      index = i
-      return
+  if (isObject(val)) {
+    for (let i = 0; i < arr.length - 1; i++) {
+      const item = arr[i]
+      if (item[props.valueKey!] === val[props.valueKey!]) {
+        index = i
+        return index
+      }
     }
   }
 
   return index
 }
 
-provide(SELECT_INJECTION_KEY, {
-  actualVal,
-  options,
-  valueKey: props.valueKey!,
-  multiple: props.multiple,
+const handleInput = (e: Event) => {
+  if (isComposed.value || !props.filterable) return
+  inputValue.value = (e.target as HTMLInputElement).value
+  nextTick(
+    () =>
+      (calculateWidth.value = Math.ceil(
+        calculateInputWidthRef.value?.getBoundingClientRect().width!
+      ))
+  )
+  // getFilterResult(inputValue.value)
+}
 
-  clickOption
+// const getFilterResult = (value: string) => {
+//   cachedOptions.value.clear()
+//   for (let i = 0; i < options.value.size; i++) {
+//     const option = optionsArray.value[i]
+//     const isInclude = option.label.includes(value)
+
+//     if (isInclude) {
+//       cachedOptions.value.set(option.value, option)
+//     }
+//   }
+// }
+
+const createOption = (vm: OptionProxy) => {
+  options.value.set(vm.value, vm)
+}
+
+const handleEsc = () => {
+  visible.value = false
+}
+
+const handleEnter = () => {
+  visible.value = false
+  const vm = optionsArray.value[hoveringIndex.value]
+  clickOption(vm)
+}
+
+const handleUp = () => {
+  handleItemHovering('prev')
+}
+
+const handleDown = () => {
+  handleItemHovering('next')
+}
+
+const handleItemHovering = (modifier: 'next' | 'prev') => {
+  if (options.value.size === 0 || isComposed.value) return
+  if (modifier === 'next') {
+    hoveringIndex.value =
+      hoveringIndex.value < options.value.size - 1 ? ++hoveringIndex.value : 0
+  } else if (modifier === 'prev') {
+    hoveringIndex.value =
+      hoveringIndex.value > 0 ? --hoveringIndex.value : options.value.size - 1
+  }
+
+  const option = optionsArray.value[hoveringIndex.value]
+  if (option.disabled) {
+    handleItemHovering(modifier)
+  }
+}
+
+onMounted(() => {
+  setSelected()
 })
+
+provide(
+  SELECT_INJECTION_KEY,
+  reactive({
+    multipleValue,
+    singleValue,
+    inputValue,
+    options,
+    optionsArray,
+    hoveringIndex,
+
+    valueKey: toRef(props, 'valueKey'),
+    multiple: toRef(props, 'multiple'),
+    filterable: toRef(props, 'filterable'),
+
+    clickOption,
+    createOption
+  })
+)
 </script>

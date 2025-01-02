@@ -27,7 +27,6 @@ import { NInput } from '@/components/input'
 import { NInputNumber } from '@/components/input-number'
 import { NLink } from '@/components/link'
 import { NMenu, NMenuItem, NMenuItemGroup, NSubMenu } from '@/components/menu'
-import { NOption } from '@/components/option'
 import { NOverlay } from '@/components/overlay'
 import { NPagination } from '@/components/pagination'
 import { NPopconfirm } from '@/components/popconfirm'
@@ -36,7 +35,7 @@ import { NPopper } from '@/components/popper'
 import { NProgress } from '@/components/progress'
 import { NRadio, NRadioGroup } from '@/components/radio'
 import { NRow } from '@/components/row'
-import { NSelect } from '@/components/select'
+import { NOption, NOptionGroup, NSelect } from '@/components/select'
 import { NSlider } from '@/components/slider'
 import { NStatistic } from '@/components/statistic'
 import { NSwitch } from '@/components/switch'
@@ -84,6 +83,7 @@ export default [
   NSubMenu,
   NMenuItemGroup,
   NOption,
+  NOptionGroup,
   NOverlay,
   NPagination,
   NPopconfirm,
