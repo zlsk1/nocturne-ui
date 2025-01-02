@@ -185,7 +185,7 @@ module.exports = {
             position: 'before'
           },
           {
-            pattern: '@element-plus/**',
+            pattern: '@/**',
             group: 'internal'
           }
         ],
