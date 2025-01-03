@@ -1,3 +1,4 @@
+import { isArray } from '@/utils'
 import { useCheckboxDisabled } from './use-checkbox-disabled'
 import { useCheckboxEvent } from './use-checkbox-event'
 import { useCheckboxModel } from './use-checkbox-model'
@@ -5,7 +6,6 @@ import { useCheckboxStatus } from './use-checkbox-status'
 import type { ComponentInternalInstance } from 'vue'
 
 import type { CheckboxProps } from '../src/checkbox'
-import { isArray } from '@/utils'
 
 export const useCheckbox = (
   props: CheckboxProps,

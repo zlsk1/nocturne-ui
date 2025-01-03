@@ -29,6 +29,7 @@ declare module '@vue/runtime-core' {
     NDropdown: (typeof import('packages'))['NDropdown']
     NDropdownItem: (typeof import('packages'))['NDropdownItem']
     NForm: (typeof import('packages'))['NForm']
+    NFormItem: (typeof import('packages'))['NFormItem']
     NIcon: (typeof import('packages'))['NIcon']
     NInput: (typeof import('packages'))['NInput']
     NInputNumber: (typeof import('packages'))['NInputNumber']

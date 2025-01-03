@@ -4,10 +4,10 @@ import {
   RiCloseCircleLine as CloseCircle,
   RiEyeLine as Eye
 } from '@remixicon/vue'
-import { inputEmits, inputProps } from './input'
-import { useForm, useFormItemId } from '@/components/form'
+import { useForm, useFormItem } from '@/components/form'
 import NIcon from '@/components/icon'
 import { useComposition, useNamespace } from '@/composables'
+import { inputEmits, inputProps } from './input'
 
 defineOptions({
   name: 'NInput'
@@ -18,15 +18,14 @@ const emit = defineEmits(inputEmits)
 const slots = useSlots()
 
 const ns = useNamespace('input')
+const { formItemId, formItemDisabled } = useFormItem()
+const { formItem } = useForm()
 
 const inputRef = ref<HTMLInputElement>()
 const wrapperRef = ref<HTMLInputElement>()
 const isFocus = ref(false)
 const showPwd = ref(false)
 const hovering = ref(false)
-
-const labelId = useFormItemId()
-const { formItem } = useForm()
 
 const showPwdVisable = computed(() => {
   return props.showPassword && !!props.modelValue
@@ -50,6 +49,8 @@ const showSuffix = computed<boolean>(() => {
     !!slots.suffix
   )
 })
+
+const actualDisabled = computed(() => formItemDisabled || props.disabled)
 
 const handleInput = (e: Event) => {
   const { value } = e.target as HTMLInputElement
@@ -126,7 +127,7 @@ defineExpose({
     :class="[
       !isTextarea ? ns.b() : 'n-textarea',
       ns.m(size),
-      ns.is('disabled', disabled)
+      ns.is('disabled', actualDisabled)
     ]"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
@@ -147,7 +148,7 @@ defineExpose({
           </span>
         </span>
         <input
-          :id="labelId"
+          :id="formItemId"
           ref="inputRef"
           :type="showPassword ? (showPwd ? 'password' : 'text') : type"
           :maxlength="maxlength"
@@ -160,7 +161,7 @@ defineExpose({
           :value="modelValue"
           :readonly="readonly"
           :autofocus="autofocus"
-          :disabled="disabled"
+          :disabled="actualDisabled"
           @input="handleInput"
           @focus="handleFocus"
           @blur="handleBlur"
@@ -197,12 +198,12 @@ defineExpose({
     </template>
     <template v-else>
       <textarea
-        :id="labelId"
+        :id="formItemId"
         :placeholder="placeholder"
         :minlength="minlength"
         :maxlength="maxlength"
         :tabindex="tabindex"
-        :disabled="disabled"
+        :disabled="actualDisabled"
         :readonly="readonly"
         :value="modelValue"
         :autofocus="autofocus"

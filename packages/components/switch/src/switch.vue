@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { RiLoader2Fill as Loader } from '@remixicon/vue'
-import { switchEmits, switchProps } from './switch'
 import { isBoolean, isNil, isPromise, isString } from '@/utils'
-import { useFormItemId } from '@/components/form'
+import { useFormItem } from '@/components/form'
 import { useNamespace } from '@/composables'
+import { switchEmits, switchProps } from './switch'
 
 defineOptions({
   name: 'NSwitch'
@@ -15,7 +15,7 @@ const emit = defineEmits(switchEmits)
 
 const ns = useNamespace('switch')
 
-const labelId = useFormItemId()
+const { formItemId, formItemDisabled } = useFormItem()
 
 const actived = ref(props.modelValue)
 const manuallyLoading = ref(false)
@@ -27,6 +27,8 @@ const newStyle = computed(() => {
 })
 
 const actualLoading = computed(() => props.loading || manuallyLoading.value)
+
+const actualDisabled = computed(() => formItemDisabled || props.disabled)
 
 const handleChange = () => {
   actived.value = !actived.value
@@ -81,15 +83,15 @@ defineExpose({
       ns.b(),
       ns.m(size),
       ns.is('checked', !!actived),
-      ns.is('disabled', disabled || actualLoading)
+      ns.is('disabled', actualDisabled || actualLoading)
     ]"
     :style="newStyle"
     @click.prevent="handleSwitch"
   >
     <input
-      :id="labelId"
+      :id="formItemId"
       type="checkbox"
-      :disabled="disabled"
+      :disabled="actualDisabled"
       :class="ns.e('input')"
       :value="modelValue"
       @change="handleChange"
@@ -114,9 +116,9 @@ defineExpose({
           :class="ns.em('action', 'text')"
           >{{ activeText }}</span
         >
-        <span v-else-if="activeText && inlinePrompt && !actived">{{
-          inactiveText
-        }}</span>
+        <span v-else-if="activeText && inlinePrompt && !actived">
+          {{ inactiveText }}
+        </span>
       </div>
     </div>
     <span

@@ -16,6 +16,7 @@ export type NFormInjectionContext = {
   maxLabelWidth: number
   labelPosition: FormProps['labelPosition']
   labelWidth: string | number
+  disabled: boolean
   addField: (formItemContext: NFormItemInjectionContext) => void
 }
 
@@ -23,6 +24,7 @@ export type NFormItemInjectionContext = {
   labelId: string
   prop?: FormItemProps['prop']
   labelWidth: number
+  disabled: boolean
   validate: (callback?: Callback) => Promise<true | void>
   resetField: () => Promise<void>
   clearField: () => void

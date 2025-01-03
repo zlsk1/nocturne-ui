@@ -27,6 +27,7 @@ declare module 'vue' {
     NDropdown: (typeof import('nocturne-ui'))['NDropdown']
     NDropdownItem: (typeof import('nocturne-ui'))['NDropdownItem']
     NForm: (typeof import('nocturne-ui'))['NForm']
+    NFormItem: (typeof import('nocturne-ui'))['NFormItem']
     NIcon: (typeof import('nocturne-ui'))['NIcon']
     NInput: (typeof import('nocturne-ui'))['NInput']
     NInputNumber: (typeof import('nocturne-ui'))['NInputNumber']

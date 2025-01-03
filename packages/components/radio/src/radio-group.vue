@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { nextTick, provide, reactive, toRefs } from 'vue'
+import { useFormItem } from '@/components/form'
+import { useNamespace } from '@/composables'
 import { radioGroupEmits, radioGroupProps } from './radio-group'
 import { RADIOGROUP_INJECTION_KEY } from './constants'
-import { useFormItemId } from '@/components/form'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NRadioGroup'
@@ -14,7 +14,7 @@ const emit = defineEmits(radioGroupEmits)
 
 const ns = useNamespace('radio-group')
 
-const formId = useFormItemId()
+const { formItemId } = useFormItem()
 
 const changeGroup = (val: string | number | boolean) => {
   emit('update:modelValue', val)
@@ -31,7 +31,7 @@ provide(
 </script>
 
 <template>
-  <div :id="formId" :class="ns.b()">
+  <div :id="formItemId" :class="ns.b()">
     <slot />
   </div>
 </template>

@@ -1,6 +1,6 @@
+import { definePropType } from '@/utils'
 import formItem from './form-item.vue'
 import type { ExtractPropTypes } from 'vue'
-import { definePropType } from '@/utils'
 
 export const positionValues = ['left', 'right', 'top', '']
 
@@ -19,6 +19,10 @@ export const formItemProps = {
   labelWidth: {
     type: definePropType<string | number>([String, Number]),
     default: ''
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
 } as const
 

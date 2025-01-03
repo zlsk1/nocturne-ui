@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import { computed, inject, nextTick, ref } from 'vue'
+import { useNamespace } from '@/composables'
+import { useFormItem } from '@/components/form'
 import { radioEmits, radioProps } from './radio'
 import { RADIOGROUP_INJECTION_KEY } from './constants'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NRadio'
@@ -12,6 +13,7 @@ const props = defineProps(radioProps)
 const emit = defineEmits(radioEmits)
 
 const ns = useNamespace('radio')
+const { formItemDisabled } = useFormItem()
 
 const groupRef = inject(RADIOGROUP_INJECTION_KEY, undefined)!
 
@@ -42,7 +44,7 @@ const modelValue = computed({
 })
 
 const disabled = computed(() => {
-  return groupRef?.disabled || props.disabled
+  return groupRef?.disabled || props.disabled || formItemDisabled
 })
 
 const commonCls = computed(() => [

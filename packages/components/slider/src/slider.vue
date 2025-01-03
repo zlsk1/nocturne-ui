@@ -14,7 +14,7 @@
         :format-value-fn="formatValueFn"
         :placement="placement"
         :tooltip-class="tooltipClass"
-        :disabled="disabled"
+        :disabled="actualDisabled"
         :max="max"
         :min="min"
         :step="step"
@@ -35,12 +35,13 @@
 
 <script lang="ts" setup>
 import { computed, provide, ref } from 'vue'
+import { useNamespace } from '@/composables'
+import { useFormItem } from '@/components/form'
 import { SLIDER_INJECT_KEY } from './constants'
 import { sliderEmits, sliderProps } from './slider'
 import reference from './reference.vue'
 import type { SliderReferenceInstance } from './reference'
 import type { CSSProperties } from 'vue'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NSlider'
@@ -50,6 +51,7 @@ const props = defineProps(sliderProps)
 const emit = defineEmits(sliderEmits)
 
 const ns = useNamespace('slider')
+const { formItemDisabled } = useFormItem()
 
 const sliderRef = ref<HTMLDivElement>()
 const referenceRef = ref<SliderReferenceInstance>()
@@ -69,12 +71,14 @@ const barStyle = computed<CSSProperties>(() => {
 
 const sliderCls = computed(() => [
   ns.b(),
-  ns.is('disabled', props.disabled),
+  ns.is('disabled', actualDisabled.value),
   ns.is('vertical', props.vertical)
 ])
 
+const actualDisabled = computed(() => formItemDisabled || props.disabled)
+
 const onSliderDown = (e: MouseEvent) => {
-  if (props.disabled) return
+  if (actualDisabled.value) return
   referenceRef.value?.handleMove(e)
 }
 

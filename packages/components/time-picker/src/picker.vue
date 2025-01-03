@@ -8,7 +8,7 @@
       :gpu-acceleration="false"
       pure
       persistent
-      :disabled="disabled"
+      :disabled="actualDisabled"
       :popper-class="popperClass"
       :hide-after="0"
       :popper-options="popperOptions"
@@ -17,11 +17,12 @@
       @hide="onHide"
     >
       <n-input
+        :id="id || formItemId"
         ref="inputRef"
         :model-value="displayedValue"
         :prefix-icon="prefixIcon"
         :placeholder="placeholder"
-        :disabled="disabled"
+        :disabled="actualDisabled"
         :size="size"
         :readonly="readonly"
         :name="name"
@@ -35,7 +36,7 @@
         <template #suffix>
           <transition :name="`${ns.ns.value}-fade-in`">
             <n-icon
-              v-if="!disabled && showClose && clearIcon && displayedValue"
+              v-if="!actualDisabled && showClose && clearIcon && displayedValue"
               @click.stop="onClearValue"
               @mousedown.prevent
             >
@@ -73,14 +74,15 @@
 import { computed, ref, watch } from 'vue'
 import dayjs from 'dayjs'
 import { isEqual } from 'lodash'
+import { useNamespace } from '@/composables'
+import { NIcon, NInput, NTooltip } from '@/components'
+import { useFormItem } from '@/components/form'
 import { formatter, parseDate } from './util'
 import { pickerEmit, pickerProps } from './props/picker'
 
 import type { Dayjs } from 'dayjs'
 import type { InputInstance } from '@/components'
 import type { PickerMethods } from './type'
-import { useNamespace } from '@/composables'
-import { NIcon, NInput, NTooltip } from '@/components'
 
 defineOptions({
   name: 'NPicker'
@@ -90,6 +92,7 @@ const props = defineProps(pickerProps)
 const emit = defineEmits(pickerEmit)
 
 const ns = useNamespace('picker')
+const { formItemDisabled, formItemId } = useFormItem()
 
 const visible = ref(false)
 const inputValue = ref<string | null>(null)
@@ -140,6 +143,8 @@ const displayedValue = computed(() => {
   if (formattedValue) return formattedValue
   return ''
 })
+
+const actualDisabled = computed(() => props.disabled || formItemDisabled)
 
 watch(visible, (val) => {
   if (!val) {

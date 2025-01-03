@@ -69,7 +69,7 @@
         @focus="handleFocus"
         @blur="handleBlur"
       >
-        <div v-if="disabled" :class="ns.be('picker', 'mask')" />
+        <div v-if="actualDisabled" :class="ns.be('picker', 'mask')" />
         <div :class="ns.be('picker', 'trigger')" @click="handleTrigger">
           <div :class="[ns.be('picker', 'color'), ns.is('alpha', showAlpha)]">
             <span
@@ -105,6 +105,8 @@ import {
   watch
 } from 'vue'
 import { onClickOutside, useDebounceFn } from '@vueuse/core'
+import { useFocusController, useNamespace } from '@/composables'
+import { NButton, NInput, NTooltip, useFormItem } from '@/components'
 import AlphaBar from './alpha-bar.vue'
 import HueBar from './hue-bar.vue'
 import Predefine from './predefine.vue'
@@ -116,8 +118,6 @@ import {
   colorPickerProps
 } from './color-picker'
 import type { TooltipInstance } from '@/components/tooltip'
-import { useFocusController, useNamespace } from '@/composables'
-import { NButton, NInput, NTooltip } from '@/components'
 
 defineOptions({
   name: 'NColorPicker'
@@ -126,6 +126,7 @@ const props = defineProps(colorPickerProps)
 const emit = defineEmits(colorPickerEmits)
 
 const ns = useNamespace('color')
+const { formItemDisabled } = useFormItem()
 
 const hue = ref<InstanceType<typeof HueBar>>()
 const cp = ref<InstanceType<typeof ColorPanel>>()
@@ -182,11 +183,13 @@ const currentColor = computed(() => {
 const btnCls = computed(() => {
   return [
     ns.b('picker'),
-    ns.is('disabled', props.disabled),
+    ns.is('disabled', actualDisabled.value),
     ns.bm('picker', props.size),
     ns.is('focused', isFocused.value)
   ]
 })
+
+const actualDisabled = computed(() => props.disabled || formItemDisabled)
 
 function displayedRgb(color: Color, showAlpha: boolean) {
   if (!(color instanceof Color)) {
@@ -200,7 +203,7 @@ function displayedRgb(color: Color, showAlpha: boolean) {
 }
 
 function setShowPicker(value: boolean) {
-  if (props.disabled) return
+  if (actualDisabled.value) return
   showPicker.value = value
 }
 

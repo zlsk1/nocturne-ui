@@ -1,7 +1,7 @@
+import { isNumber } from '@/utils'
 import slider from './slider.vue'
 import { sliderReferenceProps } from './reference'
 import type { ExtractPropTypes } from 'vue'
-import { isNumber } from '@/utils'
 
 export const sliderProps = {
   ...sliderReferenceProps,

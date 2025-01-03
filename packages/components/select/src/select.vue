@@ -15,7 +15,7 @@
       effect="light"
       :popper-class="[ns.e('popper'), popperClass!]"
       :transition="`${ns.ns.value}-zoom-in-top`"
-      :disabled="disabled"
+      :disabled="actualDisabled"
       :persistent="persistent"
       :gpu-acceleration="false"
       :placement="placement"
@@ -43,7 +43,7 @@
             </n-tag>
             <div
               v-if="!inputValue"
-              :class="[ns.e('placeholder'), ns.is('disabled', disabled)]"
+              :class="[ns.e('placeholder'), ns.is('disabled', actualDisabled)]"
             >
               <span>{{ displayedValue }}</span>
             </div>
@@ -53,7 +53,7 @@
               :style="{ width: (calculateWidth || MINIMAL_INPUT_WIDTH) + 'px' }"
             >
               <input
-                :id="labelId"
+                :id="formItemId"
                 ref="inputRef"
                 :value="inputValue"
                 type="text"
@@ -121,17 +121,17 @@ import {
   RiArrowDownSLine as ArrowDown,
   RiCloseCircleLine as CloseCircle
 } from '@remixicon/vue'
-import { SELECT_INJECTION_KEY } from './constants'
-import { selectEmits, selectProps } from './select'
-import type { CSSProperties } from 'vue'
-import type { TooltipInstance } from '@/components/tooltip'
-import type { OptionProxy } from './constants'
 import { isArray, isNil, isObject } from '@/utils'
 import NIcon from '@/components/icon'
 import NTag from '@/components/tag'
 import NTooltip from '@/components/tooltip'
-import { useFormItemId } from '@/components/form'
+import { useFormItem } from '@/components/form'
 import { useComposition, useFocusController, useNamespace } from '@/composables'
+import { selectEmits, selectProps } from './select'
+import { SELECT_INJECTION_KEY } from './constants'
+import type { OptionProxy } from './constants'
+import type { TooltipInstance } from '@/components/tooltip'
+import type { CSSProperties } from 'vue'
 
 defineOptions({
   name: 'NSelect'
@@ -141,7 +141,7 @@ const props = defineProps(selectProps)
 const emit = defineEmits(selectEmits)
 
 const ns = useNamespace('select')
-const labelId = useFormItemId()
+const { formItemId, formItemDisabled } = useFormItem()
 
 const MINIMAL_INPUT_WIDTH = 8
 
@@ -232,7 +232,7 @@ const taglist = computed<any[]>(() => {
 const selectCls = computed(() => [
   ns.b(),
   ns.m(props.size),
-  ns.is('disabled', props.disabled),
+  ns.is('disabled', actualDisabled.value),
   ns.is('focus', isFocused.value),
   ns.is('filterable', props.filterable),
   ns.is('selecting', existActualValue.value)
@@ -247,8 +247,10 @@ const noMatchValue = computed(() => {
   )
 })
 
+const actualDisabled = computed(() => formItemDisabled || props.disabled)
+
 const handleSelectClick = (e: MouseEvent) => {
-  if (props.disabled) return
+  if (actualDisabled.value) return
 
   visible.value = !visible.value
   setSelected()
