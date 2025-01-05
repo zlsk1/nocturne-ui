@@ -88,12 +88,12 @@ const labelStyle = computed(() => {
   if (labelPosition.value === 'left') {
     return {
       width: propWidth.value,
-      marginLeft: `${widthDiff.value}px`
+      marginRight: `${widthDiff.value}px`
     }
   } else if (labelPosition.value === 'right') {
     return {
       width: propWidth.value,
-      marginRight: `${widthDiff.value}px`
+      marginLeft: `${widthDiff.value}px`
     }
   }
   return {
@@ -104,10 +104,8 @@ const labelStyle = computed(() => {
 const actualDisabled = computed(() => formContext.disabled || props.disabled)
 
 onMounted(() => {
-  if (props.prop) {
-    formContext.addField(formItemContext)
-    initialValue = clone(formItemValue.value)
-  }
+  formContext.addField(formItemContext)
+  initialValue = clone(formItemValue.value)
 })
 
 const validate: NFormItemInjectionContext['validate'] = async (callback) => {
