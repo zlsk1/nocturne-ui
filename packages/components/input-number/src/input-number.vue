@@ -36,13 +36,14 @@ const model = computed<string | number | undefined>(() => {
 const actualDisabled = computed(() => formItemDisabled || props.disabled)
 
 const handleIncrease = () => {
-  if (isMoreMax.value || actualDisabled) return
+  if (isMoreMax.value || actualDisabled.value) return
   let { modelValue } = props
+
   emit('update:modelValue', (modelValue += props.step))
 }
 
 const handleDecrease = () => {
-  if (isLessMin.value || actualDisabled) return
+  if (isLessMin.value || actualDisabled.value) return
   let { modelValue } = props
   emit('update:modelValue', (modelValue -= props.step))
 }

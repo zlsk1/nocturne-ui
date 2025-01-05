@@ -1,32 +1,66 @@
 <template>
-  <div :class="ns.b()" :style="{ height: height + 'px' }">
+  <div
+    :class="[ns.b(), ns.is('circle', props.type === 'circle')]"
+    :style="{ height: height + 'px' }"
+  >
     <div v-if="type === 'line'" :class="ns.m('line')">
       <div :class="ns.e('bg')" />
+      <div v-if="text" :class="ns.em('inner', 'text')">
+        {{ props.percentage + '%' }}
+      </div>
       <div ref="barRef" :class="ns.e('bar')" :style="barStyle">
         <span v-if="$slots.inner" :class="ns.e('bar__inner')">
           <slot name="inner" />
         </span>
       </div>
     </div>
-    <!-- <div v-if="type === 'round'" class="n-progress--round">
-      <div class="n-progress__bg"></div>
-      <div
-        class="n-progress__bar"
-        :style="{ width: percentage + '%' }"
-      ></div>
-    </div> -->
-    <div v-if="$slots.default" :class="ns.e('slot')">
+    <div v-else-if="type === 'circle'" :class="ns.m('circle')">
+      <div v-if="text" :class="ns.e('slot')">{{ props.percentage + '%' }}</div>
+      <div v-if="$slots.default && type === 'circle'" :class="ns.e('slot')">
+        <slot />
+      </div>
+      <svg
+        :viewBox="`0 0 ${circleSize} ${circleSize}`"
+        :width="circleSize"
+        :height="circleSize"
+      >
+        <circle
+          :class="ns.m('circle__bg')"
+          :cx="circleSize / 2"
+          :cy="circleSize / 2"
+          :r="radius"
+          fill="transparent"
+          :stroke-dasharray="strokeDashArray"
+          :stroke-dashoffset="0"
+          :stroke-width="strokeWidth"
+          :stroke-linecap="strokeLineCap"
+        />
+        <circle
+          ref="circleRef"
+          :class="ns.m('circle--fill')"
+          :cx="circleSize / 2"
+          :cy="circleSize / 2"
+          :r="radius"
+          fill="transparent"
+          :stroke="color"
+          :stroke-dasharray="strokeDashArray"
+          :stroke-dashoffset="strokeDashOffset"
+          :stroke-width="strokeWidth"
+          :stroke-linecap="strokeLineCap"
+        />
+      </svg>
+    </div>
+    <div v-if="$slots.default && type === 'line'" :class="ns.e('slot')">
       <slot />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue'
-import { progressProps } from './progress'
-import type { ProgressProps } from './progress'
-import type { CSSProperties } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { useNamespace } from '@/composables'
+import { progressProps } from './progress'
+import type { CSSProperties } from 'vue'
 
 defineOptions({
   name: 'NProgress'
@@ -36,44 +70,48 @@ const props = defineProps(progressProps)
 
 const ns = useNamespace('progress')
 
+const GAP = 10
+
 const barRef = ref<HTMLElement>()
+const circleRef = ref<HTMLElement>()
 
 const barStyle = computed<CSSProperties>(() => {
   return {
     width: `${props.percentage}%`,
-    backgroundColor: props.color as string
+    backgroundColor: props.color
   }
 })
 
-onMounted(() => {
-  props.animationFn ? props.animationFn() : setAnimation()
+const circleSize = computed(() => 2 * props.radius + props.strokeWidth + GAP)
+
+const circumference = computed(() => props.radius * 2 * Math.PI)
+
+const strokeDashArray = computed(() => {
+  return Math.round(circumference.value * 1000) / 1000
 })
 
-const setAnimation = () => {
-  const {
-    percentage,
-    animationDuration
-  }: Pick<ProgressProps, 'percentage' | 'animationDuration'> = props
+const strokeDashOffset = computed(() => {
+  return circumference.value - (props.percentage / 100) * circumference.value
+})
 
-  const progressKeyframeEffect = new KeyframeEffect(
-    barRef.value as Element, // element to animate
-    [
-      { width: '0%' }, // keyframe
-      { width: `${percentage}%` } // keyframe
-    ],
-    {
-      duration: animationDuration,
-      easing: 'linear'
-    }
-  )
-
-  const progressAnimation = new Animation(
-    progressKeyframeEffect,
-    document.timeline
-  )
-
-  progressAnimation.play()
-}
+watchEffect(() => {
+  if (props.animation) {
+    barRef.value?.style.setProperty('--width', `${props.percentage}%`)
+  }
+  if (props.loop) {
+    barRef.value?.style.setProperty('--loop', 'infinite')
+  }
+  if (props.type === 'circle') {
+    circleRef.value?.style.setProperty(
+      '--dasharray',
+      String(strokeDashArray.value)
+    )
+    circleRef.value?.style.setProperty(
+      '--dashoffset',
+      String(strokeDashOffset.value)
+    )
+  }
+})
 
 defineExpose({
   ref: barRef
