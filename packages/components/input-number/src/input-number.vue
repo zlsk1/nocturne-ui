@@ -15,7 +15,7 @@ const props = defineProps(inputNumberProps)
 const emit = defineEmits(inputNumberEmits)
 
 const ns = useNamespace('input-number')
-const { formItemId, formItemDisabled } = useFormItem()
+const { formItemId, formItemDisabled, formItemSize } = useFormItem()
 
 const inputRef = ref<InputInstance>()
 
@@ -34,6 +34,7 @@ const model = computed<string | number | undefined>(() => {
 })
 
 const actualDisabled = computed(() => formItemDisabled || props.disabled)
+const actualSize = computed(() => formItemSize || props.size)
 
 const handleIncrease = () => {
   if (isMoreMax.value || actualDisabled.value) return
@@ -99,7 +100,7 @@ defineExpose({
     <n-input
       :id="formItemId"
       ref="inputRef"
-      :size="size"
+      :size="actualSize"
       type="number"
       :model-value="model"
       :disabled="actualDisabled"

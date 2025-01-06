@@ -141,7 +141,7 @@ const props = defineProps(selectProps)
 const emit = defineEmits(selectEmits)
 
 const ns = useNamespace('select')
-const { formItemId, formItemDisabled } = useFormItem()
+const { formItemId, formItemDisabled, formItemSize } = useFormItem()
 
 const MINIMAL_INPUT_WIDTH = 8
 
@@ -231,7 +231,7 @@ const taglist = computed<any[]>(() => {
 
 const selectCls = computed(() => [
   ns.b(),
-  ns.m(props.size),
+  ns.m(actualSize.value),
   ns.is('disabled', actualDisabled.value),
   ns.is('focus', isFocused.value),
   ns.is('filterable', props.filterable),
@@ -248,6 +248,7 @@ const noMatchValue = computed(() => {
 })
 
 const actualDisabled = computed(() => formItemDisabled || props.disabled)
+const actualSize = computed(() => formItemSize || props.size)
 
 const handleSelectClick = (e: MouseEvent) => {
   if (actualDisabled.value) return

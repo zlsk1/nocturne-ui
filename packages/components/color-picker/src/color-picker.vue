@@ -126,7 +126,7 @@ const props = defineProps(colorPickerProps)
 const emit = defineEmits(colorPickerEmits)
 
 const ns = useNamespace('color')
-const { formItemDisabled } = useFormItem()
+const { formItemDisabled, formItemSize } = useFormItem()
 
 const hue = ref<InstanceType<typeof HueBar>>()
 const cp = ref<InstanceType<typeof ColorPanel>>()
@@ -184,12 +184,13 @@ const btnCls = computed(() => {
   return [
     ns.b('picker'),
     ns.is('disabled', actualDisabled.value),
-    ns.bm('picker', props.size),
+    ns.bm('picker', actualSize.value),
     ns.is('focused', isFocused.value)
   ]
 })
 
 const actualDisabled = computed(() => props.disabled || formItemDisabled)
+const actualSize = computed(() => props.size || formItemSize)
 
 function displayedRgb(color: Color, showAlpha: boolean) {
   if (!(color instanceof Color)) {

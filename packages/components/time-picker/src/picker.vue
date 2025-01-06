@@ -23,7 +23,7 @@
         :prefix-icon="prefixIcon"
         :placeholder="placeholder"
         :disabled="actualDisabled"
-        :size="size"
+        :size="actualSize"
         :readonly="readonly"
         :name="name"
         :tabindex="tabindex"
@@ -92,7 +92,7 @@ const props = defineProps(pickerProps)
 const emit = defineEmits(pickerEmit)
 
 const ns = useNamespace('picker')
-const { formItemDisabled, formItemId } = useFormItem()
+const { formItemDisabled, formItemId, formItemSize } = useFormItem()
 
 const visible = ref(false)
 const inputValue = ref<string | null>(null)
@@ -144,7 +144,8 @@ const displayedValue = computed(() => {
   return ''
 })
 
-const actualDisabled = computed(() => props.disabled || formItemDisabled)
+const actualDisabled = computed(() => formItemDisabled || props.disabled)
+const actualSize = computed(() => formItemSize || props.size)
 
 watch(visible, (val) => {
   if (!val) {

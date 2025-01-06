@@ -15,7 +15,7 @@ const emit = defineEmits(switchEmits)
 
 const ns = useNamespace('switch')
 
-const { formItemId, formItemDisabled } = useFormItem()
+const { formItemId, formItemDisabled, formItemSize } = useFormItem()
 
 const actived = ref(props.modelValue)
 const manuallyLoading = ref(false)
@@ -29,6 +29,7 @@ const newStyle = computed(() => {
 const actualLoading = computed(() => props.loading || manuallyLoading.value)
 
 const actualDisabled = computed(() => formItemDisabled || props.disabled)
+const actualSize = computed(() => formItemSize || props.size)
 
 const handleChange = () => {
   actived.value = !actived.value
@@ -81,7 +82,7 @@ defineExpose({
   <div
     :class="[
       ns.b(),
-      ns.m(size),
+      ns.m(actualSize),
       ns.is('checked', !!actived),
       ns.is('disabled', actualDisabled || actualLoading)
     ]"

@@ -9,7 +9,8 @@ export const useFormItem = () => {
 
   return {
     formItemId: formItem?.labelId || id.value,
-    formItemDisabled: form?.disabled || formItem?.disabled
+    formItemDisabled: formItem?.disabled || form?.disabled,
+    formItemSize: formItem?.size || form?.size
   }
 }
 export const useForm = () => {

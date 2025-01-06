@@ -18,7 +18,7 @@ const emit = defineEmits(inputEmits)
 const slots = useSlots()
 
 const ns = useNamespace('input')
-const { formItemId, formItemDisabled } = useFormItem()
+const { formItemId, formItemDisabled, formItemSize } = useFormItem()
 const { formItem } = useForm()
 
 const inputRef = ref<HTMLInputElement>()
@@ -51,6 +51,7 @@ const showSuffix = computed<boolean>(() => {
 })
 
 const actualDisabled = computed(() => formItemDisabled || props.disabled)
+const actualSize = computed(() => formItemSize || props.size)
 
 const handleInput = (e: Event) => {
   const { value } = e.target as HTMLInputElement
@@ -126,7 +127,7 @@ defineExpose({
   <div
     :class="[
       !isTextarea ? ns.b() : 'n-textarea',
-      ns.m(size),
+      ns.m(actualSize),
       ns.is('disabled', actualDisabled)
     ]"
     @mouseenter="handleMouseEnter"
