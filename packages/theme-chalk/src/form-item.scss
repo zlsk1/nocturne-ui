@@ -3,7 +3,7 @@
 @use 'mixins/var' as *;
 
 @include b(form-item) {
-  @include set-component-css-var(form-item, $formItem)
+  @include set-component-css-var(form-item, $formItem);
 }
 
 @include b(form-item) {
@@ -38,6 +38,7 @@
       top: 100%;
       left: 0;
       font-size: 12px;
+      white-space: nowrap;
       color: getCssVar('form-item', 'error-color');
     }
   }
