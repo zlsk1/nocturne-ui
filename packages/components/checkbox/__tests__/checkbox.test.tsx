@@ -1,9 +1,13 @@
-import { nextTick, ref } from 'vue'
+import { nextTick, reactive, ref } from 'vue'
 import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test } from 'vitest'
+import Form from '@/components/form/src/form.vue'
+import FormItem from '@/components/form/src/form-item.vue'
 import Checkbox from '../src/checkbox.vue'
 import CheckboxGroup from '../src/checkbox-group.vue'
+import type { FormInstance } from '@/components/form'
 import type { CheckModelValueType } from '../src/checkbox'
+import type { VueWrapper } from '@vue/test-utils'
 
 describe('Checkbox', () => {
   test('render', () => {
@@ -133,5 +137,117 @@ describe('Checkbox Group', () => {
     expect(checkboxs[0].text()).toBe('1')
     expect(checkboxs[0].classes()).toContain('is-checked')
     expect(checkboxs[1].text()).toBe('2')
+  })
+
+  describe('used together with the form component', () => {
+    test('form size', async () => {
+      const wrapper = mount(() => (
+        <Form size="large">
+          <CheckboxGroup size="small">
+            <Checkbox></Checkbox>
+          </CheckboxGroup>
+        </Form>
+      ))
+      expect(wrapper.findComponent(Checkbox).classes()).toContain(
+        'n-checkbox--large'
+      )
+      expect(wrapper.findComponent(Checkbox).classes()).not.toContain(
+        'n-checkbox--small'
+      )
+    })
+    test('form-item size', async () => {
+      const wrapper = mount(() => (
+        <Form size="large">
+          <FormItem size="default">
+            <CheckboxGroup size="small">
+              <Checkbox></Checkbox>
+            </CheckboxGroup>
+          </FormItem>
+        </Form>
+      ))
+      expect(wrapper.findComponent(Checkbox).classes()).toContain('n-checkbox')
+      expect(wrapper.findComponent(Checkbox).classes()).not.toContain(
+        'n-checkbox--small'
+      )
+      expect(wrapper.findComponent(Checkbox).classes()).not.toContain(
+        'n-checkbox--large'
+      )
+    })
+    test('form disabled', async () => {
+      const wrapper = mount(() => (
+        <Form disabled>
+          <CheckboxGroup disabled={false}>
+            <Checkbox></Checkbox>
+          </CheckboxGroup>
+        </Form>
+      ))
+      expect(wrapper.findComponent(Checkbox).classes()).toContain('is-disabled')
+    })
+    test('form disabled and form-item not disabled', async () => {
+      const wrapper = mount(() => (
+        <Form disabled>
+          <FormItem disabled={false}>
+            <CheckboxGroup>
+              <Checkbox></Checkbox>
+            </CheckboxGroup>
+          </FormItem>
+        </Form>
+      ))
+      expect(wrapper.findComponent(Checkbox).classes()).toContain('is-disabled')
+    })
+    test('form-item not disabled and checkGroup disabled', async () => {
+      const wrapper = mount(() => (
+        <Form disabled>
+          <FormItem>
+            <CheckboxGroup disabled={false}>
+              <Checkbox></Checkbox>
+            </CheckboxGroup>
+          </FormItem>
+        </Form>
+      ))
+      expect(wrapper.findComponent(Checkbox).classes()).toContain('is-disabled')
+    })
+
+    describe('validate action with checkbox-group', () => {
+      beforeEach(() => {
+        wrapper = _mount()
+      })
+      afterEach(() => {
+        wrapper.unmount()
+      })
+
+      const formData = reactive({
+        checkbox: []
+      })
+      const formRules = reactive({
+        checkbox: {
+          type: 'array',
+          required: true,
+          message: 'please check',
+          trigger: 'change'
+        }
+      })
+      let wrapper: VueWrapper<FormInstance>
+      const _mount = () =>
+        mount(
+          <Form model={formData} rules={formRules}>
+            <FormItem prop="checkbox">
+              <CheckboxGroup v-model={formData.checkbox}>
+                <Checkbox value={1}></Checkbox>
+              </CheckboxGroup>
+            </FormItem>
+          </Form>
+        ) as unknown as VueWrapper<FormInstance>
+
+      test('form validate while checkbox no value', async () => {
+        await wrapper.vm.validate(() => {})
+        expect(wrapper.find('.n-form-item__error').exists()).toBe(true)
+      })
+      test('form validate while checkbox has value', async () => {
+        await wrapper.findComponent(Checkbox).trigger('click')
+        await wrapper.vm.validate(() => {})
+        expect(wrapper.find('.n-form-item__error').exists()).toBe(false)
+      })
+    })
   })
 })
