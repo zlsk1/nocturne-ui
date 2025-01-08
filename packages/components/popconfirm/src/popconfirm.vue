@@ -4,8 +4,15 @@
       <slot />
     </template>
     <template #default>
-      <div :class="[ns.e('title'), ns.is('icon', showIcon)]">
-        <Quesition v-if="!$slots.icon && showIcon" size="16" color="#f0bb40" />
+      <div :class="[ns.e('title')]">
+        <n-icon
+          v-if="!$slots.icon && showIcon"
+          :class="ns.em('title', 'icon')"
+          size="16"
+          color="#f0bb40"
+        >
+          <component :is="icon" />
+        </n-icon>
         <slot v-else name="icon" />
         <p>{{ title }}</p>
       </div>
@@ -23,11 +30,12 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { RiQuestionFill as Quesition } from '@remixicon/vue'
+import NButton from '@/components/button'
+import NPopover from '@/components/popover'
+import NIcon from '@/components/icon'
+import { useNamespace } from '@/composables'
 import { popconfirmEmit, popconfirmProps } from './popconfirm'
 import type { PopoverInstance } from '@/components'
-import { NButton, NPopover } from '@/components'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NPopconfirm'

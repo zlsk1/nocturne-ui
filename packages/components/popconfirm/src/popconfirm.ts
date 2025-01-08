@@ -1,3 +1,5 @@
+import { RiQuestionFill as Quesition } from '@remixicon/vue'
+import { iconPropType } from '@/utils'
 import popconfirm from './popconfirm.vue'
 
 import type { ExtractPropTypes } from 'vue'
@@ -15,6 +17,10 @@ export const popconfirmProps = {
   showIcon: {
     type: Boolean,
     default: true
+  },
+  icon: {
+    type: iconPropType,
+    default: Quesition
   }
 }
 
