@@ -1,6 +1,6 @@
+import { definePropType, iconPropType, isClient, mutable } from '@/utils'
 import loading from './loading.vue'
 import type { ExtractPropTypes } from 'vue'
-import { definePropType, iconPropType, isClient, mutable } from '@/utils'
 
 export const loadingDefault = mutable({
   target: isClient() ? document.body : (undefined as never),
@@ -13,7 +13,7 @@ export const loadingDefault = mutable({
 
 export const loadingProps = {
   target: {
-    type: {},
+    type: definePropType<object | never>([Object, undefined]),
     default: loadingDefault.target
   },
   text: {
@@ -39,13 +39,11 @@ export const loadingProps = {
     ]),
     default: loadingDefault.onClose
   }
-}
+} as const
 
 export type LoadingProps = ExtractPropTypes<typeof loadingProps>
 export type LoadingIntance = InstanceType<typeof loading>
 
-export type loadingParams = Partial<LoadingProps> & {
-  target?: string | HTMLElement
-}
+export type loadingParams = Partial<LoadingProps> | (string | HTMLElement)
 export type normilizedParams = Partial<LoadingProps> & { target: HTMLElement }
 export type closeHandler = () => void

@@ -6,7 +6,7 @@ export * from './src/method'
 
 export const NLoading = {
   directive: vLoading,
-  service: Loading,
+  use: Loading,
   install(app: App) {
     app.directive('loading', vLoading)
     app.config.globalProperties.$loading = Loading
@@ -14,4 +14,4 @@ export const NLoading = {
 }
 export default NLoading
 
-export { vLoading, vLoading as NLoadingDirective, Loading as NLoadingService }
+export { vLoading, vLoading as NLoadingDirective, Loading as NLoadingUse }

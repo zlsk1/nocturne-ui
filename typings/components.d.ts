@@ -61,8 +61,8 @@ declare module '@vue/runtime-core' {
 
   interface ComponentCustomProperties {
     $message: (typeof import('packages'))['NMessage']
-    $loading: (typeof import('packages'))['NLoading']
     $notify: (typeof import('packages'))['NNotification']
+    $loading: (typeof import('packages'))['NLoadingUse']
   }
 }
 

@@ -1,15 +1,20 @@
 import { AppContext, createVNode, render } from 'vue'
+import { isClient, isElement, isObject, isString } from '@/utils'
 import { loadingDefault } from './loading'
 import Loading from './loading.vue'
 
 import type { closeHandler, loadingParams, normilizedParams } from './loading'
-import { isElement, isString } from '@/utils'
 
 const normilizeParams = (props?: loadingParams) => {
-  const mergeParams = {
-    ...loadingDefault,
-    ...props
-  }
+  const mergeParams = isObject(props)
+    ? {
+        ...loadingDefault,
+        ...props
+      }
+    : {
+        ...loadingDefault,
+        target: props
+      }
 
   if (!mergeParams.target) {
     mergeParams.target = document.body
@@ -30,6 +35,7 @@ const loading = (
   props?: loadingParams,
   context?: AppContext | null
 ): closeHandler => {
+  if (!isClient()) return () => undefined
   const container = document.createElement('div')
   const normilizedParam = normilizeParams(props)
   const onDestroy = () => {
