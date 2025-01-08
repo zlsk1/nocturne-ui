@@ -9,7 +9,7 @@ $slider-height: map.merge(
   (
     'large': 40px,
     'default': 32px,
-    'small': 24px,
+    'small': 24px
   ),
   $slider-height
 );
@@ -39,7 +39,7 @@ $slider-height: map.merge(
     border-radius: getCssVar('slider-radius');
   }
 
-  @include e(reference--wrapper) {
+  @include e(trigger--wrapper) {
     position: absolute;
     top: getCssVar('slider-button-offset');
     width: getCssVar('slider-button-size');
@@ -60,7 +60,7 @@ $slider-height: map.merge(
     }
   }
 
-  @include e(reference) {
+  @include e(trigger) {
     width: getCssVar('slider-button-size');
     height: getCssVar('slider-button-size');
   }
@@ -84,13 +84,27 @@ $slider-height: map.merge(
     background-color: getCssVar('text-color-primary');
   }
 
+  @include e(step__mark) {
+    top: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: getCssVar('text-color-primary');
+    transform: translate(-50%, -50%);
+  }
+
+  @include e(step__mark__text) {
+    width: fit-content;
+    margin-top: 10px;
+    transform: translateX(-50%);
+  }
+
   @include when(disabled) {
-    
     @include e(track) {
       cursor: not-allowed;
     }
 
-    @include e(reference-wrapper) {
+    @include e(trigger-wrapper) {
       background: getCssVar('disabled', 'text-color');
       cursor: not-allowed;
 
@@ -114,7 +128,7 @@ $slider-height: map.merge(
       width: getCssVar('slider-height');
     }
 
-    @include e(reference-wrapper) {
+    @include e(trigger--wrapper) {
       top: auto;
       left: getCssVar('slider-button-offset');
       transform: translateY(50%);
@@ -122,6 +136,18 @@ $slider-height: map.merge(
 
     @include e(step) {
       flex-direction: column;
+    }
+
+    @include e(step__mark__text) {
+      margin-top: 0;
+      margin-left: 20px;
+      transform: translateY(-50%);
+    }
+  }
+
+  @each $size in (large, small) {
+    .#{$namespace}-slider--#{$size} {
+      height: map.get($slider-height, $size);
     }
   }
 }
