@@ -1,55 +1,43 @@
-import { createVNode, render } from 'vue'
-import { isClient, isObject } from '@/utils'
-import Loading from './loading.vue'
-import { loadingDefault } from './loading'
-
-import type { Directive } from 'vue'
+import { isObject } from 'lodash'
+import Loading from './method'
 import type { LoadingIntance, LoadingProps } from './loading'
+import type { Directive } from 'vue'
 
-type Attributes = keyof Omit<typeof loadingDefault, 'onClose' | 'target'>
 export interface NLoading extends HTMLElement {
-  NLoading: {
-    instance: LoadingIntance
-    options: LoadingProps
+  instance: LoadingIntance
+}
+
+const createLoading = (el: NLoading, binding: LoadingProps) => {
+  if (isObject(binding)) {
+    el.instance = Loading({
+      ...binding,
+      target: el
+    })
+  } else {
+    el.instance = Loading(el)
   }
 }
 
-const container = isClient()
-  ? document.createElement('div')
-  : (undefined as never)
-
-const _getAttribute = (el: NLoading, name: Attributes) => {
-  return el.getAttribute(`n-loading-${name}`) || loadingDefault[name]
-}
-
-const getProps = (el: NLoading) => {
-  return {
-    text: _getAttribute(el, 'text'),
-    maskBg: _getAttribute(el, 'maskBg'),
-    locked: _getAttribute(el, 'locked'),
-    icon: _getAttribute(el, 'icon')
-  }
-}
-
-export const VLoading: Directive = {
-  beforeMount: (el, binding) => {
-    let props
-
-    if (isObject(binding.value)) {
-      props = binding.value
-    } else {
-      props = getProps(el)
+export const vLoading: Directive<NLoading, LoadingProps> = {
+  mounted: (el, binding) => {
+    if (binding.value) {
+      createLoading(el, binding.value)
     }
-
-    const vnode = createVNode(Loading, props)
-    render(vnode, container)
   },
-  mounted: (el) => {
-    el.appendChild(container.firstElementChild!)
+  updated: (el, binding) => {
+    if (binding.value || binding.oldValue) {
+      if (!binding.value) {
+        el.instance.close()
+        return
+      }
+      createLoading(el, binding.value)
+    }
   },
-  updated: () => {
-    render(null, container)
+  unmounted: (el) => {
+    el.instance.close()
+    // @ts-ignore
+    el.instance = null
   }
 }
 
-export default VLoading
+export default vLoading

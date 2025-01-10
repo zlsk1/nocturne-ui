@@ -1,6 +1,5 @@
 import { definePropType, iconPropType, isClient, mutable } from '@/utils'
-import loading from './loading.vue'
-import type { ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes, VNode } from 'vue'
 
 export const loadingDefault = mutable({
   target: isClient() ? document.body : (undefined as never),
@@ -42,7 +41,10 @@ export const loadingProps = {
 } as const
 
 export type LoadingProps = ExtractPropTypes<typeof loadingProps>
-export type LoadingIntance = InstanceType<typeof loading>
+export type LoadingIntance = {
+  vm: VNode | null
+  close: closeHandler
+}
 
 export type loadingParams = Partial<LoadingProps> | (string | HTMLElement)
 export type normilizedParams = Partial<LoadingProps> & { target: HTMLElement }
