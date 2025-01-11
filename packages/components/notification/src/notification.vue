@@ -31,13 +31,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, isVNode, onMounted, ref } from 'vue'
+import { computed, isVNode, onMounted, ref, toRef } from 'vue'
 import { RiCloseLine as Close } from '@remixicon/vue'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
-import { notificationEmit, notificationProps } from './notification'
-import type { CSSProperties } from 'vue'
-import { useNamespace } from '@/composables'
+import { useNamespace, useZIndex } from '@/composables'
 import { typeIcons } from '@/utils'
+import { notificationEmit, notificationProps } from './props'
+import type { CSSProperties } from 'vue'
 
 defineOptions({
   name: 'NNotification'
@@ -48,6 +48,8 @@ const props = defineProps(notificationProps)
 defineEmits(notificationEmit)
 
 const ns = useNamespace('notification')
+const { nextZIndex } = useZIndex(toRef(() => props.zIndex))
+const currentZIndex = nextZIndex()
 
 let stopTimer: (() => void) | undefined
 
@@ -82,13 +84,14 @@ const position = computed(() =>
 const style = computed<CSSProperties>(() => {
   return {
     [position.value]: `${props.offset}px`,
-    zIndex: props.zIndex
+    zIndex: currentZIndex
   }
 })
 
 const notifyCls = computed(() => [
   ns.b(),
   ns.m(props.type),
+  props.customClass,
   positionClass.value
 ])
 

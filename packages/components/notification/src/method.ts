@@ -1,33 +1,26 @@
-import { createVNode, isVNode, render } from 'vue'
+import { createVNode, isVNode, render, shallowReactive } from 'vue'
+import { isElement, isString } from '@/utils'
 import Notification from './notification.vue'
-import { notificationDefaultOptions, notificationType } from './notification'
+import { notificationDefaultOptions, notificationType } from './props'
 
 import type {
   MergeParamsNormalized,
   NotificationFn,
   NotificationOptions,
   NotificationPlacements,
-  NotificationProps,
   NotificationType,
+  NotifyInstanceType,
   closeHandler
-} from './notification'
-import type { AppContext, ComponentInternalInstance, VNode } from 'vue'
-import { isElement, isString } from '@/utils'
+} from './types'
+import type { AppContext } from 'vue'
 
-type InstanceType = {
-  id: string
-  vnode: VNode
-  handler: closeHandler
-  vm: ComponentInternalInstance
-  props: NotificationProps
-}
-
-const instances: Record<NotificationPlacements, InstanceType[]> = {
-  'top-right': [],
-  'top-left': [],
-  'bottom-right': [],
-  'bottom-left': []
-}
+const instances: Record<NotificationPlacements, NotifyInstanceType[]> =
+  shallowReactive({
+    'top-right': [],
+    'top-left': [],
+    'bottom-right': [],
+    'bottom-left': []
+  })
 
 const GAP = 16
 let instaceCount = 1
@@ -61,7 +54,7 @@ const createInstance = (
 ) => {
   const id = `notification--${instaceCount++}`
   const container = document.createElement('div')
-  const _close = props.onClose
+  const userClose = props.onClose
 
   let offset = props.offset || 0
   const placement = props.placement || 'top-right'
@@ -74,8 +67,8 @@ const createInstance = (
     id,
     offset,
     onClose: () => {
-      _close?.()
       closeNotification(id, placement)
+      userClose?.()
     },
     onDestroy: () => {
       render(null, container)
@@ -134,30 +127,25 @@ notificationType.forEach((type) => {
 })
 
 const closeNotification = (id: string, placement: NotificationPlacements) => {
-  const _instance = instances[placement]
-  const idx = _instance.findIndex((instace) => instace.id === id)
+  const instance = instances[placement]
+  const idx = instance.findIndex((ins) => ins.id === id)
   if (idx <= -1) return
 
-  _instance[idx].handler.close()
+  instance[idx].handler.close()
 
-  for (let i = idx + 1; i < _instance.length; i++) {
-    if (placement.startsWith('top')) {
-      _instance[i].vnode.component!.props.offset =
-        Number.parseInt(_instance[i].vnode.el!.style.top, 10) -
-        (_instance[i].vm.exposed?.height.value + GAP)
-    } else if (placement.startsWith('bottom')) {
-      _instance[i].vnode.component!.props.offset =
-        Number.parseInt(_instance[i].vnode.el!.style.bottom, 10) -
-        (_instance[i].vm.exposed?.height.value + GAP)
-    }
+  const direction = placement.startsWith('top') ? 'top' : 'bottom'
+  for (let i = idx + 1; i < instance.length; i++) {
+    instance[i].vm!.props.offset =
+      parseInt(instance[i].vnode.el!.style[direction], 10) -
+      (instance[i].vm.exposed?.height.value + GAP)
   }
 
-  _instance.splice(idx, 1)
+  instance.splice(idx, 1)
 }
 
 notification.closeAll = () => {
   Object.keys(instances).forEach((placement) => {
-    instances[placement as keyof typeof instances].forEach((instance) =>
+    instances[placement as NotificationPlacements].forEach((instance) =>
       instance.handler.close()
     )
   })

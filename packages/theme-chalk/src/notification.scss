@@ -15,7 +15,11 @@
   background: getCssVar('bg-color');
   border-radius: getCssVar('notification-border-radius');
   box-shadow: getCssVar('notification-box-shadow');
-  transition: opacity getCssVar('transition-duration'), transform getCssVar('transition-duration-fast'), top .4s, bottom .4s;
+  transition:
+    opacity getCssVar('transition-duration'),
+    transform getCssVar('transition-duration-fast'),
+    top 0.4s,
+    bottom 0.4s;
 
   @include m(main) {
     margin-left: 10px;
@@ -27,14 +31,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 50%;
+      border-radius: getCssVar('border-radius-base');
       color: getCssVar('text-color-secondary');
       cursor: pointer;
-      transition: .3s linear;
-  
+      transition: getCssVar('transition-duration');
+
       &:hover {
-        color: getCssVar('text-color-regular');
-        background: getCssVar('text-color-placeholder');
+        background: getCssVar('fill-color-dark');
       }
     }
 
@@ -47,7 +50,8 @@
       color: getCssVar('notification-text-color');
     }
 
-    > p, h4 {
+    > p,
+    h4 {
       margin: 0;
       padding: 0;
     }
@@ -70,7 +74,7 @@
       @include css-var-from-global(
         ('notification', 'icon-color'),
         ('color', $type, 'light-3')
-      )
+      );
     }
 
     & .#{$namespace}-notification__icon {
@@ -92,4 +96,5 @@
 
 .#{$namespace}-notification-leave-to {
   opacity: 0;
+  transform: translateY(-10%);
 }
