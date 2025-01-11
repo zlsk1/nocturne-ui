@@ -1,8 +1,8 @@
 import { isClient } from '@vueuse/core'
+import { definePropType, mutable } from '@/utils'
 import type { AppContext, ExtractPropTypes, VNode } from 'vue'
 import type { Mutable } from '@/utils'
 import type MessageConstructor from './message.vue'
-import { definePropType, mutable } from '@/utils'
 
 export const messageTypes = ['success', 'info', 'warning', 'error'] as const
 
@@ -14,8 +14,6 @@ export interface MessageConfigContext {
 
 export const messageDefaults = mutable({
   customClass: '',
-  // center: false,
-  // dangerouslyUseHTMLString: false,
   duration: 3000,
   icon: undefined,
   id: '',
@@ -23,7 +21,6 @@ export const messageDefaults = mutable({
   onClose: undefined,
   showClose: false,
   type: 'info',
-  // plain: false,
   offset: 16,
   zIndex: 0,
   grouping: false,
