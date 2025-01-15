@@ -64,6 +64,9 @@ export const inputProps = {
     type: Boolean,
     deafult: false
   },
+  afterBlur: {
+    type: Function
+  },
   id: String
 } as const
 

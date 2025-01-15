@@ -5,6 +5,7 @@ declare module '@vue/runtime-core' {
     NAlert: (typeof import('packages'))['NAlert']
     NAnchor: (typeof import('packages'))['NAnchor']
     NAnchorItem: (typeof import('packages'))['NAnchorItem']
+    NAutoComplete: (typeof import('packages'))['NAutoComplete']
     NAvatar: (typeof import('packages'))['NAvatar']
     NBadge: (typeof import('packages'))['NBadge']
     NBreadcrumb: (typeof import('packages'))['NBreadcrumb']

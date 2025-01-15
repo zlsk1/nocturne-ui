@@ -6,7 +6,8 @@ import {
 } from '@remixicon/vue'
 import { useForm, useFormItem } from '@/components/form'
 import NIcon from '@/components/icon'
-import { useComposition, useNamespace } from '@/composables'
+import { useComposition, useFocusController, useNamespace } from '@/composables'
+import { isNil } from '@/utils'
 import { inputEmits, inputProps } from './input'
 
 defineOptions({
@@ -23,9 +24,15 @@ const { formItem } = useForm()
 
 const inputRef = ref<HTMLInputElement>()
 const wrapperRef = ref<HTMLInputElement>()
-const isFocus = ref(false)
 const showPwd = ref(false)
 const hovering = ref(false)
+
+const { isFocused, handleFocus, handleBlur } = useFocusController(inputRef, {
+  afterBlur: () => {
+    props.afterBlur?.()
+    formItem?.validate()
+  }
+})
 
 const showPwdVisable = computed(() => {
   return props.showPassword && !!props.modelValue
@@ -33,7 +40,9 @@ const showPwdVisable = computed(() => {
 
 const showClear = computed(() => {
   return (
-    props.clearable && (hovering.value || isFocus.value) && !!props.modelValue
+    props.clearable &&
+    (hovering.value || isFocused.value) &&
+    !isNil(props.modelValue)
   )
 })
 
@@ -88,19 +97,6 @@ const handleMouseLeave = () => {
   hovering.value = false
 }
 
-const handleFocus = (e: FocusEvent) => {
-  isFocus.value = true
-  emit('focus', e)
-}
-
-const handleBlur = (e: FocusEvent) => {
-  if (e.relatedTarget && wrapperRef.value?.contains(e.relatedTarget as Node))
-    return
-  isFocus.value = false
-  emit('blur', e)
-  formItem?.validate()
-}
-
 const handleShowPwd = () => {
   showPwd.value = !showPwd.value
 }
@@ -117,6 +113,7 @@ const blur = async () => {
 
 defineExpose({
   inputRef,
+  isFocused,
   focus,
   blur,
   clearValue
@@ -137,7 +134,7 @@ defineExpose({
     <template v-if="!isTextarea">
       <div
         ref="wrapperRef"
-        :class="[ns.e('wrapper'), ns.is('focus', isFocus)]"
+        :class="[ns.e('wrapper'), ns.is('focus', isFocused)]"
         tabindex="1"
       >
         <span v-if="prefixIcon || slots.prefix" :class="ns.e('prefix')">

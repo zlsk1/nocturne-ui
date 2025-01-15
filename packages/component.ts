@@ -1,6 +1,6 @@
-import type { Plugin } from 'vue'
 import { NAlert } from '@/components/alert'
 import { NAnchor, NAnchorItem } from '@/components/anchor'
+import { NAutoComplete } from '@/components/auto-complete'
 import { NAvatar } from '@/components/avatar'
 import { NBadge } from '@/components/badge'
 import { NBreadcrumb, NBreadcrumbItem } from '@/components/breadcrumb'
@@ -45,10 +45,13 @@ import { NTimeline } from '@/components/timeline'
 import { NTimelineItem } from '@/components/timeline-item'
 import { NTooltip } from '@/components/tooltip'
 
+import type { Plugin } from 'vue'
+
 export default [
   NAlert,
   NAnchor,
   NAnchorItem,
+  NAutoComplete,
   NAvatar,
   NBadge,
   NBreadcrumb,

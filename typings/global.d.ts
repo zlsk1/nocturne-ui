@@ -3,6 +3,7 @@ declare module 'vue' {
     NAlert: (typeof import('nocturne-ui'))['NAlert']
     NAnchor: (typeof import('nocturne-ui'))['NAnchor']
     NAnchorItem: (typeof import('nocturne-ui'))['NAnchorItem']
+    NAutoComplete: (typeof import('nocturne-ui'))['NAutoComplete']
     NAvatar: (typeof import('nocturne-ui'))['NAvatar']
     NBadge: (typeof import('nocturne-ui'))['NBadge']
     NBreadcrumb: (typeof import('nocturne-ui'))['NBreadcrumb']
