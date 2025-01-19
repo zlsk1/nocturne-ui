@@ -3,18 +3,28 @@
   margin: 0 5px;
   color: var(--n-color-primary);
 
-  &::after {
+  @mixin persuade {
     content: '';
     position: absolute;
-    bottom: -1.5px;
-    left: 0;
+    bottom: -2px;
     width: 0;
-    height: 1.5px;
-    background-color: var(--n-color-primary);
-    transition: .3s;
+    height: 2px;
+    background-color: var(--theme-color);
+    transition: 0.3s ease-in-out;
   }
 
-  &:hover::after {
-    width: 100%;
+  &::after {
+    @include persuade;
+    left: 50%;
+  }
+
+  &::before {
+    @include persuade;
+    right: 50%;
+  }
+
+  &:hover::after,
+  &:hover::before {
+    width: 50%;
   }
 }

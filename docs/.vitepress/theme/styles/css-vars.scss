@@ -1,10 +1,10 @@
 :root {
-  --theme-color: #9499ff;
+  --theme-color: var(--n-color-primary);
   --theme-bg-color: var(--n-color-primary-light-9);
   --text-color: var(--n-text-color-regular);
   --border-color: #dcdfe6;
-  --duration-time: .3s;
-  --duration-time-fast: .2s;
+  --duration-time: 0.3s;
+  --duration-time-fast: 0.2s;
 
   --sidebar-width: 300px;
   --nav-height: 55px;
@@ -14,7 +14,6 @@
   --font-family-mono: 'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas,
     'Courier New', monospace;
 
-  
   // code block vars
   --code-line-height: 1.4;
   --code-font-size: var(--n-font-size-base);
