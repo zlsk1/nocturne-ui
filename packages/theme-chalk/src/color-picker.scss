@@ -10,7 +10,9 @@
   > div {
     width: 12px;
     height: 12px;
-    box-shadow: 0 0 0 1.5px #fff, inset 0 0 1px 1px rgba(0, 0, 0, 0.3),
+    box-shadow:
+      0 0 0 1.5px #fff,
+      inset 0 0 1px 1px rgba(0, 0, 0, 0.3),
       0 0 1px 2px rgba(0, 0, 0, 0.4);
     border-radius: 50%;
     cursor: pointer;
@@ -135,7 +137,9 @@
       cursor: pointer;
       width: 4px;
       height: 4px;
-      box-shadow: 0 0 0 1.5px #fff, inset 0 0 1px 1px rgba(0, 0, 0, 0.3),
+      box-shadow:
+        0 0 0 1.5px #fff,
+        inset 0 0 1px 1px rgba(0, 0, 0, 0.3),
         0 0 1px 2px rgba(0, 0, 0, 0.4);
       border-radius: 50%;
       transform: translate(-2px, -2px);
@@ -165,7 +169,11 @@
       getCssVar('color-picker', 'alpha-bg-a') 75%
     );
   background-size: 12px 12px;
-  background-position: 0 0, 6px 0, 6px -6px, 0 6px;
+  background-position:
+    0 0,
+    6px 0,
+    6px -6px,
+    0 6px;
 }
 
 @include b(color-alpha-slider) {
@@ -213,8 +221,6 @@
 }
 
 @include b(color-dropdown) {
-  width: 280px;
-
   @include e(main-wrapper) {
     margin-bottom: 6px;
   }
@@ -347,7 +353,6 @@
 
   @each $size in (large, small) {
     @include m($size) {
-
       .#{$namespace}-color-picker__trigger {
         font-size: map.get($color-picker-size, $size, 'fz');
 

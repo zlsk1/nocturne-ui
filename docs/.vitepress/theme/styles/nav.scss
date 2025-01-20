@@ -1,5 +1,4 @@
 .nav-wrapper {
-
   position: sticky;
   left: 0;
   top: 0;
@@ -32,7 +31,7 @@
 
     .nav-link {
       display: flex;
-      
+
       a {
         display: block;
         position: relative;
@@ -79,6 +78,10 @@
   .content-small {
     display: none;
   }
+}
+
+.nav-wrapper.is-plain {
+  background-color: transparent;
 }
 
 .vp-nav-menu {
