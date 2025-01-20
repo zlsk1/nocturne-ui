@@ -43,11 +43,11 @@ link/icon
 
 ### Link Props
 
-| 属性名                | 描述                   |  类型                                | 默认值   |
-| -------------------- | ---------------------- | ------------------------------------ | ------- |
-| type                 | 链接类型                | ^[enum]`'primary'\| 'success'\| 'warning'\| 'danger'\| 'info'`| —    |
-| href                 | 链接地址                | ^[string]                            | —       |
-| target               | 链接行为                | ^[string]                            | _self   |
-| underline            | 悬浮时是否显示下划线     | ^[boolean]                           | false   |
-| disabled             | 禁用链接                | ^[boolean]                           | false   |
-| icon                 | 链接的图标              | ^[string] / ^[Compopnent]            | —       |
+| 属性名    | 描述                 | 类型                                                               | 默认值 |
+| --------- | -------------------- | ------------------------------------------------------------------ | ------ |
+| type      | 链接类型             | ^[enum]`'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | —      |
+| href      | 链接地址             | ^[string]                                                          | —      |
+| target    | 链接行为             | ^[string]                                                          | \_self |
+| underline | 悬浮时是否显示下划线 | ^[boolean]                                                         | false  |
+| disabled  | 禁用链接             | ^[boolean]                                                         | false  |
+| icon      | 链接的图标           | ^[string] / ^[Compopnent]                                          | —      |

@@ -1,12 +1,10 @@
 <script lang="ts" setup>
-import { onMounted, ref, computed, watchEffect } from 'vue';
+import { onMounted, ref, computed, watchEffect } from 'vue'
 import { useData } from 'vitepress'
 
 const { theme, page, lang } = useData()
 
-const date = computed(
-  () => new Date(page.value.lastUpdated!)
-)
+const date = computed(() => new Date(page.value.lastUpdated!))
 
 const isoDatetime = computed(() => date.value.toISOString())
 const datetime = ref('')
@@ -16,7 +14,9 @@ const datetime = ref('')
 onMounted(() => {
   watchEffect(() => {
     datetime.value = new Intl.DateTimeFormat(
-      theme.value.lastUpdated?.formatOptions?.forceLocale ? lang.value : undefined,
+      theme.value.lastUpdated?.formatOptions?.forceLocale
+        ? lang.value
+        : undefined,
       theme.value.lastUpdated?.formatOptions ?? {
         dateStyle: 'short',
         timeStyle: 'short'
@@ -35,7 +35,7 @@ onMounted(() => {
 <style>
 .vp-last-update {
   margin-top: 40px;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--theme-color);
 }
 </style>
