@@ -101,9 +101,12 @@ html:not(.dark) {
   inset: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(236deg, #33373f 0%, rgba(49, 55, 53, 0) 100%);
+  @mixin bg {
+    background: linear-gradient(236deg, rgba(49, 55, 53, 0) 0%, #33373f 100%);
+  }
+  @include bg;
   .nav {
-    background: linear-gradient(236deg, #33373f 0%, rgba(49, 55, 53, 0) 100%);
+    @include bg;
   }
   .main {
     margin: auto;
