@@ -48,21 +48,23 @@
   width: 100%;
   vertical-align: bottom;
   font-size: getCssVar('font-size', 'base');
+  text-align: end;
 
   @include e(inner) {
+    box-sizing: border-box;
     position: relative;
     display: block;
-    resize: vertical;
+    width: 100%;
+    min-height: 34px;
     padding: 5px map.get($input-padding-horizontal, 'default')-$border-width;
     line-height: 1.5;
-    box-sizing: border-box;
-    width: 100%;
     font-size: inherit;
     font-family: inherit;
     color: var(
       #{getCssVarName('input-text-color')},
       map.get($input, 'text-color')
     );
+    resize: vertical;
     background-color: var(
       #{getCssVarName('input-bg-color')},
       map.get($input, 'bg-color')
@@ -101,16 +103,19 @@
     @include when(noResize) {
       resize: none;
     }
+
+    @include when(clear) {
+      padding-right: 28px;
+    }
   }
 
   & .#{$namespace}-input__count {
+    display: inline-block;
+    margin-top: 10px;
+    line-height: 14px;
+    font-size: 12px;
     color: getCssVar('color-info');
     background: getCssVar('fill-color', 'blank');
-    position: absolute;
-    font-size: 12px;
-    line-height: 14px;
-    bottom: 5px;
-    right: 10px;
   }
 
   @include when(disabled) {
@@ -133,6 +138,18 @@
 
     .#{$namespace}-input__count {
       color: getCssVar('color-danger');
+    }
+  }
+
+  @include m(clear) {
+    position: absolute;
+    top: 9px;
+    right: 10px;
+    cursor: pointer;
+    color: getCssVar('input-icon-color');
+
+    &:hover {
+      color: getCssVar('input-clear-hover-color');
     }
   }
 }
@@ -386,6 +403,44 @@
               ) - $border-width * 2
           )
         );
+      }
+    }
+  }
+
+  @each $variant in ('outlined', 'borderless', 'filled') {
+    @include m($variant) {
+      @if ($variant == 'filled') {
+        border-radius: getCssVar('border-radius-base');
+        background-color: getCssVar('fill-color');
+        @include e(wrapper) {
+          box-shadow: none;
+          transition: all getCssVar('transition-duration');
+          &:hover {
+            box-shadow: none;
+            background-color: getCssVar('fill-color-dark');
+          }
+          @include when(focus) {
+            background-color: getCssVar('fill-color-lighter');
+            @include inset-input-border(
+              #{getCssVar('input', 'focus-border-color')}
+            );
+          }
+        }
+      } @else if ($variant == 'borderless') {
+        border-radius: getCssVar('border-radius-base');
+        background-color: getCssVar('fill-color', 'blank');
+        @include e(wrapper) {
+          box-shadow: none;
+          transition: all getCssVar('transition-duration');
+          &:hover {
+            box-shadow: none;
+            background-color: none;
+          }
+          @include when(focus) {
+            box-shadow: none;
+            background-color: none;
+          }
+        }
       }
     }
   }

@@ -10,6 +10,17 @@ describe('Input', () => {
     expect(wrapper.find('.n-input').exists()).toBe(true)
   })
 
+  test('variant', async () => {
+    const variant = ref('outlined')
+    const wrapper = mount(() => <Input variant={variant.value}></Input>)
+    expect(wrapper.find('.n-input--outlined').exists()).toBe(false)
+    await nextTick()
+
+    variant.value = 'filled'
+    await nextTick()
+    expect(wrapper.find('.n-input--filled').exists()).toBe(true)
+  })
+
   test('placeholder', () => {
     const wrapper = mount(() => <Input placeholder="请输入"></Input>)
     expect(wrapper.find('.n-input__inner').attributes('placeholder')).toEqual(

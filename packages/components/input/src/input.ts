@@ -58,8 +58,13 @@ export const inputProps = {
     type: Boolean,
     default: false
   },
-  // 只有type为textarea
+  /**
+   * @description 只有type为textarea
+   */
   rows: Number,
+  /**
+   * @description 不能改变textarea的高度
+   */
   noResize: {
     type: Boolean,
     deafult: false
@@ -67,7 +72,16 @@ export const inputProps = {
   afterBlur: {
     type: Function
   },
-  id: String
+  id: String,
+  autoResize: {
+    type: Boolean,
+    default: false
+  },
+  variant: {
+    type: String,
+    values: ['outlined', 'borderless', 'filled'],
+    default: 'outlined'
+  }
 } as const
 
 export const inputEmits = {
