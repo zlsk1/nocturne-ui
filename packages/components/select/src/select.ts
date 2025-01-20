@@ -10,6 +10,7 @@ import {
   isString
 } from '@/utils'
 import { componentSizes } from '@/constants'
+import { popperContentProps } from '@/components/popper'
 
 export const selectProps = {
   placeholder: {
@@ -17,13 +18,13 @@ export const selectProps = {
     default: '请选择'
   },
   modelValue: {
-    type: definePropType<
-      | string
-      | number
-      | boolean
-      | Array<string | number | boolean | object>
-      | object
-    >([String, Number, Boolean, Object]),
+    type: definePropType<string | number | boolean | [] | object>([
+      String,
+      Number,
+      Boolean,
+      Object,
+      Array
+    ]),
     validator: (val: string | number | boolean | [] | object, props: any) => {
       if (props.multiple && !isArray(val)) return false
       return true
@@ -47,7 +48,7 @@ export const selectProps = {
     default: false
   },
   /**
-   * @description 当option的value为对象时 做为判定对象相等的键名
+   * @description 当option的value为对象时 做为判定对象是否相等的键名
    */
   valueKey: {
     type: String,
@@ -65,15 +66,10 @@ export const selectProps = {
     type: Boolean,
     default: true
   },
-  popperClass: {
-    type: String,
-    default: ''
-  },
+  popperClass: popperContentProps.popperClass,
   popperOption: {
     type: definePropType<Partial<Options>>(Object),
-    default: () => {
-      return {}
-    }
+    default: () => ({})
   },
   placement: {
     type: String,
@@ -86,10 +82,18 @@ export const selectProps = {
     default: 'info'
   },
   height: {
-    type: [String, Number],
+    type: definePropType<string | number>([String, Number]),
     default: '200'
+  },
+  filterable: {
+    type: Boolean,
+    default: false
+  },
+  emptyText: {
+    type: String,
+    default: '暂无匹配项'
   }
-}
+} as const
 
 export const selectEmits = {
   'update:modelValue': (val: string | number | boolean | object | Array<any>) =>
@@ -97,7 +101,9 @@ export const selectEmits = {
     isNumber(val) ||
     isBoolean(val) ||
     isObject(val) ||
-    isArray(val)
+    isArray(val),
+  focus: (e: FocusEvent) => e instanceof FocusEvent,
+  blur: (e: FocusEvent) => e instanceof FocusEvent
 }
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>

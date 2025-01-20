@@ -96,10 +96,10 @@ const { NocturneUIReslover } = require('nocturne-ui-resolver')
 module.exports = {
   plugins: [
     AutoImport({
-      resolvers: [ElementPlusResolver()]
+      resolvers: [NocturneUIReslover()]
     }),
     Components({
-      resolvers: [ElementPlusResolver()]
+      resolvers: [NocturneUIReslover()]
     })
   ]
 }

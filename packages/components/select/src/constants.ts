@@ -1,13 +1,19 @@
-import type { InjectionKey, Ref } from 'vue'
+import type { InjectionKey } from 'vue'
 import type { SelectProps } from './select'
-import type { OptionProps } from '@/components/option'
+import type { OptionProps } from './option'
 
 export type NSelectInjectionContext = {
-  actualVal: Ref<SelectProps['modelValue']>
+  multipleValue: any[]
+  singleValue: string
+  inputValue: string
   options: Map<any, any>
+  optionsArray: any[]
+  hoveringIndex: number
   valueKey: SelectProps['valueKey']
   multiple: SelectProps['multiple']
+  filterable: SelectProps['filterable']
   clickOption: (vm: OptionProxy) => void
+  createOption: (vm: OptionProxy) => void
 }
 export type OptionProxy = {
   value: OptionProps['value']
@@ -16,4 +22,4 @@ export type OptionProxy = {
 }
 
 export const SELECT_INJECTION_KEY: InjectionKey<NSelectInjectionContext> =
-  Symbol('elTooltip')
+  Symbol('select')

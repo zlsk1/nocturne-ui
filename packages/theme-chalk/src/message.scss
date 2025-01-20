@@ -23,7 +23,10 @@
   border-color: getCssVar('message', 'border-color');
   background-color: getCssVar('message', 'bg-color');
   transform: translateX(-50%);
-  transition: opacity getCssVar('transition-duration'), transform 0.4s, top 0.4s;
+  transition:
+    opacity getCssVar('transition-duration'),
+    transform 0.4s,
+    top 0.4s;
 
   p {
     margin: 0;
@@ -53,7 +56,7 @@
     }
   }
 
-  .#{$namespace}-message__badge {
+  .#{$namespace}-message--badge {
     position: absolute;
     top: 0;
     right: 0;

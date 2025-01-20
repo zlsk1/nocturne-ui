@@ -3,6 +3,7 @@ declare module 'vue' {
     NAlert: (typeof import('nocturne-ui'))['NAlert']
     NAnchor: (typeof import('nocturne-ui'))['NAnchor']
     NAnchorItem: (typeof import('nocturne-ui'))['NAnchorItem']
+    NAutoComplete: (typeof import('nocturne-ui'))['NAutoComplete']
     NAvatar: (typeof import('nocturne-ui'))['NAvatar']
     NBadge: (typeof import('nocturne-ui'))['NBadge']
     NBreadcrumb: (typeof import('nocturne-ui'))['NBreadcrumb']
@@ -27,6 +28,7 @@ declare module 'vue' {
     NDropdown: (typeof import('nocturne-ui'))['NDropdown']
     NDropdownItem: (typeof import('nocturne-ui'))['NDropdownItem']
     NForm: (typeof import('nocturne-ui'))['NForm']
+    NFormItem: (typeof import('nocturne-ui'))['NFormItem']
     NIcon: (typeof import('nocturne-ui'))['NIcon']
     NInput: (typeof import('nocturne-ui'))['NInput']
     NInputNumber: (typeof import('nocturne-ui'))['NInputNumber']
@@ -36,6 +38,7 @@ declare module 'vue' {
     NSubMenu: (typeof import('nocturne-ui'))['NSubMenu']
     NMenuItemGroup: (typeof import('nocturne-ui'))['NMenuItemGroup']
     NOption: (typeof import('nocturne-ui'))['NOption']
+    NOptionGroup: (typeof import('nocturne-ui'))['NOptionGroup']
     NPagination: (typeof import('nocturne-ui'))['NPagination']
     NPopconfirm: (typeof import('nocturne-ui'))['NPopconfirm']
     NPopover: (typeof import('nocturne-ui'))['NPopover']
@@ -57,7 +60,7 @@ declare module 'vue' {
 
   interface ComponentCustomProperties {
     $message: (typeof import('nocturne-ui'))['NMessage']
-    $loading: (typeof import('nocturne-ui'))['NLoading']
+    $loading: (typeof import('nocturne-ui'))['NLoadingUse']
     $notify: (typeof import('nocturne-ui'))['NNotification']
   }
 }

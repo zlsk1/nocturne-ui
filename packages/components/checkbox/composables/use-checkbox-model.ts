@@ -1,8 +1,8 @@
 import { computed, getCurrentInstance, inject, ref } from 'vue'
+import { isArray, isUndefined } from '@/utils'
 import { checkboxGroupContextKey } from '../src/constants'
 
 import type { CheckboxProps } from '../src/checkbox'
-import { isArray, isUndefined } from '@/utils'
 
 export const useCheckboxModel = (props: CheckboxProps) => {
   const selfModel = ref<unknown>(false)
@@ -10,7 +10,7 @@ export const useCheckboxModel = (props: CheckboxProps) => {
   const checkboxGroup = inject(checkboxGroupContextKey, undefined)
   const isGroup = computed(() => isUndefined(checkboxGroup) === false)
   const isLimitExceeded = ref(false)
-  const model = computed({
+  const model = computed<any>({
     get() {
       return isGroup.value
         ? checkboxGroup?.modelValue?.value

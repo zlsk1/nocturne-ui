@@ -1,4 +1,5 @@
 import { createVNode, isVNode, render } from 'vue'
+import { isClient, isElement, isFunction, isNumber, isString } from '@/utils'
 import { instances } from './instance'
 import MessageConstructor from './message.vue'
 import { messageDefaults, messageTypes } from './message'
@@ -15,11 +16,9 @@ import type {
   MessageParamsNormalized,
   messageType
 } from './message'
-import { isClient, isElement, isFunction, isNumber, isString } from '@/utils'
 
 let instaceCount = 1
 
-// 配置参数归一化
 const normalizeOptions = (params?: MessageParams) => {
   const options: MessageOptions =
     !params || isString(params) || isVNode(params) || isFunction(params)
@@ -36,7 +35,7 @@ const normalizeOptions = (params?: MessageParams) => {
     let appendTo = document.querySelector<HTMLElement>(normalized.appendTo)
     if (!isElement(appendTo)) {
       console.warn(
-        'NMessage',
+        'n-message',
         'the appendTo option is not an HTMLElement. Falling back to document.body.'
       )
       appendTo = document.body
@@ -59,7 +58,7 @@ const createMessage = (
   { appendTo, ...options }: MessageParamsNormalized,
   context?: AppContext | null
 ): MessageContext => {
-  const id = `message_${instaceCount++}` // 实例id
+  const id = `message_${instaceCount++}`
   const userOnClose = options.onClose
   const container = document.createElement('div')
   const props = {
@@ -140,7 +139,6 @@ const message: MessageFn &
   return instance.handler
 }
 
-// 实例方法
 messageTypes.forEach((type) => {
   message[type] = (options = {}, appContext) => {
     const normalized = normalizeOptions(options)

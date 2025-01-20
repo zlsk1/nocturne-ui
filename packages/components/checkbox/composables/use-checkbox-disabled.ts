@@ -1,9 +1,10 @@
 import { computed, inject } from 'vue'
+import { isUndefined } from '@/utils'
+import { useFormItem } from '@/components/form'
 import { checkboxGroupContextKey } from '../src/constants'
 
 import type { CheckboxModel, CheckboxStatus } from '../composables'
 import type { CheckboxProps } from '../src/checkbox'
-import { isUndefined } from '@/utils'
 
 export const useCheckboxDisabled = ({
   model,
@@ -12,6 +13,7 @@ export const useCheckboxDisabled = ({
 }: Pick<CheckboxModel, 'model'> &
   Pick<CheckboxStatus, 'isChecked'> &
   Pick<CheckboxProps, 'disabled'>) => {
+  const { formItemDisabled } = useFormItem()
   const checkboxGroup = inject(checkboxGroupContextKey, undefined)
 
   const isLimitDisabled = computed(() => {
@@ -24,7 +26,11 @@ export const useCheckboxDisabled = ({
   })
 
   const isDisabled = computed(
-    () => checkboxGroup?.disabled.value || disabled || isLimitDisabled.value
+    () =>
+      checkboxGroup?.disabled.value ||
+      disabled ||
+      formItemDisabled ||
+      isLimitDisabled.value
   )
 
   return {

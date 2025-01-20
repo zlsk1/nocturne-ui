@@ -1,5 +1,3 @@
-@use 'sass:map';
-
 @use 'mixins/mixins' as *;
 @use 'mixins/var' as *;
 @use 'mixins/function' as *;
@@ -29,7 +27,7 @@ $prefix: #{$namespace}-select-option;
     color: getCssVar('text-color', 'regular');
     cursor: pointer;
 
-    &:hover {
+    @include when(hovering) {
       color: getCssVar('text-color', 'regular');
       background-color: getCssVar('fill-color', 'light');
     }
@@ -49,9 +47,9 @@ $prefix: #{$namespace}-select-option;
 
       &:hover {
         color: getCssVar('option', 'disabled-text-color');
-        background-color: #fff;
+        background: none;
       }
-      
+
       .#{$prefix}__item {
         &:hover {
           color: getCssVar('option', 'disabled-text-color');

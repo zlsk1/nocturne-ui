@@ -1,11 +1,12 @@
 import { computed, inject, ref, toRaw } from 'vue'
 import { isEqual } from 'lodash'
+import { useFormItem } from '@/components/form'
+import { isArray, isBoolean, isNil, isObject, isPropAbsent } from '@/utils'
 import { checkboxGroupContextKey } from '../src/constants'
 
 import type { ComponentInternalInstance } from 'vue'
 import type { CheckboxProps } from '../src/checkbox'
 import type { CheckboxModel } from '../composables'
-import { isArray, isBoolean, isNil, isObject, isPropAbsent } from '@/utils'
 
 export const useCheckboxStatus = (
   props: CheckboxProps,
@@ -13,6 +14,7 @@ export const useCheckboxStatus = (
   { model }: Pick<CheckboxModel, 'model'>
 ) => {
   const checkboxGroup = inject(checkboxGroupContextKey, undefined)
+  const { formItemSize } = useFormItem()
   const isFocused = ref(false)
   const actualValue = computed(() => {
     if (!isPropAbsent(props.value)) {
@@ -37,8 +39,12 @@ export const useCheckboxStatus = (
     }
   })
 
-  const checkboxButtonSize = computed(() => checkboxGroup?.size?.value)
-  const checkboxSize = computed(() => checkboxGroup?.size?.value)
+  const checkboxButtonSize = computed(
+    () => formItemSize || checkboxGroup?.size?.value
+  )
+  const checkboxSize = computed(
+    () => formItemSize || checkboxGroup?.size?.value
+  )
 
   const hasOwnLabel = computed<boolean>(() => {
     return !!slots.default || !isPropAbsent(actualValue.value)

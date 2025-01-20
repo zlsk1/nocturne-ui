@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { isPromise } from '@vue/shared'
-import { switchEmits, switchProps } from './switch'
-import { isBoolean, isString } from '@/utils'
-import { useFormItemId } from '@/components/form'
+import { RiLoader2Fill as Loader } from '@remixicon/vue'
+import { isBoolean, isNil, isPromise, isString } from '@/utils'
+import { useFormItem } from '@/components/form'
 import { useNamespace } from '@/composables'
+import { switchEmits, switchProps } from './switch'
 
 defineOptions({
   name: 'NSwitch'
@@ -15,9 +15,10 @@ const emit = defineEmits(switchEmits)
 
 const ns = useNamespace('switch')
 
-const labelId = useFormItemId()
+const { formItemId, formItemDisabled, formItemSize } = useFormItem()
 
 const actived = ref(props.modelValue)
+const manuallyLoading = ref(false)
 
 const newStyle = computed(() => {
   return {
@@ -25,22 +26,28 @@ const newStyle = computed(() => {
   }
 })
 
+const actualLoading = computed(() => props.loading || manuallyLoading.value)
+
+const actualDisabled = computed(() => formItemDisabled || props.disabled)
+const actualSize = computed(() => formItemSize || props.size)
+
 const handleChange = () => {
   actived.value = !actived.value
   const val = actived.value ? props.activeValue : props.inactiveValue
 
-  emit('change', val as boolean | string | number)
-  emit('update:modelValue', val as boolean | string | number)
+  emit('change', val)
+  emit('update:modelValue', val)
 }
 
 const handleSwitch = () => {
-  if (props.disabled) return
-  if (!props.beforeChange) {
+  if (actualLoading.value) return
+  if (isNil(props.beforeChange)) {
     handleChange()
     return
   }
 
-  const beforeChange = props.beforeChange
+  const beforeChange = props.beforeChange()
+
   const showProcess = [
     isBoolean(beforeChange),
     isPromise(beforeChange)
@@ -49,13 +56,16 @@ const handleSwitch = () => {
   if (!showProcess) {
     throw new Error('before-change must be a boolean or promise')
   } else if (isPromise(beforeChange)) {
+    manuallyLoading.value = true
     beforeChange
       .then((res) => {
         if (res) {
+          manuallyLoading.value = false
           handleChange()
         }
       })
       .catch((err) => {
+        manuallyLoading.value = false
         console.error(err)
       })
   } else if (beforeChange) {
@@ -72,58 +82,48 @@ defineExpose({
   <div
     :class="[
       ns.b(),
-      ns.m(size),
+      ns.m(actualSize),
       ns.is('checked', !!actived),
-      ns.is('disabled', disabled)
+      ns.is('disabled', actualDisabled || actualLoading)
     ]"
     :style="newStyle"
     @click.prevent="handleSwitch"
   >
     <input
-      :id="labelId"
+      :id="formItemId"
       type="checkbox"
-      :disabled="disabled"
+      :disabled="actualDisabled"
       :class="ns.e('input')"
       :value="modelValue"
       @change="handleChange"
     />
     <span
-      v-if="inactiveText && !inlineText"
+      v-if="inactiveText && !inlinePrompt"
       :class="[ns.e('label'), ns.e('label--left'), ns.is('active', !actived)]"
     >
       <span>{{ inactiveText }}</span>
     </span>
-    <div :class="ns.e('wrap')">
+    <div :class="ns.e('wrap')" :style="newStyle">
       <div :class="ns.e('action')">
-        <template v-if="actived">
-          <slot name="active-action-icon" />
-        </template>
-        <template v-else>
-          <slot name="inactive-action-icon" />
-        </template>
+        <Loader v-if="actualLoading" :class="ns.e('loading')" />
+        <slot v-if="actived" name="active-action-icon" />
+        <slot v-else name="inactive-action-icon" />
       </div>
-      <div
-        v-if="activeText || $slots.activeIcon || $slots.inactiveIcon"
-        :class="ns.em('action', 'reverse')"
-      >
-        <template v-if="actived">
-          <slot name="active-icon" />
-        </template>
-        <template v-else>
-          <slot name="inactive-icon" />
-        </template>
+      <div :class="ns.em('action', 'reverse')">
+        <slot v-if="actived" name="active-icon" />
+        <slot v-else name="inactive-icon" />
         <span
-          v-if="activeText && inlineText && actived"
+          v-if="activeText && inlinePrompt && actived"
           :class="ns.em('action', 'text')"
           >{{ activeText }}</span
         >
-        <span v-if="activeText && inlineText && !actived">{{
-          inactiveText
-        }}</span>
+        <span v-else-if="activeText && inlinePrompt && !actived">
+          {{ inactiveText }}
+        </span>
       </div>
     </div>
     <span
-      v-if="activeText && !inlineText"
+      v-if="activeText && !inlinePrompt"
       :class="[ns.e('label'), ns.e('label--right'), ns.is('active', !!actived)]"
     >
       <span>{{ activeText }}</span>

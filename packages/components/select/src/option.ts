@@ -26,7 +26,7 @@ export const optionProps = {
     type: Boolean,
     default: false
   }
-}
+} as const
 
 export const optionEmits = {
   select: (val: string | number | boolean | object) =>
@@ -35,4 +35,4 @@ export const optionEmits = {
 
 export type OptionProps = ExtractPropTypes<typeof optionProps>
 export type OptionEmits = typeof optionEmits
-export type FrOption = InstanceType<typeof option>
+export type NOption = InstanceType<typeof option>

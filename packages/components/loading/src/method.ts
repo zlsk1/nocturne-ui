@@ -1,15 +1,23 @@
-import { AppContext, createVNode, render } from 'vue'
+import { createVNode, render } from 'vue'
+import { isObject } from 'lodash'
+import { isClient, isElement, isString } from '@/utils'
 import { loadingDefault } from './loading'
 import Loading from './loading.vue'
+import type { AppContext } from 'vue'
 
-import type { closeHandler, loadingParams, normilizedParams } from './loading'
-import { isElement, isString } from '@/utils'
+import type { LoadingIntance, loadingParams, normilizedParams } from './loading'
 
 const normilizeParams = (props?: loadingParams) => {
-  const mergeParams = {
-    ...loadingDefault,
-    ...props
-  }
+  const mergeParams =
+    isObject(props) && !isElement(props)
+      ? {
+          ...loadingDefault,
+          ...props
+        }
+      : {
+          ...loadingDefault,
+          target: props
+        }
 
   if (!mergeParams.target) {
     mergeParams.target = document.body
@@ -29,33 +37,43 @@ const normilizeParams = (props?: loadingParams) => {
 const loading = (
   props?: loadingParams,
   context?: AppContext | null
-): closeHandler => {
+): LoadingIntance => {
+  if (!isClient()) {
+    return {
+      ...loadingDefault,
+      vm: null,
+      close: () => {}
+    }
+  }
+
   const container = document.createElement('div')
   const normilizedParam = normilizeParams(props)
+
   const onDestroy = () => {
     render(null, container)
   }
   const close = () => {
     onDestroy()
-    document.body.style.overflow = 'auto'
+    document.body.style.overflow = ''
     normilizedParam.onClose?.()
   }
 
-  const options = {
-    ...normilizedParam
-  }
+  const options = { ...normilizedParam }
 
-  const vnode = createVNode(Loading, options)
+  const vm = createVNode(Loading, options)
 
-  vnode.appContext = context || null
+  vm.appContext = context || null
 
-  render(vnode, container)
+  render(vm, container)
 
   options.target.appendChild(container.firstElementChild!)
 
-  document.body.style.overflow = normilizedParam.locked ? 'hidden' : 'auto'
+  document.body.style.overflow = normilizedParam.locked ? 'hidden' : ''
 
-  return close
+  return {
+    vm,
+    close
+  }
 }
 
 export default loading

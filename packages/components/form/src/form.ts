@@ -1,8 +1,10 @@
+import { definePropType, isObject } from '@/utils'
+import { componentSizes } from '@/constants'
 import form from './form.vue'
 import { positionValues } from './form-item'
+import type { ComponentSize } from '@/constants'
 
 import type { ExtractPropTypes } from 'vue'
-import { definePropType, isObject } from '@/utils'
 
 export const formProps = {
   model: Object,
@@ -15,6 +17,14 @@ export const formProps = {
   labelWidth: {
     type: definePropType<string | number>([String, Number]),
     default: ''
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  size: {
+    type: definePropType<ComponentSize>(String),
+    values: componentSizes
   }
 } as const
 

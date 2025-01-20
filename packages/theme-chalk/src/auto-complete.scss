@@ -1,0 +1,39 @@
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+$selector: #{$namespace}-auto-complete;
+
+@include b('auto-complete') {
+  @include set-component-css-var(auto-complete, $auto-complete);
+}
+
+@include b('auto-complete') {
+}
+
+.#{$selector}__popper {
+  @include set-component-css-var(auto-complete, $auto-complete);
+  &:hover {
+    @include scroll-bar;
+    overflow: auto;
+  }
+  overflow: hidden;
+  box-sizing: border-box;
+  .#{$selector}__content {
+    padding: getCssVar('auto-complete', 'popper-padding');
+    box-sizing: border-box;
+    .#{$selector}__content__item {
+      height: getCssVar('auto-complete', 'item-height');
+      padding-left: 10px;
+      line-height: getCssVar('auto-complete', 'item-height');
+      color: getCssVar('auto-complete', 'item-color');
+      border-radius: getCssVar('auto-complete', 'item-radius');
+      transition: all getCssVar('transition-duration-fast');
+      cursor: pointer;
+    }
+
+    .hovering {
+      background-color: getCssVar('auto-complete', 'item-hover-bg-color');
+    }
+  }
+}

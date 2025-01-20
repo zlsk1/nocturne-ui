@@ -1,0 +1,11 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(option-group) {
+  @include e(title) {
+    padding: 6px 20px;
+    font-size: 13px;
+    color: getCssVar('text-color-placeholder');
+  }
+}

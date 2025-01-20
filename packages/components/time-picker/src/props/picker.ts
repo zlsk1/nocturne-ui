@@ -3,6 +3,13 @@ import {
   RiTimeFill as Time
 } from '@remixicon/vue'
 import { isObject } from 'lodash'
+import {
+  definePropType,
+  iconPropType,
+  isBoolean,
+  isNumber,
+  isString
+} from '@/utils'
 import Picker from '../picker.vue'
 
 import type { ExtractPropTypes } from 'vue'
@@ -17,13 +24,6 @@ import type {
   PopperContentProps,
   PopperCoreConfigProps
 } from '@/components/popper'
-import {
-  definePropType,
-  iconPropType,
-  isBoolean,
-  isNumber,
-  isString
-} from '@/utils'
 
 export const pickerPropsBase = {
   /**
@@ -56,7 +56,7 @@ export const pickerProps = {
     type: definePropType<string | number>([String, Number])
   },
   id: {
-    type: definePropType<string | Record<string, string>>([String, Object])
+    type: String
   },
   name: String,
   readonly: {

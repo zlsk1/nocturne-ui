@@ -1,15 +1,26 @@
+import { definePropType, isNumber } from '@/utils'
+import { componentSizes } from '@/constants'
 import slider from './slider.vue'
-import { sliderReferenceProps } from './reference'
+import { sliderTriggerProps } from './trigger'
 import type { ExtractPropTypes } from 'vue'
-import { isNumber } from '@/utils'
+import type { ComponentSize } from '@/constants'
 
 export const sliderProps = {
-  ...sliderReferenceProps,
+  ...sliderTriggerProps,
   modelValue: {
     type: Number,
     default: 0
+  },
+  size: {
+    type: definePropType<ComponentSize>(String),
+    values: componentSizes
+  },
+  range: {
+    type: Boolean,
+    default: false
   }
-}
+} as const
+
 export const sliderEmits = {
   change: (val: number) => isNumber(val)
 }

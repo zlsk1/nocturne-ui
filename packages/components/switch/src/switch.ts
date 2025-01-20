@@ -29,12 +29,16 @@ export const switchProps = {
     default: false
   },
   tabindex: definePropType<string | number>([String, Number]),
-  inlineText: {
+  inlinePrompt: {
     type: Boolean,
-    default: true
+    default: false
   },
   beforeChange: {
-    type: definePropType<boolean | Promise<boolean>>([Boolean, Function])
+    type: definePropType<(() => boolean) | (() => Promise<boolean>)>([Function])
+  },
+  loading: {
+    type: Boolean,
+    default: false
   }
 } as const
 

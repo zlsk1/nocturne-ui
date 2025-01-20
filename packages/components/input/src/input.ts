@@ -1,7 +1,7 @@
 import { ExtractPropTypes } from 'vue'
-import Input from './input.vue'
 import { definePropType, iconPropType, isString } from '@/utils'
 import { componentSizes } from '@/constants'
+import Input from './input.vue'
 
 export const inputProps = {
   type: {
@@ -64,7 +64,10 @@ export const inputProps = {
     type: Boolean,
     deafult: false
   },
-  id: Number
+  afterBlur: {
+    type: Function
+  },
+  id: String
 } as const
 
 export const inputEmits = {

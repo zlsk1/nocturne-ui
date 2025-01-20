@@ -8,9 +8,21 @@
 $select-height: () !default;
 $select-height: map.merge(
   (
-    'large': ('height': 40px, 'font-size': 14px, 'padding': 0 14px),
-    'default': ('height': 32px, 'font-size': 13px,'padding': 0 10px),
-    'small': ('height': 24px, 'font-size': 12px, 'padding': 0 6px),
+    'large': (
+      'height': 40px,
+      'font-size': 14px,
+      'padding': 0 14px
+    ),
+    'default': (
+      'height': 32px,
+      'font-size': 13px,
+      'padding': 0 10px
+    ),
+    'small': (
+      'height': 24px,
+      'font-size': 12px,
+      'padding': 0 6px
+    )
   ),
   $select-height
 );
@@ -26,15 +38,21 @@ $select-height: map.merge(
   border-radius: getCssVar('border-radius', 'base');
   border: 1px solid getCssVar('border-color');
   cursor: pointer;
-  transition: all .3s linear;
+  transition: all getCssVar('transition-duration') linear;
 
   &:hover {
-    border: 1px solid getCssVar('select', 'hover-border') 
+    border: 1px solid getCssVar('select', 'hover-border');
   }
 
   @include when(focus) {
     outline: none;
-    border: 1px solid getCssVar('select', 'focus-border') 
+    border: 1px solid getCssVar('select', 'focus-border');
+
+    @include when(selecting) {
+      @include e(placeholder) {
+        color: getCssVar('text-color-secondary');
+      }
+    }
   }
 
   @include when(disabled) {
@@ -48,7 +66,6 @@ $select-height: map.merge(
   }
 
   @include e(wrapper) {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -58,10 +75,14 @@ $select-height: map.merge(
 
     @include when(multiple) {
       padding-left: 0px;
+
+      @include e(placeholder) {
+        margin-right: 0;
+      }
     }
   }
 
-  .#{$namespace}-select__input--wrapper {
+  .#{$namespace}-select__content {
     position: relative;
     display: flex;
     align-items: center;
@@ -69,32 +90,42 @@ $select-height: map.merge(
     flex: 1;
     min-width: 0;
 
-    @include e(input) {
+    @include e(input--wrapper) {
+      display: flex;
+      flex-wrap: wrap;
       max-width: 100%;
-      border: none;
-      outline: none;
-      padding: 0;
-      font-size: inherit;
-      font-family: inherit;
-      appearance: none;
-      background-color: transparent;
-      cursor: pointer;
+      user-select: none;
+
+      @include e(input) {
+        max-width: 100%;
+        padding: 0;
+        border: none;
+        outline: none;
+        appearance: none;
+        background-color: transparent;
+      }
+
+      @include e(input--calculator) {
+        position: absolute;
+        top: 0;
+        inset-inline-start: 0;
+        inset-inline-end: auto;
+        z-index: 999;
+        white-space: pre;
+        visibility: hidden;
+      }
     }
 
     @include e(placeholder) {
       position: absolute;
       top: 50%;
-      left: 0;
+      display: block;
       width: 100%;
-      transform: translateY(-50%);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       user-select: none;
-
-      @include when(selecting) {
-        color: getCssVar('text-color-regular');
-      }
+      transform: translateY(-50%);
 
       @include when(disabled) {
         color: getCssVar('select', 'disabled-text-color');
@@ -102,8 +133,19 @@ $select-height: map.merge(
     }
   }
 
+  @include when(selecting) {
+    @include e(placeholder) {
+      color: getCssVar('text-color-regular');
+    }
+  }
+
+  @include when(filterable) {
+    cursor: text;
+  }
+
   @include e(tag) {
     margin: 3px 4px;
+    cursor: pointer;
   }
 
   @include e(icon) {
@@ -111,16 +153,23 @@ $select-height: map.merge(
     align-items: center;
     flex-shrink: 0;
     font-size: 18px;
+    cursor: pointer;
   }
-  
+
   @each $size in (large, small) {
     @include m($size) {
-      @include set-css-var-value(('select', 'height'),
-        map.get($select-height, $size, 'height'));
-      @include set-css-var-value(('select', 'font-size'),
-        map.get($select-height, $size, 'font-size'));
-      @include set-css-var-value(('select', 'padding'),
-        map.get($select-height, $size, 'padding'));
+      @include set-css-var-value(
+        ('select', 'height'),
+        map.get($select-height, $size, 'height')
+      );
+      @include set-css-var-value(
+        ('select', 'font-size'),
+        map.get($select-height, $size, 'font-size')
+      );
+      @include set-css-var-value(
+        ('select', 'padding'),
+        map.get($select-height, $size, 'padding')
+      );
 
       min-height: getCssVar('select', 'height');
       padding: getCssVar('select', 'padding');
@@ -133,7 +182,8 @@ $select-height: map.merge(
   }
 }
 
-.#{$namespace}-select__popper {
-  padding: 4px 0 !important;
+.empty-value {
+  display: block;
+  padding: 4px 0;
+  text-align: center;
 }
-  

@@ -1,13 +1,56 @@
+<template>
+  <transition
+    :name="`${ns.ns.value}-message-fade`"
+    @before-leave="onClose!"
+    @after-leave="$emit('destroy')"
+  >
+    <div
+      v-show="visible"
+      :id="id"
+      ref="messageRef"
+      :class="[ns.b(), ns.m(type), customClass]"
+      :style="{
+        top: offset + 'px',
+        zIndex: zIndex
+      }"
+      @mouseenter="clearTimer"
+      @mouseleave="startTimer"
+    >
+      <n-badge
+        v-if="repeatNum > 1"
+        :class="ns.m('badge')"
+        :value="repeatNum"
+        :type="badgeType"
+      />
+      <component :is="icon" :class="ns.bm(icon.value, type)" size="18" />
+      <div :class="ns.e('content')">
+        <span v-if="!isVNode(message)" :class="ns.e('title')">
+          {{ message }}
+        </span>
+        <span v-else :class="ns.e('title')">
+          <slot />
+        </span>
+        <Close
+          v-if="showClose"
+          :class="ns.e('close')"
+          size="18"
+          @click.stop="close"
+        />
+      </div>
+    </div>
+  </transition>
+</template>
+
 <script lang="ts" setup>
 import { computed, isVNode, onMounted, ref, watch } from 'vue'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
 import { RiCloseLine as Close } from '@remixicon/vue'
+import NBadge from '@/components/badge'
+import { useNamespace } from '@/composables'
+import { typeIcons } from '@/utils'
 import { messageEmits, messageProps } from './message'
 import { getLastOffset, getOffsetOrSpace } from './instance'
 import type { BadgeProps } from '@/components/badge'
-import { NBadge } from '@/components'
-import { useNamespace } from '@/composables'
-import { typeIcons } from '@/utils'
 
 defineOptions({
   name: 'NMessage'
@@ -90,46 +133,3 @@ defineExpose({
   close
 })
 </script>
-
-<template>
-  <transition
-    :name="`${ns.ns.value}-message-fade`"
-    @before-leave="onClose!"
-    @after-leave="$emit('destroy')"
-  >
-    <div
-      v-show="visible"
-      :id="id"
-      ref="messageRef"
-      :class="[ns.b(), ns.m(type), customClass]"
-      :style="{
-        top: offset + 'px',
-        zIndex: zIndex
-      }"
-      @mouseenter="clearTimer"
-      @mouseleave="startTimer"
-    >
-      <NBadge
-        v-if="repeatNum > 1"
-        :class="ns.m('badge')"
-        :value="repeatNum"
-        :type="badgeType"
-      />
-      <component :is="icon" :class="ns.bm(icon.value, type)" size="18" />
-      <div :class="ns.e('content')">
-        <span v-if="!isVNode(message)" :class="ns.e('title')">
-          {{ message }}
-        </span>
-        <span v-else :class="ns.e('title')">
-          <slot />
-        </span>
-        <Close
-          v-if="showClose"
-          :class="ns.e('close')"
-          size="18"
-          @click.stop="close"
-        />
-      </div>
-    </div>
-  </transition>
-</template>

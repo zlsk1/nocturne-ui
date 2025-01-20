@@ -5,6 +5,7 @@ declare module '@vue/runtime-core' {
     NAlert: (typeof import('packages'))['NAlert']
     NAnchor: (typeof import('packages'))['NAnchor']
     NAnchorItem: (typeof import('packages'))['NAnchorItem']
+    NAutoComplete: (typeof import('packages'))['NAutoComplete']
     NAvatar: (typeof import('packages'))['NAvatar']
     NBadge: (typeof import('packages'))['NBadge']
     NBreadcrumb: (typeof import('packages'))['NBreadcrumb']
@@ -29,6 +30,7 @@ declare module '@vue/runtime-core' {
     NDropdown: (typeof import('packages'))['NDropdown']
     NDropdownItem: (typeof import('packages'))['NDropdownItem']
     NForm: (typeof import('packages'))['NForm']
+    NFormItem: (typeof import('packages'))['NFormItem']
     NIcon: (typeof import('packages'))['NIcon']
     NInput: (typeof import('packages'))['NInput']
     NInputNumber: (typeof import('packages'))['NInputNumber']
@@ -38,6 +40,7 @@ declare module '@vue/runtime-core' {
     NSubMenu: (typeof import('packages'))['NSubMenu']
     NMenuItemGroup: (typeof import('packages'))['NMenuItemGroup']
     NOption: (typeof import('packages'))['NOption']
+    NOptionGroup: (typeof import('packages'))['NOptionGroup']
     NPagination: (typeof import('packages'))['NPagination']
     NPopconfirm: (typeof import('packages'))['NPopconfirm']
     NPopover: (typeof import('packages'))['NPopover']
@@ -59,8 +62,8 @@ declare module '@vue/runtime-core' {
 
   interface ComponentCustomProperties {
     $message: (typeof import('packages'))['NMessage']
-    $loading: (typeof import('packages'))['NLoading']
     $notify: (typeof import('packages'))['NNotification']
+    $loading: (typeof import('packages'))['NLoadingUse']
   }
 }
 
