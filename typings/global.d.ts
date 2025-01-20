@@ -56,6 +56,8 @@ declare module 'vue' {
     NTimeline: (typeof import('nocturne-ui'))['NTimeline']
     NTimelineItem: (typeof import('nocturne-ui'))['NTimelineItem']
     NTooltip: (typeof import('nocturne-ui'))['NTooltip']
+    NTree: (typeof import('nocturne-ui'))['NTree']
+    NTreeSelect: (typeof import('nocturne-ui'))['NTreeSelect']
   }
 
   interface ComponentCustomProperties {

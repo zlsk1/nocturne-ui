@@ -1,0 +1,17 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(tree-select) {
+  @include set-component-css-var('tree-select', $tree-select);
+}
+
+@include b(tree-select) {
+  li {
+    list-style: none;
+  }
+  @include e('title') {
+    display: flex;
+    align-items: center;
+  }
+}

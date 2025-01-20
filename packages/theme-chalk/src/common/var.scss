@@ -1076,3 +1076,9 @@ $auto-complete: map.merge(
   ),
   $auto-complete
 );
+
+$tree-select: () !default;
+$tree-select: map.merge((), $tree-select);
+
+$tree: () !default;
+$tree: map.merge((), $tree);

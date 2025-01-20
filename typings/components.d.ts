@@ -58,6 +58,8 @@ declare module '@vue/runtime-core' {
     NTimeline: (typeof import('packages'))['NTimeline']
     NTimelineItem: (typeof import('packages'))['NTimelineItem']
     NTooltip: (typeof import('packages'))['NTooltip']
+    NTree: (typeof import('packages'))['NTree']
+    NTreeSelect: (typeof import('packages'))['NTreeSelect']
   }
 
   interface ComponentCustomProperties {

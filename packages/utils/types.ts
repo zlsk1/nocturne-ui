@@ -21,3 +21,5 @@ export const isElement = (e: any): e is Element => {
 export const isPropAbsent = (prop: any): prop is null | undefined => {
   return isNil(prop)
 }
+
+export type Nullable<T> = T | null

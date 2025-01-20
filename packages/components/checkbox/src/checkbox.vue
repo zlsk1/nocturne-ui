@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed, useSlots } from 'vue'
+import { useNamespace } from '@/composables'
 import { useCheckbox } from '../composables'
 import { checkboxEmits, checkboxProps } from './checkbox'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NCheckbox'
@@ -84,7 +84,7 @@ const checkboxInputCls = computed(() => [
       />
       <span :class="ns.e('inner')" />
     </span>
-    <span :class="ns.e('label')">
+    <span v-if="$slots.default || label" :class="ns.e('label')">
       <slot />
       <template v-if="!$slots.default">{{ label }}</template>
     </span>

@@ -44,6 +44,8 @@ import { NTimePicker } from '@/components/time-picker'
 import { NTimeline } from '@/components/timeline'
 import { NTimelineItem } from '@/components/timeline-item'
 import { NTooltip } from '@/components/tooltip'
+import { NTree } from '@/components/tree'
+import { NTreeSelect } from '@/components/tree-select'
 
 import type { Plugin } from 'vue'
 
@@ -104,5 +106,7 @@ export default [
   NTimePicker,
   NTimeline,
   NTimelineItem,
-  NTooltip
+  NTooltip,
+  NTree,
+  NTreeSelect
 ] as Plugin[]
