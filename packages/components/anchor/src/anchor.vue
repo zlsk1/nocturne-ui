@@ -102,7 +102,7 @@ const handleScroll = () => {
       const { href, top } = links.value[i]
       if (
         scrollY > top - props.offset &&
-        scrollY < links.value[i + 1].top - props.offset
+        scrollY < links.value[i + 1]?.top - props.offset
       ) {
         return href
       }
