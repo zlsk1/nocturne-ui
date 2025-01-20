@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useData } from 'vitepress'
-import vpDocContent from './vp-doc-content.vue'
 import vpNav from './vp-nav.vue'
-import vpSidebar from './vp-sidebar.vue' 
+import vpSidebar from './vp-sidebar.vue'
 import vpContent from './vp-content.vue'
 
 const { page } = useData()
@@ -14,7 +13,7 @@ const isPage = computed(() => {
 </script>
 
 <template>
-  <vpNav></vpNav>
+  <vpNav :plain="!!isPage"></vpNav>
   <vpSidebar v-if="!isPage"></vpSidebar>
   <vpContent></vpContent>
 </template>
