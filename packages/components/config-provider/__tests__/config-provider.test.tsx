@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import ConfigProvider from '../src/config-provider'
 import Button from '@/components/button'
+import ConfigProvider from '../src/config-provider'
 
 describe('Config Provider', () => {
   test('render', () => {

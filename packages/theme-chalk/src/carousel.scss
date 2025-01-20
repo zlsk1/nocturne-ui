@@ -8,10 +8,26 @@
 $placements: () !default;
 $placements: map.merge(
   (
-    'bottom': (bottom: 3%, left: 50%, transform: translateX(-50%)),
-    'top': (top: 3%, left: 50%, transform: translateX(-50%)),
-    'left': (left: 3%, top: 50%, transform: translateY(-50%)),
-    'right': (right: 3%, top: 50%, transform: translateY(-50%)),
+    'bottom': (
+      bottom: 3%,
+      left: 50%,
+      transform: translateX(-50%)
+    ),
+    'top': (
+      top: 3%,
+      left: 50%,
+      transform: translateX(-50%)
+    ),
+    'left': (
+      left: 3%,
+      top: 50%,
+      transform: translateY(-50%)
+    ),
+    'right': (
+      right: 3%,
+      top: 50%,
+      transform: translateY(-50%)
+    )
   ),
   $placements
 );
@@ -23,7 +39,8 @@ $placements: map.merge(
   position: relative;
   overflow: hidden;
 
-  ul, li {
+  ul,
+  li {
     list-style: none;
     margin: 0;
   }
@@ -44,29 +61,26 @@ $placements: map.merge(
         display: flex;
         transform: map.get($placements, $placement, transform);
         left: map.get($placements, $placement, left);
-  
+
         @if $placement == bottom {
           bottom: map.get($placements, $placement, bottom);
-        }
-        @else {
+        } @else {
           top: map.get($placements, $placement, top);
         }
-      }
-      @else if $placement == left or $placement == right {
+      } @else if $placement == left or $placement == right {
         top: map.get($placements, $placement, top);
         transform: map.get($placements, $placement, transform);
-      
+
         @include e(indicator__item) {
           button {
-            width: map.get($carousel-indicator-size, 'vertical' ,'width');
-            height: map.get($carousel-indicator-size, 'vertical' ,'height');
+            width: map.get($carousel-indicator-size, 'vertical', 'width');
+            height: map.get($carousel-indicator-size, 'vertical', 'height');
             padding: 0;
           }
         }
         @if $placement == left {
           left: map.get($placements, $placement, right);
-        }
-        @else if $placement == right {
+        } @else if $placement == right {
           right: map.get($placements, $placement, right);
         }
       }
@@ -79,15 +93,15 @@ $placements: map.merge(
 
     button {
       display: block;
-      width: map.get($carousel-indicator-size, 'horizontal' ,'width');
-      height: map.get($carousel-indicator-size, 'horizontal' ,'height');
+      width: map.get($carousel-indicator-size, 'horizontal', 'width');
+      height: map.get($carousel-indicator-size, 'horizontal', 'height');
       background-color: getCssVar('carousel', 'indicator-bg');
       transition: all getCssVar('transition-duration-fast');
       cursor: pointer;
 
       @include when(circle) {
-        width: map.get($carousel-indicator-size, 'circle' ,'width');
-        height: map.get($carousel-indicator-size, 'circle' ,'height');
+        width: map.get($carousel-indicator-size, 'circle', 'width');
+        height: map.get($carousel-indicator-size, 'circle', 'height');
         border-radius: 50%;
       }
     }

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { onMounted, provide, ref } from 'vue'
-import { collapseEmits, collapseProps } from './collapse'
-import { COLLAPSE_INJECTION_KEY } from './constants'
 import { useNamespace } from '@/composables'
 import { isString } from '@/utils'
+import { collapseEmits, collapseProps } from './collapse'
+import { COLLAPSE_INJECTION_KEY } from './constants'
 
 defineOptions({
   name: 'NCollapse'

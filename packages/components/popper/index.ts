@@ -1,5 +1,5 @@
-import popper from './src/popper.vue'
 import { withInstall } from '@/utils'
+import popper from './src/popper.vue'
 
 export const NPopper = withInstall(popper)
 export * from './src/arrow'

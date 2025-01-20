@@ -1,10 +1,10 @@
 import { placements } from '@popperjs/core'
-import Dropdown from './dropdown.vue'
-import type { ExtractPropTypes } from 'vue'
-import type { Options } from '@popperjs/core'
 import { TooltipTriggerType } from '@/components/tooltip'
 import { definePropType, isBoolean } from '@/utils'
 import { ClassType } from '@/components/popper'
+import Dropdown from './dropdown.vue'
+import type { ExtractPropTypes } from 'vue'
+import type { Options } from '@popperjs/core'
 
 export const dropdownProps = {
   trigger: {

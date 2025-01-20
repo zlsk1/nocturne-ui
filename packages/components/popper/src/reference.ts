@@ -1,6 +1,6 @@
+import { definePropType } from '@/utils'
 import type { Measurable } from './constants'
 import type Trigger from './reference.vue'
-import { definePropType } from '@/utils'
 
 export const popperReferenceProps = {
   virtualRef: {

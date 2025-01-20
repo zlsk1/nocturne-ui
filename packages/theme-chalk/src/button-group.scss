@@ -5,7 +5,6 @@
 @use 'mixins/var' as *;
 
 @include b(button-group) {
-
   display: inline-block;
   vertical-align: middle;
 
@@ -54,7 +53,7 @@
       z-index: 1;
     }
   }
-  
+
   @each $type in (primary, success, warning, danger, info) {
     .#{$namespace}-button--#{$type} {
       &:first-child {

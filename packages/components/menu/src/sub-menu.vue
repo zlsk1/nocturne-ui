@@ -99,15 +99,14 @@ import {
 } from 'vue'
 import { RiArrowRightWideFill as Arrow } from '@remixicon/vue'
 import { useTimeoutFn } from '@vueuse/core'
+import { useNamespace } from '@/composables'
+import { NCollapseTransition, NTooltip } from '@/components'
 import useMenu from './compoables/use-menu'
 import { subMenuProps } from './menu'
 import { NMENU_INJECTION_KEY } from './constants'
 import type { ExtistMenuItem } from './menu'
 import type { NSubMenuInjectionContext } from './constants'
 import type { StyleValue } from 'vue'
-import { useNamespace } from '@/composables'
-
-import { NCollapseTransition, NTooltip } from '@/components'
 
 defineOptions({
   name: 'NSubMenu'

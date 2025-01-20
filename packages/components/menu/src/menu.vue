@@ -9,6 +9,7 @@
 <script lang="ts" setup>
 import { getCurrentInstance, provide, ref, toRefs } from 'vue'
 import { isNil } from 'lodash'
+import { useNamespace } from '@/composables'
 import { menuEmit, menuProps } from './menu'
 import { NMENU_INJECTION_KEY } from './constants'
 import type {
@@ -16,7 +17,6 @@ import type {
   NSubMenuInjectionContext
 } from './constants'
 import type { ExtistMenuItem } from './menu'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NMenu'

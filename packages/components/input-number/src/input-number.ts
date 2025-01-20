@@ -1,7 +1,7 @@
 import { ExtractPropTypes } from 'vue'
-import inputNumber from './input-number.vue'
 import { componentSizes } from '@/constants'
 import { isNumber } from '@/utils'
+import inputNumber from './input-number.vue'
 
 export const inputNumberProps = {
   modelValue: {

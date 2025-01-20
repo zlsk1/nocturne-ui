@@ -1,7 +1,7 @@
+import { withInstall } from '@/utils'
 import select from './src/select.vue'
 import option from './src/option.vue'
 import optionGroup from './src/option-group'
-import { withInstall } from '@/utils'
 
 export * from './src/select'
 export * from './src/option'

@@ -1,8 +1,8 @@
 import { RiLoaderLine as Loading } from '@remixicon/vue'
-import Button from './button.vue'
-import type { ExtractPropTypes } from 'vue'
 import { iconPropType } from '@/utils'
 import { componentSizes } from '@/constants'
+import Button from './button.vue'
+import type { ExtractPropTypes } from 'vue'
 
 export const buttonTypes = [
   'primary',

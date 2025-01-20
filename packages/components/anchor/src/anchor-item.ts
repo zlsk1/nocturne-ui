@@ -1,8 +1,8 @@
+import { definePropType } from '@/utils'
 import anchorItem from './anchor.vue'
 
 import type { ExtractPropTypes } from 'vue'
 import type { AnchorItems } from './anchor'
-import { definePropType } from '@/utils'
 
 export const anchorItemProps = {
   items: {

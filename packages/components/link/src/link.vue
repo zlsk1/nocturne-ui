@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { linkProps } from './link'
 import { useNamespace } from '@/composables'
+import { linkProps } from './link'
 
 defineOptions({
   name: 'NLink'

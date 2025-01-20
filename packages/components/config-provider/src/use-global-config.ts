@@ -1,13 +1,13 @@
 import { computed, getCurrentInstance, inject, provide, unref } from 'vue'
-import { ConfigProviderProps } from '../src/props'
-import { CONFIGPROVIDER_INJECT_KEY } from '../src/constants'
-
-import type { App, MaybeRef } from 'vue'
 import {
   COMPONENT_SIZE_INJECTION_KEY,
   NAMESPACE_INJECTION_KEY,
   ZINDEX_INJECTION_KEY
 } from '@/composables'
+import { ConfigProviderProps } from '../src/props'
+import { CONFIGPROVIDER_INJECT_KEY } from '../src/constants'
+
+import type { App, MaybeRef } from 'vue'
 
 export const useGlobalConfig = () => {
   const config = getCurrentInstance()

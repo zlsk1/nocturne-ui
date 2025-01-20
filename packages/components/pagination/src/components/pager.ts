@@ -1,5 +1,5 @@
-import type { ExtractPropTypes } from 'vue'
 import { isNumber } from '@/utils'
+import type { ExtractPropTypes } from 'vue'
 
 export const pagerProps = {
   maxPages: {

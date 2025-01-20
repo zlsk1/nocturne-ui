@@ -1,6 +1,6 @@
+import { withInstall } from '@/utils'
 import form from './src/form.vue'
 import formItem from './src/form-item.vue'
-import { withInstall } from '@/utils'
 
 export * from './src/form'
 export * from './src/composables/use-form-item'

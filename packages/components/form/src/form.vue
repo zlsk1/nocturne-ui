@@ -6,13 +6,13 @@
 
 <script lang="ts" setup>
 import { type Ref, computed, provide, reactive, ref, toRefs } from 'vue'
+import { useNamespace } from '@/composables'
 import { formEmit, formProps } from './form'
 import { FORM_INJECTION_KEY } from './constants'
 
 import type { Callback, NFormItemInjectionContext } from './types'
 import type { ValidateFieldsError } from 'async-validator'
 import type { FormItemProps } from './form-item'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NForm'

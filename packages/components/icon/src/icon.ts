@@ -1,5 +1,5 @@
-import type { ExtractPropTypes } from 'vue'
 import { definePropType } from '@/utils'
+import type { ExtractPropTypes } from 'vue'
 
 export const iconProps = {
   size: {

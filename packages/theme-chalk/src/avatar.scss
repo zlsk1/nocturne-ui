@@ -22,7 +22,6 @@
   box-sizing: border-box;
 
   @each $size in (large, small) {
-
     @include m($size) {
       width: getCssVar('component-size', $size);
       height: getCssVar('component-size', $size);

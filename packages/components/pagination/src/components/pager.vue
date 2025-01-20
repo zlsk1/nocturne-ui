@@ -50,9 +50,9 @@ import {
   RiArrowRightDoubleFill as ArrowRightDouble,
   RiMoreFill as More
 } from '@remixicon/vue'
+import { useNamespace } from '@/composables'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { pagerProps } from './pager'
-import { useNamespace } from '@/composables'
 
 const { totalPages, _currentPage, disabled, emit } = inject(
   PAGINATION_INJECTION_KEY,

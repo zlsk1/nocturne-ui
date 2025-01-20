@@ -1,7 +1,7 @@
-import radio from './radio.vue'
-import type { ExtractPropTypes } from 'vue'
 import { componentSizes } from '@/constants'
 import { definePropType, isBoolean, isNumber, isString } from '@/utils'
+import radio from './radio.vue'
+import type { ExtractPropTypes } from 'vue'
 
 export const radioProps = {
   modelValue: {

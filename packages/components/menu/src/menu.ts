@@ -1,9 +1,9 @@
+import { definePropType, isString } from '@/utils'
 import Menu from './menu.vue'
 
 import type { ExtractPropTypes, StyleValue } from 'vue'
 import type { TooltipTriggerType } from '@/components/tooltip'
 import type { ClassType } from '@/components/popper'
-import { definePropType, isString } from '@/utils'
 
 export const menuProps = {
   direction: {

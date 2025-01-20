@@ -1,7 +1,7 @@
-import dialog from './dialog.vue'
-import type { ExtractPropTypes, VNode } from 'vue'
 import { definePropType, isBoolean } from '@/utils'
 import { iconProps } from '@/components/icon'
+import dialog from './dialog.vue'
+import type { ExtractPropTypes, VNode } from 'vue'
 
 export const dialogProps = {
   modelValue: {

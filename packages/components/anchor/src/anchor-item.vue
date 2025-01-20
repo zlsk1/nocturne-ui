@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { inject, onMounted, onUnmounted, ref } from 'vue'
+import { useNamespace } from '@/composables'
 import { anchorItemProps } from './anchor-item'
 import { ANCHOR_INJECTION_KEY } from './constants'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NAnchorItem'
@@ -46,7 +46,7 @@ onUnmounted(() => {
         >{{ text }}</a
       >
       <template v-if="children.length">
-        <NAnchorItem :items="children" />
+        <n-anchor-item :items="children" />
       </template>
     </li>
   </ul>

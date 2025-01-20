@@ -1,6 +1,6 @@
 import { ExtractPropTypes } from 'vue'
-import collapseItem from './collapse-item.vue'
 import { definePropType } from '@/utils'
+import collapseItem from './collapse-item.vue'
 
 export const collapseItemProps = {
   title: String,

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { badgeProps } from './badge'
 import { isNumber } from '@/utils'
 import { useNamespace } from '@/composables'
+import { badgeProps } from './badge'
 
 defineOptions({
   name: 'NBadge'

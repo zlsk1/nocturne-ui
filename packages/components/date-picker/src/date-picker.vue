@@ -12,9 +12,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { RiCalendarFill as Calendar } from '@remixicon/vue'
+import { NInput, NTooltip } from '@/components'
 import DatePickerPanel from './date-picker-panel.vue'
 import { datePickerProps } from './date-picker'
-import { NInput, NTooltip } from '@/components'
 
 defineOptions({
   name: 'NDatePicker'

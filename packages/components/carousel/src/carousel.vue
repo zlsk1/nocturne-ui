@@ -68,10 +68,10 @@ import {
   RiArrowLeftSLine as ArrowLeft,
   RiArrowRightSLine as ArrowRight
 } from '@remixicon/vue'
-import { carouselEmits, carouselProps } from './carousel'
-import { CAROUSEL_INJECT_KEY } from './constants'
 import { NIcon } from '@/components/icon'
 import { useNamespace } from '@/composables'
+import { carouselEmits, carouselProps } from './carousel'
+import { CAROUSEL_INJECT_KEY } from './constants'
 
 defineOptions({
   name: 'NCarousel'

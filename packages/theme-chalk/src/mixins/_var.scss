@@ -20,12 +20,16 @@
   @include set-css-var-value(('color', $type), map.get($colors, $type, 'base'));
 
   @each $i in (3, 5, 7, 8, 9) {
-    @include set-css-var-value(('color', $type, 'light', $i),
-      map.get($colors, $type, 'light-#{$i}'));
+    @include set-css-var-value(
+      ('color', $type, 'light', $i),
+      map.get($colors, $type, 'light-#{$i}')
+    );
   }
 
-  @include set-css-var-value(('color', $type, 'dark-2'),
-    map.get($colors, $type, 'dark-2'));
+  @include set-css-var-value(
+    ('color', $type, 'dark-2'),
+    map.get($colors, $type, 'dark-2')
+  );
 }
 
 // set color level: fr-button-light-1
@@ -33,18 +37,22 @@
   @include set-css-var-value(('color', $type), map.get($colors, $type, 'base'));
 
   @each $i in (3, 5, 7, 8, 9) {
-    @include set-css-var-value(('color', $type, 'light', $i),
-      map.get($colors, $type, 'light-#{$i}'));
+    @include set-css-var-value(
+      ('color', $type, 'light', $i),
+      map.get($colors, $type, 'light-#{$i}')
+    );
   }
 
-  @include set-css-var-value(('color', $type, 'dark-2'),
-    map.get($colors, $type, 'dark-2'));
+  @include set-css-var-value(
+    ('color', $type, 'dark-2'),
+    map.get($colors, $type, 'dark-2')
+  );
 }
 
 // set all css var for component by map
 @mixin set-component-css-var($name, $variables) {
   @each $attribute, $value in $variables {
-    @if $attribute =='default' {
+    @if $attribute == 'default' {
       #{getCssVarName($name)}: #{$value};
     } @else {
       #{getCssVarName($name, $attribute)}: #{$value};
@@ -56,7 +64,9 @@
   $color: map.get($colors, $type, 'base');
   @include set-css-var-value(
     ('color', $type, 'rgb'),
-    #{red($color),green($color),blue($color)}
+    #{red($color),
+    green($color),
+    blue($color)}
   );
 }
 

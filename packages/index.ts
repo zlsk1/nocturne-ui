@@ -1,9 +1,9 @@
+import { INSTALLED_KEY } from '@/constants'
 import Components from './component'
 import Plugins from './plugin'
 import { provideGlobalConfig } from './components/config-provider'
 import type { App } from 'vue'
 import type { ConfigProviderProps } from './components/config-provider'
-import { INSTALLED_KEY } from '@/constants'
 
 const makeInstaller = (components: any[] = []) => {
   const install = (

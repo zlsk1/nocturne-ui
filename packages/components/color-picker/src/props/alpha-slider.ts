@@ -1,6 +1,6 @@
+import { definePropType } from '@/utils'
 import type { ExtractPropTypes } from 'vue'
 import type Color from '../utils/color'
-import { definePropType } from '@/utils'
 
 export const alphaSliderProps = {
   color: {

@@ -1,7 +1,7 @@
-import Check from './checkbox.vue'
-import type { ExtractPropTypes } from 'vue'
 import { componentSizes } from '@/constants'
 import { definePropType, isBoolean, isNumber, isString } from '@/utils'
+import Check from './checkbox.vue'
+import type { ExtractPropTypes } from 'vue'
 
 export type CheckModelValueType = string | number | boolean
 

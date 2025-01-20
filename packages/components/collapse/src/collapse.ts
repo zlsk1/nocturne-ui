@@ -1,5 +1,4 @@
 import { ExtractPropTypes } from 'vue'
-import Collapse from './collapse.vue'
 import {
   definePropType,
   isArray,
@@ -7,6 +6,7 @@ import {
   isString,
   isUndefined
 } from '@/utils'
+import Collapse from './collapse.vue'
 
 export const collapseProps = {
   modelValue: definePropType<string | string[] | number[]>([String, Array]),

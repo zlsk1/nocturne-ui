@@ -7,12 +7,12 @@
 <script lang="ts" setup>
 import { computed, inject, onBeforeUnmount, onMounted, watch } from 'vue'
 import { unrefElement } from '@vueuse/core'
-import { popperReferenceProps } from './reference'
-import { POPPER_INJECTION_KEY } from './constants'
-import type { WatchStopHandle } from 'vue'
 import { isElement } from '@/utils'
 import { NOnlyChild } from '@/components/slot'
 import { useForwardRef } from '@/composables'
+import { popperReferenceProps } from './reference'
+import { POPPER_INJECTION_KEY } from './constants'
+import type { WatchStopHandle } from 'vue'
 
 defineOptions({
   name: 'NPopperReference'

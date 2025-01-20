@@ -44,11 +44,11 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { popoverEmit, popoverProps } from './popover'
-import type { TooltipInstance } from '@/components'
 import { NTooltip } from '@/components'
 import { isNumber } from '@/utils'
 import { useNamespace } from '@/composables'
+import { popoverEmit, popoverProps } from './popover'
+import type { TooltipInstance } from '@/components'
 
 defineOptions({
   name: 'NPopover'

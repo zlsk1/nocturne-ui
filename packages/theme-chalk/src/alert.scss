@@ -18,7 +18,7 @@
   box-sizing: border-box;
   opacity: 1;
   transition: opacity getCssVar('transition-duration', 'fast');
-  
+
   @each $type in (success, info, warning, error) {
     @include m($type) {
       @include css-var-from-global(

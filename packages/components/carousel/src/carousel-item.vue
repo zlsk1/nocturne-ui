@@ -15,9 +15,9 @@
 
 <script lang="ts" setup>
 import { computed, inject, onMounted, ref, watch } from 'vue'
+import { useNamespace } from '@/composables'
 import { CAROUSEL_INJECT_KEY } from './constants'
 import { useCarouselItem } from './use-carousel-item'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NCarouselItem'

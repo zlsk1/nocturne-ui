@@ -1,8 +1,8 @@
-import type { ComputedRef, ExtractPropTypes, InjectionKey } from 'vue'
-import type ColorPicker from './color-picker.vue'
 import { definePropType, isNil, isString } from '@/utils'
 import { componentSizes } from '@/constants'
 import { useTooltipContentProps } from '@/components/tooltip'
+import type ColorPicker from './color-picker.vue'
+import type { ComputedRef, ExtractPropTypes, InjectionKey } from 'vue'
 
 export const colorPickerProps = {
   modelValue: {

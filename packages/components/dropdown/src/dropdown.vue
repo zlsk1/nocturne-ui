@@ -25,10 +25,10 @@
 
 <script lang="ts" setup>
 import { provide, ref, watch } from 'vue'
-import { dropdownEmit, dropdownProps } from './dropdown'
-import { NDROPDOWN_INJECTION_KEY } from './constants'
 import NTooltip from '@/components/tooltip'
 import { useNamespace } from '@/composables'
+import { dropdownEmit, dropdownProps } from './dropdown'
+import { NDROPDOWN_INJECTION_KEY } from './constants'
 
 defineOptions({
   name: 'NDropdown'

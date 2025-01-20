@@ -1,11 +1,11 @@
 import { defineComponent, ref } from 'vue'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
+import { useNamespace } from '@/composables'
 import { pickerProps } from './props/picker'
 import PickPanel from './time-picker-panel.vue'
 import Picker from './picker.vue'
 import type { PickerInstance } from './props/picker'
-import { useNamespace } from '@/composables'
 
 dayjs.extend(customParseFormat)
 

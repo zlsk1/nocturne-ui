@@ -32,15 +32,14 @@
 
   @if str-index($selector, ':') {
     @return true;
-  }
-
-  @else {
+  } @else {
     @return false;
   }
 }
 
 @function hasAllSpecialRule($selector) {
-  @return hasModifier($selector) or hasWhenFlag($selector) or hasPseudoClass($selector);
+  @return hasModifier($selector) or hasWhenFlag($selector) or
+    hasPseudoClass($selector);
 }
 
 // join css var name: joinVarName('button', 'primary') => --fr-button-primary
@@ -49,7 +48,7 @@
 
   @each $item in $list {
     @if $item != '' {
-      $name: $name + '-' + $item
+      $name: $name + '-' + $item;
     }
   }
 
@@ -75,11 +74,11 @@
 @function bem($block, $element: '', $modifier: '') {
   $name: $namespace + $common-separator + $block;
 
-  @if $element !='' {
+  @if $element != '' {
     $name: $name + $element-separator + $element;
   }
 
-  @if $modifier !='' {
+  @if $modifier != '' {
     $name: $name + $modifier-separator + $modifier;
   }
 

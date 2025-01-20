@@ -37,8 +37,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { RiCloseLine as Close } from '@remixicon/vue'
-import { tagEmits, tagProps } from './tag'
 import { useNamespace } from '@/composables'
+import { tagEmits, tagProps } from './tag'
 
 defineOptions({
   name: 'NTag'

@@ -1,7 +1,7 @@
-import radioGroup from './radio-group.vue'
-import type { ExtractPropTypes } from 'vue'
 import { componentSizes } from '@/constants'
 import { definePropType, isBoolean, isNumber, isString } from '@/utils'
+import radioGroup from './radio-group.vue'
+import type { ExtractPropTypes } from 'vue'
 
 export const radioGroupProps = {
   modelValue: {

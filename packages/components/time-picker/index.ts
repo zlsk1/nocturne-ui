@@ -1,5 +1,5 @@
-import TimePicker from './src/time-picker'
 import { withInstall } from '@/utils'
+import TimePicker from './src/time-picker'
 
 export * from './src/props/picker'
 export * from './src/props/time-picker-panel'

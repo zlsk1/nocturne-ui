@@ -1,4 +1,6 @@
 import { computed, defineComponent, h, provide, ref, watch } from 'vue'
+import { useNamespace } from '@/composables'
+import { isNumber } from '@/utils'
 import { PAGINATION_INJECTION_KEY } from './constants'
 
 import { jumperProps } from './components/jumper'
@@ -15,8 +17,6 @@ import next from './components/next.vue'
 import total from './components/total.vue'
 import size from './components/size.vue'
 import type { ExtractPropTypes, VNode } from 'vue'
-import { useNamespace } from '@/composables'
-import { isNumber } from '@/utils'
 
 type layoutType =
   | 'total'

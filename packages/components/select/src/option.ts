@@ -1,5 +1,3 @@
-import option from './option.vue'
-import type { ExtractPropTypes } from 'vue'
 import {
   definePropType,
   isBoolean,
@@ -7,6 +5,8 @@ import {
   isObject,
   isString
 } from '@/utils'
+import option from './option.vue'
+import type { ExtractPropTypes } from 'vue'
 
 export const optionProps = {
   value: {

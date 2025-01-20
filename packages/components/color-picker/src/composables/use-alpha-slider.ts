@@ -6,10 +6,10 @@ import {
   shallowRef,
   watch
 } from 'vue'
-import { draggable } from '../utils/draggable'
-import type { AlphaSliderProps } from '../props/alpha-slider'
 import { getClientXY, isNumber } from '@/utils'
 import { useNamespace } from '@/composables'
+import { draggable } from '../utils/draggable'
+import type { AlphaSliderProps } from '../props/alpha-slider'
 
 export const useAlphaSlider = (props: AlphaSliderProps) => {
   const instance = getCurrentInstance()!

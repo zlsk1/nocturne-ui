@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts" setup>
-import { cardProps } from './card'
 import { useNamespace } from '@/composables'
+import { cardProps } from './card'
 
 defineOptions({
   name: 'NCard'

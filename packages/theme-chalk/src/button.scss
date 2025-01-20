@@ -10,7 +10,7 @@ $button-icon-span-gap: map.merge(
   (
     'large': 8px,
     'default': 6px,
-    'small': 4px,
+    'small': 4px
   ),
   $button-icon-span-gap
 );
@@ -59,29 +59,33 @@ $button-icon-span-gap: map.merge(
   &:focus-visible {
     outline: 2px solid getCssVar('button', 'outline-color');
     outline-offset: 1px;
-    transition: outline-offset 0s, outline 0s;
+    transition:
+      outline-offset 0s,
+      outline 0s;
   }
 
-  >span {
+  > span {
     display: inline-flex;
     align-items: center;
   }
 
-  &+& {
+  & + & {
     margin-left: 12px;
   }
 
-  @include button-size(map.get($button-padding-vertical, 'default') - $button-border-width,
+  @include button-size(
+    map.get($button-padding-vertical, 'default') - $button-border-width,
     map.get($button-padding-horizontal, 'default') - $button-border-width,
     map.get($button-font-size, 'default'),
-    map.get($button-border-radius, 'default'));
+    map.get($button-border-radius, 'default')
+  );
 
   &::-moz-focus-inner {
     border: 0;
   }
 
   & [class*='#{$namespace}-icon'] {
-    &+span {
+    & + span {
       margin-left: map.get($button-icon-span-gap, 'default');
     }
 
@@ -91,12 +95,18 @@ $button-icon-span-gap: map.merge(
   }
 
   @include when(plain) {
-    @include css-var-from-global(('button', 'hover', 'text-color'),
-      ('color', 'primary'));
-    @include css-var-from-global(('button', 'hover', 'bg-color'),
-      ('fill-color', 'blank'));
-    @include css-var-from-global(('button', 'hover', 'border-color'),
-      ('color', 'primary'));
+    @include css-var-from-global(
+      ('button', 'hover', 'text-color'),
+      ('color', 'primary')
+    );
+    @include css-var-from-global(
+      ('button', 'hover', 'bg-color'),
+      ('fill-color', 'blank')
+    );
+    @include css-var-from-global(
+      ('button', 'hover', 'border-color'),
+      ('color', 'primary')
+    );
   }
 
   @include when(active) {
@@ -107,7 +117,6 @@ $button-icon-span-gap: map.merge(
   }
 
   @include when(disabled) {
-
     &,
     &:hover {
       color: getCssVar('button', 'disabled', 'text-color');
@@ -180,7 +189,9 @@ $button-icon-span-gap: map.merge(
       &:focus-visible {
         outline: 2px solid getCssVar('button', 'outline-color');
         outline-offset: 1px;
-        transition: outline-offset 0s, outline 0s;
+        transition:
+          outline-offset 0s,
+          outline 0s;
       }
 
       &:active {
@@ -197,7 +208,7 @@ $button-icon-span-gap: map.merge(
   }
 
   @include when(changed) {
-    width: 30%
+    width: 30%;
   }
 
   @include m(text) {
@@ -243,21 +254,25 @@ $button-icon-span-gap: map.merge(
 
   @each $size in (large, small) {
     @include m($size) {
-      @include set-css-var-value(('button', 'size'),
-        map.get($input-height, $size));
+      @include set-css-var-value(
+        ('button', 'size'),
+        map.get($input-height, $size)
+      );
 
       height: getCssVar('button', 'size');
 
       & [class*='#{$namespace}-icon'] {
-        &+span {
+        & + span {
           margin-left: map.get($button-icon-span-gap, $size);
         }
       }
 
-      @include button-size(map.get($button-padding-vertical, $size) - $button-border-width,
+      @include button-size(
+        map.get($button-padding-vertical, $size) - $button-border-width,
         map.get($button-padding-horizontal, $size) - $button-border-width,
         map.get($button-font-size, $size),
-        map.get($button-border-radius, $size));
+        map.get($button-border-radius, $size)
+      );
 
       @include when(circle) {
         width: getCssVar('button', 'size');

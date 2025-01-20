@@ -1,6 +1,6 @@
+import { definePropType, isNumber } from '@/utils'
 import Carousel from './carousel.vue'
 import type { ExtractPropTypes } from 'vue'
-import { definePropType, isNumber } from '@/utils'
 
 export const carouselProps = {
   height: {

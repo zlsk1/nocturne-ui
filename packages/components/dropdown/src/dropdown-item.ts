@@ -1,6 +1,6 @@
+import { iconPropType } from '@/utils'
 import DropdownItem from './dropdown.vue'
 import type { ExtractPropTypes } from 'vue'
-import { iconPropType } from '@/utils'
 
 export const dropdownItemProps = {
   disabled: {

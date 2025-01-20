@@ -18,10 +18,10 @@
 
 <script lang="ts" setup>
 import { inject, ref } from 'vue'
-import { PAGINATION_INJECTION_KEY } from '../constants'
-import { sizeProps } from './size'
 import { NOption, NSelect } from '@/components'
 import { useNamespace } from '@/composables'
+import { PAGINATION_INJECTION_KEY } from '../constants'
+import { sizeProps } from './size'
 
 const { emit } = inject(PAGINATION_INJECTION_KEY, undefined)!
 

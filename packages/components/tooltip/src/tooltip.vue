@@ -49,15 +49,15 @@
 
 <script lang="ts" setup>
 import { computed, onDeactivated, provide, ref, toRef, unref, watch } from 'vue'
+import { useDelayedToggle } from '@/composables'
+import NPopper from '@/components/popper'
+import NPopperArrow from '@/components/popper/src/arrow.vue'
+import { isBoolean } from '@/utils'
 import { tooltipEmits, useTooltipModelToggle, useTooltipProps } from './tooltip'
 import NTooltipContent from './content.vue'
 import NTooltipReference from './reference.vue'
 import { TOOLTIP_INJECTION_KEY } from './constants'
 import type { PopperInstance } from '@/components/popper'
-import { useDelayedToggle } from '@/composables'
-import NPopper from '@/components/popper'
-import NPopperArrow from '@/components/popper/src/arrow.vue'
-import { isBoolean } from '@/utils'
 
 defineOptions({
   name: 'NTooltip'

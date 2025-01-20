@@ -1,7 +1,7 @@
+import { definePropType, isNumber } from '@/utils'
 import Countdown from './countdown.vue'
 import type { ExtractPropTypes, StyleValue } from 'vue'
 import type { Dayjs } from 'dayjs'
-import { definePropType, isNumber } from '@/utils'
 
 export const countdownProps = {
   value: {

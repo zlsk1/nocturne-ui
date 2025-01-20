@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { statisticProps } from './statistic'
 import { isFunction, isNumber } from '@/utils'
 import { useNamespace } from '@/composables'
+import { statisticProps } from './statistic'
 
 defineOptions({
   name: 'NStatistic'

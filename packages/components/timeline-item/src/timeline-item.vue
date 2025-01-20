@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { timelineItemProps } from './timeline-item'
 import { useNamespace } from '@/composables'
+import { timelineItemProps } from './timeline-item'
 
 defineOptions({
   name: 'NTimelineItem'

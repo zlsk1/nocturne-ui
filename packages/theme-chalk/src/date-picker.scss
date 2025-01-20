@@ -5,7 +5,7 @@
 @use 'mixins/var' as *;
 
 @include b(date-picker) {
-  @include set-component-css-var('date-picker', $date-picker)
+  @include set-component-css-var('date-picker', $date-picker);
 }
 
 @include b(date-picker) {
@@ -45,7 +45,7 @@
             outline: none;
             transition: getCssVar('transition-duration-fast');
             cursor: pointer;
-  
+
             &:hover {
               color: getCssVar('color-primary');
             }
@@ -54,7 +54,6 @@
       }
 
       .#{$namespace}-date__content {
-
         .#{$namespace}-date__table {
           width: 100%;
           padding: 10px 10px 5px 10px;

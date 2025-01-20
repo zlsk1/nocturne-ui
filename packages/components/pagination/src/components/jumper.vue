@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { inject, ref } from 'vue'
-import { PAGINATION_INJECTION_KEY } from '../constants'
-import { jumperProps } from './jumper'
 import { NInputNumber } from '@/components'
 import { useNamespace } from '@/composables'
+import { PAGINATION_INJECTION_KEY } from '../constants'
+import { jumperProps } from './jumper'
 
 defineProps(jumperProps)
 

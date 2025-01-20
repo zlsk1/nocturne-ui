@@ -13,7 +13,7 @@ $checkbox-bordered-input-height: map.merge(
   (
     'large': 14px,
     'default': 12px,
-    'small': 12px,
+    'small': 12px
   ),
   $checkbox-bordered-input-height
 );
@@ -22,7 +22,7 @@ $checkbox-font-size: () !default;
 $checkbox-font-size: map.merge(
   (
     'large': 14px,
-    'small': 12px,
+    'small': 12px
   ),
   $checkbox-font-size
 );
@@ -218,7 +218,8 @@ $checkbox-bordered-input-width: map.merge(
     border-radius: getCssVar('checkbox-border-radius');
     background-color: getCssVar('checkbox-bg-color');
     z-index: getCssVar('index-normal');
-    transition: border-color 0.25s $cubic-fun,
+    transition:
+      border-color 0.25s $cubic-fun,
       background-color 0.25s $cubic-fun,
       outline 0.25s $cubic-fun;
 

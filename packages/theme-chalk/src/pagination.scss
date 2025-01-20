@@ -70,7 +70,7 @@
         color: getCssVar('color-info');
       }
     }
-    
+
     @include when(text) {
       width: auto;
     }
@@ -107,7 +107,6 @@
     cursor: not-allowed;
 
     @include when(background) {
-
       @include e(num) {
         background-color: getCssVar('color-info-light-9');
       }
@@ -116,7 +115,7 @@
     @include e(num) {
       color: getCssVar('color-info');
       cursor: not-allowed;
-  
+
       &:hover {
         color: getCssVar('color-info');
       }
@@ -131,9 +130,8 @@
       cursor: not-allowed;
     }
   }
-  
+
   @include when(small) {
-    
     @include e(button) {
       width: getCssVar('pagination-small-size');
       height: getCssVar('pagination-small-size');
@@ -168,7 +166,6 @@
   }
 
   @include when(background) {
-    
     @include e(button) {
       color: #000;
       background-color: getCssVar('fill-color-light');

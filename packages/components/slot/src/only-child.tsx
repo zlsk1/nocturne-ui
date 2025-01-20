@@ -8,11 +8,11 @@ import {
   withDirectives
 } from 'vue'
 import { NOOP, isObject } from '@vue/shared'
-import type { Ref, VNode } from 'vue'
 import {
   FORWARD_REF_INJECTION_KEY,
   useForwardRefDirective
 } from '@/composables'
+import type { Ref, VNode } from 'vue'
 
 const NAME = 'NOnlyChild'
 

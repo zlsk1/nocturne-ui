@@ -22,12 +22,12 @@ import {
   unref,
   watch
 } from 'vue'
+import { isElement } from '@/utils'
+import { useNamespace } from '@/composables'
 import { usePopperContent, usePopperContentDOM } from './composables'
 import { popperContentProps } from './content'
 import { POPPER_CONTENT_INJECTION_KEY } from './constants'
 import type { WatchStopHandle } from 'vue'
-import { isElement } from '@/utils'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NPopperContent'

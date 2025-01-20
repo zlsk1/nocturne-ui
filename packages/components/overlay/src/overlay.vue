@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, h } from 'vue'
-import type { ExtractPropTypes } from 'vue'
 import { useNamespace, useSameTarget } from '@/composables'
+import type { ExtractPropTypes } from 'vue'
 
 export const overlayProps = {
   zIndex: Number,

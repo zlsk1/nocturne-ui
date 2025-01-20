@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import Card from '../src/card.vue'
 import { IMAGE_SUCCESS } from '@/tests-utils/image'
+import Card from '../src/card.vue'
 
 describe('Card', () => {
   test('header', () => {

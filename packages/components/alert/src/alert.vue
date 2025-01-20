@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { RiCloseLine as Close } from '@remixicon/vue'
-import { alertEmits, alertProps } from './alert'
 import { useNamespace } from '@/composables'
 import { typeIcons } from '@/utils'
+import { alertEmits, alertProps } from './alert'
 
 defineOptions({
   name: 'NAlert'

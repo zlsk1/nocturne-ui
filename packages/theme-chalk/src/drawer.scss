@@ -8,7 +8,8 @@ $placements: top, bottom, left, right;
   @include set-component-css-var(drawer, $drawer);
   display: flex;
   flex-direction: column;
-  padding: getCssVar('drawer', 'padding-vertical') getCssVar('drawer', 'padding-horizonal');
+  padding: getCssVar('drawer', 'padding-vertical')
+    getCssVar('drawer', 'padding-horizonal');
   background-color: getCssVar('drawer', 'bg-color');
   transition: getCssVar('transition-duration');
   box-sizing: border-box;
@@ -22,11 +23,11 @@ $placements: top, bottom, left, right;
       display: flex;
       align-items: center;
       padding: 2px;
-      transition: .3s;
+      transition: 0.3s;
       cursor: pointer;
 
       &:hover {
-        color: getCssVar('color-primary')
+        color: getCssVar('color-primary');
       }
     }
   }
@@ -84,7 +85,6 @@ $placements: top, bottom, left, right;
 }
 
 .#{$namespace}-drawer {
-
   &-enter-active,
   &-leave-active {
     transition: getCssVar('transition-duration');
@@ -120,4 +120,3 @@ $placements: top, bottom, left, right;
     }
   }
 }
- 

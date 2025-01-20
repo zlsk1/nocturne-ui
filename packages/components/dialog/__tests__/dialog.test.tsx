@@ -1,8 +1,8 @@
 import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import Dialog from '../src/dialog.vue'
 import { triggerCompositeClick } from '@/tests-utils/composite-click'
+import Dialog from '../src/dialog.vue'
 
 describe('Dialog', () => {
   test('render', async () => {

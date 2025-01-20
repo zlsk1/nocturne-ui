@@ -10,9 +10,9 @@
 
 <script lang="ts" setup>
 import { inject } from 'vue'
+import { useNamespace } from '@/composables'
 import { dropdownItemProps } from './dropdown-item'
 import { NDROPDOWN_INJECTION_KEY } from './constants'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NDropdownItem'

@@ -16,7 +16,6 @@
   }
 
   @include m(vertical) {
-    
   }
 
   @include e(item) {
@@ -26,7 +25,7 @@
     border-radius: getCssVar('border-radius-base');
     transition: all getCssVar('transition-duration');
     cursor: pointer;
-    
+
     &:hover {
       background: getCssVar('border-color-darker');
     }
@@ -88,7 +87,7 @@
   .#{$namespace}-menu__item__group {
     > span {
       padding: getCssVar('menu', 'padding');
-      color: getCssVar('text-color-secondary')
+      color: getCssVar('text-color-secondary');
     }
   }
 
@@ -117,7 +116,7 @@
       border-radius: getCssVar('border-radius-base');
       transition: all getCssVar('transition-duration');
       cursor: pointer;
-  
+
       &:hover {
         background: getCssVar('border-color-darker');
       }
@@ -127,7 +126,7 @@
       border-radius: getCssVar('border-radius-base');
       transition: all getCssVar('transition-duration');
       cursor: pointer;
-      
+
       &:hover {
         background: getCssVar('border-color-darker');
       }
@@ -154,7 +153,6 @@
       margin-left: 5px;
       transition: all getCssVar('transition-duration');
     }
-
   }
 
   .active {

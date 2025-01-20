@@ -1,6 +1,6 @@
+import { withInstall } from '@/utils'
 import Dropdown from './src/dropdown.vue'
 import DropdownItem from './src/dropdown-item.vue'
-import { withInstall } from '@/utils'
 
 export * from './src/dropdown-item'
 export * from './src/dropdown'

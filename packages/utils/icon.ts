@@ -4,8 +4,8 @@ import {
   RiCheckboxCircleFill as Success,
   RiErrorWarningFill as Warning
 } from '@remixicon/vue'
-import type { Component } from 'vue'
 import { definePropType } from '@/utils'
+import type { Component } from 'vue'
 
 export const iconPropType = definePropType<string | Component>([
   String,

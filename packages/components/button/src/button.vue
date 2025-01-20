@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed, useSlots } from 'vue'
-import { buttonEmits, buttonProps } from './button'
 import { useNamespace } from '@/composables'
 import NIcon from '@/components/icon'
+import { buttonEmits, buttonProps } from './button'
 
 defineOptions({
   name: 'NButton'

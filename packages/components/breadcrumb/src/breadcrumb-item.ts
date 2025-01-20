@@ -1,8 +1,8 @@
 import { defineComponent, h, inject } from 'vue'
-import { NBREADCRUMBINJECTIONKEY } from './constants'
-import type { ExtractPropTypes } from 'vue'
 import { isString, isUndefined } from '@/utils'
 import { useNamespace } from '@/composables'
+import { NBREADCRUMBINJECTIONKEY } from './constants'
+import type { ExtractPropTypes } from 'vue'
 
 export const breadcrumbItemProps = {
   path: String

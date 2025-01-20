@@ -32,6 +32,8 @@
 <script lang="ts" setup>
 import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
 import dayjs from 'dayjs'
+import { NButton } from '@/components'
+import { useNamespace } from '@/composables'
 import { getTimelist } from './composables/use-time-picker'
 import { timeUnits } from './constants'
 import {
@@ -44,8 +46,6 @@ import type { Ref } from 'vue'
 import type { TimeUnits } from './constants'
 import type { Timelist } from './type'
 import type { Dayjs } from 'dayjs'
-import { NButton } from '@/components'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NPickerPanel'

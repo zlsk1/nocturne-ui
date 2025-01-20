@@ -1,5 +1,5 @@
-import type { ExtractPropTypes } from 'vue'
 import { componentSizes } from '@/constants'
+import type { ExtractPropTypes } from 'vue'
 
 export const configProviderProps = {
   namespace: {

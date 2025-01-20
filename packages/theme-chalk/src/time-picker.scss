@@ -19,7 +19,7 @@
       cursor: pointer;
 
       &:hover {
-        color: getCssVar('text-color-secondary')
+        color: getCssVar('text-color-secondary');
       }
     }
   }
@@ -49,7 +49,7 @@
         box-sizing: border-box;
         overflow-y: hidden;
         overflow-x: hidden;
-    
+
         &:hover {
           overflow-y: auto;
         }
@@ -60,14 +60,14 @@
           height: getCssVar('time-picker', 'panel-height');
           margin-top: -42px;
         }
-  
+
         li {
           width: getCssVar('time-picker', 'panel-inner-children-width');
           height: getCssVar('time-picker', 'panel-inner-children-height');
           line-height: getCssVar('time-picker', 'panel-inner-children-height');
           border-radius: getCssVar('border-radius-base');
           cursor: pointer;
-  
+
           &:hover {
             background: getCssVar('border-color-light');
           }
@@ -81,14 +81,14 @@
         .is-disabled {
           color: getCssVar('text-color-disabled');
           cursor: not-allowed;
-  
+
           &:hover {
             background: none;
           }
         }
       }
 
-      .#{$namespace}-panel__children:nth-child(-n+2) {
+      .#{$namespace}-panel__children:nth-child(-n + 2) {
         border-right: 1px solid getCssVar('border-color');
       }
     }

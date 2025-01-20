@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { onBeforeUnmount, ref, watch } from 'vue'
-import { formatTime, getTime } from './utils'
-import { countdownEmits, countdownProps } from './countdown'
 import { cAF, rAF } from '@/utils/raf'
 import NStatistic from '@/components/statistic'
+import { formatTime, getTime } from './utils'
+import { countdownEmits, countdownProps } from './countdown'
 
 defineOptions({
   name: 'NCountdown'

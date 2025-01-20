@@ -1,8 +1,8 @@
 import { unref } from 'vue'
 
+import { isArray } from '@/utils'
 import type { Ref } from 'vue'
 import type { TooltipTriggerType } from './reference'
-import { isArray } from '@/utils'
 
 export const isTriggerType = (
   trigger: TooltipTriggerType,

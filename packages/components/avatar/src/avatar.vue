@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue'
-import { avatarEmits, avatarProps } from './avatar'
 import { useNamespace } from '@/composables'
+import { avatarEmits, avatarProps } from './avatar'
 
 defineOptions({
   name: 'NAvatar'

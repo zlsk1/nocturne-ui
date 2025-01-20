@@ -41,7 +41,7 @@
     }
 
     @include when(link) {
-      color: getCssVar('breadcrumb', 'text-color')
+      color: getCssVar('breadcrumb', 'text-color');
     }
   }
 

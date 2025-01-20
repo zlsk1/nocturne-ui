@@ -1,6 +1,6 @@
+import { definePropType, mutable } from '@/utils'
 import col from './col.vue'
 import type { ExtractPropTypes } from 'vue'
-import { definePropType, mutable } from '@/utils'
 
 export type ColSizeObject = {
   span?: number

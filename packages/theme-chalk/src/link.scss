@@ -37,11 +37,11 @@
     color: getCssVar('link', 'disabled-text-color');
     cursor: not-allowed;
   }
-  
+
   .#{$namespace}icon {
     margin-left: 5px;
   }
-  
+
   @each $type in $types {
     &.#{$namespace}-link--#{$type} {
       @include css-var-from-global(('link', 'text-color'), ('color', $type));

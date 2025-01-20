@@ -19,10 +19,10 @@
 
 <script lang="ts" setup>
 import { inject, ref, watch, watchEffect } from 'vue'
+import { useNamespace } from '@/composables'
 import { colorPickerContextKey } from './color-picker'
 import Color from './utils/color'
 import type { PropType, Ref } from 'vue'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NColorPredefine'

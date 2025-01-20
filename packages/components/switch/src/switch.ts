@@ -1,7 +1,7 @@
-import Switch from './switch.vue'
-import type { ExtractPropTypes } from 'vue'
 import { definePropType, isBoolean, isNumber, isString } from '@/utils'
 import { componentSizes } from '@/constants'
+import Switch from './switch.vue'
+import type { ExtractPropTypes } from 'vue'
 
 export const switchProps = {
   modelValue: definePropType<boolean | string | number>([

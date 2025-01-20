@@ -14,7 +14,7 @@
 
   @include e(title) {
     margin-bottom: 10px;
-    color: getCssVar('statistic-title-color')
+    color: getCssVar('statistic-title-color');
   }
 
   @include e(value) {

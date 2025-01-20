@@ -7,11 +7,11 @@
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
 import { isObject } from 'lodash'
-import { colProps } from './col'
-import type { CSSProperties } from 'vue'
 import { ROW_INJECTION_KEY } from '@/components/row/src/constants'
 import { isNumber } from '@/utils'
 import { useNamespace } from '@/composables'
+import { colProps } from './col'
+import type { CSSProperties } from 'vue'
 
 defineOptions({
   name: 'NCol'

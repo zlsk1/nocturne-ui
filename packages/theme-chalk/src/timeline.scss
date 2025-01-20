@@ -8,7 +8,6 @@
   @include set-component-css-var('timeline', $timeline);
 }
 
-
 @include b(timeline) {
   list-style: none;
   font-size: 14px;
@@ -16,7 +15,7 @@
   .#{$namespace}-timeline-item:last-child {
     .#{$namespace}-timeline-item__tail {
       display: none;
-    } 
+    }
   }
 
   .#{$namespace}-timeline-item__center {

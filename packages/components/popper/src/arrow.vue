@@ -9,9 +9,9 @@
 
 <script lang="ts" setup>
 import { inject, onBeforeUnmount, watch } from 'vue'
+import { useNamespace } from '@/composables'
 import { popperArrowProps } from './arrow'
 import { POPPER_CONTENT_INJECTION_KEY } from './constants'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NPopperArrow'

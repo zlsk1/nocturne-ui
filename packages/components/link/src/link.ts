@@ -1,6 +1,6 @@
 import { ExtractPropTypes } from 'vue'
-import link from './link.vue'
 import { iconPropType } from '@/utils'
+import link from './link.vue'
 
 export const linkProps = {
   type: {

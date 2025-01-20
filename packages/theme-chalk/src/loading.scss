@@ -14,14 +14,14 @@
 
   @include e(content) {
     text-align: center;
-  
+
     > span {
       color: getCssVar('text-color-regular');
     }
   }
 
   @include e(icon) {
-    animation: rotate 1s infinite cubic-bezier(.9, .4, .3, .33);
+    animation: rotate 1s infinite cubic-bezier(0.9, 0.4, 0.3, 0.33);
   }
 
   @keyframes rotate {

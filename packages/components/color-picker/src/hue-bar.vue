@@ -16,12 +16,12 @@
 
 <script lang="ts" setup>
 import { computed, getCurrentInstance, onMounted, ref, watch } from 'vue'
+import { useNamespace } from '@/composables'
+import { getClientXY } from '@/utils'
 import { draggable } from './utils/draggable'
 
 import type { PropType } from 'vue'
 import type Color from './utils/color'
-import { useNamespace } from '@/composables'
-import { getClientXY } from '@/utils'
 
 defineOptions({
   name: 'NColorHueBar'

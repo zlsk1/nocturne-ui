@@ -3,13 +3,14 @@
 @use 'mixins/var' as *;
 
 @include b(dialog) {
-  @include set-component-css-var('dialog', $dialog)
+  @include set-component-css-var('dialog', $dialog);
 }
 
 @include b(dialog) {
   position: relative;
   width: getCssVar('dialog', 'width');
-  padding: getCssVar('dialog', 'padding-vertical') getCssVar('dialog', 'padding-horizonal');
+  padding: getCssVar('dialog', 'padding-vertical')
+    getCssVar('dialog', 'padding-horizonal');
   border-radius: getCssVar('dialog', 'border-radius');
   box-shadow: getCssVar('dialog', 'box-shadow');
   background-color: getCssVar('dialog', 'bg-color');
@@ -28,7 +29,7 @@
     padding: 2px;
     border-radius: getCssVar('dialog', 'border-radius');
     cursor: pointer;
-    transition: .4s;
+    transition: 0.4s;
     &:hover {
       color: getCssVar('text-color-regular');
       background-color: getCssVar('text-color-disabled');
@@ -68,15 +69,17 @@
 .#{$namespace}-dialog-fade-enter-active {
   animation: masker-fade-in getCssVar('transition-duration-fast') ease-in;
   .#{$namespace}-dialog {
-    animation: dialog-zoom-in getCssVar('transition-duration-fast') cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    animation: dialog-zoom-in getCssVar('transition-duration-fast')
+      cubic-bezier(0.95, 0.05, 0.795, 0.035);
   }
 }
- 
 
 .#{$namespace}-dialog-fade-leave-active {
-  animation: masker-fade-in getCssVar('transition-duration-fast') ease-out reverse;
+  animation: masker-fade-in getCssVar('transition-duration-fast') ease-out
+    reverse;
   .#{$namespace}-dialog {
-    animation: dialog-zoom-in getCssVar('transition-duration-fast') cubic-bezier(0.65, 0.95, 0.035, 0.695) reverse;
+    animation: dialog-zoom-in getCssVar('transition-duration-fast')
+      cubic-bezier(0.65, 0.95, 0.035, 0.695) reverse;
   }
 }
 

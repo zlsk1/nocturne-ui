@@ -12,7 +12,7 @@
   position: relative;
   display: inline-block;
   width: fit-content;
-  vertical-align: middle; 
+  vertical-align: middle;
 
   @include e(content) {
     display: inline-flex;
@@ -30,7 +30,7 @@
     @include when(fixed) {
       position: absolute;
       top: 0;
-      right: calc(1px + #{getCssVar('badge', 'size')} / 2); 
+      right: calc(1px + #{getCssVar('badge', 'size')} / 2);
       transform: translateY(-50%) translateX(100%);
       z-index: getCssVar('index', 'normal');
 
@@ -51,6 +51,6 @@
       @include m($type) {
         background-color: getCssVar('color', $type);
       }
-    } 
+    }
   }
 }

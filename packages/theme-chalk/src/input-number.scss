@@ -11,11 +11,11 @@
   line-height: 30px;
   text-align: center;
 
-  @include when(disabled){
+  @include when(disabled) {
     span {
       cursor: not-allowed;
       color: getCssVar(disabled-text-color);
-      
+
       &:hover {
         color: getCssVar(disabled-text-color);
       }
@@ -54,13 +54,15 @@
   @include e(decrease) {
     left: 0;
     border-right: getCssVar(border);
-    border-radius: getCssVar(border-radius-base) 0 0 getCssVar(border-radius-base);
+    border-radius: getCssVar(border-radius-base) 0 0
+      getCssVar(border-radius-base);
   }
 
   @include e(increase) {
     right: 0;
     border-left: getCssVar(border);
-    border-radius: 0 getCssVar(border-radius-base) getCssVar(border-radius-base) 0;
+    border-radius: 0 getCssVar(border-radius-base) getCssVar(border-radius-base)
+      0;
   }
   .#{$namespace}-input {
     &__inner {

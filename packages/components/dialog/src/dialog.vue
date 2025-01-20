@@ -53,12 +53,12 @@
 import { computed } from 'vue'
 import { RiCloseLine as Close } from '@remixicon/vue'
 import { isFunction, isString } from 'lodash'
-import { dialogEmits, dialogProps } from './dialog'
-import type { CSSProperties } from 'vue'
 import { useNamespace, useSameTarget, useZIndex } from '@/composables'
 
 import NButton from '@/components/button'
 import NOverlay from '@/components/overlay'
+import { dialogEmits, dialogProps } from './dialog'
+import type { CSSProperties } from 'vue'
 
 defineOptions({
   name: 'NDialog'

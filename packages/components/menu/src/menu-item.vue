@@ -6,11 +6,11 @@
 
 <script lang="ts" setup>
 import { computed, getCurrentInstance, inject, onMounted, ref } from 'vue'
+import { useNamespace } from '@/composables'
 import { menuItemProps } from './menu'
 import { NMENU_INJECTION_KEY } from './constants'
 import useMenu from './compoables/use-menu'
 import type { NSubMenuInjectionContext } from './constants'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NMenuItem'

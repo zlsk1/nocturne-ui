@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts" setup>
-import { totalProps } from './total'
 import { useNamespace } from '@/composables'
+import { totalProps } from './total'
 
 defineProps(totalProps)
 

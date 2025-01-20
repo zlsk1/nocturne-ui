@@ -1,7 +1,7 @@
+import { definePropType, iconPropType } from '@/utils'
 import statistic from './statistic.vue'
 import type { ExtractPropTypes, StyleValue } from 'vue'
 import type { Dayjs } from 'dayjs'
-import { definePropType, iconPropType } from '@/utils'
 
 export const statisticProps = {
   value: {

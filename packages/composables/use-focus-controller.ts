@@ -1,7 +1,7 @@
 import { getCurrentInstance, onMounted, ref, shallowRef, watch } from 'vue'
 import { useEventListener } from '@vueuse/core'
-import type { ShallowRef } from 'vue'
 import { isElement, isFunction } from '@/utils'
+import type { ShallowRef } from 'vue'
 
 interface UseFocusControllerOptions {
   afterFocus?: () => void

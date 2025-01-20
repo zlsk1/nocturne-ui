@@ -3,7 +3,7 @@
 @use 'mixins/var' as *;
 
 @include b(form) {
-  @include set-component-css-var(form, $form)
+  @include set-component-css-var(form, $form);
 }
 
 @include b(form) {

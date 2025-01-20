@@ -1,6 +1,3 @@
-import select from './select.vue'
-import type { ExtractPropTypes } from 'vue'
-import type { Options } from '@popperjs/core'
 import {
   definePropType,
   isArray,
@@ -11,6 +8,9 @@ import {
 } from '@/utils'
 import { componentSizes } from '@/constants'
 import { popperContentProps } from '@/components/popper'
+import select from './select.vue'
+import type { ExtractPropTypes } from 'vue'
+import type { Options } from '@popperjs/core'
 
 export const selectProps = {
   placeholder: {

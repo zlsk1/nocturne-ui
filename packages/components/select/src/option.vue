@@ -20,11 +20,11 @@
 <script lang="ts" setup>
 import { computed, getCurrentInstance, inject } from 'vue'
 import { RiCheckFill as Check } from '@remixicon/vue'
+import { isObject } from '@/utils'
+import { useNamespace } from '@/composables'
 import { optionEmits, optionProps } from './option'
 import { SELECT_INJECTION_KEY } from './constants'
 import type { OptionProxy } from './constants'
-import { isObject } from '@/utils'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NOption'

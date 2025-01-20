@@ -1,7 +1,7 @@
+import { withInstall } from '@/utils'
 import collapse from './src/collapse.vue'
 import collapseItem from './src/collapse-item.vue'
 import collapseTransition from './src/collapse-transition.vue'
-import { withInstall } from '@/utils'
 
 export * from './src/collapse'
 export * from './src/collapse-item'

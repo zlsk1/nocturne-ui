@@ -1,11 +1,11 @@
 import { isArray, isObject } from 'lodash'
+import { definePropType, isBoolean, isString } from '@/utils'
 import TimePickerPanel from '../time-picker-panel.vue'
 import { pickerPropsBase } from './picker'
 import type { ExtractPropTypes } from 'vue'
 import type { Dayjs } from 'dayjs'
 import type { TimeUnits } from '../constants'
 import type { Disabled, PickerMethods } from '../type'
-import { definePropType, isBoolean, isString } from '@/utils'
 
 export const timePickerPanelProps = {
   calculatedValue: {

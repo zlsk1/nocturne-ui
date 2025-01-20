@@ -9,12 +9,13 @@ import {
   shallowRef
 } from 'vue'
 import { useThrottleFn } from '@vueuse/core'
-import AnchorItem from './anchor-item.vue'
-import { type AnchorItems, anchorEmits, anchorProps } from './anchor'
-import { ANCHOR_INJECTION_KEY } from './constants'
-import type { CSSProperties } from 'vue'
 import { isNil } from '@/utils'
 import { useNamespace } from '@/composables'
+import AnchorItem from './anchor-item.vue'
+import { anchorEmits, anchorProps } from './anchor'
+import { ANCHOR_INJECTION_KEY } from './constants'
+import type { CSSProperties } from 'vue'
+import type { AnchorItems } from './anchor'
 
 defineOptions({
   name: 'NAnchor'
@@ -193,7 +194,7 @@ provide(ANCHOR_INJECTION_KEY, {
         :class="ns.e('marker')"
         :style="maskerStyle"
       />
-      <AnchorItem v-if="items" :items="items" />
+      <anchor-item v-if="items" :items="items" />
       <slot />
     </div>
   </div>

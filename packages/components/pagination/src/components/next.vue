@@ -9,10 +9,10 @@
 
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
-import { PAGINATION_INJECTION_KEY } from '../constants'
-import { nextProps } from './next'
 import { NIcon } from '@/components'
 import { useNamespace } from '@/composables'
+import { PAGINATION_INJECTION_KEY } from '../constants'
+import { nextProps } from './next'
 
 const props = defineProps(nextProps)
 

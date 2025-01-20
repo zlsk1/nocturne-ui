@@ -9,7 +9,7 @@ $placement: (
   'bottom': 'top',
   'top': 'bottom',
   'right': 'left',
-  'left': 'right',
+  'left': 'right'
 );
 
 @include b(popper) {
@@ -33,7 +33,7 @@ $placement: (
     width: 10px;
     height: 10px;
     z-index: -1;
-    
+
     &::after {
       content: '';
       position: absolute;
@@ -86,7 +86,6 @@ $placement: (
     box-shadow: getCssVar('box-shadow-dark');
 
     @include e(arrow) {
-      
       &::after {
         border: 1px solid getCssVar('text-color', 'primary');
         background: getCssVar('text-color', 'primary');
@@ -101,7 +100,6 @@ $placement: (
     box-shadow: getCssVar('box-shadow-light');
 
     @include e(arrow) {
-      
       &::after {
         border: 1px solid getCssVar('border-color', 'light');
         background: getCssVar('bg-color', 'overlay');

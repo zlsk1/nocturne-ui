@@ -28,8 +28,8 @@
     }
 
     @include e(icon) {
-      transition: all .3s;
-  
+      transition: all 0.3s;
+
       @include when(rotate) {
         transform: rotate(90deg);
       }

@@ -1,7 +1,7 @@
 import { isString, isUndefined } from 'lodash'
+import { definePropType } from '@/utils'
 import anchor from './anchor.vue'
 import type { ExtractPropTypes } from 'vue'
-import { definePropType } from '@/utils'
 
 export type AnchorItems = {
   href: string

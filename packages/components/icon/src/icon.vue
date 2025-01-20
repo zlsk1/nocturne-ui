@@ -6,9 +6,9 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { useNamespace } from '@/composables'
 import { iconProps } from './icon'
 import type { CSSProperties } from 'vue'
-import { useNamespace } from '@/composables'
 
 defineOptions({
   name: 'NIcon'

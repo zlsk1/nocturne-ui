@@ -1,8 +1,8 @@
 import { computed, getCurrentInstance, onMounted, watch } from 'vue'
 
+import { definePropType, isBoolean, isFunction } from '@/utils'
 import type { ExtractPropType } from '@/utils'
 import type { ComponentPublicInstance, ExtractPropTypes, Ref } from 'vue'
-import { definePropType, isBoolean, isFunction } from '@/utils'
 
 const _prop = {
   type: definePropType<boolean | null>(Boolean),

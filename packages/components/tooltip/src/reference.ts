@@ -1,6 +1,6 @@
-import type { ExtractPropTypes } from 'vue'
 import { popperReferenceProps } from '@/components/popper/src/reference'
 import { definePropType } from '@/utils'
+import type { ExtractPropTypes } from 'vue'
 
 export type TooltipTriggerType = 'hover' | 'focus' | 'click' | 'contextmenu'
 

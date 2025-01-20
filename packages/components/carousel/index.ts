@@ -1,6 +1,6 @@
+import { withInstall } from '@/utils'
 import carousel from './src/carousel.vue'
 import carouselItem from './src/carousel-item.vue'
-import { withInstall } from '@/utils'
 
 export * from './src/carousel'
 export * from './src/carousel-item'

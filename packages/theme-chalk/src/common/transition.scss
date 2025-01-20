@@ -34,7 +34,8 @@
 .#{$namespace}-zoom-in-leave-active {
   opacity: 1;
   transform: scale(1);
-  transition: all getCssVar('transition-duration-fast') getCssVar('transition-function-ease-in-out-bezier');
+  transition: all getCssVar('transition-duration-fast')
+    getCssVar('transition-function-ease-in-out-bezier');
   transform-origin: center;
 }
 .#{$namespace}-zoom-in-enter-from,
@@ -97,20 +98,23 @@
 }
 
 .collapse-transition {
-  transition: getCssVar('transition-duration') height ease-in-out,
+  transition:
+    getCssVar('transition-duration') height ease-in-out,
     getCssVar('transition-duration') padding-top ease-in-out,
     getCssVar('transition-duration') padding-bottom ease-in-out;
 }
 
 .#{$namespace}-collapse-transition-leave-active,
 .#{$namespace}-collapse-transition-enter-active {
-  transition: getCssVar('transition-duration') max-height ease-in-out,
+  transition:
+    getCssVar('transition-duration') max-height ease-in-out,
     getCssVar('transition-duration') padding-top ease-in-out,
     getCssVar('transition-duration') padding-bottom ease-in-out;
 }
 
 .horizontal-collapse-transition {
-  transition: getCssVar('transition-duration') width ease-in-out,
+  transition:
+    getCssVar('transition-duration') width ease-in-out,
     getCssVar('transition-duration') padding-left ease-in-out,
     getCssVar('transition-duration') padding-right ease-in-out;
 }
@@ -149,5 +153,5 @@
 
 .#{$namespace}-collapse-transition-enter-active,
 .#{$namespace}-collapse-transition-leave-active {
-  transition: height .2s ease-out;
+  transition: height 0.2s ease-out;
 }
