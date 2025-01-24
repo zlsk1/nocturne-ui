@@ -7,7 +7,11 @@ import { NBreadcrumb, NBreadcrumbItem } from '@/components/breadcrumb'
 import { NButton, NButtonGroup } from '@/components/button'
 import { NCard } from '@/components/card'
 import { NCarousel, NCarouselItem } from '@/components/carousel'
-import { NCheckbox, NCheckboxGroup } from '@/components/checkbox'
+import {
+  NCheckbox,
+  NCheckboxButton,
+  NCheckboxGroup
+} from '@/components/checkbox'
 import { NCol } from '@/components/col'
 import {
   NCollapse,
@@ -64,6 +68,7 @@ export default [
   NCarousel,
   NCarouselItem,
   NCheckbox,
+  NCheckboxButton,
   NCheckboxGroup,
   NCol,
   NCollapse,

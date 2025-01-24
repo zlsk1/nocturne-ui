@@ -2,10 +2,10 @@ import { computed, inject, ref, toRaw } from 'vue'
 import { isEqual } from 'lodash'
 import { useFormItem } from '@/components/form'
 import { isArray, isBoolean, isNil, isObject, isPropAbsent } from '@/utils'
-import { checkboxGroupContextKey } from '../src/constants'
+import { checkboxGroupContextKey } from '../constants'
 
 import type { ComponentInternalInstance } from 'vue'
-import type { CheckboxProps } from '../src/checkbox'
+import type { CheckboxProps } from '../checkbox'
 import type { CheckboxModel } from '../composables'
 
 export const useCheckboxStatus = (
@@ -50,13 +50,16 @@ export const useCheckboxStatus = (
     return !!slots.default || !isPropAbsent(actualValue.value)
   })
 
+  const buttonType = computed(() => checkboxGroup?.buttonType?.value)
+
   return {
     checkboxButtonSize,
     isChecked,
     isFocused,
     checkboxSize,
     hasOwnLabel,
-    actualValue
+    actualValue,
+    buttonType
   }
 }
 

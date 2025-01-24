@@ -1,0 +1,68 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(checkbox-button) {
+  @include set-component-css-var('checkbox-button', $checkbox-button);
+  height: getCssVar('component-size');
+  font-size: 14px;
+  transition: all getCssVar('transition-duration') linear;
+
+  @include when(checked) {
+    color: getCssVar('checkbox-button', 'checked-bg-color');
+    background: none;
+    border-color: getCssVar('checkbox-button', 'checked-border-color');
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  @include m(solid) {
+    color: getCssVar('checkbox-button', 'checked-text-color');
+    background: none;
+
+    &.is-checked + .#{$namespace}-checkbox-button.is-checked {
+      border-left-color: getCssVar('color-black');
+    }
+
+    @include when(checked) {
+      color: getCssVar('checkbox-button', 'checked-text-color');
+      background: getCssVar('checkbox-button', 'checked-bg-color');
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  @each $size in ('large', 'small') {
+    @include m($size) {
+      height: getCssVar('component-size', $size);
+      @if ($size == 'small') {
+        font-size: 12px;
+      }
+    }
+  }
+
+  @include when(disabled) {
+    color: getCssVar('checkbox-button', 'disabled-text-color');
+    border-left-color: getCssVar('checkbox-button', 'disabled-border-color');
+    border-right-color: getCssVar('checkbox-button', 'disabled-border-color');
+    border-top-color: getCssVar('checkbox-button', 'disabled-border-color');
+    border-bottom-color: getCssVar('checkbox-button', 'disabled-border-color');
+    background: getCssVar('checkbox-button', 'disabled-bg-color');
+    cursor: not-allowed;
+    &:hover {
+      color: getCssVar('checkbox-button', 'disabled-text-color');
+      background: getCssVar('checkbox-button', 'disabled-bg-color');
+    }
+
+    @include when(checked) {
+      border-left-color: transparent !important;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}

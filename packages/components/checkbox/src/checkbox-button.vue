@@ -1,10 +1,6 @@
 <template>
-  <label
-    :class="checkboxCls"
-    :style="{ color: textColor }"
-    @click="onClickRoot"
-  >
-    <span :class="checkboxInputCls">
+  <label :class="checkboxButtonCls" @click="onClickRoot">
+    <span style="display: none">
       <input
         v-if="trueValue || falseValue"
         v-model="model"
@@ -16,7 +12,6 @@
         :true-value="trueValue"
         :false-value="falseValue"
         type="checkbox"
-        :class="ns.e('original')"
         @change="handleChange"
         @focus="isFocused = true"
         @blur="isFocused = false"
@@ -31,7 +26,6 @@
         :tabindex="tabindex"
         :disabled="isDisabled"
         type="checkbox"
-        :class="ns.e('original')"
         @change="handleChange"
         @focus="isFocused = true"
         @blur="isFocused = false"
@@ -50,27 +44,27 @@
 import { computed, useSlots } from 'vue'
 import { useNamespace } from '@/composables'
 import { useCheckbox } from './composables'
-import { checkboxEmits, checkboxProps } from './checkbox'
+import { checkboxButtonProps } from './checkbox-button'
 
 defineOptions({
-  name: 'NCheckbox'
+  name: 'NCheckboxButton'
 })
 
-const props = defineProps(checkboxProps)
-defineEmits(checkboxEmits)
+const props = defineProps(checkboxButtonProps)
 const slots = useSlots()
 
-const ns = useNamespace('checkbox')
+const ns = useNamespace('checkbox-button')
 
 const {
   isChecked,
   checkboxSize,
   isDisabled,
-  isFocused,
+  buttonType,
   model,
+  isFocused,
   actualValue,
-  handleChange,
-  onClickRoot
+  onClickRoot,
+  handleChange
 } = useCheckbox(props, slots)
 
 const commonCls = computed(() => [
@@ -78,15 +72,11 @@ const commonCls = computed(() => [
   ns.is('checked', isChecked.value)
 ])
 
-const checkboxCls = computed(() => [
+const checkboxButtonCls = computed(() => [
   ns.b(),
+  `${ns.ns.value}-button`,
   ns.m(checkboxSize.value || props.size),
-  ...commonCls.value
-])
-
-const checkboxInputCls = computed(() => [
-  ns.e('input'),
-  ns.is('indeterminate', props.indeterminate),
+  ns.m(buttonType.value),
   ...commonCls.value
 ])
 </script>

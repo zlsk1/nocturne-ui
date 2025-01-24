@@ -21,7 +21,10 @@ export const checkboxGroupProps = {
   },
   max: Number,
   min: Number,
-  label: String
+  label: String,
+  buttonType: {
+    type: definePropType<'default' | 'solid'>(String)
+  }
 } as const
 
 export const checkboxGroupEmits = {

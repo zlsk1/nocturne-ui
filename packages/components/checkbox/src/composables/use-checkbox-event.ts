@@ -1,6 +1,6 @@
 import { getCurrentInstance, nextTick } from 'vue'
 
-import type { CheckboxProps } from '../src/checkbox'
+import type { CheckboxProps } from '../checkbox'
 import type {
   CheckboxDisabled,
   CheckboxModel,

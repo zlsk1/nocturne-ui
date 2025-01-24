@@ -1,8 +1,8 @@
 import { computed, getCurrentInstance, inject, ref } from 'vue'
 import { isArray, isUndefined } from '@/utils'
-import { checkboxGroupContextKey } from '../src/constants'
+import { checkboxGroupContextKey } from '../constants'
 
-import type { CheckboxProps } from '../src/checkbox'
+import type { CheckboxProps } from '../checkbox'
 
 export const useCheckboxModel = (props: CheckboxProps) => {
   const selfModel = ref<unknown>(false)

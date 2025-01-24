@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
     NCarousel: (typeof import('packages'))['NCarousel']
     NCarouselItem: (typeof import('packages'))['NCarouselItem']
     NCheckbox: (typeof import('packages'))['NCheckbox']
+    NCheckboxButton: (typeof import('packages'))['NCheckboxButton']
     NCheckboxGroup: (typeof import('packages'))['NCheckboxGroup']
     NCol: (typeof import('packages'))['NCol']
     NCollapse: (typeof import('packages'))['NCollapse']

@@ -1,10 +1,10 @@
 import { computed, inject } from 'vue'
 import { isUndefined } from '@/utils'
 import { useFormItem } from '@/components/form'
-import { checkboxGroupContextKey } from '../src/constants'
+import { checkboxGroupContextKey } from '../constants'
 
 import type { CheckboxModel, CheckboxStatus } from '../composables'
-import type { CheckboxProps } from '../src/checkbox'
+import type { CheckboxProps } from '../checkbox'
 
 export const useCheckboxDisabled = ({
   model,

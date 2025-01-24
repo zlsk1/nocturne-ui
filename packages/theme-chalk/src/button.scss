@@ -20,27 +20,26 @@ $button-icon-span-gap: map.merge(
 }
 
 @include b(button) {
+  box-sizing: border-box;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-
-  line-height: 1;
   // min-height will expand when in flex
   height: map.get($input-height, 'default');
+  line-height: 1;
   white-space: nowrap;
   cursor: pointer;
   color: getCssVar('button', 'text-color');
   text-align: center;
-  box-sizing: border-box;
-  outline: none;
-  transition: 0.1s;
   font-weight: getCssVar('button', 'font-weight');
-  user-select: none;
   vertical-align: middle;
-  -webkit-appearance: none;
+  user-select: none;
+  outline: none;
   background-color: getCssVar('button', 'bg-color');
   border: getCssVar('border');
   border-color: getCssVar('button', 'border-color');
+  transition: 0.1s;
+  -webkit-appearance: none;
 
   &:hover {
     color: getCssVar('button', 'hover', 'text-color');

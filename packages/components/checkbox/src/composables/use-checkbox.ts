@@ -5,7 +5,7 @@ import { useCheckboxModel } from './use-checkbox-model'
 import { useCheckboxStatus } from './use-checkbox-status'
 import type { ComponentInternalInstance } from 'vue'
 
-import type { CheckboxProps } from '../src/checkbox'
+import type { CheckboxProps } from '../checkbox'
 
 export const useCheckbox = (
   props: CheckboxProps,
@@ -18,7 +18,8 @@ export const useCheckbox = (
     checkboxButtonSize,
     checkboxSize,
     hasOwnLabel,
-    actualValue
+    actualValue,
+    buttonType
   } = useCheckboxStatus(props, slots, { model })
   const { isDisabled } = useCheckboxDisabled({
     model,
@@ -57,6 +58,7 @@ export const useCheckbox = (
     hasOwnLabel,
     model,
     actualValue,
+    buttonType,
     handleChange,
     onClickRoot
   }

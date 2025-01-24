@@ -65,24 +65,12 @@ $color-info: map.get($colors, 'info', 'base') !default;
   ) !global;
 }
 
-// $colors.primary.light-i
-// --el-color-primary-light-i
-// 10% 53a8ff
-// 20% 66b1ff
-// 30% 79bbff
-// 40% 8cc5ff
-// 50% a0cfff
-// 60% b3d8ff
-// 70% c6e2ff
-// 80% d9ecff
-// 90% ecf5ff
 @each $type in $types {
   @for $i from 1 through 9 {
     @include set-color-mix-level($type, $i, 'light', $color-white);
   }
 }
 
-// --el-color-primary-dark-2
 @each $type in $types {
   @include set-color-mix-level($type, 2, 'dark', $color-black);
 }
@@ -606,7 +594,11 @@ $checkbox-button: map.merge(
   (
     'checked-bg-color': getCssVar('color-primary'),
     'checked-text-color': getCssVar('color-white'),
-    'checked-border-color': getCssVar('color-primary')
+    'checked-border-color': getCssVar('color-primary'),
+    // 'disabled-bg-color': getCssVar('fill-color', 'darker'),
+    'disabled-bg-color': getCssVar('disabled', 'bg-color'),
+    'disabled-text-color': getCssVar('disabled', 'text-color'),
+    'disabled-border-color': getCssVar('disabled', 'border-color')
   ),
   $checkbox-button
 );

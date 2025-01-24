@@ -14,6 +14,7 @@ declare module 'vue' {
     NCarousel: (typeof import('nocturne-ui'))['NCarousel']
     NCarouselItem: (typeof import('nocturne-ui'))['NCarouselItem']
     NCheckbox: (typeof import('nocturne-ui'))['NCheckbox']
+    NCheckboxButton: (typeof import('nocturne-ui'))['NCheckboxButton']
     NCheckboxGroup: (typeof import('nocturne-ui'))['NCheckboxGroup']
     NCol: (typeof import('nocturne-ui'))['NCol']
     NCollapse: (typeof import('nocturne-ui'))['NCollapse']
