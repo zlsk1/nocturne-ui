@@ -46,6 +46,7 @@ declare module 'vue' {
     NPopper: (typeof import('nocturne-ui'))['NPopper']
     NProgress: (typeof import('nocturne-ui'))['NProgress']
     NRadio: (typeof import('nocturne-ui'))['NRadio']
+    NRadioButton: (typeof import('nocturne-ui'))['NRadioButton']
     NRadioGroup: (typeof import('nocturne-ui'))['NRadioGroup']
     NRow: (typeof import('nocturne-ui'))['NRow']
     NSelect: (typeof import('nocturne-ui'))['NSelect']

@@ -15,6 +15,9 @@ export const radioGroupProps = {
   disabled: {
     type: Boolean,
     default: false
+  },
+  buttonType: {
+    type: definePropType<'default' | 'solid'>(String)
   }
 } as const
 

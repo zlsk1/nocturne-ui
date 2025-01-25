@@ -1,6 +1,6 @@
 <template>
   <label :class="radioCls">
-    <span :class="[ns.e('input'), ...commonCls]">
+    <span :class="[ns.e('input'), ...commonCls]" style="display: none">
       <input
         ref="radioRef"
         v-model="modelValue"
@@ -27,13 +27,13 @@ import { radioEmits, radioProps } from './radio'
 import { RADIOGROUP_INJECTION_KEY } from './constants'
 
 defineOptions({
-  name: 'NRadio'
+  name: 'NRadioButton'
 })
 
 const props = defineProps(radioProps)
 const emit = defineEmits(radioEmits)
 
-const ns = useNamespace('radio')
+const ns = useNamespace('radio-button')
 const { formItemDisabled, formItemSize } = useFormItem()
 
 const groupRef = inject(RADIOGROUP_INJECTION_KEY, undefined)!
@@ -79,8 +79,10 @@ const commonCls = computed(() => [
 
 const radioCls = computed(() => [
   ns.b(),
+  `${ns.ns.value}-button`,
   ns.m(actualSize.value),
   ns.is('focus', focus.value),
+  ns.m(groupRef.buttonType),
   ...commonCls.value
 ])
 

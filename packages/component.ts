@@ -37,7 +37,7 @@ import { NPopconfirm } from '@/components/popconfirm'
 import { NPopover } from '@/components/popover'
 import { NPopper } from '@/components/popper'
 import { NProgress } from '@/components/progress'
-import { NRadio, NRadioGroup } from '@/components/radio'
+import { NRadio, NRadioButton, NRadioGroup } from '@/components/radio'
 import { NRow } from '@/components/row'
 import { NOption, NOptionGroup, NSelect } from '@/components/select'
 import { NSlider } from '@/components/slider'
@@ -101,6 +101,7 @@ export default [
   NPopper,
   NProgress,
   NRadio,
+  NRadioButton,
   NRadioGroup,
   NRow,
   NSelect,

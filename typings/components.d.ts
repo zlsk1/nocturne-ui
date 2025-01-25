@@ -48,6 +48,7 @@ declare module '@vue/runtime-core' {
     NPopper: (typeof import('packages'))['NPopper']
     NProgress: (typeof import('packages'))['NProgress']
     NRadio: (typeof import('packages'))['NRadio']
+    NRadioButton: (typeof import('packages'))['NRadioButton']
     NRadioGroup: (typeof import('packages'))['NRadioGroup']
     NRow: (typeof import('packages'))['NRow']
     NSelect: (typeof import('packages'))['NSelect']

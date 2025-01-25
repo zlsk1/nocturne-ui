@@ -1,0 +1,48 @@
+@use 'mixins/mixins' as *;
+@use 'common/var' as *;
+@use 'mixins/var' as *;
+
+@include b(radio-button) {
+  @include set-component-css-var('radio-button', $radio-button);
+
+  font-size: 14px;
+  border-radius: 0;
+  transition: all getCssVar('transition-duration') linear;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  @each $size in ('large', 'small') {
+    @include m($size) {
+      height: getCssVar('component-size', $size);
+      @if ($size == 'small') {
+        font-size: 12px;
+      }
+    }
+  }
+
+  @include when(checked) {
+    color: getCssVar('radio-button', 'checked-bg-color');
+    background: none;
+    border-color: getCssVar('radio-button', 'checked-border-color');
+  }
+
+  @include m(solid) {
+    color: getCssVar('radio-button', 'checked-text-color');
+    background: none;
+
+    &.is-checked + .#{$namespace}-radio-button.is-checked {
+      border-left-color: getCssVar('color-black');
+    }
+
+    @include when(checked) {
+      color: getCssVar('radio-button', 'checked-text-color');
+      background: getCssVar('radio-button', 'checked-bg-color');
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
