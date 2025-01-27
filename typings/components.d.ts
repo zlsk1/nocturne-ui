@@ -55,6 +55,8 @@ declare module '@vue/runtime-core' {
     NSlider: (typeof import('packages'))['NSlider']
     NStatistic: (typeof import('packages'))['NStatistic']
     NSwitch: (typeof import('packages'))['NSwitch']
+    NTabs: (typeof import('packages'))['NTabs']
+    NTabItem: (typeof import('packages'))['NTabItem']
     NTag: (typeof import('packages'))['NTag']
     NTimePicker: (typeof import('packages'))['NTimePicker']
     NTimeline: (typeof import('packages'))['NTimeline']

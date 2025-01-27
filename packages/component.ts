@@ -43,6 +43,7 @@ import { NOption, NOptionGroup, NSelect } from '@/components/select'
 import { NSlider } from '@/components/slider'
 import { NStatistic } from '@/components/statistic'
 import { NSwitch } from '@/components/switch'
+import { NTabItem, NTabs } from '@/components/tabs'
 import { NTag } from '@/components/tag'
 import { NTimePicker } from '@/components/time-picker'
 import { NTimeline } from '@/components/timeline'
@@ -108,6 +109,8 @@ export default [
   NSlider,
   NStatistic,
   NSwitch,
+  NTabs,
+  NTabItem,
   NTag,
   NTimePicker,
   NTimeline,

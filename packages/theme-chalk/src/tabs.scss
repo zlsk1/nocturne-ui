@@ -1,0 +1,341 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(tabs) {
+  @include set-component-css-var('tabs', $tabs);
+}
+
+@mixin disabled {
+  color: getCssVar('tabs', 'nav-disabled-color');
+  cursor: not-allowed;
+
+  &:hover {
+    color: getCssVar('tabs', 'nav-disabled-color');
+  }
+
+  @include when(active) {
+    color: getCssVar('color-primary-light-3');
+
+    &::after {
+      background-color: getCssVar('color-primary-light-3');
+    }
+  }
+}
+
+@mixin card {
+  @include e(nav) {
+    @include e(nav__btn) {
+      padding: 8px 16px;
+      background-color: getCssVar('tabs', 'card-bg-color');
+      border: 1px solid getCssVar('tabs', 'nav-border-color');
+      border-radius: getCssVar('border-radius-large')
+        getCssVar('border-radius-large') 0 0;
+
+      &::after {
+        visibility: hidden;
+      }
+
+      &:first-child {
+        margin-right: 1px;
+      }
+
+      &:not(:first-child) {
+        margin-left: 0;
+        margin: 0 1px;
+      }
+
+      @include when(active) {
+        border-bottom-color: getCssVar('tabs', 'card-active-bg-color');
+        background-color: getCssVar('tabs', 'card-active-bg-color');
+      }
+    }
+  }
+}
+
+@include b(tabs) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  color: getCssVar('tabs', 'text-color');
+
+  @include e(nav) {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+
+    @include e(nav--wrap) {
+      position: relative;
+      display: flex;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: getCssVar('tabs', 'nav-border-color');
+        z-index: -1;
+      }
+
+      @include e(nav--list) {
+        position: relative;
+        display: flex;
+      }
+    }
+
+    @include e(nav__btn) {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: getCssVar('tabs', 'nav-btn-padding') 0;
+      white-space: nowrap;
+      transition: all getCssVar('transition-duration');
+      cursor: pointer;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        border-radius: getCssVar('border-radius-small');
+        background-color: getCssVar('tabs', 'nav-btn-color');
+        transition: width getCssVar('transition-duration');
+      }
+
+      &:not(:first-child) {
+        margin-left: getCssVar('tabs', 'nav-btn-margin');
+      }
+
+      &:hover {
+        color: getCssVar('tabs', 'nav-btn-color');
+      }
+
+      @include when(active) {
+        color: getCssVar('tabs', 'nav-btn-color');
+        &::after {
+          width: 100%;
+        }
+      }
+
+      @include when(disabled) {
+        @include disabled;
+      }
+    }
+  }
+
+  @include e(content) {
+    margin-top: 20px;
+    @include e(content__item) {
+    }
+  }
+
+  @include when(disabled) {
+    @include e(nav) {
+      cursor: not-allowed;
+      @include e(nav__btn) {
+        @include disabled;
+      }
+    }
+  }
+
+  @include when(bottom) {
+    flex-direction: column-reverse;
+
+    @include e(content) {
+      margin-top: 0;
+    }
+
+    @include e(nav) {
+      margin-top: 20px;
+    }
+  }
+
+  @each $position in left, right {
+    @include when($position) {
+      flex-direction: row;
+
+      @if ($position == 'right') {
+        justify-content: space-between;
+        flex-direction: row-reverse;
+      } @else if ($position == 'left') {
+        @include e(nav) {
+          margin-right: 20px;
+        }
+      }
+
+      // avoid duplicate rules
+      @if ($position == 'right' or $position == 'left') {
+        @include e(content) {
+          margin-top: 0;
+        }
+
+        @include e(nav) {
+          flex-direction: column;
+
+          @include e(nav--wrap) {
+            flex-direction: column;
+            margin-right: 0;
+
+            &::before {
+              content: '';
+              position: absolute;
+              right: 0;
+              top: 0;
+              left: auto;
+              width: 1px;
+              height: 100%;
+              background-color: getCssVar('tabs', 'nav-border-color');
+              z-index: -1;
+              @if ($position == 'right') {
+                right: auto;
+                left: 0;
+              }
+            }
+
+            @include e(nav--list) {
+              flex-direction: column;
+
+              @include e(nav__btn) {
+                position: relative;
+                margin: getCssVar('tabs', 'nav-btn-margin-horizontal') 0;
+                padding: 0 getCssVar('tabs', 'nav-btn-padding-horizontal');
+
+                &::after {
+                  content: '';
+                  position: absolute;
+                  right: 0;
+                  top: 0;
+                  left: auto;
+                  width: 2px;
+                  height: 0;
+                  border-radius: getCssVar('border-radius-small');
+                  background-color: getCssVar('tabs', 'nav-btn-color');
+                  transition: height getCssVar('transition-duration');
+                  @if ($position == 'right') {
+                    right: auto;
+                    left: 0;
+                  }
+                }
+
+                @include when(active) {
+                  color: getCssVar('tabs', 'nav-btn-color');
+                  &::after {
+                    height: 100%;
+                  }
+                }
+
+                &:first-child {
+                  margin-top: 0;
+                }
+                &:last-child {
+                  margin-bottom: 0;
+                }
+              }
+            }
+          }
+        }
+
+        @include e(operation) {
+          margin-left: 0;
+          flex-direction: column;
+
+          > * {
+            &:first-child {
+              padding: 0 getCssVar('tabs', 'nav-btn-padding')
+                getCssVar('tabs', 'nav-btn-padding')
+                getCssVar('tabs', 'nav-btn-padding');
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @include e(operation) {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    height: getCssVar('tabs', 'nav-btn-height');
+    padding: getCssVar('tabs', 'nav-btn-padding');
+    margin-left: 10px;
+
+    > * {
+      flex-shrink: 0;
+      padding: getCssVar('tabs', 'nav-btn-padding');
+      cursor: pointer;
+
+      &:first-child {
+        padding: getCssVar('tabs', 'nav-btn-padding')
+          getCssVar('tabs', 'nav-btn-padding')
+          getCssVar('tabs', 'nav-btn-padding') 0;
+      }
+    }
+
+    @include e(icon--add) {
+      transition: all getCssVar('transition-duration-fast');
+      &:hover {
+        color: getCssVar('color-primary');
+      }
+    }
+  }
+
+  @each $type in card, 'editable-card' {
+    @if ($type == 'card' or $type == 'editable-card') {
+      @include m($type) {
+        @include card;
+      }
+    }
+  }
+
+  @include e(nav__btn__remove) {
+    display: flex;
+    align-items: center;
+    margin-left: 6px;
+    padding: 0;
+    outline: none;
+    color: getCssVar('text-color-placeholder');
+    background: none;
+    border: none;
+    transition: all getCssVar('transition-duration') linear;
+    cursor: pointer;
+    &:hover {
+      color: getCssVar('text-color-regular');
+    }
+  }
+}
+
+.#{$namespace}-tabs--more__popper {
+  @include set-component-css-var('tabs-popper', $tabs-popper);
+  @include scroll-bar;
+  width: getCssVar('tabs-popper', 'width');
+  max-height: getCssVar('tabs-popper', 'max-height');
+  color: getCssVar('tabs-popper', 'text-color');
+  overflow: hidden;
+  &:hover {
+    overflow: auto;
+  }
+  .#{$namespace}-tabs--more__item {
+    padding: getCssVar('tabs-popper', 'item-padding') 0
+      getCssVar('tabs-popper', 'item-padding') 18px;
+    cursor: pointer;
+    transition: all getCssVar('transition-duration-fast');
+    &:hover {
+      background-color: getCssVar('tabs-popper', 'hover-bg-color');
+      color: getCssVar('color-white');
+    }
+  }
+  .is-disabled {
+    color: getCssVar('tabs-popper', 'disabled-color');
+    cursor: not-allowed;
+    &:hover {
+      background-color: transparent;
+      color: getCssVar('tabs-popper', 'disabled-color');
+    }
+  }
+}

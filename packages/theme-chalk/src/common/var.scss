@@ -135,6 +135,7 @@ $border-radius: map.merge(
   (
     'base': 4px,
     'small': 2px,
+    'large': 6px,
     'round': 20px,
     'circle': 100%
   ),
@@ -1074,3 +1075,36 @@ $tree-select: map.merge((), $tree-select);
 
 $tree: () !default;
 $tree: map.merge((), $tree);
+
+$tabs: () !default;
+$tabs: map.merge(
+  (
+    'text-color': getCssVar('text-color-primary'),
+    'nav-btn-height': 24px,
+    'nav-btn-height-horizontal': 30px,
+    'nav-btn-padding': 8px,
+    'nav-btn-margin': 26px,
+    'nav-btn-padding-horizontal': 20px,
+    'nav-btn-margin-horizontal': 14px,
+    'nav-btn-color': getCssVar('color-primary'),
+    'nav-border-color': getCssVar('border-color-lighter'),
+    'nav-disabled-color': getCssVar('disabled-text-color'),
+    'card-bg-color': getCssVar('fill-color-lighter'),
+    'card-border-radius': getCssVar('border-radius-large'),
+    'card-active-bg-color': getCssVar('fill-color-extra-light')
+  ),
+  $tabs
+);
+
+$tabs-popper: () !default;
+$tabs-popper: map.merge(
+  (
+    'width': 130px,
+    'max-height': 190px,
+    'text-color': getCssVar('text-color-primary'),
+    'hover-bg-color': getCssVar('fill-color'),
+    'item-padding': 6px,
+    'disabled-color': getCssVar('disabled-text-color')
+  ),
+  $tabs-popper
+);
