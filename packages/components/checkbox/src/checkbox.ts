@@ -68,5 +68,5 @@ export const checkboxEmits = {
 }
 
 export type CheckboxProps = ExtractPropTypes<typeof checkboxProps>
-export type CheckboxEmits = ExtractPropTypes<typeof checkboxEmits>
+export type CheckboxEmits = typeof checkboxEmits
 export type CheckInstance = InstanceType<typeof Check>
