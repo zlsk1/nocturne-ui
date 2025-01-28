@@ -51,6 +51,7 @@ declare module '@vue/runtime-core' {
     NRadioButton: (typeof import('packages'))['NRadioButton']
     NRadioGroup: (typeof import('packages'))['NRadioGroup']
     NRow: (typeof import('packages'))['NRow']
+    NSegmented: (typeof import('packages'))['NSegmented']
     NSelect: (typeof import('packages'))['NSelect']
     NSlider: (typeof import('packages'))['NSlider']
     NStatistic: (typeof import('packages'))['NStatistic']

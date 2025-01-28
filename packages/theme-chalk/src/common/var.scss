@@ -1108,3 +1108,19 @@ $tabs-popper: map.merge(
   ),
   $tabs-popper
 );
+
+$segmented: () !default;
+$segmented: map.merge(
+  (
+    'item-padding': 6px 8px,
+    'text-color': getCssVar('text-color-secondary'),
+    'hover-text-color': getCssVar('text-color-primary'),
+    'bg-color': getCssVar('fill-color-lighter'),
+    'disabled-color': getCssVar('text-color', 'disabled'),
+    'selected-bg-color': getCssVar('fill-color'),
+    'selected-box-bg-color': getCssVar('fill-color'),
+    'actived-bg-color': getCssVar('fill-color-darker'),
+    'radius': getCssVar('border-radius-base')
+  ),
+  $segmented
+);

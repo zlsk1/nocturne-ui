@@ -39,6 +39,7 @@ import { NPopper } from '@/components/popper'
 import { NProgress } from '@/components/progress'
 import { NRadio, NRadioButton, NRadioGroup } from '@/components/radio'
 import { NRow } from '@/components/row'
+import { NSegmented } from '@/components/segmented'
 import { NOption, NOptionGroup, NSelect } from '@/components/select'
 import { NSlider } from '@/components/slider'
 import { NStatistic } from '@/components/statistic'
@@ -105,6 +106,7 @@ export default [
   NRadioButton,
   NRadioGroup,
   NRow,
+  NSegmented,
   NSelect,
   NSlider,
   NStatistic,

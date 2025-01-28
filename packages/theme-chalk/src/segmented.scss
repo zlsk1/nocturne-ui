@@ -1,0 +1,175 @@
+@use 'sass:map';
+
+@use './mixins/mixins.scss' as *;
+@use './mixins/var.scss' as *;
+@use 'common/var' as *;
+
+@mixin item-disabled {
+  color: getCssVar('segmented', 'disabled-color');
+  cursor: not-allowed;
+
+  &:not(.is-selected) {
+    &:hover {
+      background: getCssVar('segmented', 'bg-color');
+    }
+  }
+
+  &:hover {
+    color: getCssVar('segmented', 'disabled-color');
+  }
+}
+
+$segmented-size: () !default;
+$segmented-size: map.merge(
+  (
+    'large': 10px 10px,
+    'small': 4px 6px
+  ),
+  $segmented-size
+);
+
+@include b(segmented) {
+  @include set-component-css-var('segmented', $segmented);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: stretch;
+  padding: 3px;
+  background: getCssVar('segmented', 'bg-color');
+  border-radius: getCssVar('segmented', 'radius');
+
+  @include e('group') {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+
+  @include e(item) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    padding: getCssVar('segmented', 'item-padding');
+    font-size: 14px;
+    color: getCssVar('segmented', 'text-color');
+    border-radius: getCssVar('segmented', 'radius');
+    transition: getCssVar('transition-duration-fast') linear;
+    cursor: pointer;
+
+    &:hover {
+      color: getCssVar('segmented', 'hover-text-color');
+      background-color: getCssVar('segmented', 'selected-bg-color');
+    }
+
+    @include when(selected) {
+      color: getCssVar('segmented', 'hover-text-color');
+      &:active {
+        background-color: getCssVar('segmented', 'selected-color');
+      }
+      // 选中后恢复为原来的背景色
+      &:hover {
+        background-color: getCssVar('segmented', 'fill-color');
+        transition: none;
+      }
+    }
+
+    &:active {
+      background-color: getCssVar('segmented', 'actived-bg-color');
+    }
+
+    @include when(disabled) {
+      @include item-disabled;
+    }
+
+    @include e(item-label) {
+      display: flex;
+      flex: 1;
+      text-align: center;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      &:has(div) {
+        .n-icon {
+          margin-right: 6px;
+        }
+      }
+    }
+
+    @include when(focus-visible) {
+      outline: solid 2px getCssVar('color-primary-light-5');
+      outline-offset: 1px;
+      transition:
+        outline-offset 0s,
+        outline 0s;
+    }
+  }
+
+  @include e('input') {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @include e('selected__box') {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    border-radius: getCssVar('segmented', 'radius');
+    background-color: getCssVar('segmented', 'selected-box-bg-color');
+    pointer-events: none;
+    transition: all getCssVar('transition-duration') ease-in-out;
+  }
+
+  @include when(disabled) {
+    @include e(item) {
+      @include item-disabled;
+    }
+    cursor: not-allowed;
+  }
+
+  @include when(block) {
+    display: flex;
+    @include e('item') {
+      min-width: 0;
+    }
+  }
+
+  &:focus-visible {
+    outline: solid 3px getCssVar('color-primary-light-5');
+    outline-offset: 1px;
+    transition:
+      outline-offset 0s,
+      outline 0s;
+  }
+
+  @each $size in (large, small) {
+    @include m($size) {
+      @include e(item) {
+        padding: map.get($segmented-size, $size);
+      }
+    }
+    @if ($size == large) {
+      @include e(item) {
+        font-size: 15px;
+      }
+    }
+  }
+
+  @include when(vertical) {
+    @include e('group') {
+      flex-direction: column;
+    }
+    @include e('selected__box') {
+      width: 100%;
+    }
+    @include e(item-label) {
+      justify-content: center;
+    }
+  }
+}

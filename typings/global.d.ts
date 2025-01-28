@@ -49,6 +49,7 @@ declare module 'vue' {
     NRadioButton: (typeof import('nocturne-ui'))['NRadioButton']
     NRadioGroup: (typeof import('nocturne-ui'))['NRadioGroup']
     NRow: (typeof import('nocturne-ui'))['NRow']
+    NSegmented: (typeof import('nocturne-ui'))['NSegmented']
     NSelect: (typeof import('nocturne-ui'))['NSelect']
     NSlider: (typeof import('nocturne-ui'))['NSlider']
     NStatistic: (typeof import('nocturne-ui'))['NStatistic']
