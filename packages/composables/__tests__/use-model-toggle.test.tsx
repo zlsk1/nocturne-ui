@@ -158,6 +158,7 @@ describe('use-model-toggle', () => {
     wrapper = mount(Comp, {
       global: {
         config: {
+          // @ts-ignore
           globalProperties: {
             $route: router
           }

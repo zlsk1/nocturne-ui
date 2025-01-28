@@ -103,6 +103,7 @@ describe('Popper Content', () => {
         position: 'absolute'
       }
       await wrapper.setProps({
+        // @ts-ignore
         popperStyle: style
       })
 

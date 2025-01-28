@@ -29,6 +29,7 @@ describe('usePopper', () => {
     popperRef.value = document.createElement('div')
   }
 
+  // @ts-ignore
   const getExposed = (key: string) => wrapper.vm[key] as any
 
   beforeEach(async () => {

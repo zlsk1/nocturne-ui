@@ -1,3 +1,4 @@
+// @ts-ignore
 import type { InjectionKey } from 'vue'
 
 export const timeUnits = ['hour', 'minute', 'second'] as const

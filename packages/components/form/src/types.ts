@@ -11,13 +11,13 @@ export type Callback = (valid: boolean, fields?: ValidateFieldsError) => void
 export type TriggerType = 'blur' | 'change'
 
 export type NFormInjectionContext = {
-  model?: FormProps['model']
-  rules?: FormProps['rules']
   maxLabelWidth: number
   labelPosition: FormProps['labelPosition']
   labelWidth: string | number
   disabled: boolean
-  size: FormProps['size']
+  size?: FormProps['size']
+  model?: FormProps['model']
+  rules?: FormProps['rules']
   addField: (formItemContext: NFormItemInjectionContext) => void
 }
 
