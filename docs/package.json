@@ -10,7 +10,7 @@
     "@docsearch/css": "3",
     "@docsearch/js": "3",
     "@remixicon/vue": "4.2.0",
-    "nocturne-ui": "0.0.2-alpha.6",
+    "nocturne-ui": "0.0.2-alpha.7",
     "prism-theme-vars": "0.2.3",
     "vue": "3.4.15"
   },
