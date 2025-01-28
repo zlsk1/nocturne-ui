@@ -7,14 +7,18 @@
       <n-checkbox value="choosen 4" label="choosen 4" />
     </n-checkbox-group>
   </div>
-  <div>
+  <div class="flex">
     <n-checkbox
       v-model="checkAll"
       :indeterminate="indeterminate"
       label="check-all"
       @change="handleCheckAll"
     />
-    <n-checkbox-group v-model="checkedNames" @change="handleChange">
+    <n-checkbox-group
+      v-model="checkedNames"
+      class="ml-4"
+      @change="handleChange"
+    >
       <n-checkbox
         v-for="name in names"
         :key="name"

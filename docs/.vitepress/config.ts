@@ -29,6 +29,10 @@ export const config: UserConfig = {
         {
           text: '表单',
           items: [
+            {
+              text: 'AutoComplete 自动完成',
+              link: '/zh-CN/components/auto-complete'
+            },
             { text: 'Checkbox 多选框', link: '/zh-CN/components/checkbox' },
             {
               text: 'ColorPicker 颜色选择器',
@@ -45,12 +49,21 @@ export const config: UserConfig = {
             },
             { text: 'Form 表单', link: '/zh-CN/components/form' },
             { text: 'Radio 单选框', link: '/zh-CN/components/radio' },
+            { text: 'Rate 评分', link: '/zh-CN/components/rate' },
             { text: 'Select 选择器', link: '/zh-CN/components/select' },
             { text: 'Slider 滑块', link: '/zh-CN/components/slider' },
             { text: 'Switch 开关', link: '/zh-CN/components/switch' },
             {
               text: 'TimePicker 时间选择器',
               link: '/zh-CN/components/time-picker'
+            },
+            {
+              text: 'Transfer 穿梭框',
+              link: '/zh-CN/components/transfer'
+            },
+            {
+              text: 'TreeSelect 树形选择器',
+              link: '/zh-CN/components/tree-select'
             }
           ]
         },
@@ -64,8 +77,18 @@ export const config: UserConfig = {
             { text: 'Collapse 折叠面板', link: '/zh-CN/components/collapse' },
             { text: 'Pagination 分页器', link: '/zh-CN/components/pagination' },
             { text: 'Progress 进度条', link: '/zh-CN/components/progress' },
+            {
+              text: 'Segmented 分段控制器',
+              link: '/zh-CN/components/segmented'
+            },
             { text: 'Statistic 统计', link: '/zh-CN/components/statistic' },
-            { text: 'Tag 标签', link: '/zh-CN/components/tag' }
+            { text: 'Table 表格', link: '/zh-CN/components/table' },
+            { text: 'Tabs 标签页', link: '/zh-CN/components/tabs' },
+            { text: 'Tag 标签', link: '/zh-CN/components/tag' },
+            {
+              text: 'Tree 树形控件',
+              link: '/zh-CN/components/tree'
+            }
           ]
         },
         {
