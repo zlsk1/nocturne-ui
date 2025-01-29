@@ -1,4 +1,5 @@
 import { componentSizes } from '@/constants'
+import { zhCn } from '@/locale'
 import type { ExtractPropTypes } from 'vue'
 
 export const configProviderProps = {
@@ -11,6 +12,10 @@ export const configProviderProps = {
     type: String,
     values: componentSizes,
     default: ''
+  },
+  locale: {
+    type: Object,
+    default: zhCn
   }
 } as const
 

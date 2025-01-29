@@ -1,6 +1,7 @@
 import { computed, getCurrentInstance, inject, provide, unref } from 'vue'
 import {
   COMPONENT_SIZE_INJECTION_KEY,
+  LOCALE_INJECTION_KEY,
   NAMESPACE_INJECTION_KEY,
   ZINDEX_INJECTION_KEY
 } from '@/composables'
@@ -46,6 +47,10 @@ export const provideGlobalConfig = (
   _provide(
     COMPONENT_SIZE_INJECTION_KEY,
     computed(() => newConfig.value.componentSize)
+  )
+  _provide(
+    LOCALE_INJECTION_KEY,
+    computed(() => newConfig.value.locale)
   )
 
   return newConfig
