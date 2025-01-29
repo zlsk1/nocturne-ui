@@ -48,12 +48,12 @@ color-picker/show-text
 | modelValue / v-model | color-picker的值        | ^[string]                           | —       |
 | id                   | 原生id属性              | ^[string]                            | —       |
 | showAlpha            | 是否显示alpha控制条      | ^[boolean]                          | false   |
-| colorFormat          | 颜色格式                | ^[enum]`'hsl'\| 'hsv'\| 'hex'\|'rgb'`| —       |
+| colorFormat          | 颜色格式                | ^[enum]`'hsl' \| 'hsv' \| 'hex' \|'rgb'`| —       |
 | disabled             | 是否禁用                | ^[boolean]                           | false  |
-| size                 | 尺寸                   | ^[enum]`'large'\| 'default'\|'small'` | false   |
+| size                 | 尺寸                   | ^[enum]`'large' \| 'default' \| 'small'` | false   |
 | popperClass          | 下拉框的类名             | ^[string]                            |  —      |
 | label                | 原生label属性           | ^[string]                            | false   |
-| tabindex             | 原生tabindex属性        | ^[string] / ^[number]                | 0       |
+| tabindex             | 原生tabindex属性        | ^[string]/ ^[number]                | 0       |
 | teleported           | 是否插入到body下         | ^[boolean]                           | true    |
 | predefine            | 预设颜色组               | ^[object]`string[]`                  | []     |
 | validateEvent        | 是否触发表单验证          | ^[boolean]                           | true   |

@@ -5,27 +5,34 @@
       <div class="demo-content">
         <div class="demo-component">
           <ClientOnly>
-            <component :is="formatPathDemos[src]" v-if="formatPathDemos[src]"></component>
+            <component
+              :is="formatPathDemos[src]"
+              v-if="formatPathDemos[src]"
+            ></component>
           </ClientOnly>
         </div>
         <div class="demo-operas">
           <n-tooltip content="展开代码">
-            <codeView
-              size="16"
-              class="opera"
-              @click="handleShowCode"
-            ></codeView>
+            <n-icon size="16" class="opera">
+              <codeView @click="handleShowCode"></codeView>
+            </n-icon>
           </n-tooltip>
           <n-tooltip content="在playround中编辑">
-            <Play size="16" class="opera"></Play>
+            <n-icon size="16" class="opera">
+              <Play></Play>
+            </n-icon>
           </n-tooltip>
           <n-tooltip content="在github上查看">
             <a :href="githubPath" target="_blank">
-              <github size="16" class="opera"></github>
+              <n-icon size="16" class="opera">
+                <github></github>
+              </n-icon>
             </a>
           </n-tooltip>
           <n-tooltip content="复制代码">
-            <fileCopy size="16" class="opera" @click="copyCode"></fileCopy>
+            <n-icon size="16" class="opera">
+              <fileCopy @click="copyCode"></fileCopy>
+            </n-icon>
           </n-tooltip>
         </div>
         <n-collapse-transition>
@@ -34,7 +41,11 @@
           </div>
         </n-collapse-transition>
         <Transition name="n-fade-in-linear">
-          <div class="demo-source-close" @click="handleShowCode" v-show="showCode">
+          <div
+            class="demo-source-close"
+            @click="handleShowCode"
+            v-show="showCode"
+          >
             <Triangle size="20"></Triangle>
             <span>收起源代码</span>
           </div>
@@ -52,7 +63,7 @@ import {
   RiGithubFill as github,
   RiSendPlaneFill as Play,
   RiArrowUpDoubleLine as Triangle
-} from '@remixicon/vue';
+} from '@remixicon/vue'
 import { useClipboard } from '@vueuse/core'
 
 const props = defineProps({
@@ -81,7 +92,7 @@ const showCode = ref(false)
 
 const { copy, isSupported } = useClipboard({
   source: decodeURIComponent(props.rawCodes as string),
-  read: false,
+  read: false
 })
 
 const vm = getCurrentInstance()!
@@ -104,7 +115,7 @@ const formatPathDemos = computed(() => {
 })
 
 const githubPath = computed(() => {
- return `https://github.com/zlsk1/nocturne-ui/tree/master/docs/demo/${props.src}.vue`
+  return `https://github.com/zlsk1/nocturne-ui/tree/master/docs/demo/${props.src}.vue`
 })
 
 const handleShowCode = async () => {
@@ -113,14 +124,13 @@ const handleShowCode = async () => {
 
 const copyCode = async () => {
   const { $message } = vm.appContext.config.globalProperties
-  
-  if(!isSupported) {
+
+  if (!isSupported) {
     $message.error({
       offset: 55,
       message: '复制失败'
     })
-  }
-  else {
+  } else {
     await copy()
     $message.success({
       offset: 55,

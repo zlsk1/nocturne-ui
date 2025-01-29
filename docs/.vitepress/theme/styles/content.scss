@@ -1,12 +1,11 @@
 .main-content {
-  
   .doc-content-wrapper {
     display: flex;
     justify-content: space-between;
     padding-top: 80px;
     padding-left: calc(var(--sidebar-width) + 20px);
     padding-bottom: 80px;
-  
+
     .doc-content-container {
       width: 100%;
       padding-left: 40px;
@@ -15,10 +14,15 @@
       }
     }
   }
-  
+
   .doc-content {
     flex-shrink: 0;
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       position: relative;
       display: flex;
       align-items: center;
@@ -27,7 +31,11 @@
         align-items: center;
       }
     }
-  
+
+    p {
+      font-size: 14px;
+    }
+
     > div {
       .vp-table {
         width: 100%;
@@ -35,33 +43,33 @@
         overflow-x: auto;
         margin-bottom: 45px;
         font-family: 'JetBrains Mono', 'Microsoft YaHei';
-  
+
         table {
           width: 100%;
           line-height: 1.5em;
           font-size: 14px;
           border-collapse: collapse;
           background-color: var(--n-bg-color);
-  
+
           th {
             white-space: nowrap;
             border-top: 1px solid var(--n-border-color);
             border-bottom: 1px solid var(--n-border-color);
-            padding: .6em 1em;
+            padding: 0.6em 1em;
             text-align: left;
             max-width: 250px;
             white-space: pre-wrap;
           }
-  
+
           &:first-child th {
             border-top: none;
           }
-  
+
           td {
             white-space: nowrap;
             border-top: 1px solid var(--n-border-color);
             border-bottom: 1px solid var(--n-border-color);
-            padding: .6em 1em;
+            padding: 0.6em 1em;
             text-align: left;
             max-width: 250px;
             white-space: pre-wrap;

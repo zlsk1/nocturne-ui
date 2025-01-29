@@ -1,5 +1,4 @@
 .demo-container {
-
   .demo-content {
     border: 1px solid var(--n-border-color-light);
     border-radius: 4px;
@@ -17,6 +16,9 @@
       border-top: 1px solid var(--n-border-color-light);
 
       .opera {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 34px;
         cursor: pointer;
         transition: color var(--duration-time);
@@ -32,14 +34,13 @@
         color: var(--n-text-color-secondary);
       }
     }
-  
+
     .demo-description {
-  
       strong {
         color: #333;
       }
     }
-  
+
     .demo-source-wrapper {
       font-weight: 700;
       overflow: hidden;
@@ -57,7 +58,7 @@
       background-color: var(--n-bg-color);
       cursor: pointer;
       z-index: 200;
-      transition: all .2s linear;
+      transition: all 0.2s linear;
 
       &:hover {
         color: var(--theme-color);

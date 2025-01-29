@@ -14,8 +14,8 @@
     "paths": {
       "@docs/*": ["./*"]
     },
-    "types": ["nocturne-ui/global"],
+    "types": ["nocturne-ui/global"]
   },
-  "include": ["**/*", ".vitepress"],
+  "include": ["**/*", ".vitepress/**/*"],
   "exclude": ["node_modules"]
 }

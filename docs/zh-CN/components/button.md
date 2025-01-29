@@ -61,15 +61,15 @@ button/button-group
 
 | 属性名                | 描述                   | 类型                                 | 默认值   |
 | -------------------- | ---------------------- | ------------------------------------ | ------- |
-| size                 | 按钮尺寸                | ^[enum]`'large'\| 'default'\|'small'`| —       |
-| type                 | 按钮类型                | ^[enum]`'primary'\| 'success'\| 'warning'\| 'danger'\| 'info'\| 'text'(delete)` | —       |
+| size                 | 按钮尺寸                | ^[enum]`'large' \| 'default' \| 'small'`| —       |
+| type                 | 按钮类型                | ^[enum]`'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'text'`| — |
 | plain                | 是否为镂空按钮           | ^[boolean]                           | false   |
 | round                | 是否为圆角按钮           | ^[boolean]                           | false   |
 | circle               | 是否为圆形按钮           | ^[boolean]                           | false   |
 | loading              | 是否添加加载图标         | ^[boolean]                           | false   |
-| loadingIcon          | 自定义加载图标           | ^[string] / ^[Component]             |  —      |
+| loadingIcon          | 自定义加载图标           | ^[string]/ ^[Component]             |  —      |
 | disabled             | 是否禁用                 | ^[boolean]                           | false   |
-| icon              | 要添加的icon组件            | ^[string] / ^[Component]             | —       |
+| icon              | 要添加的icon组件            | ^[string]/ ^[Component]             | —       |
 | text              | 是否为文字按钮           | ^[boolean]                               | —       |
 
 ### Button Slots

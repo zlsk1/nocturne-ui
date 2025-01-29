@@ -50,4 +50,4 @@ link/icon
 | target    | 链接行为             | ^[string]                                                          | \_self |
 | underline | 悬浮时是否显示下划线 | ^[boolean]                                                         | false  |
 | disabled  | 禁用链接             | ^[boolean]                                                         | false  |
-| icon      | 链接的图标           | ^[string] / ^[Compopnent]                                          | —      |
+| icon      | 链接的图标           | ^[string]/ ^[Compopnent]                                          | —      |
