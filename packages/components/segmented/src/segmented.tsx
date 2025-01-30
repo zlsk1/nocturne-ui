@@ -2,7 +2,7 @@ import { computed, defineComponent, h, reactive, ref, watch } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
 import NIcon from '@/components/icon'
 import { isUndefined } from '@/utils'
-import { useId, useNamespace } from '@/composables'
+import { useNamespace } from '@/composables'
 import { segmentedEmits, segmentedProps } from './type'
 import type { Component } from 'vue'
 import type { SegmentedOption } from './type'
@@ -14,7 +14,6 @@ export default defineComponent({
   emit: segmentedEmits,
   setup(props, ctx) {
     const ns = useNamespace('segmented')
-    const defaultId = useId()
 
     const segmentedRef = ref<HTMLElement | null>(null)
     const state = reactive({
@@ -34,12 +33,12 @@ export default defineComponent({
       }
       return {
         width: `${state.width}px`,
-        tranform: `translateX(${state.translate}px)`
+        transform: `translateX(${state.translate}px)`
       }
     })
 
     const id = computed(() => {
-      return defaultId.value || props.id
+      return props.id
     })
 
     const emitEvent = (value: string | number) => {
