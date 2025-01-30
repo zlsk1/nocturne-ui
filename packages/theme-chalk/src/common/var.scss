@@ -1124,3 +1124,14 @@ $segmented: map.merge(
   ),
   $segmented
 );
+
+$progress: () !default;
+$progress: map.merge(
+  (
+    'line-bg': getCssVar('border-color-lighter'),
+    'line-radius': getCssVar('border-radius-round'),
+    'text-color': getCssVar('text-color-regular'),
+    'stroke-color': getCssVar('fill-color')
+  ),
+  $progress
+);

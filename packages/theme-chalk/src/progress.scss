@@ -3,7 +3,7 @@
 @use 'common/var' as *;
 
 @include b(progress) {
-  // @include set-component-css-var('progress', $progress);
+  @include set-component-css-var('progress', $progress);
 }
 
 @include b(progress) {
@@ -11,7 +11,7 @@
   align-items: center;
   position: relative;
   height: 10px;
-  border-radius: 20px;
+  border-radius: getCssVar('progress', 'line-radius');
   overflow: hidden;
 
   @include m(line) {
@@ -26,8 +26,8 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: getCssVar('border-color-lighter');
-      border-radius: 20px;
+      background-color: getCssVar('progress', 'line-bg');
+      border-radius: getCssVar('progress', 'line-radius');
       z-index: 8;
     }
 
@@ -36,7 +36,7 @@
       left: 0;
       width: 0%;
       height: 100%;
-      border-radius: 20px;
+      border-radius: getCssVar('progress', 'line-radius');
       transition: all 1s ease-in-out;
       animation: progress 1.5s linear var(--loop);
       z-index: 10;
@@ -61,7 +61,7 @@
         align-items: center;
         height: 100%;
         font-size: 12px;
-        color: #f9f9f9;
+        color: getCssVar('progress', 'text-color');
       }
     }
   }
@@ -72,7 +72,7 @@
     align-items: center;
   }
   @include m(circle__bg) {
-    stroke: getCssVar('text-color-secondary');
+    stroke: getCssVar('progress', 'stroke-color');
     transform-origin: center;
     transform: rotate(-90deg);
     transition: stroke-dashoffset 1s ease-in-out;
