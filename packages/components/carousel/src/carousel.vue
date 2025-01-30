@@ -7,6 +7,7 @@
         ns.em('button', 'left'),
         ns.is('animation', isHover)
       ]"
+      :aria-label="t('noc.carousel.leftArrow')"
       :style="{ display: !loop && currentIndex === 0 ? 'none' : 'block' }"
       @click="handlePrev"
     >
@@ -30,6 +31,7 @@
         v-for="(_, i) in itemCount"
         :key="i"
         :class="ns.e('indicator__item')"
+        :aria-label="t('noc.carousel.indicator', { index: i + 1 })"
         @click="clickIndicator(i)"
         @mouseenter="() => trigger === 'hover' && switchTo(i)"
       >
@@ -48,6 +50,7 @@
         ns.em('button', 'right'),
         ns.is('animation', isHover)
       ]"
+      :aria-label="t('noc.carousel.rightArrow')"
       :style="{
         display: !loop && currentIndex === itemCount - 1 ? 'none' : 'block'
       }"
@@ -69,7 +72,7 @@ import {
   RiArrowRightSLine as ArrowRight
 } from '@remixicon/vue'
 import { NIcon } from '@/components/icon'
-import { useNamespace } from '@/composables'
+import { useLocale, useNamespace } from '@/composables'
 import { carouselEmits, carouselProps } from './carousel'
 import { CAROUSEL_INJECT_KEY } from './constants'
 
@@ -81,6 +84,7 @@ const props = defineProps(carouselProps)
 const emit = defineEmits(carouselEmits)
 
 const ns = useNamespace('carousel')
+const { t } = useLocale()
 
 let stopInterval: (() => void) | undefined
 let startInterval: (() => void) | undefined

@@ -862,10 +862,10 @@ $carousel: () !default;
 $carousel: map.merge(
   (
     'indicator-bg': getCssVar('border-color'),
-    'indicator-active-bg': getCssVar('color-white'),
+    'indicator-active-bg': getCssVar('text-color-primary'),
     'indicator-item-padding': 10px 8px,
     'button-bg': transparent,
-    'button-hover-bg': getCssVar('text-color-secondary'),
+    'button-hover-bg': getCssVar('fill-color-darker'),
     'button-size': 24px,
     'item-transition': transform getCssVar('transition-duration') ease-in-out
   ),
