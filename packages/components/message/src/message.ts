@@ -80,7 +80,7 @@ export const messageProps = {
   },
   zIndex: {
     type: Number,
-    default: 0
+    default: messageDefaults.zIndex
   }
 } as const
 

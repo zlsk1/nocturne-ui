@@ -22,7 +22,9 @@
         :value="repeatNum"
         :type="badgeType"
       />
-      <component :is="icon" :class="ns.bm(icon.value, type)" size="18" />
+      <n-icon :class="ns.bm('icon', type)" size="18">
+        <component :is="icon" />
+      </n-icon>
       <div :class="ns.e('content')">
         <span v-if="!isVNode(message)" :class="ns.e('title')">
           {{ message }}
@@ -46,7 +48,8 @@ import { computed, isVNode, onMounted, ref, watch } from 'vue'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
 import { RiCloseLine as Close } from '@remixicon/vue'
 import NBadge from '@/components/badge'
-import { useNamespace } from '@/composables'
+import NIcon from '@/components/icon'
+import { useNamespace, useZIndex } from '@/composables'
 import { typeIcons } from '@/utils'
 import { messageEmits, messageProps } from './message'
 import { getLastOffset, getOffsetOrSpace } from './instance'
@@ -60,6 +63,8 @@ const props = defineProps(messageProps)
 defineEmits(messageEmits)
 
 const ns = useNamespace('message')
+const { nextZIndex } = useZIndex()
+const currentZIndex = nextZIndex()
 
 const visible = ref(false)
 const height = ref(0)
@@ -107,6 +112,8 @@ const icon = computed(() => {
       return typeIcons['info']
   }
 })
+
+const zIndex = computed(() => props.zIndex || currentZIndex)
 
 const close = () => {
   visible.value = false
