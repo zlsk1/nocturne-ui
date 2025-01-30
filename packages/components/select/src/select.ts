@@ -14,8 +14,7 @@ import type { Options } from '@popperjs/core'
 
 export const selectProps = {
   placeholder: {
-    type: String,
-    default: '请选择'
+    type: String
   },
   modelValue: {
     type: definePropType<string | number | boolean | [] | object>([

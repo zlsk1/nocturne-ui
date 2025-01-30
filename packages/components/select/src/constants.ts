@@ -4,7 +4,7 @@ import type { OptionProps } from './option'
 
 export type NSelectInjectionContext = {
   multipleValue: any[]
-  singleValue: string
+  // singleValue: string
   inputValue: string
   options: Map<any, any>
   optionsArray: any[]

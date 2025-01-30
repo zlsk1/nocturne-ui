@@ -52,7 +52,7 @@ const selected = computed(() => {
     return states.multipleValue.includes(props.value)
   } else {
     if (!isObject(props.value)) {
-      return props.value === states.singleValue
+      return props.value === states.inputValue
     }
     return (
       props.value[states.valueKey!] ===
@@ -65,7 +65,8 @@ const showCheck = computed(() => {
   return states.multiple && selected.value
 })
 
-const visible = computed(() => String(props.label).includes(states.inputValue))
+// const visible = computed(() => String(props.label).includes(states.inputValue))
+const visible = computed(() => true)
 
 const optionCls = computed(() => [
   ns.be('option', 'item'),

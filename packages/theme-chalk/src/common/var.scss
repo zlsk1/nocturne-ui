@@ -825,6 +825,7 @@ $select: map.merge(
   (
     'hover-border': getCssVar('border-color-hover'),
     'focus-border': getCssVar('color-primary'),
+    'seleted-color': getCssVar('color-primary'),
     'disabled-bg-color': getCssVar('fill-color', 'light'),
     'disabled-text-color': getCssVar('text-color', 'placeholder')
   ),

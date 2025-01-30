@@ -91,29 +91,33 @@ $select-height: map.merge(
     min-width: 0;
 
     @include e(input--wrapper) {
+      position: absolute;
       display: flex;
       flex-wrap: wrap;
-      max-width: 100%;
+      width: 100%;
       user-select: none;
+    }
 
-      @include e(input) {
-        max-width: 100%;
-        padding: 0;
-        border: none;
-        outline: none;
-        appearance: none;
-        background-color: transparent;
-      }
+    @include e(input) {
+      width: 100%;
+      padding: 0;
+      font-family: inherit;
+      border: none;
+      outline: none;
+      appearance: none;
+      background-color: transparent;
+      opacity: 0;
+      cursor: pointer;
+    }
 
-      @include e(input--calculator) {
-        position: absolute;
-        top: 0;
-        inset-inline-start: 0;
-        inset-inline-end: auto;
-        z-index: 999;
-        white-space: pre;
-        visibility: hidden;
-      }
+    @include e(input--calculator) {
+      position: absolute;
+      top: 0;
+      inset-inline-start: 0;
+      inset-inline-end: auto;
+      z-index: 999;
+      white-space: pre;
+      visibility: hidden;
     }
 
     @include e(placeholder) {
@@ -141,11 +145,22 @@ $select-height: map.merge(
 
   @include when(filterable) {
     cursor: text;
+
+    @include e(input) {
+      opacity: 1;
+      cursor: text;
+    }
   }
 
-  @include e(tag) {
-    margin: 3px 4px;
-    cursor: pointer;
+  @include e(tags) {
+    position: relative;
+    display: flex;
+    z-index: 10;
+
+    @include e(tag) {
+      margin: 3px 4px;
+      cursor: pointer;
+    }
   }
 
   @include e(icon) {
@@ -153,7 +168,12 @@ $select-height: map.merge(
     align-items: center;
     flex-shrink: 0;
     font-size: 18px;
+    transition: all getCssVar('transition-duration');
     cursor: pointer;
+
+    &:hover {
+      color: getCssVar('text-color-placeholder');
+    }
   }
 
   @each $size in (large, small) {
@@ -179,6 +199,10 @@ $select-height: map.merge(
         min-height: getCssVar('select', 'height');
       }
     }
+  }
+
+  @include when(selected) {
+    color: getCssVar('select', 'seleted-color');
   }
 }
 

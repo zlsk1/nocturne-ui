@@ -30,34 +30,40 @@
           ]"
         >
           <div :class="ns.e('content')">
-            <n-tag
-              v-for="(item, index) in taglist"
-              :key="index"
-              :class="ns.e('tag')"
-              :type="tagType"
-              closable
-              @close="handleTagDel(item)"
-              @mousedown.prevent="() => true"
-            >
-              {{ isObject(item) && !isNil(item.label) ? item.label : item }}
-            </n-tag>
+            <div :class="ns.e('tags')">
+              <n-tag
+                v-for="(item, index) in taglist"
+                :key="index"
+                :class="ns.e('tag')"
+                :type="tagType"
+                closable
+                @close="handleTagDel(item)"
+                @mousedown.prevent="() => true"
+              >
+                {{ isObject(item) && !isNil(item.label) ? item.label : item }}
+              </n-tag>
+            </div>
             <div
-              v-if="!inputValue"
               :class="[ns.e('placeholder'), ns.is('disabled', actualDisabled)]"
             >
               <span>{{ displayedValue }}</span>
             </div>
             <div
-              v-if="filterable"
+              v-if="!actualDisabled"
               :class="ns.em('input', 'wrapper')"
-              :style="{ width: (calculateWidth || MINIMAL_INPUT_WIDTH) + 'px' }"
+              :style="{
+                minWidth: (calculateWidth || MINIMAL_INPUT_WIDTH) + 'px'
+              }"
             >
               <input
                 :id="formItemId"
                 ref="inputRef"
-                :value="inputValue"
-                type="text"
+                v-model="inputValue"
                 :class="ns.e('input')"
+                type="text"
+                :disabled="actualDisabled"
+                tabindex="0"
+                :readonly="readonly"
                 @input="handleInput"
                 @compositionend="hadnleCompositionEnd"
                 @compositionstart="handleCompositionStart"
@@ -68,6 +74,7 @@
                 @keydown.down.enter="handleDown"
               />
               <span
+                v-if="filterable"
                 ref="calculateInputWidthRef"
                 arial-hidden="true"
                 :class="ns.em('input', 'calculator')"
@@ -84,7 +91,7 @@
               />
             </n-icon>
             <n-icon v-else>
-              <CloseCircle size="16" @click.stop="clearValue" />
+              <Close size="16" @click.stop="clearValue" />
             </n-icon>
           </div>
         </div>
@@ -119,7 +126,7 @@ import {
 import { onClickOutside, useElementSize } from '@vueuse/core'
 import {
   RiArrowDownSLine as ArrowDown,
-  RiCloseCircleLine as CloseCircle
+  RiCloseCircleFill as Close
 } from '@remixicon/vue'
 import { isArray, isNil, isObject } from '@/utils'
 import NIcon from '@/components/icon'
@@ -153,8 +160,7 @@ const calculateInputWidthRef = ref<HTMLSpanElement>()
 const isHover = ref(false)
 const visible = ref(false)
 const multipleValue = ref<any[]>([])
-const singleValue = ref('')
-const inputValue = ref('')
+const inputValue = ref<any>()
 const options = ref(new Map())
 const calculateWidth = ref(MINIMAL_INPUT_WIDTH)
 const hoveringIndex = ref(0)
@@ -175,7 +181,6 @@ onClickOutside(wrapperRef, (e: MouseEvent) => {
   visible.value = false
   const event = new FocusEvent('focus', e)
   handleBlur(event)
-  nextTick(() => nextTick(() => (inputValue.value = '')))
 })
 
 const { height } = useElementSize(wrapperRef)
@@ -201,7 +206,7 @@ const existActualValue = computed(() => {
   if (!isNil(multipleValue.value)) {
     if (props.multiple) {
       return multipleValue.value.length > 0
-    } else return singleValue.value !== ''
+    } else return inputValue.value !== ''
   }
   return false
 })
@@ -211,11 +216,15 @@ const shouldShowClearIcon = computed(() => {
 })
 
 const displayedValue = computed(() => {
-  return existActualValue.value
-    ? props.multiple
-      ? ''
-      : singleValue.value
-    : props.placeholder
+  if (existActualValue.value) {
+    if (props.multiple) {
+      return ''
+    } else if (inputValue.value) {
+      const option = getOptionValue(inputValue.value)
+      return option?.label
+    }
+  }
+  return props.placeholder
 })
 
 const taglist = computed<any[]>(() => {
@@ -242,6 +251,7 @@ const optionsArray = computed(() => Array.from(options.value.values()))
 
 const noMatchValue = computed(() => {
   return (
+    props.filterable &&
     inputValue.value &&
     !optionsArray.value.find((o) => o.label.includes(inputValue.value))
   )
@@ -249,6 +259,10 @@ const noMatchValue = computed(() => {
 
 const actualDisabled = computed(() => formItemDisabled || props.disabled)
 const actualSize = computed(() => formItemSize || props.size)
+
+const readonly = computed(() => {
+  return !props.filterable
+})
 
 const handleSelectClick = (e: MouseEvent) => {
   if (actualDisabled.value) return
@@ -271,11 +285,11 @@ const handleMouseLeave = () => {
 
 const clearValue = () => {
   multipleValue.value = []
-  singleValue.value = ''
+  inputValue.value = ''
   if (props.multiple) {
     emit('update:modelValue', multipleValue.value)
   } else {
-    emit('update:modelValue', singleValue.value)
+    emit('update:modelValue', inputValue.value)
   }
 }
 
@@ -302,11 +316,12 @@ const handleTagDel = (val: string | number | boolean | object) => {
 const setSelected = () => {
   if (props.modelValue && !isArray(props.modelValue)) {
     const option = getOptionValue(props.modelValue)
+
     hoveringIndex.value = optionsArray.value.findIndex(
       (o) => o.label === option?.label
     )
 
-    singleValue.value = String(option?.label)
+    inputValue.value = option?.value
     return
   } else if (props.modelValue && isArray(props.modelValue)) {
     multipleValue.value = props.modelValue
@@ -315,7 +330,7 @@ const setSelected = () => {
 }
 
 const clickOption = (vm: OptionProxy) => {
-  const { value, label } = vm
+  const { value } = vm
 
   if (props.multiple) {
     if (isArray(multipleValue.value)) {
@@ -329,12 +344,12 @@ const clickOption = (vm: OptionProxy) => {
     }
   } else {
     visible.value = false
-    singleValue.value = String(label)
+    inputValue.value = value
   }
   if (props.multiple) {
     emit('update:modelValue', multipleValue.value)
   } else {
-    emit('update:modelValue', singleValue.value)
+    emit('update:modelValue', inputValue.value)
   }
 }
 
@@ -356,7 +371,7 @@ const getOptionValue = (value: any) => {
     }
   }
 
-  return newOption
+  return newOption!
 }
 
 const getOptionIndex = (arr: any[] = [], val: any) => {
@@ -386,20 +401,7 @@ const handleInput = (e: Event) => {
         calculateInputWidthRef.value?.getBoundingClientRect().width!
       ))
   )
-  // getFilterResult(inputValue.value)
 }
-
-// const getFilterResult = (value: string) => {
-//   cachedOptions.value.clear()
-//   for (let i = 0; i < options.value.size; i++) {
-//     const option = optionsArray.value[i]
-//     const isInclude = option.label.includes(value)
-
-//     if (isInclude) {
-//       cachedOptions.value.set(option.value, option)
-//     }
-//   }
-// }
 
 const createOption = (vm: OptionProxy) => {
   options.value.set(vm.value, vm)
@@ -416,26 +418,21 @@ const handleEnter = () => {
 }
 
 const handleUp = () => {
-  handleItemHovering('prev')
+  handleItemHovering(-1)
 }
 
 const handleDown = () => {
-  handleItemHovering('next')
+  handleItemHovering(1)
 }
 
-const handleItemHovering = (modifier: 'next' | 'prev') => {
+const handleItemHovering = (offset: number) => {
   if (options.value.size === 0 || isComposed.value) return
-  if (modifier === 'next') {
-    hoveringIndex.value =
-      hoveringIndex.value < options.value.size - 1 ? ++hoveringIndex.value : 0
-  } else if (modifier === 'prev') {
-    hoveringIndex.value =
-      hoveringIndex.value > 0 ? --hoveringIndex.value : options.value.size - 1
-  }
+  hoveringIndex.value =
+    (hoveringIndex.value + offset + options.value.size) % options.value.size
 
   const option = optionsArray.value[hoveringIndex.value]
   if (option.disabled) {
-    handleItemHovering(modifier)
+    handleItemHovering(offset)
   }
 }
 
@@ -447,7 +444,6 @@ provide(
   SELECT_INJECTION_KEY,
   reactive({
     multipleValue,
-    singleValue,
     inputValue,
     options,
     optionsArray,
