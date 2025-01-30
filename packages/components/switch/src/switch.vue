@@ -18,15 +18,12 @@ const ns = useNamespace('switch')
 const { formItemId, formItemDisabled, formItemSize } = useFormItem()
 
 const actived = ref(props.modelValue)
-const manuallyLoading = ref(false)
 
 const newStyle = computed(() => {
   return {
     width: !isString(props.width) ? `${props.width}px` : props.width
   }
 })
-
-const actualLoading = computed(() => props.loading || manuallyLoading.value)
 
 const actualDisabled = computed(() => formItemDisabled || props.disabled)
 const actualSize = computed(() => formItemSize || props.size)
@@ -40,7 +37,7 @@ const handleChange = () => {
 }
 
 const handleSwitch = () => {
-  if (actualLoading.value) return
+  if (props.loading || actualDisabled.value) return
   if (isNil(props.beforeChange)) {
     handleChange()
     return
@@ -56,16 +53,16 @@ const handleSwitch = () => {
   if (!showProcess) {
     throw new Error('before-change must be a boolean or promise')
   } else if (isPromise(beforeChange)) {
-    manuallyLoading.value = true
+    // manuallyLoading.value = true
     beforeChange
       .then((res) => {
         if (res) {
-          manuallyLoading.value = false
+          // manuallyLoading.value = false
           handleChange()
         }
       })
       .catch((err) => {
-        manuallyLoading.value = false
+        // manuallyLoading.value = false
         console.error(err)
       })
   } else if (beforeChange) {
@@ -84,7 +81,7 @@ defineExpose({
       ns.b(),
       ns.m(actualSize),
       ns.is('checked', !!actived),
-      ns.is('disabled', actualDisabled || actualLoading)
+      ns.is('disabled', actualDisabled || loading)
     ]"
     :style="newStyle"
     @click.prevent="handleSwitch"
@@ -105,7 +102,7 @@ defineExpose({
     </span>
     <div :class="ns.e('wrap')" :style="newStyle">
       <div :class="ns.e('action')">
-        <Loader v-if="actualLoading" :class="ns.e('loading')" />
+        <Loader v-if="loading" :class="ns.e('loading')" />
         <slot v-if="actived" name="active-action-icon" />
         <slot v-else name="inactive-action-icon" />
       </div>
