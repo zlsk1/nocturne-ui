@@ -84,7 +84,7 @@ const position = computed(() =>
 const style = computed<CSSProperties>(() => {
   return {
     [position.value]: `${props.offset}px`,
-    zIndex: currentZIndex
+    zIndex: props.zIndex || currentZIndex
   }
 })
 
