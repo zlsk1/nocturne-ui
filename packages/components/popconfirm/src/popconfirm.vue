@@ -5,16 +5,11 @@
     </template>
     <template #default>
       <div :class="[ns.e('title')]">
-        <n-icon
-          v-if="!$slots.icon && showIcon"
-          :class="ns.em('title', 'icon')"
-          size="16"
-          color="#f0bb40"
-        >
+        <n-icon v-if="!$slots.icon && showIcon" size="16" color="#f0bb40">
           <component :is="icon" />
         </n-icon>
-        <slot v-else name="icon" />
-        <p>{{ title }}</p>
+        <slot name="icon" />
+        <p :class="ns.e('text')">{{ title }}</p>
       </div>
       <div :class="ns.e('btns')">
         <n-button text size="small" @click="cancel">
