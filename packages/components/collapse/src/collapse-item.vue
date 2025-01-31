@@ -34,9 +34,9 @@ const showContent = () => {
 <template>
   <div :class="itemCls">
     <div :class="ns.e('title')" @click="showContent">
-      <h3 v-if="title">
+      <div v-if="title">
         {{ title }}
-      </h3>
+      </div>
       <slot v-else name="title" />
       <ArrowRight
         size="16"
