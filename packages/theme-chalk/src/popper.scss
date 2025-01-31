@@ -23,6 +23,9 @@ $placement: (
   font-size: 12px;
   border-radius: 4px;
   z-index: 2000;
+  background: getCssVar('bg-color', 'overlay');
+  border: 1px solid getCssVar('border-color', 'light');
+  box-shadow: getCssVar('box-shadow-light');
 
   @include when(pure) {
     padding: 0;
@@ -39,8 +42,8 @@ $placement: (
       position: absolute;
       width: 10px;
       height: 10px;
-      background-color: getCssVar('text-color', 'primary');
-      border: 1px solid #414243;
+      background: getCssVar('bg-color', 'overlay');
+      border: 1px solid getCssVar('border-color', 'light');
       box-sizing: border-box;
       transform: rotate(45deg);
     }
@@ -89,20 +92,6 @@ $placement: (
       &::after {
         border: 1px solid getCssVar('text-color', 'primary');
         background: getCssVar('text-color', 'primary');
-        right: 0;
-      }
-    }
-  }
-
-  @include when(light) {
-    background: getCssVar('bg-color', 'overlay');
-    border: 1px solid getCssVar('border-color', 'light');
-    box-shadow: getCssVar('box-shadow-light');
-
-    @include e(arrow) {
-      &::after {
-        border: 1px solid getCssVar('border-color', 'light');
-        background: getCssVar('bg-color', 'overlay');
         right: 0;
       }
     }

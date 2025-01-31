@@ -31,7 +31,7 @@
         :trigger-target-el="triggerTargetEl"
         :visible="shouldShow"
         :z-index="zIndex"
-        :class="[effect === 'dark' ? 'is-dark' : 'is-light']"
+        :class="[effect === 'dark' ? 'dark' : '']"
         @mouseenter="onContentEnter"
         @mouseleave="onContentLeave"
         @blur="onBlur"

@@ -78,8 +78,7 @@ export const popperContentProps = {
     type: definePropType<ClassType>([String, Array, Object])
   },
   effect: {
-    type: String,
-    default: 'light'
+    type: String
   },
   visible: Boolean,
   enterable: {
