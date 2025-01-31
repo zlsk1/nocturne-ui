@@ -1,6 +1,6 @@
 <template>
-  <NPopper ref="popperRef" :role="role">
-    <NTooltipReference
+  <n-popper ref="popperRef" :role="role">
+    <n-tooltip-reference
       :trigger="trigger"
       :disabled="disabled"
       :trigger-keys="triggerKeys"
@@ -8,8 +8,8 @@
       :virtual-triggering="virtualTriggering"
     >
       <slot />
-    </NTooltipReference>
-    <NTooltipContent
+    </n-tooltip-reference>
+    <n-tooltip-content
       ref="contentRef"
       :aria-label="ariaLabel"
       :boundaries-padding="boundariesPadding"
@@ -42,14 +42,14 @@
         <span v-if="rawContent" v-html="content" />
         <span v-else>{{ content }}</span>
       </slot>
-      <NPopperArrow v-if="showArrow" :arrow-offset="arrowOffset" />
-    </NTooltipContent>
-  </NPopper>
+      <n-popper-arrow v-if="showArrow" :arrow-offset="arrowOffset" />
+    </n-tooltip-content>
+  </n-popper>
 </template>
 
 <script lang="ts" setup>
 import { computed, onDeactivated, provide, ref, toRef, unref, watch } from 'vue'
-import { useDelayedToggle } from '@/composables'
+import { useDelayedToggle, useId } from '@/composables'
 import NPopper from '@/components/popper'
 import NPopperArrow from '@/components/popper/src/arrow.vue'
 import { isBoolean } from '@/utils'
@@ -65,6 +65,8 @@ defineOptions({
 
 const props = defineProps(useTooltipProps)
 const emit = defineEmits(tooltipEmits)
+
+const id = useId()
 
 const popperRef = ref<PopperInstance>()
 const contentRef = ref<any>()
@@ -115,6 +117,7 @@ const isFocusInsideContent = (event?: FocusEvent) => {
 
 provide(TOOLTIP_INJECTION_KEY, {
   controlled,
+  id,
   open,
   trigger: toRef(props, 'trigger'),
   onOpen: (event?: Event) => {

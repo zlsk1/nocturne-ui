@@ -3,6 +3,7 @@ import type { TooltipTriggerType } from './reference'
 
 export type NTooltipInjectionContext = {
   controlled: Ref<boolean>
+  id: Ref<string>
   open: Ref<boolean>
   trigger: Ref<TooltipTriggerType>
   onOpen: (e?: Event) => void

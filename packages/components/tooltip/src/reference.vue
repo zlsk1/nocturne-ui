@@ -1,6 +1,10 @@
 <template>
-  <NPopperReference
+  <n-popper-reference
+    :id="id"
+    :virtual-ref="virtualRef"
     :open="open"
+    :virtual-triggering="virtualTriggering"
+    :class="ns.e('trigger')"
     @blur="onBlur"
     @click="onClick"
     @contextmenu="onContextMenu"
@@ -10,13 +14,14 @@
     @keydown="onKeydown"
   >
     <slot />
-  </NPopperReference>
+  </n-popper-reference>
 </template>
 
 <script lang="ts" setup>
 import { inject, ref, toRef, unref } from 'vue'
 import { composeEventHandlers } from '@/utils/dom'
 import NPopperReference from '@/components/popper/src/reference.vue'
+import { useNamespace } from '@/composables'
 import { useTooltipTriggerProps } from './reference.js'
 import { whenTrigger } from './utils'
 import { TOOLTIP_INJECTION_KEY } from './constants'
@@ -31,6 +36,8 @@ const { controlled, open, onOpen, onClose, onToggle } = inject(
   TOOLTIP_INJECTION_KEY,
   undefined
 )!
+
+const ns = useNamespace('tooltip')
 
 const triggerRef = ref<HTMLElement | null>(null)
 
@@ -56,9 +63,10 @@ const onClick = composeEventHandlers(
   stopWhenControlledOrDisabled,
   whenTrigger(trigger, 'click', (e) => {
     onToggle(e)
-    // if (!e.button) {
-    //   onToggle(e)
-    // }
+    // distinguish left click
+    if ((e as MouseEvent).button === 0) {
+      onToggle(e)
+    }
   })
 )
 

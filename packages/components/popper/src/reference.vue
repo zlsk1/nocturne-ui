@@ -1,7 +1,14 @@
 <template>
-  <NOnlyChild v-bind="$attrs">
+  <n-only-child
+    v-if="!virtualTriggering"
+    v-bind="$attrs"
+    :aria-controls="ariaControls"
+    :aria-describedby="ariaDescribedby"
+    :aria-expanded="ariaExpanded"
+    :aria-haspopup="ariaHaspopup"
+  >
     <slot />
-  </NOnlyChild>
+  </n-only-child>
 </template>
 
 <script lang="ts" setup>

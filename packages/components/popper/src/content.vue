@@ -1,7 +1,7 @@
 <template>
   <div
     ref="contentRef"
-    :class="contentCls"
+    :class="contentClass"
     v-bind="contentAttrs"
     :style="contentStyle"
     tabindex="-1"
@@ -13,19 +13,14 @@
 </template>
 
 <script lang="ts" setup>
+import { onBeforeUnmount, onMounted, provide, ref, unref, watch } from 'vue'
+import { isElement, isNil } from '@/utils'
 import {
-  computed,
-  onBeforeUnmount,
-  onMounted,
-  provide,
-  ref,
-  unref,
-  watch
-} from 'vue'
-import { isElement } from '@/utils'
-import { useNamespace } from '@/composables'
-import { usePopperContent, usePopperContentDOM } from './composables'
-import { popperContentProps } from './content'
+  usePopperContent,
+  usePopperContentDOM,
+  usePopperContentFocusTrap
+} from './composables'
+import { popperContentEmits, popperContentProps } from './content'
 import { POPPER_CONTENT_INJECTION_KEY } from './constants'
 import type { WatchStopHandle } from 'vue'
 
@@ -34,39 +29,40 @@ defineOptions({
 })
 
 const props = defineProps(popperContentProps)
+const emit = defineEmits(popperContentEmits)
 
-const ns = useNamespace('popper')
+const { trapped } = usePopperContentFocusTrap(props, emit)
 
 const arrowOffset = ref()
 
 const { attributes, arrowRef, contentRef, styles, instanceRef, role, update } =
   usePopperContent(props)
 
-const { ariaModal, arrowStyle, contentAttrs, contentClass, contentStyle } =
-  usePopperContentDOM(props, {
-    styles,
-    attributes,
-    role
-  })
+const {
+  ariaModal,
+  arrowStyle,
+  contentAttrs,
+  contentClass,
+  contentStyle,
+  updateZIndex
+} = usePopperContentDOM(props, {
+  styles,
+  attributes,
+  role
+})
 
 const updatePopper = (shouldUpdateZIndex = true) => {
   update()
-  shouldUpdateZIndex
+  shouldUpdateZIndex && updateZIndex()
 }
-
-const contentCls = computed(() => [
-  ns.b(),
-  ns.is('pure', props.pure),
-  contentClass.value
-])
 
 const togglePopperAlive = () => {
   updatePopper(false)
-  // if (props.visible && props.focusOnShow) {
-  //   trapped.value = true
-  // } else if (props.visible === false) {
-  //   trapped.value = false
-  // }
+  if (props.visible && props.focusOnShow) {
+    trapped.value = true
+  } else if (props.visible === false) {
+    trapped.value = false
+  }
 }
 
 let triggerTargetAriaStopWatch: WatchStopHandle | undefined
@@ -86,9 +82,9 @@ onMounted(() => {
           [role, () => props.ariaLabel, ariaModal, () => props.id],
           (watches) => {
             ;['role', 'aria-label', 'aria-modal', 'id'].forEach((key, idx) => {
-              !watches[idx]
+              isNil(watches[idx])
                 ? el.removeAttribute(key)
-                : el.setAttribute(key, watches[idx] as string)
+                : el.setAttribute(key, watches[idx]!)
             })
           },
           { immediate: true }

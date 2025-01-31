@@ -7,7 +7,7 @@
       @after-enter="onAfterShow"
       @before-leave="onBeforeLeave"
     >
-      <NPopperContent
+      <n-popper-content
         v-if="shouldRender"
         v-show="shouldShow"
         :id="id"
@@ -40,7 +40,7 @@
         <template v-if="!destroyed">
           <slot />
         </template>
-      </NPopperContent>
+      </n-popper-content>
     </transition>
   </teleport>
 </template>
@@ -76,12 +76,15 @@ const ns = useNamespace('tooltip')
 
 const contentRef = ref()
 const destroyed = ref(false)
+const ariaHidden = ref(true)
 
 const transitionClass = computed(() => {
   return props.transition || `${ns.ns.value}-zoom-in`
 })
 
 const persistentRef = computed(() => {
+  // For testing, we would always want the content to be rendered
+  // to the DOM, so we need to return true here.
   if (process.env.NODE_ENV === 'test') {
     return true
   }
@@ -106,10 +109,9 @@ const appendTo = computed(() => {
 
 const contentStyle = computed(() => props.style ?? {})
 
-const ariaHidden = computed(() => !unref(open))
-
 const onTransitionLeave = () => {
   onHide()
+  ariaHidden.value = true
 }
 
 const stopWhenControlled = () => {
@@ -166,6 +168,8 @@ watch(
   (val) => {
     if (!val) {
       stopHandle?.()
+    } else {
+      ariaHidden.value = false
     }
   },
   {
