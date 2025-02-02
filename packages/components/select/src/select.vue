@@ -31,7 +31,7 @@
             ns.is('multiple', existActualValue && multiple)
           ]"
         >
-          <div :class="ns.e('prefix')">
+          <div v-if="$slots.prefix" :class="ns.e('prefix')">
             <slot name="prefix" />
           </div>
           <div :class="ns.e('content')">
@@ -46,7 +46,7 @@
                 @close="handleTagDel(index)"
                 @mousedown.prevent="() => true"
               >
-                <template v-if="maxTagCount && index < maxTagCount">
+                <template v-if="!maxTagCount || index < maxTagCount">
                   {{ isObject(item) && !isNil(item.label) ? item.label : item }}
                 </template>
               </n-tag>
@@ -161,7 +161,7 @@
           <slot />
         </ul>
         <span v-if="noMatchValue || options.size === 0" class="empty-value">
-          {{ emptyText || t('noc.select.noMatch') }}
+          {{ t('noc.select.noMatch') }}
         </span>
       </template>
     </n-tooltip>
@@ -255,7 +255,7 @@ onClickOutside(wrapperRef, (e: MouseEvent) => {
   visible.value = false
 })
 
-const { height } = useElementSize(wrapperRef)
+const { height, width } = useElementSize(wrapperRef)
 
 const arrowIconStyle = computed<CSSProperties>(() => {
   return {
@@ -265,7 +265,7 @@ const arrowIconStyle = computed<CSSProperties>(() => {
 
 const tooltipContentStyle = computed<CSSProperties>(() => {
   return {
-    width: `${wrapperRef.value?.getBoundingClientRect().width}px`,
+    width: `${width.value}px`,
     maxHeight: isString(props.height) ? props.height : `${props.height}px`
   }
 })

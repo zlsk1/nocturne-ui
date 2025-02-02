@@ -45,7 +45,6 @@ $select-height: map.merge(
 
 @include b(select) {
   min-height: 32px;
-  padding: 0 10px;
   font-size: 14px;
   border-radius: getCssVar('select', 'radius');
   border: 1px solid getCssVar('select', 'border');
@@ -102,8 +101,9 @@ $select-height: map.merge(
     display: flex;
     align-items: center;
     justify-content: space-between;
-    word-break: break-all;
     min-height: 32px;
+    padding: 0 10px;
+    word-break: break-all;
     color: getCssVar('text-color-regular');
 
     @include when(multiple) {
@@ -136,6 +136,8 @@ $select-height: map.merge(
   @include tags;
 
   @include e(input) {
+    position: absolute;
+    inset: 0;
     max-width: 100%;
     padding: 0;
     color: getCssVar('select', 'input-color');

@@ -105,9 +105,6 @@ export const selectProps = {
     type: definePropType<SelectFilterMethod | boolean>([Function, Boolean]),
     default: true
   },
-  emptyText: {
-    type: String
-  },
   maxTagCount: {
     type: Number
   },
