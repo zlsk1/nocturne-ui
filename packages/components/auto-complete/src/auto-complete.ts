@@ -1,3 +1,4 @@
+import { Placement } from '@popperjs/core'
 import { definePropType, isNumber, isString } from '@/utils'
 import AutoComplete from './auto-complete.vue'
 import type { ClassType } from '@/components/popper'
@@ -37,6 +38,10 @@ export const autoCompleteProps = {
   popperStyle: {
     type: definePropType<CSSProperties>(Object)
   },
+  placement: {
+    type: definePropType<Placement>(String),
+    default: 'bottom'
+  },
   autofocus: {
     type: Boolean,
     default: false
@@ -48,9 +53,13 @@ export const autoCompleteProps = {
     type: definePropType<boolean | ((val: string) => AutoCompleteOptionType[])>(
       [Function, Boolean]
     ),
-    default: true
+    default: false
   },
   defaultActiveFirstOption: {
+    type: Boolean,
+    default: true
+  },
+  defaultOption: {
     type: Boolean,
     default: true
   }
@@ -59,7 +68,11 @@ export const autoCompleteProps = {
 export const autoCompleteEmits = {
   'update:modelValue': (value: string | number) =>
     isString(value) || isNumber(value),
-  change: (value: string | number) => isString(value) || isNumber(value)
+  change: (value: string | number) => isString(value) || isNumber(value),
+  search: (value: string) => isString(value),
+  select: (value: string | number) => isString(value) || isNumber(value),
+  focus: (e: FocusEvent) => e instanceof FocusEvent,
+  blur: (e: FocusEvent) => e instanceof FocusEvent
 }
 
 export type AutoCompleteProps = ExtractPropTypes<typeof autoCompleteProps>

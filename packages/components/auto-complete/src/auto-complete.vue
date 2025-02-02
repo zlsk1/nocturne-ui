@@ -2,6 +2,7 @@
   <n-tooltip
     :visible="visible"
     pure
+    :transition="`${ns.ns.value}-zoom-in-top`"
     :show-arrow="showArrow"
     :popper-class="[ns.e('popper'), popperClass]"
     :popper-style="{
@@ -9,6 +10,7 @@
       width: `${inputWidth}px`,
       ...popperStyle
     }"
+    :placement="placement"
   >
     <div ref="inputContainer" :class="[ns.b(), ns.is('disabled', disabled)]">
       <n-input
@@ -29,7 +31,14 @@
         @keydown.esc.enter="onEsc"
         @keydown.enter.enter="onEnter"
         @clear-value="onClearValue"
-      />
+      >
+        <template #suffix>
+          <slot name="suffix" />
+        </template>
+        <template #prefix>
+          <slot name="suffix" />
+        </template>
+      </n-input>
     </div>
     <template #content>
       <slot v-if="$slots.default" />
@@ -39,6 +48,7 @@
           :key="label"
           :class="[
             ns.e('content__item'),
+            ns.is('selected', props.modelValue === value),
             hoverIndex === index && !disabled && 'hovering'
           ]"
           :title="label"
@@ -73,7 +83,7 @@ const emit = defineEmits(autoCompleteEmits)
 const ns = useNamespace('auto-complete')
 const { formItemDisabled, formItemId } = useFormItem()
 
-const visible = ref(false)
+const visible = ref(props.defaultOption)
 const hoverIndex = ref(props.defaultActiveFirstOption ? 0 : -1)
 const inputRef = ref<InputInstance>()
 const inputContainer = ref<HTMLDivElement>()
@@ -118,20 +128,23 @@ const hasOptions = computed(() => {
 
 const onInput = (val: string) => {
   emit('update:modelValue', val)
+  emit('search', val)
 }
 
 const onChange = (val: string) => {
   emit('change', val)
 }
 
-const onFocus = () => {
+const onFocus = (e: FocusEvent) => {
   if (hasOptions.value && isFocused.value && !disabled.value) {
+    setSelected()
     visible.value = true
+    emit('blur', e)
   }
 }
 
-const onBlur = () => {
-  // visible.value = false
+const onBlur = (e: FocusEvent) => {
+  emit('blur', e)
 }
 
 const onItemMouseEnter = (index: number) => {
@@ -175,6 +188,7 @@ const onItemClick = (value: string | number) => {
   visible.value = false
   emit('update:modelValue', value)
   emit('change', value)
+  emit('select', value)
 }
 
 const onClearValue = async () => {
@@ -183,11 +197,15 @@ const onClearValue = async () => {
   emit('change', '')
 }
 
-watch(visible, (val) => {
-  if (!val) {
-    hoverIndex.value = props.defaultActiveFirstOption ? 0 : -1
-  }
-})
+const setSelected = () => {
+  if (!hasOptions.value || !filterOption.value || !props.modelValue)
+    return props.defaultActiveFirstOption ? 0 : -1
+
+  const index = filterOption.value.findIndex(
+    (option) => option.value === props.modelValue
+  )
+  hoverIndex.value = index
+}
 
 watch(hasOptions, (val) => {
   if (!val) {

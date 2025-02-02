@@ -1075,7 +1075,8 @@ $auto-complete: map.merge(
     'item-radius': getCssVar('border-radius-base'),
     'item-hover-bg-color': getCssVar('fill-color', 'light'),
     'item-color': getCssVar('text-color-regular'),
-    'item-disabled-color': getCssVar('text-color-placeholder')
+    'item-disabled-color': getCssVar('text-color-placeholder'),
+    'selected-color': getCssVar('color-primary')
   ),
   $auto-complete
 );

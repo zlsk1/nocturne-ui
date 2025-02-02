@@ -35,5 +35,9 @@ $selector: #{$namespace}-auto-complete;
     .hovering {
       background-color: getCssVar('auto-complete', 'item-hover-bg-color');
     }
+
+    .is-selected {
+      color: getCssVar('auto-complete', 'selected-color');
+    }
   }
 }
