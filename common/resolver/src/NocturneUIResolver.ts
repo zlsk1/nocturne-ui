@@ -8,6 +8,7 @@ export interface NUROptions {
   importStyle?: 'css' | 'sass'
   exclude?: RegExp
   directives?: true
+  format?: 'es' | 'cjs'
 }
 
 function kebabCase(key: string) {
@@ -55,7 +56,7 @@ function resolveComponent(
 
   return {
     name,
-    from: 'nocturne-ui/es',
+    from: options.format === 'es' ? 'nocturne-ui/es' : 'nocturne-ui/cjs',
     sideEffects: resolveStyle(_name, options)
   }
 }
@@ -75,7 +76,7 @@ function resolveDirective(
 
   return {
     name: directive.importName,
-    from: 'nocturne-ui/es',
+    from: options.format === 'es' ? 'nocturne-ui/es' : 'nocturne-ui/cjs',
     sideEffects: resolveStyle(directive.styleName, options)
   }
 }
@@ -83,17 +84,17 @@ function resolveDirective(
 export function NocturneUIReslover(
   options: NUROptions = {}
 ): ComponentResolver[] {
-  let _options: NUROptions
+  let mergeOptions: NUROptions
 
   function resolveOptions() {
-    if (_options) return _options
-    _options = {
+    if (mergeOptions) return mergeOptions
+    mergeOptions = {
       importStyle: 'css',
       exclude: undefined,
       directives: true,
       ...options
     }
-    return _options
+    return mergeOptions
   }
 
   return [
