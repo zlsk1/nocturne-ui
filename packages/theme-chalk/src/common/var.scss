@@ -823,9 +823,14 @@ $popper: map.merge((), $popper);
 $select: () !default;
 $select: map.merge(
   (
+    'radius': getCssVar('border-radius', 'base'),
+    'border': getCssVar('border-color'),
     'hover-border': getCssVar('border-color-hover'),
     'focus-border': getCssVar('color-primary'),
-    'seleted-color': getCssVar('color-primary'),
+    'wrapper-border': getCssVar('border-color', 'darker'),
+    'input-color': getCssVar('text-color-regular'),
+    'placeholder-color': getCssVar('text-color-placeholder'),
+    'selected-color': getCssVar('color-primary'),
     'disabled-bg-color': getCssVar('fill-color', 'light'),
     'disabled-text-color': getCssVar('text-color', 'placeholder')
   ),
@@ -837,7 +842,11 @@ $select: map.merge(
 $option: () !default;
 $option: map.merge(
   (
-    'disabled-text-color': getCssVar('text-color', 'placeholder')
+    'disabled-text-color': getCssVar('text-color', 'placeholder'),
+    'item-padding': 8px 20px,
+    'item-color': getCssVar('text-color-regular'),
+    'item-hover-bg': getCssVar('fill-color', 'light'),
+    'selected-color': getCssVar('color-primary')
   ),
   $option
 );

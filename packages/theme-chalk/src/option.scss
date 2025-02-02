@@ -5,62 +5,61 @@
 
 $prefix: #{$namespace}-select-option;
 
-.#{$prefix}__wrapper {
+.#{$namespace}-select__popper {
   @include set-component-css-var('option', $option);
-}
+  .#{$prefix}__wrapper {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+    z-index: 100;
 
-.#{$prefix}__wrapper {
-  position: relative;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  overflow: auto;
-  z-index: 100;
+    @include scroll-bar;
 
-  @include scroll-bar;
+    .#{$prefix}__item {
+      padding: getCssVar('option', 'item-padding');
+      list-style-type: none;
+      text-align: start;
+      font-size: 14px;
+      color: getCssVar('option', 'item-color');
+      cursor: pointer;
 
-  .#{$prefix}__item {
-    padding: 6px 20px;
-    list-style-type: none;
-    text-align: start;
-    font-size: 14px;
-    color: getCssVar('text-color', 'regular');
-    cursor: pointer;
-
-    @include when(hovering) {
-      color: getCssVar('text-color', 'regular');
-      background-color: getCssVar('fill-color', 'light');
-    }
-
-    @include when(selected) {
-      color: getCssVar('color-primary');
-      font-weight: 700;
-
-      &:hover {
-        color: getCssVar('color-primary');
+      @include when(hovering) {
+        color: getCssVar('option', 'item-color');
+        background-color: getCssVar('option', 'item-hover-bg');
       }
-    }
 
-    @include when(disabled) {
-      color: getCssVar('option', 'disabled-text-color');
-      cursor: not-allowed;
+      @include when(selected) {
+        color: getCssVar('option', 'selected-color');
+        font-weight: 700;
 
-      &:hover {
+        &:hover {
+          color: getCssVar('option', 'selected-color');
+        }
+      }
+
+      @include when(disabled) {
         color: getCssVar('option', 'disabled-text-color');
-        background: none;
-      }
+        cursor: not-allowed;
 
-      .#{$prefix}__item {
         &:hover {
           color: getCssVar('option', 'disabled-text-color');
+          background: none;
+        }
+
+        .#{$prefix}__item {
+          &:hover {
+            color: getCssVar('option', 'disabled-text-color');
+          }
         }
       }
     }
-  }
 
-  .#{$prefix}__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    .#{$prefix}__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 }

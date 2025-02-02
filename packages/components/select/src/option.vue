@@ -2,7 +2,8 @@
   <li
     v-show="visible"
     :class="optionCls"
-    @click.stop="onSelect"
+    :aria-selected="selected"
+    @mouseup.stop="onSelect"
     @mousemove="hoverItem"
   >
     <span :class="ns.be('option', 'inner')">
@@ -20,7 +21,7 @@
 <script lang="ts" setup>
 import { computed, getCurrentInstance, inject } from 'vue'
 import { RiCheckFill as Check } from '@remixicon/vue'
-import { isObject } from '@/utils'
+import { isBoolean, isFunction, isObject } from '@/utils'
 import { useNamespace } from '@/composables'
 import { optionEmits, optionProps } from './option'
 import { SELECT_INJECTION_KEY } from './constants'
@@ -52,7 +53,7 @@ const selected = computed(() => {
     return states.multipleValue.includes(props.value)
   } else {
     if (!isObject(props.value)) {
-      return props.value === states.inputValue
+      return props.value === states.getOptionValue(states.modelValue)?.value
     }
     return (
       props.value[states.valueKey!] ===
@@ -65,8 +66,21 @@ const showCheck = computed(() => {
   return states.multiple && selected.value
 })
 
-// const visible = computed(() => String(props.label).includes(states.inputValue))
-const visible = computed(() => true)
+const visible = computed(() => {
+  if (!states.filterable) return true
+  if (isBoolean(states.filterOption)) {
+    if (states.filterOption) {
+      return (
+        !states.inputValue || String(props.label).includes(states.inputValue)
+      )
+    }
+    return true
+  } else if (isFunction(states.filterOption)) {
+    return states.filterOption({ input: states.inputValue, option: vm })
+  }
+
+  return true
+})
 
 const optionCls = computed(() => [
   ns.be('option', 'item'),

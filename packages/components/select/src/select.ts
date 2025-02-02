@@ -11,20 +11,25 @@ import { popperContentProps } from '@/components/popper'
 import select from './select.vue'
 import type { ExtractPropTypes } from 'vue'
 import type { Options } from '@popperjs/core'
+import type { OptionProxy } from './constants'
+
+export type SelectValue = string | number | boolean | object | Array<any>
+
+export type SelectFilterMethod = ({
+  input,
+  option
+}: {
+  input: string
+  option: OptionProxy
+}) => boolean
 
 export const selectProps = {
   placeholder: {
     type: String
   },
   modelValue: {
-    type: definePropType<string | number | boolean | [] | object>([
-      String,
-      Number,
-      Boolean,
-      Object,
-      Array
-    ]),
-    validator: (val: string | number | boolean | [] | object, props: any) => {
+    type: definePropType<SelectValue>([String, Number, Boolean, Object, Array]),
+    validator: (val: SelectValue, props: any) => {
       if (props.multiple && !isArray(val)) return false
       return true
     }
@@ -54,9 +59,8 @@ export const selectProps = {
     validator(value: string, props: any) {
       return (
         Object.keys(props.modelValue).includes(value) ||
-        (props.modelValue.length > 0
-          ? isArray(props.modelValue) &&
-            props.modelValue.some((v: any) => Object.keys(v).includes(value))
+        (isArray(props.modelValue) && props.modelValue.length > 0
+          ? props.modelValue.some((v: any) => Object.keys(v).includes(value))
           : true)
       )
     }
@@ -80,27 +84,77 @@ export const selectProps = {
     values: ['primary', 'success', 'warning', 'info', 'danger', ''],
     default: 'info'
   },
+  /**
+   * @description 下拉框的高度
+   */
   height: {
     type: definePropType<string | number>([String, Number]),
-    default: '200'
+    default: 288
   },
-  filterable: {
+  /**
+   * @description 是否可搜索
+   */
+  showSearch: {
     type: Boolean,
     default: false
   },
+  /**
+   * @description 是否筛选选项 接收一个布尔值或自定义函数
+   */
+  filterOption: {
+    type: definePropType<SelectFilterMethod | boolean>([Function, Boolean]),
+    default: true
+  },
   emptyText: {
-    type: String,
-    default: '暂无匹配项'
+    type: String
+  },
+  maxTagCount: {
+    type: Number
+  },
+  maxTagCountWithTooltip: {
+    type: Boolean,
+    default: false
+  },
+  showArrow: {
+    type: Boolean,
+    default: true
+  },
+  /**
+   * @description 加载形式的后缀图标
+   */
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  /**
+   * @description 是否显示后缀
+   */
+  showSuffix: {
+    type: Boolean,
+    default: true
   }
 } as const
 
 export const selectEmits = {
-  'update:modelValue': (val: string | number | boolean | object | Array<any>) =>
+  'update:modelValue': (val: SelectValue) =>
     isString(val) ||
     isNumber(val) ||
     isBoolean(val) ||
     isObject(val) ||
     isArray(val),
+  select: (val: SelectValue) =>
+    isString(val) ||
+    isNumber(val) ||
+    isBoolean(val) ||
+    isObject(val) ||
+    isArray(val),
+  change: (val: SelectValue) =>
+    isString(val) ||
+    isNumber(val) ||
+    isBoolean(val) ||
+    isObject(val) ||
+    isArray(val),
+  search: (query: string) => isString(query),
   focus: (e: FocusEvent) => e instanceof FocusEvent,
   blur: (e: FocusEvent) => e instanceof FocusEvent
 }

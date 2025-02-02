@@ -27,6 +27,18 @@ $select-height: map.merge(
   $select-height
 );
 
+@mixin tags {
+  @include e(tags) {
+    display: flex;
+    flex-wrap: wrap;
+
+    @include e(tag) {
+      margin: 3px 4px;
+      cursor: pointer;
+    }
+  }
+}
+
 @include b(select) {
   @include set-component-css-var('select', $select);
 }
@@ -35,8 +47,8 @@ $select-height: map.merge(
   min-height: 32px;
   padding: 0 10px;
   font-size: 14px;
-  border-radius: getCssVar('border-radius', 'base');
-  border: 1px solid getCssVar('border-color');
+  border-radius: getCssVar('select', 'radius');
+  border: 1px solid getCssVar('select', 'border');
   cursor: pointer;
   transition: all getCssVar('transition-duration') linear;
 
@@ -47,21 +59,42 @@ $select-height: map.merge(
   @include when(focus) {
     outline: none;
     border: 1px solid getCssVar('select', 'focus-border');
-
-    @include when(selecting) {
-      @include e(placeholder) {
-        color: getCssVar('text-color-secondary');
-      }
-    }
   }
 
   @include when(disabled) {
     color: getCssVar('select', 'disabled-text-color');
     background: getCssVar('select', 'disabled-bg-color');
-    cursor: not-allowed;
+    user-select: none;
+    cursor: not-allowed !important;
 
     &:hover {
-      border: 1px solid getCssVar('border-color');
+      border: 1px solid getCssVar('select', 'border');
+    }
+
+    @include e(value) {
+      color: getCssVar('select', 'disabled-text-color');
+    }
+
+    @include e(suffix) {
+      color: getCssVar('select', 'disabled-text-color');
+      cursor: not-allowed;
+      &:hover {
+        color: getCssVar('select', 'disabled-text-color');
+      }
+    }
+
+    @include e(prefix) {
+      color: getCssVar('select', 'disabled-text-color');
+    }
+
+    @include e(tags) {
+      @include e(tag) {
+        cursor: not-allowed;
+      }
+    }
+
+    @include e(input) {
+      cursor: not-allowed !important;
     }
   }
 
@@ -71,75 +104,78 @@ $select-height: map.merge(
     justify-content: space-between;
     word-break: break-all;
     min-height: 32px;
-    color: getCssVar('border-color', 'darker');
+    color: getCssVar('text-color-regular');
 
     @include when(multiple) {
       padding-left: 0px;
 
-      @include e(placeholder) {
+      @include e(value) {
         margin-right: 0;
       }
     }
   }
 
-  .#{$namespace}-select__content {
+  @include e(content) {
     position: relative;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     flex: 1;
     min-width: 0;
+    min-height: 32px;
+  }
 
-    @include e(input--wrapper) {
-      position: absolute;
-      display: flex;
-      flex-wrap: wrap;
-      width: 100%;
-      user-select: none;
+  @include e(input--wrapper) {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    max-width: 100%;
+    user-select: none;
+  }
+
+  @include tags;
+
+  @include e(input) {
+    max-width: 100%;
+    padding: 0;
+    color: getCssVar('select', 'input-color');
+    font-family: inherit;
+    border: none;
+    outline: none;
+    appearance: none;
+    background-color: transparent;
+    cursor: pointer;
+
+    @include when(disabled) {
+      cursor: not-allowed;
     }
+  }
 
-    @include e(input) {
-      width: 100%;
-      padding: 0;
-      font-family: inherit;
-      border: none;
-      outline: none;
-      appearance: none;
-      background-color: transparent;
-      opacity: 0;
-      cursor: pointer;
-    }
+  @include e(input-text) {
+    position: absolute;
+    top: 50%;
+    z-index: 100;
+    white-space: pre;
+    visibility: hidden;
+    transform: translateY(-50%);
+  }
 
-    @include e(input--calculator) {
-      position: absolute;
-      top: 0;
-      inset-inline-start: 0;
-      inset-inline-end: auto;
-      z-index: 999;
-      white-space: pre;
-      visibility: hidden;
-    }
+  @include m(value) {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    user-select: none;
 
-    @include e(placeholder) {
-      position: absolute;
-      top: 50%;
-      display: block;
-      width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      user-select: none;
-      transform: translateY(-50%);
-
-      @include when(disabled) {
-        color: getCssVar('select', 'disabled-text-color');
-      }
+    @include when(placeholder) {
+      color: getCssVar('select', 'placeholder-color');
     }
   }
 
   @include when(selecting) {
-    @include e(placeholder) {
-      color: getCssVar('text-color-regular');
+    .#{$namespace}-select--value {
+      color: getCssVar('text-color-secondary');
     }
   }
 
@@ -147,23 +183,20 @@ $select-height: map.merge(
     cursor: text;
 
     @include e(input) {
-      opacity: 1;
+      position: absolute;
+      inset: 0;
       cursor: text;
     }
   }
 
-  @include e(tags) {
-    position: relative;
-    display: flex;
-    z-index: 10;
-
-    @include e(tag) {
-      margin: 3px 4px;
-      cursor: pointer;
+  @include when(multiple) {
+    @include e(input) {
+      position: initial;
+      cursor: text;
     }
   }
 
-  @include e(icon) {
+  @include e(suffix) {
     display: flex;
     align-items: center;
     flex-shrink: 0;
@@ -172,7 +205,7 @@ $select-height: map.merge(
     cursor: pointer;
 
     &:hover {
-      color: getCssVar('text-color-placeholder');
+      color: getCssVar('text-color-value');
     }
   }
 
@@ -202,12 +235,38 @@ $select-height: map.merge(
   }
 
   @include when(selected) {
-    color: getCssVar('select', 'seleted-color');
+    color: getCssVar('select', 'selected-color');
+  }
+
+  @include e(prefix) {
+    margin-right: 6px;
+  }
+
+  @include m(loading) {
+    animation: rotate 1s linear infinite;
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
   }
 }
 
-.empty-value {
-  display: block;
-  padding: 4px 0;
-  text-align: center;
+.#{$namespace}-select__popper {
+  @include set-component-css-var('select', $select);
+  .empty-value {
+    display: block;
+    padding: 4px 0;
+    text-align: center;
+    color: getCssVar('select', 'input-color');
+  }
+}
+
+.#{$namespace}-select--tags__popper {
+  max-width: 400px;
+
+  @include tags;
 }
