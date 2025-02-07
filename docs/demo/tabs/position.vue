@@ -11,9 +11,9 @@
   </div>
   <div>
     <n-tabs v-model="activeTab" :position="position">
-      <n-tab-item v-for="item in 4" :key="item" :label="`Tab-${item}`">
+      <n-tab-pane v-for="item in 4" :key="item" :label="`Tab-${item}`">
         {{ `Tab-${item}` }}
-      </n-tab-item>
+      </n-tab-pane>
     </n-tabs>
   </div>
 </template>

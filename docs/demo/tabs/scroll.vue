@@ -6,11 +6,15 @@
       </n-radio-button>
     </n-radio-group>
   </div>
-  <div style="max-width: 1300px; max-height: 300px">
-    <n-tabs v-model="activeTab" :position="position">
-      <n-tab-item v-for="item in 30" :key="item" :label="`Tab-${item}`">
+  <div>
+    <n-tabs
+      v-model="activeTab"
+      :position="position"
+      style="max-width: 1300px; max-height: 300px"
+    >
+      <n-tab-pane v-for="item in 30" :key="item" :label="`Tab-${item}`">
         {{ `Tab-${item}` }}
-      </n-tab-item>
+      </n-tab-pane>
     </n-tabs>
   </div>
 </template>

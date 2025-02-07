@@ -1,8 +1,8 @@
 <template>
   <n-tabs v-model="activeTab">
-    <n-tab-item v-for="item in 4" :key="item" :label="`Tab-${item}`">
+    <n-tab-pane v-for="item in 4" :key="item" :label="`Tab-${item}`">
       {{ `Tab-${item}` }}
-    </n-tab-item>
+    </n-tab-pane>
   </n-tabs>
 </template>
 
