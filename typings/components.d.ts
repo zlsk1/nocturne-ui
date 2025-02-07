@@ -57,7 +57,7 @@ declare module '@vue/runtime-core' {
     NStatistic: (typeof import('packages'))['NStatistic']
     NSwitch: (typeof import('packages'))['NSwitch']
     NTabs: (typeof import('packages'))['NTabs']
-    NTabItem: (typeof import('packages'))['NTabItem']
+    NTabPane: (typeof import('packages'))['NTabPane']
     NTag: (typeof import('packages'))['NTag']
     NTimePicker: (typeof import('packages'))['NTimePicker']
     NTimeline: (typeof import('packages'))['NTimeline']

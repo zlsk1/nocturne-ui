@@ -1,13 +1,10 @@
-import { ExtractPropTypes } from 'vue'
 import { definePropType, isString, isUndefined } from '@/utils'
+import type { ExtractPropTypes, VNode } from 'vue'
 import type { ClassType } from '@/components/popper'
 
 export type TabType = {
   label: string
-  slot?: {
-    label?: (_: object) => any
-    default?: (_: object) => any
-  }
+  node: VNode
   disabled: boolean
   closeable: boolean
 }

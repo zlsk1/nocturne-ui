@@ -1,8 +1,9 @@
 import { withInstall } from '@/utils'
-import tabs from './src/tabs.vue'
-import tabItem from './src/tab-item.vue'
+import tabs from './src/tabs'
+import tabPane from './src/tab-pane-list/tab-pane.vue'
 
-export * from './src/tabs'
+export * from './src/props'
+export * from './src/props.pane'
 export const NTabs = withInstall(tabs)
-export const NTabItem = withInstall(tabItem)
+export const NTabPane = withInstall(tabPane)
 export default NTabs

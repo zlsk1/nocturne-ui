@@ -55,7 +55,7 @@ declare module 'vue' {
     NStatistic: (typeof import('nocturne-ui'))['NStatistic']
     NSwitch: (typeof import('nocturne-ui'))['NSwitch']
     NTabs: (typeof import('nocturne-ui'))['NTabs']
-    NTabItem: (typeof import('nocturne-ui'))['NTabItem']
+    NTabPane: (typeof import('nocturne-ui'))['NTabPane']
     NTag: (typeof import('nocturne-ui'))['NTag']
     NTimePicker: (typeof import('nocturne-ui'))['NTimePicker']
     NTimeline: (typeof import('nocturne-ui'))['NTimeline']

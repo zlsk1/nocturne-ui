@@ -65,7 +65,7 @@
     align-items: center;
     font-size: 14px;
 
-    @include e(nav--wrap) {
+    @include e(nav--wrapper) {
       position: relative;
       display: flex;
       overflow: hidden;
@@ -178,7 +178,7 @@
         @include e(nav) {
           flex-direction: column;
 
-          @include e(nav--wrap) {
+          @include e(nav--wrapper) {
             flex-direction: column;
             margin-right: 0;
 
@@ -262,23 +262,16 @@
     align-items: center;
     flex-direction: row;
     height: getCssVar('tabs', 'nav-btn-height');
-    padding: getCssVar('tabs', 'nav-btn-padding');
     margin-left: 10px;
 
     > * {
       flex-shrink: 0;
-      padding: getCssVar('tabs', 'nav-btn-padding');
-      cursor: pointer;
-
-      &:first-child {
-        padding: getCssVar('tabs', 'nav-btn-padding')
-          getCssVar('tabs', 'nav-btn-padding')
-          getCssVar('tabs', 'nav-btn-padding') 0;
-      }
+      margin-left: getCssVar('tabs', 'nav-btn-padding');
     }
 
     @include e(icon--add) {
       transition: all getCssVar('transition-duration-fast');
+      cursor: pointer;
       &:hover {
         color: getCssVar('color-primary');
       }

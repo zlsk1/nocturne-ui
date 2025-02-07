@@ -1,6 +1,6 @@
 import { ExtractPropTypes } from 'vue'
 
-export const tabItemProps = {
+export const tabPaneProps = {
   label: String,
   disabled: {
     type: Boolean,
@@ -15,4 +15,4 @@ export const tabItemProps = {
   }
 } as const
 
-export type TabItemProps = ExtractPropTypes<typeof tabItemProps>
+export type TabPaneProps = ExtractPropTypes<typeof tabPaneProps>
