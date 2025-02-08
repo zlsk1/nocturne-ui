@@ -1,9 +1,10 @@
-import { definePropType, isString, isUndefined } from '@/utils'
+import { definePropType, isNumber, isString, isUndefined } from '@/utils'
 import type { ExtractPropTypes, VNode } from 'vue'
 import type { ClassType } from '@/components/popper'
 
 export type TabType = {
   label: string
+  value: string | number
   node: VNode
   disabled: boolean
   closeable: boolean
@@ -11,7 +12,7 @@ export type TabType = {
 
 export const tabsProps = {
   modelValue: {
-    type: String
+    type: definePropType<string | number>([String, Number])
   },
   position: {
     type: String,
@@ -36,11 +37,12 @@ export const tabsProps = {
 } as const
 
 export const tabsEmits = {
-  'update:modelValue': (label: string) => isString(label),
-  change: (label: string) => isString(label),
-  click: (label: string) => isString(label),
-  edit: (type: 'add' | 'del', label?: string) =>
-    isString(type) && (isString(label) || isUndefined(label))
+  'update:modelValue': (value: string | number) =>
+    isString(value) || isNumber(value),
+  change: (value: string | number) => isString(value) || isNumber(value),
+  click: (value: string | number) => isString(value) || isNumber(value),
+  edit: (type: 'add' | 'del', value?: string | number) =>
+    isString(type) && (isString(value) || isUndefined(value))
 }
 
 export type TabsProps = ExtractPropTypes<typeof tabsProps>

@@ -28,14 +28,14 @@ const InternalTabs = defineComponent({
     const activeTab = computed({
       get() {
         return (
-          tabs.value.find((tab) => tab.label === props.modelValue) ||
+          tabs.value.find((tab) => tab.value === props.modelValue) ||
           tabs.value[0]
         )
       },
       set(val) {
         if (val) {
-          emit('update:modelValue', val.label)
-          emit('change', val.label)
+          emit('update:modelValue', val.value)
+          emit('change', val.value)
         }
       }
     })
@@ -45,10 +45,12 @@ const InternalTabs = defineComponent({
     const parseTablist = (root: any): TabType[] => {
       return root[0].children
         ?.map((child: VNode) => {
-          const { label, disabled, closeable } = child.props as TabPaneProps
+          const { label, disabled, closeable, value } =
+            child.props as TabPaneProps
 
           return {
             label,
+            value,
             node: child,
             disabled,
             // @ts-ignore
@@ -68,8 +70,10 @@ const InternalTabs = defineComponent({
       })
     )
 
-    const getTabs = () =>
-      h(
+    return () => {
+      tabs.value = parseTablist(slots.default?.())
+
+      return h(
         'div',
         {
           class: [
@@ -82,18 +86,12 @@ const InternalTabs = defineComponent({
         },
         [
           h(NTabNavList, {
-            'onUpdate:modelValue': (label) => emit('update:modelValue', label),
-            onChange: (label) => emit('change', label),
-            onClick: (label) => emit('click', label),
-            onEdit: (type, label) => emit('edit', type, label)
+            onClick: (value) => emit('click', value),
+            onEdit: (type, value) => emit('edit', type, value)
           }),
           h(NTabPaneList)
         ]
       )
-
-    return () => {
-      tabs.value = parseTablist(slots.default?.())
-      return getTabs()
     }
   }
 })
@@ -108,10 +106,10 @@ export default defineComponent({
         InternalTabs,
         {
           ...props,
-          onChange: (val) => emit('change', val),
-          'onUpdate:modelValue': (val) => emit('update:modelValue', val),
-          onClick: (val) => emit('click', val),
-          onEdit: (type, label) => emit('edit', type, label)
+          onChange: (value) => emit('change', value),
+          'onUpdate:modelValue': (value) => emit('update:modelValue', value),
+          onClick: (value) => emit('click', value),
+          onEdit: (type, value) => emit('edit', type, value)
         },
         { default: () => slots.default?.() }
       )

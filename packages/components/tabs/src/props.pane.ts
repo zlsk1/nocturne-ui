@@ -1,7 +1,11 @@
 import { ExtractPropTypes } from 'vue'
+import { definePropType } from '@/utils'
 
 export const tabPaneProps = {
   label: String,
+  value: {
+    type: definePropType<string | number>([String, Number])
+  },
   disabled: {
     type: Boolean,
     default: false

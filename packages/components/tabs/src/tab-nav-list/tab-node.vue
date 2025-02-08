@@ -26,9 +26,9 @@ export default defineComponent({
     const onTabClick = (tab: TabType) => {
       if (state.disabled || tab.disabled) return
       state.updateActiveTab(tab)
-      emit('update:modelValue', tab.label)
-      emit('change', tab.label)
-      emit('click', tab.label)
+      emit('update:modelValue', tab.value)
+      emit('change', tab.value)
+      emit('click', tab.value)
     }
 
     return () => {
@@ -60,7 +60,7 @@ export default defineComponent({
                   class: ns.e('nav__btn__remove'),
                   onClick: (e: Event) => {
                     e.stopPropagation()
-                    emit('edit', 'del', tab.label)
+                    emit('edit', 'del', tab.value)
                   }
                 },
                 h(NIcon, { size: 18 }, { default: () => h(Close) })

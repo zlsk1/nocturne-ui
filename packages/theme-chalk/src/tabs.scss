@@ -246,11 +246,8 @@
           flex-direction: column;
 
           > * {
-            &:first-child {
-              padding: 0 getCssVar('tabs', 'nav-btn-padding')
-                getCssVar('tabs', 'nav-btn-padding')
-                getCssVar('tabs', 'nav-btn-padding');
-            }
+            margin-top: 10px;
+            margin-left: 0;
           }
         }
       }

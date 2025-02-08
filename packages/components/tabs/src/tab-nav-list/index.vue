@@ -82,8 +82,8 @@ export default defineComponent({
       currentTransform.value = newTransform
 
       state.updateActiveTab(target)
-      emit('update:modelValue', target.label)
-      emit('change', target.label)
+      emit('update:modelValue', target.value)
+      emit('change', target.value)
     }
 
     const onWheel = (e: WheelEvent) => {
@@ -148,17 +148,17 @@ export default defineComponent({
                 h(TabNode, {
                   tab,
                   key: `${tab.label}-${index}`,
-                  onClick: (label) => emit('click', label),
-                  onChange: (label) => emit('change', label),
-                  'onUpdate:modelValue': (label) =>
-                    emit('update:modelValue', label),
-                  onEdit: (type, label) => emit('edit', type, label)
+                  onClick: (value) => emit('click', value),
+                  onChange: (value) => emit('change', value),
+                  'onUpdate:modelValue': (value) =>
+                    emit('update:modelValue', value),
+                  onEdit: (type, value) => emit('edit', type, value)
                 })
               )
             )
           ),
           h(TabOperation, {
-            onEdit: (type, label) => emit('edit', type, label)
+            onEdit: (type, value) => emit('edit', type, value)
           })
         ]
       )
