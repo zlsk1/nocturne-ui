@@ -12,11 +12,11 @@
   &.#{$namespace}-popper {
     min-width: getCssVar('popover-width');
     padding: 10px 15px;
+    font-size: 14px;
 
     @include e(title) {
       margin-bottom: 10px;
       color: getCssVar('text-color-primary');
-      font-size: 14px;
       font-family: inherit;
       box-sizing: border-box;
     }
