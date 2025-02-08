@@ -1,7 +1,7 @@
 import { computed, defineComponent, h, reactive, ref, watch } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
 import NIcon from '@/components/icon'
-import { isUndefined } from '@/utils'
+import { isNumber, isUndefined } from '@/utils'
 import { useNamespace } from '@/composables'
 import { segmentedEmits, segmentedProps } from './type'
 import type { Component } from 'vue'
@@ -42,8 +42,10 @@ export default defineComponent({
     })
 
     const emitEvent = (value: string | number) => {
-      ctx.emit('update:modelValue', value)
-      ctx.emit('change', value)
+      const formatValue = isNumber(props.modelValue) ? Number(value) : value
+
+      ctx.emit('update:modelValue', formatValue)
+      ctx.emit('change', formatValue)
     }
 
     const onChange = (e: Event, disabled: boolean | undefined) => {
@@ -102,13 +104,16 @@ export default defineComponent({
 
     const updateSelceted = () => {
       if (!segmentedRef.value) return
-      const selectedEl = document.querySelector('.is-selected') as HTMLElement
+      const selectedEl = segmentedRef.value.querySelector(
+        '.is-selected'
+      ) as HTMLElement
       const selectedInputEl = document.querySelector(
         '.is-selected input'
       ) as HTMLElement
       if (!selectedEl || !selectedInputEl) {
         state.width = 0
         state.translate = 0
+        return
       }
       const rect = selectedEl.getBoundingClientRect()
       if (props.vertical) {
