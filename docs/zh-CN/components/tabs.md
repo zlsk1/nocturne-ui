@@ -37,6 +37,14 @@ tabs/card
 
 :::
 
+## 可编辑的标签页
+
+:::demo
+
+tabs/editable
+
+:::
+
 ## Tabs API
 
 ### Tabs Props
