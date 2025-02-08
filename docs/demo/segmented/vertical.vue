@@ -1,5 +1,12 @@
 <template>
-  <n-segmented v-model="active" :options="options" @change="handleChange" />
+  <div>
+    <n-segmented
+      v-model="active"
+      vertical
+      :options="options"
+      @change="handleChange"
+    />
+  </div>
 </template>
 
 <script lang="ts" setup>
