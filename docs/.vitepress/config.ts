@@ -116,7 +116,7 @@ export const config: UserConfig = {
               text: 'Popconfirm 气泡提示',
               link: '/zh-CN/components/popconfirm'
             },
-            { text: 'Popover 弹出层', link: '/zh-CN/components/popover' },
+            { text: 'Popover 气泡卡片', link: '/zh-CN/components/popover' },
             { text: 'Tooltip 文字提示', link: '/zh-CN/components/tooltip' }
           ]
         },
