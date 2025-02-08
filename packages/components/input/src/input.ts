@@ -21,9 +21,12 @@ export const inputProps = {
     type: Boolean,
     default: false
   },
+  /**
+   * @description 是否显示切换密码图标
+   */
   showPassword: {
     type: Boolean,
-    default: false
+    default: true
   },
   clearable: {
     type: Boolean,

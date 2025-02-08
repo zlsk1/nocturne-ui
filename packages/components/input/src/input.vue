@@ -22,7 +22,13 @@
         <input
           :id="formItemId"
           ref="inputRef"
-          :type="showPassword ? (showPwd ? 'password' : 'text') : type"
+          :type="
+            props.type === 'password' || showPassword
+              ? showPwd
+                ? 'text'
+                : 'password'
+              : type
+          "
           :maxlength="maxlength"
           :minlength="minlength"
           :max="max"
@@ -49,8 +55,8 @@
               v-if="showPwdVisable"
               :class="[ns.e('icon'), ns.e('password')]"
             >
-              <Eye v-if="!showPwd" @click="handleShowPwd" />
-              <EyeClose v-else @click="handleShowPwd" />
+              <Eye v-if="showPwd" @click="handleShowPwd" />
+              <EyeOff v-else @click="handleShowPwd" />
             </n-icon>
             <n-icon v-if="showClear" :class="[ns.e('icon'), ns.e('clear')]">
               <CloseCircle @click="clearValue" />
@@ -108,9 +114,9 @@
 <script lang="ts" setup>
 import { computed, nextTick, ref, useSlots } from 'vue'
 import {
-  RiCloseCircleLine as CloseCircle,
+  RiCloseCircleFill as CloseCircle,
   RiEyeLine as Eye,
-  RiEyeCloseLine as EyeClose
+  RiEyeOffLine as EyeOff
 } from '@remixicon/vue'
 import { useForm, useFormItem } from '@/components/form'
 import NIcon from '@/components/icon'
@@ -132,7 +138,7 @@ const { formItem } = useForm()
 
 const inputRef = ref<HTMLInputElement>()
 const wrapperRef = ref<HTMLInputElement>()
-const showPwd = ref(false)
+const showPwd = ref(props.type === 'password' ? false : true)
 const hovering = ref(false)
 const textareaHeight = ref(0)
 
