@@ -10,8 +10,7 @@ export const formItemProps = {
   label: String,
   labelPosition: {
     type: String,
-    values: positionValues,
-    default: 'left'
+    values: positionValues
   },
   rules: Object,
   prop: {

@@ -8,7 +8,12 @@
     <template v-if="!isTextarea">
       <div
         ref="wrapperRef"
-        :class="[ns.e('wrapper'), ns.is('focus', isFocused)]"
+        :class="[
+          ns.e('wrapper'),
+          ns.is('focus', isFocused),
+          ns.is('error', status === 'error'),
+          ns.is('warning', status === 'warning')
+        ]"
         tabindex="1"
       >
         <span v-if="prefixIcon || slots.prefix" :class="ns.e('prefix')">
@@ -123,6 +128,7 @@ import NIcon from '@/components/icon'
 import { useComposition, useFocusController, useNamespace } from '@/composables'
 import { isNil } from '@/utils'
 import { inputEmits, inputProps } from './input'
+import type { InputStatus } from './input'
 
 defineOptions({
   name: 'NInput'
@@ -193,6 +199,11 @@ const textareaCls = computed(() => [
 
 const modelLength = computed(() => {
   return isNil(props.modelValue) ? '' : String(props.modelValue)
+})
+
+const status = computed<InputStatus | ''>(() => {
+  if (props.status) return props.status
+  return formItem.validateStatus ? '' : 'error'
 })
 
 const handleInput = (e: Event) => {

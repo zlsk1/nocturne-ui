@@ -1,6 +1,14 @@
 <template>
   <div :class="[ns.b(), labelPosition === 'top' ? ns.m('top') : '']">
-    <div v-if="label" ref="labelRef" :class="ns.e('label')" :style="labelStyle">
+    <div
+      v-if="label"
+      ref="labelRef"
+      :class="[
+        ns.e('label'),
+        ns.is('mark', required && formContext.requiredMark)
+      ]"
+      :style="labelStyle"
+    >
       <label :for="labelId">{{ label }}</label>
     </div>
     <div :class="ns.e('content')">
@@ -23,12 +31,12 @@ import {
   provide,
   reactive,
   ref,
-  toRefs
+  toRef
 } from 'vue'
 import Schema from 'async-validator'
 import { clone } from 'lodash'
 import { useId, useNamespace } from '@/composables'
-import { getProp, isString } from '@/utils'
+import { getProp, isString, isUndefined } from '@/utils'
 import { FORMITEM_INJECTION_KEY, FORM_INJECTION_KEY } from './constants'
 import { formItemProps } from './form-item'
 import type { RuleItem } from 'async-validator'
@@ -45,7 +53,8 @@ const ns = useNamespace('form-item')
 const formContext = inject(FORM_INJECTION_KEY, undefined)!
 
 const invalidMessage = ref('')
-const labelRef = ref<HTMLElement>()
+const labelRef = ref<HTMLElement | null>(null)
+const validateStatus = ref<boolean>(true)
 
 let initialValue: any = null
 const labelId = useId().value
@@ -64,22 +73,20 @@ const labelWidth = computed(
 const widthDiff = computed(() => formContext.maxLabelWidth - labelWidth.value)
 
 const labelPosition = computed(
-  () => formContext.labelPosition || props.labelPosition
+  () => props.labelPosition ?? formContext.labelPosition
 )
 
 const propWidth = computed(() => {
   if (formContext.labelWidth) {
     if (isString(formContext.labelWidth)) {
       return formContext.labelWidth
-    } else {
-      return `${formContext.labelWidth}px`
     }
+    return `${formContext.labelWidth}px`
   } else if (props.labelWidth) {
     if (isString(props.labelWidth)) {
       return props.labelWidth
-    } else {
-      return `${props.labelWidth}px`
     }
+    return `${props.labelWidth}px`
   }
   return ''
 })
@@ -103,13 +110,25 @@ const labelStyle = computed(() => {
 
 const actualDisabled = computed(() => formContext.disabled || props.disabled)
 
-onMounted(() => {
-  formContext.addField(formItemContext)
-  initialValue = clone(formItemValue.value)
+const required = computed(() => {
+  if (!formContext.rules || isUndefined(props.prop)) {
+    return false
+  }
+  if (
+    formContext.rules[props.prop].required ||
+    formContext.rules[props.prop].some(
+      (ruleItem: RuleItem) => ruleItem.required
+    )
+  ) {
+    return true
+  }
+
+  return false
 })
 
 const validate: NFormItemInjectionContext['validate'] = async (callback) => {
-  const rules = filterRules(formContext.rules?.[props.prop!])
+  if (isUndefined(props.prop)) return
+  const rules = filterRules(formContext.rules?.[props.prop])
 
   if (rules.length === 0) {
     callback?.(true)
@@ -118,12 +137,21 @@ const validate: NFormItemInjectionContext['validate'] = async (callback) => {
 
   return handleValidate(rules)
     .then(() => {
+      formContext.emit('validate', props.prop!, true, '')
       callback?.(true)
       handleSuccessStatus()
     })
     .catch((err) => {
       callback?.(false, err.fields)
+
       handleFailStatus(err.fields[props.prop!][0].message)
+
+      formContext.emit(
+        'validate',
+        props.prop!,
+        true,
+        err.fields[props.prop!][0].message
+      )
       return Promise.reject(err.fields)
     })
 }
@@ -149,6 +177,7 @@ const resetField = async () => {
   await nextTick()
 
   invalidMessage.value = ''
+  validateStatus.value = true
 }
 
 const filterRules = (rules: RuleItemWithTrigger[]): RuleItem[] => {
@@ -161,24 +190,34 @@ const filterRules = (rules: RuleItemWithTrigger[]): RuleItem[] => {
 
 const handleFailStatus = (message: string) => {
   invalidMessage.value = message
+  validateStatus.value = false
 }
 
 const handleSuccessStatus = () => {
   invalidMessage.value = ''
+  validateStatus.value = true
 }
 
-const clearField = () => {
+const clearValidate = () => {
   handleSuccessStatus()
 }
 
+onMounted(() => {
+  formContext.addField(formItemContext)
+  initialValue = clone(formItemValue.value)
+})
+
 const formItemContext = reactive({
-  ...toRefs(props),
+  disabled: toRef(props, 'disabled'),
+  prop: toRef(props, 'prop'),
+  size: toRef(props, 'size'),
   labelId,
   labelWidth,
   actualDisabled,
+  validateStatus,
   validate,
   resetField,
-  clearField
+  clearValidate
 })
 
 provide(FORMITEM_INJECTION_KEY, formItemContext)
@@ -187,6 +226,6 @@ defineExpose({
   ...props,
   validate,
   resetField,
-  clearField
+  clearValidate
 })
 </script>

@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
   margin-bottom: getCssVar('form-item', 'margin');
+  font-size: 14px;
 
   @include m('top') {
     display: block;
@@ -25,6 +26,17 @@
 
     > label {
       padding-right: 16px;
+    }
+
+    @include when(mark) {
+      &::before {
+        content: '*';
+        color: getCssVar('form-item', 'error-color');
+        margin-right: 4px;
+        line-height: 1;
+        font-size: 14px;
+        font-family: serif;
+      }
     }
   }
 

@@ -228,6 +228,14 @@
     @include when(focus) {
       @include inset-input-border(#{getCssVar('input', 'focus-border-color')});
     }
+
+    @include when(error) {
+      @include inset-input-border(#{getCssVar('color-error')});
+    }
+
+    @include when(warning) {
+      @include inset-input-border(#{getCssVar('color-warning')});
+    }
   }
 
   @include e(inner) {

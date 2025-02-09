@@ -3,6 +3,8 @@ import { definePropType, iconPropType, isString } from '@/utils'
 import { componentSizes } from '@/constants'
 import Input from './input.vue'
 
+export type InputStatus = 'warning' | 'error'
+
 export const inputProps = {
   type: {
     type: String,
@@ -84,6 +86,9 @@ export const inputProps = {
     type: String,
     values: ['outlined', 'borderless', 'filled'],
     default: 'outlined'
+  },
+  status: {
+    type: definePropType<InputStatus>(String)
   }
 } as const
 

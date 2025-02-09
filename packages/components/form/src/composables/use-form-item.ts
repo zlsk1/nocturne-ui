@@ -10,9 +10,11 @@ export const useFormItem = () => {
   return {
     formItemId: formItem?.labelId || id.value,
     formItemDisabled: formItem?.disabled || form?.disabled,
-    formItemSize: formItem?.size || form?.size
+    formItemSize: formItem?.size || form?.size,
+    validateStatus: formItem?.validateStatus
   }
 }
+
 export const useForm = () => {
   const formItem = inject(FORMITEM_INJECTION_KEY, undefined)!
   const form = inject(FORM_INJECTION_KEY, undefined)!

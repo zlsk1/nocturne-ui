@@ -6,7 +6,10 @@ export interface RuleItemWithTrigger extends RuleItem {
   trigger: TriggerType
 }
 
-export type Callback = (valid: boolean, fields?: ValidateFieldsError) => void
+export type FormValidateCallback = (
+  valid: boolean,
+  fields?: ValidateFieldsError
+) => void
 
 export type TriggerType = 'blur' | 'change'
 
@@ -18,16 +21,37 @@ export type NFormInjectionContext = {
   size?: FormProps['size']
   model?: FormProps['model']
   rules?: FormProps['rules']
+  requiredMark?: FormProps['requiredMark']
+  emit: (
+    event: 'validate',
+    prop: string,
+    isValid: boolean,
+    message: string
+  ) => void
   addField: (formItemContext: NFormItemInjectionContext) => void
 }
 
 export type NFormItemInjectionContext = {
   labelId: string
-  prop?: FormItemProps['prop']
   labelWidth: number
   disabled: boolean
+  validateStatus: boolean | undefined
+  prop?: FormItemProps['prop']
   size?: FormItemProps['size']
-  validate: (callback?: Callback) => Promise<true | void>
+  validate: (callback?: FormValidateCallback) => Promise<true | void>
   resetField: () => Promise<void>
-  clearField: () => void
+  clearValidate: () => void
 }
+
+export type FormValidate = (
+  callback: FormValidateCallback | undefined
+) => Promise<boolean>
+
+export type FormClearField = (props: FormItemProps['prop']) => void
+
+export type FormValidateField = (
+  props: FormItemProps['prop'],
+  callback: FormValidateCallback | undefined
+) => Promise<boolean>
+
+export type FormScrollToField = (prop: string, options?: ScrollOptions) => void

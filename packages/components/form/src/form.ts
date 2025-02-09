@@ -1,4 +1,10 @@
-import { definePropType, isObject } from '@/utils'
+import {
+  definePropType,
+  isBoolean,
+  isObject,
+  isString,
+  isUndefined
+} from '@/utils'
 import { componentSizes } from '@/constants'
 import form from './form.vue'
 import { positionValues } from './form-item'
@@ -25,11 +31,22 @@ export const formProps = {
   size: {
     type: definePropType<ComponentSize>(String),
     values: componentSizes
+  },
+  /**
+   * @description 是否显示所有表单项的必选标记
+   */
+  requiredMark: {
+    type: Boolean,
+    default: false
   }
 } as const
 
 export const formEmit = {
-  'update:model': (val: object) => isObject(val)
+  'update:model': (val: object) => isObject(val),
+  validate: (prop: string, isValid: boolean, message: string) =>
+    (isString(prop) || isUndefined(prop)) &&
+    isBoolean(isValid) &&
+    isString(message)
 }
 
 export type FormProps = ExtractPropTypes<typeof formProps>
