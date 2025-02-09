@@ -196,7 +196,7 @@
     }
   }
 
-  @include e(wrapper) {
+  @include m(wrapper) {
     display: inline-flex;
     flex-grow: 1;
     align-items: center;
@@ -345,7 +345,7 @@
   }
 
   @include when(active) {
-    .#{$namespace}-input__wrapper {
+    .#{$namespace}-input--wrapper {
       @include mixed-input-border(
         var(
           #{getCssVarName('input-focus-color')},
@@ -358,7 +358,7 @@
   @include when(disabled) {
     cursor: not-allowed;
 
-    .#{$namespace}-input__wrapper {
+    .#{$namespace}-input--wrapper {
       background-color: map.get($input-disabled, 'fill');
       @include mixed-input-border(map.get($input-disabled, 'border'));
       cursor: not-allowed;
@@ -380,7 +380,7 @@
   }
 
   @include when(exceed) {
-    .#{$namespace}-input__wrapper {
+    .#{$namespace}-input--wrapper {
       @include mixed-input-border(#{getCssVar('color-danger')});
     }
 
@@ -397,7 +397,7 @@
 
       font-size: map.get($input-font-size, $size);
 
-      @include e(wrapper) {
+      @include m(wrapper) {
         padding: $border-width map.get($input-padding-horizontal, $size)-$border-width;
       }
 
@@ -420,7 +420,7 @@
       @if ($variant == 'filled') {
         border-radius: getCssVar('border-radius-base');
         background-color: getCssVar('fill-color');
-        @include e(wrapper) {
+        @include m(wrapper) {
           box-shadow: none;
           transition: all getCssVar('transition-duration');
           &:hover {
@@ -437,7 +437,7 @@
       } @else if ($variant == 'borderless') {
         border-radius: getCssVar('border-radius-base');
         background-color: getCssVar('fill-color', 'blank');
-        @include e(wrapper) {
+        @include m(wrapper) {
           box-shadow: none;
           transition: all getCssVar('transition-duration');
           &:hover {
@@ -479,8 +479,8 @@
 
     button.#{$namespace}-button,
     button.#{$namespace}-button:hover,
-    div.#{$namespace}-select .#{$namespace}-select__wrapper,
-    div.#{$namespace}-select:hover .#{$namespace}-select__wrapper {
+    div.#{$namespace}-select .#{$namespace}-select--wrapper,
+    div.#{$namespace}-select:hover .#{$namespace}-select--wrapper {
       border-color: transparent;
       background-color: transparent;
       color: inherit;
@@ -507,14 +507,14 @@
   }
 
   @include m(prepend) {
-    > .#{$namespace}-input__wrapper {
+    > .#{$namespace}-input--wrapper {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
 
     @include e(prepend) {
       .#{$namespace}-select {
-        .#{$namespace}-select__wrapper {
+        .#{$namespace}-select--wrapper {
           border-top-right-radius: 0;
           border-bottom-right-radius: 0;
           @include inset-prepend-border(#{getCssVar('input-border-color')});
@@ -524,14 +524,14 @@
   }
 
   @include m(append) {
-    > .#{$namespace}-input__wrapper {
+    > .#{$namespace}-input--wrapper {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
 
     @include e(append) {
       .#{$namespace}-select {
-        .#{$namespace}-select__wrapper {
+        .#{$namespace}-select--wrapper {
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;
           @include inset-append-border(#{getCssVar('input-border-color')});

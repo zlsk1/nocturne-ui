@@ -1,118 +1,115 @@
 <template>
   <div
-    :class="inputWrapperCls"
+    :class="inputCls"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
-    @click="focus"
   >
-    <template v-if="!isTextarea">
-      <div
-        ref="wrapperRef"
-        :class="[
-          ns.e('wrapper'),
-          ns.is('focus', isFocused),
-          ns.is('error', status === 'error'),
-          ns.is('warning', status === 'warning')
-        ]"
-        tabindex="1"
-      >
-        <span v-if="prefixIcon || slots.prefix" :class="ns.e('prefix')">
-          <span :class="ns.e('prefix-inner')">
-            <slot v-if="slots.prefix" name="prefix" />
-            <n-icon v-else :class="ns.e('icon')">
-              <component :is="prefixIcon" />
-            </n-icon>
-          </span>
+    <div v-if="$slots.prepend" :class="nsGroup.e('prepend')">
+      <slot name="prepend" />
+    </div>
+    <div
+      v-if="!isTextarea"
+      ref="wrapperRef"
+      :class="[
+        ns.m('wrapper'),
+        ns.is('focus', isFocused),
+        ns.is('error', status === 'error'),
+        ns.is('warning', status === 'warning')
+      ]"
+      tabindex="1"
+      @click="focus"
+    >
+      <span v-if="prefixIcon || slots.prefix" :class="ns.e('prefix')">
+        <span :class="ns.e('prefix-inner')">
+          <slot v-if="slots.prefix" name="prefix" />
+          <n-icon v-else :class="ns.e('icon')">
+            <component :is="prefixIcon" />
+          </n-icon>
         </span>
-        <input
-          :id="formItemId"
-          ref="inputRef"
-          :type="
-            props.type === 'password' || showPassword
-              ? showPwd
-                ? 'text'
-                : 'password'
-              : type
-          "
-          :maxlength="maxlength"
-          :minlength="minlength"
-          :max="max"
-          :min="min"
-          :placeholder="placeholder"
-          :tabindex="tabindex"
-          :class="ns.e('inner')"
-          :value="modelValue"
-          :readonly="readonly"
-          :autofocus="autofocus"
-          :disabled="actualDisabled"
-          @input="handleInput"
-          @focus="handleFocus"
-          @blur="handleBlur"
-          @change="handleChange"
-          @compositionend="hadnleCompositionEnd"
-          @compositionstart="handleCompositionStart"
-          @compositionupdate="handleCompositionUpdate"
-          @keydown.esc.enter="handleEsc"
-        />
-        <span v-if="showSuffix" :class="ns.e('suffix')">
-          <span :class="ns.e('suffix-inner')">
-            <n-icon
-              v-if="showPwdVisable"
-              :class="[ns.e('icon'), ns.e('password')]"
-            >
-              <Eye v-if="showPwd" @click="handleShowPwd" />
-              <EyeOff v-else @click="handleShowPwd" />
-            </n-icon>
-            <n-icon v-if="showClear" :class="[ns.e('icon'), ns.e('clear')]">
-              <CloseCircle @click="clearValue" />
-            </n-icon>
-            <n-icon v-if="suffixIcon" :class="[ns.e('icon')]">
-              <component :is="suffixIcon" />
-            </n-icon>
-            <template v-if="slots.suffix">
-              <slot name="suffix" />
-            </template>
-            <span v-if="showLimit" :class="ns.e('count')">
-              <span :class="ns.e('count-inner')"
-                >{{ (modelValue as string).length }} / {{ maxlength }}</span
-              >
-            </span>
-          </span>
-        </span>
-      </div>
-    </template>
-    <template v-else>
-      <textarea
+      </span>
+      <input
         :id="formItemId"
         ref="inputRef"
-        :placeholder="placeholder"
-        :minlength="minlength"
+        :type="
+          props.type === 'password' ? (showPwd ? 'text' : 'password') : type
+        "
         :maxlength="maxlength"
+        :minlength="minlength"
+        :max="max"
+        :min="min"
+        :placeholder="placeholder"
         :tabindex="tabindex"
-        :disabled="actualDisabled"
-        :readonly="readonly"
+        :class="ns.e('inner')"
         :value="modelValue"
+        :readonly="readonly"
         :autofocus="autofocus"
-        :rows="rows"
-        :class="textareaCls"
-        :style="{ height: textareaHeight + 'px' }"
+        :disabled="actualDisabled"
         @input="handleInput"
         @focus="handleFocus"
         @blur="handleBlur"
+        @change="handleChange"
         @compositionend="hadnleCompositionEnd"
         @compositionstart="handleCompositionStart"
         @compositionupdate="handleCompositionUpdate"
         @keydown.esc.enter="handleEsc"
       />
-      <span v-if="showLimit" :class="ns.e('count')">
-        <span :class="ns.e('count-inner')"
-          >{{ modelLength }} / {{ maxlength }}</span
-        >
+      <span v-if="showSuffix" :class="ns.e('suffix')">
+        <span :class="ns.e('suffix-inner')">
+          <n-icon v-if="showPwdIcon" :class="[ns.e('icon'), ns.e('password')]">
+            <Eye v-if="showPwd" @click="handleShowPwd" />
+            <EyeOff v-else @click="handleShowPwd" />
+          </n-icon>
+          <n-icon v-if="showClear" :class="[ns.e('icon'), ns.e('clear')]">
+            <CloseCircle @click="clearValue" />
+          </n-icon>
+          <n-icon v-if="suffixIcon" :class="[ns.e('icon')]">
+            <component :is="suffixIcon" />
+          </n-icon>
+          <template v-if="slots.suffix">
+            <slot name="suffix" />
+          </template>
+          <span v-if="showLimit" :class="ns.e('count')">
+            <span :class="ns.e('count-inner')"
+              >{{ (modelValue as string).length }} / {{ maxlength }}</span
+            >
+          </span>
+        </span>
       </span>
-      <n-icon v-if="showClear" :class="[`${ns.ns.value}-textarea--clear`]">
-        <CloseCircle @click="clearValue" />
-      </n-icon>
-    </template>
+    </div>
+    <textarea
+      v-else
+      :id="formItemId"
+      ref="inputRef"
+      :placeholder="placeholder"
+      :minlength="minlength"
+      :maxlength="maxlength"
+      :tabindex="tabindex"
+      :disabled="actualDisabled"
+      :readonly="readonly"
+      :value="modelValue"
+      :autofocus="autofocus"
+      :rows="rows"
+      :class="textareaCls"
+      :style="{ height: textareaHeight + 'px' }"
+      @input="handleInput"
+      @focus="handleFocus"
+      @blur="handleBlur"
+      @compositionend="hadnleCompositionEnd"
+      @compositionstart="handleCompositionStart"
+      @compositionupdate="handleCompositionUpdate"
+      @keydown.esc.enter="handleEsc"
+    />
+    <span v-if="showLimit" :class="ns.e('count')">
+      <span :class="ns.e('count-inner')"
+        >{{ modelLength }} / {{ maxlength }}</span
+      >
+    </span>
+    <n-icon v-if="showClear" :class="[`${ns.ns.value}-textarea--clear`]">
+      <CloseCircle @click="clearValue" />
+    </n-icon>
+    <div v-if="$slots.append" :class="nsGroup.e('append')">
+      <slot name="append" />
+    </div>
   </div>
 </template>
 
@@ -126,7 +123,7 @@ import {
 import { useForm, useFormItem } from '@/components/form'
 import NIcon from '@/components/icon'
 import { useComposition, useFocusController, useNamespace } from '@/composables'
-import { isNil } from '@/utils'
+import { isNil, isUndefined } from '@/utils'
 import { inputEmits, inputProps } from './input'
 import type { InputStatus } from './input'
 
@@ -139,6 +136,7 @@ const emit = defineEmits(inputEmits)
 const slots = useSlots()
 
 const ns = useNamespace('input')
+const nsGroup = useNamespace('input-group')
 const { formItemId, formItemDisabled, formItemSize } = useFormItem()
 const { formItem } = useForm()
 
@@ -155,8 +153,8 @@ const { isFocused, handleFocus, handleBlur } = useFocusController(inputRef, {
   }
 })
 
-const showPwdVisable = computed(() => {
-  return props.showPassword && !!props.modelValue
+const showPwdIcon = computed(() => {
+  return props.type === 'password' && props.showPassword && !!props.modelValue
 })
 
 const showClear = computed(() => {
@@ -172,23 +170,22 @@ const isTextarea = computed(() => {
   return props.type === 'textarea'
 })
 
-const showSuffix = computed<boolean>(() => {
-  return (
-    !!props.suffixIcon ||
-    showClear.value ||
-    showPwdVisable.value ||
-    !!slots.suffix
-  )
-})
+const showSuffix = computed<boolean>(
+  () =>
+    !!props.suffixIcon || showClear.value || showPwdIcon.value || !!slots.suffix
+)
 
 const actualDisabled = computed(() => formItemDisabled || props.disabled)
 const actualSize = computed(() => formItemSize || props.size)
 
-const inputWrapperCls = computed(() => [
+const inputCls = computed(() => [
   !isTextarea.value ? ns.b() : 'n-textarea',
   ns.m(actualSize.value),
   ns.is('disabled', actualDisabled.value),
-  ns.m(props.variant === 'outlined' ? '' : props.variant)
+  ns.m(props.variant === 'outlined' ? '' : props.variant),
+  (slots.prepend || slots.append) && nsGroup.b(),
+  Object.hasOwn(slots, 'append') && nsGroup.m('append'),
+  Object.hasOwn(slots, 'prepend') && nsGroup.m('prepend')
 ])
 
 const textareaCls = computed(() => [
@@ -203,7 +200,10 @@ const modelLength = computed(() => {
 
 const status = computed<InputStatus | ''>(() => {
   if (props.status) return props.status
-  return formItem.validateStatus ? '' : 'error'
+  if (isUndefined(formItem?.validateStatus)) return ''
+  else {
+    return formItem.validateStatus ? 'error' : 'warning'
+  }
 })
 
 const handleInput = (e: Event) => {
