@@ -1,18 +1,19 @@
 <template>
   <n-form
     ref="formRef"
-    style="max-width: 400px"
     :model="formData"
     :rules="formRules"
     label-position="right"
+    required-mark
+    style="max-width: 400px"
   >
-    <n-form-item label="Username:" prop="username">
+    <n-form-item label="Username" prop="username">
       <n-input v-model="formData.username" />
     </n-form-item>
-    <n-form-item label="password:" prop="passward">
+    <n-form-item label="Password" prop="passward">
       <n-input v-model="formData.passward" type="password" />
     </n-form-item>
-    <n-form-item label-position="left">
+    <n-form-item>
       <n-checkbox v-model="formData.remember" label="Remeber me" />
     </n-form-item>
     <n-form-item>
@@ -32,7 +33,6 @@ const formData = reactive({
   passward: '',
   remember: true
 })
-
 const formRules = reactive({
   username: [
     {
