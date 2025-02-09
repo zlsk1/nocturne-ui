@@ -51,9 +51,9 @@ describe('Form', () => {
         </Form>
       ))
       await nextTick()
-      expect(
-        wrapper.findAll('.n-form-item__label')[0].attributes('style')
-      ).toContain('margin-right: 100px')
+      expect(wrapper.find('.n-form-item__label').attributes('style')).toContain(
+        'width: 100px; margin-right: 100px'
+      )
     })
     test('right', async () => {
       const wrapper = mount(() => (
@@ -63,9 +63,9 @@ describe('Form', () => {
         </Form>
       ))
       await nextTick()
-      expect(
-        wrapper.findAll('.n-form-item__label')[0].attributes('style')
-      ).toContain('margin-left: 100px')
+      expect(wrapper.find('.n-form-item__label').attributes('style')).toContain(
+        'width: 100px; margin-left: 100px'
+      )
     })
   })
 })

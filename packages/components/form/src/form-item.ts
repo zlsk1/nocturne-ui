@@ -3,6 +3,8 @@ import { componentSizes } from '@/constants'
 import formItem from './form-item.vue'
 import type { ExtractPropTypes } from 'vue'
 import type { ComponentSize } from '@/constants'
+import type { FormItemProp, FormItemRule } from './types'
+import type { Arrayable } from '@/utils'
 
 export const positionValues = ['left', 'right', 'top', '']
 
@@ -12,14 +14,12 @@ export const formItemProps = {
     type: String,
     values: positionValues
   },
-  rules: Object,
+  rule: definePropType<Arrayable<FormItemRule>>(Object),
   prop: {
-    type: String,
-    validate: (val: any, props: any) => props.rules.keys.includes(val)
+    type: definePropType<FormItemProp>([Array, String])
   },
   labelWidth: {
-    type: definePropType<string | number>([String, Number]),
-    default: ''
+    type: definePropType<string | number>([String, Number])
   },
   disabled: {
     type: Boolean,
@@ -28,6 +28,10 @@ export const formItemProps = {
   size: {
     type: definePropType<ComponentSize>(String),
     values: componentSizes
+  },
+  required: {
+    type: Boolean,
+    default: false
   }
 } as const
 

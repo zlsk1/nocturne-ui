@@ -1,19 +1,13 @@
-import {
-  definePropType,
-  isBoolean,
-  isObject,
-  isString,
-  isUndefined
-} from '@/utils'
+import { definePropType, isArray, isBoolean, isObject, isString } from '@/utils'
 import { componentSizes } from '@/constants'
 import form from './form.vue'
 import { positionValues } from './form-item'
 import type { ComponentSize } from '@/constants'
-
+import type { FormData, FormItemProp } from './types'
 import type { ExtractPropTypes } from 'vue'
 
 export const formProps = {
-  model: Object,
+  model: definePropType<FormData>(Object),
   rules: Object,
   labelPosition: {
     type: String,
@@ -21,8 +15,7 @@ export const formProps = {
     default: 'left'
   },
   labelWidth: {
-    type: definePropType<string | number>([String, Number]),
-    default: ''
+    type: definePropType<string | number>([String, Number])
   },
   disabled: {
     type: Boolean,
@@ -38,15 +31,20 @@ export const formProps = {
   requiredMark: {
     type: Boolean,
     default: false
+  },
+  /**|
+   * @description 行内表单
+   */
+  inline: {
+    type: Boolean,
+    default: false
   }
 } as const
 
 export const formEmit = {
   'update:model': (val: object) => isObject(val),
-  validate: (prop: string, isValid: boolean, message: string) =>
-    (isString(prop) || isUndefined(prop)) &&
-    isBoolean(isValid) &&
-    isString(message)
+  validate: (prop: FormItemProp, isValid: boolean, message: string) =>
+    (isString(prop) || isArray(prop)) && isBoolean(isValid) && isString(message)
 }
 
 export type FormProps = ExtractPropTypes<typeof formProps>

@@ -1,9 +1,10 @@
 import type { RuleItem, ValidateFieldsError } from 'async-validator'
 import type { FormProps } from './form'
 import type { FormItemProps } from './form-item'
+import type { Arrayable } from '@/utils'
 
-export interface RuleItemWithTrigger extends RuleItem {
-  trigger: TriggerType
+export interface FormItemRule extends RuleItem {
+  trigger?: Arrayable<TriggerType>
 }
 
 export type FormValidateCallback = (
@@ -14,44 +15,43 @@ export type FormValidateCallback = (
 export type TriggerType = 'blur' | 'change'
 
 export type NFormInjectionContext = {
-  maxLabelWidth: number
-  labelPosition: FormProps['labelPosition']
-  labelWidth: string | number
-  disabled: boolean
-  size?: FormProps['size']
-  model?: FormProps['model']
-  rules?: FormProps['rules']
-  requiredMark?: FormProps['requiredMark']
+  maximumLabelWidth: number
   emit: (
     event: 'validate',
-    prop: string,
+    prop: FormItemProp,
     isValid: boolean,
     message: string
   ) => void
   addField: (formItemContext: NFormItemInjectionContext) => void
-}
+} & FormProps
 
 export type NFormItemInjectionContext = {
-  labelId: string
   labelWidth: number
-  disabled: boolean
+  labelId: string
   validateStatus: boolean | undefined
-  prop?: FormItemProps['prop']
-  size?: FormItemProps['size']
-  validate: (callback?: FormValidateCallback) => Promise<true | void>
-  resetField: () => Promise<void>
+  validate: (callback?: FormValidateCallback) => Promise<boolean>
+  resetField: () => void
   clearValidate: () => void
-}
+} & Omit<FormItemProps, 'labelWidth'>
 
 export type FormValidate = (
   callback: FormValidateCallback | undefined
 ) => Promise<boolean>
 
-export type FormClearField = (props: FormItemProps['prop']) => void
+export type FormClearValidate = (props: FormItemProp) => void
 
 export type FormValidateField = (
-  props: FormItemProps['prop'],
+  props: FormItemProp,
   callback: FormValidateCallback | undefined
 ) => Promise<boolean>
 
 export type FormScrollToField = (prop: string, options?: ScrollOptions) => void
+
+export type FormData = Record<string, any>
+
+// export type FormRules = Record<
+//   string,
+//   RuleItemWithTrigger | RuleItemWithTrigger[]
+// >
+
+export type FormItemProp = Arrayable<string>

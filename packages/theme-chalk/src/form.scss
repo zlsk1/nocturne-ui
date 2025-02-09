@@ -7,4 +7,12 @@
 }
 
 @include b(form) {
+  @include when(inline) {
+    display: flex;
+    flex-wrap: wrap;
+
+    .#{$namespace}-form-item:not(:first-child) {
+      margin-left: 20px;
+    }
+  }
 }

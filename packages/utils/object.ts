@@ -1,10 +1,11 @@
 import { get, set } from 'lodash'
+import type { Arrayable } from './typescript'
 
-export const getProp = (
+export const getProp = <T = any>(
   target: Record<string, any>,
-  key: string,
+  key: Arrayable<string>,
   defaultValue?: any
-) => {
+): { value: T } => {
   return {
     get value() {
       return get(target, key, defaultValue)

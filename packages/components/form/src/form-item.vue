@@ -11,7 +11,12 @@
     >
       <label :for="labelId">{{ label }}</label>
     </div>
-    <div :class="ns.e('content')">
+    <div
+      :class="ns.e('content')"
+      :style="{
+        marginLeft: !label ? `${formContext.maximumLabelWidth}px` : ''
+      }"
+    >
       <slot />
       <transition :name="`${ns.ns.value}-zoom-in-top`">
         <div v-if="invalidMessage" :class="ns.e('error')">
@@ -31,16 +36,17 @@ import {
   provide,
   reactive,
   ref,
-  toRef
+  toRefs
 } from 'vue'
 import Schema from 'async-validator'
 import { clone } from 'lodash'
 import { useId, useNamespace } from '@/composables'
-import { getProp, isString, isUndefined } from '@/utils'
+import { getProp, isArray, isString, isUndefined } from '@/utils'
 import { FORMITEM_INJECTION_KEY, FORM_INJECTION_KEY } from './constants'
 import { formItemProps } from './form-item'
+import type { Arrayable } from '@/utils'
 import type { RuleItem } from 'async-validator'
-import type { NFormItemInjectionContext, RuleItemWithTrigger } from './types'
+import type { FormItemRule, NFormItemInjectionContext } from './types'
 
 defineOptions({
   name: 'NFormItem'
@@ -70,13 +76,15 @@ const labelWidth = computed(
   () => labelRef.value?.getBoundingClientRect().width!
 )
 
-const widthDiff = computed(() => formContext.maxLabelWidth - labelWidth.value)
+const widthDiff = computed(
+  () => formContext.maximumLabelWidth - labelWidth.value
+)
 
 const labelPosition = computed(
   () => props.labelPosition ?? formContext.labelPosition
 )
 
-const propWidth = computed(() => {
+const formItemWidth = computed(() => {
   if (formContext.labelWidth) {
     if (isString(formContext.labelWidth)) {
       return formContext.labelWidth
@@ -94,17 +102,17 @@ const propWidth = computed(() => {
 const labelStyle = computed(() => {
   if (labelPosition.value === 'left') {
     return {
-      width: propWidth.value,
+      width: formItemWidth.value,
       marginRight: `${widthDiff.value}px`
     }
   } else if (labelPosition.value === 'right') {
     return {
-      width: propWidth.value,
+      width: formItemWidth.value,
       marginLeft: `${widthDiff.value}px`
     }
   }
   return {
-    width: propWidth.value
+    width: formItemWidth.value
   }
 })
 
@@ -115,9 +123,9 @@ const required = computed(() => {
     return false
   }
   if (
-    formContext.rules[props.prop].required ||
-    formContext.rules[props.prop].some(
-      (ruleItem: RuleItem) => ruleItem.required
+    props.required ||
+    getProp<FormItemRule[]>(formContext.rules, propString.value).value.some(
+      (v) => v.required
     )
   ) {
     return true
@@ -126,9 +134,16 @@ const required = computed(() => {
   return false
 })
 
+const propString = computed(() => {
+  if (!props.prop) return ''
+  return isString(props.prop) ? props.prop : props.prop.join('.')
+})
+
 const validate: NFormItemInjectionContext['validate'] = async (callback) => {
-  if (isUndefined(props.prop)) return
-  const rules = filterRules(formContext.rules?.[props.prop])
+  if (isUndefined(props.prop) || isUndefined(formContext.rules)) return false
+  const rules = filterRules(
+    getProp<Arrayable<FormItemRule>>(formContext.rules, props.prop).value
+  )
 
   if (rules.length === 0) {
     callback?.(true)
@@ -137,28 +152,26 @@ const validate: NFormItemInjectionContext['validate'] = async (callback) => {
 
   return handleValidate(rules)
     .then(() => {
-      formContext.emit('validate', props.prop!, true, '')
       callback?.(true)
+      formContext.emit('validate', props.prop!, true, '')
+
       handleSuccessStatus()
+      return true
     })
     .catch((err) => {
       callback?.(false, err.fields)
+      formContext.emit('validate', props.prop!, false, err.errors[0].message)
 
-      handleFailStatus(err.fields[props.prop!][0].message)
-
-      formContext.emit(
-        'validate',
-        props.prop!,
-        true,
-        err.fields[props.prop!][0].message
-      )
-      return Promise.reject(err.fields)
+      handleFailStatus(err.errors[0].message)
+      return Promise.reject(err.errors)
     })
 }
 
 const handleValidate = async (rules: RuleItem[]): Promise<boolean> => {
-  const key = props.prop!
+  const key = propString.value
+
   const validator = new Schema({ [key]: rules })
+
   return validator
     .validate({ [key]: formItemValue.value }, { firstFields: true })
     .then(() => {
@@ -169,18 +182,25 @@ const handleValidate = async (rules: RuleItem[]): Promise<boolean> => {
     })
 }
 
-const resetField = async () => {
+const resetField = () => {
   if (!formContext.model || !props.prop) return
 
   const value = getProp(formContext.model, props.prop)
   value.value = clone(initialValue)
-  await nextTick()
 
-  invalidMessage.value = ''
-  validateStatus.value = true
+  nextTick(() => {
+    invalidMessage.value = ''
+    validateStatus.value = true
+  })
 }
 
-const filterRules = (rules: RuleItemWithTrigger[]): RuleItem[] => {
+const filterRules = (rules: Arrayable<FormItemRule>): RuleItem[] => {
+  if (!isArray(rules)) {
+    if (rules.trigger) {
+      rules.trigger = undefined
+    }
+    return [rules]
+  }
   return (
     rules
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -208,9 +228,7 @@ onMounted(() => {
 })
 
 const formItemContext = reactive({
-  disabled: toRef(props, 'disabled'),
-  prop: toRef(props, 'prop'),
-  size: toRef(props, 'size'),
+  ...toRefs(props),
   labelId,
   labelWidth,
   actualDisabled,

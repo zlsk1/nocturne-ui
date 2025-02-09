@@ -1,19 +1,23 @@
 <template>
-  <div ref="formRef" :class="ns.b()">
+  <div ref="formRef" :class="[ns.b(), ns.is('inline', inline)]">
     <slot name="default" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, provide, reactive, ref, toRef } from 'vue'
+import { computed, provide, reactive, ref, toRefs } from 'vue'
+import { isEqual } from 'lodash'
 import { useNamespace } from '@/composables'
-import { isArray, isNil, isUndefined } from '@/utils'
+import { isUndefined } from '@/utils'
 import { formEmit, formProps } from './form'
 import { FORM_INJECTION_KEY } from './constants'
 
-import type { FormValidateCallback, NFormItemInjectionContext } from './types'
+import type {
+  FormItemProp,
+  FormValidateCallback,
+  NFormItemInjectionContext
+} from './types'
 import type { ValidateFieldsError } from 'async-validator'
-import type { FormItemProps } from './form-item'
 import type { Arrayable } from '@/utils'
 import type { Ref } from 'vue'
 
@@ -29,7 +33,7 @@ const ns = useNamespace('form')
 const fields: Ref<NFormItemInjectionContext[]> = ref([])
 const formRef = ref<HTMLElement | null>(null)
 
-const maxLabelWidth = computed(() => {
+const maximumLabelWidth = computed(() => {
   if (fields.value.length === 0) return 0
 
   return fields.value
@@ -38,25 +42,22 @@ const maxLabelWidth = computed(() => {
     .reduce((prev, next) => {
       const max = Math.max(prev, next)
       return max
-    })
+    }, 0)
 })
 
 const validate = (callback?: FormValidateCallback): Promise<boolean> =>
-  handleValidate(
-    fields.value.map((field) => field.prop),
-    callback
-  )
+  handleValidate(callback)
 
 const handleValidate = async (
-  props: Arrayable<FormItemProps['prop']>,
-  callback?: FormValidateCallback
+  callback?: FormValidateCallback,
+  props?: Arrayable<FormItemProp>
 ): Promise<boolean> => {
   let validateErrors: ValidateFieldsError = {}
-  if (isArray(props)) {
+  if (props) {
     for (const prop of props) {
-      const field = fields.value.find((field) => field.prop === prop)
+      const field = fields.value.find((field) => isEqual(field.prop, prop))
       try {
-        if (!isNil(field)) {
+        if (!isUndefined(field)) {
           await field.validate()
         }
       } catch (field) {
@@ -67,13 +68,16 @@ const handleValidate = async (
       }
     }
   } else {
-    try {
-      const field = fields.value.find((field) => field.prop === props)
-      if (!isUndefined(field)) await field.validate()
-    } catch (fields) {
-      validateErrors = {
-        ...validateErrors,
-        ...(fields as ValidateFieldsError)
+    for (const field of fields.value) {
+      try {
+        if (!isUndefined(field)) {
+          await field.validate()
+        }
+      } catch (error) {
+        validateErrors = {
+          ...validateErrors,
+          ...(error as ValidateFieldsError)
+        }
       }
     }
   }
@@ -97,28 +101,16 @@ const addField = (formItemContext: NFormItemInjectionContext) => {
   fields.value.push(formItemContext)
 }
 
-const clearValidate = (props: Arrayable<FormItemProps['prop']>) => {
-  if (isArray(props)) {
-    for (const prop of props) {
-      const field = fields.value.find((field) => field.prop === prop)
-      if (!isNil(field)) {
-        field.clearValidate()
-      }
-    }
-    return
-  }
-
-  const field = fields.value.find((field) => field.prop === props)
+const clearValidate = (props: FormItemProp) => {
+  const field = fields.value.find((field) => isEqual(field.prop, props))
   if (field === undefined) return
   field.clearValidate()
 }
 
-const validateField = (
-  props: Arrayable<FormItemProps['prop']>,
-  callback?: FormValidateCallback
-) => handleValidate(props, callback)
+const validateField = (props: FormItemProp, callback?: FormValidateCallback) =>
+  handleValidate(callback, props)
 
-const scrollToField = (prop: string, options: ScrollIntoViewOptions) => {
+const scrollToField = (prop: string, options?: ScrollIntoViewOptions) => {
   const field = fields.value.find((field) => field.prop === prop)
   formRef.value?.querySelector(`#${field?.labelId}`)?.scrollIntoView(options)
 }
@@ -126,16 +118,10 @@ const scrollToField = (prop: string, options: ScrollIntoViewOptions) => {
 provide(
   FORM_INJECTION_KEY,
   reactive({
-    size: toRef(props, 'size'),
-    model: toRef(props, 'model'),
-    rules: toRef(props, 'rules'),
-    requiredMark: toRef(props, 'requiredMark'),
-    disabled: toRef(props, 'disabled'),
-    labelWidth: toRef(props, 'labelWidth'),
-    labelPosition: toRef(props, 'labelPosition'),
+    maximumLabelWidth,
+    ...toRefs(props),
     emit,
-    addField,
-    maxLabelWidth
+    addField
   })
 )
 
