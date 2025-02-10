@@ -14,14 +14,26 @@
     :label-position="currentPos"
     style="max-width: 400px"
   >
-    <n-form-item label="Username">
-      <n-input v-model="formData.username" />
+    <n-form-item label="Name">
+      <n-input />
     </n-form-item>
-    <n-form-item label="Password">
-      <n-input v-model="formData.passward" />
+    <n-form-item label="Gender">
+      <n-segmented
+        v-model="formData.gender"
+        :options="[
+          {
+            label: 'male',
+            value: 0
+          },
+          {
+            label: 'female',
+            value: 1
+          }
+        ]"
+      />
     </n-form-item>
-    <n-form-item>
-      <n-button type="primary">Submit</n-button>
+    <n-form-item label="Address">
+      <n-input />
     </n-form-item>
   </n-form>
 </template>
@@ -29,11 +41,18 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 
+type FormData = {
+  name: string
+  gender: number
+  address: string
+}
+
 const currentPos = ref('left')
 const positions = ref(['left', 'right', 'top'])
 
-const formData = reactive({
-  username: '',
-  passward: ''
+const formData = reactive<FormData>({
+  name: 'Jack',
+  gender: 0,
+  address: 'Shanghai'
 })
 </script>

@@ -24,16 +24,23 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import type { FormInstance } from 'nocturne-ui'
+import type { FormInstance, FormItemRule } from 'nocturne-ui'
+import type { Arrayable } from 'nocturne-ui/es/utils'
+
+type FormData = {
+  username: string
+  passward: string
+  remember: boolean
+}
 
 const formRef = ref<FormInstance | null>(null)
 
-const formData = reactive({
+const formData = reactive<FormData>({
   username: '',
   passward: '',
   remember: true
 })
-const formRules = reactive({
+const formRules = reactive<Record<string, Arrayable<FormItemRule>>>({
   username: [
     {
       required: true,
@@ -57,7 +64,6 @@ const handleSubmit = () => {
       console.log('submit!')
     } else {
       console.log('error submit!!')
-      return false
     }
   })
 }

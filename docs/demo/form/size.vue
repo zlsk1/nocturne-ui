@@ -26,10 +26,15 @@
 import { reactive, ref } from 'vue'
 import type { ComponentSize } from 'nocturne-ui'
 
-const currentSize = ref<ComponentSize>('large')
+type FormData = {
+  username: string
+  passward: string
+}
+
+const currentSize = ref<ComponentSize>('default')
 const sizes = ref(['large', 'default', 'small'])
 
-const formData = reactive({
+const formData = reactive<FormData>({
   username: '',
   passward: ''
 })
