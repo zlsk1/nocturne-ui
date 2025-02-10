@@ -62,10 +62,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, provide, ref } from 'vue'
+import { computed, provide, ref, watch } from 'vue'
 import { isString } from '@/utils'
 import { useNamespace } from '@/composables'
-import { useFormItem } from '@/components/form'
+import { useForm, useFormItem } from '@/components/form'
 import { SLIDER_INJECT_KEY } from './constants'
 import { sliderEmits, sliderProps } from './slider'
 import SliderTrigger from './trigger.vue'
@@ -81,6 +81,7 @@ const emit = defineEmits(sliderEmits)
 
 const ns = useNamespace('slider')
 const { formItemDisabled, formItemSize } = useFormItem()
+const { formItem } = useForm()
 
 const sliderRef = ref<HTMLDivElement>()
 const triggerRef = ref<SliderTriggerInstance>()
@@ -102,10 +103,10 @@ const sliderCls = computed(() => [
   ns.b(),
   ns.is('disabled', disabled.value),
   ns.is('vertical', props.vertical),
-  ns.e(formItemSize || props.size)
+  ns.e(formItemSize.value || props.size)
 ])
 
-const disabled = computed(() => formItemDisabled || props.disabled)
+const disabled = computed(() => formItemDisabled.value || props.disabled)
 
 const onSliderDown = (e: MouseEvent) => {
   if (disabled.value) return
@@ -130,6 +131,13 @@ const getMarkPosition = (key: number | string) => {
     }
   }
 }
+
+watch(
+  () => props.modelValue,
+  () => {
+    formItem?.validate('change')
+  }
+)
 
 provide(SLIDER_INJECT_KEY, { sliderRef, percent })
 </script>

@@ -29,7 +29,7 @@ export const useCheckboxDisabled = ({
     () =>
       checkboxGroup?.disabled.value ||
       disabled ||
-      formItemDisabled ||
+      formItemDisabled.value ||
       isLimitDisabled.value
   )
 

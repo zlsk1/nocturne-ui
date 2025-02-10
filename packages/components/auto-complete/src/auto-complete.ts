@@ -1,5 +1,6 @@
 import { Placement } from '@popperjs/core'
 import { definePropType, isNumber, isString } from '@/utils'
+import { ComponentSize } from '@/constants'
 import AutoComplete from './auto-complete.vue'
 import type { ClassType } from '@/components/popper'
 import type { CSSProperties, ExtractPropTypes } from 'vue'
@@ -62,6 +63,9 @@ export const autoCompleteProps = {
   defaultOption: {
     type: Boolean,
     default: true
+  },
+  size: {
+    type: definePropType<ComponentSize>(String)
   }
 } as const
 

@@ -65,11 +65,11 @@ const modelValue = computed({
 })
 
 const actualdisabled = computed(() => {
-  return formItemDisabled || groupRef?.disabled || props.disabled
+  return formItemDisabled.value || groupRef?.disabled || props.disabled
 })
 
 const actualSize = computed(() => {
-  return formItemSize || groupRef?.size || props.size
+  return formItemSize.value || groupRef?.size || props.size
 })
 
 const commonCls = computed(() => [

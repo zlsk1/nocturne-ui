@@ -16,6 +16,7 @@
       <n-input
         :id="formItemId"
         ref="inputRef"
+        :size="size"
         :model-value="modelValue"
         :placeholder="placeholder"
         :disabled="disabled"
@@ -69,7 +70,7 @@ import { useNamespace } from '@/composables'
 import NInput from '@/components/input'
 import NTooltip from '@/components/tooltip'
 import { isFunction, isNumber, isUndefined } from '@/utils'
-import { useFormItem } from '@/components/form'
+import { useForm, useFormItem } from '@/components/form'
 import { autoCompleteEmits, autoCompleteProps } from './auto-complete'
 import type { InputInstance } from '@/components/input'
 
@@ -81,7 +82,8 @@ const props = defineProps(autoCompleteProps)
 const emit = defineEmits(autoCompleteEmits)
 
 const ns = useNamespace('auto-complete')
-const { formItemDisabled, formItemId } = useFormItem()
+const { formItemDisabled, formItemId, formItemSize } = useFormItem()
+const { formItem } = useForm()
 
 const visible = ref(props.defaultOption)
 const hoverIndex = ref(props.defaultActiveFirstOption ? 0 : -1)
@@ -97,7 +99,8 @@ onClickOutside(inputContainer, (e) => {
   visible.value = false
 })
 
-const disabled = computed(() => formItemDisabled || props.disabled)
+const disabled = computed(() => formItemDisabled.value || props.disabled)
+const size = computed(() => formItemSize.value || props.size)
 
 const isFocused = computed(() => inputRef.value?.isFocused)
 
@@ -145,6 +148,7 @@ const onFocus = (e: FocusEvent) => {
 
 const onBlur = (e: FocusEvent) => {
   emit('blur', e)
+  formItem?.validate('blur')
 }
 
 const onItemMouseEnter = (index: number) => {

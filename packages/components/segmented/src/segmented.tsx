@@ -3,6 +3,7 @@ import { useResizeObserver } from '@vueuse/core'
 import NIcon from '@/components/icon'
 import { isNumber, isUndefined } from '@/utils'
 import { useNamespace } from '@/composables'
+import { useForm, useFormItem } from '@/components/form'
 import { segmentedEmits, segmentedProps } from './type'
 import type { Component } from 'vue'
 import type { SegmentedOption } from './type'
@@ -14,6 +15,9 @@ export default defineComponent({
   emit: segmentedEmits,
   setup(props, ctx) {
     const ns = useNamespace('segmented')
+
+    const { formItemDisabled, formItemSize } = useFormItem()
+    const { formItem } = useForm()
 
     const segmentedRef = ref<HTMLElement | null>(null)
     const state = reactive({
@@ -41,6 +45,11 @@ export default defineComponent({
       return props.id
     })
 
+    const actualDisabled = computed(
+      () => formItemDisabled.value || props.disabled
+    )
+    const size = computed(() => formItemSize.value || props.size)
+
     const emitEvent = (value: string | number) => {
       const formatValue = isNumber(props.modelValue) ? Number(value) : value
 
@@ -49,7 +58,7 @@ export default defineComponent({
     }
 
     const onChange = (e: Event, disabled: boolean | undefined) => {
-      if (disabled || props.disabled) return
+      if (disabled || actualDisabled.value) return
       emitEvent((e.target as HTMLInputElement).value)
     }
 
@@ -131,6 +140,13 @@ export default defineComponent({
       flush: 'post'
     })
 
+    watch(
+      () => props.modelValue,
+      () => {
+        formItem?.validate('change')
+      }
+    )
+
     const getLabel = ({
       value,
       disabled,
@@ -189,13 +205,13 @@ export default defineComponent({
         ref={segmentedRef}
         class={[
           ns.b(),
-          ns.m(props.size),
+          ns.m(size.value),
           ns.is('vertical', props.vertical),
-          ns.is('disabled', props.disabled),
+          ns.is('disabled', actualDisabled.value),
           ns.is('block', props.block)
         ]}
         role="radiogroup"
-        tabindex={props.disabled ? undefined : 0}
+        tabindex={actualDisabled.value ? undefined : 0}
         aria-label={props.ariaLabel}
         onKeydown={(e: KeyboardEvent) => onKeydown(e)}
         onKeyup={(e: KeyboardEvent) => onKeyup(e)}
@@ -209,7 +225,7 @@ export default defineComponent({
           {props.options?.map((option) => {
             return getLabel({
               ...option,
-              disabled: props.disabled || option.disabled,
+              disabled: actualDisabled.value || option.disabled,
               checked: props.modelValue === option.value,
               isFocusVisible:
                 isFocus.value &&

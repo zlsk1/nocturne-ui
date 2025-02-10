@@ -20,9 +20,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, nextTick, ref } from 'vue'
+import { computed, inject, nextTick, ref, watch } from 'vue'
 import { useNamespace } from '@/composables'
-import { useFormItem } from '@/components/form'
+import { useForm, useFormItem } from '@/components/form'
 import { radioEmits, radioProps } from './radio'
 import { RADIOGROUP_INJECTION_KEY } from './constants'
 
@@ -35,6 +35,7 @@ const emit = defineEmits(radioEmits)
 
 const ns = useNamespace('radio')
 const { formItemDisabled, formItemSize } = useFormItem()
+const { formItem } = useForm()
 
 const groupRef = inject(RADIOGROUP_INJECTION_KEY, undefined)!
 
@@ -65,11 +66,11 @@ const modelValue = computed({
 })
 
 const actualdisabled = computed(() => {
-  return formItemDisabled || groupRef?.disabled || props.disabled
+  return formItemDisabled.value || groupRef?.disabled || props.disabled
 })
 
 const actualSize = computed(() => {
-  return formItemSize || groupRef?.size || props.size
+  return formItemSize.value || groupRef?.size || props.size
 })
 
 const commonCls = computed(() => [
@@ -87,4 +88,11 @@ const radioCls = computed(() => [
 const handleChange = () => {
   nextTick(() => emit('change', modelValue.value as string | number | boolean))
 }
+
+watch(
+  () => props.modelValue,
+  () => {
+    formItem?.validate('change')
+  }
+)
 </script>

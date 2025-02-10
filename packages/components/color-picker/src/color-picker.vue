@@ -34,7 +34,6 @@
             <n-input
               ref="inputRef"
               v-model="customInput"
-              :validate-event="false"
               size="small"
               @keyup.enter="handleConfirm"
               @blur="handleConfirm"
@@ -189,8 +188,8 @@ const btnCls = computed(() => {
   ]
 })
 
-const actualDisabled = computed(() => props.disabled || formItemDisabled)
-const actualSize = computed(() => props.size || formItemSize)
+const actualDisabled = computed(() => props.disabled || formItemDisabled.value)
+const actualSize = computed(() => props.size || formItemSize.value)
 
 function displayedRgb(color: Color, showAlpha: boolean) {
   if (!(color instanceof Color)) {

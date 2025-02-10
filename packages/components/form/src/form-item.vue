@@ -1,5 +1,8 @@
 <template>
-  <div :class="[ns.b(), labelPosition === 'top' ? ns.m('top') : '']">
+  <div
+    ref="formItemRef"
+    :class="[ns.b(), labelPosition === 'top' ? ns.m('top') : '']"
+  >
     <div
       v-if="label"
       ref="labelRef"
@@ -39,14 +42,19 @@ import {
   toRefs
 } from 'vue'
 import Schema from 'async-validator'
-import { clone } from 'lodash'
+import { castArray, clone } from 'lodash'
 import { useId, useNamespace } from '@/composables'
 import { getProp, isArray, isString, isUndefined } from '@/utils'
 import { FORMITEM_INJECTION_KEY, FORM_INJECTION_KEY } from './constants'
 import { formItemProps } from './form-item'
 import type { Arrayable } from '@/utils'
 import type { RuleItem } from 'async-validator'
-import type { FormItemRule, NFormItemInjectionContext } from './types'
+import type {
+  FormItemRule,
+  FormValidateFailure,
+  NFormItemInjectionContext,
+  TriggerType
+} from './types'
 
 defineOptions({
   name: 'NFormItem'
@@ -61,6 +69,7 @@ const formContext = inject(FORM_INJECTION_KEY, undefined)!
 const invalidMessage = ref('')
 const labelRef = ref<HTMLElement | null>(null)
 const validateStatus = ref<boolean>(true)
+const formItemRef = ref<HTMLDivElement | null>(null)
 
 let initialValue: any = null
 const labelId = useId().value
@@ -139,9 +148,13 @@ const propString = computed(() => {
   return isString(props.prop) ? props.prop : props.prop.join('.')
 })
 
-const validate: NFormItemInjectionContext['validate'] = async (callback) => {
+const validate: NFormItemInjectionContext['validate'] = async (
+  trigger,
+  callback
+) => {
   if (isUndefined(props.prop) || isUndefined(formContext.rules)) return false
   const rules = filterRules(
+    trigger,
     getProp<Arrayable<FormItemRule>>(formContext.rules, props.prop).value
   )
 
@@ -153,17 +166,13 @@ const validate: NFormItemInjectionContext['validate'] = async (callback) => {
   return handleValidate(rules)
     .then(() => {
       callback?.(true)
-      formContext.emit('validate', props.prop!, true, '')
 
-      handleSuccessStatus()
       return true
     })
     .catch((err) => {
       callback?.(false, err.fields)
-      formContext.emit('validate', props.prop!, false, err.errors[0].message)
 
-      handleFailStatus(err.errors[0].message)
-      return Promise.reject(err.errors)
+      return Promise.reject(err.fields)
     })
 }
 
@@ -175,9 +184,11 @@ const handleValidate = async (rules: RuleItem[]): Promise<boolean> => {
   return validator
     .validate({ [key]: formItemValue.value }, { firstFields: true })
     .then(() => {
+      handleSuccessStatus()
       return true
     })
-    .catch((err) => {
+    .catch((err: FormValidateFailure) => {
+      handleFailStatus(err)
       return Promise.reject(err)
     })
 }
@@ -194,28 +205,41 @@ const resetField = () => {
   })
 }
 
-const filterRules = (rules: Arrayable<FormItemRule>): RuleItem[] => {
-  if (!isArray(rules)) {
-    if (rules.trigger) {
-      rules.trigger = undefined
-    }
-    return [rules]
-  }
+const filterRules = (
+  trigger: string = 'blur',
+  rules: Arrayable<FormItemRule>
+): RuleItem[] => {
   return (
-    rules
+    castArray(rules)
+      .filter((rule) => {
+        if (!trigger || !rule.trigger) return true
+        if (isArray(rule.trigger)) {
+          return rule.trigger.includes(trigger as TriggerType)
+        } else {
+          return rule.trigger === trigger
+        }
+      })
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .map(({ trigger, ...rule }) => rule)
   )
 }
 
-const handleFailStatus = (message: string) => {
-  invalidMessage.value = message
+const handleFailStatus = (err: FormValidateFailure) => {
+  const { errors, fields } = err
+  if (!errors || !fields) {
+    console.error(err)
+  }
+  invalidMessage.value = errors
+    ? (errors?.[0].message ?? `${props.prop} is required`)
+    : ''
   validateStatus.value = false
+  formContext?.emit('validate', props.prop!, false, invalidMessage.value)
 }
 
 const handleSuccessStatus = () => {
   invalidMessage.value = ''
   validateStatus.value = true
+  formContext?.emit('validate', props.prop!, true, '')
 }
 
 const clearValidate = () => {
@@ -229,6 +253,7 @@ onMounted(() => {
 
 const formItemContext = reactive({
   ...toRefs(props),
+  $el: computed(() => formItemRef.value),
   labelId,
   labelWidth,
   actualDisabled,
@@ -241,7 +266,6 @@ const formItemContext = reactive({
 provide(FORMITEM_INJECTION_KEY, formItemContext)
 
 defineExpose({
-  ...props,
   validate,
   resetField,
   clearValidate

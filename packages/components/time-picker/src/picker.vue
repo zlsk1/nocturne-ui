@@ -144,8 +144,8 @@ const displayedValue = computed(() => {
   return ''
 })
 
-const actualDisabled = computed(() => formItemDisabled || props.disabled)
-const actualSize = computed(() => formItemSize || props.size)
+const actualDisabled = computed(() => formItemDisabled.value || props.disabled)
+const actualSize = computed(() => formItemSize.value || props.size)
 
 watch(visible, (val) => {
   if (!val) {

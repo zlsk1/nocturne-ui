@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { RiLoader2Fill as Loader } from '@remixicon/vue'
 import { isBoolean, isNil, isPromise, isString } from '@/utils'
-import { useFormItem } from '@/components/form'
+import { useForm, useFormItem } from '@/components/form'
 import { useNamespace } from '@/composables'
 import { switchEmits, switchProps } from './switch'
 
@@ -16,6 +16,7 @@ const emit = defineEmits(switchEmits)
 const ns = useNamespace('switch')
 
 const { formItemId, formItemDisabled, formItemSize } = useFormItem()
+const { formItem } = useForm()
 
 const actived = ref(props.modelValue)
 
@@ -25,8 +26,8 @@ const newStyle = computed(() => {
   }
 })
 
-const actualDisabled = computed(() => formItemDisabled || props.disabled)
-const actualSize = computed(() => formItemSize || props.size)
+const actualDisabled = computed(() => formItemDisabled.value || props.disabled)
+const actualSize = computed(() => formItemSize.value || props.size)
 
 const handleChange = () => {
   actived.value = !actived.value
@@ -69,6 +70,13 @@ const handleSwitch = () => {
     handleChange()
   }
 }
+
+watch(
+  () => props.modelValue,
+  () => {
+    formItem?.validate('change')
+  }
+)
 
 defineExpose({
   actived

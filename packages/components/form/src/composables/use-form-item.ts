@@ -1,4 +1,4 @@
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 import { useId } from '@/composables'
 import { FORMITEM_INJECTION_KEY, FORM_INJECTION_KEY } from '../constants'
 
@@ -8,10 +8,10 @@ export const useFormItem = () => {
   const id = useId()
 
   return {
-    formItemId: formItem?.labelId || id.value,
-    formItemDisabled: formItem?.disabled || form?.disabled,
-    formItemSize: formItem?.size || form?.size,
-    validateStatus: formItem?.validateStatus
+    formItemId: computed(() => formItem?.labelId || id.value),
+    formItemDisabled: computed(() => formItem?.disabled || form?.disabled),
+    formItemSize: computed(() => formItem?.size || form?.size),
+    validateStatus: computed(() => formItem?.validateStatus)
   }
 }
 

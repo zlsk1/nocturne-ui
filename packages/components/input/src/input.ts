@@ -89,6 +89,10 @@ export const inputProps = {
   },
   status: {
     type: definePropType<InputStatus>(String)
+  },
+  autocomplete: {
+    type: String,
+    default: 'off'
   }
 } as const
 

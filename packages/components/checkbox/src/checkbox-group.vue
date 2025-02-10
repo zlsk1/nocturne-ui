@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { computed, nextTick, provide, toRefs } from 'vue'
-import { useFormItem } from '@/components/form'
+import { computed, nextTick, provide, toRefs, watch } from 'vue'
+import { useForm, useFormItem } from '@/components/form'
 import { useNamespace } from '@/composables'
 import { checkboxGroupContextKey } from './constants'
 import { checkboxGroupEmits, checkboxGroupProps } from './checkbox-group'
@@ -16,6 +16,7 @@ const emit = defineEmits(checkboxGroupEmits)
 const ns = useNamespace('checkbox')
 
 const { formItemId } = useFormItem()
+const { formItem } = useForm()
 
 const changeEvent = async (value: CheckboxGroupValueType) => {
   emit('update:modelValue', value)
@@ -31,6 +32,13 @@ const modelValue = computed({
     changeEvent(val)
   }
 })
+
+watch(
+  () => props.modelValue,
+  () => {
+    formItem?.validate('change')
+  }
+)
 
 provide(checkboxGroupContextKey, {
   ...toRefs(props),

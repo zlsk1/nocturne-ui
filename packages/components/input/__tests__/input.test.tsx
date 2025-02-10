@@ -1,8 +1,9 @@
 import { nextTick, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test, vi } from 'vitest'
-import { RiCloseCircleLine, RiEyeLine } from '@remixicon/vue'
+import { RiCloseCircleFill, RiEyeLine, RiEyeOffLine } from '@remixicon/vue'
 import Input from '../src/input.vue'
+import type { InputStatus } from '../src/input'
 
 describe('Input', () => {
   test('render', () => {
@@ -38,15 +39,57 @@ describe('Input', () => {
     expect(wrapper.find('.is-disabled').exists()).toEqual(true)
   })
 
-  test('showPassword icon', async () => {
+  test('show-password', async () => {
+    const password = ref(123)
+    const showPassword = ref(true)
+    const wrapper = mount(() => (
+      <Input
+        v-model={password.value}
+        showPassword={showPassword.value}
+        type="password"
+      ></Input>
+    ))
+    expect(wrapper.findComponent(RiEyeOffLine).exists()).toEqual(true)
+    showPassword.value = false
+    await nextTick()
+    expect(wrapper.findComponent(RiEyeOffLine).exists()).toEqual(false)
+  })
+
+  test('clearable', async () => {
+    const inputVal = ref('123')
+    const wrapper = mount(() => (
+      <Input v-model={inputVal.value} clearable></Input>
+    ))
+    const InputEl = wrapper.findComponent(Input)
+    await InputEl.trigger('mouseenter')
+    expect(wrapper.findComponent(RiCloseCircleFill).exists()).toEqual(true)
+    await InputEl.trigger('mouseleave')
+    expect(wrapper.findComponent(RiCloseCircleFill).exists()).toEqual(false)
+
+    inputVal.value = ''
+    await nextTick()
+    await InputEl.trigger('mouseenter')
+    expect(wrapper.findComponent(RiCloseCircleFill).exists()).toEqual(false)
+  })
+
+  test('password', async () => {
     const value = ref('')
     const wrapper = mount(() => (
-      <Input showPassword v-model={value.value}></Input>
+      <Input type="password" v-model={value.value}></Input>
     ))
-    expect(wrapper.findComponent(RiEyeLine).exists()).toEqual(false)
+    expect(wrapper.findComponent(RiEyeOffLine).exists()).toEqual(false)
     value.value = '1'
     await nextTick()
+    expect(wrapper.findComponent(RiEyeOffLine).exists()).toEqual(true)
+    await wrapper.findComponent(RiEyeOffLine).trigger('click')
+    await nextTick()
     expect(wrapper.findComponent(RiEyeLine).exists()).toEqual(true)
+  })
+
+  test('status', () => {
+    const status = ref<InputStatus>('error')
+    const wrapper = mount(() => <Input status={status.value}></Input>)
+    expect(wrapper.find('.is-error').exists()).toEqual(true)
   })
 
   describe('should show suffix-icon & prefix-icon', () => {
@@ -79,6 +122,75 @@ describe('Input', () => {
         expect(wrapper.find('.n-input__prefix').exists()).toEqual(true)
       })
     })
+  })
+
+  test('limit input and show word count', async () => {
+    const input1 = ref('')
+    const input2 = ref('')
+    const input3 = ref('')
+    const input4 = ref('exceed')
+    const show = ref(false)
+
+    const wrapper = mount(() => (
+      <div>
+        <Input
+          class="test-text"
+          type="text"
+          v-model={input1.value}
+          maxlength="10"
+          showLimit={show.value}
+        />
+        <Input
+          class="test-textarea"
+          type="textarea"
+          v-model={input2.value}
+          maxlength="10"
+          showLimit
+        />
+        <Input
+          class="test-password"
+          type="password"
+          v-model={input3.value}
+          maxlength="10"
+          showLimit
+        />
+        <Input
+          class="test-initial-exceed"
+          type="text"
+          v-model={input4.value}
+          maxlength="2"
+          showLimit
+        />
+      </div>
+    ))
+
+    const inputElm1 = wrapper.vm.$el.querySelector('.test-text')
+    const inputElm2 = wrapper.vm.$el.querySelector('.test-textarea')
+    const inputElm3 = wrapper.vm.$el.querySelector('.test-password')
+    const inputElm4 = wrapper.vm.$el.querySelector('.test-initial-exceed')
+
+    expect(inputElm1.querySelectorAll('.n-input__count').length).toEqual(0)
+    expect(inputElm2.querySelectorAll('.n-input__count').length).toEqual(1)
+    expect(inputElm3.querySelectorAll('.n-input__count').length).toEqual(0)
+    expect(Array.from(inputElm4.classList)).toMatchInlineSnapshot(`
+      [
+        "n-input",
+        "test-initial-exceed",
+      ]
+    `)
+
+    show.value = true
+    await nextTick()
+    expect(inputElm1.querySelectorAll('.n-input__count').length).toEqual(1)
+
+    input4.value = '1'
+    await nextTick()
+    expect(Array.from(inputElm4.classList)).toMatchInlineSnapshot(`
+      [
+        "n-input",
+        "test-initial-exceed",
+      ]
+    `)
   })
 
   describe('input events', () => {
@@ -119,7 +231,7 @@ describe('Input', () => {
         <Input clearable v-model={value.value}></Input>
       ))
       await wrapper.trigger('mouseenter')
-      await wrapper.findComponent(RiCloseCircleLine).trigger('click')
+      await wrapper.findComponent(RiCloseCircleFill).trigger('click')
       expect(value.value).toBe('')
     })
 
@@ -137,6 +249,74 @@ describe('Input', () => {
       const inputWrapper = wrapper.find('input')
       await inputWrapper.trigger('blur')
       expect(onBlur).toHaveBeenCalled()
+    })
+  })
+
+  describe('test emoji', () => {
+    test('should minimize value between emoji length and maxLength', async () => {
+      const inputVal = ref('12🌚')
+      const wrapper = mount(() => (
+        <Input
+          class="test-exceed"
+          maxlength="4"
+          showLimit
+          v-model={inputVal.value}
+        />
+      ))
+      const vm = wrapper.vm
+      const inputElm = wrapper.find('input')
+      const nativeInput = inputElm.element
+      expect(nativeInput.value).toMatchInlineSnapshot(`"12🌚"`)
+
+      const nCount = wrapper.find('.n-input__count-inner')
+      expect(nCount.exists()).toBe(true)
+      expect(nCount.text()).toMatchInlineSnapshot(`"4 / 4"`)
+
+      inputVal.value = '1👌3😄'
+      await nextTick()
+      expect(nativeInput.value).toMatchInlineSnapshot(`"1👌3😄"`)
+      expect(nCount.text()).toMatchInlineSnapshot(`"6 / 4"`)
+
+      inputVal.value = '哈哈1👌3😄'
+      await nextTick()
+      expect(nativeInput.value).toMatchInlineSnapshot(`"哈哈1👌3😄"`)
+      expect(nCount.text()).toMatchInlineSnapshot(`"8 / 4"`)
+      expect(Array.from(vm.$el.classList)).toMatchInlineSnapshot(`
+        [
+          "n-input",
+          "test-exceed",
+        ]
+      `)
+    })
+
+    test('textarea should minimize value between emoji length and maxLength', async () => {
+      const inputVal = ref('啊好😄')
+      const wrapper = mount(() => (
+        <Input
+          type="textarea"
+          maxlength="4"
+          showLimit
+          v-model={inputVal.value}
+        />
+      ))
+      const vm = wrapper.vm
+      const inputElm = wrapper.find('textarea')
+      const nativeInput = inputElm.element
+      expect(nativeInput.value).toMatchInlineSnapshot(`"啊好😄"`)
+
+      const nCount = wrapper.find('.n-input__count')
+      expect(nCount.exists()).toBe(true)
+      expect(nCount.text()).toMatchInlineSnapshot(`"4 / 4"`)
+
+      inputVal.value = '哈哈1👌3😄'
+      await nextTick()
+      expect(nativeInput.value).toMatchInlineSnapshot(`"哈哈1👌3😄"`)
+      expect(nCount.text()).toMatchInlineSnapshot(`"8 / 4"`)
+      expect(Array.from(vm.$el.classList)).toMatchInlineSnapshot(`
+        [
+          "n-textarea",
+        ]
+      `)
     })
   })
 })

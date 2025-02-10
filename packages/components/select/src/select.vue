@@ -196,7 +196,7 @@ import {
 import NIcon from '@/components/icon'
 import NTag from '@/components/tag'
 import NTooltip from '@/components/tooltip'
-import { useFormItem } from '@/components/form'
+import { useForm, useFormItem } from '@/components/form'
 import {
   useComposition,
   useFocusController,
@@ -218,6 +218,7 @@ const emit = defineEmits(selectEmits)
 
 const ns = useNamespace('select')
 const { formItemId, formItemDisabled, formItemSize } = useFormItem()
+const { formItem } = useForm()
 const { t } = useLocale()
 
 const MINIMAL_INPUT_WIDTH = 8
@@ -247,7 +248,11 @@ const {
   isFocused,
   handleFocus,
   handleBlur: onBlur
-} = useFocusController(inputRef)
+} = useFocusController(inputRef, {
+  afterBlur: () => {
+    formItem?.validate('blur')
+  }
+})
 
 onClickOutside(wrapperRef, (e: MouseEvent) => {
   if (optionRef.value?.contains(e.target as Node)) return
@@ -377,8 +382,8 @@ const noMatchValue = computed(() => {
   )
 })
 
-const actualDisabled = computed(() => formItemDisabled || props.disabled)
-const actualSize = computed(() => formItemSize || props.size)
+const actualDisabled = computed(() => formItemDisabled.value || props.disabled)
+const actualSize = computed(() => formItemSize.value || props.size)
 
 const readonly = computed(() => {
   return !props.showSearch
@@ -568,6 +573,13 @@ watch(visible, (val) => {
     inputValue.value = ''
   }
 })
+
+watch(
+  () => props.modelValue,
+  () => {
+    formItem?.validate('change')
+  }
+)
 
 onMounted(() => {
   setSelected()

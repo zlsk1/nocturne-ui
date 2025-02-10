@@ -40,10 +40,10 @@ export const useCheckboxStatus = (
   })
 
   const checkboxButtonSize = computed(
-    () => formItemSize || checkboxGroup?.size?.value
+    () => formItemSize.value || checkboxGroup?.size?.value
   )
   const checkboxSize = computed(
-    () => formItemSize || checkboxGroup?.size?.value
+    () => formItemSize.value || checkboxGroup?.size?.value
   )
 
   const hasOwnLabel = computed<boolean>(() => {

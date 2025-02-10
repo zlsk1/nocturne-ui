@@ -6,19 +6,21 @@
 
 <script lang="ts" setup>
 import { computed, provide, reactive, ref, toRefs } from 'vue'
-import { isEqual } from 'lodash'
+import { castArray } from 'lodash'
 import { useNamespace } from '@/composables'
-import { isUndefined } from '@/utils'
 import { formEmit, formProps } from './form'
 import { FORM_INJECTION_KEY } from './constants'
 
 import type {
+  FormClearValidate,
   FormItemProp,
+  FormScrollToField,
   FormValidateCallback,
+  FormValidateField,
+  NFormInjectionContext,
   NFormItemInjectionContext
 } from './types'
 import type { ValidateFieldsError } from 'async-validator'
-import type { Arrayable } from '@/utils'
 import type { Ref } from 'vue'
 
 defineOptions({
@@ -45,39 +47,37 @@ const maximumLabelWidth = computed(() => {
     }, 0)
 })
 
+const filterFields = (
+  fields: NFormItemInjectionContext[],
+  props: FormItemProp
+) => {
+  const normalized = castArray<FormItemProp>(props)
+  return normalized.length > 0
+    ? fields.filter((field) => field.prop && normalized.includes(field.prop))
+    : fields
+}
+
 const validate = (callback?: FormValidateCallback): Promise<boolean> =>
-  handleValidate(callback)
+  validateField(undefined, callback)
 
 const handleValidate = async (
-  callback?: FormValidateCallback,
-  props?: Arrayable<FormItemProp>
+  props?: FormItemProp,
+  callback?: FormValidateCallback
 ): Promise<boolean> => {
   let validateErrors: ValidateFieldsError = {}
-  if (props) {
-    for (const prop of props) {
-      const field = fields.value.find((field) => isEqual(field.prop, prop))
-      try {
-        if (!isUndefined(field)) {
-          await field.validate()
-        }
-      } catch (field) {
-        validateErrors = {
-          ...validateErrors,
-          ...(field as ValidateFieldsError)
-        }
-      }
-    }
-  } else {
-    for (const field of fields.value) {
-      try {
-        if (!isUndefined(field)) {
-          await field.validate()
-        }
-      } catch (error) {
-        validateErrors = {
-          ...validateErrors,
-          ...(error as ValidateFieldsError)
-        }
+
+  const filteredFields = props
+    ? filterFields(fields.value, props)
+    : fields.value
+  if (filteredFields.length === 0) return true
+
+  for (const field of filteredFields) {
+    try {
+      await field.validate('')
+    } catch (errors) {
+      validateErrors = {
+        ...validateErrors,
+        ...(errors as ValidateFieldsError)
       }
     }
   }
@@ -97,22 +97,36 @@ const resetField = () => {
   }
 }
 
-const addField = (formItemContext: NFormItemInjectionContext) => {
+const addField: NFormInjectionContext['addField'] = (formItemContext) => {
   fields.value.push(formItemContext)
 }
 
-const clearValidate = (props: FormItemProp) => {
-  const field = fields.value.find((field) => isEqual(field.prop, props))
-  if (field === undefined) return
-  field.clearValidate()
+const clearValidate: FormClearValidate = (props = []) => {
+  filterFields(fields.value, props).forEach((field) => field.clearValidate())
 }
 
-const validateField = (props: FormItemProp, callback?: FormValidateCallback) =>
-  handleValidate(callback, props)
+const validateField: FormValidateField = async (props = [], callback) => {
+  try {
+    const result = await handleValidate(props)
+    if (result === true) {
+      await callback?.(result)
+    }
+    return result
+  } catch (e) {
+    if (e instanceof Error) throw e
 
-const scrollToField = (prop: string, options?: ScrollIntoViewOptions) => {
-  const field = fields.value.find((field) => field.prop === prop)
-  formRef.value?.querySelector(`#${field?.labelId}`)?.scrollIntoView(options)
+    const invalidFields = e as ValidateFieldsError
+
+    await callback?.(false, invalidFields)
+    return Promise.reject(invalidFields)
+  }
+}
+
+const scrollToField: FormScrollToField = (prop, options) => {
+  const field = filterFields(fields.value, prop)[0]
+  if (field) {
+    field.$el?.scrollIntoView(options)
+  }
 }
 
 provide(
