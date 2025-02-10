@@ -8,7 +8,7 @@
       ref="labelRef"
       :class="[
         ns.e('label'),
-        ns.is('mark', required && formContext.requiredMark)
+        ns.is('mark', required && formContext?.requiredMark)
       ]"
       :style="labelStyle"
     >
@@ -17,7 +17,7 @@
     <div
       :class="ns.e('content')"
       :style="{
-        marginLeft: !label ? `${formContext.maximumLabelWidth}px` : ''
+        marginLeft: !label ? `${formContext?.maximumLabelWidth}px` : ''
       }"
     >
       <slot />
@@ -75,10 +75,10 @@ let initialValue: any = null
 const labelId = useId().value
 
 const formItemValue = computed(() => {
-  if (!props.prop || !formContext.model) {
+  if (!props.prop || !formContext?.model) {
     return
   }
-  return getProp(formContext.model, props.prop).value
+  return getProp(formContext?.model, props.prop).value
 })
 
 const labelWidth = computed(
@@ -86,19 +86,19 @@ const labelWidth = computed(
 )
 
 const widthDiff = computed(
-  () => formContext.maximumLabelWidth - labelWidth.value
+  () => formContext?.maximumLabelWidth - labelWidth.value
 )
 
 const labelPosition = computed(
-  () => props.labelPosition ?? formContext.labelPosition
+  () => props.labelPosition ?? formContext?.labelPosition
 )
 
 const formItemWidth = computed(() => {
-  if (formContext.labelWidth) {
-    if (isString(formContext.labelWidth)) {
-      return formContext.labelWidth
+  if (formContext?.labelWidth) {
+    if (isString(formContext?.labelWidth)) {
+      return formContext?.labelWidth
     }
-    return `${formContext.labelWidth}px`
+    return `${formContext?.labelWidth}px`
   } else if (props.labelWidth) {
     if (isString(props.labelWidth)) {
       return props.labelWidth
@@ -125,15 +125,15 @@ const labelStyle = computed(() => {
   }
 })
 
-const actualDisabled = computed(() => formContext.disabled || props.disabled)
+const actualDisabled = computed(() => formContext?.disabled || props.disabled)
 
 const required = computed(() => {
-  if (!formContext.rules || isUndefined(props.prop)) {
+  if (!formContext?.rules || isUndefined(props.prop)) {
     return false
   }
   if (
     props.required ||
-    getProp<FormItemRule[]>(formContext.rules, propString.value).value.some(
+    getProp<FormItemRule[]>(formContext?.rules, propString.value).value.some(
       (v) => v.required
     )
   ) {
@@ -152,10 +152,10 @@ const validate: NFormItemInjectionContext['validate'] = async (
   trigger,
   callback
 ) => {
-  if (isUndefined(props.prop) || isUndefined(formContext.rules)) return false
+  if (isUndefined(props.prop) || isUndefined(formContext?.rules)) return false
   const rules = filterRules(
     trigger,
-    getProp<Arrayable<FormItemRule>>(formContext.rules, props.prop).value
+    getProp<Arrayable<FormItemRule>>(formContext?.rules, props.prop).value
   )
 
   if (rules.length === 0) {
@@ -194,9 +194,9 @@ const handleValidate = async (rules: RuleItem[]): Promise<boolean> => {
 }
 
 const resetField = () => {
-  if (!formContext.model || !props.prop) return
+  if (!formContext?.model || !props.prop) return
 
-  const value = getProp(formContext.model, props.prop)
+  const value = getProp(formContext?.model, props.prop)
   value.value = clone(initialValue)
 
   nextTick(() => {
@@ -247,7 +247,7 @@ const clearValidate = () => {
 }
 
 onMounted(() => {
-  formContext.addField(formItemContext)
+  formContext?.addField(formItemContext)
   initialValue = clone(formItemValue.value)
 })
 

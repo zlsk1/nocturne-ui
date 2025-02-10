@@ -8,7 +8,6 @@
     :gpu-acceleration="false"
     :popper-class="[ns.be('picker', 'panel'), ns.b('dropdown'), popperClass]"
     :stop-popper-mouse-event="false"
-    effect="light"
     trigger="click"
     :teleported="teleported"
     :transition="`${ns.ns.value}-zoom-in-top`"
@@ -45,7 +44,7 @@
             size="small"
             @click="clear"
           >
-            取消
+            {{ t('noc.colorpicker.clear') }}
           </n-button>
           <n-button
             plain
@@ -53,7 +52,7 @@
             :class="ns.be('dropdown', 'btn')"
             @click="confirmValue"
           >
-            确定
+            {{ t('noc.colorpicker.confirm') }}
           </n-button>
         </div>
       </div>
@@ -64,7 +63,11 @@
         v-bind="$attrs"
         :class="btnCls"
         role="button"
-        :tabindex="tabindex"
+        :aria-description="
+          t('noc.colorpicker.description', { color: modelValue || '' })
+        "
+        :aria-disabled="actualDisabled"
+        :tabindex="actualDisabled ? -1 : tabindex"
         @focus="handleFocus"
         @blur="handleBlur"
       >
@@ -104,8 +107,11 @@ import {
   watch
 } from 'vue'
 import { onClickOutside, useDebounceFn } from '@vueuse/core'
-import { useFocusController, useNamespace } from '@/composables'
-import { NButton, NInput, NTooltip, useFormItem } from '@/components'
+import { useFocusController, useLocale, useNamespace } from '@/composables'
+import NButton from '@/components/button'
+import NInput from '@/components/input'
+import NTooltip from '@/components/tooltip'
+import { useFormItem } from '@/components/form'
 import AlphaBar from './alpha-bar.vue'
 import HueBar from './hue-bar.vue'
 import Predefine from './predefine.vue'
@@ -125,6 +131,7 @@ const props = defineProps(colorPickerProps)
 const emit = defineEmits(colorPickerEmits)
 
 const ns = useNamespace('color')
+const { t } = useLocale()
 const { formItemDisabled, formItemSize } = useFormItem()
 
 const hue = ref<InstanceType<typeof HueBar>>()
@@ -259,8 +266,8 @@ function confirmValue() {
 
 function clear() {
   debounceSetShowPicker(false)
-  emit('update:modelValue', '#000')
-  emit('change', '#000')
+  emit('update:modelValue', props.modelValue || '')
+  emit('change', props.modelValue || '')
   resetColor()
 }
 

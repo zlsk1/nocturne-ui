@@ -1,13 +1,12 @@
 import { definePropType, isNil, isString } from '@/utils'
-import { componentSizes } from '@/constants'
+import { ComponentSize, componentSizes } from '@/constants'
 import { useTooltipContentProps } from '@/components/tooltip'
 import type ColorPicker from './color-picker.vue'
 import type { ComputedRef, ExtractPropTypes, InjectionKey } from 'vue'
 
 export const colorPickerProps = {
   modelValue: {
-    type: String,
-    default: '#000'
+    type: String
   },
   id: String,
   showAlpha: Boolean,
@@ -17,7 +16,7 @@ export const colorPickerProps = {
     default: false
   },
   size: {
-    type: String,
+    type: definePropType<ComponentSize>(String),
     values: componentSizes
   },
   popperClass: {
