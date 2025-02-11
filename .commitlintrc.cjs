@@ -14,6 +14,7 @@ const scopes = [
   'ci',
   'types',
   'deps',
+  'common'
 ]
 
 module.exports = {
