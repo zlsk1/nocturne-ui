@@ -1,13 +1,13 @@
 {
   "name": "nocturne-ui-resolver",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "license": "MIT",
   "scripts": {
     "build": "tsup"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "./index.js",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
   "devDependencies": {
     "@types/node": "20.13.0",
     "tsup": "^8.2.4",
@@ -15,9 +15,9 @@
   },
   "exports": {
     ".": {
-      "main": "./dist/index.js",
-      "module": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+      "types": "./index.d.ts",
+      "import": "./index.mjs",
+      "require": "./index.js"
     }
   }
 }

@@ -4,11 +4,18 @@ import type {
   SideEffectsInfo
 } from 'unplugin-vue-components'
 
-export interface NUROptions {
+export interface Options {
   importStyle?: 'css' | 'sass'
   exclude?: RegExp
-  directives?: true
-  format?: 'es' | 'cjs'
+  directives?: boolean
+  format?: 'esm' | 'cjs'
+}
+
+export const defaultOptons: Options = {
+  importStyle: 'css',
+  exclude: undefined,
+  directives: true,
+  format: 'esm'
 }
 
 function kebabCase(key: string) {
@@ -18,7 +25,7 @@ function kebabCase(key: string) {
 
 function resolveStyle(
   name: string,
-  options: NUROptions
+  options: Options
 ): SideEffectsInfo | undefined {
   const { importStyle } = options
 
@@ -39,7 +46,7 @@ function resolveStyle(
 
 function resolveComponent(
   name: string,
-  options: NUROptions
+  options: Options
 ): ComponentInfo | undefined {
   if (options.exclude && name.match(options.exclude)) return
 
@@ -56,14 +63,14 @@ function resolveComponent(
 
   return {
     name,
-    from: options.format === 'es' ? 'nocturne-ui/es' : 'nocturne-ui/cjs',
+    from: options.format === 'esm' ? 'nocturne-ui/es' : 'nocturne-ui/cjs',
     sideEffects: resolveStyle(_name, options)
   }
 }
 
 function resolveDirective(
   name: string,
-  options: NUROptions
+  options: Options
 ): ComponentInfo | undefined {
   if (!options.directives) return
 
@@ -76,22 +83,18 @@ function resolveDirective(
 
   return {
     name: directive.importName,
-    from: options.format === 'es' ? 'nocturne-ui/es' : 'nocturne-ui/cjs',
+    from: options.format === 'esm' ? 'nocturne-ui/es' : 'nocturne-ui/cjs',
     sideEffects: resolveStyle(directive.styleName, options)
   }
 }
 
-export function NocturneUIReslover(
-  options: NUROptions = {}
-): ComponentResolver[] {
-  let mergeOptions: NUROptions
+export function NocturneUIResolver(options: Options = {}): ComponentResolver[] {
+  let mergeOptions: Options
 
   function resolveOptions() {
     if (mergeOptions) return mergeOptions
     mergeOptions = {
-      importStyle: 'css',
-      exclude: undefined,
-      directives: true,
+      ...defaultOptons,
       ...options
     }
     return mergeOptions
