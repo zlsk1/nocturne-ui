@@ -44,7 +44,7 @@ export const config: UserConfig = {
             },
             { text: 'Input 输入框', link: '/zh-CN/components/input' },
             {
-              text: 'Input Number 数字输入框',
+              text: 'InputNumber 数字输入框',
               link: '/zh-CN/components/input-number'
             },
             { text: 'Form 表单', link: '/zh-CN/components/form' },

@@ -6,9 +6,9 @@
   @mixin persuade {
     content: '';
     position: absolute;
-    bottom: -2px;
+    bottom: -1px;
     width: 0;
-    height: 2px;
+    height: 1px;
     background-color: var(--theme-color);
     transition: 0.3s ease-in-out;
   }

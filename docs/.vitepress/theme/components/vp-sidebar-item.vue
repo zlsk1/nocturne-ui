@@ -1,14 +1,11 @@
 <template>
   <a
     ref="sidebarItem"
-    :class="[
-      'sidebar-item',
-      { 'active': actived }
-    ]"
+    :class="['sidebar-item', { active: actived }]"
     :href="item?.link"
     @click="$emit('close')"
   >
-    <span>{{ item?.text }}</span>
+    <span v-for="text in item?.text.split(' ')" :key="text">{{ text }}</span>
   </a>
 </template>
 

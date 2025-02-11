@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { onMounted, ref, computed, watchEffect } from 'vue'
+import { computed, onMounted, ref, watchEffect } from 'vue'
 import { useData } from 'vitepress'
 
 const { theme, page, lang } = useData()
 
 const date = computed(() => new Date(page.value.lastUpdated!))
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isoDatetime = computed(() => date.value.toISOString())
 const datetime = ref('')
 
@@ -27,7 +28,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="vp-last-update" v-if="date">
+  <div v-if="date" class="vp-last-update">
     上次更新时间：<span>{{ datetime }}</span>
   </div>
 </template>
@@ -35,6 +36,7 @@ onMounted(() => {
 <style>
 .vp-last-update {
   margin-top: 40px;
+  padding: 20px 0;
   font-size: 13px;
   color: var(--theme-color);
 }

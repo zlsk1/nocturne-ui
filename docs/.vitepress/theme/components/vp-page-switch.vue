@@ -1,32 +1,30 @@
 <template>
   <div class="page-switch-container">
     <a :href="switchPage?.prev?.link" class="switcher">
-      <div v-if="switchPage?.prev">
-        <div class="indicator">
-          <ArrowLeft size="14"></ArrowLeft>
-          <span>上一篇</span>
-        </div>
-        <p class="desc" :title="switchPage.prev.text">{{ switchPage?.prev?.text }}</p>
+      <div v-if="switchPage?.prev" class="indicator">
+        <ArrowLeft size="14" />
+        <span class="name" :title="switchPage.prev.text">
+          {{ switchPage?.prev?.text }}
+        </span>
       </div>
     </a>
     <a :href="switchPage?.next?.link" class="switcher">
-      <div v-if="switchPage?.next">
-        <div class="indicator">
-          <span>下一篇</span>
-          <ArrowRight size="14"></ArrowRight>
-        </div>
-        <p class="desc" :title="switchPage?.next?.text">{{ switchPage?.next?.text }}</p>
+      <div v-if="switchPage?.next" class="indicator">
+        <span class="name" :title="switchPage?.next?.text">
+          {{ switchPage?.next?.text }}
+        </span>
+        <ArrowRight size="14" />
       </div>
     </a>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { usePageSwitch } from '../composables'
 import {
-  RiArrowRightWideLine as ArrowRight,
   RiArrowLeftWideLine as ArrowLeft,
-} from '@remixicon/vue';
+  RiArrowRightWideLine as ArrowRight
+} from '@remixicon/vue'
+import { usePageSwitch } from '../composables'
 
 const switchPage = usePageSwitch()
 </script>
@@ -36,43 +34,39 @@ const switchPage = usePageSwitch()
   display: flex;
   justify-content: space-between;
   min-width: 100%;
-  margin-top: 20px;
+  padding: 20px 0;
+  border-top: 1px solid var(--n-border-color-lighter);
 
   .switcher {
     display: block;
-    width: 200px;
-    height: 60px;
-
-    > div {
-      padding: 10px 20px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      transition: border-color .3s;
-
-      &:hover {
-        border-color: var(--theme-color);
-        .indicator, .desc {
-          color: var(--theme-color);
-        }
-      }
-    }
+    width: fit-content;
 
     .indicator {
       display: flex;
       align-items: center;
       margin-bottom: 2px;
-      font-size: 12px;
-    }
+      transition: color 0.2s;
+      color: var(--n-color-primary);
 
-    .desc {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      margin: 0;
-    }
+      &:hover {
+        color: var(--n-color-primary-light-3);
+      }
 
-    .indicator, .desc {
-      transition: color .3s;
+      &:last-child {
+        .name {
+          margin-left: 10px;
+        }
+      }
+
+      &:first-child {
+        .name {
+          margin-right: 10px;
+        }
+      }
+
+      .name {
+        font-size: 14px;
+      }
     }
   }
 }

@@ -1,15 +1,15 @@
 <template>
   <div :class="['nav-wrapper', plain && 'is-plain']">
     <a href="/index.html" class="flex items-center">
-      <img src="../../../public/logo.svg" alt="" />
+      <img src="/logo.svg" alt="" />
       <span
         class="ml-2 text-lg"
-        style="font-family: var(--code-font-family); color: #409eff"
+        style="font-family: var(--code-font-family); color: #0080ff"
         >Nocturne</span
       >
     </a>
     <div class="content">
-      <vpDocSearch></vpDocSearch>
+      <vpDocSearch />
       <nav class="nav-link">
         <a
           v-for="(item, index) in navlist"
@@ -20,7 +20,7 @@
         </a>
       </nav>
       <div class="theme-toggle">
-        <vpThemeToggle></vpThemeToggle>
+        <vpThemeToggle />
       </div>
       <a
         href="https://github.com/zlsk1/nocturne-ui"
@@ -28,19 +28,16 @@
         title="github"
         target="_blank"
       >
-        <Github></Github>
+        <Github />
       </a>
       <div class="menu" @click="openDrawer">
-        <Menu></Menu>
+        <Menu />
       </div>
     </div>
   </div>
-  <vpNavMenu
-    :handler="openMenu"
-    v-if="route.data.filePath !== 'index.md'"
-  ></vpNavMenu>
+  <vpNavMenu v-if="route.data.filePath !== 'index.md'" :handler="openMenu" />
   <ClientOnly>
-    <n-overlay v-show="open" @click="openMenu" :z-index="199"></n-overlay>
+    <n-overlay v-show="open" :z-index="199" @click="openMenu" />
     <n-drawer
       v-model="visible"
       placement="bottom"
@@ -71,7 +68,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useData, useRoute } from 'vitepress'
 import { useThrottleFn } from '@vueuse/core'
 import { RiGithubFill as Github, RiMenu3Fill as Menu } from '@remixicon/vue'
