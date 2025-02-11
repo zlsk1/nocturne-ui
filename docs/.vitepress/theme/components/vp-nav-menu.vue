@@ -1,25 +1,23 @@
 <template>
   <div class="vp-nav-menu">
     <div class="flex items-center" @click="onClick">
-      <Menu size="20"></Menu>
+      <Menu size="20" />
       <span>Menu</span>
     </div>
     <transition name="n-fade-in">
-      <div v-show="showBacktoTop" @click="handleScoll">
-        Back to top
-      </div>
+      <div v-show="showBacktoTop" @click="handleScoll">Back to top</div>
     </transition>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useWindowScroll } from '@vueuse/core';
-import { RiMenu2Fill as Menu } from '@remixicon/vue';
-import { computed } from 'vue';
+import { computed } from 'vue'
+import { useWindowScroll } from '@vueuse/core'
+import { RiMenu2Fill as Menu } from '@remixicon/vue'
 
-const props = defineProps<{handler: () => void}>()
+const props = defineProps<{ handler: () => void }>()
 
-const { y }  = useWindowScroll()
+const { y } = useWindowScroll()
 
 const showBacktoTop = computed(() => y.value > 60)
 

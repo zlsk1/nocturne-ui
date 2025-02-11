@@ -21,9 +21,9 @@
           <span class="mr-4">应用主题色</span
           ><n-color-picker
             v-model="themeColor"
-            showText
+            show-text
             :predefine="['#0080ff', '#9eff64']"
-          ></n-color-picker>
+          />
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@
           animationDuration: filterminnum(() => getRandomNumber(20), 12) + 's',
           animationDelay: -filterminnum(() => getRandomNumber(10), 1) + 's'
         }"
-      ></div>
+      />
     </div>
   </div>
 </template>
@@ -72,15 +72,15 @@ onMounted(() => {
     const translate60 = translateX - filterminnum(() => getRandomNumber(10), 4)
     const translateX100 =
       translateX + filterminnum(() => getRandomNumber(10), 4)
-    ;(item as HTMLElement).style.setProperty('--translateX', translateX + 'vw')
-    ;(item as HTMLElement).style.setProperty('--translateY', translateY + 'vh')
+    ;(item as HTMLElement).style.setProperty('--translateX', `${translateX}vw`)
+    ;(item as HTMLElement).style.setProperty('--translateY', `${translateY}vh`)
     ;(item as HTMLElement).style.setProperty(
       '--translateX-60',
-      translate60 + 'vw'
+      `${translate60}vw`
     )
     ;(item as HTMLElement).style.setProperty(
       '--translateX-100',
-      translateX100 + 'vw'
+      `${translateX100}vw`
     )
     ;(item as HTMLElement).style.setProperty(
       '--scale',

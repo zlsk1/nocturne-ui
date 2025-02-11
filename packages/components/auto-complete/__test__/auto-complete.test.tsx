@@ -5,7 +5,7 @@ import TooltipTrigger from '@/components/tooltip/src/reference.vue'
 import AutoComplete from '../src/auto-complete.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 
-const options = Array(3)
+const options = Array.from({ length: 3 })
   .fill(0)
   .map((_, index) => ({
     label: `option${index}`,

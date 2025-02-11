@@ -50,9 +50,7 @@ const { translateStyle } = useCarouselItem(
 )
 
 watch(contentRef, (val) => {
-  itemIndex.value = Array.from(val!.children).findIndex(
-    (v) => v === itemRef.value
-  )
+  itemIndex.value = Array.from(val!.children).indexOf(itemRef.value)
   itemRect.value =
     mode.value === 'horizontal'
       ? val!.getBoundingClientRect().width

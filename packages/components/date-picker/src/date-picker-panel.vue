@@ -214,7 +214,7 @@ const isWeekActive = (cell: any) => {
     newDate = newDate.add(1, 'month')
   }
 
-  newDate = newDate.date(parseInt(cell.text, 10))
+  newDate = newDate.date(Number.parseInt(cell.text, 10))
 
   if (props.parsedValue && !Array.isArray(props.parsedValue)) {
     const dayOffset = ((props.parsedValue.day() - firstDayOfWeek + 7) % 7) - 1

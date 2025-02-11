@@ -1,12 +1,12 @@
 <template>
   <div @click.stop="switchTheme">
     <ClientOnly>
-      <n-switch :before-change="beforeChange" v-model="darkMode">
+      <n-switch v-model="darkMode" :before-change="beforeChange">
         <template #active-action-icon>
-          <Moon class="dark-icon" size="18"></Moon>
+          <Moon class="dark-icon" size="18" />
         </template>
         <template #inactive-action-icon>
-          <Sun size="18"></Sun>
+          <Sun size="18" />
         </template>
       </n-switch>
     </ClientOnly>
@@ -14,12 +14,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, nextTick } from 'vue'
+import { nextTick, ref, watch } from 'vue'
+import { RiMoonFill as Moon, RiSunFill as Sun } from '@remixicon/vue'
 import { isDark, toggleDark } from '../../composables'
-import {
-  RiMoonFill as Moon,
-  RiSunFill as Sun,
-} from '@remixicon/vue';
 
 const darkMode = ref(isDark.value)
 
@@ -53,18 +50,18 @@ const switchTheme = (event: MouseEvent) => {
   transition.ready.then(() => {
     const clipPath = [
       `circle(0px at ${x}px ${y}px)`,
-      `circle(${endRadius}px at ${x}px ${y}px)`,
+      `circle(${endRadius}px at ${x}px ${y}px)`
     ]
     document.documentElement.animate(
       {
-        clipPath: isDark.value ? [...clipPath].reverse() : clipPath,
+        clipPath: isDark.value ? [...clipPath].reverse() : clipPath
       },
       {
         duration: 400,
         easing: 'ease-in',
         pseudoElement: isDark.value
           ? '::view-transition-old(root)'
-          : '::view-transition-new(root)',
+          : '::view-transition-new(root)'
       }
     )
   })

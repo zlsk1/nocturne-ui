@@ -3,9 +3,9 @@ import type { Header } from 'vitepress'
 // cached list of anchor elements from resolveHeaders
 const resolvedHeaders: { element: HTMLHeadElement; link: string }[] = []
 
-export type MenuItem = Omit<Header, "slug" | "children"> & {
-  element: HTMLHeadElement;
-  children?: MenuItem[];
+export type MenuItem = Omit<Header, 'slug' | 'children'> & {
+  element: HTMLHeadElement
+  children?: MenuItem[]
 }
 
 export function getHeaders() {
@@ -18,7 +18,7 @@ export function getHeaders() {
       return {
         element: el as HTMLHeadElement,
         title: serializeHeader(el),
-        link: '#' + el.id,
+        link: `#${el.id}`,
         level
       }
     })
@@ -47,6 +47,7 @@ export const resolveHeaders = (headers: MenuItem[]) => {
 
   const ret: MenuItem[] = []
 
+  // eslint-disable-next-line no-restricted-syntax
   outer: for (let i = 0; i < headers.length; i++) {
     const cur = headers[i]
     if (i === 0) {
@@ -55,7 +56,7 @@ export const resolveHeaders = (headers: MenuItem[]) => {
       for (let j = i - 1; j >= 0; j--) {
         const prev = headers[j]
         if (prev.level < cur.level) {
-          (prev.children || (prev.children = [])).push(cur)
+          ;(prev.children || (prev.children = [])).push(cur)
           continue outer
         }
       }

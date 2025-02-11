@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 const goBack = () => {
-  if(window.history) {
+  if (window.history) {
     history.go(-1)
   }
 }
@@ -26,7 +26,7 @@ const goBack = () => {
     text-align: center;
 
     > p {
-      margin-bottom: 10px
+      margin-bottom: 10px;
     }
   }
 }

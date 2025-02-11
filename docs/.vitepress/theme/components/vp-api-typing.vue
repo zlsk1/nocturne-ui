@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { RiErrorWarningLine as Warning } from '@remixicon/vue'
 
 defineProps({
   type: String,
-  details: String,
+  details: String
 })
 </script>
 
@@ -15,11 +14,7 @@ defineProps({
     </code>
     <ClientOnly>
       <n-tooltip v-if="details" effect="light" trigger="click">
-        <n-button
-          :icon="Warning"
-          class="p-2 text-4"
-          style="border: none;"
-        />
+        <n-button :icon="Warning" class="p-2 text-4" style="border: none" />
         <template #content>
           <slot>
             <div class="m-1" style="max-width: 600px">

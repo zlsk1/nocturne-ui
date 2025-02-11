@@ -73,10 +73,10 @@ export default defineComponent({
       if (!target || target.disabled) return
       const newTransform = !isHorizontal.value
         ? navBtnRefs.value[
-            state.tabs.filter((tab) => target.label === tab.label)?.[0].label
+            state.tabs.find((tab) => target.label === tab.label).label
           ].offsetLeft
         : navBtnRefs.value[
-            state.tabs.filter((tab) => target.label === tab.label)?.[0].label
+            state.tabs.find((tab) => target.label === tab.label).label
           ].offsetTop
 
       currentTransform.value = newTransform

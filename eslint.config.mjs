@@ -235,6 +235,12 @@ export default ts.config(
     }
   },
   {
-    ignores: ['**/dist', 'node_modules', 'pnpm-lock.yaml']
+    ignores: [
+      '**/dist',
+      'node_modules',
+      'pnpm-lock.yaml',
+      'docs/.vitepress/cache',
+      'coverage'
+    ]
   }
 )

@@ -60,7 +60,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="doc-search"></div>
+  <div id="doc-search" />
 </template>
 
 <style lang="scss">

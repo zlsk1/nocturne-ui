@@ -17,13 +17,16 @@ export function autoImportDemo(): Plugin {
         headers: [],
         footers: [],
         scriptSetups: [
-          `const demos = import.meta.glob('@docs/demo/${component}/*.vue', { eager: true, import: 'default' })`,
+          `const demos = import.meta.glob('@docs/demo/${component}/*.vue', { eager: true, import: 'default' })`
         ]
       }
 
       code = transformVpScriptSetup(code, append)
 
-      return combineMarkdown(code, [combineScriptSetup(append.scriptSetups), ...append.headers])
+      return combineMarkdown(code, [
+        combineScriptSetup(append.scriptSetups),
+        ...append.headers
+      ])
     }
   }
 }
@@ -44,19 +47,24 @@ const transformVpScriptSetup = (code: string, append: Append) => {
   if (scriptSetup) append.scriptSetups.push(scriptSetup)
   return code
 }
- 
 
-const combineMarkdown = (code: string, headers: string[] = [], footers: string[] = []) => {
+const combineMarkdown = (
+  code: string,
+  headers: string[] = [],
+  footers: string[] = []
+) => {
   const frontmatterEnd = code.indexOf('---\n\n')
   const firstHeader = code.search(/\n#{1,6}\s.+/)
-  const sliceIndex = firstHeader < 0
-    ? frontmatterEnd < 0
-      ? 0
-      : frontmatterEnd + 4
-    : firstHeader
+  const sliceIndex =
+    firstHeader < 0
+      ? frontmatterEnd < 0
+        ? 0
+        : frontmatterEnd + 4
+      : firstHeader
 
-  if(headers.length > 0) {
-    code = code.slice(0, sliceIndex) + headers.join('\n') + code.slice(sliceIndex)
+  if (headers.length > 0) {
+    code =
+      code.slice(0, sliceIndex) + headers.join('\n') + code.slice(sliceIndex)
   }
   code += footers.join('\n')
 

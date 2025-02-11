@@ -3,7 +3,7 @@
     <nav ref="container" class="api-content-container">
       <p class="api-content-title">内容</p>
       <div class="api-content-aside-content">
-        <div ref="marker" class="outline-marker"></div>
+        <div ref="marker" class="outline-marker" />
         <VpApiAsideItem :headers="headers" />
       </div>
     </nav>
@@ -11,10 +11,10 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, shallowRef, watch, ref } from "vue";
-import VpApiAsideItem from "./vp-api-aside-item.vue";
-import { getHeaders, type MenuItem } from '../composables/toc-anchor'
+import { onMounted, ref, shallowRef, watch } from 'vue'
 import { useRoute } from 'vitepress'
+import { type MenuItem, getHeaders } from '../composables/toc-anchor'
+import VpApiAsideItem from './vp-api-aside-item.vue'
 
 const route = useRoute()
 
@@ -29,7 +29,7 @@ onMounted(() => {
       headers.value = getHeaders()
     },
     {
-      immediate: true,
+      immediate: true
     }
   )
 })

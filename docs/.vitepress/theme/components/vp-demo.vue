@@ -1,52 +1,49 @@
 <template>
   <ClientOnly>
     <div class="demo-container">
-      <p v-html="decodeDescription" class="demo-description mb-4"></p>
+      <p class="demo-description mb-4" v-html="decodeDescription" />
       <div class="demo-content">
         <div class="demo-component">
           <ClientOnly>
-            <component
-              :is="formatPathDemos[src]"
-              v-if="formatPathDemos[src]"
-            ></component>
+            <component :is="formatPathDemos[src]" v-if="formatPathDemos[src]" />
           </ClientOnly>
         </div>
         <div class="demo-operas">
           <n-tooltip content="展开代码">
             <n-icon size="16" class="opera">
-              <codeView @click="handleShowCode"></codeView>
+              <codeView @click="handleShowCode" />
             </n-icon>
           </n-tooltip>
           <n-tooltip content="在playround中编辑">
             <n-icon size="16" class="opera">
-              <Play></Play>
+              <Play />
             </n-icon>
           </n-tooltip>
           <n-tooltip content="在github上查看">
             <a :href="githubPath" target="_blank">
               <n-icon size="16" class="opera">
-                <github></github>
+                <github />
               </n-icon>
             </a>
           </n-tooltip>
           <n-tooltip content="复制代码">
             <n-icon size="16" class="opera">
-              <fileCopy @click="copyCode"></fileCopy>
+              <fileCopy @click="copyCode" />
             </n-icon>
           </n-tooltip>
         </div>
         <n-collapse-transition>
-          <div class="demo-source-wrapper" v-show="showCode">
-            <div v-html="decoded" class="demo-source"></div>
+          <div v-show="showCode" class="demo-source-wrapper">
+            <div class="demo-source" v-html="decoded" />
           </div>
         </n-collapse-transition>
         <Transition name="n-fade-in-linear">
           <div
+            v-show="showCode"
             class="demo-source-close"
             @click="handleShowCode"
-            v-show="showCode"
           >
-            <Triangle size="20"></Triangle>
+            <Triangle size="20" />
             <span>收起源代码</span>
           </div>
         </Transition>
@@ -56,13 +53,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, getCurrentInstance } from 'vue'
+import { computed, getCurrentInstance, ref } from 'vue'
 import {
+  RiSendPlaneFill as Play,
+  RiArrowUpDoubleLine as Triangle,
   RiCodeView as codeView,
   RiFileCopyFill as fileCopy,
-  RiGithubFill as github,
-  RiSendPlaneFill as Play,
-  RiArrowUpDoubleLine as Triangle
+  RiGithubFill as github
 } from '@remixicon/vue'
 import { useClipboard } from '@vueuse/core'
 

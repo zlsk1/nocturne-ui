@@ -3,37 +3,43 @@ import { useData } from 'vitepress'
 import { subExtention } from '../../../utils'
 
 type Item = {
-  text: string,
+  text: string
   link: string
 }
 
 type Sidebar = {
-  items: Item[],
+  items: Item[]
   text: string
 }
 
 export const usePageSwitch = () => {
   const { page, theme } = useData()
-  const path = computed(() => '/' + subExtention(page.value.filePath))
+  const path = computed(() => `/${subExtention(page.value.filePath)}`)
 
-  const flatSideBar = computed(() => findSidebar(theme.value.sidebar, path.value))
-  const index = computed(() => flatSideBar.value.findIndex(v => v.link === path.value))
+  const flatSideBar = computed(() =>
+    findSidebar(theme.value.sidebar, path.value)
+  )
+  const index = computed(() =>
+    flatSideBar.value.findIndex((v) => v.link === path.value)
+  )
   const pageSwitch = computed(() => {
-    if(index.value === 0) {
+    if (index.value === 0) {
       return {
-        next: flatSideBar.value[index.value + 1],
+        next: flatSideBar.value[index.value + 1]
       }
-    }
-    else if(index.value > 0) {
+    } else if (index.value > 0) {
       return {
         prev: flatSideBar.value[index.value - 1],
-        next: flatSideBar.value[index.value + 1],
+        next: flatSideBar.value[index.value + 1]
       }
-    }
-    else if(index.value === flatSideBar.value.length - 1) {
+    } else if (index.value === flatSideBar.value.length - 1) {
       return {
         prev: flatSideBar.value[index.value - 1]
       }
+    }
+    return {
+      prev: flatSideBar.value[index.value - 1],
+      next: flatSideBar.value[index.value + 1]
     }
   })
 
@@ -43,10 +49,10 @@ export const usePageSwitch = () => {
 const findSidebar = (sidebar: Sidebar, path: string) => {
   let sidebars = []
 
-  for(const key of Object.keys(sidebar)) {
-    if(path.startsWith(key)) sidebars = sidebar[key]
+  for (const key of Object.keys(sidebar)) {
+    if (path.startsWith(key)) sidebars = sidebar[key]
   }
-  
+
   const flatSideBar = getFlatSidebarLinks(sidebars)
 
   return flatSideBar

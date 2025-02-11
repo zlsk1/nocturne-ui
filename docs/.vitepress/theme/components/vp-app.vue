@@ -13,7 +13,7 @@ const isPage = computed(() => {
 </script>
 
 <template>
-  <vpNav :plain="!!isPage"></vpNav>
-  <vpSidebar v-if="!isPage"></vpSidebar>
-  <vpContent></vpContent>
+  <vpNav :plain="!!isPage" />
+  <vpSidebar v-if="!isPage" />
+  <vpContent />
 </template>

@@ -134,7 +134,7 @@ const getScrollEl = (type: TimeUnits) =>
   typeRefs.value[type]?.querySelector('li') as HTMLElement
 
 const getItemHeight = (el: HTMLElement) =>
-  parseFloat(
+  Number.parseFloat(
     document.defaultView?.getComputedStyle(el).height || el.style.height
   )
 

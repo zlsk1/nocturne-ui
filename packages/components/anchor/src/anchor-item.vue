@@ -22,7 +22,7 @@ const linkRef = ref<HTMLAnchorElement>()
 onMounted(() => {
   if (!props.items && props.href) {
     const { href } = props
-    const el = document.getElementById(href.split('#')[1])
+    const el = document.querySelector<HTMLElement>(href)
     if (el && href) addLink(el, el.offsetTop, href)
   }
 })

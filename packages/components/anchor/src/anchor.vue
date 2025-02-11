@@ -129,7 +129,7 @@ const getlinks = (anchorItems?: AnchorItems[]) => {
   if (anchorItems) {
     for (const anchorItem of anchorItems) {
       const { href, children } = anchorItem
-      const el = document.getElementById(href.split('#')[1])
+      const el = document.querySelector<HTMLElement>(href)
       if (!el) continue
       const item = { el, href, top: el.offsetTop }
       if (!isNil(item.el)) links.value.push(item as Links)
@@ -166,7 +166,7 @@ const onClick = (e: Event) => {
 let timer: number | null = null
 
 const handleClick = (href: string) => {
-  const target = document.getElementById(href.split('#')[1])
+  const target = document.querySelector(href) as HTMLElement
   if (!target) return
   if (timer) clearTimeout(timer)
 

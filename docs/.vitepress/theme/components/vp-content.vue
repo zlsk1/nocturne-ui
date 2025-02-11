@@ -1,9 +1,9 @@
 <template>
-  <vpNotFound v-if="isNotFound"></vpNotFound>
+  <vpNotFound v-if="isNotFound" />
   <!-- <Content v-else-if="isPage"></Content> -->
-  <vpHome v-else-if="isPage"></vpHome>
+  <vpHome v-else-if="isPage" />
   <main v-else class="main-content">
-    <vpDocContent></vpDocContent>
+    <vpDocContent />
   </main>
 </template>
 

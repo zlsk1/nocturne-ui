@@ -136,7 +136,7 @@ const closeNotification = (id: string, placement: NotificationPlacements) => {
   const direction = placement.startsWith('top') ? 'top' : 'bottom'
   for (let i = idx + 1; i < instance.length; i++) {
     instance[i].vm!.props.offset =
-      parseInt(instance[i].vnode.el!.style[direction], 10) -
+      Number.parseInt(instance[i].vnode.el!.style[direction], 10) -
       (instance[i].vm.exposed?.height.value + GAP)
   }
 

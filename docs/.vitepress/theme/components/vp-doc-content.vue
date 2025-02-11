@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { onMounted, watch, nextTick } from 'vue';
+import { nextTick, onMounted, watch } from 'vue'
 import { useData, useRoute } from 'vitepress'
-import vpAPIAside from './vp-api-aside.vue' 
+import vpAPIAside from './vp-api-aside.vue'
 import vpPageSwitch from './vp-page-switch.vue'
 import vpLastUpdate from './vp-last-update.vue'
 
@@ -16,18 +16,18 @@ const route = useRoute()
 
 const resolveZeroWidthSpace = () => {
   const anchor = document.querySelectorAll('.header-anchor')
-  Array.from(anchor).forEach(v => v.textContent = '#')
+  Array.from(anchor).forEach((v) => (v.textContent = '#'))
 }
 
 onMounted(() => {
   watch(
     () => route.path,
-    async() => {
+    async () => {
       await nextTick()
       resolveZeroWidthSpace()
     },
     {
-      immediate: true,
+      immediate: true
     }
   )
 })
@@ -37,9 +37,9 @@ onMounted(() => {
   <div class="doc-content-wrapper">
     <div class="doc-content-container">
       <Content class="doc-content" />
-      <vpLastUpdate></vpLastUpdate>
-      <vpPageSwitch></vpPageSwitch>
+      <vpLastUpdate />
+      <vpPageSwitch />
     </div>
-    <vpAPIAside v-if="(page as unknown as PageData).headers"></vpAPIAside>
+    <vpAPIAside v-if="(page as unknown as PageData).headers" />
   </div>
 </template>
