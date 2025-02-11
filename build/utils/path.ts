@@ -11,7 +11,7 @@ export const buildRoot = resolve(pkgRoot, 'build')
 export const nuPackage = resolve(pkgRoot, 'package.json')
 
 export const excludeFiles = (files: string[]) => {
-  const excludes = ['node_modules', 'build', 'gulpfile', 'test']
+  const excludes = ['node_modules', 'dist', 'gulpfile', 'test']
   return files.filter((path) => !excludes.some((exP) => path.includes(exP)))
 }
 

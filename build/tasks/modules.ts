@@ -19,7 +19,7 @@ const extensions = ['.mjs', '.js', '.ts', '.json']
 
 export const buildModules = async () => {
   const input = excludeFiles(
-    fg.sync(['**/*.{js,ts,vue}', '!**/gulpfile.ts'], {
+    fg.sync(['**/*.{js,ts,vue}'], {
       cwd: pkgRoot,
       absolute: true,
       onlyFiles: true
