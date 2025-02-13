@@ -20,7 +20,8 @@ export default defineConfig({
     coverage: {
       reporter: ['json', 'text', 'json-summary'],
       include: ['packages'],
-      exclude: ['playground/**', 'packages/components/*/style/**']
+      exclude: ['packages/components/*/style/**', 'packages/locale/lang/**'],
+      reportOnFailure: true
     }
   }
 })
