@@ -18,7 +18,15 @@ export const statisticProps = {
   valueStyle: {
     type: definePropType<StyleValue>([String, Object, Array])
   },
-  formatter: Function
+  formatter:
+    definePropType<(value: number | Dayjs) => number | Dayjs>(Function),
+  /**
+   * @description 千分位分隔符
+   */
+  groupSeparator: {
+    type: String,
+    default: ','
+  }
 } as const
 
 export type StatisticProps = ExtractPropTypes<typeof statisticProps>

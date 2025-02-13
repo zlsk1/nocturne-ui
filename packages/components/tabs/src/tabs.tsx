@@ -8,6 +8,7 @@ import {
   toRefs
 } from 'vue'
 import { useNamespace } from '@/composables'
+import { isArray } from '@/utils'
 import NTabPaneList from './tab-pane-list/index.vue'
 import NTabNavList from './tab-nav-list/index.vue'
 import { tabsEmits, tabsProps } from './props'
@@ -43,21 +44,37 @@ const InternalTabs = defineComponent({
     const updateActiveTab = (tab: TabType) => (activeTab.value = tab)
 
     const parseTablist = (root: any): TabType[] => {
-      return root[0].children
-        ?.map((child: VNode) => {
-          const { label, disabled, closeable, value } =
-            child.props as TabPaneProps
+      if (isArray(root[0].children)) {
+        return root[0].children
+          ?.map((child: VNode) => {
+            const { label, disabled, closeable, value } =
+              child.props as TabPaneProps
 
-          return {
+            return {
+              label,
+              value,
+              node: child,
+              disabled,
+              // @ts-ignore
+              closeable: (closeable === '' || closeable === true) && true
+            }
+          })
+          .filter((tab: TabType) => tab)
+      } else {
+        const { label, disabled, closeable, value } = root[0].children
+          .props as any
+
+        return [
+          {
             label,
             value,
-            node: child,
+            node: root[0].children,
             disabled,
             // @ts-ignore
             closeable: (closeable === '' || closeable === true) && true
           }
-        })
-        .filter((tab: TabType) => tab)
+        ]
+      }
     }
 
     provide(

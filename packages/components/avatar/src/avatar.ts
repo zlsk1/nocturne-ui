@@ -1,4 +1,4 @@
-import { definePropType, iconPropType, isNumber } from '@/utils'
+import { definePropType, iconPropType } from '@/utils'
 import { componentSizes } from '@/constants'
 import Avatar from './avatar.vue'
 import type { ExtractPropTypes } from 'vue'
@@ -14,9 +14,7 @@ export const avatarProps = {
   },
   size: {
     type: definePropType<string | number>([String, Number]),
-    values: componentSizes,
-    validator: (val: unknown): val is number => isNumber(val),
-    default: ''
+    values: componentSizes
   },
   icon: iconPropType,
   src: String,
@@ -30,7 +28,7 @@ export const avatarProps = {
 export type AvatarProps = ExtractPropTypes<typeof avatarProps>
 
 export const avatarEmits = {
-  error: (evt: Event) => evt instanceof MouseEvent
+  error: (evt: Event) => evt instanceof Event
 }
 
 export type AvatarEmits = typeof avatarEmits

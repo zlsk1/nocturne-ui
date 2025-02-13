@@ -12,29 +12,34 @@ const props = defineProps(statisticProps)
 
 const ns = useNamespace('statistic')
 
-const _value = computed(() => {
-  const { formatter, precision, value } = props
-  let newValue
+const displayedValue = computed(() => {
+  const { formatter, precision, value, groupSeparator } = props
+
   if (isFunction(formatter)) return formatter(value)
-  if (!isNumber(value)) return value
-  if (precision) newValue = value.toFixed(precision).toLocaleString()
-  else newValue = value.toLocaleString('en-US')
-  return newValue
+  if (!isNumber(value) || Number.isNaN(value)) return value
+
+  let [integer, decimal = ''] = String(value).split('.')
+
+  decimal = decimal
+    .padEnd(precision, '0')
+    .slice(0, precision > 0 ? precision : 0)
+  integer = integer.replace(/\B(?=(\d{3})+(?!\d))/g, groupSeparator)
+  return [integer, decimal].join(decimal ? '.' : '')
 })
 
 defineExpose({
-  _value
+  displayedValue
 })
 </script>
 
 <template>
   <div :class="ns.b()">
     <div :class="ns.e('title')">
-      <slot />
+      <slot>{{ title }}</slot>
     </div>
     <div :class="ns.e('value')" :style="valueStyle">
       <component :is="suffixIcon" v-if="suffixIcon" />
-      {{ _value }}
+      {{ displayedValue }}
       <component :is="prefixIcon" v-if="prefixIcon" />
     </div>
   </div>
