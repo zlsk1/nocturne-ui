@@ -8,10 +8,13 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import esbuild, { minify as minifyPlugin } from 'rollup-plugin-esbuild'
 import { parallel } from 'gulp'
 import alias from '@rollup/plugin-alias'
+import fg from 'fast-glob'
 import {
+  camelCase,
   formatBundleFilename,
   pkgOutput,
   pkgRoot,
+  upperFirst,
   withTaskName,
   writeBundles
 } from '../utils'
@@ -95,7 +98,50 @@ async function buildFullEntry(minify: boolean) {
   ])
 }
 
-export const buildFull = (minify: boolean) => () => buildFullEntry(minify)
+export const buildLocale = async (minify: boolean) => {
+  const files = fg.sync(['**/*.ts'], {
+    cwd: path.resolve(pkgRoot, 'locale'),
+    absolute: true
+  })
+
+  return Promise.all(
+    files.map(async (file) => {
+      const filename = path.basename(file, '.ts')
+      const name = upperFirst(camelCase(filename))
+
+      const bundle = await rollup({
+        input: file,
+        plugins: [
+          esbuild({
+            sourceMap: minify,
+            target,
+            minify
+          })
+        ]
+      })
+
+      await writeBundles(bundle, [
+        {
+          format: 'umd',
+          dir: path.resolve(pkgOutput, 'dist/locale'),
+          name: `locale${name}`,
+          exports: 'auto',
+          sourcemap: minify,
+          entryFileNames: minify ? '[name].min.js' : '[name].js'
+        },
+        {
+          format: 'esm',
+          dir: path.resolve(pkgOutput, 'dist/locale'),
+          sourcemap: minify,
+          entryFileNames: minify ? '[name].min.mjs' : '[name].mjs'
+        }
+      ])
+    })
+  )
+}
+
+export const buildFull = (minify: boolean) => () =>
+  Promise.all([buildFullEntry(minify), buildLocale(minify)])
 
 export const buildFullBundle: TaskFunction = parallel(
   withTaskName('buildFullMinified', buildFull(true)),

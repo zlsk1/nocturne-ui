@@ -23,3 +23,11 @@ export const pathRewriter = () => {
     return id
   }
 }
+
+export const camelCase = (str: string) => {
+  return str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''))
+}
+
+export const upperFirst = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
