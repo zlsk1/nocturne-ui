@@ -93,13 +93,13 @@ export default {
       toggleDropdown: 'Toggle Dropdown'
     },
     mention: {
-      loading: '加载中'
+      loading: 'Loading'
     },
     cascader: {
-      noMatch: '无匹配数据',
-      loading: '加载中',
-      placeholder: '请选择',
-      noData: '暂无数据'
+      noMatch: 'No matching data',
+      loading: 'Loading',
+      placeholder: 'Select',
+      noData: 'No Data'
     },
     pagination: {
       goto: 'Go to',
@@ -120,17 +120,17 @@ export default {
       close: 'Close this dialog'
     },
     messagebox: {
-      title: '提示',
-      confirm: '确定',
-      cancel: '取消',
-      error: '输入的数据不合法!',
-      close: '关闭此对话框'
+      title: 'Message',
+      confirm: 'OK',
+      cancel: 'Cancel',
+      error: 'Input data is invalid',
+      close: 'Close'
     },
     upload: {
-      deleteTip: '按 delete 键可删除',
-      delete: '删除',
-      preview: '查看图片',
-      continue: '继续上传'
+      deleteTip: 'press delete to remove',
+      delete: 'Delete',
+      preview: 'Preview',
+      continue: 'Continue'
     },
     slider: {
       defaultLabel: 'slider between {min} and {max}',
@@ -138,36 +138,36 @@ export default {
       defaultRangeEndLabel: 'pick end value'
     },
     table: {
-      emptyText: '暂无数据',
-      confirmFilter: '筛选',
-      resetFilter: '重置',
-      clearFilter: '全部',
-      sumText: '合计'
+      emptyText: 'No Data',
+      confirmFilter: 'Confirm',
+      resetFilter: 'Reset',
+      clearFilter: 'All',
+      sumText: 'Sum'
     },
     tour: {
-      next: '下一步',
-      previous: '上一步',
-      finish: '结束导览'
+      next: 'Next',
+      previous: 'Previous',
+      finish: 'Finish'
     },
     tree: {
       emptyText: 'No Data'
     },
     transfer: {
-      noMatch: '无匹配数据',
-      noData: '无数据',
-      titles: ['列表 1', '列表 2'],
-      filterPlaceholder: '请输入搜索内容',
-      noCheckedFormat: '共 {total} 项',
-      hasCheckedFormat: '已选 {checked}/{total} 项'
+      noMatch: 'No Mathing Data',
+      noData: 'No Data',
+      titles: ['List 1', 'List 2'],
+      filterPlaceholder: 'Enter keyword to search',
+      noCheckedFormat: '{total} items',
+      hasCheckedFormat: '{checked}/{total} checked'
     },
     image: {
       error: 'FAILED'
     },
     pageHeader: {
-      title: '返回'
+      title: 'Go back'
     },
     popconfirm: {
-      confirmButtonText: 'Ok',
+      confirmButtonText: 'OK',
       cancelButtonText: 'Cancel'
     },
     carousel: {
