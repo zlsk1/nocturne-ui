@@ -14,7 +14,7 @@ import {
 
 import type { CompilerOptions, OutputFile, SourceFile } from 'ts-morph'
 
-const TSCONFIG_PATH = path.resolve(projRoot, 'tsconfig.node.json')
+const TSCONFIG_PATH = path.resolve(projRoot, 'tsconfig.main.json')
 const outDir = path.resolve(distRoot, 'types')
 
 /**

@@ -2,12 +2,10 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "jsx": "preserve",
-    "jsxImportSource": "vue",
-    "lib": ["ESNext", "ES2021", "DOM", "DOM.Iterable"],
+    "lib": ["ESNext"],
     "types": ["node"],
     "skipLibCheck": true
   },
-  "include": ["packages", "typings", "build"],
-  "exclude": ["**/dist", "node_modules", "**/gulpfile.ts"]
+  "include": ["packages/theme-chalk/*", "build"],
+  "exclude": ["**/__tests__/**", "**/tests/**", "**/dist"]
 }

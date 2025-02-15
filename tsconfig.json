@@ -3,5 +3,6 @@
   "references": [
     { "path": "./tsconfig.node.json" },
     { "path": "./tsconfig.playground.json" },
+    { "path": "./tsconfig.main.json" }
   ]
 }
