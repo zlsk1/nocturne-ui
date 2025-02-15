@@ -12,6 +12,7 @@ import fg from 'fast-glob'
 import {
   camelCase,
   formatBundleFilename,
+  getExternal,
   pkgOutput,
   pkgRoot,
   upperFirst,
@@ -67,7 +68,7 @@ async function buildFullEntry(minify: boolean) {
   const bundle = await rollup({
     input: path.resolve(pkgRoot, 'index.ts'),
     plugins,
-    external: ['vue', '@remixicon/vue'],
+    external: getExternal(true),
     treeshake: true
   })
   await writeBundles(bundle, [
@@ -81,8 +82,7 @@ async function buildFullEntry(minify: boolean) {
       exports: 'named',
       name: 'NocturneUI',
       globals: {
-        vue: 'Vue',
-        '@remixicon/vue': 'Remixicon'
+        vue: 'Vue'
       },
       sourcemap: minify
     },

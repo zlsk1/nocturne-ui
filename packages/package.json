@@ -14,8 +14,9 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "@types/lodash": "^4.17.7",
     "@remixicon/vue": "^4.2.0",
+    "@types/lodash": "^4.17.7",
+    "@vue/shared": "3.4.15",
     "@vueuse/core": "^9.13.0",
     "async-validator": "^4.2.5",
     "dayjs": "^1.11.11",
