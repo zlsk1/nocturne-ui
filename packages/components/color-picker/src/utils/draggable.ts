@@ -1,4 +1,4 @@
-import { isClient } from '@/utils'
+import { isClient } from '@nocturne-ui/utils'
 
 let isDragging = false
 

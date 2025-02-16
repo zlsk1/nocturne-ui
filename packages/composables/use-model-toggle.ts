@@ -1,7 +1,7 @@
 import { computed, getCurrentInstance, onMounted, watch } from 'vue'
 
-import { definePropType, isBoolean, isFunction } from '@/utils'
-import type { ExtractPropType } from '@/utils'
+import { definePropType, isBoolean, isFunction } from '@nocturne-ui/utils'
+import type { ExtractPropType } from '@nocturne-ui/utils'
 import type { ComponentPublicInstance, ExtractPropTypes, Ref } from 'vue'
 
 const _prop = {

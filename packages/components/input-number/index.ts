@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import inputNumber from './src/input-number.vue'
 
 export * from './src/input-number'

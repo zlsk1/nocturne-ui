@@ -1,6 +1,6 @@
 import { computed, defineComponent, h, provide, ref, watch } from 'vue'
-import { useNamespace } from '@/composables'
-import { isNumber } from '@/utils'
+import { useNamespace } from '@nocturne-ui/composables'
+import { isNumber } from '@nocturne-ui/utils'
 import { PAGINATION_INJECTION_KEY } from './constants'
 
 import { jumperProps } from './components/jumper'

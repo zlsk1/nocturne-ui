@@ -8,7 +8,8 @@ export const pkgRoot = resolve(projRoot, 'packages')
 /** /dist/nocturne-ui */
 export const pkgOutput = resolve(distRoot, 'nocturne-ui')
 export const buildRoot = resolve(pkgRoot, 'build')
-export const nuPackage = resolve(pkgRoot, 'package.json')
+export const nuRoot = resolve(pkgRoot, 'nocturne-ui')
+export const nuPackage = resolve(pkgRoot, 'nocturne-ui/package.json')
 
 export const excludeFiles = (files: string[]) => {
   const excludes = ['node_modules', 'dist', 'gulpfile', 'test']
@@ -18,8 +19,8 @@ export const excludeFiles = (files: string[]) => {
 /** used for type generator */
 export const pathRewriter = () => {
   return (id: string) => {
-    id = id.replaceAll(`@/theme-chalk`, `nocturne-ui/theme-chalk`)
-    id = id.replaceAll(`@/`, `nocturne-ui/es/`)
+    id = id.replaceAll(`@nocturne-ui/theme-chalk`, `nocturne-ui/theme-chalk`)
+    id = id.replaceAll(`@nocturne-ui/`, `nocturne-ui/es/`)
     return id
   }
 }

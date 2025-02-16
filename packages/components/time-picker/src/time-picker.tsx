@@ -1,7 +1,7 @@
 import { defineComponent, ref } from 'vue'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { pickerProps } from './props/picker'
 import PickPanel from './time-picker-panel.vue'
 import Picker from './picker.vue'

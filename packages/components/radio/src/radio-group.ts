@@ -1,5 +1,10 @@
-import { componentSizes } from '@/constants'
-import { definePropType, isBoolean, isNumber, isString } from '@/utils'
+import { componentSizes } from '@nocturne-ui/constants'
+import {
+  definePropType,
+  isBoolean,
+  isNumber,
+  isString
+} from '@nocturne-ui/utils'
 import radioGroup from './radio-group.vue'
 import type { ExtractPropTypes } from 'vue'
 

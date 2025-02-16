@@ -1,5 +1,5 @@
 import { ExtractPropTypes } from 'vue'
-import { definePropType } from '@/utils'
+import { definePropType } from '@nocturne-ui/utils'
 import collapseItem from './collapse-item.vue'
 
 export const collapseItemProps = {

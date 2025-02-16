@@ -1,4 +1,4 @@
-import { INSTALLED_KEY } from '@/constants'
+import { INSTALLED_KEY } from '@nocturne-ui/constants'
 import type { Component, vShow } from 'vue'
 
 // declare global {

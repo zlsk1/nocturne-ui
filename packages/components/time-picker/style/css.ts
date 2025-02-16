@@ -1,2 +1,2 @@
-import '@/theme-chalk/n-base.css'
-import '@/theme-chalk/n-time-picker.css'
+import '@nocturne-ui/theme-chalk/n-base.css'
+import '@nocturne-ui/theme-chalk/n-time-picker.css'

@@ -1,4 +1,4 @@
-import { definePropType, isNumber } from '@/utils'
+import { definePropType, isNumber } from '@nocturne-ui/utils'
 import SliderTrigger from './trigger.vue'
 import type { CSSProperties, ExtractPropTypes } from 'vue'
 

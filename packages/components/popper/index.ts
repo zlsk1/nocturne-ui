@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import popper from './src/popper.vue'
 
 export const NPopper = withInstall(popper)

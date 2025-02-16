@@ -1,4 +1,4 @@
-import { isNumber } from '@/utils'
+import { isNumber } from '@nocturne-ui/utils'
 import type { ExtractPropTypes } from 'vue'
 
 export const pagerProps = {

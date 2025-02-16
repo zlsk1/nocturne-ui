@@ -4,9 +4,10 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
 import glob from 'fast-glob'
-import { dependencies } from '../packages/package.json'
-import { projRoot } from '../build/utils'
+import { dependencies } from '../packages/nocturne-ui/package.json'
+import { nuRoot, pkgRoot, projRoot } from '../build/utils'
 import './init'
+import type { UserConfig } from 'vite'
 
 export default defineConfig(async () => {
   let packageDeps = Object.keys(dependencies)
@@ -18,9 +19,16 @@ export default defineConfig(async () => {
   return {
     plugins: [vue(), vueJsx(), Unocss()],
     resolve: {
-      alias: {
-        '@': path.resolve(__dirname, '../packages')
-      }
+      alias: [
+        {
+          find: /^nocturne-ui(\/(es|lib))?$/,
+          replacement: path.resolve(nuRoot, 'index.ts')
+        },
+        {
+          find: /^@nocturne-ui\/(es|lib)\/(.*)$/,
+          replacement: `${pkgRoot}/$2`
+        }
+      ]
     },
     server: {
       port: 3024,
@@ -29,5 +37,5 @@ export default defineConfig(async () => {
     optimizeDeps: {
       include: ['vue', ...packageDeps, ...optimizeDeps]
     }
-  }
+  } as UserConfig
 })

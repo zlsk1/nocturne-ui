@@ -1,6 +1,6 @@
 import { ExtractPropTypes } from 'vue'
-import { definePropType, iconPropType, isString } from '@/utils'
-import { componentSizes } from '@/constants'
+import { definePropType, iconPropType, isString } from '@nocturne-ui/utils'
+import { componentSizes } from '@nocturne-ui/constants'
 import Input from './input.vue'
 
 export type InputStatus = 'warning' | 'error'

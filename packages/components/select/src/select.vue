@@ -192,21 +192,21 @@ import {
   isNil,
   isObject,
   isString
-} from '@/utils'
-import NIcon from '@/components/icon'
-import NTag from '@/components/tag'
-import NTooltip from '@/components/tooltip'
-import { useForm, useFormItem } from '@/components/form'
+} from '@nocturne-ui/utils'
+import NIcon from '@nocturne-ui/components/icon'
+import NTag from '@nocturne-ui/components/tag'
+import NTooltip from '@nocturne-ui/components/tooltip'
+import { useForm, useFormItem } from '@nocturne-ui/components/form'
 import {
   useComposition,
   useFocusController,
   useLocale,
   useNamespace
-} from '@/composables'
+} from '@nocturne-ui/composables'
 import { selectEmits, selectProps } from './select'
 import { SELECT_INJECTION_KEY } from './constants'
 import type { OptionProxy } from './constants'
-import type { TooltipInstance } from '@/components/tooltip'
+import type { TooltipInstance } from '@nocturne-ui/components/tooltip'
 import type { CSSProperties } from 'vue'
 
 defineOptions({

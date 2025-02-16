@@ -1,5 +1,5 @@
 import { computed, getCurrentInstance, inject, unref } from 'vue'
-import { isClient } from '@/utils'
+import { isClient } from '@nocturne-ui/utils'
 import { useGetOverRidesNamesapce } from './use-namespace'
 import type { ComputedRef, InjectionKey, MaybeRef } from 'vue'
 

@@ -9,8 +9,8 @@ import {
   shallowRef
 } from 'vue'
 import { useThrottleFn } from '@vueuse/core'
-import { isNil } from '@/utils'
-import { useNamespace } from '@/composables'
+import { isNil } from '@nocturne-ui/utils'
+import { useNamespace } from '@nocturne-ui/composables'
 import AnchorItem from './anchor-item.vue'
 import { anchorEmits, anchorProps } from './anchor'
 import { ANCHOR_INJECTION_KEY } from './constants'

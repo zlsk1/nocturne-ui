@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { cardProps } from './card'
 
 defineOptions({

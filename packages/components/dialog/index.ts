@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import dialog from './src/dialog.vue'
 
 export * from './src/dialog'

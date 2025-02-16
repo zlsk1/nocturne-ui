@@ -1,6 +1,6 @@
 import { computed, inject } from 'vue'
-import { isUndefined } from '@/utils'
-import { useFormItem } from '@/components/form'
+import { isUndefined } from '@nocturne-ui/utils'
+import { useFormItem } from '@nocturne-ui/components/form'
 import { checkboxGroupContextKey } from '../constants'
 
 import type { CheckboxModel, CheckboxStatus } from '../composables'

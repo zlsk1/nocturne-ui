@@ -1,0 +1,6 @@
+{
+  "name": "@nocturne-ui/utils",
+  "license": "MIT",
+  "main": "index.ts",
+  "module": "index.ts"
+}

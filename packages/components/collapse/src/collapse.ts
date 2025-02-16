@@ -5,7 +5,7 @@ import {
   isNumber,
   isString,
   isUndefined
-} from '@/utils'
+} from '@nocturne-ui/utils'
 import Collapse from './collapse.vue'
 
 export const collapseProps = {

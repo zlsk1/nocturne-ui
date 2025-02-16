@@ -1,2 +1,2 @@
-import '@/theme-chalk/n-base.css'
-import '@/theme-chalk/n-checkbox.css'
+import '@nocturne-ui/theme-chalk/n-base.css'
+import '@nocturne-ui/theme-chalk/n-checkbox.css'

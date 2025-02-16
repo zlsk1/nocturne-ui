@@ -1,9 +1,9 @@
 <script lang="ts">
 import { defineComponent, h, inject } from 'vue'
 import { RiCloseLine as Close } from '@remixicon/vue'
-import NIcon from '@/components/icon'
-import { useNamespace } from '@/composables'
-import { definePropType } from '@/utils'
+import NIcon from '@nocturne-ui/components/icon'
+import { useNamespace } from '@nocturne-ui/composables'
+import { definePropType } from '@nocturne-ui/utils'
 import { tabsEmits } from '../props'
 import { TAB_INJECT_KEY, TAB_NAV_INJECT_KEY } from '../constants'
 import type { TabType } from '../props'

@@ -1,2 +1,2 @@
-import '@/theme-chalk/src/base.css'
-import '@/theme-chalk/src/col.scss'
+import '@nocturne-ui/theme-chalk/src/base.css'
+import '@nocturne-ui/theme-chalk/src/col.scss'

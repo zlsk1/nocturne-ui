@@ -1,5 +1,5 @@
 import { createVNode, isVNode, render, shallowReactive } from 'vue'
-import { isElement, isString } from '@/utils'
+import { isElement, isString } from '@nocturne-ui/utils'
 import Notification from './notification.vue'
 import { notificationDefaultOptions, notificationType } from './props'
 

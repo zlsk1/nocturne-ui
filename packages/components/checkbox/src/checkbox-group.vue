@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, nextTick, provide, toRefs, watch } from 'vue'
-import { useForm, useFormItem } from '@/components/form'
-import { useNamespace } from '@/composables'
+import { useForm, useFormItem } from '@nocturne-ui/components/form'
+import { useNamespace } from '@nocturne-ui/composables'
 import { checkboxGroupContextKey } from './constants'
 import { checkboxGroupEmits, checkboxGroupProps } from './checkbox-group'
 import type { CheckboxGroupValueType } from './checkbox-group'

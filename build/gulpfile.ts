@@ -1,27 +1,27 @@
 import path from 'path'
 import { copyFile, cp, mkdir } from 'fs/promises'
 import { parallel, series } from 'gulp'
+import { glob } from 'fast-glob'
 import {
   distRoot,
+  nuPackage,
   pkgOutput,
-  pkgRoot,
   projRoot,
   run,
   withTaskName
 } from './utils'
 import { buildConfig } from './build-info'
-import { buildModules } from './tasks/modules'
-import { buildFullBundle } from './tasks/full-bundle'
-import { generateTypesDefinitions } from './tasks/types-definitions'
+import {
+  buildFullBundle,
+  buildModules,
+  generateTypesDefinitions
+} from './tasks'
 import type { TaskFunction } from 'gulp'
 import type { Module } from './build-info'
 
 const copyFiles = () => {
   return Promise.all([
-    copyFile(
-      path.resolve(pkgRoot, 'package.json'),
-      path.resolve(pkgOutput, 'package.json')
-    ),
+    copyFile(nuPackage, path.resolve(pkgOutput, 'package.json')),
     copyFile(
       path.resolve(projRoot, 'README.md'),
       path.resolve(pkgOutput, 'README.md')
@@ -29,7 +29,12 @@ const copyFiles = () => {
     copyFile(
       path.resolve(projRoot, 'typings', 'global.d.ts'),
       path.resolve(pkgOutput, 'global.d.ts')
-    )
+    ),
+    glob(path.resolve(distRoot, 'nocturne-ui'), {
+      cwd: distRoot,
+      onlyDirectories: true,
+      absolute: true
+    })
   ])
 }
 

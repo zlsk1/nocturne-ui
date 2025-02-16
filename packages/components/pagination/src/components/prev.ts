@@ -1,5 +1,5 @@
 import { RiArrowLeftWideFill as ArrowLeftWide } from '@remixicon/vue'
-import { iconPropType } from '@/utils'
+import { iconPropType } from '@nocturne-ui/utils'
 import type { ExtractPropTypes } from 'vue'
 
 export const prevProps = {

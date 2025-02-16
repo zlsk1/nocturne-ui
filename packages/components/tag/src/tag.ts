@@ -1,5 +1,5 @@
 import { ExtractPropTypes } from 'vue'
-import { componentSizes } from '@/constants'
+import { componentSizes } from '@nocturne-ui/constants'
 import tag from './tag.vue'
 
 export const tagProps = {

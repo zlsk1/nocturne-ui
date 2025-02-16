@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import Tooltip from './src/tooltip.vue'
 
 export const NTooltip = withInstall(Tooltip)

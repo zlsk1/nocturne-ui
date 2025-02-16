@@ -7,9 +7,9 @@
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
 import { isObject } from 'lodash'
-import { ROW_INJECTION_KEY } from '@/components/row/src/constants'
-import { isNumber } from '@/utils'
-import { useNamespace } from '@/composables'
+import { ROW_INJECTION_KEY } from '@nocturne-ui/components/row/src/constants'
+import { isNumber } from '@nocturne-ui/utils'
+import { useNamespace } from '@nocturne-ui/composables'
 import { colProps } from './col'
 import type { CSSProperties } from 'vue'
 

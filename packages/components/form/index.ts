@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import form from './src/form.vue'
 import formItem from './src/form-item.vue'
 

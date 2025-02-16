@@ -1,4 +1,4 @@
-import { definePropType, isNumber } from '@/utils'
+import { definePropType, isNumber } from '@nocturne-ui/utils'
 import Carousel from './carousel.vue'
 import type { ExtractPropTypes } from 'vue'
 

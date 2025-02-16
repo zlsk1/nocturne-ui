@@ -21,7 +21,7 @@
 
 <script lang="ts" setup>
 import { computed, getCurrentInstance, onMounted, ref, watch } from 'vue'
-import { getClientXY } from '@/utils'
+import { getClientXY } from '@nocturne-ui/utils'
 import { draggable } from './utils/draggable'
 
 import type { PropType } from 'vue'

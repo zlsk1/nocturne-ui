@@ -7,6 +7,6 @@ export const getPackageDependencies = (path: string) => {
 
   return {
     dependencies: Object.keys(manifest.dependencies),
-    peerDependencies: Object.keys(manifest.peerDependencies)
+    peerDependencies: Object.keys(manifest.peerDependencies ?? [])
   }
 }

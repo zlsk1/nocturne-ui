@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import Switch from './src/switch.vue'
 
 export const NSwitch = withInstall(Switch)

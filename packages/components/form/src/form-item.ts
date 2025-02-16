@@ -1,10 +1,10 @@
-import { definePropType } from '@/utils'
-import { componentSizes } from '@/constants'
+import { definePropType } from '@nocturne-ui/utils'
+import { componentSizes } from '@nocturne-ui/constants'
 import formItem from './form-item.vue'
 import type { ExtractPropTypes } from 'vue'
-import type { ComponentSize } from '@/constants'
+import type { ComponentSize } from '@nocturne-ui/constants'
 import type { FormItemProp, FormItemRule } from './types'
-import type { Arrayable } from '@/utils'
+import type { Arrayable } from '@nocturne-ui/utils'
 
 export const positionValues = ['left', 'right', 'top', '']
 

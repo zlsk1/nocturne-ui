@@ -53,10 +53,14 @@
 import { computed } from 'vue'
 import { RiCloseLine as Close } from '@remixicon/vue'
 import { isFunction, isString } from 'lodash'
-import { useNamespace, useSameTarget, useZIndex } from '@/composables'
+import {
+  useNamespace,
+  useSameTarget,
+  useZIndex
+} from '@nocturne-ui/composables'
 
-import NButton from '@/components/button'
-import NOverlay from '@/components/overlay'
+import NButton from '@nocturne-ui/components/button'
+import NOverlay from '@nocturne-ui/components/overlay'
 import { dialogEmits, dialogProps } from './dialog'
 import type { CSSProperties } from 'vue'
 

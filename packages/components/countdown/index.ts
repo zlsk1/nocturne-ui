@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import Countdown from './src/countdown.vue'
 
 export * from './src/countdown'

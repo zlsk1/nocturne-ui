@@ -1,4 +1,4 @@
-import { definePropType, mutable } from '@/utils'
+import { definePropType, mutable } from '@nocturne-ui/utils'
 import col from './col.vue'
 import type { ExtractPropTypes } from 'vue'
 

@@ -1,8 +1,14 @@
-import { definePropType, isArray, isBoolean, isObject, isString } from '@/utils'
-import { componentSizes } from '@/constants'
+import {
+  definePropType,
+  isArray,
+  isBoolean,
+  isObject,
+  isString
+} from '@nocturne-ui/utils'
+import { componentSizes } from '@nocturne-ui/constants'
 import form from './form.vue'
 import { positionValues } from './form-item'
-import type { ComponentSize } from '@/constants'
+import type { ComponentSize } from '@nocturne-ui/constants'
 import type { FormData, FormItemProp } from './types'
 import type { ExtractPropTypes } from 'vue'
 

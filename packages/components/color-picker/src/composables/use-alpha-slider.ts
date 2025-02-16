@@ -6,8 +6,8 @@ import {
   shallowRef,
   watch
 } from 'vue'
-import { getClientXY, isNumber } from '@/utils'
-import { useNamespace } from '@/composables'
+import { getClientXY, isNumber } from '@nocturne-ui/utils'
+import { useNamespace } from '@nocturne-ui/composables'
 import { draggable } from '../utils/draggable'
 import type { AlphaSliderProps } from '../props/alpha-slider'
 

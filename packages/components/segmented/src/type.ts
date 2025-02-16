@@ -1,8 +1,8 @@
-import { definePropType, isNumber, isString } from '@/utils'
-import { componentSizes } from '@/constants'
+import { definePropType, isNumber, isString } from '@nocturne-ui/utils'
+import { componentSizes } from '@nocturne-ui/constants'
 import segmented from './segmented'
 import type { Component, ExtractPropTypes } from 'vue'
-import type { ComponentSize } from '@/constants'
+import type { ComponentSize } from '@nocturne-ui/constants'
 
 export type SegmentedOption = {
   value: string | number

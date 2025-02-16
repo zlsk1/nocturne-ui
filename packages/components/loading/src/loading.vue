@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { RiLoaderLine as Loader } from '@remixicon/vue'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { loadingProps } from './loading'
 import type { CSSProperties } from 'vue'
 

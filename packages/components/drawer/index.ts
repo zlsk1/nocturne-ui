@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import drawer from './src/drawer.vue'
 
 export * from './src/drawer'

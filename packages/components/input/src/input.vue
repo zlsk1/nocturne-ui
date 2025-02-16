@@ -128,10 +128,14 @@ import {
   RiEyeLine as Eye,
   RiEyeOffLine as EyeOff
 } from '@remixicon/vue'
-import { useForm, useFormItem } from '@/components/form'
-import NIcon from '@/components/icon'
-import { useComposition, useFocusController, useNamespace } from '@/composables'
-import { isNil, isUndefined } from '@/utils'
+import { useForm, useFormItem } from '@nocturne-ui/components/form'
+import NIcon from '@nocturne-ui/components/icon'
+import {
+  useComposition,
+  useFocusController,
+  useNamespace
+} from '@nocturne-ui/composables'
+import { isNil, isUndefined } from '@nocturne-ui/utils'
 import { inputEmits, inputProps } from './input'
 import type { InputStatus } from './input'
 

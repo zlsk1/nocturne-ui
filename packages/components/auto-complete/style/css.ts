@@ -1,2 +1,2 @@
-import '@/theme-chalk/n-base.css'
-import '@/theme-chalk/n-auto-complete.css'
+import '@nocturne-ui/theme-chalk/n-base.css'
+import '@nocturne-ui/theme-chalk/n-auto-complete.css'

@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import Menu from './src/menu.vue'
 import MenuItem from './src/menu-item.vue'
 import SubMenu from './src/sub-menu.vue'

@@ -1,5 +1,5 @@
-import { componentSizes } from '@/constants'
-import { zhCn } from '@/locale'
+import { componentSizes } from '@nocturne-ui/constants'
+import { zhCn } from '@nocturne-ui/locale'
 import type { ExtractPropTypes } from 'vue'
 
 export const configProviderProps = {

@@ -1,5 +1,5 @@
 {
-  "name": "@nocturne/theme-chalk",
+  "name": "@nocturne-ui/theme-chalk",
   "version": "0.1.0",
   "main": "index.css",
   "style": "index.css",

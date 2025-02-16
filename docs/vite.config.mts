@@ -8,7 +8,9 @@ import { loadEnv } from 'vitepress'
 import { projRoot } from '../build/utils'
 import { autoImportDemo } from './.vitepress/plugins/demo-import'
 
-const { dependencies: deps } = await import('../packages/package.json')
+const { dependencies: deps } = await import(
+  '../packages/nocturne-ui/package.json'
+)
 const { dependencies: docsDeps } = await import('./package.json')
 
 const optimizeDeps = [

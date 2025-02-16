@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useGetOverRidesNamesapce } from '@/composables/use-namespace'
+import { useGetOverRidesNamesapce } from '@nocturne-ui/composables/use-namespace'
 
 defineOptions({
   name: 'NCollapseTransition'

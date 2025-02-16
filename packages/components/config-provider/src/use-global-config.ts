@@ -4,7 +4,7 @@ import {
   LOCALE_INJECTION_KEY,
   NAMESPACE_INJECTION_KEY,
   ZINDEX_INJECTION_KEY
-} from '@/composables'
+} from '@nocturne-ui/composables'
 import { ConfigProviderProps } from '../src/props'
 import { CONFIGPROVIDER_INJECT_KEY } from '../src/constants'
 

@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import slider from './src/slider.vue'
 
 export * from './src/slider'

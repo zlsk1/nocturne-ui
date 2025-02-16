@@ -14,9 +14,9 @@
 <script lang="ts" setup>
 import { computed, inject, onBeforeUnmount, onMounted, watch } from 'vue'
 import { unrefElement } from '@vueuse/core'
-import { isElement } from '@/utils'
-import { NOnlyChild } from '@/components/slot'
-import { useForwardRef } from '@/composables'
+import { isElement } from '@nocturne-ui/utils'
+import { NOnlyChild } from '@nocturne-ui/components/slot'
+import { useForwardRef } from '@nocturne-ui/composables'
 import { popperReferenceProps } from './reference'
 import { POPPER_INJECTION_KEY } from './constants'
 import type { WatchStopHandle } from 'vue'

@@ -7,8 +7,8 @@ import {
   ref,
   toRefs
 } from 'vue'
-import { useNamespace } from '@/composables'
-import { isArray } from '@/utils'
+import { useNamespace } from '@nocturne-ui/composables'
+import { isArray } from '@nocturne-ui/utils'
 import NTabPaneList from './tab-pane-list/index.vue'
 import NTabNavList from './tab-nav-list/index.vue'
 import { tabsEmits, tabsProps } from './props'

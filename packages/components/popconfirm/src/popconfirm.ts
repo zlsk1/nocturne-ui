@@ -1,5 +1,5 @@
 import { RiQuestionFill as Quesition } from '@remixicon/vue'
-import { iconPropType } from '@/utils'
+import { iconPropType } from '@nocturne-ui/utils'
 import popconfirm from './popconfirm.vue'
 
 import type { ExtractPropTypes } from 'vue'

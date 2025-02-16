@@ -52,7 +52,10 @@ async function buildFullEntry(minify: boolean) {
     }),
     alias({
       entries: [
-        { find: /^@\/(.*)/, replacement: path.resolve('../packages/$1') }
+        {
+          find: /^@nocturne-ui\/(.*)$/,
+          replacement: path.resolve('../packages/$1')
+        }
       ]
     })
   ]
@@ -66,7 +69,7 @@ async function buildFullEntry(minify: boolean) {
   }
 
   const bundle = await rollup({
-    input: path.resolve(pkgRoot, 'index.ts'),
+    input: path.resolve(pkgRoot, 'nocturne-ui/index.ts'),
     plugins,
     external: getExternal(true),
     treeshake: true

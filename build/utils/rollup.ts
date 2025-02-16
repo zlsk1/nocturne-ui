@@ -14,7 +14,8 @@ export function formatBundleFilename(
 }
 
 export const getExternal = (full: boolean = false) => {
-  const { dependencies, peerDependencies } = getPackageDependencies(nuPackage)
+  const { dependencies, peerDependencies = ['vue'] } =
+    getPackageDependencies(nuPackage)
 
   // for fine-grained control
   return (id: string) => {

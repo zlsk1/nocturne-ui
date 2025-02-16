@@ -1,5 +1,5 @@
 import { computed, inject } from 'vue'
-import { useId } from '@/composables'
+import { useId } from '@nocturne-ui/composables'
 import { FORMITEM_INJECTION_KEY, FORM_INJECTION_KEY } from '../constants'
 
 export const useFormItem = () => {

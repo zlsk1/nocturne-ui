@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import collapse from './src/collapse.vue'
 import collapseItem from './src/collapse-item.vue'
 import collapseTransition from './src/collapse-transition.vue'

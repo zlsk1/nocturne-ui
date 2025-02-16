@@ -1,9 +1,13 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue'
 import { RiCloseLine as Close } from '@remixicon/vue'
-import NOverlay from '@/components/overlay'
-import { isFunction, isString } from '@/utils'
-import { useNamespace, useSameTarget, useZIndex } from '@/composables'
+import NOverlay from '@nocturne-ui/components/overlay'
+import { isFunction, isString } from '@nocturne-ui/utils'
+import {
+  useNamespace,
+  useSameTarget,
+  useZIndex
+} from '@nocturne-ui/composables'
 import { drawerEmits, drawerProps } from './drawer'
 import type { StyleValue } from 'vue'
 

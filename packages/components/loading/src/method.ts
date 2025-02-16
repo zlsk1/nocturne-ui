@@ -1,6 +1,6 @@
 import { createVNode, render } from 'vue'
 import { isObject } from 'lodash'
-import { isClient, isElement, isString } from '@/utils'
+import { isClient, isElement, isString } from '@nocturne-ui/utils'
 import { loadingDefault } from './loading'
 import Loading from './loading.vue'
 import type { AppContext } from 'vue'

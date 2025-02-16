@@ -1,6 +1,6 @@
 import { placements } from '@popperjs/core'
 
-import { definePropType } from '@/utils'
+import { definePropType } from '@nocturne-ui/utils'
 import type { ExtractPropTypes, StyleValue } from 'vue'
 import type { Options, Placement } from '@popperjs/core'
 import type { Measurable } from './constants'

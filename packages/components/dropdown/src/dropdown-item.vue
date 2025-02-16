@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import { inject } from 'vue'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { dropdownItemProps } from './dropdown-item'
 import { NDROPDOWN_INJECTION_KEY } from './constants'
 

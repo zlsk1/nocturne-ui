@@ -74,14 +74,14 @@
 import { computed, ref, watch } from 'vue'
 import dayjs from 'dayjs'
 import { isEqual } from 'lodash'
-import { useNamespace } from '@/composables'
-import { NIcon, NInput, NTooltip } from '@/components'
-import { useFormItem } from '@/components/form'
+import { useNamespace } from '@nocturne-ui/composables'
+import { NIcon, NInput, NTooltip } from '@nocturne-ui/components'
+import { useFormItem } from '@nocturne-ui/components/form'
 import { formatter, parseDate } from './util'
 import { pickerEmit, pickerProps } from './props/picker'
 
 import type { Dayjs } from 'dayjs'
-import type { InputInstance } from '@/components'
+import type { InputInstance } from '@nocturne-ui/components'
 import type { PickerMethods } from './type'
 
 defineOptions({

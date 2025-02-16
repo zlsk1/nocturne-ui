@@ -9,12 +9,12 @@ import {
   isBoolean,
   isNumber,
   isString
-} from '@/utils'
+} from '@nocturne-ui/utils'
 import Picker from '../picker.vue'
 
 import type { ExtractPropTypes } from 'vue'
 import type { Dayjs } from 'dayjs'
-import type { ComponentSize } from '@/constants'
+import type { ComponentSize } from '@nocturne-ui/constants'
 import type {
   GetDisabledHour,
   GetDisabledMinute,
@@ -23,7 +23,7 @@ import type {
 import type {
   PopperContentProps,
   PopperCoreConfigProps
-} from '@/components/popper'
+} from '@nocturne-ui/components/popper'
 
 export const pickerPropsBase = {
   /**

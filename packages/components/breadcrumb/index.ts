@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import Breadcrumb from './src/breadcrumb'
 import BreadcrumbItem from './src/breadcrumb-item'
 

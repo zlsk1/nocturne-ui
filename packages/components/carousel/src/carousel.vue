@@ -71,8 +71,8 @@ import {
   RiArrowLeftSLine as ArrowLeft,
   RiArrowRightSLine as ArrowRight
 } from '@remixicon/vue'
-import { NIcon } from '@/components/icon'
-import { useLocale, useNamespace } from '@/composables'
+import { NIcon } from '@nocturne-ui/components/icon'
+import { useLocale, useNamespace } from '@nocturne-ui/composables'
 import { carouselEmits, carouselProps } from './carousel'
 import { CAROUSEL_INJECT_KEY } from './constants'
 

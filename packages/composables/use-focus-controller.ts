@@ -1,6 +1,6 @@
 import { getCurrentInstance, onMounted, ref, shallowRef, watch } from 'vue'
 import { useEventListener } from '@vueuse/core'
-import { isElement, isFunction } from '@/utils'
+import { isElement, isFunction } from '@nocturne-ui/utils'
 import type { ShallowRef } from 'vue'
 
 interface UseFocusControllerOptions {

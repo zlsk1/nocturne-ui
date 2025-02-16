@@ -1,6 +1,6 @@
-import { definePropType, isNil, isString } from '@/utils'
-import { ComponentSize, componentSizes } from '@/constants'
-import { useTooltipContentProps } from '@/components/tooltip'
+import { definePropType, isNil, isString } from '@nocturne-ui/utils'
+import { ComponentSize, componentSizes } from '@nocturne-ui/constants'
+import { useTooltipContentProps } from '@nocturne-ui/components/tooltip'
 import type ColorPicker from './color-picker.vue'
 import type { ComputedRef, ExtractPropTypes, InjectionKey } from 'vue'
 

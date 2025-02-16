@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import carousel from './src/carousel.vue'
 import carouselItem from './src/carousel-item.vue'
 

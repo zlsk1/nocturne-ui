@@ -6,6 +6,6 @@
     "types": ["node"],
     "skipLibCheck": true
   },
-  "include": ["packages/theme-chalk/*", "build"],
+  "include": ["packages/theme-chalk/*", "build/**/*", "build/**/*.json"],
   "exclude": ["**/__tests__/**", "**/tests/**", "**/dist"]
 }

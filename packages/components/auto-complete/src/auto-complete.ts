@@ -1,8 +1,8 @@
 import { Placement } from '@popperjs/core'
-import { definePropType, isNumber, isString } from '@/utils'
-import { ComponentSize } from '@/constants'
+import { definePropType, isNumber, isString } from '@nocturne-ui/utils'
+import { ComponentSize } from '@nocturne-ui/constants'
 import AutoComplete from './auto-complete.vue'
-import type { ClassType } from '@/components/popper'
+import type { ClassType } from '@nocturne-ui/components/popper'
 import type { CSSProperties, ExtractPropTypes } from 'vue'
 
 export type AutoCompleteOptionType = {

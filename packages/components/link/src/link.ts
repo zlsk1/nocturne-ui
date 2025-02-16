@@ -1,5 +1,5 @@
 import { ExtractPropTypes } from 'vue'
-import { iconPropType } from '@/utils'
+import { iconPropType } from '@nocturne-ui/utils'
 import link from './link.vue'
 
 export const linkProps = {

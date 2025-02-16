@@ -1,4 +1,4 @@
-import { iconPropType } from '@/utils'
+import { iconPropType } from '@nocturne-ui/utils'
 import DropdownItem from './dropdown.vue'
 import type { ExtractPropTypes } from 'vue'
 

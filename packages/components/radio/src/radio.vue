@@ -21,8 +21,8 @@
 
 <script lang="ts" setup>
 import { computed, inject, nextTick, ref, watch } from 'vue'
-import { useNamespace } from '@/composables'
-import { useForm, useFormItem } from '@/components/form'
+import { useNamespace } from '@nocturne-ui/composables'
+import { useForm, useFormItem } from '@nocturne-ui/components/form'
 import { radioEmits, radioProps } from './radio'
 import { RADIOGROUP_INJECTION_KEY } from './constants'
 

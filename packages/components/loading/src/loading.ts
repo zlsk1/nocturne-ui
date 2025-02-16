@@ -1,4 +1,9 @@
-import { definePropType, iconPropType, isClient, mutable } from '@/utils'
+import {
+  definePropType,
+  iconPropType,
+  isClient,
+  mutable
+} from '@nocturne-ui/utils'
 import type { ExtractPropTypes, VNode } from 'vue'
 
 export const loadingDefault = mutable({

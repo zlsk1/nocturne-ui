@@ -1,5 +1,5 @@
 import { isArray, isObject } from 'lodash'
-import { definePropType, isBoolean, isString } from '@/utils'
+import { definePropType, isBoolean, isString } from '@nocturne-ui/utils'
 import TimePickerPanel from '../time-picker-panel.vue'
 import { pickerPropsBase } from './picker'
 import type { ExtractPropTypes } from 'vue'

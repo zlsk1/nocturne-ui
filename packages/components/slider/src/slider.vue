@@ -63,9 +63,9 @@
 
 <script lang="ts" setup>
 import { computed, provide, ref, watch } from 'vue'
-import { isString } from '@/utils'
-import { useNamespace } from '@/composables'
-import { useForm, useFormItem } from '@/components/form'
+import { isString } from '@nocturne-ui/utils'
+import { useNamespace } from '@nocturne-ui/composables'
+import { useForm, useFormItem } from '@nocturne-ui/components/form'
 import { SLIDER_INJECT_KEY } from './constants'
 import { sliderEmits, sliderProps } from './slider'
 import SliderTrigger from './trigger.vue'

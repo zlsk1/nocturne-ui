@@ -1,6 +1,11 @@
-import { definePropType, isNumber, isString, isUndefined } from '@/utils'
+import {
+  definePropType,
+  isNumber,
+  isString,
+  isUndefined
+} from '@nocturne-ui/utils'
 import type { ExtractPropTypes, VNode } from 'vue'
-import type { ClassType } from '@/components/popper'
+import type { ClassType } from '@nocturne-ui/components/popper'
 
 export type TabType = {
   label: string

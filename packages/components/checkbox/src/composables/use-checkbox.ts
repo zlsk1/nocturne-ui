@@ -1,4 +1,4 @@
-import { isArray } from '@/utils'
+import { isArray } from '@nocturne-ui/utils'
 import { useCheckboxDisabled } from './use-checkbox-disabled'
 import { useCheckboxEvent } from './use-checkbox-event'
 import { useCheckboxModel } from './use-checkbox-model'

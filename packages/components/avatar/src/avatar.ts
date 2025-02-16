@@ -1,5 +1,5 @@
-import { definePropType, iconPropType } from '@/utils'
-import { componentSizes } from '@/constants'
+import { definePropType, iconPropType } from '@nocturne-ui/utils'
+import { componentSizes } from '@nocturne-ui/constants'
 import Avatar from './avatar.vue'
 import type { ExtractPropTypes } from 'vue'
 

@@ -1,9 +1,9 @@
 <script lang="ts">
 import { defineComponent, h, inject } from 'vue'
 import { RiAddLine as Add, RiMoreLine as More } from '@remixicon/vue'
-import NIcon from '@/components/icon'
-import NTooltip from '@/components/tooltip'
-import { useNamespace } from '@/composables'
+import NIcon from '@nocturne-ui/components/icon'
+import NTooltip from '@nocturne-ui/components/tooltip'
+import { useNamespace } from '@nocturne-ui/composables'
 import { TAB_INJECT_KEY, TAB_NAV_INJECT_KEY } from '../constants'
 
 export default defineComponent({

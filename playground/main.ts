@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
-import NocturneUI from 'nocturne-ui/index'
-import 'nocturne-ui/theme-chalk/src/index.scss'
+import NocturneUI from 'nocturne-ui'
+import '@nocturne-ui/theme-chalk/src/index.scss'
 import 'virtual:uno.css'
 import type { Component } from 'vue'
 

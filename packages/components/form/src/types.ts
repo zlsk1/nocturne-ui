@@ -5,7 +5,7 @@ import type {
 } from 'async-validator'
 import type { FormProps } from './form'
 import type { FormItemProps } from './form-item'
-import type { Arrayable } from '@/utils'
+import type { Arrayable } from '@nocturne-ui/utils'
 
 export interface FormItemRule extends RuleItem {
   trigger?: Arrayable<TriggerType>

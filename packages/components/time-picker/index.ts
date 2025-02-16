@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import TimePicker from './src/time-picker'
 
 export * from './src/props/picker'

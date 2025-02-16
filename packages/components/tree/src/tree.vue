@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 
 defineOptions({
   name: 'NTree'

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, provide, ref } from 'vue'
-import { useNamespace } from '@/composables'
-import { isString } from '@/utils'
+import { useNamespace } from '@nocturne-ui/composables'
+import { isString } from '@nocturne-ui/utils'
 import { collapseEmits, collapseProps } from './collapse'
 import { COLLAPSE_INJECTION_KEY } from './constants'
 

@@ -1,0 +1,12 @@
+{
+  "name": "@nocturne-ui/composables",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "Composables for Nocturne UI",
+  "main": "index.ts",
+  "module": "index.ts",
+  "types": "index.d.ts",
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  }
+}

@@ -1,6 +1,6 @@
-import { popperContentProps } from '@/components/popper/src/content'
-import { useDelayedToggleOptions } from '@/composables'
-import { definePropType } from '@/utils'
+import { popperContentProps } from '@nocturne-ui/components/popper/src/content'
+import { useDelayedToggleOptions } from '@nocturne-ui/composables'
+import { definePropType } from '@nocturne-ui/utils'
 import type { ExtractPropTypes } from 'vue'
 import type TooltipContent from './content.vue'
 

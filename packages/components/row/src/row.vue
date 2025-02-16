@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import { computed, provide } from 'vue'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { rowProps } from './row'
 import { ROW_INJECTION_KEY } from './constants'
 import type { CSSProperties } from 'vue'

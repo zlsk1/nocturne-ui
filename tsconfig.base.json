@@ -16,7 +16,8 @@
     "types": [],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["packages/*"]
+      "@nocturne-ui/*": ["packages/*"],
+      "nocturne-ui": ["packages/nocturne-ui"]
     }
-  },
+  }
 }

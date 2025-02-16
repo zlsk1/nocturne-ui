@@ -1,5 +1,10 @@
-import { messageTypes } from '@/components/message'
-import { definePropType, iconPropType, isClient, mutable } from '@/utils'
+import { messageTypes } from '@nocturne-ui/components/message'
+import {
+  definePropType,
+  iconPropType,
+  isClient,
+  mutable
+} from '@nocturne-ui/utils'
 import type { NotificationPlacements } from './types'
 import type { VNode } from 'vue'
 

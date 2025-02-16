@@ -42,7 +42,7 @@
 
 <script lang="ts" setup>
 import { computed, useSlots } from 'vue'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { useCheckbox } from './composables'
 import { checkboxButtonProps } from './checkbox-button'
 

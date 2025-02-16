@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { inject, onMounted, onUnmounted, ref } from 'vue'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { anchorItemProps } from './anchor-item'
 import { ANCHOR_INJECTION_KEY } from './constants'
 

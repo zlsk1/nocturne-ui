@@ -7,7 +7,7 @@ import {
   vShow,
   withDirectives
 } from 'vue'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { TAB_INJECT_KEY } from '../constants'
 
 export default defineComponent({

@@ -1,5 +1,5 @@
-import { popperReferenceProps } from '@/components/popper/src/reference'
-import { definePropType } from '@/utils'
+import { popperReferenceProps } from '@nocturne-ui/components/popper/src/reference'
+import { definePropType } from '@nocturne-ui/utils'
 import type { ExtractPropTypes } from 'vue'
 
 export type TooltipTriggerType = 'hover' | 'focus' | 'click' | 'contextmenu'

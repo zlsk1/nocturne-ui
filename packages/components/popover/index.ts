@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import popover from './src/popover.vue'
 
 export * from './src/popover'

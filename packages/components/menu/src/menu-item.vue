@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 import { computed, getCurrentInstance, inject, onMounted, ref } from 'vue'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { menuItemProps } from './menu'
 import { NMENU_INJECTION_KEY } from './constants'
 import useMenu from './compoables/use-menu'

@@ -27,11 +27,11 @@
 
 <script lang="ts" setup>
 import { computed, inject, nextTick, ref, watchEffect } from 'vue'
-import NTooltip from '@/components/tooltip'
-import { useNamespace } from '@/composables'
+import NTooltip from '@nocturne-ui/components/tooltip'
+import { useNamespace } from '@nocturne-ui/composables'
 import { sliderTriggerEmits, sliderTriggerProps } from './trigger'
 import { SLIDER_INJECT_KEY } from './constants'
-import type { TooltipInstance } from '@/components/tooltip'
+import type { TooltipInstance } from '@nocturne-ui/components/tooltip'
 import type { CSSProperties } from 'vue'
 
 defineOptions({

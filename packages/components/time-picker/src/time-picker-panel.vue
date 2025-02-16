@@ -32,8 +32,8 @@
 <script lang="ts" setup>
 import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
 import dayjs from 'dayjs'
-import { NButton } from '@/components'
-import { useNamespace } from '@/composables'
+import { NButton } from '@nocturne-ui/components'
+import { useNamespace } from '@nocturne-ui/composables'
 import { getTimelist } from './composables/use-time-picker'
 import { timeUnits } from './constants'
 import {

@@ -1,4 +1,4 @@
-import { definePropType } from '@/utils'
+import { definePropType } from '@nocturne-ui/utils'
 import type { ExtractPropTypes } from 'vue'
 import type Color from '../utils/color'
 

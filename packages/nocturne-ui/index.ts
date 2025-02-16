@@ -1,9 +1,9 @@
-import { INSTALLED_KEY } from '@/constants'
-import Components from './component'
+import { INSTALLED_KEY } from '@nocturne-ui/constants'
+import { provideGlobalConfig } from '../components/config-provider'
+import Components from './components'
 import Plugins from './plugin'
-import { provideGlobalConfig } from './components/config-provider'
 import type { App } from 'vue'
-import type { ConfigProviderProps } from './components/config-provider'
+import type { ConfigProviderProps } from '../components/config-provider'
 
 const makeInstaller = (components: any[] = []) => {
   const install = (
@@ -35,8 +35,8 @@ const makeInstaller = (components: any[] = []) => {
 const installer = makeInstaller([...Components, ...Plugins])
 export default installer
 
-export * from '@/components'
-export * from '@/constants'
-export * from '@/composables'
+export * from '@nocturne-ui/components'
+export * from '@nocturne-ui/constants'
+export * from '@nocturne-ui/composables'
 
 export const install = installer.install

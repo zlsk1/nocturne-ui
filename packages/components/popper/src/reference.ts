@@ -1,4 +1,4 @@
-import { definePropType } from '@/utils'
+import { definePropType } from '@nocturne-ui/utils'
 import type { Measurable } from './constants'
 import type Trigger from './reference.vue'
 

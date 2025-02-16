@@ -11,9 +11,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-import NCollapseTransition from '@/components/collapse/src/collapse-transition.vue'
-import NCheckbox from '@/components/checkbox'
-import { useNamespace } from '@/composables'
+import NCollapseTransition from '@nocturne-ui/components/collapse/src/collapse-transition.vue'
+import NCheckbox from '@nocturne-ui/components/checkbox'
+import { useNamespace } from '@nocturne-ui/composables'
 
 defineOptions({
   name: 'NTreeNode'

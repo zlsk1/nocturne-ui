@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { isNumber } from '@/utils'
-import { useNamespace } from '@/composables'
+import { isNumber } from '@nocturne-ui/utils'
+import { useNamespace } from '@nocturne-ui/composables'
 import { badgeProps } from './badge'
 
 defineOptions({

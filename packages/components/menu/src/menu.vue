@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { getCurrentInstance, provide, ref, toRefs } from 'vue'
 import { isNil } from 'lodash'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { menuEmit, menuProps } from './menu'
 import { NMENU_INJECTION_KEY } from './constants'
 import type {

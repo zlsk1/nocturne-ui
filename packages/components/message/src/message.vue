@@ -47,13 +47,13 @@
 import { computed, isVNode, onMounted, ref, watch } from 'vue'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
 import { RiCloseLine as Close } from '@remixicon/vue'
-import NBadge from '@/components/badge'
-import NIcon from '@/components/icon'
-import { useNamespace, useZIndex } from '@/composables'
-import { typeIcons } from '@/utils'
+import NBadge from '@nocturne-ui/components/badge'
+import NIcon from '@nocturne-ui/components/icon'
+import { useNamespace, useZIndex } from '@nocturne-ui/composables'
+import { typeIcons } from '@nocturne-ui/utils'
 import { messageEmits, messageProps } from './message'
 import { getLastOffset, getOffsetOrSpace } from './instance'
-import type { BadgeProps } from '@/components/badge'
+import type { BadgeProps } from '@nocturne-ui/components/badge'
 
 defineOptions({
   name: 'NMessage'

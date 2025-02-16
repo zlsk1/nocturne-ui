@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import statistic from './src/statistic.vue'
 
 export * from './src/statistic'

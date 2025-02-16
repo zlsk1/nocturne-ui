@@ -1,6 +1,6 @@
 import { RiLoaderLine as Loading } from '@remixicon/vue'
-import { iconPropType } from '@/utils'
-import { componentSizes } from '@/constants'
+import { iconPropType } from '@nocturne-ui/utils'
+import { componentSizes } from '@nocturne-ui/constants'
 import Button from './button.vue'
 import type { ExtractPropTypes } from 'vue'
 

@@ -1,6 +1,6 @@
 import { ExtractPropTypes } from 'vue'
-import { definePropType } from '@/utils'
-import { componentSizes } from '@/constants'
+import { definePropType } from '@nocturne-ui/utils'
+import { componentSizes } from '@nocturne-ui/constants'
 import { CheckModelValueType } from './checkbox'
 import CheckboxGroup from './checkbox-group.vue'
 

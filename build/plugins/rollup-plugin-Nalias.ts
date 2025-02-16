@@ -2,7 +2,7 @@ import type { Plugin } from 'rollup'
 
 export function NAlias(): Plugin {
   const themeChalk = 'theme-chalk'
-  const sourceThemeChalk = `@/${themeChalk}`
+  const sourceThemeChalk = `@nocturne-ui/${themeChalk}`
   const bundleThemeChalk = `nocturne-ui/${themeChalk}`
 
   return {

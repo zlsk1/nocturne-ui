@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { inject, onBeforeUnmount, watch } from 'vue'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { popperArrowProps } from './arrow'
 import { POPPER_CONTENT_INJECTION_KEY } from './constants'
 

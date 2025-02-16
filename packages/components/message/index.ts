@@ -1,4 +1,4 @@
-import { withInstallFunction } from '@/utils'
+import { withInstallFunction } from '@nocturne-ui/utils'
 import message from './src/method'
 
 export * from './src/message'

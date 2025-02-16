@@ -1,2 +1,2 @@
-import '@/theme-chalk/src/base.css'
-import '@/theme-chalk/src/timeline-item.scss'
+import '@nocturne-ui/theme-chalk/src/base.css'
+import '@nocturne-ui/theme-chalk/src/timeline-item.scss'

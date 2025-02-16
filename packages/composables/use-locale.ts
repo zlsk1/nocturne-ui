@@ -1,8 +1,8 @@
 import { computed, inject, ref, unref } from 'vue'
 import { get } from 'lodash'
-import zhCn from '@/locale/lang/zh-cn'
+import zhCn from '@nocturne-ui/locale/lang/zh-cn'
 import type { ComputedRef, InjectionKey, MaybeRef, Ref } from 'vue'
-import type { Locale } from '@/locale'
+import type { Locale } from '@nocturne-ui/locale'
 
 export type TranslatorOption = Record<string, string | number>
 export type Translator = (path: string, option?: TranslatorOption) => string

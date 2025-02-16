@@ -34,8 +34,8 @@
 import { computed, isVNode, onMounted, ref, toRef } from 'vue'
 import { RiCloseLine as Close } from '@remixicon/vue'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
-import { useNamespace, useZIndex } from '@/composables'
-import { typeIcons } from '@/utils'
+import { useNamespace, useZIndex } from '@nocturne-ui/composables'
+import { typeIcons } from '@nocturne-ui/utils'
 import { notificationEmit, notificationProps } from './props'
 import type { CSSProperties } from 'vue'
 

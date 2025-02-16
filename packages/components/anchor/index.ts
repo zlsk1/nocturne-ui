@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import anchor from './src/anchor.vue'
 import anchorItem from './src/anchor-item.vue'
 

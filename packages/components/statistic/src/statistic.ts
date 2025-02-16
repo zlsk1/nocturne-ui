@@ -1,4 +1,4 @@
-import { definePropType, iconPropType } from '@/utils'
+import { definePropType, iconPropType } from '@nocturne-ui/utils'
 import statistic from './statistic.vue'
 import type { ExtractPropTypes, StyleValue } from 'vue'
 import type { Dayjs } from 'dayjs'

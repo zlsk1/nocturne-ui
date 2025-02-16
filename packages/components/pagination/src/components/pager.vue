@@ -50,7 +50,7 @@ import {
   RiArrowRightDoubleFill as ArrowRightDouble,
   RiMoreFill as More
 } from '@remixicon/vue'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { pagerProps } from './pager'
 

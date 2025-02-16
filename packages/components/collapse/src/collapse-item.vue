@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
 import { RiArrowRightWideLine as ArrowRight } from '@remixicon/vue'
-import { COLLAPSE_INJECTION_KEY } from '@/components/collapse/src/constants'
-import { useNamespace } from '@/composables'
+import { COLLAPSE_INJECTION_KEY } from '@nocturne-ui/components/collapse/src/constants'
+import { useNamespace } from '@nocturne-ui/composables'
 import NCollapseTransition from './collapse-transition.vue'
 import { collapseItemProps } from './collapse-item'
 

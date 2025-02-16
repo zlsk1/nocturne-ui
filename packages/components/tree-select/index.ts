@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import treeSelect from './src/tree-select.vue'
 
 export * from './src/tree-select'

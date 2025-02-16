@@ -48,9 +48,9 @@
 <script lang="ts" setup>
 import { computed, inject, onBeforeUnmount, ref, unref, watch } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import NPopperContent from '@/components/popper/src/content.vue'
-import { composeEventHandlers } from '@/utils/dom'
-import { useNamespace } from '@/composables'
+import NPopperContent from '@nocturne-ui/components/popper/src/content.vue'
+import { composeEventHandlers } from '@nocturne-ui/utils/dom'
+import { useNamespace } from '@nocturne-ui/composables'
 import { TOOLTIP_INJECTION_KEY } from './constants'
 import { useTooltipContentProps } from './content'
 

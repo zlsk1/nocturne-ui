@@ -9,7 +9,7 @@ import {
   expect,
   it
 } from 'vitest'
-import { TOOLTIP_INJECTION_KEY } from '@/components/tooltip'
+import { TOOLTIP_INJECTION_KEY } from '@nocturne-ui/components/tooltip'
 import { genTooltipProvides } from '../test-helper/provides'
 import NTooltipContent from '../src/content.vue'
 

@@ -25,12 +25,12 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import NButton from '@/components/button'
-import NPopover from '@/components/popover'
-import NIcon from '@/components/icon'
-import { useNamespace } from '@/composables'
+import NButton from '@nocturne-ui/components/button'
+import NPopover from '@nocturne-ui/components/popover'
+import NIcon from '@nocturne-ui/components/icon'
+import { useNamespace } from '@nocturne-ui/composables'
 import { popconfirmEmit, popconfirmProps } from './popconfirm'
-import type { PopoverInstance } from '@/components'
+import type { PopoverInstance } from '@nocturne-ui/components'
 
 defineOptions({
   name: 'NPopconfirm'

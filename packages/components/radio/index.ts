@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import radio from './src/radio.vue'
 import radioButton from './src/radio-button.vue'
 import radioGroup from './src/radio-group.vue'

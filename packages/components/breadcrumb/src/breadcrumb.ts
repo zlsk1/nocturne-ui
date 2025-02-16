@@ -1,6 +1,6 @@
 import { defineComponent, h, provide, toRef } from 'vue'
-import { iconPropType, isString } from '@/utils'
-import { useNamespace } from '@/composables'
+import { iconPropType, isString } from '@nocturne-ui/utils'
+import { useNamespace } from '@nocturne-ui/composables'
 import { NBREADCRUMBINJECTIONKEY } from './constants'
 import type { ExtractPropTypes } from 'vue'
 

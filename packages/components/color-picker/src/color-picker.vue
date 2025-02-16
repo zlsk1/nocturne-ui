@@ -107,11 +107,15 @@ import {
   watch
 } from 'vue'
 import { onClickOutside, useDebounceFn } from '@vueuse/core'
-import { useFocusController, useLocale, useNamespace } from '@/composables'
-import NButton from '@/components/button'
-import NInput from '@/components/input'
-import NTooltip from '@/components/tooltip'
-import { useFormItem } from '@/components/form'
+import {
+  useFocusController,
+  useLocale,
+  useNamespace
+} from '@nocturne-ui/composables'
+import NButton from '@nocturne-ui/components/button'
+import NInput from '@nocturne-ui/components/input'
+import NTooltip from '@nocturne-ui/components/tooltip'
+import { useFormItem } from '@nocturne-ui/components/form'
 import AlphaBar from './alpha-bar.vue'
 import HueBar from './hue-bar.vue'
 import Predefine from './predefine.vue'
@@ -122,7 +126,7 @@ import {
   colorPickerEmits,
   colorPickerProps
 } from './color-picker'
-import type { TooltipInstance } from '@/components/tooltip'
+import type { TooltipInstance } from '@nocturne-ui/components/tooltip'
 
 defineOptions({
   name: 'NColorPicker'

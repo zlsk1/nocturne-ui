@@ -7,6 +7,7 @@ import { Project } from 'ts-morph'
 import {
   distRoot,
   excludeFiles,
+  nuRoot,
   pathRewriter,
   pkgRoot,
   projRoot
@@ -73,9 +74,15 @@ async function addSourceFiles(project: Project) {
 
   const globSourceFile = '**/*.{js?(x),ts?(x),vue}'
   const filePaths = excludeFiles(
-    await glob(globSourceFile, {
+    await glob([globSourceFile, '!nocturne-ui/**/*'], {
       cwd: pkgRoot,
       absolute: true,
+      onlyFiles: true
+    })
+  )
+  const nuPaths = excludeFiles(
+    await glob(globSourceFile, {
+      cwd: path.resolve(pkgRoot, 'nocturne-ui'),
       onlyFiles: true
     })
   )
@@ -111,6 +118,12 @@ async function addSourceFiles(project: Project) {
         const sourceFile = project.addSourceFileAtPath(file)
         sourceFiles.push(sourceFile)
       }
+    }),
+    ...nuPaths.map(async (file) => {
+      const content = await readFile(path.resolve(nuRoot, file), 'utf-8')
+      sourceFiles.push(
+        project.createSourceFile(path.resolve(pkgRoot, file), content)
+      )
     })
   ])
 

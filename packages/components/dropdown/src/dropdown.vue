@@ -25,8 +25,8 @@
 
 <script lang="ts" setup>
 import { provide, ref, watch } from 'vue'
-import NTooltip from '@/components/tooltip'
-import { useNamespace } from '@/composables'
+import NTooltip from '@nocturne-ui/components/tooltip'
+import { useNamespace } from '@nocturne-ui/composables'
 import { dropdownEmit, dropdownProps } from './dropdown'
 import { NDROPDOWN_INJECTION_KEY } from './constants'
 

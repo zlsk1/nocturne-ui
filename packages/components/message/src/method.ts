@@ -1,5 +1,11 @@
 import { createVNode, isVNode, render } from 'vue'
-import { isClient, isElement, isFunction, isNumber, isString } from '@/utils'
+import {
+  isClient,
+  isElement,
+  isFunction,
+  isNumber,
+  isString
+} from '@nocturne-ui/utils'
 import { instances } from './instance'
 import MessageConstructor from './message.vue'
 import { messageDefaults, messageTypes } from './message'

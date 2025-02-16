@@ -1,5 +1,5 @@
-import { definePropType, isBoolean } from '@/utils'
-import { iconProps } from '@/components/icon'
+import { definePropType, isBoolean } from '@nocturne-ui/utils'
+import { iconProps } from '@nocturne-ui/components/icon'
 import dialog from './dialog.vue'
 import type { ExtractPropTypes, VNode } from 'vue'
 

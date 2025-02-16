@@ -1,4 +1,4 @@
-import { definePropType } from '@/utils'
+import { definePropType } from '@nocturne-ui/utils'
 
 export type TreeItem = {
   label: string

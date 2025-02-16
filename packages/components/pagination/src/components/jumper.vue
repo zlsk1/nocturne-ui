@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { inject, ref } from 'vue'
-import { NInputNumber } from '@/components'
-import { useNamespace } from '@/composables'
+import { NInputNumber } from '@nocturne-ui/components'
+import { useNamespace } from '@nocturne-ui/composables'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { jumperProps } from './jumper'
 

@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import tabs from './src/tabs'
 import tabPane from './src/tab-pane-list/tab-pane.vue'
 

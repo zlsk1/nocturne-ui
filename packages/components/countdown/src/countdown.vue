@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onBeforeUnmount, ref, watch } from 'vue'
-import { cAF, rAF } from '@/utils/raf'
-import NStatistic from '@/components/statistic'
+import { cAF, rAF } from '@nocturne-ui/utils/raf'
+import NStatistic from '@nocturne-ui/components/statistic'
 import { formatTime, getTime } from './utils'
 import { countdownEmits, countdownProps } from './countdown'
 

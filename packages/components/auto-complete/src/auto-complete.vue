@@ -66,13 +66,13 @@
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import { useNamespace } from '@/composables'
-import NInput from '@/components/input'
-import NTooltip from '@/components/tooltip'
-import { isFunction, isNumber, isUndefined } from '@/utils'
-import { useForm, useFormItem } from '@/components/form'
+import { useNamespace } from '@nocturne-ui/composables'
+import NInput from '@nocturne-ui/components/input'
+import NTooltip from '@nocturne-ui/components/tooltip'
+import { isFunction, isNumber, isUndefined } from '@nocturne-ui/utils'
+import { useForm, useFormItem } from '@nocturne-ui/components/form'
 import { autoCompleteEmits, autoCompleteProps } from './auto-complete'
-import type { InputInstance } from '@/components/input'
+import type { InputInstance } from '@nocturne-ui/components/input'
 
 defineOptions({
   name: 'NAutoComplete'

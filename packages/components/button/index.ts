@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import button from './src/button.vue'
 import buttonGroup from './src/button-group.vue'
 

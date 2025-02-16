@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import colorPicker from './src/color-picker.vue'
 
 export const NColorPicker = withInstall(colorPicker)

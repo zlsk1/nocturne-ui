@@ -1,4 +1,4 @@
-import { definePropType, isNumber } from '@/utils'
+import { definePropType, isNumber } from '@nocturne-ui/utils'
 import Countdown from './countdown.vue'
 import type { ExtractPropTypes, StyleValue } from 'vue'
 import type { Dayjs } from 'dayjs'

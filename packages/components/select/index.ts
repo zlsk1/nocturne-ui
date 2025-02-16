@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import select from './src/select.vue'
 import option from './src/option.vue'
 import optionGroup from './src/option-group'

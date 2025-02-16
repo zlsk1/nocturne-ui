@@ -1,9 +1,9 @@
-import { definePropType, isNumber } from '@/utils'
-import { componentSizes } from '@/constants'
+import { definePropType, isNumber } from '@nocturne-ui/utils'
+import { componentSizes } from '@nocturne-ui/constants'
 import slider from './slider.vue'
 import { sliderTriggerProps } from './trigger'
 import type { ExtractPropTypes } from 'vue'
-import type { ComponentSize } from '@/constants'
+import type { ComponentSize } from '@nocturne-ui/constants'
 
 export const sliderProps = {
   ...sliderTriggerProps,

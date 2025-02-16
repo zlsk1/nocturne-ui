@@ -1,5 +1,5 @@
-import { useTooltipProps } from '@/components/tooltip'
-import { definePropType, isBoolean } from '@/utils'
+import { useTooltipProps } from '@nocturne-ui/components/tooltip'
+import { definePropType, isBoolean } from '@nocturne-ui/utils'
 import popover from './popover.vue'
 import type { ExtractPropTypes, PropType } from 'vue'
 

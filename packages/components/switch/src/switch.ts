@@ -1,5 +1,10 @@
-import { definePropType, isBoolean, isNumber, isString } from '@/utils'
-import { componentSizes } from '@/constants'
+import {
+  definePropType,
+  isBoolean,
+  isNumber,
+  isString
+} from '@nocturne-ui/utils'
+import { componentSizes } from '@nocturne-ui/constants'
 import Switch from './switch.vue'
 import type { ExtractPropTypes } from 'vue'
 

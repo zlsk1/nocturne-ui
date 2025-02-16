@@ -4,8 +4,7 @@
   "private": true,
   "packageManager": "pnpm@8.15.4",
   "workspace": [
-    "packages",
-    "packages/theme-chalk",
+    "packages/*",
     "playground",
     "build",
     "docs",
@@ -29,13 +28,19 @@
     "docs:preview": "pnpm -C docs preview"
   },
   "dependencies": {
+    "@nocturne-ui/components": "workspace:*",
+    "@nocturne-ui/constants": "workspace:*",
+    "@nocturne-ui/composables": "workspace:*",
+    "@nocturne-ui/locale": "workspace:*",
+    "@nocturne-ui/test-utils": "workspace:*",
+    "@nocturne-ui/theme-chalk": "workspace:*",
+    "@nocturne-ui/utils": "workspace:*",
     "@popperjs/core": "^2.11.8",
     "@remixicon/vue": "^4.2.0",
     "@vueuse/core": "^9.13.0",
     "async-validator": "^4.2.5",
     "dayjs": "^1.11.11",
     "lodash": "^4.17.21",
-    "nocturne-ui": "workspace:*",
     "vue": "^3.4.15"
   },
   "devDependencies": {
@@ -43,6 +48,7 @@
     "@commitlint/config-conventional": "^19.0.3",
     "@esbuild-kit/cjs-loader": "2.2.1",
     "@eslint/js": "9.10.0",
+    "@nocturne-ui/build": "workspace:*",
     "@types/gulp": "4.0.9",
     "@types/lodash": "^4.17.7",
     "@types/node": "^20.13.0",

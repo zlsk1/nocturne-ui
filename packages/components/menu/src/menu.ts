@@ -1,9 +1,9 @@
-import { definePropType, isString } from '@/utils'
+import { definePropType, isString } from '@nocturne-ui/utils'
 import Menu from './menu.vue'
 
 import type { ExtractPropTypes, StyleValue } from 'vue'
-import type { TooltipTriggerType } from '@/components/tooltip'
-import type { ClassType } from '@/components/popper'
+import type { TooltipTriggerType } from '@nocturne-ui/components/tooltip'
+import type { ClassType } from '@nocturne-ui/components/popper'
 
 export const menuProps = {
   direction: {

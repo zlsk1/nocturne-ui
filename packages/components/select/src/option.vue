@@ -21,8 +21,8 @@
 <script lang="ts" setup>
 import { computed, getCurrentInstance, inject } from 'vue'
 import { RiCheckFill as Check } from '@remixicon/vue'
-import { isBoolean, isFunction, isObject } from '@/utils'
-import { useNamespace } from '@/composables'
+import { isBoolean, isFunction, isObject } from '@nocturne-ui/utils'
+import { useNamespace } from '@nocturne-ui/composables'
 import { optionEmits, optionProps } from './option'
 import { SELECT_INJECTION_KEY } from './constants'
 import type { OptionProxy } from './constants'

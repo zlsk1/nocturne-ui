@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { RiAddLine as Add, RiSubtractLine as Subtract } from '@remixicon/vue'
-import NInput from '@/components/input'
-import { useNamespace } from '@/composables'
-import { useFormItem } from '@/components/form'
+import NInput from '@nocturne-ui/components/input'
+import { useNamespace } from '@nocturne-ui/composables'
+import { useFormItem } from '@nocturne-ui/components/form'
 import { inputNumberEmits, inputNumberProps } from './input-number'
-import type { InputInstance } from '@/components/input/src/input'
+import type { InputInstance } from '@nocturne-ui/components/input/src/input'
 
 defineOptions({
   name: 'NInputNumber'

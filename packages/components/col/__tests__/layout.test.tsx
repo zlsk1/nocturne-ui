@@ -1,7 +1,7 @@
 import { nextTick, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import Row from '@/components/row'
+import Row from '@nocturne-ui/components/row'
 import Col from '../src/col.vue'
 
 describe('Col', () => {

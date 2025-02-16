@@ -1,6 +1,6 @@
 import { defineComponent, h, inject } from 'vue'
-import { isString, isUndefined } from '@/utils'
-import { useNamespace } from '@/composables'
+import { isString, isUndefined } from '@nocturne-ui/utils'
+import { useNamespace } from '@nocturne-ui/composables'
 import { NBREADCRUMBINJECTIONKEY } from './constants'
 import type { ExtractPropTypes } from 'vue'
 

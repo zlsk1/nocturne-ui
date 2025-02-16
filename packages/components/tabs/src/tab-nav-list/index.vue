@@ -1,7 +1,7 @@
 <script lang="ts">
 import { computed, defineComponent, h, inject, provide, ref, watch } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { TAB_INJECT_KEY, TAB_NAV_INJECT_KEY } from '../constants'
 import { tabsEmits } from '../props'
 import TabNode from './tab-node.vue'

@@ -43,11 +43,11 @@ import {
 } from 'vue'
 import Schema from 'async-validator'
 import { castArray, clone } from 'lodash'
-import { useId, useNamespace } from '@/composables'
-import { getProp, isArray, isString, isUndefined } from '@/utils'
+import { useId, useNamespace } from '@nocturne-ui/composables'
+import { getProp, isArray, isString, isUndefined } from '@nocturne-ui/utils'
 import { FORMITEM_INJECTION_KEY, FORM_INJECTION_KEY } from './constants'
 import { formItemProps } from './form-item'
-import type { Arrayable } from '@/utils'
+import type { Arrayable } from '@nocturne-ui/utils'
 import type { RuleItem } from 'async-validator'
 import type {
   FormItemRule,

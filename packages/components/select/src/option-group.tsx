@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 
 export default defineComponent({
   name: 'NOptionGroup',

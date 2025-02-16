@@ -5,9 +5,9 @@ import {
   isNumber,
   isObject,
   isString
-} from '@/utils'
-import { componentSizes } from '@/constants'
-import { popperContentProps } from '@/components/popper'
+} from '@nocturne-ui/utils'
+import { componentSizes } from '@nocturne-ui/constants'
+import { popperContentProps } from '@nocturne-ui/components/popper'
 import select from './select.vue'
 import type { ExtractPropTypes } from 'vue'
 import type { Options } from '@popperjs/core'

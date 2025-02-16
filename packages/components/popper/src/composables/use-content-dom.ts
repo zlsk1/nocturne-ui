@@ -1,9 +1,9 @@
 import { computed, ref, unref } from 'vue'
-import { useNamespace, useZIndex } from '@/composables'
+import { useNamespace, useZIndex } from '@nocturne-ui/composables'
 
-import { isNumber } from '@/utils'
+import { isNumber } from '@nocturne-ui/utils'
 import type { CSSProperties, StyleValue } from 'vue'
-import type { UsePopperReturn } from '@/composables'
+import type { UsePopperReturn } from '@nocturne-ui/composables'
 import type { UsePopperContentReturn } from './use-content'
 import type { PopperContentProps } from '../content'
 

@@ -1,6 +1,6 @@
 import { ExtractPropTypes } from 'vue'
-import { componentSizes } from '@/constants'
-import { isNumber } from '@/utils'
+import { componentSizes } from '@nocturne-ui/constants'
+import { isNumber } from '@nocturne-ui/utils'
 import inputNumber from './input-number.vue'
 
 export const inputNumberProps = {

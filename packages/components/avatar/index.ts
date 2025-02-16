@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import avatar from './src/avatar.vue'
 
 export const NAvatar = withInstall(avatar)

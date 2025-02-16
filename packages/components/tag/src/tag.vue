@@ -37,7 +37,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { RiCloseLine as Close } from '@remixicon/vue'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { tagEmits, tagProps } from './tag'
 
 defineOptions({

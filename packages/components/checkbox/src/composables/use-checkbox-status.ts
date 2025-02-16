@@ -1,7 +1,13 @@
 import { computed, inject, ref, toRaw } from 'vue'
 import { isEqual } from 'lodash'
-import { useFormItem } from '@/components/form'
-import { isArray, isBoolean, isNil, isObject, isPropAbsent } from '@/utils'
+import { useFormItem } from '@nocturne-ui/components/form'
+import {
+  isArray,
+  isBoolean,
+  isNil,
+  isObject,
+  isPropAbsent
+} from '@nocturne-ui/utils'
 import { checkboxGroupContextKey } from '../constants'
 
 import type { ComponentInternalInstance } from 'vue'

@@ -1,10 +1,10 @@
 import { computed, inject, onMounted, ref, unref, watch } from 'vue'
-import { usePopper } from '@/composables'
+import { usePopper } from '@nocturne-ui/composables'
 import { buildPopperOptions, unwrapMeasurableEl } from '../utils'
 import { POPPER_INJECTION_KEY } from '../constants'
 
 import type { Modifier } from '@popperjs/core'
-import type { PartialOptions } from '@/composables'
+import type { PartialOptions } from '@nocturne-ui/composables'
 import type { PopperContentProps } from '../content'
 
 const DEFAULT_ARROW_OFFSET = 0

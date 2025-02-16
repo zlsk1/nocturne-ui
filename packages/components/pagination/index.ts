@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import pagination from './src/pagination'
 
 export * from './src/pagination'

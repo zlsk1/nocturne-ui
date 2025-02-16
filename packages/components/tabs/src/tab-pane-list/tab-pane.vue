@@ -1,6 +1,6 @@
 <script lang="ts">
 import { computed, defineComponent, h } from 'vue'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { tabPaneProps } from '../props.pane'
 
 export default defineComponent({

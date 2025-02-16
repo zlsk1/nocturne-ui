@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, useSlots } from 'vue'
-import { useNamespace } from '@/composables'
-import NIcon from '@/components/icon'
+import { useNamespace } from '@nocturne-ui/composables'
+import NIcon from '@nocturne-ui/components/icon'
 import { buttonEmits, buttonProps } from './button'
 
 defineOptions({

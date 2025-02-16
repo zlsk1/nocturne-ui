@@ -18,8 +18,8 @@
 
 <script lang="ts" setup>
 import { inject, ref } from 'vue'
-import { NOption, NSelect } from '@/components'
-import { useNamespace } from '@/composables'
+import { NOption, NSelect } from '@nocturne-ui/components'
+import { useNamespace } from '@nocturne-ui/composables'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { sizeProps } from './size'
 

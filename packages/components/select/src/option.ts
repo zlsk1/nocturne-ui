@@ -4,7 +4,7 @@ import {
   isNumber,
   isObject,
   isString
-} from '@/utils'
+} from '@nocturne-ui/utils'
 import option from './option.vue'
 import type { ExtractPropTypes } from 'vue'
 

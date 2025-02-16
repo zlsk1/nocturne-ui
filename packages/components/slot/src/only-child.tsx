@@ -11,7 +11,7 @@ import { NOOP, isObject } from '@vue/shared'
 import {
   FORWARD_REF_INJECTION_KEY,
   useForwardRefDirective
-} from '@/composables'
+} from '@nocturne-ui/composables'
 import type { Ref, VNode } from 'vue'
 
 const NAME = 'NOnlyChild'

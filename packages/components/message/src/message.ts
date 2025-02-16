@@ -1,7 +1,7 @@
 import { isClient } from '@vueuse/core'
-import { definePropType, mutable } from '@/utils'
+import { definePropType, mutable } from '@nocturne-ui/utils'
 import type { AppContext, ExtractPropTypes, VNode } from 'vue'
-import type { Mutable } from '@/utils'
+import type { Mutable } from '@nocturne-ui/utils'
 import type MessageConstructor from './message.vue'
 
 export const messageTypes = ['success', 'info', 'warning', 'error'] as const

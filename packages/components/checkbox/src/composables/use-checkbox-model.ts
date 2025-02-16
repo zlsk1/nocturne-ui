@@ -1,5 +1,5 @@
 import { computed, getCurrentInstance, inject, ref } from 'vue'
-import { isArray, isUndefined } from '@/utils'
+import { isArray, isUndefined } from '@nocturne-ui/utils'
 import { checkboxGroupContextKey } from '../constants'
 
 import type { CheckboxProps } from '../checkbox'

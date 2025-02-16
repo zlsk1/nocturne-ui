@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { isFunction, isNumber } from '@/utils'
-import { useNamespace } from '@/composables'
+import { isFunction, isNumber } from '@nocturne-ui/utils'
+import { useNamespace } from '@nocturne-ui/composables'
 import { statisticProps } from './statistic'
 
 defineOptions({

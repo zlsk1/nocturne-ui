@@ -1,0 +1,9 @@
+{
+  "name": "@nocturne-ui/locale",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "Nocturne UI - Locale",
+  "main": "index.ts",
+  "module": "index.ts",
+  "types": "index.d.ts"
+}

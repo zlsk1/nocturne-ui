@@ -58,7 +58,7 @@
 
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { progressProps } from './progress'
 import type { CSSProperties } from 'vue'
 

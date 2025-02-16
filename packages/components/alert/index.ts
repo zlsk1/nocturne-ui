@@ -1,4 +1,4 @@
-import { withInstall } from '@/utils'
+import { withInstall } from '@nocturne-ui/utils'
 import alert from './src/alert.vue'
 
 export const NAlert = withInstall(alert)

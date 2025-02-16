@@ -1,6 +1,6 @@
 import { unref } from 'vue'
 
-import { isArray } from '@/utils'
+import { isArray } from '@nocturne-ui/utils'
 import type { Ref } from 'vue'
 import type { TooltipTriggerType } from './reference'
 

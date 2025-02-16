@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import { computed, provide, reactive, ref, toRefs } from 'vue'
 import { castArray } from 'lodash'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { formEmit, formProps } from './form'
 import { FORM_INJECTION_KEY } from './constants'
 

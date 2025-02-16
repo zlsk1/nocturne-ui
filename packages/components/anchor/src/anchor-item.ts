@@ -1,4 +1,4 @@
-import { definePropType } from '@/utils'
+import { definePropType } from '@nocturne-ui/utils'
 import anchorItem from './anchor.vue'
 
 import type { ExtractPropTypes } from 'vue'

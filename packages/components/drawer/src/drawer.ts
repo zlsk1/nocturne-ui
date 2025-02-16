@@ -1,4 +1,4 @@
-import { definePropType, isBoolean } from '@/utils'
+import { definePropType, isBoolean } from '@nocturne-ui/utils'
 import drawer from './drawer.vue'
 import type { ExtractPropTypes } from 'vue'
 

@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, provide, ref, unref, watch } from 'vue'
-import { isElement, isNil } from '@/utils'
+import { isElement, isNil } from '@nocturne-ui/utils'
 import {
   usePopperContent,
   usePopperContentDOM,

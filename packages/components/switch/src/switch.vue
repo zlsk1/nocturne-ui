@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue'
 import { RiLoader2Fill as Loader } from '@remixicon/vue'
-import { isBoolean, isNil, isPromise, isString } from '@/utils'
-import { useForm, useFormItem } from '@/components/form'
-import { useNamespace } from '@/composables'
+import { isBoolean, isNil, isPromise, isString } from '@nocturne-ui/utils'
+import { useForm, useFormItem } from '@nocturne-ui/components/form'
+import { useNamespace } from '@nocturne-ui/composables'
 import { switchEmits, switchProps } from './switch'
 
 defineOptions({

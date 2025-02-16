@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { nextTick, provide, reactive, toRefs } from 'vue'
-import { useFormItem } from '@/components/form'
-import { useNamespace } from '@/composables'
+import { useFormItem } from '@nocturne-ui/components/form'
+import { useNamespace } from '@nocturne-ui/composables'
 import { radioGroupEmits, radioGroupProps } from './radio-group'
 import { RADIOGROUP_INJECTION_KEY } from './constants'
 

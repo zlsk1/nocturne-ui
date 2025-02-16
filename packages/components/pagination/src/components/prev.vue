@@ -9,8 +9,8 @@
 
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
-import { NIcon } from '@/components'
-import { useNamespace } from '@/composables'
+import { NIcon } from '@nocturne-ui/components'
+import { useNamespace } from '@nocturne-ui/composables'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { prevProps } from './prev'
 

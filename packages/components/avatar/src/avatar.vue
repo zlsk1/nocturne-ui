@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue'
-import { useNamespace } from '@/composables'
-import NIcon from '@/components/icon'
+import { useNamespace } from '@nocturne-ui/composables'
+import NIcon from '@nocturne-ui/components/icon'
 import { avatarEmits, avatarProps } from './avatar'
 
 defineOptions({

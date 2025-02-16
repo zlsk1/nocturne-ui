@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { computed, inject, onMounted, ref, watch } from 'vue'
-import { useNamespace } from '@/composables'
+import { useNamespace } from '@nocturne-ui/composables'
 import { CAROUSEL_INJECT_KEY } from './constants'
 import { useCarouselItem } from './use-carousel-item'
 

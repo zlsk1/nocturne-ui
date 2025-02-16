@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import TooltipTrigger from '@/components/tooltip/src/reference.vue'
+import TooltipTrigger from '@nocturne-ui/components/tooltip/src/reference.vue'
 import AutoComplete from '../src/auto-complete.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 

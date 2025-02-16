@@ -1,0 +1,9 @@
+{
+  "name": "@nocturne-ui/constants",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "description": "Nocturne UI constants",
+  "main": "index.ts",
+  "module": "index.ts"
+}
