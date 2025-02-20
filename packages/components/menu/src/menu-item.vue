@@ -1,27 +1,88 @@
 <template>
-  <li :class="menuItemCls" @click="handleClick">
-    <slot />
+  <li
+    :class="menuItemCls"
+    :aria-disabled="disabled"
+    role="menuitem"
+    tabindex="-1"
+    @click="handleClick"
+  >
+    <n-tooltip
+      placement="right"
+      :offset="rootMenu.popperOffset"
+      :disabled="disabled || !shouldShowTooltip"
+      :popper-class="`${ns.ns.value}-sub-menu--popper`"
+    >
+      <template #content>
+        <div
+          :class="ns.m('title')"
+          :style="{
+            paddingLeft: `${subMenu?.level * 24}px`
+          }"
+        >
+          <slot name="title" />
+          <span
+            v-if="!shouldShowTooltip && $slots.icon"
+            ref="iconRef"
+            :class="ns.m('title-icon')"
+          >
+            <slot name="icon" />
+          </span>
+        </div>
+      </template>
+      <div
+        :class="ns.m('title')"
+        :style="{
+          paddingLeft:
+            !inTooltip && subMenu?.level ? `${subMenu?.level * 24}px` : '',
+          padding:
+            rootMenu.collapse && !inTooltip
+              ? `0 calc((72px - ${iconWidth}px) / 2)`
+              : ''
+        }"
+      >
+        <span v-if="$slots.icon" ref="iconRef" :class="ns.m('title-icon')">
+          <slot name="icon" />
+        </span>
+        <span v-if="$slots.title" :class="ns.m('title-label')">
+          <slot name="title" />
+        </span>
+      </div>
+    </n-tooltip>
   </li>
 </template>
 
 <script lang="ts" setup>
-import { computed, getCurrentInstance, inject, onMounted, ref } from 'vue'
+import {
+  computed,
+  getCurrentInstance,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  reactive,
+  ref,
+  watch
+} from 'vue'
 import { useNamespace } from '@nocturne-ui/composables'
-import { menuItemProps } from './menu'
+import NTooltip from '@nocturne-ui/components/tooltip'
+import { menuItemEmit, menuItemProps } from './props'
 import { NMENU_INJECTION_KEY } from './constants'
 import useMenu from './compoables/use-menu'
-import type { NSubMenuInjectionContext } from './constants'
+import type { NSubMenuInjectionContext } from './types'
 
 defineOptions({
   name: 'NMenuItem'
 })
 
 const props = defineProps(menuItemProps)
+const emit = defineEmits(menuItemEmit)
 
 const instance = getCurrentInstance()!
-const { parentMenu } = useMenu(instance)
+const { parentMenu, indexPath } = useMenu(
+  instance,
+  computed(() => props.index)
+)
 
-const ns = useNamespace('menu')
+const ns = useNamespace('menu-item')
 
 const rootMenu = inject(NMENU_INJECTION_KEY, undefined)!
 if (!rootMenu) {
@@ -34,27 +95,56 @@ if (!subMenu) {
   throw new Error('n-sub-menu, can not inject the sub-menu')
 }
 
-const active = computed(() => props.index === rootMenu.activeIndex.value)
-const collapse = computed(() => rootMenu.collapse.value)
-const menuItemCls = computed(() => [
-  ns.e('item'),
-  ns.is('active', active.value),
-  ns.is('collapse', collapse.value),
-  `level-${subMenu?.level}`
-])
+const iconRef = ref<HTMLSpanElement>()
+const iconWidth = ref(18)
 
-const data = ref({
+const selected = computed(() => props.index === rootMenu.selectedIndex)
+const menuItemCls = computed(() => [
+  ns.b(),
+  ns.is('selected', selected.value && !props.disabled),
+  ns.is('disabled', props.disabled)
+])
+const inTooltip = computed(() => {
+  if (rootMenu.direction === 'horizontal') return true
+
+  return (
+    parentMenu.value.type.name === 'NSubMenu' &&
+    rootMenu.direction === 'vertical' &&
+    rootMenu.collapse
+  )
+})
+const shouldShowTooltip = computed(
+  () => rootMenu.collapse && subMenu.level === 0
+)
+const state = reactive({
   index: props.index,
-  path: rootMenu.path?.value,
-  active
+  selected,
+  indexPath,
+  level: subMenu.level
 })
 
 const handleClick = () => {
-  rootMenu.handleMenuItemClick(data.value)
+  if (props.disabled) return
+  rootMenu.handleMenuItemClick(state)
+  emit('click', props.index, indexPath.value)
 }
 
+watch(
+  () => rootMenu.collapse,
+  () => {
+    if (iconRef.value) {
+      iconWidth.value = iconRef.value.getBoundingClientRect().width
+    }
+  }
+)
+
 onMounted(() => {
-  rootMenu.addSubMenu(data.value)
-  subMenu.addSubMenu(data.value)
+  rootMenu.addSubMenu(state)
+  subMenu.addSubMenu(state)
+})
+
+onBeforeUnmount(() => {
+  rootMenu.removeSubMenu(state)
+  subMenu.addSubMenu(state)
 })
 </script>

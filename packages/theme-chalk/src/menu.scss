@@ -4,35 +4,253 @@
 @use 'mixins/mixins' as *;
 @use 'mixins/var' as *;
 
+$sub-selector: #{$namespace}-sub-menu;
+$item-selector: #{$namespace}-menu-item;
+$group-selector: #{$namespace}-menu-group;
+
 @include b(menu) {
+  @include set-component-css-var('menu', $menu);
+}
+@include b(menu-item) {
+  @include set-component-css-var('menu', $menu);
+}
+@include b(sub-menu) {
   @include set-component-css-var('menu', $menu);
 }
 
 @include b(menu) {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding-left: 0;
+  font-size: 16px;
+  color: getCssVar('menu', 'text-color');
   user-select: none;
+  box-sizing: border-box;
+  transition:
+    width getCssVar('transition-duration'),
+    height getCssVar('transition-duration');
 
-  @include m(horizonal) {
-    display: flex;
+  @include when(horizontal) {
+    .#{$item-selector},
+    .#{$sub-selector}--container {
+      margin: 0;
+    }
+    .#{$sub-selector}--title,
+    .#{$item-selector} {
+      &:hover {
+        color: getCssVar('menu', 'selected-color') !important;
+        background: inherit;
+      }
+      @include when(selected) {
+        color: getCssVar('menu', 'selected-color') !important;
+        background: inherit;
+      }
+    }
+    .#{$sub-selector}--container.is-disabled {
+      > .#{$sub-selector}--title {
+        &:hover {
+          color: getCssVar('text-color-disabled') !important;
+          background: inherit;
+        }
+        @include when(selected) {
+          color: getCssVar('text-color-disabled');
+          background: inherit;
+        }
+      }
+    }
+    .#{$item-selector}.is-disabled {
+      &:hover {
+        color: getCssVar('text-color-disabled') !important;
+        background: inherit;
+      }
+      @include when(selected) {
+        color: getCssVar('text-color-disabled');
+        background: inherit;
+      }
+    }
   }
 
-  @include m(vertical) {
+  @include when(vertical) {
+    display: block;
+    padding: 4px;
+    border-right: 1px solid getCssVar('border-color-light');
+
+    .#{$sub-selector}--container {
+      border-radius: getCssVar('border-radius-base');
+      @include when(selected) {
+        background: getCssVar('menu', 'selected-bg');
+      }
+    }
   }
 
-  @include e(item) {
+  @include when(collapse) {
+    @include when(vertical) {
+      width: 80px;
+      .#{$item-selector} {
+        display: block;
+        padding: 0;
+      }
+      .#{$item-selector}--title {
+        display: block;
+        width: 72px;
+        text-overflow: clip;
+        line-height: getCssVar('menu', 'title-height');
+        > svg,
+        > .n-icon {
+          vertical-align: middle;
+          margin-right: 0;
+        }
+      }
+      .#{$item-selector}--title-label {
+        opacity: 0;
+      }
+      .#{$sub-selector}--container {
+        width: 72px;
+      }
+      .#{$sub-selector}--title {
+        display: block;
+        text-overflow: clip;
+        line-height: getCssVar('menu', 'title-height');
+
+        > svg {
+          vertical-align: middle;
+        }
+      }
+      .#{$sub-selector}--title-label {
+        opacity: 0;
+      }
+      .#{$sub-selector}__arrow {
+        display: none;
+      }
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 0;
+  }
+
+  li {
+    list-style: none;
+  }
+}
+
+@include b(menu-item) {
+  box-sizing: border-box;
+  height: getCssVar('menu', 'title-height');
+  line-height: getCssVar('menu', 'title-height');
+  margin: getCssVar('menu', 'item-margin');
+  padding: getCssVar('menu', 'item-padding');
+  border-radius: getCssVar('border-radius-base');
+  transition: background, color, getCssVar('transition-duration');
+  cursor: pointer;
+
+  &:hover {
+    background: getCssVar('menu', 'hover-bg');
+  }
+
+  &:active {
+    background: getCssVar('menu', 'selected-bg');
+  }
+
+  @include m(title) {
+    position: relative;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
-    padding: getCssVar('menu', 'padding');
+    justify-content: start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @include m(title-label) {
+    margin-left: 6px;
+    opacity: 1;
+    transition: opacity getCssVar('transition-duration');
+  }
+
+  @include m(title-icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    transition:
+      margin,
+      padding getCssVar('transition-duration');
+  }
+
+  @include e(arrow) {
+    margin-left: 5px;
+    transition: transform getCssVar('transition-duration');
+  }
+
+  @include when(collapse) {
+    > span {
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
+    }
+  }
+
+  @include when(selected) {
+    color: getCssVar('menu', 'selected-color');
+    background: getCssVar('menu', 'selected-bg');
+  }
+
+  @include when(disabled) {
+    color: getCssVar('text-color-disabled');
+    background: none;
+    cursor: not-allowed;
+  }
+}
+
+@include b(sub-menu) {
+  @include m(container) {
+    box-sizing: border-box;
+    margin: getCssVar('menu', 'item-margin');
+    overflow: hidden;
+
+    @include when(disabled) {
+      .#{$sub-selector}--title {
+        color: getCssVar('text-color-disabled') !important;
+        background: none;
+        cursor: not-allowed;
+
+        &:hover {
+          color: getCssVar('text-color-disabled') !important;
+          background: none;
+        }
+      }
+    }
+  }
+
+  @include m(title) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: getCssVar('menu', 'title-height');
+    padding: getCssVar('menu', 'item-padding');
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     border-radius: getCssVar('border-radius-base');
-    transition: all getCssVar('transition-duration');
+    transition: background, color, getCssVar('transition-duration');
     cursor: pointer;
 
     &:hover {
-      background: getCssVar('border-color-darker');
+      color: getCssVar('menu', 'text-color') !important;
+      background: getCssVar('fill-color-dark');
     }
 
-    &__arrow {
-      margin-left: 5px;
-      transition: all getCssVar('transition-duration');
+    &:active {
+      color: getCssVar('menu', 'selected-color');
+      background: getCssVar('menu', 'selected-bg');
     }
 
     @include when(collapse) {
@@ -43,29 +261,79 @@
         opacity: 0;
       }
     }
-  }
 
-  .#{$namespace}-sub-menu--container {
-    border-radius: getCssVar('border-radius-base');
-    transition: all getCssVar('transition-duration');
-
-    @include e(hover) {
-      &:hover {
-        background: getCssVar('border-color-darker');
+    @include e(arrow) {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      > svg {
+        transition: transform getCssVar('transition-duration');
       }
     }
 
-    .#{$namespace}-sub-reference {
+    @include when(selected) {
+      color: getCssVar('menu', 'selected-color');
+    }
+  }
+
+  @include m(title-label) {
+    margin-left: 6px;
+    opacity: 1;
+    transition: opacity getCssVar('transition-duration');
+  }
+
+  @include m(title-icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+
+    &:only-child {
+      flex: 1;
+    }
+  }
+}
+
+.#{$namespace}-popper.#{$namespace}-sub-menu--popper {
+  font-size: 16px !important;
+  user-select: none;
+  @include set-component-css-var('menu', $menu);
+
+  ul,
+  li {
+    margin: 0;
+    padding-left: 0;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  .#{$item-selector} {
+    margin: getCssVar('menu', 'item-margin');
+    padding: getCssVar('menu', 'item-padding');
+    border-radius: getCssVar('border-radius-base');
+    transition: background, color, getCssVar('transition-duration');
+    cursor: pointer;
+  }
+
+  .#{$namespace}-sub-menu--container {
+    margin: getCssVar('menu', 'item-margin');
+    border-radius: getCssVar('border-radius-base');
+    transition: background, color, getCssVar('transition-duration');
+    cursor: pointer;
+
+    &:hover {
+      background: getCssVar('fill-color-dark');
+    }
+
+    .#{$namespace}-sub--title {
       display: flex;
       align-items: center;
-      padding: getCssVar('menu', 'padding');
-      border-radius: getCssVar('border-radius-base');
-      transition: all getCssVar('transition-duration');
+      justify-content: space-between;
+      padding: 8px 15px;
       cursor: pointer;
-
-      &:hover {
-        background: getCssVar('border-color-darker');
-      }
 
       @include when(collapse) {
         > span {
@@ -76,95 +344,33 @@
         }
       }
     }
-
-    @for $index from 1 through 10 {
-      .level-#{$index} {
-        margin-left: calc(10px * $index);
-      }
-    }
   }
 
-  .#{$namespace}-menu__item__group {
-    > span {
-      padding: getCssVar('menu', 'padding');
-      color: getCssVar('text-color-secondary');
-    }
+  .#{$item-selector}__arrow {
+    margin-left: 5px;
+    transition: transform getCssVar('transition-duration');
   }
 
-  @include when(active) {
-    background: getCssVar('border-color-darker');
-  }
-
-  ul {
-    margin: 0;
-    padding: 0;
-  }
-
-  li {
-    list-style: none;
+  .#{$item-selector}--title-label,
+  .#{$sub-selector}--title-label {
+    margin-left: 0;
   }
 }
 
-.n-popper {
-  .#{$namespace}-sub-menu {
-    min-width: 150px;
-    user-select: none;
-    @include set-component-css-var('menu', $menu);
-
-    .#{$namespace}-menu__item {
-      padding: getCssVar('menu', 'inner-padding');
-      border-radius: getCssVar('border-radius-base');
-      transition: all getCssVar('transition-duration');
-      cursor: pointer;
-
-      &:hover {
-        background: getCssVar('border-color-darker');
-      }
-    }
-
-    .#{$namespace}-sub-menu--container {
-      border-radius: getCssVar('border-radius-base');
-      transition: all getCssVar('transition-duration');
-      cursor: pointer;
-
-      &:hover {
-        background: getCssVar('border-color-darker');
-      }
-
-      .#{$namespace}-sub--reference {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 8px 15px;
-        cursor: pointer;
-
-        @include when(collapse) {
-          > span {
-            width: 0;
-            height: 0;
-            overflow: hidden;
-            opacity: 0;
-          }
-        }
-      }
-    }
-
-    .#{$namespace}-menu__item__arrow {
-      margin-left: 5px;
-      transition: all getCssVar('transition-duration');
-    }
+@include b(menu-group) {
+  line-height: getCssVar('menu', 'title-height');
+  @include m(title) {
+    padding: getCssVar('menu', 'item-padding');
+    font-size: 14px;
+    color: getCssVar('text-color-secondary');
   }
-
-  .active {
-    background: getCssVar('border-color-darker');
+  .#{$item-selector} {
+    padding: getCssVar('menu', 'item-padding');
   }
-
-  ul {
-    margin: 0;
-    padding: 0;
+  .#{$item-selector}--title {
+    padding-left: 24px;
   }
-
-  li {
-    list-style: none;
+  .#{$sub-selector} {
+    padding: getCssVar('menu', 'item-padding');
   }
 }

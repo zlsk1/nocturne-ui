@@ -1,6 +1,5 @@
-import { defineComponent, getCurrentInstance, h, inject } from 'vue'
-import useMenu from './compoables/use-menu'
-import { NSubMenuInjectionContext } from './constants'
+import { defineComponent, h } from 'vue'
+import { useNamespace } from '@nocturne-ui/composables'
 
 export const menuItemGroupProps = {
   title: String
@@ -10,24 +9,30 @@ export default defineComponent({
   name: 'NMenuItemGroup',
   props: menuItemGroupProps,
   setup(props, { slots }) {
-    const instance = getCurrentInstance()!
-    const { parentMenu } = useMenu(instance)
-    const subMenu = inject<NSubMenuInjectionContext>(
-      `subMenu:${parentMenu.value.uid}`
-    )
-    if (!subMenu) {
-      throw new Error('n-sub-menu, can not inject the sub-menu')
-    }
+    const ns = useNamespace('menu-group')
+
     return () =>
-      h('div', { class: ['n-menu__item__group'] }, [
-        h(
-          'span',
-          {
-            class: [`level-${subMenu?.level}`]
-          },
-          props.title
-        ),
-        slots.default?.()
-      ])
+      h(
+        'li',
+        {
+          class: [ns.b()]
+        },
+        [
+          h(
+            'span',
+            {
+              class: [ns.m('title')]
+            },
+            props.title
+          ),
+          h(
+            'ul',
+            {
+              class: [ns.m('content')]
+            },
+            slots.default?.()
+          )
+        ]
+      )
   }
 })
