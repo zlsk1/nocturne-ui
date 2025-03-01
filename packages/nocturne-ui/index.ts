@@ -1,17 +1,17 @@
 import { INSTALLED_KEY } from '@nocturne-ui/constants'
-import { provideGlobalConfig } from '../components/config-provider'
-import Components from './components'
+import { provideGlobalConfig } from '@nocturne-ui/components/config-provider'
+import Components from './component'
 import Plugins from './plugin'
 import type { App } from 'vue'
-import type { ConfigProviderProps } from '../components/config-provider'
+import type { ConfigProviderProps } from '@nocturne-ui/components/config-provider'
 
 const makeInstaller = (components: any[] = []) => {
   const install = (
     app: App,
     options?: Partial<ConfigProviderProps> & { prefix?: string }
   ) => {
-    if (app[INSTALLED_KEY as unknown as keyof typeof app]) return
-    ;(app[INSTALLED_KEY as unknown as keyof typeof app] as boolean) = true
+    if (app[INSTALLED_KEY]) return
+    app[INSTALLED_KEY] = true
 
     components.forEach((component) => {
       if (
