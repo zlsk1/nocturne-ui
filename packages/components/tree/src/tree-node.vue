@@ -11,7 +11,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import NCollapseTransition from '@nocturne-ui/components/collapse/src/collapse-transition.vue'
+import NCollapseTransition from '@nocturne-ui/components/collapse-transition'
 import NCheckbox from '@nocturne-ui/components/checkbox'
 import { useNamespace } from '@nocturne-ui/composables'
 

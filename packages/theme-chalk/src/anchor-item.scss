@@ -1,0 +1,15 @@
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+@include b(anchor) {
+  @include e(items) {
+    padding-left: getCssVar('anchor', 'items-padding');
+
+    a {
+      display: block;
+      padding: 4px 0;
+      transition: color getCssVar('transition-duration');
+    }
+  }
+}

@@ -16,11 +16,8 @@ import {
   NCheckboxGroup
 } from '@nocturne-ui/components/checkbox'
 import { NCol } from '@nocturne-ui/components/col'
-import {
-  NCollapse,
-  NCollapseItem,
-  NCollapseTransition
-} from '@nocturne-ui/components/collapse'
+import { NCollapse, NCollapseItem } from '@nocturne-ui/components/collapse'
+import { NCollapseTransition } from '@nocturne-ui/components/collapse-transition'
 import { NColorPicker } from '@nocturne-ui/components/color-picker'
 import { NConfigProvider } from '@nocturne-ui/components/config-provider'
 import { NCountdown } from '@nocturne-ui/components/countdown'

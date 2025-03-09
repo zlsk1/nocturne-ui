@@ -27,16 +27,6 @@
     padding: getCssVar('anchor', 'padding');
   }
 
-  @include e(items) {
-    padding-left: getCssVar('anchor', 'items-padding');
-
-    a {
-      display: block;
-      padding: 4px 0;
-      transition: color getCssVar('transition-duration');
-    }
-  }
-
   @include when('active') {
     color: getCssVar(color-primary);
   }

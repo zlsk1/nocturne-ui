@@ -99,7 +99,7 @@ import {
 import { RiArrowRightSLine as Arrow } from '@remixicon/vue'
 import { useTimeoutFn } from '@vueuse/core'
 import { useNamespace } from '@nocturne-ui/composables'
-import NCollapseTransition from '@nocturne-ui/components/collapse/src/collapse-transition.vue'
+import NCollapseTransition from '@nocturne-ui/components/collapse-transition'
 import NTooltip from '@nocturne-ui/components/tooltip'
 import NIcon from '@nocturne-ui/components/icon'
 import useMenu from './compoables/use-menu'

@@ -1,5 +1,7 @@
 @use './base.scss';
 @use './alert.scss';
+@use './anchor.scss';
+@use './anchor-item.scss';
 @use './auto-complete.scss';
 @use './avatar.scss';
 @use './badge.scss';
@@ -8,6 +10,7 @@
 @use './button-group.scss';
 @use './card.scss';
 @use './carousel.scss';
+@use './carousel-item.scss';
 @use './checkbox-button.scss';
 @use './checkbox-group.scss';
 @use './checkbox.scss';
@@ -27,6 +30,9 @@
 @use './link.scss';
 @use './loading.scss';
 @use './menu.scss';
+@use './menu-item.scss';
+@use './menu-item-group.scss';
+@use './sub-menu.scss';
 @use './message.scss';
 @use './notification.scss';
 @use './option-group.scss';
@@ -47,6 +53,7 @@
 @use './statistic.scss';
 @use './switch.scss';
 @use './tabs.scss';
+@use './tab-pane.scss';
 @use './tag.scss';
 @use './time-picker.scss';
 @use './timeline-item.scss';

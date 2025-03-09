@@ -1,2 +1,1 @@
-import '@nocturne-ui/theme-chalk/n-base.css'
-import '@nocturne-ui/theme-chalk/n-icon.css'
+import '@nocturne-ui/theme-chalk/base.css'

@@ -1,6 +1,6 @@
 <template>
   <div :class="[ns.b(), ns.is('disabled', disabled)]">
-    <NTooltip
+    <n-tooltip
       v-model:visible="visible"
       :transition="`${ns.ns.value}-zoom-in-top`"
       :gpu-acceleration="false"
@@ -19,7 +19,7 @@
       <template #content>
         <slot name="content" />
       </template>
-    </NTooltip>
+    </n-tooltip>
   </div>
 </template>
 
