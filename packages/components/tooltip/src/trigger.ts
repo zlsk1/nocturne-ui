@@ -1,4 +1,4 @@
-import { popperReferenceProps } from '@nocturne-ui/components/popper/src/reference'
+import { popperReferenceProps } from '@nocturne-ui/components/popper/src/trigger'
 import { definePropType } from '@nocturne-ui/utils'
 import type { ExtractPropTypes } from 'vue'
 

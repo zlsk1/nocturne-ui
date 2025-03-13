@@ -2,10 +2,10 @@ import { nextTick, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { POPPER_INJECTION_KEY } from '../src/constants'
-import Trigger from '../src/reference.vue'
+import Trigger from '../src/trigger.vue'
 
 import type { VueWrapper } from '@vue/test-utils'
-import type { PopperTriggerInstance } from '../src/reference'
+import type { PopperTriggerInstance } from '../src/trigger'
 
 const VARIABLE = 'text'
 

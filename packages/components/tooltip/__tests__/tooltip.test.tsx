@@ -1,70 +1,119 @@
+import { nextTick } from 'vue'
 import { mount } from '@vue/test-utils'
-import { afterEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import PopperTrigger from '@nocturne-ui/components/popper/src/trigger.vue'
+import { rAF } from '@nocturne-ui/test-utils/raf'
 import Tooltip from '../src/tooltip.vue'
-import TooltipTrigger from '../src/reference.vue'
 
 import type { VNode } from 'vue'
-import type { VueWrapper } from '@vue/test-utils'
 
-const VARIABLE = 'render text'
+const VARIABLE = 'aatrox'
 
-const mountTooltip = (props = {}, content?: string | VNode) =>
-  mount(
-    <Tooltip {...props}>
-      {{ default: () => VARIABLE }}
-      {{ content: () => content }}
-    </Tooltip>,
-    {
-      attachTo: document.body
-    }
-  ) as VueWrapper<any, any>
+describe('NTooltip', () => {
+  const createComponent = (props = {}, content: string | VNode = '') =>
+    mount(
+      <Tooltip
+        {...props}
+        v-slots={{
+          default: () => VARIABLE,
+          content: () => content
+        }}
+      />,
+      {
+        attachTo: document.body
+      }
+    )
+  let wrapper: ReturnType<typeof createComponent>
+  const findTrigger = () => wrapper.findComponent(PopperTrigger)
 
-let wrapper: ReturnType<typeof mountTooltip>
-
-describe('Tooltip', () => {
   afterEach(() => {
     wrapper?.unmount()
     document.body.innerHTML = ''
   })
 
-  describe('render', () => {
-    test('should render correctly', () => {
-      wrapper = mountTooltip()
-      expect(wrapper.findComponent(TooltipTrigger).text()).toBe(VARIABLE)
+  describe('rendering', () => {
+    it('should render correctly', async () => {
+      wrapper = createComponent()
+      await nextTick()
+      expect(findTrigger().text()).toContain(VARIABLE)
     })
-
-    test('content should render according to appendTo', async () => {
-      const appendToEl = document.createElement('div')
-      appendToEl.id = 'test'
-      wrapper = mountTooltip({ appendTo: appendToEl }, 'appendTo')
-      const triggerEl = wrapper.findComponent(TooltipTrigger)
+    it('content should teleport according appendTo', async () => {
+      const el = document.createElement('div')
+      el.id = 'test'
+      document.body.appendChild(el)
+      wrapper = createComponent({ appendTo: '#test' }, 'test appendTo props')
+      await nextTick()
+      const trigger$ = findTrigger()
+      const triggerEl = trigger$.find('.n-tooltip__trigger')
       await triggerEl.trigger('mouseenter')
-      expect(document.querySelector('#test')?.innerHTML).toContain('appendTo')
+      expect(document.querySelector('#test')?.innerHTML).toContain(
+        'test appendTo props'
+      )
     })
   })
 
-  test('should show & hide', async () => {
-    wrapper = mountTooltip()
-    const triggerEl = wrapper.findComponent(TooltipTrigger)
+  describe('functionality', () => {
+    const content = 'Test content'
 
-    vi.useFakeTimers()
-    await triggerEl.trigger('mouseenter')
-    vi.runAllTimers()
-    vi.useRealTimers()
-    expect(triggerEl.emitted()).toHaveProperty('show')
+    it('should be able to update popper content manually', async () => {
+      wrapper = createComponent()
+      await nextTick()
 
-    vi.useFakeTimers()
-    await triggerEl.trigger('mouseleave')
-    vi.runAllTimers()
-    vi.useRealTimers()
-    expect(triggerEl.emitted()).toHaveProperty('hide')
-  })
+      const { vm } = wrapper
+      expect(vm.updatePopper).toBeDefined()
+      // @ts-ignore
+      vm.updatePopper()
+    })
 
-  test('should be able to update popper content manually', async () => {
-    wrapper = mountTooltip()
+    it('should be able to open & close tooltip content', async () => {
+      wrapper = createComponent({}, content)
+      await nextTick()
 
-    const { vm } = wrapper
-    expect(vm.updatePopper).toBeDefined()
-    vm.updatePopper()
+      const trigger$ = findTrigger()
+      const triggerEl = trigger$.find('.n-tooltip__trigger')
+
+      vi.useFakeTimers()
+      await triggerEl.trigger('mouseenter')
+      vi.runAllTimers()
+      vi.useRealTimers()
+      await rAF()
+
+      expect(wrapper.emitted()).toHaveProperty('show')
+
+      vi.useFakeTimers()
+      await triggerEl.trigger('mouseleave') // dispatches a timer with 200ms timeout.
+      vi.runAllTimers()
+      vi.useRealTimers()
+      await rAF()
+
+      expect(wrapper.emitted()).toHaveProperty('hide')
+    })
+
+    it('should be able to toggle visibility of tooltip content', async () => {
+      wrapper = createComponent(
+        {
+          trigger: 'click'
+        },
+        content
+      )
+      await nextTick()
+
+      const trigger$ = findTrigger()
+      const triggerEl = trigger$.find('.n-tooltip__trigger')
+
+      vi.useFakeTimers()
+      await triggerEl.trigger('click')
+      vi.runAllTimers()
+      vi.useRealTimers()
+      await rAF()
+      expect(wrapper.emitted()).toHaveProperty('show')
+
+      vi.useFakeTimers()
+      await triggerEl.trigger('click')
+      vi.runAllTimers()
+      vi.useRealTimers()
+      await rAF()
+      expect(wrapper.emitted()).toHaveProperty('hide')
+    })
   })
 })

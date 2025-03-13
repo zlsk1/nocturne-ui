@@ -3,13 +3,16 @@
 @use 'mixins/var' as *;
 
 @include b(anchor) {
-  @include e(items) {
-    padding-left: getCssVar('anchor', 'items-padding');
+  @include e(item) {
+    padding-left: getCssVar('anchor', 'item-pl');
 
     a {
       display: block;
-      padding: 4px 0;
       transition: color getCssVar('transition-duration');
+    }
+
+    @include e(item__text) {
+      padding: getCssVar('anchor', 'item-py') 0;
     }
   }
 }

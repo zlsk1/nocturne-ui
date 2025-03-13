@@ -1,0 +1,49 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Anchor.vue > snapshot 1`] = `
+"<div class="n-anchor"><span class="n-anchor__marker"></span>
+  <div class="n-anchor__content">
+    <div class="n-anchor__item"><a href="#anchor-item-0" class="">
+        <div class="n-anchor__item__text">#anchor-item-0</div>
+      </a>
+      <!--v-if-->
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`Anchor.vue > snapshot 2`] = `
+"<div class="n-anchor"><span class="n-anchor__marker"></span>
+  <div class="n-anchor__content">
+    <div class="n-anchor__item"><a href="#anchor-item-0" class="">
+        <div class="n-anchor__item__text">#anchor-item-0</div>
+      </a>
+      <!--v-if-->
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`Anchor.vue > snapshot 3`] = `
+"<div class="n-anchor"><span class="n-anchor__marker"></span>
+  <div class="n-anchor__content">
+    <div class="n-anchor__item"><a href="#anchor-item-0" class="">
+        <div class="n-anchor__item__text">#anchor-item-0</div>
+      </a>
+      <!--v-if-->
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`Anchor.vue > snapshot 4`] = `
+"<div class="n-anchor"><span class="n-anchor__marker"></span>
+  <div class="n-anchor__content">
+    <div class="n-anchor__item"><a href="#anchor-item-0" class="">
+        <div class="n-anchor__item__text">#anchor-item-0</div>
+      </a>
+      <!--v-if-->
+    </div>
+  </div>
+</div>"
+`;

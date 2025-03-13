@@ -1,5 +1,5 @@
 <template>
-  <n-popper-reference
+  <n-popper-trigger
     :id="id"
     :virtual-ref="virtualRef"
     :open="open"
@@ -14,20 +14,21 @@
     @keydown="onKeydown"
   >
     <slot />
-  </n-popper-reference>
+  </n-popper-trigger>
 </template>
 
 <script lang="ts" setup>
 import { inject, ref, toRef, unref } from 'vue'
 import { composeEventHandlers } from '@nocturne-ui/utils/dom'
-import NPopperReference from '@nocturne-ui/components/popper/src/reference.vue'
+import NPopperTrigger from '@nocturne-ui/components/popper/src/trigger.vue'
 import { useNamespace } from '@nocturne-ui/composables'
-import { useTooltipTriggerProps } from './reference.js'
+import { useTooltipTriggerProps } from './trigger.js'
 import { whenTrigger } from './utils'
 import { TOOLTIP_INJECTION_KEY } from './constants'
+import type { OnlyChildExpose } from '@nocturne-ui/components/slot'
 
 defineOptions({
-  name: 'NTooltipReference'
+  name: 'NTooltiptrigger'
 })
 
 const props = defineProps(useTooltipTriggerProps)
@@ -39,7 +40,7 @@ const { controlled, open, onOpen, onClose, onToggle } = inject(
 
 const ns = useNamespace('tooltip')
 
-const triggerRef = ref<HTMLElement | null>(null)
+const triggerRef = ref<OnlyChildExpose | null>(null)
 
 const stopWhenControlledOrDisabled = () => {
   if (unref(controlled) || props.disabled) {

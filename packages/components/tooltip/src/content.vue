@@ -31,7 +31,6 @@
         :trigger-target-el="triggerTargetEl"
         :visible="shouldShow"
         :z-index="zIndex"
-        :class="[effect === 'dark' ? 'dark' : '']"
         @mouseenter="onContentEnter"
         @mouseleave="onContentLeave"
         @blur="onBlur"
@@ -55,13 +54,15 @@ import { TOOLTIP_INJECTION_KEY } from './constants'
 import { useTooltipContentProps } from './content'
 
 defineOptions({
-  name: 'NTooltipContent'
+  name: 'NTooltipContent',
+  inheritAttrs: false
 })
 
 const props = defineProps(useTooltipContentProps)
 
 const {
   controlled,
+  id,
   open,
   trigger,
   onClose,
@@ -79,7 +80,7 @@ const destroyed = ref(false)
 const ariaHidden = ref(true)
 
 const transitionClass = computed(() => {
-  return props.transition || `${ns.ns.value}-zoom-in`
+  return props.transition || `${ns.ns.value}-zoom-in-top-debounce`
 })
 
 const persistentRef = computed(() => {
@@ -92,7 +93,7 @@ const persistentRef = computed(() => {
 })
 
 onBeforeUnmount(() => {
-  destroyed.value = true
+  stopHandle?.()
 })
 
 const shouldRender = computed(() => {
@@ -107,7 +108,7 @@ const appendTo = computed(() => {
   return props.appendTo
 })
 
-const contentStyle = computed(() => props.style ?? {})
+const contentStyle = computed(() => (props.style ?? {}) as any)
 
 const onTransitionLeave = () => {
   onHide()

@@ -2,7 +2,7 @@ import { nextTick } from 'vue'
 import { mount } from '@vue/test-utils'
 import { afterEach, describe, expect, it } from 'vitest'
 import { TOOLTIP_INJECTION_KEY } from '@nocturne-ui/components/tooltip'
-import NTooltipTrigger from '../src/reference.vue'
+import NTooltipTrigger from '../src/trigger.vue'
 import { genTooltipProvides } from '../test-helper/provides'
 
 import type { VueWrapper } from '@vue/test-utils'

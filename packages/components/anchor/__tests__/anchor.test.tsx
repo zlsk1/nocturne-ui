@@ -1,4 +1,4 @@
-import { nextTick } from 'vue'
+import { nextTick, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test, vi } from 'vitest'
 import Anchor from '../src/anchor.vue'
@@ -6,9 +6,43 @@ import AnchorItem from '../src/anchor-item.vue'
 
 let id = 0
 
-const getHash = () => `#anchor-link-${id++}`
+const getHash = () => `#anchor-item-${id++}`
 
-describe('Anchor', () => {
+describe('Anchor.vue', () => {
+  test('snapshot', async () => {
+    const hash = getHash()
+    const wrapper = mount({
+      props: ['direction'],
+      render() {
+        return (
+          <Anchor>
+            <AnchorItem href={hash}>{hash}</AnchorItem>
+          </Anchor>
+        )
+      }
+    })
+
+    wrapper.setProps({
+      direction: 'vertical'
+    })
+    expect(wrapper.html()).toMatchSnapshot()
+    wrapper.setProps({
+      direction: 'horizontal'
+    })
+    await nextTick()
+    expect(wrapper.html()).toMatchSnapshot()
+    wrapper.setProps({
+      direction: 'vertical'
+    })
+    await nextTick()
+    expect(wrapper.html()).toMatchSnapshot()
+    wrapper.setProps({
+      direction: 'horizontal'
+    })
+    await nextTick()
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
   test('scroll after click', async () => {
     const hash = getHash()
     const wrapper = mount(
@@ -29,6 +63,31 @@ describe('Anchor', () => {
       .mockImplementation(() => undefined)
     await nextTick()
     wrapper.find(`a[href="${hash}"]`).trigger('click')
+    await nextTick()
+    expect(scrollSpy).toHaveBeenCalledTimes(1)
+  })
+
+  test('scrollTo method', async () => {
+    const hash = getHash()
+    const anchorRef = ref<InstanceType<typeof Anchor> | null>(null)
+    mount(
+      () => (
+        <>
+          <div id={hash.replace('#', '')}>hash</div>
+          <Anchor ref={anchorRef}>
+            <AnchorItem href={hash}>{hash}</AnchorItem>
+          </Anchor>
+        </>
+      ),
+      {
+        attachTo: 'body'
+      }
+    )
+    const scrollSpy = vi
+      .spyOn(window, 'scrollTo')
+      .mockImplementation(() => undefined)
+    await nextTick()
+    anchorRef.value?.handleScrollTo(hash)
     await nextTick()
     expect(scrollSpy).toHaveBeenCalledTimes(1)
   })

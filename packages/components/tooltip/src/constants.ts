@@ -1,5 +1,5 @@
 import type { InjectionKey, Ref } from 'vue'
-import type { TooltipTriggerType } from './reference'
+import type { TooltipTriggerType } from './trigger'
 
 export type NTooltipInjectionContext = {
   controlled: Ref<boolean>

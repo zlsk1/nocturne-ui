@@ -10,7 +10,7 @@ import type { PopperContentProps } from '../content'
 const DEFAULT_ARROW_OFFSET = 0
 
 export const usePopperContent = (props: PopperContentProps) => {
-  const { instancePopperRef, contentRef, referenceRef, role } = inject(
+  const { instancePopperRef, contentRef, triggerRef, role } = inject(
     POPPER_INJECTION_KEY,
     undefined
   )!
@@ -52,7 +52,7 @@ export const usePopperContent = (props: PopperContentProps) => {
   })
 
   const computedReference = computed(
-    () => unwrapMeasurableEl(props.referenceEl) || unref(referenceRef)
+    () => unwrapMeasurableEl(props.referenceEl) || unref(triggerRef)
   )
 
   const { attributes, state, styles, update, forceUpdate, instanceRef } =

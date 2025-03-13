@@ -1,21 +1,40 @@
+<template>
+  <div ref="anchorRef" :class="ns.b()">
+    <span
+      v-if="marker"
+      ref="markerRef"
+      :class="ns.e('marker')"
+      :style="maskerStyle"
+    />
+    <div
+      :class="[
+        ns.e('content'),
+        direction === 'horizontal' && ns.m('horizontal')
+      ]"
+    >
+      <slot />
+    </div>
+  </div>
+</template>
+
 <script lang="ts" setup>
+import { computed, onMounted, provide, ref, watch } from 'vue'
+import { useEventListener } from '@vueuse/core'
 import {
-  computed,
-  nextTick,
-  onMounted,
-  onUnmounted,
-  provide,
-  ref,
-  shallowRef
-} from 'vue'
-import { useThrottleFn } from '@vueuse/core'
-import { isNil } from '@nocturne-ui/utils'
+  getScroll,
+  getScrollElement,
+  isElement,
+  isNil,
+  isString,
+  isUndefined,
+  isWindow,
+  scrollTo
+} from '@nocturne-ui/utils'
 import { useNamespace } from '@nocturne-ui/composables'
-import AnchorItem from './anchor-item.vue'
 import { anchorEmits, anchorProps } from './anchor'
 import { ANCHOR_INJECTION_KEY } from './constants'
+import { getOffsetTop } from './util'
 import type { CSSProperties } from 'vue'
-import type { AnchorItems } from './anchor'
 
 defineOptions({
   name: 'NAnchor'
@@ -26,176 +45,176 @@ const emit = defineEmits(anchorEmits)
 
 const ns = useNamespace('anchor')
 
-export type Links = {
-  el: HTMLElement
-  href: string
-  top: number
-}
-
-const links = shallowRef<Links[]>([])
 const markerRef = ref<HTMLSpanElement>()
-const containerRef = ref<HTMLElement>()
-const activeLink = ref('')
+const anchorRef = ref<HTMLDivElement>()
+const containerEl = ref<HTMLElement | Window>()
+const activedLink = ref('')
 
+const links: Record<string, HTMLElement> = {}
 let scrolling = false
-
-onMounted(() => {
-  if (props.items) {
-    getlinks(props.items)
-    sortLinks()
-  } else {
-    getlinks()
-    sortLinks()
-  }
-  nextTick(() => handleScroll())
-  window.addEventListener('scroll', onScroll)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', onScroll)
-})
+let currentScrollTop = 0
+let clearAnimate: (() => void) | null = null
 
 const maskerStyle = computed<CSSProperties | undefined>(() => {
-  const currentLink = containerRef.value?.querySelector(
-    `a[href='${decodeURIComponent(activeLink.value)}']`
-  )
-  if (!currentLink) return
+  if (!anchorRef.value || !markerRef.value || !activedLink.value) return {}
+  const currentLink = links[activedLink.value]
+  if (!currentLink) return {}
 
-  const linkTop = currentLink?.getBoundingClientRect().top!
-  const containerTop = containerRef.value?.getBoundingClientRect().top!
+  const linkRect = currentLink.getBoundingClientRect()
+  const anchorRect = anchorRef.value.getBoundingClientRect()
+  const markerRect = markerRef.value.getBoundingClientRect()
 
-  if (activeLink.value) {
+  if (props.direction === 'horizontal') {
     return {
-      top: `${linkTop - containerTop + 5}px`,
+      left: `${linkRect.left - anchorRect.left}px`,
+      height: '2px',
+      width: `${linkRect.width}px`,
       opacity: '1'
     }
   }
+
+  const top =
+    linkRect.top - anchorRect.top + (linkRect.height - markerRect.height) / 2
+
   return {
-    top: `${5}px`,
-    opacity: '0'
+    top: `${top}px`,
+    opacity: '1'
   }
 })
 
 const handleScroll = () => {
-  const scrollY = window.scrollY
-  const innerHeight = window.innerHeight
-  const offsetHeight = document.body.offsetHeight
-  const isBottom = Math.abs(scrollY + innerHeight - offsetHeight) < 1
-
-  if (scrolling) return
-
-  if (!links.value.length) {
-    activateAnchor(null)
-    return
+  if (containerEl.value) {
+    currentScrollTop = getScroll(containerEl.value)
   }
+  const currentHref = getCurrentHref()
 
-  if (isBottom) {
-    activateAnchor(links.value[links.value.length - 1].href)
-    return
-  }
+  if (scrolling || isUndefined(currentHref)) return
+  activateAnchor(currentHref)
+}
 
-  const href = findAnchor(scrollY)
-  activateAnchor(href)
-
-  function findAnchor(scrollY: number) {
-    for (let i = 0; i < links.value.length; i++) {
-      const { href, top } = links.value[i]
-      if (
-        scrollY > top - props.offset &&
-        scrollY < links.value[i + 1]?.top - props.offset
-      ) {
-        return href
-      }
-    }
-    return null
+const activateAnchor = (href: string) => {
+  if (href !== activedLink.value) {
+    activedLink.value = href
+    emit('change', href)
   }
 }
 
-const activateAnchor = (href: string | null) => {
-  if (!href) {
-    activeLink.value = ''
-  } else {
-    if (href === activeLink.value) return
-    else {
-      activeLink.value = href
-      emit('change', activeLink.value)
-    }
-  }
-}
-
-const onScroll = useThrottleFn(handleScroll, 100)
-
-const getlinks = (anchorItems?: AnchorItems[]) => {
-  if (anchorItems) {
-    for (const anchorItem of anchorItems) {
-      const { href, children } = anchorItem
-      const el = document.querySelector<HTMLElement>(href)
-      if (!el) continue
-      const item = { el, href, top: el.offsetTop }
-      if (!isNil(item.el)) links.value.push(item as Links)
-
-      if (children) {
-        getlinks(children)
-      }
-    }
-  }
-}
-
-const sortLinks = () => {
-  links.value.sort((a, b) => a.top - b.top)
-}
-
-const addLink = (el: HTMLElement, top: number, href?: string) => {
-  if (href) links.value.push({ href, el, top })
-}
-
-const removeAnchor = (ele?: HTMLElement) => {
-  const index = links.value.findIndex(({ el }) => ele === el)
-  links.value.splice(index, 1)
-}
-
-const onClick = (e: Event) => {
-  const href = (e.target as HTMLAnchorElement)?.hash
+const handleScrollTo = (href?: string) => {
   if (href) {
     activateAnchor(href)
-    handleClick(href)
+    scrollToAnchor(href)
   }
-  emit('click', e, href)
 }
 
-let timer: number | null = null
-
-const handleClick = (href: string) => {
-  const target = document.querySelector(href) as HTMLElement
+const scrollToAnchor = (href: string) => {
+  if (!containerEl.value) return
+  const target = document.querySelector<HTMLElement>(`a[href='${href}']`)
   if (!target) return
-  if (timer) clearTimeout(timer)
-
+  if (clearAnimate) clearAnimate()
   scrolling = true
-  window.scrollTo({ top: target.offsetTop - props.offset, behavior: 'smooth' })
-  timer = setTimeout(() => {
-    scrolling = false
-  }, 0) as unknown as number
+  const scrollEl = getScrollElement(target, containerEl.value)
+  const distance = getOffsetTop(target, scrollEl)
+  const max = scrollEl.scrollHeight - scrollEl.clientHeight
+  const to = Math.min(distance - props.offset, max)
+
+  clearAnimate = scrollTo(
+    containerEl.value,
+    currentScrollTop,
+    to,
+    props.duration,
+    () => {
+      setTimeout(() => {
+        scrolling = false
+      }, 20)
+    }
+  )
 }
+
+const getCurrentHref = () => {
+  if (!containerEl.value) return
+  const scrollTop = getScroll(containerEl.value)
+  const anchorTopList: { top: number; href: string }[] = []
+
+  for (const href of Object.keys(links)) {
+    const target = document.querySelector<HTMLElement>(`a[href='${href}']`)
+    if (!target) continue
+    const scrollEl = getScrollElement(target, containerEl.value)
+    const distance = getOffsetTop(target, scrollEl)
+    anchorTopList.push({
+      top: distance - props.offset - props.bound,
+      href
+    })
+  }
+  anchorTopList.sort((prev, next) => prev.top - next.top)
+  for (let i = 0; i < anchorTopList.length; i++) {
+    const item = anchorTopList[i]
+    const next = anchorTopList[i + 1]
+
+    if (i === 0 && scrollTop === 0) {
+      return ''
+    }
+    if (item.top <= scrollTop && (!next || next.top > scrollTop)) {
+      return item.href
+    }
+  }
+}
+
+const addLink = (el: HTMLElement, href?: string) => {
+  if (href) links[href] = el
+}
+
+const removeAnchor = (href?: string) => {
+  if (href) delete links[href]
+}
+
+const onClick = (e: Event, href?: string) => {
+  emit('click', e, href)
+  handleScrollTo(href)
+}
+
+const getScrollContainer = () => {
+  const { container } = props
+
+  if (isNil(container)) {
+    containerEl.value = window
+  }
+  if (isWindow(container)) {
+    containerEl.value = window
+  } else if (isString(container)) {
+    containerEl.value =
+      document.querySelector<HTMLElement>(`a[href='${container}']`) || window
+  } else if (isElement(container)) {
+    containerEl.value = container
+  }
+}
+
+watch(
+  () => props.container,
+  () => getScrollContainer()
+)
+
+useEventListener(containerEl, 'scroll', handleScroll)
+
+onMounted(() => {
+  getScrollContainer()
+  const hash = decodeURIComponent(window.location.hash)
+  const target = document.querySelector(`a[href='${hash}']`)
+
+  if (target) {
+    scrollToAnchor(hash)
+  } else {
+    handleScroll()
+  }
+})
 
 provide(ANCHOR_INJECTION_KEY, {
-  activeLink,
+  activedLink,
   onClick,
   addLink,
   removeAnchor
 })
-</script>
 
-<template>
-  <div ref="containerRef" :class="ns.b()">
-    <div :class="ns.e('content')">
-      <span
-        v-if="marker"
-        ref="markerRef"
-        :class="ns.e('marker')"
-        :style="maskerStyle"
-      />
-      <anchor-item v-if="items" :items="items" />
-      <slot />
-    </div>
-  </div>
-</template>
+defineExpose({
+  handleScrollTo
+})
+</script>

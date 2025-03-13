@@ -118,7 +118,11 @@ export const popperContentProps = {
     default: ''
   },
   virtualTriggering: Boolean,
-  zIndex: Number
+  zIndex: Number,
+  borderless: {
+    type: Boolean,
+    default: true
+  }
 }
 
 export type PopperContentProps = ExtractPropTypes<typeof popperContentProps>

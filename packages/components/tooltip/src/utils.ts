@@ -2,7 +2,7 @@ import { unref } from 'vue'
 
 import { isArray } from '@nocturne-ui/utils'
 import type { Ref } from 'vue'
-import type { TooltipTriggerType } from './reference'
+import type { TooltipTriggerType } from './trigger'
 
 export const isTriggerType = (
   trigger: TooltipTriggerType,

@@ -1011,8 +1011,12 @@ $drawer: map.merge(
 $anchor: () !default;
 $anchor: map.merge(
   (
+    'font': 13px,
     'padding': 0 6px,
-    'items-padding': 10px
+    'item-pl': 10px,
+    'item-py': 6px,
+    'marker-bg': getCssVar('color-primary'),
+    'marker-radius': getCssVar('border-radius-base')
   ),
   $anchor
 );

@@ -20,14 +20,14 @@ const props = defineProps(popperProps)
 
 const referenceRef = ref<HTMLElement>()
 const contentRef = ref<HTMLElement>()
-const arrowRef = ref<HTMLElement>()
+const triggerRef = ref<HTMLElement>()
 const instancePopperRef = ref<PopperInstance>()
 const role = computed(() => props.role)
 
 const popperProvide = {
   referenceRef,
   contentRef,
-  arrowRef,
+  triggerRef,
   instancePopperRef,
   role
 } as NPopperInjectionContext & NPopperContentInjectionContext

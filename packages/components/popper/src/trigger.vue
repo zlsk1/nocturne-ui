@@ -17,7 +17,7 @@ import { unrefElement } from '@vueuse/core'
 import { isElement } from '@nocturne-ui/utils'
 import { NOnlyChild } from '@nocturne-ui/components/slot'
 import { useForwardRef } from '@nocturne-ui/composables'
-import { popperReferenceProps } from './reference'
+import { popperReferenceProps } from './trigger'
 import { POPPER_INJECTION_KEY } from './constants'
 import type { WatchStopHandle } from 'vue'
 
@@ -27,9 +27,9 @@ defineOptions({
 
 const props = defineProps(popperReferenceProps)
 
-const { referenceRef, role } = inject(POPPER_INJECTION_KEY, undefined)!
+const { triggerRef, role } = inject(POPPER_INJECTION_KEY, undefined)!
 
-useForwardRef(referenceRef)
+useForwardRef(triggerRef)
 
 const ariaControls = computed<string | undefined>(() => {
   return ariaHaspopup.value ? props.id : undefined
@@ -60,7 +60,7 @@ onMounted(() => {
     () => props.virtualRef,
     (virtualEl) => {
       if (virtualEl) {
-        referenceRef.value = unrefElement(virtualEl as HTMLElement)
+        triggerRef.value = unrefElement(virtualEl as HTMLElement)
       }
     },
     {
@@ -69,7 +69,7 @@ onMounted(() => {
   )
 
   watch(
-    referenceRef,
+    triggerRef,
     (el, prevEl) => {
       virtualTriggerAriaStopWatch?.()
       virtualTriggerAriaStopWatch = undefined
@@ -135,6 +135,6 @@ onBeforeUnmount(() => {
 })
 
 defineExpose({
-  referenceRef
+  triggerRef
 })
 </script>

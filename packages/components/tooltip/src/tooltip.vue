@@ -1,6 +1,6 @@
 <template>
   <n-popper ref="popperRef" :role="role">
-    <n-tooltip-reference
+    <n-tooltip-trigger
       :trigger="trigger"
       :disabled="disabled"
       :trigger-keys="triggerKeys"
@@ -8,7 +8,7 @@
       :virtual-triggering="virtualTriggering"
     >
       <slot />
-    </n-tooltip-reference>
+    </n-tooltip-trigger>
     <n-tooltip-content
       ref="contentRef"
       :aria-label="ariaLabel"
@@ -28,7 +28,7 @@
       :popper-options="popperOptions"
       :pure="pure"
       :raw-content="rawContent"
-      :reference-el="referenceEl"
+      :trigger-el="referenceEl"
       :trigger-target-el="triggerTargetEl"
       :show-after="showAfter"
       :strategy="strategy"
@@ -55,7 +55,7 @@ import NPopperArrow from '@nocturne-ui/components/popper/src/arrow.vue'
 import { isBoolean } from '@nocturne-ui/utils'
 import { tooltipEmits, useTooltipModelToggle, useTooltipProps } from './tooltip'
 import NTooltipContent from './content.vue'
-import NTooltipReference from './reference.vue'
+import NTooltipTrigger from './trigger.vue'
 import { TOOLTIP_INJECTION_KEY } from './constants'
 import type { PopperInstance } from '@nocturne-ui/components/popper'
 

@@ -1,6 +1,6 @@
 import { definePropType } from '@nocturne-ui/utils'
 import type { Measurable } from './constants'
-import type Trigger from './reference.vue'
+import type Trigger from './trigger.vue'
 
 export const popperReferenceProps = {
   virtualRef: {

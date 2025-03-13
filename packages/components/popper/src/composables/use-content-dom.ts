@@ -26,6 +26,7 @@ export const usePopperContentDOM = (
   const contentClass = computed(() => [
     ns.b(),
     ns.is('pure', props.pure),
+    ns.is('borderless', props.borderless),
     ns.is(props.effect === 'dark' ? 'dark' : ''),
     props.popperClass
   ])

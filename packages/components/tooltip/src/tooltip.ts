@@ -2,7 +2,7 @@ import { popperProps } from '@nocturne-ui/components/popper/src/popper'
 import { popperArrowProps } from '@nocturne-ui/components/popper/src/arrow'
 import { createModelToggleComposable } from '@nocturne-ui/composables'
 import { useTooltipContentProps } from './content'
-import { useTooltipTriggerProps } from './reference'
+import { useTooltipTriggerProps } from './trigger'
 import Tooltip from './tooltip.vue'
 
 import type { ExtractPropTypes } from 'vue'

@@ -1,5 +1,26 @@
+<template>
+  <div :class="ns.e('item')">
+    <a
+      ref="linkRef"
+      :href="href"
+      :title="title"
+      :class="ns.is('active', activedLink === href)"
+      @click.stop="handleClick"
+    >
+      <div :class="ns.e('item__text')">
+        <slot>
+          {{ title }}
+        </slot>
+      </div>
+    </a>
+    <div v-if="$slots.subLink" :class="ns.e('content')">
+      <slot name="subLink" />
+    </div>
+  </div>
+</template>
+
 <script lang="ts" setup>
-import { inject, onMounted, onUnmounted, ref } from 'vue'
+import { inject, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useNamespace } from '@nocturne-ui/composables'
 import { anchorItemProps } from './anchor-item'
 import { ANCHOR_INJECTION_KEY } from './constants'
@@ -12,52 +33,39 @@ const ns = useNamespace('anchor')
 
 const props = defineProps(anchorItemProps)
 
-const { activeLink, onClick, addLink, removeAnchor } = inject(
+const { activedLink, onClick, addLink, removeAnchor } = inject(
   ANCHOR_INJECTION_KEY,
   undefined
 )!
 
 const linkRef = ref<HTMLAnchorElement>()
 
+const handleClick = (e: Event) => {
+  onClick(e, props.href)
+}
+
+watch(
+  () => props.href,
+  (val, oldVal) => {
+    nextTick(() => {
+      if (oldVal) removeAnchor(oldVal)
+      if (val && linkRef.value) {
+        addLink(linkRef.value, props.href)
+      }
+    })
+  }
+)
+
 onMounted(() => {
-  if (!props.items && props.href) {
-    const { href } = props
-    const el = document.querySelector<HTMLElement>(href)
-    if (el && href) addLink(el, el.offsetTop, href)
+  const { href } = props
+  if (href) {
+    if (linkRef.value) addLink(linkRef.value, href)
   }
 })
-onUnmounted(() => {
-  if (!props.items) removeAnchor(linkRef.value!)
+
+onBeforeUnmount(() => {
+  if (props.href) {
+    removeAnchor(props.href)
+  }
 })
 </script>
-
-<template>
-  <ul v-if="items" :class="ns.e('items')">
-    <li
-      v-for="({ href, text, title, children = [] }, index) in items"
-      :key="index"
-    >
-      <a
-        ref="linkRef"
-        :href="href"
-        :title="title"
-        :class="{ active: activeLink === href }"
-        @click="onClick"
-        >{{ text }}</a
-      >
-      <template v-if="children.length">
-        <n-anchor-item :items="children" />
-      </template>
-    </li>
-  </ul>
-  <div v-else :class="ns.e('items')">
-    <a
-      :href="href"
-      :title="title"
-      :class="ns.is('active', activeLink === href)"
-      @click="onClick"
-      >{{ text }}</a
-    >
-    <slot />
-  </div>
-</template>

@@ -1,11 +1,11 @@
 import type { InjectionKey, Ref } from 'vue'
 
 export type AnchorContext = {
-  activeLink: Ref<string>
-  onClick: (e: Event) => void
-  addLink: (el: HTMLElement, top: number, href?: string) => void
-  removeAnchor: (ele?: HTMLElement) => void
+  activedLink: Ref<string>
+  onClick: (e: Event, href?: string) => void
+  addLink: (el: HTMLElement, href?: string) => void
+  removeAnchor: (href?: string) => void
 }
 
 export const ANCHOR_INJECTION_KEY: InjectionKey<AnchorContext> =
-  Symbol('popperContent')
+  Symbol('anchorContext')

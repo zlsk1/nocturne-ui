@@ -31,6 +31,16 @@ $placement: (
     padding: 0;
   }
 
+  @include when(borderless) {
+    border: none;
+
+    @include e(arrow) {
+      &::after {
+        border: none;
+      }
+    }
+  }
+
   @include e(arrow) {
     position: absolute;
     width: 10px;
