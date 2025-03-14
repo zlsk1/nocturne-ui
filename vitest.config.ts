@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [Vue(), VueJsx()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'packages')
+      '@nocturne-ui': path.resolve(__dirname, 'packages')
     }
   },
   test: {

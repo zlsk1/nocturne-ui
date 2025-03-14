@@ -9,11 +9,5 @@
     "skipLibCheck": true
   },
   "include": ["packages", "typings"],
-  "exclude": [
-    "**/dist",
-    "node_modules",
-    "**/gulpfile.ts",
-    "**/__test__/**/*",
-    "packages/tests-utils/*"
-  ]
+  "exclude": ["**/dist", "node_modules", "**/gulpfile.ts", "**/__test__/**/*"]
 }
