@@ -420,7 +420,7 @@
       @if ($variant == 'filled') {
         border-radius: getCssVar('border-radius-base');
         background-color: getCssVar('fill-color');
-        @include m(wrapper) {
+        .#{$namespace}-input--wrapper {
           box-shadow: none;
           transition: all getCssVar('transition-duration');
           &:hover {
@@ -437,7 +437,7 @@
       } @else if ($variant == 'borderless') {
         border-radius: getCssVar('border-radius-base');
         background-color: getCssVar('fill-color', 'blank');
-        @include m(wrapper) {
+        .#{$namespace}-input--wrapper {
           box-shadow: none;
           transition: all getCssVar('transition-duration');
           &:hover {

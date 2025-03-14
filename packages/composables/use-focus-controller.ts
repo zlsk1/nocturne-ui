@@ -4,6 +4,7 @@ import { isElement, isFunction } from '@nocturne-ui/utils'
 import type { ShallowRef } from 'vue'
 
 interface UseFocusControllerOptions {
+  beforeFocus?: (event: FocusEvent) => boolean | undefined
   afterFocus?: () => void
   beforeBlur?: (event: FocusEvent) => boolean | undefined
   afterBlur?: () => void
@@ -11,7 +12,12 @@ interface UseFocusControllerOptions {
 
 export function useFocusController<T extends HTMLElement>(
   target: ShallowRef<T | undefined>,
-  { afterFocus, beforeBlur, afterBlur }: UseFocusControllerOptions = {}
+  {
+    beforeFocus,
+    afterFocus,
+    beforeBlur,
+    afterBlur
+  }: UseFocusControllerOptions = {}
 ) {
   const instance = getCurrentInstance()!
   const { emit } = instance
@@ -19,7 +25,8 @@ export function useFocusController<T extends HTMLElement>(
   const isFocused = ref(false)
 
   const handleFocus = (event: FocusEvent) => {
-    if (isFocused.value) return
+    const cancelFocus = isFunction(beforeFocus) ? beforeFocus(event) : false
+    if (cancelFocus || isFocused.value) return
     isFocused.value = true
     emit('focus', event)
     afterFocus?.()

@@ -105,7 +105,8 @@ export const inputEmits = {
   blur: (e: FocusEvent) => e instanceof FocusEvent,
   compositionstart: (e: CompositionEvent) => e instanceof CompositionEvent,
   compositionupdate: (e: CompositionEvent) => e instanceof CompositionEvent,
-  compositionend: (e: CompositionEvent) => e instanceof CompositionEvent
+  compositionend: (e: CompositionEvent) => e instanceof CompositionEvent,
+  keydown: (e: KeyboardEvent) => e instanceof KeyboardEvent
 }
 
 export type InputInstance = InstanceType<typeof Input>

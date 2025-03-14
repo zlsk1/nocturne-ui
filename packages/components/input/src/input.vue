@@ -1,6 +1,7 @@
 <template>
   <div
     :class="inputCls"
+    :style="$attrs.style as StyleValue"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
   >
@@ -8,17 +9,7 @@
       <slot name="prepend" />
     </div>
     <template v-if="!isTextarea">
-      <div
-        ref="wrapperRef"
-        :class="[
-          ns.m('wrapper'),
-          ns.is('focus', isFocused),
-          ns.is('error', status === 'error'),
-          ns.is('warning', status === 'warning')
-        ]"
-        tabindex="1"
-        @click="focus"
-      >
+      <div ref="wrapperRef" :class="wrapperCls" tabindex="1" @click="focus">
         <span v-if="prefixIcon || slots.prefix" :class="ns.e('prefix')">
           <span :class="ns.e('prefix-inner')">
             <slot v-if="slots.prefix" name="prefix" />
@@ -28,6 +19,7 @@
           </span>
         </span>
         <input
+          v-bind="newAttrs"
           :id="formItemId"
           ref="inputRef"
           :type="type === 'password' ? (showPwd ? 'text' : 'password') : type"
@@ -44,13 +36,11 @@
           :autocomplete="autocomplete"
           :disabled="actualDisabled"
           @input="handleInput"
-          @focus="handleFocus"
-          @blur="handleBlur"
           @change="handleChange"
           @compositionend="hadnleCompositionEnd"
           @compositionstart="handleCompositionStart"
           @compositionupdate="handleCompositionUpdate"
-          @keydown.esc.enter="handleEsc"
+          @keydown="handleKeydown"
         />
         <span v-if="showSuffix" :class="ns.e('suffix')">
           <span :class="ns.e('suffix-inner')">
@@ -61,8 +51,13 @@
               <Eye v-if="showPwd" @click="handleShowPwd" />
               <EyeOff v-else @click="handleShowPwd" />
             </n-icon>
-            <n-icon v-if="showClear" :class="[ns.e('icon'), ns.e('clear')]">
-              <CloseCircle @click="clearValue" />
+            <n-icon
+              v-if="showClear"
+              :class="[ns.e('icon'), ns.e('clear')]"
+              @click="clearValue"
+              @mousedown.prevent="NOOP"
+            >
+              <CloseCircle />
             </n-icon>
             <n-icon v-if="suffixIcon" :class="[ns.e('icon')]">
               <component :is="suffixIcon" />
@@ -84,8 +79,9 @@
     </template>
     <template v-else>
       <textarea
+        v-bind="newAttrs"
         :id="formItemId"
-        ref="inputRef"
+        ref="textareaRef"
         :placeholder="placeholder"
         :minlength="minlength"
         :maxlength="maxlength"
@@ -104,7 +100,6 @@
         @compositionend="hadnleCompositionEnd"
         @compositionstart="handleCompositionStart"
         @compositionupdate="handleCompositionUpdate"
-        @keydown.esc.enter="handleEsc"
       />
       <span v-if="showLimit" :class="ns.e('count')">
         <span :class="ns.e('count-inner')">
@@ -122,7 +117,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, ref, useSlots, watch } from 'vue'
+import { computed, nextTick, ref, useAttrs, useSlots, watch } from 'vue'
+import { NOOP } from '@vue/shared'
 import {
   RiCloseCircleFill as CloseCircle,
   RiEyeLine as Eye,
@@ -136,16 +132,20 @@ import {
   useNamespace
 } from '@nocturne-ui/composables'
 import { isNil, isUndefined } from '@nocturne-ui/utils'
+import { fromPairs } from 'lodash'
 import { inputEmits, inputProps } from './input'
+import type { StyleValue } from 'vue'
 import type { InputStatus } from './input'
 
 defineOptions({
-  name: 'NInput'
+  name: 'NInput',
+  inheritAttrs: false
 })
 
 const props = defineProps(inputProps)
 const emit = defineEmits(inputEmits)
 const slots = useSlots()
+const attrs = useAttrs()
 
 const ns = useNamespace('input')
 const nsGroup = useNamespace('input-group')
@@ -153,17 +153,25 @@ const { formItemId, formItemDisabled, formItemSize } = useFormItem()
 const { formItem } = useForm()
 
 const inputRef = ref<HTMLInputElement>()
-const wrapperRef = ref<HTMLInputElement>()
+const textareaRef = ref<HTMLTextAreaElement>()
 const showPwd = ref(props.type === 'password' ? false : true)
 const hovering = ref(false)
 const textareaHeight = ref(0)
 
-const { isFocused, handleFocus, handleBlur } = useFocusController(inputRef, {
-  afterBlur: () => {
-    props.afterBlur?.()
-    formItem?.validate('blur')
+const elRef = computed(() => inputRef.value || textareaRef.value)
+
+const { isFocused, wrapperRef, handleFocus, handleBlur } = useFocusController(
+  elRef,
+  {
+    beforeFocus() {
+      return actualDisabled.value
+    },
+    afterBlur: () => {
+      props.afterBlur?.()
+      formItem?.validate('blur')
+    }
   }
-})
+)
 
 const showPwdIcon = computed(() => {
   return props.type === 'password' && props.showPassword && !!props.modelValue
@@ -200,8 +208,16 @@ const inputCls = computed(() => [
   ns.is('disabled', actualDisabled.value),
   ns.m(props.variant === 'outlined' ? '' : props.variant),
   (slots.prepend || slots.append) && nsGroup.b(),
-  Object.hasOwn(slots, 'append') && nsGroup.m('append'),
-  Object.hasOwn(slots, 'prepend') && nsGroup.m('prepend')
+  slots.append && nsGroup.m('append'),
+  slots.prepend && nsGroup.m('prepend'),
+  attrs.class
+])
+
+const wrapperCls = computed(() => [
+  ns.m('wrapper'),
+  ns.is('focus', isFocused.value),
+  ns.is('error', status.value === 'error'),
+  ns.is('warning', status.value === 'warning')
 ])
 
 const textareaCls = computed(() => [
@@ -222,6 +238,15 @@ const status = computed<InputStatus | ''>(() => {
   }
 })
 
+// exclude class & style & events
+const newAttrs = computed(() =>
+  fromPairs(
+    Object.entries(attrs).filter(
+      ([key]) => !['class', 'style'].includes(key) || !/^on[A-Z]/.test(key)
+    )
+  )
+)
+
 const handleInput = (e: Event) => {
   const { value } = e.target as HTMLInputElement
 
@@ -230,7 +255,7 @@ const handleInput = (e: Event) => {
   if (props.type === 'textarea' && props.autoResize) {
     const minHeight = 30
 
-    const scrollHeight = inputRef.value!.scrollHeight!
+    const scrollHeight = elRef.value!.scrollHeight!
 
     if (scrollHeight < minHeight) {
       textareaHeight.value = minHeight
@@ -275,18 +300,16 @@ const handleShowPwd = () => {
 
 const focus = async () => {
   await nextTick()
-  inputRef.value?.focus()
+  elRef.value?.focus()
 }
 
 const blur = async () => {
   await nextTick()
-  inputRef.value?.blur()
+  elRef.value?.blur()
 }
 
-const handleEsc = () => {
-  if (isFocused.value) {
-    blur()
-  }
+const handleKeydown = (e: KeyboardEvent) => {
+  emit('keydown', e)
 }
 
 watch(
@@ -298,6 +321,8 @@ watch(
 
 defineExpose({
   inputRef,
+  textareaRef,
+  ref: elRef,
   isFocused,
   focus,
   blur,
