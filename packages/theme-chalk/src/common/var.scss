@@ -984,13 +984,13 @@ $formItem: map.merge(
 $dialog: () !default;
 $dialog: map.merge(
   (
-    'width': 300px,
+    'width': 400px,
     'padding-vertical': 12px,
     'padding-horizonal': 18px,
     'bg-color': getCssVar('bg-color'),
-    'box-shadow': getCssVar('box-shadow'),
+    'shadow': getCssVar('box-shadow'),
     'border': 1px solid getCssVar('border-color'),
-    'border-radius': getCssVar('border-radius-base')
+    'border-radius': getCssVar('border-radius-large')
   ),
   $dialog
 );

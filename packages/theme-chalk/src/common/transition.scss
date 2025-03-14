@@ -57,7 +57,7 @@
 .#{$namespace}-zoom-in-top-debounce-enter-active,
 .#{$namespace}-zoom-in-top-debounce-leave-active {
   opacity: 1;
-  transform: translateY(10) scale(1);
+  transform: scale(1);
   transform-origin: top;
   transition:
     opacity getCssVar('transition-duration') cubic-bezier(0.34, 1.36, 0.64, 1),
@@ -67,7 +67,7 @@
 .#{$namespace}-zoom-in-top-debounce-enter-from,
 .#{$namespace}-zoom-in-top-debounce-leave-active {
   opacity: 0;
-  transform: translateY(0) scale(0);
+  transform: scale(0);
 }
 
 .#{$namespace}-zoom-in-top-enter-active,

@@ -1,7 +1,6 @@
-import { definePropType, isBoolean } from '@nocturne-ui/utils'
-import { iconProps } from '@nocturne-ui/components/icon'
+import { definePropType, iconPropType, isBoolean } from '@nocturne-ui/utils'
 import dialog from './dialog.vue'
-import type { ExtractPropTypes, VNode } from 'vue'
+import type { ExtractPropTypes } from 'vue'
 
 export const dialogProps = {
   modelValue: {
@@ -9,16 +8,12 @@ export const dialogProps = {
     default: false
   },
   title: String,
-  content: {
-    type: definePropType<string | VNode>([String, Object])
-  },
+  content: String,
   confirmText: {
-    type: String,
-    default: '确定'
+    type: String
   },
   cancelText: {
-    type: String,
-    default: '取消'
+    type: String
   },
   showConfirm: {
     type: Boolean,
@@ -35,12 +30,6 @@ export const dialogProps = {
     type: definePropType<string | number>([String, Number]),
     default: '16vh'
   },
-  callback: {
-    type: definePropType<(action: 'confirm' | 'cancel') => void>(Function)
-  },
-  beforeClose: {
-    type: definePropType<(success: () => void) => void>(Function)
-  },
   clickMaskerToClose: {
     type: Boolean,
     default: true
@@ -49,14 +38,15 @@ export const dialogProps = {
     type: Boolean,
     default: true
   },
-  closeIcon: definePropType<typeof iconProps>(iconProps),
+  closeIcon: {
+    type: iconPropType
+  },
   center: {
     type: Boolean,
     default: false
   },
   transition: {
-    type: String,
-    default: 'n-dialog-fade'
+    type: String
   },
   maskerClass: {
     type: String,
@@ -73,13 +63,24 @@ export const dialogProps = {
   destroyOnClose: {
     type: Boolean,
     default: false
+  },
+  confirmLoading: {
+    type: Boolean,
+    default: false
+  },
+  zIndex: {
+    type: Number
   }
-}
+} as const
 
 export const dialogEmits = {
   'update:modelValue': (val: boolean) => isBoolean(val),
   open: () => true,
-  close: () => true
+  opened: () => true,
+  close: () => true,
+  closed: () => true,
+  confirm: (e: MouseEvent) => e instanceof MouseEvent,
+  cancel: (e: MouseEvent) => e instanceof MouseEvent
 }
 
 export type DialogProps = ExtractPropTypes<typeof dialogProps>

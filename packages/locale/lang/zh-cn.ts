@@ -115,6 +115,8 @@ export default {
         '你使用了一些已被废弃的用法，请参考 el-pagination 的官方文档'
     },
     dialog: {
+      confirm: '确定',
+      cancel: '取消',
       close: '关闭此对话框'
     },
     drawer: {

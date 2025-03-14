@@ -42,7 +42,7 @@ export default defineComponent({
         ? h(
             'div',
             {
-              class: ns.b(),
+              class: [ns.b(), props.customClass],
               style: {
                 zIndex: props.zIndex
               },
@@ -55,7 +55,7 @@ export default defineComponent({
         : h(
             'div',
             {
-              class: ns.b(),
+              class: [ns.b(), props.customClass],
               style: {
                 zIndex: props.zIndex,
                 position: 'fixed',

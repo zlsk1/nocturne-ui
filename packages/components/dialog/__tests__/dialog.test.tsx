@@ -1,115 +1,176 @@
 import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
-import { describe, expect, test } from 'vitest'
-import { triggerCompositeClick } from '@/tests-utils/composite-click'
+import { describe, expect, test, vi } from 'vitest'
+import { triggerCompositeClick } from '@nocturne-ui/tests-utils/composite-click'
+import { rAF } from '@nocturne-ui/tests-utils/raf'
 import Dialog from '../src/dialog.vue'
 
 describe('Dialog', () => {
   test('render', async () => {
+    const visible = ref(true)
     const wrapper = mount(() => (
-      <Dialog title="dialog" content="it is dialog"></Dialog>
+      <Dialog
+        v-model={visible.value}
+        title="dialog"
+        content="it is dialog"
+      ></Dialog>
     ))
     expect(wrapper.find('.n-overlay').exists()).toBeTruthy()
-    expect(wrapper.find('.n-dialog').exists()).toBeTruthy()
-    expect(wrapper.find('.n-dialog__footer').exists()).toBeTruthy()
     expect(wrapper.find('.n-dialog__header').text()).toBe('dialog')
     expect(wrapper.find('.n-dialog__content').text()).toBe('it is dialog')
   })
 
   describe('footer button', () => {
     test('confirmText', () => {
-      const wrapper = mount(() => <Dialog confirmText="ok"></Dialog>)
-      expect(
-        wrapper.find('.n-dialog__footer button:nth-child(2)').text()
-      ).toEqual('ok')
+      const visible = ref(true)
+      const wrapper = mount(() => (
+        <Dialog v-model={visible.value} confirmText="ok"></Dialog>
+      ))
+      expect(wrapper.find('.n-button--primary').text()).toEqual('ok')
     })
 
     test('cancelText', () => {
-      const wrapper = mount(() => <Dialog cancelText="cancel"></Dialog>)
-      expect(
-        wrapper.find('.n-dialog__footer button:nth-child(1)').text()
-      ).toEqual('cancel')
+      const visible = ref(true)
+      const wrapper = mount(() => (
+        <Dialog v-model={visible.value} cancelText="cancel"></Dialog>
+      ))
+      expect(wrapper.find('.n-button').text()).toEqual('cancel')
     })
 
     test('showConfirm is false', () => {
-      const wrapper = mount(() => <Dialog showConfirm={false}></Dialog>)
+      const visible = ref(true)
+      const wrapper = mount(() => (
+        <Dialog v-model={visible.value} showConfirm={false}></Dialog>
+      ))
       expect(wrapper.find('.n-button').text()).toBe('取消')
     })
 
     test('showCancel is false', () => {
-      const wrapper = mount(() => <Dialog showCancel={false}></Dialog>)
+      const visible = ref(true)
+      const wrapper = mount(() => (
+        <Dialog v-model={visible.value} showCancel={false}></Dialog>
+      ))
       expect(wrapper.find('.n-button').text()).toBe('确定')
     })
   })
 
   describe('custom style/class', () => {
     test('custom width is number', () => {
-      const wrapper = mount(() => <Dialog width={40}></Dialog>)
+      const visible = ref(true)
+      const wrapper = mount(() => (
+        <Dialog v-model={visible.value} width={40}></Dialog>
+      ))
       expect(wrapper.find('.n-dialog').attributes('style')).toContain(
         'width: 40%'
       )
     })
 
     test('custom width is string', () => {
-      const wrapper = mount(() => <Dialog width="40%"></Dialog>)
+      const visible = ref(true)
+      const wrapper = mount(() => (
+        <Dialog v-model={visible.value} width="40%"></Dialog>
+      ))
       expect(wrapper.find('.n-dialog').attributes('style')).toContain(
         'width: 40%'
       )
     })
 
     test('custom offsetTop is number', () => {
-      const wrapper = mount(() => <Dialog offsetTop={20}></Dialog>)
+      const visible = ref(true)
+      const wrapper = mount(() => (
+        <Dialog v-model={visible.value} offsetTop={20}></Dialog>
+      ))
       expect(wrapper.find('.n-dialog').attributes('style')).toContain(
-        'margin: 20vh auto auto'
+        'top: 20vh'
       )
     })
 
     test('custom offsetTop is string', () => {
-      const wrapper = mount(() => <Dialog offsetTop="20%"></Dialog>)
+      const visible = ref(true)
+      const wrapper = mount(() => (
+        <Dialog v-model={visible.value} offsetTop="20%"></Dialog>
+      ))
       expect(wrapper.find('.n-dialog').attributes('style')).toContain(
-        'margin: 20% auto auto'
+        'top: 20%'
       )
     })
 
     test('customClass', () => {
-      const wrapper = mount(() => <Dialog customClass="custom-class"></Dialog>)
+      const visible = ref(true)
+      const wrapper = mount(() => (
+        <Dialog v-model={visible.value} customClass="custom-class"></Dialog>
+      ))
       expect(wrapper.find('.n-dialog').classes()).toContain('custom-class')
     })
   })
 
   test('center', () => {
-    const wrapper = mount(() => <Dialog center></Dialog>)
-    expect(wrapper.find('.n-dialog').classes()).toContain('is-center')
-  })
-
-  test('callback', async () => {
-    const callbackType = ref('')
-    const callback = (action: 'confirm' | 'cancel') => {
-      callbackType.value = action
-    }
-
-    const wrapper = mount(() => <Dialog callback={callback}></Dialog>)
-
-    const buttons = wrapper.findAll('.n-button')
-    await buttons[0].trigger('click')
-    expect(callbackType.value).toBe('cancel')
-
-    await buttons[1].trigger('click')
-    expect(callbackType.value).toBe('confirm')
-  })
-
-  test('beforeClose', async () => {
     const visible = ref(true)
-    const beforeClose = (success: () => void) => {
-      success()
-      expect(visible.value).toBe(false)
-    }
-
     const wrapper = mount(() => (
-      <Dialog v-model={visible.value} beforeClose={beforeClose}></Dialog>
+      <Dialog v-model={visible.value} center></Dialog>
     ))
-    const closeBtn = wrapper.find('.n-dialog__close')
-    await closeBtn.trigger('click')
+    expect(wrapper.find('.n-overlay-dialog').classes()).toContain('is-center')
+  })
+
+  describe('event', () => {
+    test('open', async () => {
+      const visible = ref(false)
+      const onOpen = vi.fn()
+      const onOpened = vi.fn()
+      const wrapper = mount(() => (
+        <>
+          <div class="show" onClick={() => (visible.value = true)}>
+            show dialog
+          </div>
+          <Dialog
+            v-model={visible.value}
+            onOpen={onOpen}
+            onOpened={onOpened}
+          ></Dialog>
+        </>
+      ))
+      await wrapper.find('div.show').trigger('click')
+      await rAF()
+      expect(onOpen).toBeCalledTimes(1)
+      expect(onOpened).toBeCalledTimes(1)
+    })
+    test('close', async () => {
+      const visible = ref(true)
+      const onClose = vi.fn()
+      const onClosed = vi.fn()
+      const wrapper = mount(() => (
+        <Dialog
+          v-model={visible.value}
+          onClose={onClose}
+          onClosed={onClosed}
+        ></Dialog>
+      ))
+      const closeBtn = wrapper.find('.n-dialog__close')
+      await closeBtn.trigger('click')
+      expect(wrapper.emitted()).toHaveProperty('close')
+      expect(onClose).toBeCalledTimes(1)
+      expect(onClosed).toBeCalledTimes(1)
+    })
+    test('confirm', async () => {
+      const visible = ref(true)
+      const onConfirm = vi.fn()
+      const wrapper = mount(() => (
+        <Dialog v-model={visible.value} onConfirm={onConfirm}></Dialog>
+      ))
+      const confirmBtn = wrapper.find('.n-button--primary')
+      await confirmBtn.trigger('click')
+      expect(onConfirm).toBeCalledTimes(1)
+    })
+    test('cancel', async () => {
+      const visible = ref(true)
+      const onCancel = vi.fn()
+      const wrapper = mount(() => (
+        <Dialog v-model={visible.value} onCancel={onCancel}></Dialog>
+      ))
+      const cancelBtn = wrapper.find('.n-button')
+      await cancelBtn.trigger('click')
+      expect(onCancel).toBeCalledTimes(1)
+    })
   })
 
   test('clickMasker behavior', async () => {
@@ -144,35 +205,50 @@ describe('Dialog', () => {
   })
 
   test('showClose is false', () => {
-    const wrapper = mount(() => <Dialog showClose={false}></Dialog>)
+    const visible = ref(true)
+    const wrapper = mount(() => (
+      <Dialog v-model={visible.value} showClose={false}></Dialog>
+    ))
     expect(wrapper.find('.n-dialog__close').exists()).toBe(false)
   })
 
-  // test('maskClass', () => {
-  //   const wrapper = mount(() => <Dialog maskerClass="mask-class"></Dialog>)
-  //   expect(wrapper.find('.n-overlay').classes()).toContain('mask-class')
-  // })
+  test('maskClass', () => {
+    const visible = ref(true)
+    const wrapper = mount(() => (
+      <Dialog v-model={visible.value} maskerClass="mask-class"></Dialog>
+    ))
+    expect(wrapper.find('.n-overlay').classes()).toContain('mask-class')
+  })
 
   describe('slots', () => {
     test('slot header', () => {
+      const visible = ref(true)
       const wrapper = mount(() => (
-        <Dialog>{{ header: () => <span class="header">header</span> }}</Dialog>
+        <Dialog v-model={visible.value}>
+          {{ header: () => <span class="header">header</span> }}
+        </Dialog>
       ))
       expect(wrapper.find('.header').text()).toBe('header')
     })
 
     test('slot default', () => {
+      const visible = ref(true)
       const wrapper = mount(() => (
-        <Dialog>{{ default: () => 'default' }}</Dialog>
+        <Dialog v-model={visible.value}>{{ default: () => 'default' }}</Dialog>
       ))
       expect(wrapper.find('.n-dialog__content').text()).toBe('default')
     })
 
     test('slot footer', () => {
+      const visible = ref(true)
       const wrapper = mount(() => (
-        <Dialog>{{ footer: () => <span class="footer">footer</span> }}</Dialog>
+        <Dialog v-model={visible.value}>
+          {{ footer: () => <span class="footer">footer</span> }}
+        </Dialog>
       ))
       expect(wrapper.find('.footer').text()).toBe('footer')
     })
   })
+
+  // todo: test form in dialog
 })

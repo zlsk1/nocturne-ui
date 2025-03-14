@@ -114,6 +114,8 @@ export default {
       nextPages: 'Next {pager} pages'
     },
     dialog: {
+      confirm: 'Confirm',
+      cancel: 'Cancel',
       close: 'Close this dialog'
     },
     drawer: {
