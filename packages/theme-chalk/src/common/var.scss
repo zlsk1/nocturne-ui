@@ -466,6 +466,16 @@ $input-number-width: map.merge(
   $input-number-width
 );
 
+$input-number: () !default;
+$input-number: map.merge(
+  (
+    'control-color': getCssVar('text-color-secondary'),
+    'control-bg': getCssVar('fill-color-light'),
+    'control-w': 32px
+  ),
+  $input-number-width
+);
+
 $input-padding-horizontal: () !default;
 $input-padding-horizontal: map.merge(
   (
