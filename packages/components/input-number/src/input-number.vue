@@ -87,7 +87,7 @@ import {
   useNamespace
 } from '@nocturne-ui/composables'
 import { useForm, useFormItem } from '@nocturne-ui/components/form'
-import { isNumber, isUndefined } from '@nocturne-ui/utils'
+import { consoleWarn, isNumber, isUndefined } from '@nocturne-ui/utils'
 import { inputNumberEmits, inputNumberProps } from './input-number'
 import type { InputInstance } from '@nocturne-ui/components/input/src/input'
 
@@ -150,7 +150,7 @@ const currentPrecision = computed(() => {
 
   if (!isUndefined(props.precision)) {
     if (pos > props.precision) {
-      console.warn('inputNumber, step should be less than precision')
+      consoleWarn('inputNumber', 'step should be less than precision')
     }
     return props.precision
   }

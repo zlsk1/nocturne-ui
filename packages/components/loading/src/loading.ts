@@ -7,7 +7,7 @@ import {
 import type { ExtractPropTypes, VNode } from 'vue'
 
 export const loadingDefault = mutable({
-  target: isClient() ? document.body : (undefined as never),
+  target: isClient ? document.body : (undefined as never),
   text: '',
   icon: 'Loader',
   maskBg: 'rgba(0, 0, 0, 0.8)',

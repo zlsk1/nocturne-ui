@@ -1,5 +1,5 @@
 import { createVNode, isVNode, render, shallowReactive } from 'vue'
-import { isElement, isString } from '@nocturne-ui/utils'
+import { consoleWarn, isElement, isString } from '@nocturne-ui/utils'
 import Notification from './notification.vue'
 import { notificationDefaultOptions, notificationType } from './props'
 
@@ -38,7 +38,10 @@ const normalizedProps = (props: NotificationOptions) => {
     let appendTo = document.querySelector<HTMLElement>(mergeParams.appendTo)
 
     if (!isElement(appendTo)) {
-      console.warn('n-notification, appendTo must be a exist HTMLElement')
+      consoleWarn(
+        'n-notification',
+        `appendTo element not found: ${mergeParams.appendTo}`
+      )
       appendTo = document.body
     }
 

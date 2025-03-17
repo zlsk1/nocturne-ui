@@ -1,5 +1,6 @@
 import { createVNode, isVNode, render } from 'vue'
 import {
+  consoleWarn,
   isClient,
   isElement,
   isFunction,
@@ -40,7 +41,7 @@ const normalizeOptions = (params?: MessageParams) => {
   } else if (isString(normalized.appendTo)) {
     let appendTo = document.querySelector<HTMLElement>(normalized.appendTo)
     if (!isElement(appendTo)) {
-      console.warn(
+      consoleWarn(
         'n-message',
         'the appendTo option is not an HTMLElement. Falling back to document.body.'
       )

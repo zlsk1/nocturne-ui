@@ -15,7 +15,7 @@ export const notificationDefaultOptions = mutable({
   type: 'info',
   zIndex: 0,
   placement: 'top-right',
-  appendTo: isClient() ? document.body : (undefined as never),
+  appendTo: isClient ? document.body : (undefined as never),
   id: '',
   offset: 16,
   onClose: undefined,

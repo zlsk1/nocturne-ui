@@ -1,6 +1,6 @@
 import { createVNode, render } from 'vue'
 import { isObject } from 'lodash'
-import { isClient, isElement, isString } from '@nocturne-ui/utils'
+import { consoleWarn, isClient, isElement, isString } from '@nocturne-ui/utils'
 import { loadingDefault } from './loading'
 import Loading from './loading.vue'
 import type { AppContext } from 'vue'
@@ -24,7 +24,7 @@ const normilizeParams = (props?: loadingParams) => {
   } else if (isString(mergeParams.target)) {
     const _target = document.querySelector<HTMLElement>(mergeParams.target)
     if (!isElement(_target)) {
-      console.warn('n-loading', 'target must be a exist HTMLElement')
+      consoleWarn('n-loading', 'target must be a exist HTMLElement')
       mergeParams.target = document.body
     } else {
       mergeParams.target = _target
@@ -38,7 +38,7 @@ const loading = (
   props?: loadingParams,
   context?: AppContext | null
 ): LoadingIntance => {
-  if (!isClient()) {
+  if (!isClient) {
     return {
       ...loadingDefault,
       vm: null,

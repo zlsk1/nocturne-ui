@@ -5,7 +5,7 @@ import { cAF, rAF } from './raf'
 type ScrollTarget = HTMLElement | Window | Document
 
 export const getScroll = (target: ScrollTarget, isLeft: boolean = false) => {
-  if (!isClient() || !target) {
+  if (!isClient || !target) {
     return 0
   }
   const property = isLeft ? 'scrollLeft' : 'scrollTop'

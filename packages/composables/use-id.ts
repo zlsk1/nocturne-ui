@@ -1,5 +1,5 @@
 import { computed, getCurrentInstance, inject, unref } from 'vue'
-import { isClient } from '@nocturne-ui/utils'
+import { consoleWarn, isClient } from '@nocturne-ui/utils'
 import { useGetOverRidesNamesapce } from './use-namespace'
 import type { ComputedRef, InjectionKey, MaybeRef } from 'vue'
 
@@ -22,13 +22,13 @@ export const useId = (overrides?: MaybeRef<string>): ComputedRef<string> => {
       : initialId
 
   if (!isClient && injection === initialId) {
-    console.warn(
-      `ID_INJECTION_KEY, if you are in SSR enviroment, make sure to provide a id provider by: 
+    consoleWarn(
+      'ID_INJECTION_KEY',
+      `if you are in SSR enviroment, make sure to provide a id provider by: 
         app.provide(ID_INJECTION_KEY, {
           prefix: number
           suffix: number
-        })
-      `
+        })`
     )
   }
   const namespace = useGetOverRidesNamesapce()
