@@ -1,5 +1,8 @@
 <template>
-  <div :class="['nav-wrapper', plain && 'is-plain']">
+  <div
+    class="sticky left-0 top-0 flex items-center justify-between w-100% h-[var(--nav-height)] px-[40px] z-[100] before:(content-empty absolute bottom-0 left-0 w-100% h-[1px] bg-[var(--n-border-color-lighter)]) max-lg:(relative left-0 top-0) max-md:px-[20px]"
+    :class="[plain ? 'bg-transparent' : 'bg-[var(--n-bg-color)]']"
+  >
     <a href="/index.html" class="flex items-center">
       <img src="/logo.svg" alt="" />
       <span
@@ -8,30 +11,38 @@
         >Nocturne</span
       >
     </a>
-    <div class="content">
+    <div class="flex items-center *:ml-6">
       <vpDocSearch />
-      <nav class="nav-link">
+      <nav class="flex max-md:hidden">
         <a
           v-for="(item, index) in navlist"
           :key="item.text"
           :href="item.link"
-          :class="{ actived: actived(navlist[index].link) }"
+          :class="
+            actived(navlist[index].link)
+              ? 'before:(content-empty absolute bottom-0 left-0 w-100% h-[2px] bg-[var(--theme-color)] z-2)'
+              : ''
+          "
+          class="block relative px-[10px] leading-[55px] text-[14px] transition-color duration-[var(--duration-time)] cursor-pointer hover:color-[var(--theme-color)]"
           >{{ item.text }}
         </a>
       </nav>
-      <div class="theme-toggle">
+      <div class="max-md:hidden">
         <vpThemeToggle />
       </div>
       <a
         href="https://github.com/zlsk1/nocturne-ui"
-        class="link-github"
+        class="flex align-center transition-color duration-[var(--duration-time)] hover:color-[var(--theme-color)]"
         title="github"
         target="_blank"
       >
         <Github />
       </a>
-      <div class="menu" @click="openDrawer">
-        <Menu />
+      <div
+        class="hidden max-md:(block h-[24px] cursor-pointer)"
+        @click="openDrawer"
+      >
+        <Menu style="border-bottom: 1px solid var(--n-border-color-light)" />
       </div>
     </div>
   </div>

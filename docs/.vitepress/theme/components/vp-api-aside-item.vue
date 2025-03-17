@@ -1,14 +1,14 @@
 <template>
-  <ul class="api-content-item">
-    <li v-for="{ children, link, title, level } in headers" :key="title">
-      <a :href="link" :class="['api-content-anchor', `level-${level}`]">
-        {{ title }}
-      </a>
-      <template v-if="children?.length">
-        <VpApiAsideItem :headers="children" />
-      </template>
-    </li>
-  </ul>
+  <n-anchor-item
+    v-for="{ children, link, title } in headers"
+    :key="title"
+    :title="title"
+    :href="link"
+  >
+    <template v-if="children?.length" #subLink>
+      <VpApiAsideItem :headers="children" />
+    </template>
+  </n-anchor-item>
 </template>
 
 <script lang="ts" setup>

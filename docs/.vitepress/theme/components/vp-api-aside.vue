@@ -1,26 +1,27 @@
 <template>
-  <aside class="api-content-aside">
-    <nav ref="container" class="api-content-container">
-      <p class="api-content-title">内容</p>
-      <div class="api-content-aside-content">
-        <div ref="marker" class="outline-marker" />
+  <aside class="w-[var(--api-content-width)] pt-7 pl-7 pr-7">
+    <nav
+      class="sticky top-[100px] w-[200px] pl-[20px]"
+      style="border-left: 1px solid var(--n-border-color-light)"
+    >
+      <p class="mb-2 font-semibold text-gray-400">内容</p>
+      <n-anchor class="relative">
         <VpApiAsideItem :headers="headers" />
-      </div>
+      </n-anchor>
     </nav>
   </aside>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, shallowRef, watch } from 'vue'
+import { onMounted, shallowRef, watch } from 'vue'
 import { useRoute } from 'vitepress'
-import { type MenuItem, getHeaders } from '../composables/toc-anchor'
+import { getHeaders } from '../composables/toc-anchor'
 import VpApiAsideItem from './vp-api-aside-item.vue'
+import type { MenuItem } from '../composables/toc-anchor'
 
 const route = useRoute()
 
 const headers = shallowRef<MenuItem[]>([])
-const container = ref()
-const marker = ref()
 
 onMounted(() => {
   watch(
@@ -34,3 +35,16 @@ onMounted(() => {
   )
 })
 </script>
+
+<style scoped lang="scss">
+:deep(.n-anchor) {
+  a {
+    color: var(--n-text-color-secondary);
+    div {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+}
+</style>

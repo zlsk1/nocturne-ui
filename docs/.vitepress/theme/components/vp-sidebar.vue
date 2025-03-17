@@ -1,6 +1,6 @@
 <template>
   <aside class="sidebar">
-    <div>
+    <div class="overflow-auto">
       <section v-for="item in sidebar" :key="item.text" class="sidebar-content">
         <p class="type-name">{{ item.text }}</p>
         <vpSidebarLink
@@ -19,5 +19,3 @@ import vpSidebarLink from './vp-sidebar-item.vue'
 
 const sidebar = useSidebar()
 </script>
-
-<style lang="scss" scoped></style>

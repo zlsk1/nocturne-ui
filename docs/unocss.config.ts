@@ -1,13 +1,13 @@
-import { defineConfig, presetAttributify, presetIcons, presetUno } from 'unocss'
+import {
+  defineConfig,
+  presetAttributify,
+  presetUno,
+  transformerDirectives,
+  transformerVariantGroup
+} from 'unocss'
 
 export default defineConfig({
-  presets: [presetUno(), presetAttributify(), presetIcons()],
-  content: {
-    pipeline: {
-      include: [`${__dirname}/**/*`],
-      exclude: [`${__dirname}/node_modules/**/*`]
-    }
-  },
+  shortcuts: [],
   theme: {
     breakpoints: {
       sm: '640px',
@@ -17,11 +17,14 @@ export default defineConfig({
       '2xl': '1536px',
       '3xl': '1920px'
     }
-    // colors: {
-    //   primary: {
-    //     DEFAULT: '#2563eb',
-    //     deep: '#1d4ed8'
-    //   }
-    // }
+  },
+  variants: [],
+  presets: [presetUno(), presetAttributify()],
+  transformers: [transformerDirectives(), transformerVariantGroup()],
+  content: {
+    pipeline: {
+      include: [`${__dirname}/**/*`],
+      exclude: [`${__dirname}/node_modules/**/*`]
+    }
   }
 })
