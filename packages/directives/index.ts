@@ -1,0 +1,1 @@
+export { vLongPress } from './longpress'

@@ -9,6 +9,7 @@
   >
     <template v-if="controls">
       <span
+        v-long-press="handleIncrease"
         :class="[
           ns.e('control'),
           ns.em('control', 'increase'),
@@ -16,13 +17,14 @@
         ]"
         role="button"
         :aria-label="t('noc.inputNumber.increase')"
-        @click="handleIncrease"
       >
-        <Add v-if="controlsMode === 'outter'" size="18" />
-        <ArrowUp v-else-if="controlsMode === 'inner'" size="16" />
-        <slot v-else name="increaseIcon" />
+        <slot name="increaseIcon">
+          <Add v-if="controlsMode === 'outter'" size="18" />
+          <ArrowUp v-else-if="controlsMode === 'inner'" size="16" />
+        </slot>
       </span>
       <span
+        v-long-press="handleDecrease"
         :class="[
           ns.e('control'),
           ns.em('control', 'decrease'),
@@ -30,11 +32,11 @@
         ]"
         role="button"
         :aria-label="t('noc.inputNumber.decrease')"
-        @click="handleDecrease"
       >
-        <Subtract v-if="controlsMode === 'outter'" size="18" />
-        <ArrowDown v-else-if="controlsMode === 'inner'" size="16" />
-        <slot v-else name="decreaseIcon" />
+        <slot name="increaseIcon">
+          <Subtract v-if="controlsMode === 'outter'" size="18" />
+          <ArrowDown v-else-if="controlsMode === 'inner'" size="16" />
+        </slot>
       </span>
     </template>
     <n-input
@@ -88,6 +90,7 @@ import {
 } from '@nocturne-ui/composables'
 import { useForm, useFormItem } from '@nocturne-ui/components/form'
 import { consoleWarn, isNumber, isUndefined } from '@nocturne-ui/utils'
+import { vLongPress } from '@nocturne-ui/directives'
 import { inputNumberEmits, inputNumberProps } from './input-number'
 import type { InputInstance } from '@nocturne-ui/components/input/src/input'
 

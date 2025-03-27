@@ -38,5 +38,6 @@ export default installer
 export * from '@nocturne-ui/components'
 export * from '@nocturne-ui/constants'
 export * from '@nocturne-ui/composables'
+export * from '@nocturne-ui/directives'
 
 export const install = installer.install

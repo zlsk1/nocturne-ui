@@ -31,6 +31,7 @@
     "@nocturne-ui/components": "workspace:*",
     "@nocturne-ui/constants": "workspace:*",
     "@nocturne-ui/composables": "workspace:*",
+    "@nocturne-ui/directives": "workspace:*",
     "@nocturne-ui/locale": "workspace:*",
     "@nocturne-ui/test-utils": "workspace:*",
     "@nocturne-ui/theme-chalk": "workspace:*",
