@@ -1165,3 +1165,13 @@ $progress: map.merge(
   ),
   $progress
 );
+
+$rate: () !default;
+$rate: map.merge(
+  (
+    'star-color': getCssVar('color-primary'),
+    'star-bg': getCssVar('fill-color'),
+    'star-gap': 8px
+  ),
+  $rate
+);

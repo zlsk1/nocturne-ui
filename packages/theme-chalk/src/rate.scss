@@ -1,0 +1,68 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(rate) {
+  @include set-component-css-var('rate', $rate);
+}
+
+@include b(rate) {
+  display: inline-flex;
+  list-style: none;
+
+  :not(:last-child) {
+    margin-right: getCssVar('rate-star-gap');
+  }
+
+  &-star {
+    position: relative;
+    cursor: pointer;
+
+    &--container {
+      display: flex;
+      transition: all getCssVar('transition-duration-fast') ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      &:focus {
+        outline: 0;
+      }
+
+      &:focus-visible {
+        outline: 1px dashed getCssVar('rate-star-color');
+      }
+    }
+
+    &--first {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      color: getCssVar('rate-star-bg');
+      overflow: hidden;
+      opacity: 0;
+      transition: all getCssVar('transition-duration-fast') ease-in-out;
+    }
+
+    &--second {
+      color: getCssVar('rate-star-bg');
+      transition: all getCssVar('transition-duration-fast') ease-in-out;
+    }
+
+    &-half {
+      .#{$namespace}-rate-star--first {
+        opacity: 1;
+        color: getCssVar('rate-star-color');
+      }
+    }
+
+    &-full {
+      .#{$namespace}-rate-star--second {
+        opacity: 1;
+        color: getCssVar('rate-star-color');
+      }
+    }
+  }
+}

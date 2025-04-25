@@ -47,6 +47,7 @@ import {
   NRadioButton,
   NRadioGroup
 } from '@nocturne-ui/components/radio'
+import { NRate } from '@nocturne-ui/components'
 import { NRow } from '@nocturne-ui/components/row'
 import { NSegmented } from '@nocturne-ui/components/segmented'
 import { NOption, NOptionGroup, NSelect } from '@nocturne-ui/components/select'
@@ -114,6 +115,7 @@ export default [
   NRadio,
   NRadioButton,
   NRadioGroup,
+  NRate,
   NRow,
   NSegmented,
   NSelect,
