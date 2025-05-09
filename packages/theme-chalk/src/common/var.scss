@@ -1175,3 +1175,6 @@ $rate: map.merge(
   ),
   $rate
 );
+
+$table: () !default;
+$table: map.merge((), $table);

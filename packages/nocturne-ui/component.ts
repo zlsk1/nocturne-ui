@@ -55,6 +55,7 @@ import { NSlider } from '@nocturne-ui/components/slider'
 import { NStatistic } from '@nocturne-ui/components/statistic'
 import { NSwitch } from '@nocturne-ui/components/switch'
 import { NTabPane, NTabs } from '@nocturne-ui/components/tabs'
+import { NTable } from '@nocturne-ui/components/table'
 import { NTag } from '@nocturne-ui/components/tag'
 import { NTimePicker } from '@nocturne-ui/components/time-picker'
 import { NTimeline } from '@nocturne-ui/components/timeline'
@@ -124,6 +125,7 @@ export default [
   NSwitch,
   NTabs,
   NTabPane,
+  NTable,
   NTag,
   NTimePicker,
   NTimeline,

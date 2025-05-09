@@ -1,0 +1,214 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(table) {
+  @include set-component-css-var('table', $table);
+}
+
+@include b(table) {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  color: getCssVar('text-color-regular');
+  background: getCssVar('bg-color');
+  border-radius: getCssVar('border-radius-large')
+    getCssVar('border-radius-large') 0 0;
+
+  &-wrapper {
+    box-sizing: border-box;
+    max-width: 100%;
+    font-size: 14px;
+
+    table {
+      width: 100%;
+      text-align: start;
+      border-radius: getCssVar('border-radius-large')
+        getCssVar('border-radius-large') 0 0;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .#{$namespace}-table-container {
+      table > thead > tr:first-child > {
+        *:first-child {
+          border-start-start-radius: getCssVar('border-radius-large');
+        }
+        *:last-child {
+          border-start-end-radius: getCssVar('border-radius-large');
+        }
+      }
+    }
+
+    .#{$namespace}-table-thead {
+      > tr {
+        > th {
+          position: relative;
+          padding: 16px;
+          color: getCssVar('text-color-regular');
+          text-align: start;
+          font-weight: 600;
+          background: getCssVar('bg-color-overlay');
+          border-bottom: 1px solid getCssVar('border-color-lighter');
+          overflow-wrap: break-word;
+          transition: background 0.2s ease;
+
+          &:not(:last-child, .#{$namespace}-table-cell-fixed-right) {
+            &::before {
+              content: '';
+              position: absolute;
+              right: 0;
+              top: 50%;
+              width: 1px;
+              height: 40%;
+              background: getCssVar('border-color-lighter');
+              transform: translate(0, -50%);
+            }
+          }
+        }
+      }
+    }
+
+    .#{$namespace}-table-tbody {
+      > tr {
+        > td {
+          position: relative;
+          padding: 16px;
+          color: getCssVar('text-color-regular');
+          text-align: start;
+          font-weight: 600;
+          background: getCssVar('bg-color');
+          border-bottom: transparent;
+          border-top: 1px solid getCssVar('border-color-lighter');
+          overflow-wrap: break-word;
+          transition:
+            background 0.2s,
+            border-color 0.2s;
+        }
+
+        &:first-child {
+          > td {
+            border-top: none;
+            border-top-color: transparent;
+          }
+        }
+
+        &:last-child {
+          > td {
+            border-bottom: 1px solid getCssVar('border-color-lighter');
+          }
+        }
+
+        .#{$namespace}-table-cell {
+          &--hover {
+            background: getCssVar('bg-color-overlay');
+          }
+          &--ellipsis {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+
+    .#{$namespace}-table-cell {
+      &-fixed-right {
+        position: sticky;
+        background: getCssVar('bg-color');
+        z-index: 2;
+      }
+      &-fixed-left {
+        position: sticky;
+        background: getCssVar('bg-color');
+        z-index: 4;
+      }
+      &-fixed-left-last {
+        &::after {
+          content: '';
+          position: absolute;
+          right: 0;
+          top: 0;
+          bottom: -1px;
+          width: 30px;
+          transform: translateX(100%);
+          transition: box-shadow 0.3s;
+          pointer-events: none;
+        }
+      }
+      &-fixed-right-first {
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: -1px;
+          width: 30px;
+          transform: translateX(-100%);
+          transition: box-shadow 0.3s;
+          pointer-events: none;
+        }
+      }
+    }
+
+    .#{$namespace}-table-cell.ping-left.#{$namespace}-table-cell-fixed-left-last {
+      &::after {
+        box-shadow: inset 10px 0 8px -8px rgba(253, 253, 253, 0.12);
+      }
+    }
+
+    .#{$namespace}-table-cell.ping-right.#{$namespace}-table-cell-fixed-right-first {
+      &::after {
+        box-shadow: inset -10px 0 8px -8px rgba(253, 253, 253, 0.12);
+      }
+    }
+  }
+
+  @include when(bordered) {
+    .#{$namespace}-table-thead {
+      > tr {
+        > th {
+          border-top: 1px solid getCssVar('border-color-lighter');
+          border-left: 1px solid getCssVar('border-color-lighter');
+
+          &:not(:last-child) {
+            &::after {
+              width: 0;
+            }
+          }
+
+          &:last-child {
+            border-right: 1px solid getCssVar('border-color-lighter');
+          }
+        }
+      }
+    }
+
+    .#{$namespace}-table-tbody {
+      > tr {
+        > td {
+          border-left: 1px solid getCssVar('border-color-lighter');
+
+          &:last-child {
+            border-right: 1px solid getCssVar('border-color-lighter');
+          }
+        }
+      }
+    }
+  }
+
+  &-header {
+    border-radius: getCssVar('border-radius-large')
+      getCssVar('border-radius-large') 0 0;
+  }
+
+  &-measure-row {
+    + tr {
+      > td {
+        border-top: transparent !important;
+      }
+    }
+  }
+}

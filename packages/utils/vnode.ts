@@ -1,6 +1,11 @@
-import { isVNode } from 'vue'
+import { Comment, Fragment, isVNode } from 'vue'
 import { isArray } from '.'
-import type { VNode, VNodeChild, VNodeNormalizedChildren } from 'vue'
+import type {
+  VNode,
+  VNodeArrayChildren,
+  VNodeChild,
+  VNodeNormalizedChildren
+} from 'vue'
 
 export type VNodeChildAtom = Exclude<VNodeChild, Array<any>>
 export type RawSlots = Exclude<
@@ -31,4 +36,19 @@ export const flattedChildren = (
     }
   })
   return result
+}
+
+export const ensureValidVNode = (slot: VNodeArrayChildren | null) => {
+  return (slot || []).some((child) => {
+    if (!isVNode(child)) return true
+    if (child.type === Comment) return false
+    if (
+      child.type === Fragment &&
+      !ensureValidVNode(child.children as VNodeArrayChildren)
+    )
+      return false
+    return true
+  })
+    ? slot
+    : null
 }
