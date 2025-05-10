@@ -53,6 +53,7 @@ import { NRow } from '@nocturne-ui/components/row'
 import { NSegmented } from '@nocturne-ui/components/segmented'
 import { NOption, NOptionGroup, NSelect } from '@nocturne-ui/components/select'
 import { NSlider } from '@nocturne-ui/components/slider'
+import { NSpace } from '@nocturne-ui/components/space'
 import { NStatistic } from '@nocturne-ui/components/statistic'
 import { NSwitch } from '@nocturne-ui/components/switch'
 import { NTabPane, NTabs } from '@nocturne-ui/components/tabs'
@@ -123,6 +124,7 @@ export default [
   NSegmented,
   NSelect,
   NSlider,
+  NSpace,
   NStatistic,
   NSwitch,
   NTabs,
