@@ -25,6 +25,7 @@ declare module 'vue' {
     NCountdown: (typeof import('nocturne-ui'))['NCountdown']
     NDatePicker: (typeof import('nocturne-ui'))['NDatePicker']
     NDialog: (typeof import('nocturne-ui'))['NDialog']
+    NDivider: (typeof import('nocturne-ui'))['NDivider']
     NDrawer: (typeof import('nocturne-ui'))['NDrawer']
     NDropdown: (typeof import('nocturne-ui'))['NDropdown']
     NDropdownItem: (typeof import('nocturne-ui'))['NDropdownItem']

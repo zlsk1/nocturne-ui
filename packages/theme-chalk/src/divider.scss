@@ -1,0 +1,89 @@
+@use 'mixins/mixins' as *;
+@use 'common/var' as *;
+@use 'mixins/var' as *;
+
+@include b(divider) {
+  @include set-component-css-var('divider', $divider);
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin: getCssVar('divider', 'margin');
+  color: getCssVar('text-color-regular');
+  font-size: 16px;
+  white-space: nowrap;
+  text-align: center;
+  border-block-start: 1px solid getCssVar('divider', 'line-color');
+
+  @include m('vertical') {
+    position: relative;
+    top: -0.06em;
+    display: inline-block;
+    height: 0.9em;
+    margin: getCssVar('divider', 'margin-vertical');
+    vertical-align: middle;
+    border-top: 0;
+    border-inline-start: 1px solid rgba(253, 253, 253, 0.12);
+
+    @include when('dashed') {
+      border-inline-start-style: dashed;
+    }
+  }
+
+  @include m('with-text') {
+    border-top: 1px solid transparent;
+    &::after {
+      content: '';
+      position: relative;
+      width: 50%;
+      border-block-start: 1px solid getCssVar('divider', 'line-color');
+      border-block-end: 0;
+      transform: translateY(50%);
+    }
+    &::before {
+      content: '';
+      position: relative;
+      width: 50%;
+      border-block-start: 1px solid getCssVar('divider', 'line-color');
+      border-block-end: 0;
+      transform: translateY(50%);
+    }
+  }
+
+  @include e('text') {
+    display: inline-block;
+    padding: 0 1em;
+  }
+
+  @include when('left') {
+    &::before {
+      content: '';
+      width: 5%;
+    }
+    &::after {
+      content: '';
+      width: 95%;
+    }
+  }
+
+  @include when('right') {
+    &::before {
+      content: '';
+      width: 95%;
+    }
+    &::after {
+      content: '';
+      width: 5%;
+    }
+  }
+
+  @include when('dashed') {
+    border-top: 1px solid transparent;
+    border-top-style: dashed;
+    &::after {
+      border-block-start-style: dashed;
+    }
+    &::before {
+      border-block-start-style: dashed;
+    }
+  }
+}

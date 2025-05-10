@@ -23,6 +23,7 @@ import { NConfigProvider } from '@nocturne-ui/components/config-provider'
 import { NCountdown } from '@nocturne-ui/components/countdown'
 import { NDatePicker } from '@nocturne-ui/components/date-picker'
 import { NDialog } from '@nocturne-ui/components/dialog'
+import { NDivider } from '@nocturne-ui/components/divider'
 import { NDrawer } from '@nocturne-ui/components/drawer'
 import { NDropdown, NDropdownItem } from '@nocturne-ui/components/dropdown'
 import { NForm, NFormItem } from '@nocturne-ui/components/form'
@@ -92,6 +93,7 @@ export default [
   NCountdown,
   NDatePicker,
   NDialog,
+  NDivider,
   NDrawer,
   NDropdown,
   NDropdownItem,

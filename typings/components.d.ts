@@ -27,6 +27,7 @@ declare module '@vue/runtime-core' {
     NCountdown: (typeof import('packages/nocturne-ui'))['NCountdown']
     NDatePicker: (typeof import('packages/nocturne-ui'))['NDatePicker']
     NDialog: (typeof import('packages/nocturne-ui'))['NDialog']
+    NDivider: (typeof import('packages/nocturne-ui'))['NDivider']
     NDrawer: (typeof import('packages/nocturne-ui'))['NDrawer']
     NDropdown: (typeof import('packages/nocturne-ui'))['NDropdown']
     NDropdownItem: (typeof import('packages/nocturne-ui'))['NDropdownItem']

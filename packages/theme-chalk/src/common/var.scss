@@ -1178,3 +1178,13 @@ $rate: map.merge(
 
 $table: () !default;
 $table: map.merge((), $table);
+
+$divider: () !default;
+$divider: map.merge(
+  (
+    'margin': 16px 0,
+    'margin-vertical': 0 8px,
+    'line-color': getCssVar('border-color')
+  ),
+  $divider
+);
