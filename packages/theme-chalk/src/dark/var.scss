@@ -150,15 +150,15 @@ $fill-color: map.merge(
 }
 
 // text
-$text-color-base: #f0f5ff;
+$text-color-base: #fff;
 $text-color: () !default;
 $text-color: map.merge(
   (
-    'primary': rgba($text-color-base, 0.95),
-    'regular': rgba($text-color-base, 0.85),
-    'secondary': rgba($text-color-base, 0.65),
-    'placeholder': rgba($text-color-base, 0.55),
-    'disabled': rgba($text-color-base, 0.4),
+    'primary': rgba($text-color-base, 0.86),
+    'regular': rgba($text-color-base, 0.65),
+    'secondary': rgba($text-color-base, 0.55),
+    'placeholder': rgba($text-color-base, 0.45),
+    'disabled': rgba($text-color-base, 0.25),
   ),
   $text-color
 );

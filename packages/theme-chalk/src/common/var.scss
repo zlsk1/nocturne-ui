@@ -27,7 +27,7 @@ $colors: map.deep-merge(
       'base': #f46262
     ),
     'info': (
-      'base': #838383
+      'base': #64748b
     )
   ),
   $colors
@@ -75,14 +75,15 @@ $color-info: map.get($colors, 'info', 'base') !default;
   @include set-color-mix-level($type, 2, 'dark', $color-black);
 }
 
+$text-color-base: #000;
 $text-color: () !default;
 $text-color: map.merge(
   (
-    'primary': #303133,
-    'regular': #606266,
-    'secondary': #909399,
-    'placeholder': #a8abb2,
-    'disabled': #c0c4cc
+    'primary': rgba($text-color-base, 0.86),
+    'regular': rgba($text-color-base, 0.65),
+    'secondary': rgba($text-color-base, 0.55),
+    'placeholder': rgba($text-color-base, 0.45),
+    'disabled': rgba($text-color-base, 0.25)
   ),
   $text-color
 );
@@ -133,9 +134,9 @@ $border-color-hover: getCssVar('text-color', 'disabled') !default;
 $border-radius: () !default;
 $border-radius: map.merge(
   (
-    'base': 4px,
-    'small': 2px,
-    'large': 6px,
+    'base': 6px,
+    'small': 4px,
+    'large': 8px,
     'round': 20px,
     'circle': 100%
   ),
