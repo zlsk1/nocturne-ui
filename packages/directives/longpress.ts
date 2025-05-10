@@ -1,7 +1,7 @@
 import { isFunction } from '@nocturne-ui/utils'
 import type { ObjectDirective } from 'vue'
 
-interface LongPressOptions {
+export interface LongPressOptions {
   duration?: number
   interval?: number
   handler: (...args: any[]) => unknown
