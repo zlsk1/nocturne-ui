@@ -1,43 +1,33 @@
 <template>
-  <transition v-if="transition" :name="transitionClass" appear>
+  <transition :name="transitionClass" appear>
     <span
       :class="tagCls"
       :style="{ backgroundColor: color }"
       @click="handleClick"
     >
+      <slot name="icon">
+        <component :is="icon" v-if="icon" />
+      </slot>
       <span :class="ns.e('content')">
         <slot />
       </span>
-      <Close
+      <n-icon
         v-if="closable"
         size="14"
         :class="ns.e('close')"
         @click.stop="handleClose"
-      />
+      >
+        <Close />
+      </n-icon>
     </span>
   </transition>
-  <span
-    v-else
-    :class="tagCls"
-    :style="{ backgroundColor: color }"
-    @click="handleClick"
-  >
-    <span :class="ns.e('content')">
-      <slot />
-    </span>
-    <Close
-      v-if="closable"
-      size="14"
-      :class="ns.e('close')"
-      @click.stop="handleClose"
-    />
-  </span>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { RiCloseLine as Close } from '@remixicon/vue'
 import { useNamespace } from '@nocturne-ui/composables'
+import NIcon from '@nocturne-ui/components/icon'
 import { tagEmits, tagProps } from './tag'
 
 defineOptions({
@@ -60,7 +50,7 @@ const tagCls = computed(() => [
   ns.m(props.effect),
   ns.is('round', props.round),
   ns.is('closable', props.closable),
-  ns.is('hit', props.border)
+  ns.is('bordered', props.bordered)
 ])
 
 const handleClose = (e: Event) => emit('close', e)

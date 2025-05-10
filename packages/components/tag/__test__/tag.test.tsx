@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
+import { RiAccountBoxFill } from '@remixicon/vue'
 import Tag from '../src/tag.vue'
 
 describe('Tag', () => {
@@ -34,7 +35,7 @@ describe('Tag', () => {
   test('border', () => {
     const wrapper = mount(() => <Tag border={true} />)
     const container = wrapper.find('.n-tag')
-    expect(container.classes()).toContain('is-hit')
+    expect(container.classes()).toContain('is-bordered')
   })
 
   test('closable', async () => {
@@ -75,5 +76,15 @@ describe('Tag', () => {
     expect(container.classes()).toContain('n-tag--large')
     expect(container.classes()).not.toContain('n-tag--default')
     expect(container.classes()).not.toContain('n-tag--small')
+  })
+
+  test('slot-icon', () => {
+    const wrapper = mount(() => (
+      <Tag
+        v-slots={{ icon: () => <RiAccountBoxFill></RiAccountBoxFill> }}
+      ></Tag>
+    ))
+
+    expect(wrapper.findComponent(RiAccountBoxFill).exists()).toBe(true)
   })
 })

@@ -1,5 +1,6 @@
 import { ExtractPropTypes } from 'vue'
 import { componentSizes } from '@nocturne-ui/constants'
+import { iconPropType } from '@nocturne-ui/utils'
 import tag from './tag.vue'
 
 export const tagProps = {
@@ -29,11 +30,14 @@ export const tagProps = {
     type: Boolean,
     default: true
   },
-  border: {
+  bordered: {
     type: Boolean,
-    default: false
+    default: true
   },
-  color: String
+  color: String,
+  icon: {
+    type: iconPropType
+  }
 } as const
 
 export const tagEmits = {
