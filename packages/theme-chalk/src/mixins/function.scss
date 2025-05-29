@@ -42,7 +42,7 @@
     hasPseudoClass($selector);
 }
 
-// join css var name: joinVarName('button', 'primary') => --fr-button-primary
+// join css var name: joinVarName('button', 'primary') => --n-button-primary
 @function joinVarName($list) {
   $name: '--' + $namespace;
 
@@ -55,22 +55,21 @@
   @return $name;
 }
 
-// getCssVarName('button', 'primary') => --fr-button-primary
+// getCssVarName('button', 'primary') => --n-button-primary
 @function getCssVarName($args...) {
   @return joinVarName($args);
 }
 
-// getCssVar('button', 'primary') => var(--fr-button-primary)
+// getCssVar('button', 'primary') => var(--n-button-primary)
 @function getCssVar($args...) {
   @return var(#{joinVarName($args)});
 }
 
-// getCssVarWithDefault(('button', 'text-color'), red) => var(--el-button-text-color, red)
+// getCssVarWithDefault(('button', 'text-color'), red) => var(--n-button-text-color, red)
 @function getCssVarWithDefault($args, $default) {
   @return var(#{joinVarName($args)}, #{$default});
 }
 
-// bem('block', 'element', 'modifier') => 'fr-block__element--modifier'
 @function bem($block, $element: '', $modifier: '') {
   $name: $namespace + $common-separator + $block;
 
