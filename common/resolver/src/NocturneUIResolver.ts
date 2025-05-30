@@ -9,13 +9,15 @@ export interface Options {
   exclude?: RegExp
   directives?: boolean
   format?: 'esm' | 'cjs'
+  ssr?: boolean
 }
 
 export const defaultOptons: Options = {
   importStyle: 'css',
   exclude: undefined,
   directives: true,
-  format: 'esm'
+  format: 'esm',
+  ssr: false
 }
 
 function kebabCase(key: string) {
@@ -27,20 +29,32 @@ function resolveStyle(
   name: string,
   options: Options
 ): SideEffectsInfo | undefined {
-  const { importStyle } = options
+  const { importStyle, ssr } = options
 
   if (importStyle === 'sass') {
-    return [
-      'nocturne-ui/theme-chalk/src/base.scss',
-      'nocturne-ui/theme-chalk/src/dark/css-vars.scss',
-      `nocturne-ui/theme-chalk/src/${name.split('-')[1]}.scss`
-    ]
+    return ssr
+      ? [
+          'nocturne-ui/theme-chalk/src/base.scss',
+          'nocturne-ui/theme-chalk/src/dark/css-vars.scss',
+          `nocturne-ui/theme-chalk/src/${name}.scss`
+        ]
+      : [
+          'nocturne-ui/theme-chalk/src/base.scss',
+          'nocturne-ui/theme-chalk/src/dark/css-vars.scss',
+          `nocturne-ui/es/components/${name}/style/scss`
+        ]
   } else if (importStyle === 'css') {
-    return [
-      'nocturne-ui/theme-chalk/base.css',
-      'nocturne-ui/theme-chalk/dark/css-vars.css',
-      `nocturne-ui/theme-chalk/${name}.css`
-    ]
+    return ssr
+      ? [
+          'nocturne-ui/theme-chalk/base.css',
+          'nocturne-ui/theme-chalk/dark/css-vars.css',
+          `nocturne-ui/theme-chalk/n-${name}.css`
+        ]
+      : [
+          'nocturne-ui/theme-chalk/base.css',
+          'nocturne-ui/theme-chalk/dark/css-vars.css',
+          `nocturne-ui/es/components/${name}/style/css`
+        ]
   }
 }
 
@@ -59,7 +73,7 @@ function resolveComponent(
     }
   }
 
-  const _name = kebabCase(name)
+  const _name = kebabCase(name.slice(1))
 
   return {
     name,
@@ -88,7 +102,9 @@ function resolveDirective(
   }
 }
 
-export function NocturneUIResolver(options: Options = {}): ComponentResolver[] {
+export default function NocturneUIResolver(
+  options: Options = {}
+): ComponentResolver[] {
   let mergeOptions: Options
 
   function resolveOptions() {
