@@ -3,8 +3,8 @@ import { defineConfig } from 'vite'
 import UnoCSS from 'unocss/vite'
 import glob from 'fast-glob'
 import Inspect from 'vite-plugin-inspect'
-import mkcert from 'vite-plugin-mkcert'
-import { loadEnv } from 'vitepress'
+import Components from 'unplugin-vue-components/vite'
+import { NocturneUIResolver } from 'nocturne-ui-resolver'
 import { projRoot } from '../build/utils'
 import { autoImportDemo } from './.vitepress/plugins/demo-import'
 
@@ -23,8 +23,7 @@ optimizeDeps.push(
   }))
 )
 
-export default defineConfig(async ({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '')
+export default defineConfig(async () => {
   return {
     resolve: {
       alias: [
@@ -43,9 +42,16 @@ export default defineConfig(async ({ mode }) => {
     },
     plugins: [
       autoImportDemo(),
-      UnoCSS(),
+      UnoCSS({
+        inspector: false
+      }),
       Inspect(),
-      env.HTTPS ? mkcert() : undefined
+      Components({
+        resolvers: [NocturneUIResolver()],
+        dirs: ['.vitepress/theme/components'],
+        allowOverrides: true,
+        include: [/\.vue$/, /\.vue\?vue/, /\.md$/]
+      })
     ],
     optimizeDeps: {
       include: ['vue', ...optimizeDeps]

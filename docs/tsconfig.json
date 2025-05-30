@@ -13,9 +13,8 @@
     "lib": ["WebWorker", "DOM"],
     "paths": {
       "@docs/*": ["./*"]
-    },
-    "types": ["nocturne-ui/global"]
+    }
   },
-  "include": ["**/*", ".vitepress/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["**/*", ".vitepress/**/*", "../typings/global.d.ts"],
+  "exclude": ["node_modules", "dist"]
 }
