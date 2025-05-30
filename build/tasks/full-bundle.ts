@@ -7,7 +7,6 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import esbuild, { minify as minifyPlugin } from 'rollup-plugin-esbuild'
 import { parallel } from 'gulp'
-import alias from '@rollup/plugin-alias'
 import fg from 'fast-glob'
 import {
   camelCase,
@@ -49,14 +48,6 @@ async function buildFullEntry(minify: boolean) {
     replace({
       'process.env.NODE_ENV': JSON.stringify('production'),
       preventAssignment: true
-    }),
-    alias({
-      entries: [
-        {
-          find: /^@nocturne-ui\/(.*)$/,
-          replacement: path.resolve('../packages/$1')
-        }
-      ]
     })
   ]
   if (minify) {

@@ -5,7 +5,6 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import esbuild from 'rollup-plugin-esbuild'
 import fg from 'fast-glob'
 import commonjs from '@rollup/plugin-commonjs'
-import alias from '@rollup/plugin-alias'
 import { rollup } from 'rollup'
 import { parallel } from 'gulp'
 import {
@@ -19,9 +18,24 @@ import {
 import { NAlias } from '../plugins/rollup-plugin-Nalias'
 import { buildConfigEntries, target } from '../build-info'
 import type { TaskFunction } from 'gulp'
-import type { OutputOptions } from 'rollup'
+import type { OutputOptions, Plugin } from 'rollup'
 
 const extensions = ['.mjs', '.js', '.ts', '.json']
+
+const plugins: Plugin[] = [
+  NAlias(),
+  vue(),
+  vueJsx(),
+  nodeResolve({ extensions }),
+  commonjs(),
+  esbuild({
+    sourceMap: true,
+    target,
+    loaders: {
+      '.vue': 'ts'
+    }
+  })
+]
 
 export const buildMainModules = async () => {
   const input = excludeFiles(
@@ -31,30 +45,10 @@ export const buildMainModules = async () => {
       onlyFiles: true
     })
   )
+
   const bundle = await rollup({
     input,
-    plugins: [
-      NAlias(),
-      vue(),
-      vueJsx(),
-      nodeResolve({ extensions }),
-      commonjs(),
-      esbuild({
-        sourceMap: true,
-        target,
-        loaders: {
-          '.vue': 'ts'
-        }
-      }),
-      alias({
-        entries: [
-          {
-            find: /^@nocturne-ui\/(.*)$/,
-            replacement: path.resolve('../packages/$1')
-          }
-        ]
-      })
-    ],
+    plugins,
     external: getExternal(),
     treeshake: false
   })
@@ -84,12 +78,8 @@ export const buildStyleModules = async () => {
 
   const bundle = await rollup({
     input: files,
-    plugins: [
-      NAlias(),
-      esbuild({
-        target
-      })
-    ]
+    plugins,
+    treeshake: false
   })
 
   await writeBundles(
