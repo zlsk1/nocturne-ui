@@ -25,7 +25,8 @@ const buttonCls = computed(() => [
   ns.is('circle', props.circle),
   ns.is('disabled', props.disabled),
   ns.is('loading', props.loading),
-  ns.is('text', props.text)
+  ns.is('text', props.text),
+  ns.is('icon', props.icon && !slots.default)
 ])
 
 const handleClick = (e: MouseEvent) => {
@@ -35,11 +36,11 @@ const handleClick = (e: MouseEvent) => {
 
 <template>
   <button :class="buttonCls" @click="handleClick">
-    <n-icon v-if="loading" :class="[ns.is('loading-icon', loading)]">
-      <component :is="loadingIcon" size="14" />
+    <n-icon v-if="loading" :class="[ns.is('loading-icon', loading)]" size="16">
+      <component :is="loadingIcon" />
     </n-icon>
-    <n-icon v-else-if="icon">
-      <component :is="icon" size="14" />
+    <n-icon v-else-if="icon" size="16">
+      <component :is="icon" />
     </n-icon>
     <span v-if="slots.default">
       <slot />

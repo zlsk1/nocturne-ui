@@ -68,10 +68,6 @@ $button-icon-span-gap: map.merge(
     align-items: center;
   }
 
-  & + & {
-    margin-left: 12px;
-  }
-
   @include button-size(
     map.get($button-padding-vertical, 'default') - $button-border-width,
     map.get($button-padding-horizontal, 'default') - $button-border-width,
@@ -165,7 +161,7 @@ $button-icon-span-gap: map.merge(
   }
 
   @include when(circle) {
-    width: 32px;
+    width: map.get($common-component-size, 'default');
     padding: 8px;
     border-radius: 50%;
   }
@@ -277,6 +273,19 @@ $button-icon-span-gap: map.merge(
         width: getCssVar('button', 'size');
         padding: map.get($button-padding-vertical, $size) - $button-border-width;
       }
+
+      @include when(icon) {
+        width: getCssVar('button', 'size') !important;
+        height: getCssVar('button', 'size') !important;
+      }
     }
+  }
+
+  @include when(icon) {
+    display: inline-flex;
+    align-items: center;
+    width: map.get($common-component-size, 'default');
+    height: map.get($common-component-size, 'default');
+    padding: 0;
   }
 }
