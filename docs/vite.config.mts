@@ -4,7 +4,7 @@ import UnoCSS from 'unocss/vite'
 import glob from 'fast-glob'
 import Inspect from 'vite-plugin-inspect'
 import Components from 'unplugin-vue-components/vite'
-import { NocturneUIResolver } from 'nocturne-ui-resolver'
+import NocturneUIResolver from 'nocturne-ui-resolver'
 import { projRoot } from '../build/utils'
 import { autoImportDemo } from './.vitepress/plugins/demo-import'
 
