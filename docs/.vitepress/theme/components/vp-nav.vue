@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sticky left-0 top-0 flex items-center justify-between w-100% h-[var(--nav-height)] px-[40px] z-[100] before:(content-empty absolute bottom-0 left-0 w-100% h-[1px] bg-[var(--n-border-color-lighter)]) max-lg:(relative left-0 top-0) max-md:px-[20px]"
+    class="sticky left-0 top-0 flex items-center justify-between w-100% h-[var(--nav-height)] px-[40px] z-[100] shadow-sm max-lg:(relative left-0 top-0) max-md:px-[20px]"
     :class="[plain ? 'bg-transparent' : 'bg-[var(--n-bg-color)]']"
   >
     <a href="/index.html" class="flex items-center">

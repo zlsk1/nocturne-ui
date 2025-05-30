@@ -22,14 +22,14 @@ app.use(NocturneUI)
 app.mount('#app')
 ```
 
-如果你使用 ```volar``` ，可以在tsconfig.json文件中添加如下规则获取类型提示
+如果你使用 `volar` ，可以在tsconfig.json文件中添加如下规则获取类型提示
 
 ```json
 // tsconfig.json
 {
   "compilerOptions": {
-    "types": ["nocturne-ui/global"],
-  },
+    "types": ["nocturne-ui/global"]
+  }
 }
 ```
 
@@ -55,15 +55,9 @@ import 'nocturne-ui/theme-chalk/src/button.scss'
 </template>
 ```
 
-:::tip
-
-暂不支持样式的自动引入
-
-:::
-
 #### 自动引入
 
-自动引入时你需要将 ```unplugin-vue-components``` 、```unplugin-auto-import``` 和 ```nocturne-ui-resolver``` 这三个依赖下载至你的项目中
+自动引入时你需要将 `unplugin-vue-components` 、`unplugin-auto-import` 和 `nocturne-ui-resolver` 这三个依赖下载至你的项目中
 
 点击[unplugin-auto-import](https://github.com/unplugin/unplugin-auto-import)、[unplugin-vue-components](https://github.com/unplugin/unplugin-vue-components)和[nocturne-ui-resolver](https://github.com/zlsk1/nocturne-ui/tree/master/common/resolver)查看更多插件相关信息
 
@@ -103,11 +97,11 @@ const { NocturneUIReslover } = require('nocturne-ui-resolver')
 module.exports = {
   plugins: [
     AutoImport({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver()]
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
-    }),
-  ],
+      resolvers: [ElementPlusResolver()]
+    })
+  ]
 }
 ```

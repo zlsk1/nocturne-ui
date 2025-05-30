@@ -5,6 +5,7 @@ import glob from 'fast-glob'
 import Inspect from 'vite-plugin-inspect'
 import Components from 'unplugin-vue-components/vite'
 import NocturneUIResolver from 'nocturne-ui-resolver'
+import { groupIconVitePlugin } from 'vitepress-plugin-group-icons'
 import { projRoot } from '../build/utils'
 import { autoImportDemo } from './.vitepress/plugins/demo-import'
 
@@ -51,7 +52,8 @@ export default defineConfig(async () => {
         dirs: ['.vitepress/theme/components'],
         allowOverrides: true,
         include: [/\.vue$/, /\.vue\?vue/, /\.md$/]
-      })
+      }),
+      groupIconVitePlugin()
     ],
     optimizeDeps: {
       include: ['vue', ...optimizeDeps]

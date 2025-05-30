@@ -134,7 +134,7 @@ export const config: UserConfig = {
         {
           text: '基础',
           items: [
-            { text: 'Nocturne UI', link: '/zh-CN/guide/nocturne-ui' },
+            { text: 'NocturneUI', link: '/zh-CN/guide/nocturne-ui' },
             { text: '快速上手 ', link: '/zh-CN/guide/quickstart' }
           ]
         },

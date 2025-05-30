@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, getCurrentInstance, ref } from 'vue'
+import { computed, ref } from 'vue'
 import {
   RiSendPlaneFill as Play,
   RiArrowUpDoubleLine as Triangle,
@@ -62,6 +62,7 @@ import {
   RiGithubFill as github
 } from '@remixicon/vue'
 import { useClipboard } from '@vueuse/core'
+import { NMessage } from 'nocturne-ui'
 
 const props = defineProps({
   src: {
@@ -92,8 +93,6 @@ const { copy, isSupported } = useClipboard({
   read: false
 })
 
-const vm = getCurrentInstance()!
-
 const decoded = computed(() => {
   return decodeURIComponent(props.codes)
 })
@@ -120,16 +119,14 @@ const handleShowCode = async () => {
 }
 
 const copyCode = async () => {
-  const { $message } = vm.appContext.config.globalProperties
-
   if (!isSupported) {
-    $message.error({
+    NMessage.error({
       offset: 55,
       message: '复制失败'
     })
   } else {
     await copy()
-    $message.success({
+    NMessage.success({
       offset: 55,
       message: '复制成功'
     })

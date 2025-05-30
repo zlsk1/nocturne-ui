@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import MarkdownIt from 'markdown-it'
 import mdContainer from 'markdown-it-container'
+import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
 import tag from '../plugins/tag'
 import { ApiTableContainer } from '../plugins/api-table'
 import ApiTableWrapper from '../plugins/table-wrapper'
@@ -32,6 +33,7 @@ export const mdPlugin = (md: MarkdownIt) => {
     .use(ApiTableWrapper)
     .use(tooltip)
     .use(link)
+    .use(groupIconMdPlugin)
 }
 
 /**
