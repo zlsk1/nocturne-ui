@@ -31,6 +31,7 @@ import { NIcon } from '@nocturne-ui/components/icon'
 import { NInput } from '@nocturne-ui/components/input'
 import { NInputNumber } from '@nocturne-ui/components/input-number'
 import { NLink } from '@nocturne-ui/components/link'
+import { NSpin } from '@nocturne-ui/components/loading'
 import {
   NMenu,
   NMenuItem,
@@ -104,6 +105,7 @@ export default [
   NInput,
   NInputNumber,
   NLink,
+  NSpin,
   NMenu,
   NMenuItem,
   NSubMenu,

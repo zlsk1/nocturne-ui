@@ -1,5 +1,7 @@
+import { withInstall } from '@nocturne-ui/utils'
 import Loading from './src/method'
 import vLoading from './src/directive'
+import Spin from './src/spin.vue'
 import type { App } from 'vue'
 
 export * from './src/method'
@@ -12,6 +14,11 @@ export const NLoading = {
     app.config.globalProperties.$loading = Loading
   }
 }
-export default NLoading
 
-export { vLoading, vLoading as NLoadingDirective, Loading as NLoadingUse }
+const NSpin = withInstall(Spin)
+
+export default NLoading
+export * from './src/loading'
+export * from './src/spin'
+
+export { vLoading, vLoading as NLoadingDirective, Loading as useLoading, NSpin }

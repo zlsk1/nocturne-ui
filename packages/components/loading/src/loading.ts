@@ -1,19 +1,15 @@
-import {
-  definePropType,
-  iconPropType,
-  isClient,
-  mutable
-} from '@nocturne-ui/utils'
+import { definePropType, iconPropType, isClient } from '@nocturne-ui/utils'
 import type { ExtractPropTypes, VNode } from 'vue'
 
-export const loadingDefault = mutable({
+export const loadingDefault = {
   target: isClient ? document.body : (undefined as never),
   text: '',
   icon: 'Loader',
-  maskBg: 'rgba(0, 0, 0, 0.8)',
+  maskBg: 'rgba(0, 0, 0, 0.7)',
   locked: false,
-  onClose: undefined
-} as const)
+  onClose: undefined,
+  fullScreen: false
+}
 
 export const loadingProps = {
   target: {
@@ -42,6 +38,10 @@ export const loadingProps = {
       undefined
     ]),
     default: loadingDefault.onClose
+  },
+  fullScreen: {
+    type: Boolean,
+    default: loadingDefault.fullScreen
   }
 } as const
 
@@ -54,3 +54,4 @@ export type LoadingIntance = {
 export type loadingParams = Partial<LoadingProps> | (string | HTMLElement)
 export type normilizedParams = Partial<LoadingProps> & { target: HTMLElement }
 export type closeHandler = () => void
+export type LoadingOptions = typeof loadingDefault

@@ -1,36 +1,59 @@
+import { isRef } from 'vue'
 import { isObject } from 'lodash'
 import Loading from './method'
-import type { LoadingIntance, LoadingProps } from './loading'
-import type { Directive } from 'vue'
+import { loadingDefault } from './loading'
+import type { LoadingIntance, LoadingOptions } from './loading'
+import type { Directive, UnwrapRef } from 'vue'
 
 export interface NLoading extends HTMLElement {
   instance: LoadingIntance
+  options: LoadingOptions
 }
 
-const createLoading = (el: NLoading, binding: LoadingProps) => {
+const createLoading = (el: NLoading, binding: LoadingOptions) => {
   if (isObject(binding)) {
-    el.instance = Loading({
+    const options = {
+      ...loadingDefault,
       ...binding,
       target: el
-    })
+    }
+    el.instance = Loading(options)
+    el.options = options
   } else {
     el.instance = Loading(el)
+    el.options = loadingDefault
   }
 }
 
-export const vLoading: Directive<NLoading, LoadingProps> = {
+const updateOptions = (
+  newOptions: UnwrapRef<LoadingOptions>,
+  originalOptions: LoadingOptions
+) => {
+  for (const key of Object.keys(originalOptions)) {
+    // @ts-ignore
+    if (isRef(originalOptions[key])) {
+      // @ts-ignore
+      originalOptions[key].value = newOptions[key]
+    }
+  }
+}
+
+export const vLoading: Directive<NLoading, LoadingOptions> = {
   mounted: (el, binding) => {
     if (binding.value) {
       createLoading(el, binding.value)
     }
   },
   updated: (el, binding) => {
-    if (binding.value || binding.oldValue) {
-      if (!binding.value) {
+    if (binding.oldValue !== binding.value) {
+      if (binding.value && !binding.oldValue) {
+        createLoading(el, binding.value)
+      } else if (binding.oldValue && binding.value) {
+        updateOptions(binding.value, el.options)
+      } else {
         el.instance.close()
         return
       }
-      createLoading(el, binding.value)
     }
   },
   unmounted: (el) => {
