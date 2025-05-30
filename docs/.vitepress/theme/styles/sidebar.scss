@@ -41,7 +41,7 @@
           color: var(--n-text-color-primary);
         }
         &:last-child {
-          color: var(--n-text-color-regular);
+          color: var(--n-text-color-primary);
         }
       }
     }
@@ -81,7 +81,7 @@
             color: var(--n-text-color-primary);
           }
           &:last-child {
-            color: var(--n-text-color-regular);
+            color: var(--n-text-color-primary);
           }
         }
       }
