@@ -164,7 +164,13 @@ export default {
       hasCheckedFormat: '已选 {checked}/{total} 项'
     },
     image: {
-      error: '加载失败'
+      error: '加载失败',
+      vtlReversal: '垂直反转',
+      hzlReversal: '水平反转',
+      counterclockwise: '逆时针旋转',
+      clockwise: '顺时针旋转',
+      zoomOut: '缩小',
+      zoomIn: '放大'
     },
     pageHeader: {
       title: '返回'

@@ -28,6 +28,7 @@ import { NDrawer } from '@nocturne-ui/components/drawer'
 import { NDropdown, NDropdownItem } from '@nocturne-ui/components/dropdown'
 import { NForm, NFormItem } from '@nocturne-ui/components/form'
 import { NIcon } from '@nocturne-ui/components/icon'
+import { NImage, NImageViewer } from '@nocturne-ui/components/image'
 import { NInput } from '@nocturne-ui/components/input'
 import { NInputNumber } from '@nocturne-ui/components/input-number'
 import { NLink } from '@nocturne-ui/components/link'
@@ -102,6 +103,8 @@ export default [
   NForm,
   NFormItem,
   NIcon,
+  NImage,
+  NImageViewer,
   NInput,
   NInputNumber,
   NLink,

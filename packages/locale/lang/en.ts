@@ -163,7 +163,13 @@ export default {
       hasCheckedFormat: '{checked}/{total} checked'
     },
     image: {
-      error: 'FAILED'
+      error: 'FAILED',
+      vtlReversal: 'vertical reversal',
+      hzlReversal: 'horizontal reversal',
+      counterclockwise: 'rotate counterclockwise',
+      clockwise: 'rotate clockwise',
+      zoomOut: 'zoom-out',
+      zoomIn: 'zoom-in'
     },
     pageHeader: {
       title: 'Go back'

@@ -1131,3 +1131,14 @@ $divider: map.merge(
   ),
   $divider
 );
+
+$image-viewer: () !default;
+$image-viewer: map.merge(
+  (
+    'text-color': getCssVar('text-color-regular'),
+    'disabled-color': getCssVar('text-color-disabled'),
+    'action-bg': getCssVar('bg-color'),
+    'img-max-height': 70%
+  ),
+  $image-viewer
+);
