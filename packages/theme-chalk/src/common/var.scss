@@ -750,6 +750,16 @@ $avatar: map.merge(
   $avatar
 );
 
+$avatar-size: () !default;
+$avatar-size: map.merge(
+  (
+    'large': 56px,
+    'default': 40px,
+    'small': 24px
+  ),
+  $avatar-size
+);
+
 $collapse: () !default;
 $collapse: map.merge(
   (
@@ -1141,4 +1151,13 @@ $image-viewer: map.merge(
     'img-max-height': 70%
   ),
   $image-viewer
+);
+
+$skeleton: () !default;
+$skeleton: map.merge(
+  (
+    'color': getCssVar('fill-color'),
+    'to-color': getCssVar('fill-color', 'darker')
+  ),
+  $skeleton
 );

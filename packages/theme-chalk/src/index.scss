@@ -6,6 +6,7 @@
 @use './avatar.scss';
 @use './badge.scss';
 @use './breadcrumb.scss';
+@use './breadcrumb-item.scss';
 @use './button.scss';
 @use './button-group.scss';
 @use './card.scss';
@@ -53,8 +54,11 @@
 @use './row.scss';
 @use './segmented.scss';
 @use './select.scss';
+@use './skeleton.scss';
+@use './skeleton-item.scss';
 @use './slider.scss';
 @use './space.scss';
+@use './spin.scss';
 @use './statistic.scss';
 @use './switch.scss';
 @use './tabs.scss';

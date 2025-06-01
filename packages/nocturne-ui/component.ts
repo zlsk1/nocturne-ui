@@ -54,6 +54,7 @@ import { NRate } from '@nocturne-ui/components'
 import { NRow } from '@nocturne-ui/components/row'
 import { NSegmented } from '@nocturne-ui/components/segmented'
 import { NOption, NOptionGroup, NSelect } from '@nocturne-ui/components/select'
+import { NSkeleton, NSkeletonItem } from '@nocturne-ui/components/skeleton'
 import { NSlider } from '@nocturne-ui/components/slider'
 import { NSpace } from '@nocturne-ui/components/space'
 import { NStatistic } from '@nocturne-ui/components/statistic'
@@ -128,6 +129,8 @@ export default [
   NRow,
   NSegmented,
   NSelect,
+  NSkeleton,
+  NSkeletonItem,
   NSlider,
   NSpace,
   NStatistic,

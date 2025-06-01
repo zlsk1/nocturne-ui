@@ -1,0 +1,80 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(spin) {
+  box-sizing: border-box;
+  position: relative;
+
+  @include e(content) {
+    box-sizing: border-box;
+    position: relative;
+    transition: opacity getCssVar('transition-duration');
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      z-index: 10;
+      background: getCssVar('bg-color');
+      transition: all getCssVar('transition-duration');
+      pointer-events: none;
+    }
+  }
+
+  @include e(icon) {
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    animation: rotate 1s infinite cubic-bezier(0.9, 0.4, 0.3, 0.33);
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @include e(loader) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+    text-align: center;
+    color: getCssVar('color-primary');
+    vertical-align: middle;
+    line-height: 1.5;
+    z-index: 4;
+  }
+
+  @include e(text) {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-shadow: 0 1px 2px getCssVar('bg-color');
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @include when(loading) {
+    @include e(content) {
+      opacity: 0.5;
+      pointer-events: none;
+      user-select: none;
+      &::after {
+        opacity: 0.4;
+        pointer-events: auto;
+      }
+    }
+  }
+
+  @include when(fullScreen) {
+    position: fixed;
+    inset: 0;
+  }
+}
