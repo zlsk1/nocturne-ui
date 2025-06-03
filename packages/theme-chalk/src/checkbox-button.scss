@@ -6,7 +6,7 @@
   @include set-component-css-var('checkbox-button', $checkbox-button);
   height: getCssVar('component-size');
   font-size: 14px;
-  transition: all getCssVar('transition-duration') linear;
+  transition: all getCssVar('transition-duration-fast') linear;
 
   @include when(checked) {
     color: getCssVar('checkbox-button', 'checked-bg-color');

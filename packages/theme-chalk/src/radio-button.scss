@@ -7,7 +7,7 @@
 
   font-size: 14px;
   border-radius: 0;
-  transition: all getCssVar('transition-duration') linear;
+  transition: all getCssVar('transition-duration-fast') linear;
 
   &:hover {
     opacity: 0.8;
