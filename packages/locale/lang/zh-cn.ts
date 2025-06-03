@@ -12,7 +12,7 @@ export default {
       alphaLabel: '选择透明度的值'
     },
     datepicker: {
-      now: '此刻',
+      now: '现在',
       today: '今天',
       cancel: '取消',
       clear: '清空',

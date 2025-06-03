@@ -1,60 +1,64 @@
 <template>
   <div :class="ns.m('panel')">
-    <div :class="ns.m('panel__main')">
+    <div :class="ns.m('panel--main')">
       <ul
         v-for="(item, key) in timeChoosed"
         :key="key"
         :ref="(el: unknown) => setRef(el as any, item)"
-        :class="`${ns.ns.value}-panel__children`"
+        :class="ns.m('panel--list')"
       >
         <li
           v-for="({ value, disabled }, _key) in timelist[item]"
           :key="_key"
           :class="[
-            ns.is('active', timeObj[item] === value),
+            ns.is('selected', timeObj[item] === value),
             ns.is('disabled', disabled)
           ]"
           @click="handleClick(item, value, disabled)"
         >
-          {{ value < 10 ? `0${value}` : value }}
+          {{ leftPad(value, 2) }}
         </li>
       </ul>
     </div>
     <div :class="ns.m('panel__btns')">
-      <n-button size="small" text @mousedown="getNow"> 此刻 </n-button>
-      <n-button type="primary" size="small" @mousedown="handleConfirm">
-        确定
+      <n-button size="small" text @click="getNow">
+        {{ t('noc.datepicker.now') }}
+      </n-button>
+      <n-button type="primary" size="small" @click="handleConfirm">
+        {{ t('noc.datepicker.confirm') }}
       </n-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
+import { computed, nextTick, ref, unref, watch } from 'vue'
 import dayjs from 'dayjs'
-import { NButton } from '@nocturne-ui/components'
-import { useNamespace } from '@nocturne-ui/composables'
+import NButton from '@nocturne-ui/components/button'
+import { useLocale, useNamespace } from '@nocturne-ui/composables'
 import { getTimelist } from './composables/use-time-picker'
 import { timeUnits } from './constants'
 import {
   timePickerPanelEmit,
   timePickerPanelProps
 } from './props/time-picker-panel'
-import { usePickPanel } from './composables/use-pick-panel'
+import { usePickPanel } from './composables/use-time-panel'
+import { leftPad, parseDate } from './util'
 
 import type { Ref } from 'vue'
 import type { TimeUnits } from './constants'
-import type { Timelist } from './type'
+import type { Timelist } from './types'
 import type { Dayjs } from 'dayjs'
 
 defineOptions({
-  name: 'NPickerPanel'
+  name: 'NTimePickerPanel'
 })
 
 const props = defineProps(timePickerPanelProps)
 const emit = defineEmits(timePickerPanelEmit)
 
 const ns = useNamespace('time-picker')
+const { t } = useLocale()
 
 const { getHourlist, getMinutelist, getSecondlist } = getTimelist(
   {
@@ -78,14 +82,22 @@ const typeRefs = ref<Record<TimeUnits, Ref<HTMLElement | undefined>>>({
   second: typeSecondRef
 })
 
+const parsedValue = computed(() => {
+  const { calculatedValue, userInput } = props
+  const parsedValue = userInput
+    ? parseDate(userInput, props.format)
+    : calculatedValue
+
+  return parsedValue
+})
+
 const timeChoosed = computed(() => {
   return props.showSecond ? timeUnits : timeUnits.slice(0, 2)
 })
 const timeObj = computed<Record<TimeUnits, number>>(() => {
-  const { calculatedValue } = props
-  const hour = calculatedValue.hour()
-  const minute = calculatedValue.minute()
-  const second = calculatedValue.second()
+  const hour = parsedValue.value.hour()
+  const minute = parsedValue.value.minute()
+  const second = parsedValue.value.second()
 
   return {
     hour,
@@ -101,29 +113,17 @@ const timelist = computed<Timelist>(() => {
     second: getSecondlist(hour, minute)
   }
 })
-
 const { getAvailableTime } = usePickPanel(timelist.value)
 
-watch(
-  () => props.visible,
-  (val) => {
-    if (val) {
-      nextTick(() => {
-        doScroll('hour', timeObj.value['hour'])
-        doScroll('minute', timeObj.value['minute'])
-        doScroll('second', timeObj.value['second'])
-      })
-    }
-  }
-)
-
-const handleClick = (type: TimeUnits, value: number, disabled?: boolean) => {
-  doScroll(type, value, disabled)
-  modifyValue(type, value, disabled)
-}
-
-const handleScroll = (type: TimeUnits, target: number) => {
-  typeRefs.value[type]?.scrollTo({ top: target })
+const handleScroll = (
+  type: TimeUnits,
+  target: number,
+  behavior: ScrollToOptions['behavior'] = 'smooth'
+) => {
+  typeRefs.value[type]?.scrollTo({
+    top: target,
+    behavior
+  })
 }
 
 const setRef = (el: any, type: TimeUnits) => {
@@ -138,11 +138,16 @@ const getItemHeight = (el: HTMLElement) =>
     document.defaultView?.getComputedStyle(el).height || el.style.height
   )
 
-const doScroll = (type: TimeUnits, value: number, disabled?: boolean) => {
+const doScroll = (
+  type: TimeUnits,
+  value: number,
+  disabled?: boolean,
+  behavior: ScrollToOptions['behavior'] = 'smooth'
+) => {
   if (disabled) return
   const scrollEl = getScrollEl(type)
   const height = getItemHeight(scrollEl) * (value / props.step[`${type}Step`])
-  handleScroll(type, height)
+  handleScroll(type, height, behavior)
 }
 
 const modifyValue = (type: TimeUnits, value: number, disabled?: boolean) => {
@@ -161,17 +166,23 @@ const modifyValue = (type: TimeUnits, value: number, disabled?: boolean) => {
       changeTo = props.calculatedValue.hour(hour).minute(minute).second(value)
       break
   }
-  emit('change', changeTo)
+  emit('pick', changeTo)
+}
+
+const handleClick = (type: TimeUnits, value: number, disabled?: boolean) => {
+  doScroll(type, value, disabled)
+  modifyValue(type, value, disabled)
 }
 
 const handleConfirm = () => {
-  emit('pick', props.calculatedValue)
+  emit('change', parsedValue.value)
+  props.blurPicker?.()
 }
 
 const getNow = () => {
   const date = dayjs(new Date())
-
-  emit('change', date, true)
+  emit('change', date)
+  props.blurPicker?.()
 }
 
 const getDefaultValue = () => dayjs(props.defaultValue)
@@ -180,11 +191,18 @@ const getAvailableValue = (date: Dayjs) => {
   return getAvailableTime(date)
 }
 
-onMounted(() => {
-  doScroll('hour', timeObj.value['hour'])
-  doScroll('minute', timeObj.value['minute'])
-  doScroll('second', timeObj.value['second'])
-})
+watch(
+  () => props.visible,
+  (val) => {
+    if (val) {
+      nextTick(() => {
+        doScroll('hour', timeObj.value['hour'], false, 'auto')
+        doScroll('minute', timeObj.value['minute'], false, 'auto')
+        doScroll('second', timeObj.value['second'], false, 'auto')
+      })
+    }
+  }
+)
 
 emit('setPickerMethods', ['getDefaultValue', getDefaultValue])
 emit('setPickerMethods', ['getAvailableValue', getAvailableValue])

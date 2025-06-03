@@ -1,5 +1,6 @@
 import { INSTALLED_KEY } from '@nocturne-ui/constants'
 import { provideGlobalConfig } from '@nocturne-ui/components/config-provider'
+import dayjs from 'dayjs'
 import Components from './component'
 import Plugins from './plugin'
 import type { App } from 'vue'
@@ -41,3 +42,5 @@ export * from '@nocturne-ui/composables'
 export * from '@nocturne-ui/directives'
 
 export const install = installer.install
+
+export { dayjs }

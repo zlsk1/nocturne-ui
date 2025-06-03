@@ -1022,16 +1022,22 @@ $dropdown: map.merge(
   $dropdown
 );
 
+$picker: () !default;
+$picker: map.merge((), $picker);
+
 $time-picker: () !default;
 $time-picker: map.merge(
   (
     'panel-height': 232px,
-    'panel-children-width': 62px,
-    'panel-inner-children-width': 52px,
-    'panel-inner-children-height': 32px,
+    'panel-list-width': 62px,
+    'panel-inner-list-width': 52px,
+    'panel-inner-list-height': 32px,
     'text-color': getCssVar('text-color-regular'),
-    'active-bg-color': getCssVar('border-color'),
-    'active-text-color': getCssVar('text-color-primary')
+    'cell-hover-bg': getCssVar('fill-color'),
+    'cell-selected-bg': getCssVar('fill-color-darker'),
+    'cell-selected-text-color': getCssVar('text-color-primary'),
+    'cell-radius': getCssVar('border-radius-small'),
+    'divider-color': getCssVar('border-color-lighter')
   ),
   $time-picker
 );

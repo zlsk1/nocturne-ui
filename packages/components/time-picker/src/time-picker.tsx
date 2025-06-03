@@ -1,7 +1,6 @@
 import { defineComponent, ref } from 'vue'
-import dayjs from 'dayjs'
+import dayjs, { type Dayjs } from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { useNamespace } from '@nocturne-ui/composables'
 import { pickerProps } from './props/picker'
 import PickPanel from './time-picker-panel.vue'
 import Picker from './picker.vue'
@@ -14,35 +13,34 @@ export default defineComponent({
   props: pickerProps,
   emits: ['update:modelValue', 'change'],
   setup(props, { emit, expose }) {
-    const ns = useNamespace('time-picker')
-
     const pickerRef = ref<PickerInstance>()
 
-    const onUpdate = (time: number | string | Date | object) => {
+    const onUpdate = (time: string | Dayjs) => {
       emit('update:modelValue', time)
     }
 
-    const onChange = (time: number | string | Date | object) => {
+    const onChange = (time: string | Dayjs) => {
       emit('change', time)
     }
 
     expose({
       focus: pickerRef.value?.focus,
-      blur: pickerRef.value?.blur
+      blur: pickerRef.value?.blur,
+      open: pickerRef.value?.openPopper
     })
 
     return () => {
       return (
-        <div class={ns.b()}>
-          <Picker
-            ref={pickerRef}
-            {...props}
-            onUpdate:modelValue={onUpdate}
-            onChange={onChange}
-          >
-            {{ default: (props: any) => <PickPanel {...props}></PickPanel> }}
-          </Picker>
-        </div>
+        <Picker
+          ref={pickerRef}
+          {...props}
+          onUpdate:modelValue={onUpdate}
+          onChange={onChange}
+        >
+          {{
+            default: (props: any) => <PickPanel {...props}></PickPanel>
+          }}
+        </Picker>
       )
     }
   }

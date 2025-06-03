@@ -1,13 +1,12 @@
 import {
-  RiCloseCircleLine as CloseCircle,
-  RiTimeFill as Time
+  RiCloseCircleFill as CloseCircle,
+  RiTimeLine as Time
 } from '@remixicon/vue'
 import { isObject } from 'lodash'
 import {
   definePropType,
   iconPropType,
   isBoolean,
-  isNumber,
   isString
 } from '@nocturne-ui/utils'
 import Picker from '../picker.vue'
@@ -19,11 +18,8 @@ import type {
   GetDisabledHour,
   GetDisabledMinute,
   GetDisabledSecond
-} from '../type'
-import type {
-  PopperContentProps,
-  PopperCoreConfigProps
-} from '@nocturne-ui/components/popper'
+} from '../types'
+import type { PopperCoreConfigProps } from '@nocturne-ui/components/popper'
 
 export const pickerPropsBase = {
   /**
@@ -34,23 +30,16 @@ export const pickerPropsBase = {
     default: 'HH:mm:ss'
   },
   defaultValue: {
-    type: Date
+    type: definePropType<Dayjs>([Object])
   }
 } as const
 
 export const pickerProps = {
   modelValue: {
-    type: definePropType<number | string | Dayjs | Date>([
-      Number,
-      String,
-      Date,
-      Object
-    ]),
-    default: ''
+    type: definePropType<Dayjs | string>([Object, String])
   },
   placeholder: {
-    type: String,
-    default: '请选择时间'
+    type: String
   },
   tabindex: {
     type: definePropType<string | number>([String, Number])
@@ -63,7 +52,7 @@ export const pickerProps = {
     type: Boolean,
     default: false
   },
-  prefixIcon: {
+  suffixIcon: {
     type: iconPropType,
     default: Time
   },
@@ -76,15 +65,7 @@ export const pickerProps = {
     default: false
   },
   popperClass: {
-    type: definePropType<PopperContentProps['popperClass']>([
-      String,
-      Array,
-      Object
-    ])
-  },
-  transition: {
-    type: String,
-    default: 'n-zoom-in-top'
+    type: String
   },
   size: {
     type: definePropType<ComponentSize>(String),
@@ -111,25 +92,19 @@ export const pickerProps = {
   disabledSeconds: {
     type: definePropType<GetDisabledSecond>(Function)
   },
-  /**
-   * @description format modelValue
-   */
-  valueFormat: String,
   popperOptions: {
     type: definePropType<PopperCoreConfigProps['popperOptions']>(Object),
-    default: () => {
-      return {}
-    }
+    default: () => ({})
   },
   ...pickerPropsBase
 } as const
 
 export const pickerEmit = {
-  'update:modelValue': (val: PickerProps['modelValue']) =>
-    isString(val) || isNumber(val) || isObject(val),
-  change: (val: PickerProps['modelValue']) =>
-    isString(val) || isNumber(val) || isObject(val),
-  'visible-change': (visible: boolean) => isBoolean(visible)
+  'update:modelValue': (val: Dayjs | string) => isString(val) || isObject(val),
+  change: (val: Dayjs | string) => isString(val) || isObject(val),
+  'visible-change': (visible: boolean) => isBoolean(visible),
+  focus: (e: FocusEvent) => e instanceof FocusEvent,
+  blur: (e: FocusEvent) => e instanceof FocusEvent
 }
 
 export type PickerProps = ExtractPropTypes<typeof pickerProps>

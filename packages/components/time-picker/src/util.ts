@@ -1,19 +1,21 @@
-import dayjs from 'dayjs'
-import type { Dayjs } from 'dayjs'
+import dayjs, { type Dayjs } from 'dayjs'
 
-export const formatter = (time: Dayjs, valueFormat: string | undefined) => {
-  if (!valueFormat) return dayjs(time).toDate()
-  else return dayjs(time, valueFormat).format(valueFormat)
+export const parseDate = (date: string | Dayjs, format: string | undefined) => {
+  const day = dayjs.isDayjs(date)
+    ? date
+    : format
+      ? dayjs(date, format)
+      : dayjs(date)
+
+  return day
 }
 
-export const parseDate = (
-  date: string | number | Date | Dayjs | undefined,
-  format: string | undefined
-) => {
-  if (dayjs.isDayjs(date)) {
-    return date
-  } else if (dayjs(date, format).isValid()) {
-    return dayjs(date, format)
+export const leftPad = (value: string | number, length: number, fill = '0') => {
+  let current = String(value)
+
+  if (current.length < length) {
+    current = `${fill}${current}`
   }
-  return dayjs(undefined)
+
+  return current
 }

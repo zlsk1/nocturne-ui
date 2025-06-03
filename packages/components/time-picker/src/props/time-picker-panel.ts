@@ -5,12 +5,15 @@ import { pickerPropsBase } from './picker'
 import type { ExtractPropTypes } from 'vue'
 import type { Dayjs } from 'dayjs'
 import type { TimeUnits } from '../constants'
-import type { Disabled, PickerMethods } from '../type'
+import type { Disabled, PickerMethods } from '../types'
 
 export const timePickerPanelProps = {
   calculatedValue: {
     type: definePropType<Dayjs>(Object),
     required: true
+  },
+  userInput: {
+    type: definePropType<string | undefined>([String, undefined])
   },
   visible: {
     type: Boolean
@@ -29,6 +32,9 @@ export const timePickerPanelProps = {
   },
   disabled: {
     type: definePropType<Disabled>(Object)
+  },
+  blurPicker: {
+    type: definePropType<() => Promise<void> | undefined>(Function)
   },
   ...pickerPropsBase
 } as const

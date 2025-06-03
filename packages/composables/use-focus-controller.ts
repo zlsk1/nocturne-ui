@@ -10,7 +10,7 @@ interface UseFocusControllerOptions {
   afterBlur?: () => void
 }
 
-export function useFocusController<T extends HTMLElement>(
+export function useFocusController<T extends { focus: () => void }>(
   target: ShallowRef<T | undefined>,
   {
     beforeFocus,

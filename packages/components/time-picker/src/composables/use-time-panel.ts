@@ -1,6 +1,6 @@
 import { timeUnits } from '../constants'
 
-import type { Timelist } from '../type'
+import type { Timelist } from '../types'
 import type { Dayjs } from 'dayjs'
 
 export const usePickPanel = (timelist: Timelist) => {
@@ -13,9 +13,10 @@ export const usePickPanel = (timelist: Timelist) => {
         if (time.value && !time.disabled) availableValue.push(time.value)
       })
 
-      if (availableValue?.length && !availableValue.includes(result[type]())) {
+      if (availableValue.length && !availableValue.includes(result[type]())) {
         const pos = availableValue.length - 1
         result = result[type](availableValue[pos]!) as unknown as Dayjs
+        console.log(result)
       }
     })
 

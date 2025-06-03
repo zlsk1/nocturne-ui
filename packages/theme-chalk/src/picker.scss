@@ -1,0 +1,20 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(picker) {
+  @include e(suffixicon) {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    transition: opacity getCssVar('transition-duration');
+    transform: translateY(-50%);
+    cursor: pointer;
+
+    &:hover {
+      color: getCssVar('text-color-regular');
+    }
+  }
+}
