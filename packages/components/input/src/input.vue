@@ -242,7 +242,7 @@ const status = computed<InputStatus | ''>(() => {
 const newAttrs = computed(() =>
   fromPairs(
     Object.entries(attrs).filter(
-      ([key]) => !['class', 'style'].includes(key) || !/^on[A-Z]/.test(key)
+      ([key]) => !['class', 'style'].includes(key) || /^on[A-Z]/.test(key)
     )
   )
 )

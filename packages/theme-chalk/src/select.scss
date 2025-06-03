@@ -46,19 +46,7 @@ $select-height: map.merge(
 @include b(select) {
   min-height: 32px;
   font-size: 14px;
-  border-radius: getCssVar('select', 'radius');
-  border: 1px solid getCssVar('select', 'border');
   cursor: pointer;
-  transition: all getCssVar('transition-duration') linear;
-
-  &:hover {
-    border: 1px solid getCssVar('select', 'hover-border');
-  }
-
-  @include when(focus) {
-    outline: none;
-    border: 1px solid getCssVar('select', 'focus-border');
-  }
 
   @include when(disabled) {
     color: getCssVar('select', 'disabled-text-color');
@@ -66,8 +54,10 @@ $select-height: map.merge(
     user-select: none;
     cursor: not-allowed !important;
 
-    &:hover {
-      border: 1px solid getCssVar('select', 'border');
+    @include e(wrapper) {
+      &:hover {
+        border: 1px solid getCssVar('select', 'border');
+      }
     }
 
     @include e(value) {
@@ -103,8 +93,11 @@ $select-height: map.merge(
     justify-content: space-between;
     min-height: 32px;
     padding: 0 10px;
+    border-radius: getCssVar('select', 'radius');
+    border: 1px solid getCssVar('select', 'border');
     word-break: break-all;
     color: getCssVar('text-color-regular');
+    transition: all getCssVar('transition-duration') linear;
 
     @include when(multiple) {
       padding-left: 0px;
@@ -112,6 +105,17 @@ $select-height: map.merge(
       @include e(value) {
         margin-right: 0;
       }
+    }
+
+    &:hover {
+      border: 1px solid getCssVar('select', 'hover-border');
+    }
+  }
+
+  @include when(focus) {
+    @include e(wrapper) {
+      outline: none;
+      border: 1px solid getCssVar('select', 'focus-border');
     }
   }
 

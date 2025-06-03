@@ -33,7 +33,7 @@
         role="button"
         :aria-label="t('noc.inputNumber.decrease')"
       >
-        <slot name="increaseIcon">
+        <slot name="decreaseIcon">
           <Subtract v-if="controlsMode === 'outter'" size="18" />
           <ArrowDown v-else-if="controlsMode === 'inner'" size="16" />
         </slot>

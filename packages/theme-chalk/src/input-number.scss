@@ -88,7 +88,7 @@ $control-width: map.merge(
     z-index: 1;
     cursor: pointer;
 
-    &:hover {
+    &:hover:not(.is-exceed) {
       color: getCssVar('color-primary');
       ~ .#{$namespace}-input:not(.is-disabled) {
         .#{$namespace}-input--wrapper {

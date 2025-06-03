@@ -227,14 +227,38 @@
 
     @include when(focus) {
       @include inset-input-border(#{getCssVar('input', 'focus-border-color')});
+
+      @include when(error) {
+        @include inset-input-border(#{getCssVar('color-error')}, true);
+      }
+
+      @include when(warning) {
+        @include inset-input-border(#{getCssVar('color-warning')}, true);
+      }
     }
 
     @include when(error) {
       @include inset-input-border(#{getCssVar('color-error')});
+
+      .#{$namespace}-input__icon {
+        color: getCssVar('color-error');
+      }
+
+      &:hover {
+        @include inset-input-border(#{getCssVar('color-error-light-5')});
+      }
     }
 
     @include when(warning) {
       @include inset-input-border(#{getCssVar('color-warning')});
+
+      .#{$namespace}-input__icon {
+        color: getCssVar('color-warning');
+      }
+
+      &:hover {
+        @include inset-input-border(#{getCssVar('color-warning-light-5')});
+      }
     }
   }
 
@@ -479,8 +503,8 @@
 
     button.#{$namespace}-button,
     button.#{$namespace}-button:hover,
-    div.#{$namespace}-select .#{$namespace}-select--wrapper,
-    div.#{$namespace}-select:hover .#{$namespace}-select--wrapper {
+    div.#{$namespace}-select .#{$namespace}-select__wrapper,
+    div.#{$namespace}-select:hover .#{$namespace}-select__wrapper {
       border-color: transparent;
       background-color: transparent;
       color: inherit;
