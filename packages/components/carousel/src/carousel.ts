@@ -45,6 +45,10 @@ export const carouselProps = {
   loop: {
     type: Boolean,
     default: true
+  },
+  initialIndex: {
+    type: Number,
+    default: 0
   }
 } as const
 

@@ -837,12 +837,12 @@ $slider: map.merge(
 $carousel: () !default;
 $carousel: map.merge(
   (
-    'indicator-bg': getCssVar('border-color'),
-    'indicator-active-bg': getCssVar('text-color-primary'),
+    'indicator-bg': getCssVar('color-info-light-3'),
+    'indicator-hover-bg': getCssVar('border-color-dark'),
     'indicator-item-padding': 10px 8px,
-    'button-bg': transparent,
-    'button-hover-bg': getCssVar('fill-color-darker'),
-    'button-size': 24px,
+    'button-color': getCssVar('border-color-darker'),
+    'button-hover': getCssVar('fill-color-light'),
+    'button-size': 28px,
     'item-transition': transform getCssVar('transition-duration') ease-in-out
   ),
   $carousel

@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, onMounted, ref, watch } from 'vue'
+import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useNamespace } from '@nocturne-ui/composables'
 import { CAROUSEL_INJECT_KEY } from './constants'
 import { useCarouselItem } from './use-carousel-item'
@@ -23,10 +23,8 @@ defineOptions({
   name: 'NCarouselItem'
 })
 
-const { itemCount, contentRef, currentIndex, mode, addItem } = inject(
-  CAROUSEL_INJECT_KEY,
-  undefined
-)!
+const { itemCount, contentRef, currentIndex, mode, addItem, removeItem } =
+  inject(CAROUSEL_INJECT_KEY, undefined)!
 
 const ns = useNamespace('carousel__content')
 
@@ -34,8 +32,6 @@ const itemRef = ref<HTMLLIElement>()
 const itemIndex = ref<number>(0)
 const itemRect = ref<number>(0)
 const isAnimation = ref(false)
-
-onMounted(() => addItem())
 
 const carouselItemCls = computed(() => [
   ns.e('item'),
@@ -49,15 +45,23 @@ const { translateStyle } = useCarouselItem(
   itemRect
 )
 
-watch(contentRef, (val) => {
-  itemIndex.value = Array.from(val!.children).indexOf(itemRef.value)
-  itemRect.value =
-    mode.value === 'horizontal'
-      ? val!.getBoundingClientRect().width
-      : val!.getBoundingClientRect().height
-})
-
 watch(currentIndex, (val, oldVal) => {
   isAnimation.value = val === itemIndex.value || oldVal === itemIndex.value
 })
+
+onMounted(() => {
+  addItem()
+
+  if (itemRef.value) {
+    itemIndex.value = Array.from(contentRef.value!.children).indexOf(
+      itemRef.value
+    )
+  }
+  itemRect.value =
+    mode.value === 'horizontal'
+      ? contentRef.value!.getBoundingClientRect().width
+      : contentRef.value!.getBoundingClientRect().height
+})
+
+onUnmounted(() => removeItem())
 </script>

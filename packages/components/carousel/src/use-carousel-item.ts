@@ -28,5 +28,5 @@ export const useCarouselItem = (
         : `${(itemIndex.value - currentIndex.value) * _size!}px`
     }
   })
-  return { translateStyle }
+  return { translateStyle, id: 1 }
 }

@@ -35,6 +35,7 @@ $placements: map.merge(
 @include b(carousel) {
   @include set-component-css-var('carousel', $carousel);
 }
+
 @include b(carousel) {
   position: relative;
   overflow: hidden;
@@ -104,14 +105,14 @@ $placements: map.merge(
         height: map.get($carousel-indicator-size, 'circle', 'height');
         border-radius: 50%;
       }
+
+      @include when(active) {
+        background-color: $color-white;
+      }
     }
 
-    &:hover button {
-      background-color: getCssVar('carousel', 'indicator-active-bg');
-    }
-
-    .is-active {
-      background-color: #fff;
+    &:hover button:not(.is-active) {
+      background-color: getCssVar('carousel', 'indicator-hover-bg');
     }
   }
 
@@ -140,34 +141,26 @@ $placements: map.merge(
     text-align: center;
     font-size: getCssVar('carousel-button-size');
     line-height: getCssVar('carousel-button-size');
-    background-color: getCssVar('carousel', 'button-bg');
+    color: getCssVar('carousel', 'button-color');
     border-radius: 50%;
+    background: transparent;
     transform: translateY(-50%);
-    transition: all getCssVar('transition-duration-fast') ease-in-out;
+    transition:
+      opacity getCssVar('transition-duration'),
+      color getCssVar('transition-duration') ease-in-out;
     cursor: pointer;
     z-index: 10;
-    opacity: 0;
 
     &:hover {
-      background-color: getCssVar('carousel', 'button-hover-bg');
+      color: getCssVar('carousel', 'button-hover');
     }
 
     @include m(left) {
-      left: -2%;
-
-      @include when(animation) {
-        left: 2%;
-        opacity: 1;
-      }
+      left: 1%;
     }
 
     @include m(right) {
-      right: -2%;
-
-      @include when(animation) {
-        right: 2%;
-        opacity: 1;
-      }
+      right: 1%;
     }
   }
 }

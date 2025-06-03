@@ -6,6 +6,7 @@ export type NCarouselInjectionContent = {
   currentIndex: Ref<number>
   contentRef: Ref<HTMLUListElement | undefined>
   addItem: () => void
+  removeItem: () => void
 } & ToRefs<Pick<CarouselProps, 'mode'>>
 
 export const CAROUSEL_INJECT_KEY: InjectionKey<NCarouselInjectionContent> =
