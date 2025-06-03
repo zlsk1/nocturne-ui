@@ -16,3 +16,9 @@ defineProps({
   headers: Object
 })
 </script>
+
+<style lang="scss" scoped>
+:deep(.n-anchor__item__text) {
+  color: var(--n-text-color-primary);
+}
+</style>

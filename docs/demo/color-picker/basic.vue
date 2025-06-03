@@ -11,9 +11,15 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useCssVar } from '@vueuse/core'
 
-const value1 = ref('#409eff')
-const value2 = ref('#9499ff')
-const value3 = ref('#8C40FF')
-const value4 = ref('#B940FF')
+const primaryColor = useCssVar('--n-color-primary', document.documentElement)
+const successColor = useCssVar('--n-color-success', document.documentElement)
+const warningColor = useCssVar('--n-color-warning', document.documentElement)
+const errorColor = useCssVar('--n-color-error', document.documentElement)
+
+const value1 = ref(primaryColor.value)
+const value2 = ref(successColor.value)
+const value3 = ref(warningColor.value)
+const value4 = ref(errorColor.value)
 </script>

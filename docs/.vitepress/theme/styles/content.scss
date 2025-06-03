@@ -9,6 +9,7 @@
     .doc-content-container {
       width: 100%;
       padding-left: 40px;
+      padding-right: 60px;
       .doc-content {
         width: 100%;
       }
@@ -42,7 +43,7 @@
         overflow-y: hidden;
         overflow-x: auto;
         margin-bottom: 45px;
-        font-family: 'JetBrains Mono', 'Microsoft YaHei';
+        font-family: 'JetBrains Mono';
 
         table {
           width: 100%;

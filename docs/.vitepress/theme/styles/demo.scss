@@ -1,6 +1,6 @@
 .demo-container {
   .demo-content {
-    border: 1px solid var(--n-border-color-light);
+    border: 1px solid var(--n-border-color-lighter);
     border-radius: 4px;
 
     .demo-component {
@@ -13,7 +13,7 @@
       justify-content: center;
       padding: 10px 0;
       color: var(--n-text-color-secondary);
-      border-top: 1px solid var(--n-border-color-light);
+      border-top: 1px solid var(--n-border-color-lighter);
 
       .opera {
         display: flex;

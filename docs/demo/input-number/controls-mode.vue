@@ -1,14 +1,14 @@
 <template>
   <div class="mb-4">
-    <n-input-number v-model="value" max="10" min="0" controls-mode="outter" />
+    <n-input-number v-model="value" :max="10" :min="0" controls-mode="outter" />
   </div>
   <div>
-    <n-input-number v-model="value" max="10" min="0" controls-mode="outter">
+    <n-input-number v-model="value" :max="10" :min="0" controls-mode="outter">
       <template #decreaseIcon>
-        <RiArrowDownWideLine />
+        <RiArrowDownWideLine size="16" />
       </template>
       <template #increaseIcon>
-        <RiArrowUpWideLine />
+        <RiArrowUpWideLine size="16" />
       </template>
     </n-input-number>
   </div>

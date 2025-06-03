@@ -1,5 +1,5 @@
 <template>
-  <n-input v-model="val" clearable style="width: 260px" />
+  <n-input v-model="val" clearable style="max-width: 260px" />
 </template>
 
 <script lang="ts" setup>

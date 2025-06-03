@@ -1,10 +1,9 @@
 <template>
-  <aside class="w-[var(--api-content-width)] pt-7 pl-7 pr-7">
+  <aside class="box-border w-[var(--api-content-width)] pt-7 pl-7 pr-7">
     <nav
-      class="sticky top-[100px] w-[200px] pl-[20px]"
+      class="sticky top-[100px] pl-[20px]"
       style="border-left: 1px solid var(--n-border-color-light)"
     >
-      <p class="mb-2 font-semibold text-gray-400">内容</p>
       <n-anchor class="relative">
         <VpApiAsideItem :headers="headers" />
       </n-anchor>
@@ -27,7 +26,7 @@ onMounted(() => {
   watch(
     () => route.path,
     () => {
-      headers.value = getHeaders()
+      headers.value = getHeaders()[0].children!
     },
     {
       immediate: true
