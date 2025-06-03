@@ -4,7 +4,7 @@
       v-for="item in 4"
       :key="item"
       :value="item"
-      :label="`option${item}`"
+      :label="`Option${item}`"
     />
   </n-select>
 </template>
@@ -12,5 +12,5 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const val = ref()
+const val = ref(1)
 </script>
