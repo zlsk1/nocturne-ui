@@ -16,7 +16,7 @@ export const spaceProps = {
     default: 'horizontal'
   },
   align: {
-    type: definePropType<'start' | 'end' | 'centet' | 'baseline'>(String)
+    type: definePropType<'start' | 'end' | 'center' | 'baseline'>(String)
   },
   wrap: {
     type: Boolean,
@@ -63,8 +63,7 @@ const Space = defineComponent({
             ns.b(),
             props.direction === 'vertical' && ns.m(props.direction),
             ns.m(props.align),
-            ns.is('wrap', props.wrap),
-            ns.m(props.align)
+            ns.is('wrap', props.wrap)
           ],
           style: {
             gap: isString(props.size) ? sizeMap[props.size] : `${props.size}px`

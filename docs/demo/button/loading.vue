@@ -1,14 +1,14 @@
 <template>
-  <div class="mb-4">
+  <n-space class="mb-4">
     <n-button loading type="primary">加载中</n-button>
     <n-button loading :loading-icon="Loading5" type="primary">加载中</n-button>
     <n-button loading :loading-icon="Loading4" type="primary">加载中</n-button>
-  </div>
-  <div>
+  </n-space>
+  <n-space>
     <n-button :loading="isloading" type="primary" @click="click"
       >加载中</n-button
     >
-  </div>
+  </n-space>
 </template>
 
 <script lang="ts" setup>

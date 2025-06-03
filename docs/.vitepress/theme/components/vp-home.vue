@@ -9,7 +9,7 @@
             </h1>
             <h3 class="sub-title">一个 Vue3 组件库</h3>
           </div>
-          <div>
+          <n-space class="justify-center">
             <n-button
               round
               type="primary"
@@ -19,7 +19,7 @@
             <n-button round @click="router.go('zh-CN/components/button.html')"
               >浏览组件</n-button
             >
-          </div>
+          </n-space>
         </div>
         <VpFeatures class="mt-18" :features="features" />
       </div>
