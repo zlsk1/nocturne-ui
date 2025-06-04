@@ -59,18 +59,19 @@
       align-items: center;
       margin: 4px 0;
       padding: 12px 20px 12px 40px;
-      font-size: 13px;
-      font-weight: 500;
       border-radius: 8px;
       transition: 0.3s ease-in-out;
 
       span {
         transition: 0.3s ease-in-out;
         &:first-child {
+          font-size: 14px;
           margin-right: 6px;
         }
         &:last-child {
           color: var(--n-text-color-secondary);
+          font-size: 13px;
+          font-weight: 500;
         }
       }
 

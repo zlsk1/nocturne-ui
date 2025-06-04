@@ -22,8 +22,15 @@ export const config: UserConfig = {
           items: [
             { text: 'Button 按钮', link: '/zh-CN/components/button' },
             { text: 'Icon 图标', link: '/zh-CN/components/icon' },
-            { text: 'Link 链接', link: '/zh-CN/components/link' },
-            { text: 'Layout 布局', link: '/zh-CN/components/layout' }
+            { text: 'Link 链接', link: '/zh-CN/components/link' }
+          ]
+        },
+        {
+          text: '布局',
+          items: [
+            { text: 'Divider 分割线', link: '/zh-CN/components/divider' },
+            { text: 'Layout 布局', link: '/zh-CN/components/layout' },
+            { text: 'Space 间隔', link: '/zh-CN/components/space' }
           ]
         },
         {
@@ -75,6 +82,7 @@ export const config: UserConfig = {
             { text: 'Card 卡片', link: '/zh-CN/components/card' },
             { text: 'Carousel 轮播图', link: '/zh-CN/components/carousel' },
             { text: 'Collapse 折叠面板', link: '/zh-CN/components/collapse' },
+            { text: 'Image 图片', link: '/zh-CN/components/image' },
             { text: 'Pagination 分页器', link: '/zh-CN/components/pagination' },
             { text: 'Progress 进度条', link: '/zh-CN/components/progress' },
             {
@@ -117,6 +125,7 @@ export const config: UserConfig = {
               link: '/zh-CN/components/popconfirm'
             },
             { text: 'Popover 气泡卡片', link: '/zh-CN/components/popover' },
+            { text: 'Skeleton 骨架屏', link: '/zh-CN/components/skeleton' },
             { text: 'Tooltip 文字提示', link: '/zh-CN/components/tooltip' }
           ]
         },
