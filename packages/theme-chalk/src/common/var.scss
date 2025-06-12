@@ -1022,12 +1022,18 @@ $breadcrumb: map.merge(
 $dropdown: () !default;
 $dropdown: map.merge(
   (
-    'item-padding': 8px 12px,
-    'hover-bg-color': getCssVar('color-primary-light-9'),
-    'hover-text-color': getCssVar('color-primary'),
+    'item-padding': 6px 12px,
+    'item-radius': getCssVar('border-radius-small'),
+    'hover-item-bg': getCssVar('fill-color', 'light'),
+    'hover-item-color': getCssVar('text-color-regular'),
     'divided-color': getCssVar('border-color'),
     'disabled-color': getCssVar('disabled-text-color'),
-    'disabled-bg-color': getCssVar('disabled-bg-color')
+    'disabled-bg-color': getCssVar('disabled-bg-color'),
+    'popper-padding': 4px,
+    'popper-radius': getCssVar('border-radius-large'),
+    'selected-item-bg': getCssVar('color-primary-light-9'),
+    'selected-item-color': getCssVar('color-primary'),
+    'selected-hover-item-bg': getCssVar('color-primary-light-7')
   ),
   $dropdown
 );

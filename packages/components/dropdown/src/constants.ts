@@ -1,7 +1,8 @@
-import type { InjectionKey } from 'vue'
+import type { InjectionKey, Ref } from 'vue'
 
 export type NDropdownContext = {
-  handleClick: (e: Event) => void
+  selected: Ref<undefined | string>
+  handleClick: (e: MouseEvent, label: string) => void
 }
 
 export const NDROPDOWN_INJECTION_KEY: InjectionKey<NDropdownContext> =

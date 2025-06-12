@@ -13,6 +13,10 @@ export const dropdownItemProps = {
   },
   icon: {
     type: iconPropType
+  },
+  label: {
+    type: String,
+    required: true
   }
 } as const
 

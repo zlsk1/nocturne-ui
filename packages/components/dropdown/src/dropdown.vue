@@ -8,16 +8,20 @@
       :placement="placement"
       pure
       persistent
-      :popper-class="popperClass"
+      :popper-class="[popperClass!, `${ns.ns.value}-dropdown-popper`]"
       :popper-options="popperOptions"
       :disabled="disabled"
-      :tabindex="tabindex"
+      :offset="6"
+      :hide-after="0"
+      :show-arrow="showArrow"
       @before-show="handleShow"
       @close="handleClose"
     >
       <slot name="default" />
       <template #content>
-        <slot name="content" />
+        <ul :class="ns.m('content')">
+          <slot name="content" />
+        </ul>
       </template>
     </n-tooltip>
   </div>
@@ -40,14 +44,18 @@ const emit = defineEmits(dropdownEmit)
 const ns = useNamespace('dropdown')
 
 const visible = ref(false)
+const selected = ref<undefined | string>(undefined)
 
 watch(visible, (val) => {
   emit('visibleChange', val)
 })
 
-const handleClick = (e: Event) => {
-  if (props.hideAfterClick) visible.value = true
-  emit('click', e)
+const handleClick = (e: MouseEvent, label: string) => {
+  if (props.hideAfterClick) visible.value = false
+  if (props.selectable) {
+    selected.value = label
+  }
+  emit('click', e, label)
 }
 
 const handleShow = () => {
@@ -59,6 +67,7 @@ const handleClose = () => {
 }
 
 provide(NDROPDOWN_INJECTION_KEY, {
+  selected,
   handleClick
 })
 </script>

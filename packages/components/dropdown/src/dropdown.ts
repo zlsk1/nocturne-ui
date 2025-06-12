@@ -1,6 +1,6 @@
 import { placements } from '@popperjs/core'
 import { TooltipTriggerType } from '@nocturne-ui/components/tooltip'
-import { definePropType, isBoolean } from '@nocturne-ui/utils'
+import { definePropType, isBoolean, isString } from '@nocturne-ui/utils'
 import { ClassType } from '@nocturne-ui/components/popper'
 import Dropdown from './dropdown.vue'
 import type { ExtractPropTypes } from 'vue'
@@ -22,26 +22,29 @@ export const dropdownProps = {
   },
   popperOptions: {
     type: definePropType<Partial<Options>>(Object),
-    default: () => {
-      return {}
-    }
+    default: () => ({})
   },
   disabled: {
     type: Boolean,
     default: false
   },
-  tabindex: {
-    type: definePropType<number | string>([Number, String])
-  },
   hideAfterClick: {
     type: Boolean,
     default: true
+  },
+  showArrow: {
+    type: Boolean,
+    default: false
+  },
+  selectable: {
+    type: Boolean,
+    default: false
   }
 } as const
 
 export const dropdownEmit = {
   visibleChange: (visible: boolean) => isBoolean(visible),
-  click: (e: Event) => e instanceof Event
+  click: (e: Event, label: string) => e instanceof Event || isString(label)
 }
 
 export type DropdownProps = ExtractPropTypes<typeof dropdownProps>
