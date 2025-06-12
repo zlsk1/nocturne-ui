@@ -6,26 +6,29 @@
     @mouseup.stop="onSelect"
     @mousemove="hoverItem"
   >
-    <span :class="ns.be('option', 'inner')">
+    <span :class="ns.be('option', 'inner')" :title="String(label)">
       <template v-if="$slots.default">
         <slot />
       </template>
       <template v-else>
         {{ label }}
       </template>
-      <Check v-if="showCheck" size="16" />
     </span>
+    <n-icon v-if="showCheck" size="16">
+      <Check />
+    </n-icon>
   </li>
 </template>
 
 <script lang="ts" setup>
 import { computed, getCurrentInstance, inject } from 'vue'
 import { RiCheckFill as Check } from '@remixicon/vue'
-import { isBoolean, isFunction, isObject } from '@nocturne-ui/utils'
+import { isFunction, isObject } from '@nocturne-ui/utils'
 import { useNamespace } from '@nocturne-ui/composables'
+import NIcon from '@nocturne-ui/components/icon'
 import { optionEmits, optionProps } from './option'
 import { SELECT_INJECTION_KEY } from './constants'
-import type { OptionProxy } from './constants'
+import type { OptionProxy } from './types'
 
 defineOptions({
   name: 'NOption'
@@ -52,13 +55,13 @@ const selected = computed(() => {
     }
     return states.multipleValue.includes(props.value)
   } else {
-    if (!isObject(props.value)) {
-      return props.value === states.getOptionValue(states.modelValue)?.value
+    if (isObject(props.value)) {
+      return (
+        props.value[states.valueKey!] ===
+        states.multipleValue[states.valueKey as any]
+      )
     }
-    return (
-      props.value[states.valueKey!] ===
-      states.multipleValue[states.valueKey as any]
-    )
+    return props.value === states.getOptionValue(states.modelValue)?.value
   }
 })
 
@@ -67,32 +70,36 @@ const showCheck = computed(() => {
 })
 
 const visible = computed(() => {
-  if (!states.filterable) return true
-  if (isBoolean(states.filterOption)) {
-    if (states.filterOption) {
-      return (
-        !states.inputValue || String(props.label).includes(states.inputValue)
-      )
-    }
-    return true
-  } else if (isFunction(states.filterOption)) {
-    return states.filterOption({ input: states.inputValue, option: vm })
+  if (!states.showSearch) return true
+  if (!isFunction(states.filterMethod)) {
+    return (
+      !states.filteredValue ||
+      String(props.label)
+        .toLowerCase()
+        .includes(states.filteredValue.toLowerCase())
+    )
+  } else {
+    return states.filterMethod({
+      input: states.filteredValue,
+      option: vm
+    })
   }
-
-  return true
 })
 
 const optionCls = computed(() => [
   ns.be('option', 'item'),
   ns.is('disabled', props.disabled),
-  ns.is('selected', selected.value),
-  ns.is('hovering', states.hoveringIndex === states.optionsArray.indexOf(vm))
+  ns.is('selected', !props.disabled && selected.value),
+  ns.is(
+    'hovering',
+    !props.disabled && states.hoveringIndex === states.optionsArray.indexOf(vm)
+  )
 ])
 
 const onSelect = () => {
   if (!props.disabled) {
-    states.clickOption(vm)
     hoverItem()
+    states.clickOption(vm)
   }
 }
 

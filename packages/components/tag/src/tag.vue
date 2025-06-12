@@ -45,7 +45,7 @@ const transitionClass = computed(() => {
 
 const tagCls = computed(() => [
   ns.b(),
-  ns.m(props.type),
+  ns.m(props.type) || ns.m('primary'),
   ns.m(props.size),
   ns.m(props.effect),
   ns.is('round', props.round),

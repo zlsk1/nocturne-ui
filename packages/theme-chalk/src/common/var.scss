@@ -637,9 +637,9 @@ $tag-height: map.merge(
 $tag-padding: () !default;
 $tag-padding: map.merge(
   (
-    'large': 12px,
-    'default': 10px,
-    'small': 8px
+    'large': 8px,
+    'default': 6px,
+    'small': 4px
   ),
   $tag-padding
 );
@@ -804,7 +804,7 @@ $select: map.merge(
     'placeholder-color': getCssVar('text-color-placeholder'),
     'selected-color': getCssVar('color-primary'),
     'disabled-bg-color': getCssVar('fill-color', 'light'),
-    'disabled-text-color': getCssVar('text-color', 'placeholder')
+    'disabled-text-color': getCssVar('text-color', 'disabled')
   ),
   $select
 );
@@ -812,13 +812,23 @@ $select: map.merge(
 $option: () !default;
 $option: map.merge(
   (
-    'disabled-text-color': getCssVar('text-color', 'placeholder'),
-    'item-padding': 8px 20px,
+    'disabled-text-color': getCssVar('text-color', 'disabled'),
+    'item-padding': 6px 12px,
     'item-color': getCssVar('text-color-regular'),
     'item-hover-bg': getCssVar('fill-color', 'light'),
-    'selected-color': getCssVar('color-primary')
+    'selected-color': getCssVar('color-primary'),
+    'popper-padding': 4px,
+    'popper-height': 288px
   ),
   $option
+);
+
+$option-group: () !default;
+$option-group: map.merge(
+  (
+    'padding': 4px 12px 6px 12px
+  ),
+  $option-group
 );
 
 $slider: () !default;

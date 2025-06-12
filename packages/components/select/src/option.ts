@@ -1,25 +1,20 @@
 import {
   definePropType,
-  isBoolean,
   isNumber,
   isObject,
   isString
 } from '@nocturne-ui/utils'
 import option from './option.vue'
 import type { ExtractPropTypes } from 'vue'
+import type { OptionLabel } from './types'
 
 export const optionProps = {
   value: {
-    type: definePropType<string | number | boolean | object>([
-      String,
-      Number,
-      Boolean,
-      Object
-    ]),
+    type: definePropType<string | number | object>([String, Number, Object]),
     required: true
   },
   label: {
-    type: definePropType<string | number>([String, Number]),
+    type: definePropType<OptionLabel>([String, Number]),
     required: true
   },
   disabled: {
@@ -29,8 +24,8 @@ export const optionProps = {
 } as const
 
 export const optionEmits = {
-  select: (val: string | number | boolean | object) =>
-    isString(val) || isNumber(val) || isBoolean(val) || isObject(val)
+  select: (val: string | number | object) =>
+    isString(val) || isNumber(val) || isObject(val)
 }
 
 export type OptionProps = ExtractPropTypes<typeof optionProps>

@@ -5,6 +5,9 @@ import optionGroup from './src/option-group'
 
 export * from './src/select'
 export * from './src/option'
+export * from './src/option-group'
+export * from './src/types'
+export * from './src/constants'
 export const NSelect = withInstall(select)
 export const NOption = withInstall(option)
 export const NOptionGroup = withInstall(optionGroup)

@@ -10,10 +10,9 @@
       ref="tooltipRef"
       :visible="visible"
       trigger="click"
-      :show-after="0"
-      :hide-after="0"
-      effect="light"
+      :offset="6"
       :popper-class="[ns.e('popper'), popperClass!]"
+      :popper-style="tooltipContentStyle"
       :popper-options="popperOption"
       :transition="`${ns.ns.value}-zoom-in-top`"
       :disabled="actualDisabled"
@@ -22,7 +21,7 @@
       :placement="placement"
       pure
       :show-arrow="showArrow"
-      popper-style="padding: 4px 0"
+      @hide="onHide"
     >
       <template #default>
         <div
@@ -35,164 +34,196 @@
             <slot name="prefix" />
           </div>
           <div :class="ns.e('content')">
-            <div v-if="multiple" :class="ns.e('tags')">
-              <n-tag
-                v-for="(item, index) in taglist"
-                :key="`${item.label}-${index}`"
-                :class="ns.e('tag')"
-                :type="tagType"
-                :size="size"
-                :closable="!actualDisabled"
-                @close="handleTagDel(index)"
-                @mousedown.prevent="() => true"
-              >
-                <template v-if="!maxTagCount || index < maxTagCount">
-                  {{ isObject(item) && !isNil(item.label) ? item.label : item }}
-                </template>
-              </n-tag>
-              <n-tag
-                v-if="
-                  !maxTagCountWithTooltip &&
-                  maxTagCount &&
-                  multipleValue.length > maxTagCount
-                "
-                :class="ns.e('tag')"
-                :type="tagType"
-                :size="size"
-              >
-                {{ `+${multipleValue.length - (maxTagCount || 0)}...` }}
-              </n-tag>
-              <n-tooltip
-                v-if="
-                  maxTagCountWithTooltip &&
-                  maxTagCount &&
-                  multipleValue.length > maxTagCount
-                "
-                :popper-class="ns.m('tags__popper')"
-                :disabled="actualDisabled"
-              >
-                <n-tag :class="ns.e('tag')" :type="tagType" :size="size">
-                  {{ `+${multipleValue.length - (maxTagCount || 0)}...` }}
-                </n-tag>
-                <template #content>
-                  <div :class="ns.e('tags')">
-                    <n-tag
-                      v-for="(item, index) in extraTaglist"
-                      :key="`${item.label}-${index}`"
-                      :class="ns.e('tag')"
-                      :size="size"
-                      :type="tagType"
-                      :closable="!actualDisabled"
-                      @close="handleTagDel(index + maxTagCount!)"
-                      @mousedown.prevent="() => true"
-                    >
-                      {{
-                        isObject(item) && !isNil(item.label) ? item.label : item
-                      }}
+            <div :class="ns.m('selector')">
+              <div :class="ns.m('selector-wrapper')">
+                <div :class="ns.m('selector-overflow')">
+                  <n-tag
+                    v-for="(item, index) in taglist"
+                    :key="`${item}-${index}`"
+                    :class="ns.e('tag')"
+                    :type="tagType"
+                    :size="size"
+                    :closable="!actualDisabled"
+                    :bordered="false"
+                    @close="onTagClose(index)"
+                    @mousedown.prevent="noop"
+                  >
+                    <template v-if="!maxTagCount || index < maxTagCount">
+                      {{ item }}
+                    </template>
+                  </n-tag>
+                  <n-tag
+                    v-if="
+                      !maxTagCountWithTooltip &&
+                      maxTagCount &&
+                      multipleValue.length > maxTagCount
+                    "
+                    :class="ns.e('tag')"
+                    :type="tagType"
+                    :size="size"
+                  >
+                    {{ `+${multipleValue.length - (maxTagCount || 0)}...` }}
+                  </n-tag>
+                  <n-tooltip
+                    v-if="
+                      maxTagCountWithTooltip &&
+                      maxTagCount &&
+                      multipleValue.length > maxTagCount
+                    "
+                    :popper-class="ns.m('tags__popper')"
+                    :disabled="actualDisabled"
+                  >
+                    <n-tag :class="ns.e('tag')" :type="tagType" :size="size">
+                      {{ `+${multipleValue.length - (maxTagCount || 0)}...` }}
                     </n-tag>
+                    <template #content>
+                      <div :class="ns.e('tags')">
+                        <n-tag
+                          v-for="(item, index) in extraTaglist"
+                          :key="`${item}-${index}`"
+                          :class="ns.e('tag')"
+                          :size="size"
+                          :type="tagType"
+                          :closable="!actualDisabled"
+                          @close="handleTagDel(index + maxTagCount!)"
+                          @mousedown.prevent="noop"
+                        >
+                          {{ item }}
+                        </n-tag>
+                      </div>
+                    </template>
+                  </n-tooltip>
+                  <div v-show="showDisplayedValue" :class="displayedValueCls">
+                    <span>{{ displayedValue }}</span>
                   </div>
-                </template>
-              </n-tooltip>
-            </div>
-            <div v-show="showDisplayedValue" :class="displayedValueCls">
-              <span>{{ displayedValue }}</span>
-            </div>
-            <div :class="ns.em('input', 'wrapper')">
-              <input
-                :id="formItemId"
-                ref="inputRef"
-                v-model="inputValue"
-                :class="[ns.e('input'), ns.is('disabled', actualDisabled)]"
-                :style="{
-                  minWidth: (calculateWidth || MINIMAL_INPUT_WIDTH) + 'px'
-                }"
-                type="text"
-                :disabled="actualDisabled"
-                tabindex="0"
-                :readonly="readonly"
-                spellcheck="false"
-                autocomplete="off"
-                role="combobox"
-                @input="handleInput"
-                @compositionend="hadnleCompositionEnd"
-                @compositionstart="handleCompositionStart"
-                @compositionupdate="handleCompositionUpdate"
-                @keydown.esc.stop="handleEsc"
-                @keydown.esc.enter="handleEnter"
-                @keydown.up.enter="handleUp"
-                @keydown.down.enter="handleDown"
-              />
-              <span
-                v-if="showSearch && isFocused"
-                ref="inputTextRef"
-                aria-hidden="true"
-                :class="ns.e('input-text')"
-              >
-                {{ inputValue }}
-              </span>
+                  <div :class="ns.em('input', 'wrapper')">
+                    <input
+                      :id="formItemId"
+                      ref="inputRef"
+                      v-model="inputValue"
+                      :class="[
+                        ns.e('input'),
+                        ns.is('disabled', actualDisabled)
+                      ]"
+                      :style="{
+                        width: (calculateWidth || MINIMAL_INPUT_WIDTH) + 'px'
+                      }"
+                      type="text"
+                      :disabled="actualDisabled"
+                      tabindex="0"
+                      :readonly="readonly"
+                      spellcheck="false"
+                      autocomplete="off"
+                      role="combobox"
+                      @input="handleInput"
+                      @compositionend="hadnleCompositionEnd"
+                      @compositionstart="handleCompositionStart"
+                      @compositionupdate="handleCompositionUpdate"
+                      @keydown.esc.stop="handleEsc"
+                      @keydown.esc.enter="handleEnter"
+                      @keydown.up.enter="handleUp"
+                      @keydown.down.enter="handleDown"
+                    />
+                    <span
+                      v-show="showSearch && isFocused"
+                      ref="inputTextRef"
+                      aria-hidden="true"
+                      :class="ns.e('input-text')"
+                    >
+                      {{ inputValue }}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div v-if="showSuffix" :class="ns.e('suffix')">
-            <template v-if="loading">
-              <n-icon size="16" :class="ns.m('loading')">
+          <template v-if="showSuffix">
+            <transition name="fade-in-linear">
+              <n-icon
+                v-if="loading"
+                size="16"
+                :class="[ns.m('loading'), ns.em('suffix', 'icon')]"
+              >
                 <Loader />
               </n-icon>
-            </template>
-            <template v-if="!$slots.suffix && !loading">
-              <n-icon v-if="!shouldShowClearIcon" size="16">
-                <ArrowDown
-                  :style="[{ transition: 'all .3s' }, arrowIconStyle]"
-                />
-              </n-icon>
-              <n-icon v-else size="16">
-                <Close @click.stop="clearValue" />
-              </n-icon>
-            </template>
-            <slot name="suffix" />
-          </div>
+            </transition>
+            <slot v-if="!loading" name="suffix">
+              <transition name="fade-in-linear">
+                <n-icon
+                  v-if="!shouldShowClearIcon"
+                  :class="ns.em('suffix', 'icon')"
+                >
+                  <ArrowDown v-if="!isFocused || actualDisabled" />
+                  <RiSearchLine v-else />
+                </n-icon>
+                <n-icon
+                  v-else
+                  :class="[ns.em('suffix', 'icon'), ns.m('close')]"
+                >
+                  <Close @click.stop="clearValue" />
+                </n-icon>
+              </transition>
+            </slot>
+          </template>
         </div>
       </template>
       <template #content>
-        <ul
-          ref="optionRef"
-          :style="tooltipContentStyle"
-          :class="`${ns.ns.value}-select-option__wrapper`"
-        >
-          <slot />
-        </ul>
-        <span v-if="noMatchValue || options.size === 0" class="empty-value">
-          {{ t('noc.select.noMatch') }}
-        </span>
+        <div :class="`${ns.ns.value}-select-option__wrapper`">
+          <ul :class="`${ns.ns.value}-select-option__list`">
+            <slot />
+          </ul>
+          <div v-if="noMatchValue || options.size === 0" :class="ns.m('empty')">
+            <slot name="empty">
+              <div :class="ns.m('empty-icon')">
+                <n-icon size="48">
+                  <svg
+                    width="64"
+                    height="41"
+                    viewBox="0 0 64 41"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title>No data</title>
+                    <g
+                      transform="translate(0 1)"
+                      fill="none"
+                      fill-rule="evenodd"
+                    >
+                      <ellipse fill="#f5f5f5" cx="32" cy="33" rx="32" ry="7" />
+                      <g fill-rule="nonzero" stroke="#d9d9d9">
+                        <path
+                          d="M55 12.76L44.854 1.258C44.367.474 43.656 0 42.907 0H21.093c-.749 0-1.46.474-1.947 1.257L9 12.761V22h46v-9.24z"
+                        />
+                        <path
+                          d="M41.613 15.931c0-1.605.994-2.93 2.227-2.931H55v18.137C55 33.26 53.68 35 52.05 35h-40.1C10.32 35 9 33.259 9 31.137V13h11.16c1.233 0 2.227 1.323 2.227 2.928v.022c0 1.605 1.005 2.901 2.237 2.901h14.752c1.232 0 2.237-1.308 2.237-2.913v-.007z"
+                          fill="#fafafa"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </n-icon>
+              </div>
+              <span v-if="noMatchValue">{{ t('noc.select.noMatch') }}</span>
+              <span v-else-if="options.size === 0">
+                {{ t('noc.select.noData') }}
+              </span>
+            </slot>
+          </div>
+        </div>
       </template>
     </n-tooltip>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {
-  computed,
-  nextTick,
-  onMounted,
-  provide,
-  reactive,
-  ref,
-  toRef,
-  watch
-} from 'vue'
-import { onClickOutside, useElementSize } from '@vueuse/core'
+import { computed, nextTick, provide, reactive, ref, toRefs, watch } from 'vue'
+import { useElementSize } from '@vueuse/core'
 import {
   RiArrowDownSLine as ArrowDown,
   RiCloseCircleFill as Close,
-  RiLoader5Fill as Loader
+  RiLoader5Fill as Loader,
+  RiSearchLine
 } from '@remixicon/vue'
-import {
-  isArray,
-  isBoolean,
-  isFunction,
-  isNil,
-  isObject,
-  isString
-} from '@nocturne-ui/utils'
+import { isArray, isNil, isObject, isString } from '@nocturne-ui/utils'
 import NIcon from '@nocturne-ui/components/icon'
 import NTag from '@nocturne-ui/components/tag'
 import NTooltip from '@nocturne-ui/components/tooltip'
@@ -203,11 +234,17 @@ import {
   useLocale,
   useNamespace
 } from '@nocturne-ui/composables'
+import { noop } from 'lodash'
 import { selectEmits, selectProps } from './select'
 import { SELECT_INJECTION_KEY } from './constants'
-import type { OptionProxy } from './constants'
 import type { TooltipInstance } from '@nocturne-ui/components/tooltip'
 import type { CSSProperties } from 'vue'
+import type {
+  OptionProxy,
+  SelectMergedValue,
+  SelectMultipleValue,
+  SelectSingleValue
+} from './types'
 
 defineOptions({
   name: 'NSelect'
@@ -225,14 +262,13 @@ const MINIMAL_INPUT_WIDTH = 8
 
 const tooltipRef = ref<TooltipInstance>()
 const inputRef = ref<HTMLInputElement>()
-const optionRef = ref<HTMLUListElement>()
 const inputTextRef = ref<HTMLSpanElement>()
 
 const isHover = ref(false)
 const visible = ref(false)
-const multipleValue = ref<any[]>([])
-const inputValue = ref<any>('')
-const options = ref(new Map())
+const multipleValue = ref<SelectMultipleValue>([])
+const inputValue = ref<string>('')
+const options = ref(new Map<OptionProxy['value'], OptionProxy>())
 const calculateWidth = ref(MINIMAL_INPUT_WIDTH)
 const hoveringIndex = ref(0)
 
@@ -249,29 +285,32 @@ const {
   handleFocus,
   handleBlur: onBlur
 } = useFocusController(inputRef, {
+  beforeBlur: (e: FocusEvent) => {
+    // in multiple mode, click option will blur input
+    if (
+      visible.value &&
+      tooltipRef.value?.isFocusInsideContent(e) &&
+      e.relatedTarget
+    ) {
+      inputRef.value?.focus()
+      return true
+    }
+    return false
+  },
   afterBlur: () => {
     formItem?.validate('blur')
+    visible.value = false
+  },
+  beforeFocus: () => {
+    return actualDisabled.value
   }
-})
-
-onClickOutside(wrapperRef, (e: MouseEvent) => {
-  if (optionRef.value?.contains(e.target as Node)) return
-
-  visible.value = false
 })
 
 const { height, width } = useElementSize(wrapperRef)
 
-const arrowIconStyle = computed<CSSProperties>(() => {
-  return {
-    transform: visible.value ? 'rotate(180deg)' : ''
-  }
-})
-
 const tooltipContentStyle = computed<CSSProperties>(() => {
   return {
-    width: `${width.value}px`,
-    maxHeight: isString(props.height) ? props.height : `${props.height}px`
+    width: `${width.value}px`
   }
 })
 
@@ -295,27 +334,32 @@ const displayedValue = computed(() => {
       return ''
     } else if (props.modelValue) {
       const option = getOptionValue(props.modelValue)
-      return option?.label
+      if (option) {
+        return option?.label
+      }
+      return props.placeholder || t('noc.select.placeholder')
     }
   }
-  return props.placeholder
+  return props.placeholder || t('noc.select.placeholder')
 })
 
 const showDisplayedValue = computed(() => {
   if (props.showSearch) {
-    if (visible.value) {
-      if (!inputValue.value) {
-        return true
-      }
-      return false
+    if (!inputValue.value) {
+      return true
     }
-    return true
+    return false
   }
   return true
 })
 
 const shouldShowClearIcon = computed(() => {
-  return props.clearValue && existActualValue.value && isHover.value
+  return (
+    props.clearValue &&
+    existActualValue.value &&
+    isHover.value &&
+    !actualDisabled.value
+  )
 })
 
 const taglist = computed(() => {
@@ -332,8 +376,12 @@ const extraTaglist = computed(() => {
   )
 })
 
-const getTaglist = (fn: (list: any[]) => any[]) => {
-  const list: any[] = []
+const filteredValue = ref('')
+
+const getTaglist = (
+  fn: (list: Array<string | number>) => Array<string | number>
+) => {
+  const list: Array<string | number> = []
   for (const item of multipleValue.value) {
     const option = getOptionValue(item)
     if (option) {
@@ -345,18 +393,6 @@ const getTaglist = (fn: (list: any[]) => any[]) => {
   }
   return list
 }
-
-const filterable = computed(() => {
-  const filterOption = () => {
-    if (isBoolean(props.filterOption)) {
-      return props.filterOption
-    } else if (isFunction(props.filterOption)) {
-      return true
-    }
-    return false
-  }
-  return props.showSearch && filterOption()
-})
 
 const selectCls = computed(() => [
   ns.b(),
@@ -377,8 +413,10 @@ const optionsArray = computed(() => Array.from(options.value.values()))
 
 const noMatchValue = computed(() => {
   return (
-    filterable.value &&
-    !optionsArray.value.some((o) => o.label.includes(inputValue.value))
+    props.showSearch &&
+    !optionsArray.value.some((o) =>
+      String(o.label).toLowerCase().includes(inputValue.value.toLowerCase())
+    )
   )
 })
 
@@ -389,15 +427,11 @@ const readonly = computed(() => {
   return !props.showSearch
 })
 
-const handleSelectClick = (e: MouseEvent) => {
+const handleSelectClick = () => {
   if (actualDisabled.value) return
 
   visible.value = !visible.value
-  setSelected()
-
-  if (props.showSearch) {
-    handleFocus(e)
-  }
+  setHovering()
 }
 
 const handleMouseEnter = () => {
@@ -424,60 +458,66 @@ const handleTagDel = (index: number) => {
   emitEvent(multipleValue.value)
 }
 
-const setSelected = () => {
+const setHovering = () => {
   if (!props.modelValue) return
   if (!isArray(props.modelValue)) {
     const option = getOptionValue(props.modelValue)
+    hoveringIndex.value = 0
 
-    hoveringIndex.value = optionsArray.value.findIndex(
-      (o) => o.label === option?.label
-    )
-    return
+    // skip disabled option
+    for (let i = 0; i < optionsArray.value.length; i++) {
+      const o = optionsArray.value[i]
+
+      if (o.label === option.label || o.disabled) {
+        hoveringIndex.value++
+      } else {
+        return
+      }
+    }
   } else {
-    multipleValue.value = props.modelValue
     hoveringIndex.value = 0
   }
 }
 
 const clickOption = (vm: OptionProxy) => {
-  const { value } = vm
+  const { value, label } = vm
 
   if (props.multiple) {
     if (isArray(multipleValue.value)) {
       const index = getOptionIndex(multipleValue.value, value)
 
       if (index > -1) {
-        multipleValue.value?.splice(index, 1)
+        multipleValue.value.splice(index, 1)
       } else {
-        multipleValue.value.push(value)
+        multipleValue.value.push(value as never)
       }
     }
-  } else {
-    visible.value = false
-    inputValue.value = value
-  }
-  if (props.multiple) {
     emitEvent(multipleValue.value)
     emit('select', multipleValue.value)
   } else {
-    emitEvent(inputValue.value)
-    emit('select', inputValue.value)
+    inputValue.value = String(label)
+    emitEvent(value)
+    emit('select', value)
+  }
+  if (!props.multiple) {
+    visible.value = false
   }
 }
 
-const getOptionValue = (value: any) => {
+const getOptionValue = (value: SelectSingleValue) => {
   let newOption
 
   for (let i = 0; i < options.value.size; i++) {
     const option = optionsArray.value[i]
     const isEqual = isObject(value)
-      ? option.value[props.valueKey!] === value[props.valueKey!]
+      ? (option.value as Record<any, string>)[props.valueKey!] ===
+        value[props.valueKey!]
       : option.value === value
 
     if (isEqual) {
       newOption = {
         value,
-        label: options.value.get(value)?.label
+        label: options.value.get(value)!.label
       }
       break
     }
@@ -486,17 +526,22 @@ const getOptionValue = (value: any) => {
   return newOption!
 }
 
-const getOptionIndex = (arr: any[] = [], val: any) => {
-  if (!isObject(val)) return arr.indexOf(val)
+const getOptionIndex = (
+  arr: SelectMultipleValue = [],
+  val: SelectSingleValue
+) => {
+  if (!isObject(val)) return arr.indexOf(val as never)
 
   let index = -1
 
   if (isObject(val)) {
     for (let i = 0; i < arr.length - 1; i++) {
       const item = arr[i]
-      if (item[props.valueKey!] === val[props.valueKey!]) {
-        index = i
-        return index
+      if (isObject(item)) {
+        if (item[props.valueKey!] === val[props.valueKey!]) {
+          index = i
+          return index
+        }
       }
     }
   }
@@ -509,6 +554,7 @@ const handleInput = async (e: Event) => {
   const { value: query } = e.target as HTMLInputElement
 
   inputValue.value = query
+  filteredValue.value = query
 
   emit('search', query)
 
@@ -553,7 +599,7 @@ const handleItemHovering = (offset: number) => {
   }
 }
 
-const emitEvent = (val: any) => {
+const emitEvent = (val: SelectMergedValue) => {
   emit('update:modelValue', val)
   emit('select', val)
 }
@@ -561,7 +607,19 @@ const emitEvent = (val: any) => {
 const handleBlur = () => {
   const event = new FocusEvent('focus')
   onBlur(event)
-  visible.value = false
+}
+
+const onTagClose = (index: number) => {
+  // beacuse close tag will focus input
+  if (!visible.value && isFocused.value) {
+    isFocused.value = false
+    inputRef.value?.blur()
+  }
+  handleTagDel(index)
+}
+
+const onHide = () => {
+  filteredValue.value = ''
 }
 
 watch(height, () => {
@@ -581,9 +639,17 @@ watch(
   }
 )
 
-onMounted(() => {
-  setSelected()
-})
+watch(
+  () => props.multiple,
+  (val) => {
+    if (val) {
+      multipleValue.value = props.modelValue as []
+    }
+  },
+  {
+    immediate: true
+  }
+)
 
 provide(
   SELECT_INJECTION_KEY,
@@ -593,11 +659,8 @@ provide(
     options,
     optionsArray,
     hoveringIndex,
-    filterable,
-    valueKey: toRef(props, 'valueKey'),
-    multiple: toRef(props, 'multiple'),
-    modelValue: toRef(props, 'modelValue'),
-    filterOption: toRef(props, 'filterOption'),
+    filteredValue,
+    ...toRefs(props),
 
     clickOption,
     createOption,

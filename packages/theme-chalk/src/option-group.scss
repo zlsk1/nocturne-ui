@@ -3,9 +3,18 @@
 @use 'common/var' as *;
 
 @include b(option-group) {
+  @include set-component-css-var('option-group', $option-group);
+
+  padding: 0;
+  list-style: none;
+
   @include e(title) {
-    padding: 6px 20px;
+    padding: getCssVar('option-group', 'padding');
     font-size: 13px;
     color: getCssVar('text-color-placeholder');
+  }
+
+  .#{$namespace}-select-option__item {
+    padding: 4px 12px 6px 22px !important;
   }
 }

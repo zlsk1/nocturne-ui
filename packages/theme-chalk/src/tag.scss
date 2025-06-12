@@ -61,7 +61,7 @@ $tag-icon-span-gap: map.merge(
 }
 
 @include b(tag) {
-  @include genTheme('light-9', 'light-8', '');
+  @include genTheme('light-9', 'light-7', '');
   @include set-css-var-value('icon-size', 14px);
 
   $svg-margin-size: 1px;
@@ -71,7 +71,7 @@ $tag-icon-span-gap: map.merge(
   align-items: center;
   vertical-align: middle;
   height: map.get($tag-height, 'default');
-  padding: 0 map.get($tag-padding, 'default') - $border-width;
+  padding: 0 map.get($tag-padding, 'default');
   font-size: getCssVar('tag-font-size');
   line-height: 1;
   background-color: getCssVar('tag-bg-color');
@@ -90,31 +90,27 @@ $tag-icon-span-gap: map.merge(
     }
   }
 
-  @include when(bordered) {
-    border-color: getCssVar('color', 'primary');
-  }
   @include when(round) {
     border-radius: getCssVar('tag', 'border-radius-rounded');
   }
 
+  @include e(content) {
+    &:has(+ .#{$namespace}-icon) {
+      margin-right: 2px;
+    }
+  }
+
   @include e(close) {
     flex-shrink: 0;
-    margin-left: map.get($tag-icon-span-gap, 'default');
+    height: getCssVar('icon-size');
+    width: getCssVar('icon-size');
+    font-size: calc(#{getCssVar('icon-size')} - #{$svg-margin-size * 2});
     color: getCssVar('tag', 'text-color');
     transition: opacity 0.3s;
     cursor: pointer;
     &:hover {
       opacity: 0.8;
     }
-  }
-
-  .#{$namespace}-icon {
-    border-radius: 50%;
-    cursor: pointer;
-
-    font-size: calc(#{getCssVar('icon-size')} - #{$svg-margin-size * 2});
-    height: getCssVar('icon-size');
-    width: getCssVar('icon-size');
   }
 
   @include m(dark) {
@@ -134,27 +130,15 @@ $tag-icon-span-gap: map.merge(
     @include css-var-from-global(('tag', 'bg-color'), ('fill-color', 'blank'));
   }
 
-  &.is-closable {
-    padding-right: map.get($tag-icon-span-gap, 'default') - $border-width;
-  }
-
   @each $size in (large, small) {
     @include m($size) {
-      padding: 0 map.get($tag-padding, $size) - $tag-border-width;
+      padding: 0 map.get($tag-padding, $size);
       height: map.get($tag-height, $size);
 
       @include set-css-var-value(
         'icon-size',
         #{map.get($tag-icon-size, $size)}
       );
-
-      .#{$namespace}-tag__close {
-        margin-left: map.get($tag-icon-span-gap, $size);
-      }
-
-      &.is-closable {
-        padding-right: map.get($tag-icon-span-gap, $size) - $border-width;
-      }
     }
   }
 
@@ -167,17 +151,11 @@ $tag-icon-span-gap: map.merge(
   @each $type in $types {
     &.#{bem('tag', '', $type)} {
       @include when(bordered) {
-        border-color: getCssVar('color', $type);
+        border-color: getCssVar('tag', 'border-color');
       }
       @include when(checkable) {
         border-color: transparent;
       }
-    }
-  }
-
-  .remixicon {
-    + span {
-      margin-left: 6px;
     }
   }
 }

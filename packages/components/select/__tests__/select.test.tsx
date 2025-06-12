@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import Select from '../src/select.vue'
 import Option from '../src/option.vue'
-import type { OptionProxy } from '../src/constants'
+import type { OptionProxy } from '../src/types'
 import type { VueWrapper } from '@vue/test-utils'
 import type { SelectInstance } from '../src/select'
 
