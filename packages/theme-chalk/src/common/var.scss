@@ -998,12 +998,14 @@ $menu: () !default;
 $menu: map.merge(
   (
     'title-height': 40px,
-    'item-padding': 0 15px,
+    'item-padding': 0 15px 0 20px,
     'item-margin': 4px 0,
     'hover-bg': getCssVar('fill-color-dark'),
     'selected-bg': getCssVar('color-primary-light-9'),
     'selected-color': getCssVar('color-primary-light-3'),
-    'text-color': getCssVar('text-color-primary')
+    'text-color': getCssVar('text-color-primary'),
+    'icon-size': 14px,
+    'collapse-icon-size': 16px
   ),
   $menu
 );

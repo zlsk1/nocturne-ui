@@ -1,0 +1,24 @@
+@use 'mixins/var' as *;
+@use 'mixins/mixins' as *;
+@use 'common/var' as *;
+
+$sub-selector: #{$namespace}-sub-menu;
+$item-selector: #{$namespace}-menu-item;
+
+@include b(menu-group) {
+  line-height: getCssVar('menu', 'title-height');
+
+  @include m(title) {
+    padding: getCssVar('menu', 'item-padding');
+    font-size: 14px;
+    color: getCssVar('text-color-placeholder');
+  }
+
+  .#{$item-selector}--title {
+    padding-left: 18px;
+  }
+
+  .#{$sub-selector} {
+    padding: getCssVar('menu', 'item-padding');
+  }
+}

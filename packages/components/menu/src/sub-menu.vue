@@ -10,9 +10,6 @@
       :visible="opened"
       :show-arrow="false"
       :trigger="trigger"
-      :popper-style="{
-        padding: '0 2px'
-      }"
       :popper-class="[ns.m('popper'), rootMenu.popperClass!]"
       :placement="popoverPlacement"
       :teleported="appendToBody"
@@ -32,28 +29,36 @@
         :class="[ns.m('title'), ns.is('selected', selected && !disabled)]"
         :style="{
           paddingLeft:
-            !inTooltip && subMenu?.level ? `${subMenu?.level * 24}px` : '',
-          padding:
-            !inTooltip && rootMenu.collapse
-              ? `0 calc((72px - ${iconWidth}px) / 2)`
-              : ''
+            !inTooltip && subMenu?.level ? `${subMenu?.level * 24}px` : ''
         }"
         @click="handleClick"
       >
-        <span v-if="$slots.icon" ref="iconRef" :class="ns.m('title-icon')">
+        <span v-if="$slots.icon" :class="ns.m('title-icon')">
           <slot name="icon" />
         </span>
-        <span v-if="$slots.title" :class="ns.m('title-label')">
+        <span
+          v-if="$slots.title"
+          :class="[
+            ns.m('title-label'),
+            ns.is('collapse', !inTooltip && rootMenu.collapse)
+          ]"
+        >
           <slot name="title" />
         </span>
         <n-icon
-          v-if="rootMenu.direction === 'vertical'"
-          :size="iconSize"
+          v-if="rootMenu.direction === 'vertical' && !rootMenu.collapse"
           :class="ns.e('arrow')"
         >
-          <Arrow
+          <RiArrowRightSLine
             :style="{
-              transform: opened ? 'rotate(-90deg)' : 'rotate(90deg)'
+              transform: opened ? 'rotate(270deg)' : 'rotate(90deg)'
+            }"
+          />
+        </n-icon>
+        <n-icon v-else-if="subMenu?.level > 0" :class="ns.e('arrow')">
+          <RiArrowRightSLine
+            :style="{
+              transform: opened ? 'rotate(180deg)' : ''
             }"
           />
         </n-icon>
@@ -96,7 +101,7 @@ import {
   ref,
   watch
 } from 'vue'
-import { RiArrowRightSLine as Arrow } from '@remixicon/vue'
+import { RiArrowRightSLine } from '@remixicon/vue'
 import { useTimeoutFn } from '@vueuse/core'
 import { useNamespace } from '@nocturne-ui/composables'
 import NCollapseTransition from '@nocturne-ui/components/collapse-transition'
@@ -139,8 +144,6 @@ let timeout: (() => void) | undefined
 const subMenus = ref<NMenuInjectionContext['subMenus']>({})
 const mouseInChild = ref(false)
 const tooltipRef = ref<TooltipInstance>()
-const iconRef = ref<HTMLSpanElement>()
-const iconWidth = ref(18)
 
 const opened = computed(() => rootMenu.openedMenus.includes(props.index))
 const selected = computed(() => {
@@ -158,11 +161,7 @@ const popoverPlacement = computed(() => {
 const appendToBody = computed(() => {
   return isFirstLevel.value
 })
-const iconSize = computed(() =>
-  rootMenu.collapse && rootMenu.direction === 'vertical' && !inTooltip.value
-    ? '24'
-    : '18'
-)
+
 const fallbackPlacements = computed<Placement[]>(() =>
   rootMenu.direction === 'horizontal' && isFirstLevel.value
     ? [
@@ -272,10 +271,6 @@ watch(
   async () => {
     await nextTick()
     updatePopper()
-
-    if (iconRef.value) {
-      iconWidth.value = iconRef.value.getBoundingClientRect().width || 18
-    }
   }
 )
 

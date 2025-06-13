@@ -15,7 +15,7 @@ export const menuProps = {
   },
   popperOffset: {
     type: Number,
-    default: 15
+    default: 6
   },
   popperClass: {
     type: String

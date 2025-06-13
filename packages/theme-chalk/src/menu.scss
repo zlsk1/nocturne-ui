@@ -1,20 +1,11 @@
-@use 'sass:map';
-
 @use 'common/var' as *;
 @use 'mixins/mixins' as *;
 @use 'mixins/var' as *;
 
 $sub-selector: #{$namespace}-sub-menu;
 $item-selector: #{$namespace}-menu-item;
-$group-selector: #{$namespace}-menu-group;
 
 @include b(menu) {
-  @include set-component-css-var('menu', $menu);
-}
-@include b(menu-item) {
-  @include set-component-css-var('menu', $menu);
-}
-@include b(sub-menu) {
   @include set-component-css-var('menu', $menu);
 }
 
@@ -24,7 +15,7 @@ $group-selector: #{$namespace}-menu-group;
   width: 100%;
   margin: 0;
   padding-left: 0;
-  font-size: 16px;
+  font-size: 14px;
   color: getCssVar('menu', 'text-color');
   user-select: none;
   box-sizing: border-box;
@@ -33,41 +24,82 @@ $group-selector: #{$namespace}-menu-group;
     height getCssVar('transition-duration');
 
   @include when(horizontal) {
+    .#{$sub-selector}--container {
+      padding: getCssVar('menu', 'item-padding');
+    }
+
     .#{$item-selector},
     .#{$sub-selector}--container {
       margin: 0;
     }
+
     .#{$sub-selector}--title,
     .#{$item-selector} {
       &:hover {
-        color: getCssVar('menu', 'selected-color') !important;
         background: inherit;
       }
       @include when(selected) {
-        color: getCssVar('menu', 'selected-color') !important;
         background: inherit;
       }
     }
-    .#{$sub-selector}--container.is-disabled {
-      > .#{$sub-selector}--title {
+
+    .#{$item-selector}--title {
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        opacity: 0;
+        background: getCssVar('color-primary');
+        transition: opacity getCssVar('transition-duration-fast') ease-in-out;
+      }
+    }
+
+    .#{$item-selector} {
+      @include when(selected) {
+        .#{$item-selector}--title {
+          &::after {
+            opacity: 1;
+          }
+        }
+      }
+
+      @include when(disabled) {
         &:hover {
-          color: getCssVar('text-color-disabled') !important;
-          background: inherit;
-        }
-        @include when(selected) {
-          color: getCssVar('text-color-disabled');
-          background: inherit;
+          .#{$item-selector}--title {
+            &::after {
+              opacity: 0;
+            }
+          }
         }
       }
     }
-    .#{$item-selector}.is-disabled {
-      &:hover {
-        color: getCssVar('text-color-disabled') !important;
-        background: inherit;
+
+    .#{$sub-selector}--title {
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        opacity: 0;
+        background: getCssVar('color-primary');
+        transition: opacity getCssVar('transition-duration-fast') ease-in-out;
       }
+
+      &:hover {
+        &::after {
+          opacity: 1;
+        }
+      }
+
       @include when(selected) {
-        color: getCssVar('text-color-disabled');
-        background: inherit;
+        &::after {
+          opacity: 1;
+        }
       }
     }
   }
@@ -79,9 +111,14 @@ $group-selector: #{$namespace}-menu-group;
 
     .#{$sub-selector}--container {
       border-radius: getCssVar('border-radius-base');
+      overflow: hidden;
       @include when(selected) {
         background: getCssVar('menu', 'selected-bg');
       }
+    }
+
+    .#{$sub-selector}--title {
+      padding: getCssVar('menu', 'item-padding');
     }
   }
 
@@ -94,7 +131,7 @@ $group-selector: #{$namespace}-menu-group;
       }
       .#{$item-selector}--title {
         display: block;
-        width: 72px;
+        padding: 0 calc(50% - calc(getCssVar('menu-collapse-icon-size') / 2));
         text-overflow: clip;
         line-height: getCssVar('menu', 'title-height');
         > svg,
@@ -106,11 +143,9 @@ $group-selector: #{$namespace}-menu-group;
       .#{$item-selector}--title-label {
         opacity: 0;
       }
-      .#{$sub-selector}--container {
-        width: 72px;
-      }
       .#{$sub-selector}--title {
         display: block;
+        padding: 0 calc(50% - calc(getCssVar('menu-collapse-icon-size') / 2));
         text-overflow: clip;
         line-height: getCssVar('menu', 'title-height');
 
@@ -119,10 +154,12 @@ $group-selector: #{$namespace}-menu-group;
         }
       }
       .#{$sub-selector}--title-label {
-        opacity: 0;
+        > span {
+          opacity: 0;
+        }
       }
       .#{$sub-selector}__arrow {
-        display: none;
+        opacity: 0;
       }
     }
   }
@@ -134,243 +171,5 @@ $group-selector: #{$namespace}-menu-group;
 
   li {
     list-style: none;
-  }
-}
-
-@include b(menu-item) {
-  box-sizing: border-box;
-  height: getCssVar('menu', 'title-height');
-  line-height: getCssVar('menu', 'title-height');
-  margin: getCssVar('menu', 'item-margin');
-  padding: getCssVar('menu', 'item-padding');
-  border-radius: getCssVar('border-radius-base');
-  transition: background, color, getCssVar('transition-duration');
-  cursor: pointer;
-
-  &:hover {
-    background: getCssVar('menu', 'hover-bg');
-  }
-
-  &:active {
-    background: getCssVar('menu', 'selected-bg');
-  }
-
-  @include m(title) {
-    position: relative;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  @include m(title-label) {
-    margin-left: 6px;
-    opacity: 1;
-    transition: opacity getCssVar('transition-duration');
-  }
-
-  @include m(title-icon) {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-    transition:
-      margin,
-      padding getCssVar('transition-duration');
-  }
-
-  @include e(arrow) {
-    margin-left: 5px;
-    transition: transform getCssVar('transition-duration');
-  }
-
-  @include when(collapse) {
-    > span {
-      width: 0;
-      height: 0;
-      overflow: hidden;
-      opacity: 0;
-    }
-  }
-
-  @include when(selected) {
-    color: getCssVar('menu', 'selected-color');
-    background: getCssVar('menu', 'selected-bg');
-  }
-
-  @include when(disabled) {
-    color: getCssVar('text-color-disabled');
-    background: none;
-    cursor: not-allowed;
-  }
-}
-
-@include b(sub-menu) {
-  @include m(container) {
-    box-sizing: border-box;
-    margin: getCssVar('menu', 'item-margin');
-    overflow: hidden;
-
-    @include when(disabled) {
-      .#{$sub-selector}--title {
-        color: getCssVar('text-color-disabled') !important;
-        background: none;
-        cursor: not-allowed;
-
-        &:hover {
-          color: getCssVar('text-color-disabled') !important;
-          background: none;
-        }
-      }
-    }
-  }
-
-  @include m(title) {
-    position: relative;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    height: getCssVar('menu', 'title-height');
-    padding: getCssVar('menu', 'item-padding');
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    border-radius: getCssVar('border-radius-base');
-    transition: background, color, getCssVar('transition-duration');
-    cursor: pointer;
-
-    &:hover {
-      color: getCssVar('menu', 'text-color') !important;
-      background: getCssVar('fill-color-dark');
-    }
-
-    &:active {
-      color: getCssVar('menu', 'selected-color');
-      background: getCssVar('menu', 'selected-bg');
-    }
-
-    @include when(collapse) {
-      > span {
-        width: 0;
-        height: 0;
-        overflow: hidden;
-        opacity: 0;
-      }
-    }
-
-    @include e(arrow) {
-      position: absolute;
-      top: 50%;
-      right: 15px;
-      transform: translateY(-50%);
-      > svg {
-        transition: transform getCssVar('transition-duration');
-      }
-    }
-
-    @include when(selected) {
-      color: getCssVar('menu', 'selected-color');
-    }
-  }
-
-  @include m(title-label) {
-    margin-left: 6px;
-    opacity: 1;
-    transition: opacity getCssVar('transition-duration');
-  }
-
-  @include m(title-icon) {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-
-    &:only-child {
-      flex: 1;
-    }
-  }
-}
-
-.#{$namespace}-popper.#{$namespace}-sub-menu--popper {
-  font-size: 16px !important;
-  user-select: none;
-  @include set-component-css-var('menu', $menu);
-
-  ul,
-  li {
-    margin: 0;
-    padding-left: 0;
-  }
-
-  li {
-    list-style: none;
-  }
-
-  .#{$item-selector} {
-    margin: getCssVar('menu', 'item-margin');
-    padding: getCssVar('menu', 'item-padding');
-    border-radius: getCssVar('border-radius-base');
-    transition: background, color, getCssVar('transition-duration');
-    cursor: pointer;
-  }
-
-  .#{$namespace}-sub-menu--container {
-    margin: getCssVar('menu', 'item-margin');
-    border-radius: getCssVar('border-radius-base');
-    transition: background, color, getCssVar('transition-duration');
-    cursor: pointer;
-
-    &:hover {
-      background: getCssVar('fill-color-dark');
-    }
-
-    .#{$namespace}-sub--title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 15px;
-      cursor: pointer;
-
-      @include when(collapse) {
-        > span {
-          width: 0;
-          height: 0;
-          overflow: hidden;
-          opacity: 0;
-        }
-      }
-    }
-  }
-
-  .#{$item-selector}__arrow {
-    margin-left: 5px;
-    transition: transform getCssVar('transition-duration');
-  }
-
-  .#{$item-selector}--title-label,
-  .#{$sub-selector}--title-label {
-    margin-left: 0;
-  }
-}
-
-@include b(menu-group) {
-  line-height: getCssVar('menu', 'title-height');
-  @include m(title) {
-    padding: getCssVar('menu', 'item-padding');
-    font-size: 14px;
-    color: getCssVar('text-color-secondary');
-  }
-  .#{$item-selector} {
-    padding: getCssVar('menu', 'item-padding');
-  }
-  .#{$item-selector}--title {
-    padding-left: 24px;
-  }
-  .#{$sub-selector} {
-    padding: getCssVar('menu', 'item-padding');
   }
 }

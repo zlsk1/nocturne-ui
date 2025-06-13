@@ -110,16 +110,19 @@ export default defineComponent({
 
     const calcSliceIndex = () => {
       if (!menuRef.value) return -1
+
       const items = Array.from(menuRef.value?.childNodes ?? []).filter(
         (item) => item.nodeName !== '#text' || item.nodeValue
       ) as HTMLElement[]
+
       const moreItemWidth = 64
-      const computedMenuStyle = getComputedStyle(menuRef.value!)
+      const computedMenuStyle = getComputedStyle(menuRef.value)
       const paddingLeft = Number.parseInt(computedMenuStyle.paddingLeft, 10)
       const paddingRight = Number.parseInt(computedMenuStyle.paddingRight, 10)
-      const menuWidth = menuRef.value!.clientWidth - paddingLeft - paddingRight
+      const menuWidth = menuRef.value.clientWidth - paddingLeft - paddingRight
       let calcWidth = 0
       let sliceIndex = 0
+
       items.forEach((item, index) => {
         if (item.nodeName === '#comment') return
         calcWidth += calcMenuItemWidth(item)
@@ -145,7 +148,10 @@ export default defineComponent({
     watchEffect(() => {
       if (props.direction === 'horizontal' && props.ellipsis)
         resizeStopper = useResizeObserver(menuRef, handleResize).stop
-      else resizeStopper?.()
+      else {
+        resizeStopper?.()
+        sliceIndex.value = -1
+      }
     })
 
     const updateSelecedIndex = (index: string) => {
@@ -157,6 +163,8 @@ export default defineComponent({
       (val) => {
         if (val) {
           openedMenus.value = []
+        } else if (!val && props.defaultOpeneds) {
+          openedMenus.value = props.defaultOpeneds
         }
       }
     )
@@ -213,7 +221,7 @@ export default defineComponent({
         <>
           {slotMore.length ? (
             <NSubMenu
-              style={{ width: '64px' }}
+              style={{ minWidth: '64px' }}
               index="sub-menu-more"
               v-slots={{
                 icon: () => <NIcon>{{ default: () => <More></More> }}</NIcon>,

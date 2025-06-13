@@ -1,0 +1,94 @@
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+
+$item-selector: #{$namespace}-menu-item;
+
+@include b(menu-item) {
+  @include set-component-css-var('menu', $menu);
+}
+
+@include b(menu-item) {
+  box-sizing: border-box;
+  height: getCssVar('menu', 'title-height');
+  line-height: getCssVar('menu', 'title-height');
+  margin: getCssVar('menu', 'item-margin');
+  padding: getCssVar('menu', 'item-padding');
+  border-radius: getCssVar('border-radius-base');
+  transition: all getCssVar('transition-duration');
+  cursor: pointer;
+
+  &:hover {
+    background: getCssVar('menu', 'hover-bg');
+    .#{$item-selector}--title {
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &:active {
+    background: getCssVar('menu', 'selected-bg');
+  }
+
+  @include m(title) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    white-space: nowrap;
+    transition: padding getCssVar('transition-duration-fast');
+  }
+
+  @include m(title-label) {
+    opacity: 1;
+    transition: opacity getCssVar('transition-duration-fast');
+  }
+
+  @include m(title-icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    font-size: getCssVar('menu-icon-size');
+    transition: font-size getCssVar('transition-duration');
+
+    @include when('collapse') {
+      font-size: getCssVar('menu-collapse-icon-size');
+    }
+  }
+
+  .#{$item-selector}--title-icon + .#{$item-selector}--title-label {
+    margin-left: 6px;
+  }
+
+  @include e(arrow) {
+    margin-left: 5px;
+    transition: transform getCssVar('transition-duration');
+  }
+
+  @include when(collapse) {
+    > span {
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
+    }
+  }
+
+  @include when(selected) {
+    color: getCssVar('menu', 'selected-color');
+    background: getCssVar('menu', 'selected-bg');
+  }
+
+  @include when(disabled) {
+    color: getCssVar('text-color-disabled');
+    background: none;
+    cursor: not-allowed;
+  }
+}
+
+.#{$namespace}-popper.#{$namespace}-menu-item--popper {
+  font-size: 14px;
+}

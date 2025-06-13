@@ -8,9 +8,9 @@
   >
     <n-tooltip
       placement="right"
-      :offset="rootMenu.popperOffset"
+      :offset="12 || rootMenu.popperOffset"
       :disabled="disabled || !shouldShowTooltip"
-      :popper-class="`${ns.ns.value}-sub-menu--popper`"
+      :popper-class="`${ns.ns.value}-menu-item--popper`"
     >
       <template #content>
         <div
@@ -19,7 +19,7 @@
             paddingLeft: `${subMenu?.level * 24}px`
           }"
         >
-          <slot name="title" />
+          <slot name="default" />
           <span
             v-if="!shouldShowTooltip && $slots.icon"
             ref="iconRef"
@@ -33,18 +33,21 @@
         :class="ns.m('title')"
         :style="{
           paddingLeft:
-            !inTooltip && subMenu?.level ? `${subMenu?.level * 24}px` : '',
-          padding:
-            rootMenu.collapse && !inTooltip
-              ? `0 calc((72px - ${iconWidth}px) / 2)`
-              : ''
+            !inTooltip && subMenu?.level ? `${subMenu?.level * 24}px` : ''
         }"
       >
-        <span v-if="$slots.icon" ref="iconRef" :class="ns.m('title-icon')">
+        <span
+          v-if="$slots.icon"
+          ref="iconRef"
+          :class="[
+            ns.m('title-icon'),
+            ns.is('collapse', !inTooltip && rootMenu.collapse)
+          ]"
+        >
           <slot name="icon" />
         </span>
-        <span v-if="$slots.title" :class="ns.m('title-label')">
-          <slot name="title" />
+        <span v-if="$slots.default" :class="ns.m('title-label')">
+          <slot name="default" />
         </span>
       </div>
     </n-tooltip>
