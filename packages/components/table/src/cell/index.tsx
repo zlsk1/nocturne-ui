@@ -241,6 +241,14 @@ const Cell = defineComponent({
         }
       }
 
+      let childNodeTitle: any = childNode
+      let currentChild = childNode[0].children ?? undefined
+
+      while (currentChild) {
+        childNodeTitle = currentChild
+        currentChild = currentChild[0].children ?? undefined
+      }
+
       return (
         <Tag
           class={cellCls.value}
@@ -250,7 +258,7 @@ const Cell = defineComponent({
           rowSpan={finalRowSpan.value}
           onMouseenter={onMouseenter}
           onMouseleave={onMouseleave}
-          title={column.ellipsis && (childNode[0].children || childNode)} // todo: 需要递归children
+          title={column.ellipsis && childNodeTitle}
         >
           {childNode}
         </Tag>
