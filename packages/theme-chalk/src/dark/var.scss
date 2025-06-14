@@ -219,3 +219,14 @@ $empty: map.merge(
   ),
   $empty
 );
+
+$segmented: () !default;
+$segmented: map.merge(
+  (
+    'bg-color': #000000,
+     'hover-bg-color': rgba(255,255,255,0.12),
+    'selected-bg-color': #1f1f1f,
+    'actived-bg-color': rgba(255,255,255,0.18),
+  ),
+  $segmented
+)

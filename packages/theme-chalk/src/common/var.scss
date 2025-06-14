@@ -1120,13 +1120,13 @@ $segmented: () !default;
 $segmented: map.merge(
   (
     'item-padding': 6px 8px,
-    'text-color': getCssVar('text-color-secondary'),
+    'text-color': getCssVar('text-color-regular'),
     'hover-text-color': getCssVar('text-color-primary'),
-    'bg-color': getCssVar('fill-color-lighter'),
+    'bg-color': #f5f5f5,
     'disabled-color': getCssVar('text-color', 'disabled'),
-    'selected-bg-color': getCssVar('fill-color'),
-    'selected-box-bg-color': getCssVar('fill-color'),
-    'actived-bg-color': getCssVar('fill-color-darker'),
+    'hover-bg-color': rgba(0, 0, 0, 0.06),
+    'selected-bg-color': #ffffff,
+    'actived-bg-color': rgba(0, 0, 0, 0.15),
     'radius': getCssVar('border-radius-base')
   ),
   $segmented

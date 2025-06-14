@@ -60,7 +60,7 @@ $segmented-size: map.merge(
 
     &:hover {
       color: getCssVar('segmented', 'hover-text-color');
-      background-color: getCssVar('segmented', 'selected-bg-color');
+      background-color: getCssVar('segmented', 'hover-bg-color');
     }
 
     @include when(selected) {
@@ -85,6 +85,7 @@ $segmented-size: map.merge(
 
     @include e(item-label) {
       display: flex;
+      align-items: center;
       flex: 1;
       text-align: center;
       white-space: nowrap;
@@ -121,7 +122,7 @@ $segmented-size: map.merge(
     top: 0;
     height: 100%;
     border-radius: getCssVar('segmented', 'radius');
-    background-color: getCssVar('segmented', 'selected-box-bg-color');
+    background-color: getCssVar('segmented', 'selected-bg-color');
     pointer-events: none;
     transition: all getCssVar('transition-duration') ease-in-out;
   }
@@ -136,7 +137,9 @@ $segmented-size: map.merge(
   @include when(block) {
     display: flex;
     @include e('item') {
-      min-width: 0;
+      &-label {
+        justify-content: center;
+      }
     }
   }
 

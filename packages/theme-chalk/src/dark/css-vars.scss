@@ -30,3 +30,7 @@ html.dark {
 @include dark(empty) {
   @include set-component-css-var('empty', $empty);
 }
+
+@include dark(segmented) {
+  @include set-component-css-var('segmented', $segmented);
+}
