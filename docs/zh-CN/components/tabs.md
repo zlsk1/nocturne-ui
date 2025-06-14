@@ -60,11 +60,11 @@ tabs/editable
 
 ### Tabs Emits
 
-| 事件名 | 描述           | 类型                                                  |
-| ------ | -------------- | ----------------------------------------------------- |
-| change | 切换标签时触发 | ^[enum]`(label: string) => void`                      |
-| click  | 点击标签时触发 | ^[enum]`(label: string) => void`                      |
-| edit   | 编辑时触发     | ^[enum]`(type: 'add' \| 'del',label: string) => void` |
+| 事件名 | 描述           | 类型                                                             |
+| ------ | -------------- | ---------------------------------------------------------------- |
+| change | 切换标签时触发 | ^[enum]`(label: string) => void`                                 |
+| click  | 点击标签时触发 | ^[enum]`(label: string) => void`                                 |
+| edit   | 编辑时触发     | ^[enum]`(type: 'add' \| 'del', value: string \| number) => void` |
 
 ### Tabs Slots
 

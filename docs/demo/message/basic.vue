@@ -1,5 +1,5 @@
 <template>
-  <n-button @click="NMessage('this is a message')">use message</n-button>
+  <n-button @click="NMessage('it is a message')">use message</n-button>
 </template>
 
 <script lang="ts" setup>

@@ -15,7 +15,7 @@ badge/basic
 
 ## 不同的样式
 
-:::demo
+:::demo 不同颜色的徽标 和 `dot` 形式的徽标
 
 badge/type
 

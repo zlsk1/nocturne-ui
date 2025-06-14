@@ -1,5 +1,7 @@
 import './styles/index.scss'
 import 'nocturne-ui/theme-chalk/n-message.css'
+import 'nocturne-ui/theme-chalk/n-notification.css'
+import 'nocturne-ui/theme-chalk/n-badge.css'
 import 'uno.css'
 import { vpComponents } from './global'
 import vpApp from './components/vp-app.vue'

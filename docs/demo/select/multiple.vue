@@ -1,17 +1,11 @@
 <template>
   <div>
-    <n-select
-      v-model="val"
-      style="max-width: 260px"
-      placeholder="Please select"
-      multiple
-    >
+    <n-select v-model="val" style="max-width: 240px" multiple>
       <n-option
         v-for="item in 4"
         :key="item"
         :value="item"
-        :label="`option${item}`"
-        :disabled="item === 2"
+        :label="`Option${item}`"
       />
     </n-select>
   </div>
@@ -20,5 +14,5 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const val = ref([])
+const val = ref([1, 3])
 </script>

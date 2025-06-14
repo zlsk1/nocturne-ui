@@ -15,9 +15,9 @@ select/basic
 
 :::
 
-## 禁用
+## 禁用某个选项
 
-:::demo
+:::demo 使用 `option` 的 `disabled` 属性控制选项可用性
 
 select/disabled
 
@@ -25,9 +25,33 @@ select/disabled
 
 ## 多选
 
-:::demo
+:::demo 当开启多选时，绑定到 `select` 的值应该为一个数组
 
 select/multiple
+
+:::
+
+## 远程搜索
+
+:::demo 搜索与远程数据相结合
+
+select/search
+
+:::
+
+## 前后缀
+
+:::demo
+
+select/suffix
+
+:::
+
+## 最大选中数
+
+:::demo 使用 `maxCount` 可以控制多选时展示的标签数量。当 `maxTagCountWithTooltip` 开启时，多余的标签将被放在tooltip中
+
+select/max
 
 :::
 
@@ -37,7 +61,7 @@ select/multiple
 
 | 属性名                 | 描述                                               | 类型                                                               | 默认值   |
 | ---------------------- | -------------------------------------------------- | ------------------------------------------------------------------ | -------- |
-| modelValue / v-model   | 绑定值                                             | `string`/ `number`/ `boolean`/ `object`/ `array`                   | ——       |
+| modelValue / v-model   | 绑定值                                             | `string`/ `number`/ `object`/ `array`                              | ——       |
 | placeholder            | 占位符                                             | `string`                                                           | ——       |
 | disabled               | 是否禁用                                           | `boolean`                                                          | false    |
 | size                   | 组件尺寸                                           | `string`                                                           | ——       |
@@ -51,7 +75,7 @@ select/multiple
 | tagType                | 标签类型                                           | ^[eum]`'primary' \|  'success' \| 'warning' \| 'info' \| 'danger'` | 'info'   |
 | height                 | 组件高度                                           | `number`                                                           | 288      |
 | showSearch             | 是否可搜索                                         | `boolean`                                                          | false    |
-| filterOption           | 是否筛选选项 接收一个布尔值或自定义函数            | `string` / ^[Function]`SelectFilterMethod`                         | true     |
+| filterMethod           | 是否筛选选项 接收一个自定义函数                    | ^[Function]`SelectFilterMethod`                                    | ——       |
 | maxTagCount            | 最大tag数量                                        | `number`                                                           | ——       |
 | maxTagCountWithTooltip | 超过最大tag数量后显示tooltip                       | `boolean`                                                          | false    |
 | showArrow              | 是否显示popper的箭头                               | `boolean`                                                          | true     |

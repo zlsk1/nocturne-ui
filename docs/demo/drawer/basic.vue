@@ -1,18 +1,16 @@
 <template>
-  <n-radio-group v-model="placement">
-    <n-radio value="right">left to right</n-radio>
-    <n-radio value="left">right to left</n-radio>
-    <n-radio value="bottom">top to bottom</n-radio>
-    <n-radio value="top">bottom to top</n-radio>
-  </n-radio-group>
-
-  <n-button type="primary" style="margin-left: 16px" @click="drawer = true">
-    open
-  </n-button>
-  <n-button type="primary" style="margin-left: 16px" @click="drawer2 = true">
-    with footer
-  </n-button>
-
+  <div class="mb-4">
+    <n-radio-group v-model="placement">
+      <n-radio-button value="right">left to right</n-radio-button>
+      <n-radio-button value="left">right to left</n-radio-button>
+      <n-radio-button value="bottom">top to bottom</n-radio-button>
+      <n-radio-button value="top">bottom to top</n-radio-button>
+    </n-radio-group>
+  </div>
+  <n-space>
+    <n-button type="primary" @click="drawer = true"> open </n-button>
+    <n-button type="primary" @click="drawer2 = true"> with footer </n-button>
+  </n-space>
   <n-drawer v-model="drawer" title="I am the title" :placement="placement">
     <span>Hi, there!</span>
   </n-drawer>

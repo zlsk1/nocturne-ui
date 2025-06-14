@@ -1,0 +1,3 @@
+<template>
+  <n-skeleton />
+</template>

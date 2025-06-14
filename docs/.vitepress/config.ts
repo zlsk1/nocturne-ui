@@ -93,6 +93,7 @@ export const config: UserConfig = {
             { text: 'Table 表格', link: '/zh-CN/components/table' },
             { text: 'Tabs 标签页', link: '/zh-CN/components/tabs' },
             { text: 'Tag 标签', link: '/zh-CN/components/tag' },
+            { text: 'Timeline 时间轴', link: '/zh-CN/components/timeline' },
             {
               text: 'Tree 树形控件',
               link: '/zh-CN/components/tree'

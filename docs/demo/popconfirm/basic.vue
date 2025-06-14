@@ -4,7 +4,7 @@
     @confirm="handleConfirm"
     @cancel="handleCancel"
   >
-    <n-button>Delete</n-button>
+    <n-button type="danger">Delete</n-button>
   </n-popconfirm>
 </template>
 

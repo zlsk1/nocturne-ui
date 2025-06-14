@@ -1,6 +1,6 @@
 <template>
   <div class="mb-4">
-    <n-color-picker v-model="value1" />
+    <n-color-picker v-model="value1" @change="onChange" />
   </div>
   <div>
     <n-color-picker v-model="value2" size="large" class="mr-4" />
@@ -22,4 +22,8 @@ const value1 = ref(primaryColor.value)
 const value2 = ref(successColor.value)
 const value3 = ref(warningColor.value)
 const value4 = ref(errorColor.value)
+
+const onChange = (value: string) => {
+  console.log(value)
+}
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <n-button @click="NNotification.success('this is a notify')">
+  <n-button @click="NNotification.success('it is a notify')">
     Use Notification
   </n-button>
 </template>

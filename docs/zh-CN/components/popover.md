@@ -9,7 +9,7 @@ lang: ch-ZH
 
 :::tip
 
-`popover` 组件是在 `tooltip` 上进行开发的，因而在此不做太多的赘述。
+`popover` 组件是在 `tooltip` 上进行开发的，因而在此不做太多的赘述,相同属性可以去 `tooltip` 查看。
 
 :::
 

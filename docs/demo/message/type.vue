@@ -1,8 +1,10 @@
 <template>
-  <n-button @click="NMessage.success('this is a message')">success</n-button>
-  <n-button @click="NMessage.info('this is a message')">info</n-button>
-  <n-button @click="NMessage.warning('this is a message')">warning</n-button>
-  <n-button @click="NMessage.error('this is a message')">error</n-button>
+  <n-space>
+    <n-button @click="NMessage.success('it is a message')">success</n-button>
+    <n-button @click="NMessage.info('it is a message')">info</n-button>
+    <n-button @click="NMessage.warning('it is a message')">warning</n-button>
+    <n-button @click="NMessage.error('it is a message')">error</n-button>
+  </n-space>
 </template>
 
 <script lang="ts" setup>

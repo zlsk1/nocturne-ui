@@ -4,7 +4,9 @@
       <RiWechatFill />
     </n-badge>
   </div>
-  <n-button type="primary" @click="hidden = !hidden">hide badge</n-button>
+  <n-button type="primary" @click="hidden = !hidden">
+    {{ hidden ? 'show badge' : 'hide badge' }}
+  </n-button>
 </template>
 
 <script lang="ts" setup>
@@ -13,5 +15,3 @@ import { RiWechatFill } from '@remixicon/vue'
 
 const hidden = ref(false)
 </script>
-
-<style></style>

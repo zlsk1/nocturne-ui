@@ -4,7 +4,7 @@
   </n-button>
 
   <n-dialog v-model="dialogVisible" title="Tips" width="500">
-    <span class="text-sm">This is a message</span>
+    <span class="text-sm">it is a dialog</span>
     <template #footer>
       <div class="dialog-footer">
         <n-button @click="dialogVisible = false">Ok</n-button>

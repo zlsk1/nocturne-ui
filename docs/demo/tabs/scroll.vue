@@ -12,7 +12,12 @@
       :position="position"
       style="max-width: 1300px; max-height: 300px"
     >
-      <n-tab-pane v-for="item in 30" :key="item" :label="`Tab-${item}`">
+      <n-tab-pane
+        v-for="item in 30"
+        :key="item"
+        :label="`Tab-${item}`"
+        :value="item"
+      >
         {{ `Tab-${item}` }}
       </n-tab-pane>
     </n-tabs>
@@ -22,6 +27,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const activeTab = ref('1')
+const activeTab = ref(1)
 const position = ref('top')
 </script>

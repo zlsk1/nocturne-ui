@@ -45,10 +45,10 @@ dropdown/trigger
 
 ### Dropdown Emits
 
-| 事件名        | 描述                        | 类型                                    |
-| ------------- | --------------------------- | --------------------------------------- |
-| visibleChange | 浮层的显隐状态变化时触发    | ^[Function]`(visible: boolean) => void` |
-| click         | `dropdown-item`被点击时触发 | ^[Function]`(e: Event) => void`         |
+| 事件名        | 描述                        | 类型                                           |
+| ------------- | --------------------------- | ---------------------------------------------- |
+| visibleChange | 浮层的显隐状态变化时触发    | ^[Function]`(visible: boolean) => void`        |
+| click         | `dropdown-item`被点击时触发 | ^[Function]`(e: Event, label: string) => void` |
 
 ### Dropdown Slots
 

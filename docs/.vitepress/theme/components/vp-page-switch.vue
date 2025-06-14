@@ -2,7 +2,7 @@
   <div class="page-switch-container">
     <a :href="switchPage?.prev?.link" class="switcher">
       <div v-if="switchPage?.prev" class="indicator">
-        <ArrowLeft size="14" />
+        <RiArrowLeftSLine size="16" />
         <span class="name" :title="switchPage.prev.text">
           {{ switchPage?.prev?.text }}
         </span>
@@ -13,17 +13,14 @@
         <span class="name" :title="switchPage?.next?.text">
           {{ switchPage?.next?.text }}
         </span>
-        <ArrowRight size="14" />
+        <RiArrowLeftSLine size="16" class="rotate-[180deg]" />
       </div>
     </a>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {
-  RiArrowLeftWideLine as ArrowLeft,
-  RiArrowRightWideLine as ArrowRight
-} from '@remixicon/vue'
+import { RiArrowLeftSLine } from '@remixicon/vue'
 import { usePageSwitch } from '../composables'
 
 const switchPage = usePageSwitch()
@@ -45,7 +42,7 @@ const switchPage = usePageSwitch()
       display: flex;
       align-items: center;
       margin-bottom: 2px;
-      transition: color 0.2s;
+      transition: color 0.2s ease-in-out;
       color: var(--n-color-primary);
 
       &:hover {

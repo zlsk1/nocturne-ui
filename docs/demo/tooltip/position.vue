@@ -1,6 +1,6 @@
 <template>
   <div style="width: 560px">
-    <div class="flex justify-center">
+    <n-space class="justify-center">
       <n-tooltip placement="top-start" content="prompt info">
         <n-button>top-start</n-button>
       </n-tooltip>
@@ -10,7 +10,7 @@
       <n-tooltip placement="top-end" content="prompt info">
         <n-button>top-end</n-button>
       </n-tooltip>
-    </div>
+    </n-space>
     <div class="my-8">
       <div class="flex justify-between">
         <n-tooltip placement="left-start" content="prompt info">
@@ -37,7 +37,7 @@
         </n-tooltip>
       </div>
     </div>
-    <div class="flex justify-center">
+    <n-space class="justify-center">
       <n-tooltip placement="bottom-start" content="prompt info">
         <n-button>bottom-start</n-button>
       </n-tooltip>
@@ -47,6 +47,6 @@
       <n-tooltip placement="bottom-end" content="prompt info">
         <n-button>bottom-end</n-button>
       </n-tooltip>
-    </div>
+    </n-space>
   </div>
 </template>
