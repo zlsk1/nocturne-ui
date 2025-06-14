@@ -240,8 +240,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       nocturne-ui-resolver:
-        specifier: 0.0.7
-        version: 0.0.7
+        specifier: 0.1.0
+        version: 0.1.0
       prismjs:
         specifier: 1.28.0
         version: 1.28.0
@@ -8661,8 +8661,8 @@ packages:
     resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
     dev: false
 
-  /nocturne-ui-resolver@0.0.7:
-    resolution: {integrity: sha512-ynlQ9o1XulumTGFT+C8j8YhXFdvH8gCtRXpVSzuT7dzznTpJy/Vg8qEHEvF6ERChdcFRK8eWeXSLuDMkQYf1tw==}
+  /nocturne-ui-resolver@0.1.0:
+    resolution: {integrity: sha512-SrwoayK4HrarpzTSurnl8GWvNCkE4pJq7MK5iTlMOz/Ko9nB/ZafMPFT5ILpK/JvGGlzz71lnapY/631qekpMw==}
     dev: true
 
   /nocturne-ui@0.0.2-alpha.9(vue@3.4.15):

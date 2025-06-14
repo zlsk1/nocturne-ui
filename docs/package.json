@@ -21,7 +21,7 @@
     "fast-glob": "3.3.2",
     "markdown-it": "^14.1.0",
     "markdown-it-container": "^4.0.0",
-    "nocturne-ui-resolver": "0.0.7",
+    "nocturne-ui-resolver": "0.1.0",
     "prismjs": "1.28.0",
     "unocss": "^0.65.4",
     "unplugin-vue-components": "28.5.0",
