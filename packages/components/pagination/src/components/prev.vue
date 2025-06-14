@@ -1,5 +1,10 @@
 <template>
-  <button :class="prevCls" @click="handlePrevPage">
+  <button
+    :class="prevCls"
+    :aria-label="prevText || t('noc.pagination.next')"
+    :aria-disalbed="less"
+    @click="handlePrevPage"
+  >
     <n-icon v-if="!prevText">
       <component :is="prevIcon" />
     </n-icon>
@@ -9,8 +14,8 @@
 
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
-import { NIcon } from '@nocturne-ui/components'
-import { useNamespace } from '@nocturne-ui/composables'
+import NIcon from '@nocturne-ui/components/icon'
+import { useLocale, useNamespace } from '@nocturne-ui/composables'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { prevProps } from './prev'
 
@@ -22,6 +27,7 @@ const { _currentPage, disabled, emit } = inject(
 )!
 
 const ns = useNamespace('pagination')
+const { t } = useLocale()
 
 const less = computed(() => {
   return _currentPage.value <= 1

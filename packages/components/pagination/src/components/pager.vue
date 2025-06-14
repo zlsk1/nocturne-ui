@@ -9,7 +9,8 @@
     <!-- prevMore -->
     <li
       v-if="showPrevMore"
-      :class="ns.e('num')"
+      :class="[ns.e('num'), ns.is('disabled', disabled), 'quickPrev', 'more']"
+      :aria-label="t('noc.pagination.prevPages', { pager: maxPages - 2 })"
       @mouseenter="isPrevHover = true"
       @mouseleave="isPrevHover = false"
     >
@@ -21,13 +22,15 @@
       v-for="item in pages"
       :key="item"
       :class="[ns.e('num'), ns.is('active', item === _currentPage)]"
+      :aria-label="t('noc.pagination.currentPage', { pager: item })"
     >
       {{ item }}
     </li>
     <!-- nextMore -->
     <li
       v-if="showNextMore"
-      :class="[ns.e('num'), ns.is('disabled', disabled)]"
+      :class="[ns.e('num'), ns.is('disabled', disabled), 'quickNext', 'more']"
+      :aria-label="t('noc.pagination.nextPages', { pager: maxPages - 2 })"
       @mouseenter="!disabled ? (isNextHover = true) : ''"
       @mouseleave="isNextHover = false"
     >
@@ -50,7 +53,7 @@ import {
   RiArrowRightDoubleFill as ArrowRightDouble,
   RiMoreFill as More
 } from '@remixicon/vue'
-import { useNamespace } from '@nocturne-ui/composables'
+import { useLocale, useNamespace } from '@nocturne-ui/composables'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { pagerProps } from './pager'
 
@@ -62,6 +65,7 @@ const { totalPages, _currentPage, disabled, emit } = inject(
 const props = defineProps(pagerProps)
 
 const ns = useNamespace('pagination')
+const { t } = useLocale()
 
 const isPrevHover = ref(false)
 const isNextHover = ref(false)
@@ -129,10 +133,19 @@ const changePage = (e: any) => {
 
   const className = e.target.className
   if (className.includes('more')) {
-    if (className.includes('prev')) {
+    if (className.includes('quickPrev')) {
       newPage = _currentPage.value - pageOffset
-    } else if (className.includes('next')) {
+    } else if (className.includes('quickNext')) {
       newPage = _currentPage.value + pageOffset
+    }
+  }
+  // handle boundary
+  if (!Number.isNaN(+newPage)) {
+    if (newPage < 1) {
+      newPage = 1
+    }
+    if (newPage > totalPages.value) {
+      newPage = totalPages.value
     }
   }
   emit('changePage', newPage)

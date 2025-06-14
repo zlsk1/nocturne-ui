@@ -11,3 +11,5 @@ export * from './src/constants'
 export const NSelect = withInstall(select)
 export const NOption = withInstall(option)
 export const NOptionGroup = withInstall(optionGroup)
+
+export default NSelect

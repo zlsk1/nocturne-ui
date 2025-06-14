@@ -1,5 +1,10 @@
 <template>
-  <button :class="nextCls" @click="handleNextPage">
+  <button
+    :class="nextCls"
+    :aria-label="nextText || t('noc.pagination.next')"
+    :aria-disalbed="more"
+    @click="handleNextPage"
+  >
     <n-icon v-if="!nextText">
       <component :is="nextIcon" />
     </n-icon>
@@ -10,7 +15,7 @@
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
 import { NIcon } from '@nocturne-ui/components'
-import { useNamespace } from '@nocturne-ui/composables'
+import { useLocale, useNamespace } from '@nocturne-ui/composables'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { nextProps } from './next'
 
@@ -22,6 +27,7 @@ const { _currentPage, totalPages, disabled, emit } = inject(
 )!
 
 const ns = useNamespace('pagination')
+const { t } = useLocale()
 
 const more = computed(() => {
   return _currentPage.value >= totalPages.value

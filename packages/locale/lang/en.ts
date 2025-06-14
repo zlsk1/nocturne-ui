@@ -105,7 +105,6 @@ export default {
       goto: 'Go to',
       pagesize: '/page',
       total: 'Total {total}',
-      pageClassifier: '',
       page: 'Page',
       prev: 'Go to previous page',
       next: 'Go to next page',
