@@ -90,7 +90,7 @@ function resolveDirective(
 
   const directives: Record<string, { importName: string; styleName: string }> =
     {
-      Loading: { importName: 'NLoadingDirective', styleName: 'n-loading' }
+      Loading: { importName: 'NLoadingDirective', styleName: 'loading' }
     }
 
   const directive = directives[name]
