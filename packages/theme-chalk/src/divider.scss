@@ -77,7 +77,6 @@
   }
 
   @include when('dashed') {
-    border-top: 1px solid transparent;
     border-top-style: dashed;
     &::after {
       border-block-start-style: dashed;

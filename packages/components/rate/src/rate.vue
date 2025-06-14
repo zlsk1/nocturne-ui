@@ -1,8 +1,8 @@
 <template>
   <ul
     ref="rateRef"
-    :class="[ns.b(), ns.is('disabled', actualDisabled)]"
-    :tabindex="actualDisabled || props.readonly ? -1 : 0"
+    :class="ns.b()"
+    :tabindex="props.readonly ? -1 : 0"
     role="radiogroup"
     @mouseleave="onMouseLeave"
     @keydown="onKeyDown"
@@ -11,7 +11,7 @@
   >
     <Star
       v-for="(item, index) in count"
-      :ref="(el) => setRefs(el as typeof Star | null, index)"
+      :ref="(el: any) => setRefs(el as typeof Star | null, index)"
       :key="item"
       :index="index"
       :character="character"
@@ -19,9 +19,9 @@
         state.hoverValue === undefined ? state.value : state.hoverValue
       "
       :allow-half="allowHalf"
-      :disabled="actualDisabled"
       :readonly="readonly"
       :focused="isFocused"
+      :class="ns.is('readonly', readonly)"
       @hover="onHover"
       @click="onClick"
     />
@@ -29,10 +29,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive, ref, shallowRef, watch } from 'vue'
+import { reactive, ref, shallowRef, watch } from 'vue'
 import { useFocusController, useNamespace } from '@nocturne-ui/composables'
 import { isNull } from 'lodash'
-import { useForm, useFormItem } from '@nocturne-ui/components/form'
+import { useForm } from '@nocturne-ui/components/form'
 import { isUndefined } from '@nocturne-ui/utils'
 import Star from './star'
 import { rateEmits, rateProps } from './rate'
@@ -46,7 +46,6 @@ const props = defineProps(rateProps)
 const emit = defineEmits(rateEmits)
 
 const ns = useNamespace('rate')
-const { formItemDisabled } = useFormItem()
 const { formItem } = useForm()
 
 const starRefs = ref<Record<string, HTMLElement>>({})
@@ -62,8 +61,6 @@ const state = reactive<
   cleanedValue: null,
   hoverValue: undefined
 })
-
-const actualDisabled = computed(() => formItemDisabled.value || props.disabled)
 
 const { handleFocus, handleBlur, isFocused } = useFocusController(rateRef, {
   afterBlur: () => {
@@ -91,7 +88,7 @@ const getValue = (index: number, x: number) => {
 }
 
 const onHover = (e: MouseEvent, index: number) => {
-  if (actualDisabled.value || props.readonly) return
+  if (props.readonly) return
 
   const hoverValue = getValue(index, e.pageX)
   if (hoverValue !== state.cleanedValue) {
@@ -102,7 +99,7 @@ const onHover = (e: MouseEvent, index: number) => {
 }
 
 const onClick = (e: MouseEvent, index: number) => {
-  if (actualDisabled.value || props.readonly) return
+  if (props.readonly) return
 
   const value = getValue(index, e.pageX)
   let isReset = false
@@ -116,7 +113,7 @@ const onClick = (e: MouseEvent, index: number) => {
 }
 
 const onMouseLeave = () => {
-  if (actualDisabled.value || props.readonly) return
+  if (props.readonly) return
 
   state.hoverValue = undefined
   state.cleanedValue = null
@@ -174,12 +171,12 @@ const onKeyDown = (event: KeyboardEvent) => {
 }
 
 const focus = () => {
-  if (!actualDisabled.value || !props.readonly) {
+  if (!props.readonly) {
     rateRef.value?.focus()
   }
 }
 const blur = () => {
-  if (!actualDisabled.value || !props.readonly) {
+  if (!props.readonly) {
     rateRef.value?.blur()
   }
 }

@@ -13,7 +13,7 @@ const ns = useNamespace('pagination')
 
 const val = ref(_currentPage)
 
-const change = (value: number) => {
+const change = (value?: number) => {
   val.value = Number(value)
   _currentPage.value = Number(value)
   emit('changePage', Number(value))
@@ -26,7 +26,6 @@ const change = (value: number) => {
     <n-input-number
       :model-value="val"
       size="large"
-      type="number"
       :controls="false"
       :disabled="disabled"
       @change="change"

@@ -3,6 +3,7 @@
 @use 'common/var' as *;
 
 @include b(picker) {
+  transition: 0.1s;
   @include e(suffixicon) {
     position: absolute;
     top: 50%;

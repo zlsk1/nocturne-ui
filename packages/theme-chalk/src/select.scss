@@ -279,6 +279,7 @@ $select-size: map.merge(
   }
 
   @include e(prefix) {
+    display: flex;
     margin-right: 6px;
   }
 

@@ -242,11 +242,11 @@ const Cell = defineComponent({
       }
 
       let childNodeTitle: any = childNode
-      let currentChild = childNode[0].children ?? undefined
+      let currentChild = childNode[0]?.children ?? undefined
 
       while (currentChild) {
         childNodeTitle = currentChild
-        currentChild = currentChild[0].children ?? undefined
+        currentChild = currentChild[0]?.children ?? undefined
       }
 
       return (

@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { RiCloseLine as Close } from '@remixicon/vue'
 import { useNamespace } from '@nocturne-ui/composables'
 import { typeIcons } from '@nocturne-ui/utils'
+import NIcon from '@nocturne-ui/components/icon'
 import { alertEmits, alertProps } from './alert'
 
 defineOptions({

@@ -35,10 +35,6 @@ export const rateProps = {
   count: {
     type: Number,
     default: 5
-  },
-  disabled: {
-    type: Boolean,
-    default: false
   }
 } as const
 

@@ -96,7 +96,7 @@ import NIcon from '@nocturne-ui/components/icon'
 import NInput from '@nocturne-ui/components/input'
 import NTooltip from '@nocturne-ui/components/tooltip'
 import { useForm, useFormItem } from '@nocturne-ui/components/form'
-import { consoleWarn } from '@nocturne-ui/utils'
+import { consoleWarn, isString } from '@nocturne-ui/utils'
 import { parseDate } from './util'
 import { pickerEmit, pickerProps } from './props/picker'
 
@@ -261,7 +261,7 @@ const onClearValue = (e: MouseEvent) => {
 
 const emitChange = (val: Dayjs | string, isClear?: boolean) => {
   if (isClear || !isEqual(val, calculatedValue.value)) {
-    emit('change', val)
+    emit('change', val, isString(val) ? val : val.format(props.format))
     formItem?.validate('change').catch((err) => consoleWarn(err))
   }
 }

@@ -1,4 +1,4 @@
-import { RiArrowLeftWideFill as ArrowLeftWide } from '@remixicon/vue'
+import { RiArrowLeftSLine } from '@remixicon/vue'
 import { iconPropType } from '@nocturne-ui/utils'
 import type { ExtractPropTypes } from 'vue'
 
@@ -6,7 +6,7 @@ export const prevProps = {
   prevText: String,
   prevIcon: {
     type: iconPropType,
-    default: ArrowLeftWide
+    default: RiArrowLeftSLine
   }
 } as const
 

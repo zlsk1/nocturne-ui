@@ -1,4 +1,4 @@
-import { RiArrowRightWideFill as ArrowRightWide } from '@remixicon/vue'
+import { RiArrowRightSLine } from '@remixicon/vue'
 import { iconPropType } from '@nocturne-ui/utils'
 import type { ExtractPropTypes } from 'vue'
 
@@ -6,7 +6,7 @@ export const nextProps = {
   nextText: String,
   nextIcon: {
     type: iconPropType,
-    default: ArrowRightWide
+    default: RiArrowRightSLine
   }
 } as const
 

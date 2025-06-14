@@ -153,8 +153,10 @@
                   v-if="!shouldShowClearIcon"
                   :class="ns.em('suffix', 'icon')"
                 >
-                  <ArrowDown v-if="!isFocused || actualDisabled" />
-                  <RiSearchLine v-else />
+                  <ArrowDown
+                    v-if="!isFocused || actualDisabled || !showSearch"
+                  />
+                  <RiSearchLine v-else-if="showSearch" />
                 </n-icon>
                 <n-icon
                   v-else

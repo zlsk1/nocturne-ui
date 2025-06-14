@@ -101,7 +101,8 @@ export const pickerProps = {
 
 export const pickerEmit = {
   'update:modelValue': (val: Dayjs | string) => isString(val) || isObject(val),
-  change: (val: Dayjs | string) => isString(val) || isObject(val),
+  change: (val: Dayjs | string, timeStr: string) =>
+    (isString(val) || isObject(val)) && isString(timeStr),
   'visible-change': (visible: boolean) => isBoolean(visible),
   focus: (e: FocusEvent) => e instanceof FocusEvent,
   blur: (e: FocusEvent) => e instanceof FocusEvent

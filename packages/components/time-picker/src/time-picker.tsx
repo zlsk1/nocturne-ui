@@ -19,8 +19,8 @@ export default defineComponent({
       emit('update:modelValue', time)
     }
 
-    const onChange = (time: string | Dayjs) => {
-      emit('change', time)
+    const onChange = (time: string | Dayjs, timeStr: string) => {
+      emit('change', time, timeStr)
     }
 
     expose({

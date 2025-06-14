@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
-import { RiArrowRightWideLine as ArrowRight } from '@remixicon/vue'
+import { RiArrowRightSLine } from '@remixicon/vue'
 import { COLLAPSE_INJECTION_KEY } from '@nocturne-ui/components/collapse/src/constants'
 import { useNamespace } from '@nocturne-ui/composables'
 import NCollapseTransition from '@nocturne-ui/components/collapse-transition'
@@ -38,7 +38,7 @@ const showContent = () => {
         {{ title }}
       </div>
       <slot v-else name="title" />
-      <ArrowRight
+      <RiArrowRightSLine
         size="16"
         :class="[ns.e('icon'), ns.is('rotate', isActive)]"
       />

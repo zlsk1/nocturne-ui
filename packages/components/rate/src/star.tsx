@@ -52,19 +52,19 @@ export default defineComponent({
     })
 
     const onHover = (e: MouseEvent) => {
-      if (props.disabled || props.readonly) return
+      if (props.readonly) return
 
       emit('hover', e, props.index)
     }
 
     const onClick = (e: MouseEvent) => {
-      if (props.disabled || props.readonly) return
+      if (props.readonly) return
 
       emit('click', e, props.index)
     }
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (props.disabled || props.readonly) return
+      if (props.readonly) return
 
       if (e.key === 'Enter') {
         emit('click', e, props.index)
@@ -84,11 +84,14 @@ export default defineComponent({
           onKeydown={onKeyDown}
         >
           <div
-            class={ns.bm('star', 'container')}
-            tabindex={props.disabled || props.readonly ? -1 : 0}
+            class={[
+              ns.bm('star', 'container'),
+              ns.is('readonly', props.readonly)
+            ]}
+            tabindex={props.readonly ? -1 : 0}
             role="radio"
             aria-checked={modelValue && modelValue > index ? 'true' : 'false'}
-            aria-disabled={props.disabled}
+            aria-disabled={props.readonly}
           >
             <div class={ns.bm('star', 'first')}>{characterNode}</div>
             <div class={ns.bm('star', 'second')}>{characterNode}</div>

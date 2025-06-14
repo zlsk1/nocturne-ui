@@ -29,7 +29,7 @@
   }
 
   @include m(solid) {
-    color: getCssVar('radio-button', 'checked-text-color');
+    color: getCssVar('text-color-primary');
     background: none;
 
     &.is-checked + .#{$namespace}-radio-button.is-checked {

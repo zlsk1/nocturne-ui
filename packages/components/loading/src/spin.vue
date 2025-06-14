@@ -3,10 +3,11 @@
     :class="[
       ns.b(),
       ns.is('loading', loading),
-      ns.is('fullScreen', fullScreen)
+      ns.is('fullScreen', fullScreen),
+      $slots.default && ns.m('nested')
     ]"
   >
-    <div :class="ns.e('content')" :style="style">
+    <div v-if="$slots.default" :class="ns.e('content')" :style="style">
       <slot />
     </div>
     <div v-if="loading" :class="ns.e('loader')">
@@ -22,6 +23,7 @@ import { computed } from 'vue'
 import { RiLoader5Line } from '@remixicon/vue'
 import { useNamespace } from '@nocturne-ui/composables'
 import { spinProps } from './spin'
+import type { CSSProperties } from 'vue'
 
 defineOptions({
   name: 'NSpin'

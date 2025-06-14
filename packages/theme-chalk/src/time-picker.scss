@@ -28,6 +28,10 @@ $selector: #{$namespace}-time-picker--panel;
     .#{$selector}--list {
       @include scroll-bar;
 
+      &:nth-child(-n + 2) {
+        border-right: 1px solid getCssVar('time-picker', 'divider-color');
+      }
+
       box-sizing: border-box;
       width: getCssVar('time-picker', 'panel-list-width');
       padding: 0 5px;
@@ -44,19 +48,19 @@ $selector: #{$namespace}-time-picker--panel;
       &::after {
         content: '';
         display: block;
-        height: getCssVar('time-picker', 'panel-height');
-        margin-top: -42px;
-      }
-
-      :nth-child(-n + 2) {
-        border-right: 1px solid getCssVar('time-picker', 'divider-color');
+        height: calc(
+          getCssVar('time-picker', 'panel-height') - getCssVar(
+              'time-picker',
+              'panel-inner-list-height'
+            )
+        );
       }
 
       > li {
         width: getCssVar('time-picker', 'panel-inner-list-width');
         height: getCssVar('time-picker', 'panel-inner-list-height');
         border-radius: getCssVar('time-picker', 'cell-radius');
-        transition: all 0.15;
+        transition: all 0.15s;
         cursor: pointer;
 
         &:hover {

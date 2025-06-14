@@ -3,5 +3,7 @@ import TimePicker from './src/time-picker'
 
 export * from './src/props/picker'
 export * from './src/props/time-picker-panel'
+export * from './src/types'
+export * from './src/constants'
 export const NTimePicker = withInstall(TimePicker)
 export default NTimePicker

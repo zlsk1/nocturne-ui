@@ -24,7 +24,7 @@ const dotCls = computed(() => [
 
 <template>
   <li :class="itemCls">
-    <div :class="ns.is('tail')" />
+    <div :class="ns.e('tail')" />
 
     <div :class="dotCls" :style="{ backgroundColor: color }">
       <n-icon v-if="icon" :icon="icon" />
