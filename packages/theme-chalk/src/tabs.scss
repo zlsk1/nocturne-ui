@@ -300,16 +300,24 @@
   }
 }
 
-.#{$namespace}-tabs--more__popper {
+.#{$namespace}-popper.#{$namespace}-tabs--more__popper {
   @include set-component-css-var('tabs-popper', $tabs-popper);
   @include scroll-bar;
   width: getCssVar('tabs-popper', 'width');
   max-height: getCssVar('tabs-popper', 'max-height');
   color: getCssVar('tabs-popper', 'text-color');
   overflow: hidden;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
   &:hover {
     overflow: auto;
   }
+
   .#{$namespace}-tabs--more__item {
     padding: getCssVar('tabs-popper', 'item-padding') 0
       getCssVar('tabs-popper', 'item-padding') 18px;
@@ -317,7 +325,6 @@
     transition: all getCssVar('transition-duration-fast');
     &:hover {
       background-color: getCssVar('tabs-popper', 'hover-bg-color');
-      color: getCssVar('color-white');
     }
   }
   .is-disabled {
