@@ -1,19 +1,22 @@
+import { nextTick, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { IMAGE_SUCCESS } from '@/tests-utils/image'
+import { IMAGE_SUCCESS } from '@nocturne-ui/tests-utils/image'
+import Skeleton from '@nocturne-ui/components/skeleton'
+import Avatar from '@nocturne-ui/components/avatar'
 import Card from '../src/card.vue'
 
 describe('Card', () => {
-  test('header', () => {
-    const wrapper = mount(() => <Card header="Aatrox"></Card>)
+  test('title', () => {
+    const wrapper = mount(() => <Card title="Aatrox"></Card>)
     expect(wrapper.find('.n-card').exists()).toBeTruthy()
     expect(wrapper.find('.n-card__header').exists()).toBeTruthy()
   })
 
-  test('footer', () => {
-    const wrapper = mount(() => <Card footer="footer content"></Card>)
+  test('cover', () => {
+    const wrapper = mount(() => <Card cover={IMAGE_SUCCESS}></Card>)
     expect(wrapper.find('.n-card').exists()).toBeTruthy()
-    expect(wrapper.find('.n-card__footer').exists()).toBeTruthy()
+    expect(wrapper.find('.n-card--cover').exists()).toBeTruthy()
   })
 
   test('content text', () => {
@@ -58,5 +61,43 @@ describe('Card', () => {
     expect(wrapper.find('.n-card').exists()).toBeTruthy()
     expect(wrapper.find('.n-card__content').exists()).toBeTruthy()
     expect(wrapper.find('.n-card__content').classes()).toContain('custom-class')
+  })
+
+  test('extra slot', () => {
+    const wrapper = mount(() => (
+      <Card v-slots={{ extra: () => <a href="/"></a> }}></Card>
+    ))
+    expect(wrapper.find('.n-card__header').exists()).toBeTruthy()
+    expect(wrapper.find('.n-card__header').find('a')).toBeTruthy()
+  })
+
+  test('action slot', () => {
+    const wrapper = mount(() => (
+      <Card v-slots={{ action: () => <a href="/"></a> }}></Card>
+    ))
+    expect(wrapper.find('.n-card__action').exists()).toBeTruthy()
+    expect(wrapper.find('.n-card__action').find('a')).toBeTruthy()
+  })
+
+  test('loading', async () => {
+    const loading = ref(false)
+    const wrapper = mount(() => <Card loading={loading.value}></Card>)
+    expect(wrapper.findComponent(Skeleton).exists()).toBe(false)
+
+    loading.value = true
+    await nextTick()
+    expect(wrapper.findComponent(Skeleton).exists()).toBe(true)
+  })
+
+  test('meta', async () => {
+    const wrapper = mount(() => (
+      <Card
+        meta={{ title: 'title', description: 'desc', avatar: IMAGE_SUCCESS }}
+      ></Card>
+    ))
+
+    expect(wrapper.find('.n-card-meta').exists()).toBe(true)
+    expect(wrapper.find('.n-card-meta--wrapper').exists()).toBe(true)
+    expect(wrapper.findComponent(Avatar).exists()).toBe(true)
   })
 })

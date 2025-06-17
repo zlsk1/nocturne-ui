@@ -8,7 +8,7 @@ import {
   NBreadcrumbItem
 } from '@nocturne-ui/components/breadcrumb'
 import { NButton, NButtonGroup } from '@nocturne-ui/components/button'
-import { NCard } from '@nocturne-ui/components/card'
+import { NCard, NCardMeta } from '@nocturne-ui/components/card'
 import { NCarousel, NCarouselItem } from '@nocturne-ui/components/carousel'
 import {
   NCheckbox,
@@ -83,6 +83,7 @@ export default [
   NButton,
   NButtonGroup,
   NCard,
+  NCardMeta,
   NCarousel,
   NCarouselItem,
   NCheckbox,

@@ -919,13 +919,12 @@ $notification: map.merge(
 $card: () !default;
 $card: map.merge(
   (
-    'padding': 0 20px,
-    'inner-padding': 18px 0,
-    'txt-color': getCssVar('text-color-regular'),
+    'block-padding': 16px 24px,
+    'text-color': getCssVar('text-color-primary'),
     'bg-color': getCssVar('bg-color'),
     'box-shadow': getCssVar('box-shadow'),
-    'border': 1px solid getCssVar('border-color'),
-    'border-radius': getCssVar('border-radius-base')
+    'border': 1px solid getCssVar('border-color-lighter'),
+    'border-radius': getCssVar('border-radius-large')
   ),
   $card
 );

@@ -1,6 +1,9 @@
 import { withInstall } from '@nocturne-ui/utils'
-import card from './src/card.vue'
+import Card from './src/card.vue'
+import CardMeta from './src/card-meta.vue'
 
 export * from './src/card'
-export const NCard = withInstall(card)
+export * from './src/card-meta'
+export const NCard = withInstall(Card)
+export const NCardMeta = withInstall(CardMeta)
 export default NCard

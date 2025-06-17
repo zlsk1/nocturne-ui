@@ -1,3 +1,3 @@
 import '@nocturne-ui/theme-chalk/base.css'
 import '@nocturne-ui/theme-chalk/n-card.css'
-import '@nocturne-ui/theme-chalk/n-skeleton.css'
+import '@nocturne-ui/theme-chalk/n-avatar.css'
