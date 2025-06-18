@@ -4,6 +4,7 @@
 @use './anchor-item.scss';
 @use './auto-complete.scss';
 @use './avatar.scss';
+@use './back-top.scss';
 @use './badge.scss';
 @use './breadcrumb.scss';
 @use './breadcrumb-item.scss';
@@ -27,7 +28,8 @@
 @use './drawer.scss';
 @use './dropdown.scss';
 @use './dropdown-item.scss';
-@use './fab.scss';
+@use './float-button.scss';
+@use './float-button-group.scss';
 @use './form.scss';
 @use './form-item.scss';
 @use './icon.scss';

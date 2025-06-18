@@ -1,0 +1,248 @@
+@use 'sass:map';
+
+@use './mixins/mixins.scss' as *;
+@use './mixins/var.scss' as *;
+@use './common/var.scss' as *;
+
+@mixin button-variant($type) {
+  $button-color-types: (
+    '': (
+      'text-color': (
+        'color',
+        'white'
+      ),
+      'bg-color': (
+        'color',
+        $type
+      )
+    ),
+    'hover': (
+      'text-color': (
+        'color',
+        'white'
+      ),
+      'bg-color': (
+        'color',
+        $type,
+        'light-3'
+      )
+    )
+  );
+
+  @each $type, $typeMap in $button-color-types {
+    @each $typeColor, $list in $typeMap {
+      @include css-var-from-global(('button', $type, $typeColor), $list);
+    }
+  }
+}
+
+@include b(fab) {
+  position: fixed;
+  right: 3%;
+  bottom: 5%;
+  display: block;
+  width: getCssVar('component-size-large');
+  height: getCssVar('component-size-large');
+  margin: 0;
+  padding: 6px;
+  color: getCssVar('button', 'text-color');
+  outline: none;
+  background-color: getCssVar('button', 'bg-color');
+  border: none;
+  box-shadow: getCssVar('box-shadow');
+  transition: all 0.15s ease-in-out;
+  z-index: getCssVar('index-top');
+  cursor: pointer;
+
+  &:hover {
+    color: getCssVar('button', 'hover', 'text-color');
+    border-color: getCssVar('button', 'hover', 'border-color');
+    background-color: getCssVar('button', 'hover', 'bg-color');
+    outline: none;
+  }
+
+  @include m(circle) {
+    border-radius: getCssVar('border-radius-circle');
+  }
+
+  @include m(square) {
+    height: auto;
+    min-height: getCssVar('component-size-large');
+    border-radius: getCssVar('border-radius-base');
+  }
+
+  @include m(wrapper) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include m(content) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include e(icon) {
+    display: flex;
+    margin: auto;
+  }
+
+  @include e(description) {
+    font-size: 14px;
+    color: getCssVar('button', 'text-color');
+  }
+
+  @each $type in (primary, success, warning, danger, info, '') {
+    @if ($type == '') {
+      @include css-var-from-global(
+        ('button', 'text-color'),
+        ('text-color-primary')
+      );
+      @include css-var-from-global(('button', 'bg-color'), ('bg-color'));
+      @include css-var-from-global(
+        ('button', 'hover', 'bg-color'),
+        ('fill-color')
+      );
+    } @else {
+      @include m($type) {
+        @include button-variant($type);
+      }
+    }
+  }
+}
+
+@include b(fab-group) {
+  @include set-component-css-var('fab-group', $fab-group);
+  box-sizing: border-box;
+  position: fixed;
+  right: 3%;
+  bottom: 5%;
+  display: block;
+  min-width: getCssVar('component-size-large');
+  min-height: getCssVar('component-size-large');
+  background: none;
+  z-index: getCssVar('index-top');
+
+  @include e(list) {
+    position: absolute;
+    top: auto;
+    display: flex;
+    gap: getCssVar('fab-group-gap');
+    align-items: center;
+    justify-content: center;
+    border-radius: getCssVar('border-radius-base');
+    z-index: -1;
+
+    .#{$namespace}-fab {
+      @include m(square) {
+        border-radius: 0;
+        border-bottom: 1px solid getCssVar('border-color-lighter');
+        &:first-child {
+          border-radius: getCssVar('border-radius-base')
+            getCssVar('border-radius-base') 0 0;
+        }
+        &:last-child {
+          border-radius: 0 0 getCssVar('border-radius-base')
+            getCssVar('border-radius-base');
+        }
+      }
+    }
+
+    @include when(top) {
+      bottom: calc(
+        getCssVar('component-size-large') + getCssVar('fab-group-gap')
+      );
+      flex-direction: column;
+    }
+
+    @include when(bottom) {
+      top: calc(getCssVar('component-size-large') + getCssVar('fab-group-gap'));
+      flex-direction: column;
+    }
+
+    @include when(right) {
+      flex-direction: row;
+      left: calc(
+        getCssVar('component-size-large') + getCssVar('fab-group-gap')
+      );
+
+      .#{$namespace}-fab {
+        @include m(square) {
+          border-radius: 0;
+          &:first-child {
+            border-radius: getCssVar('border-radius-base') 0
+              getCssVar('border-radius-base') 0;
+          }
+          &:last-child {
+            border-radius: 0 0 getCssVar('border-radius-base')
+              getCssVar('border-radius-base');
+          }
+        }
+      }
+    }
+
+    @include when(left) {
+      flex-direction: row;
+      right: calc(
+        getCssVar('component-size-large') + getCssVar('fab-group-gap')
+      );
+
+      .#{$namespace}-fab {
+        @include m(square) {
+          border-radius: 0;
+          &:first-child {
+            border-radius: getCssVar('border-radius-base') 0 0
+              getCssVar('border-radius-base');
+          }
+          &:last-child {
+            border-radius: 0 getCssVar('border-radius-base')
+              getCssVar('border-radius-base') 0;
+          }
+        }
+      }
+    }
+  }
+
+  .#{$namespace}-fab-group--square {
+    gap: 0;
+    box-shadow: getCssVar('box-shadow');
+
+    .#{$namespace}-fab {
+      @include m(square) {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .#{$namespace}-fab {
+    position: static;
+
+    @include m(square) {
+      margin-top: 0;
+    }
+  }
+
+  .fab-group-enter-active,
+  .fab-group-leave-active {
+    transition: 0.3s ease-in-out;
+  }
+
+  .fab-group-enter-from,
+  .fab-group-leave-to {
+    opacity: 0;
+    &.is-top {
+      bottom: 0;
+    }
+    &.is-bottom {
+      top: 0;
+    }
+    &.is-left {
+      right: 0;
+    }
+    &.is-right {
+      left: 0;
+    }
+  }
+}

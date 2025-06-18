@@ -1184,3 +1184,11 @@ $skeleton: map.merge(
   ),
   $skeleton
 );
+
+$fab-group: () !default;
+$fab-group: map.merge(
+  (
+    'gap': 16px
+  ),
+  $fab-group
+);
