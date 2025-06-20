@@ -71,6 +71,7 @@ declare module '@vue/runtime-core' {
     NTooltip: (typeof import('packages/nocturne-ui'))['NTooltip']
     NTree: (typeof import('packages/nocturne-ui'))['NTree']
     NTreeSelect: (typeof import('packages/nocturne-ui'))['NTreeSelect']
+    NUpload: (typeof import('packages/nocturne-ui'))['NUpload']
   }
 
   interface ComponentCustomProperties {

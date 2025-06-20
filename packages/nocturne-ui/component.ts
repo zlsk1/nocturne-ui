@@ -73,6 +73,7 @@ import { NTimelineItem } from '@nocturne-ui/components/timeline-item'
 import { NTooltip } from '@nocturne-ui/components/tooltip'
 import { NTree } from '@nocturne-ui/components/tree'
 import { NTreeSelect } from '@nocturne-ui/components/tree-select'
+import { NUpload } from '@nocturne-ui/components/upload'
 
 import type { Plugin } from 'vue'
 
@@ -153,5 +154,6 @@ export default [
   NTimelineItem,
   NTooltip,
   NTree,
-  NTreeSelect
+  NTreeSelect,
+  NUpload
 ] as Plugin[]

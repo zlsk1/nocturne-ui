@@ -128,10 +128,10 @@ export default {
       close: 'Close'
     },
     upload: {
-      deleteTip: 'press delete to remove',
-      delete: 'Delete',
       preview: 'Preview',
-      continue: 'Continue'
+      uploadError: 'Upload error',
+      removeFile: 'Remove file',
+      uploading: 'Uploading...'
     },
     slider: {
       defaultLabel: 'slider between {min} and {max}',

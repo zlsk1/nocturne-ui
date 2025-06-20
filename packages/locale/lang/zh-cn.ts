@@ -127,10 +127,10 @@ export default {
       close: '关闭此对话框'
     },
     upload: {
-      deleteTip: '按 delete 键可删除',
-      delete: '删除',
       preview: '查看图片',
-      continue: '继续上传'
+      uploadError: '上传错误',
+      removeFile: '移除文件',
+      uploading: '文件上传中'
     },
     slider: {
       defaultLabel: '滑块介于 {min} 至 {max}',

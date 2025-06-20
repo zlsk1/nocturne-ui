@@ -74,6 +74,7 @@ declare module 'vue' {
     NTooltip: (typeof import('nocturne-ui'))['NTooltip']
     NTree: (typeof import('nocturne-ui'))['NTree']
     NTreeSelect: (typeof import('nocturne-ui'))['NTreeSelect']
+    NUpload: (typeof import('nocturne-ui'))['NUpload']
   }
 
   interface ComponentCustomProperties {

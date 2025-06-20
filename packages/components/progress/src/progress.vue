@@ -4,7 +4,7 @@
     :style="{ height: height + 'px' }"
   >
     <div v-if="type === 'line'" :class="ns.m('line')">
-      <div :class="ns.e('bg')" />
+      <div :class="ns.e('bg')" v-bind="{ ...$attrs }" />
       <div v-if="text" :class="ns.em('inner', 'text')">
         {{ props.percentage + '%' }}
       </div>
