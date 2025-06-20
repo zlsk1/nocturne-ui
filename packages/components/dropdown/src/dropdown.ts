@@ -39,6 +39,10 @@ export const dropdownProps = {
   selectable: {
     type: Boolean,
     default: false
+  },
+  persistent: {
+    type: Boolean,
+    default: true
   }
 } as const
 

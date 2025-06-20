@@ -7,12 +7,12 @@
       :trigger="trigger"
       :placement="placement"
       pure
-      persistent
+      :persistent="persistent"
       :popper-class="[popperClass!, `${ns.ns.value}-dropdown-popper`]"
       :popper-options="popperOptions"
       :disabled="disabled"
       :offset="6"
-      :hide-after="0"
+      :hide-after="10"
       :show-arrow="showArrow"
       @before-show="handleShow"
       @close="handleClose"
