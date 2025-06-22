@@ -1,4 +1,3 @@
-import { componentSizes } from '@nocturne-ui/constants'
 import {
   definePropType,
   isBoolean,
@@ -16,10 +15,6 @@ export const radioProps = {
   value: {
     type: definePropType<number | string | boolean>([Number, String, Boolean]),
     default: undefined
-  },
-  size: {
-    type: String,
-    values: componentSizes
   },
   disabled: {
     type: Boolean,

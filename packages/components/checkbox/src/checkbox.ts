@@ -1,4 +1,3 @@
-import { componentSizes } from '@nocturne-ui/constants'
 import {
   definePropType,
   isBoolean,
@@ -27,10 +26,6 @@ export const checkboxProps = {
   disabled: {
     type: Boolean,
     default: false
-  },
-  size: {
-    type: String,
-    values: componentSizes
   },
   checked: {
     type: Boolean,

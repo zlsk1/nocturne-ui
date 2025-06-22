@@ -1,16 +1,28 @@
+@use 'sass:map';
+
 @use 'mixins/mixins' as *;
 @use 'mixins/var' as *;
 @use 'common/var' as *;
 
 @include b(checkbox-button) {
   @include set-component-css-var('checkbox-button', $checkbox-button);
-  height: getCssVar('component-size');
+  height: map.get($checkbox-button-height, 'default');
   font-size: 14px;
-  transition: all getCssVar('transition-duration-fast') linear;
+  font-weight: getCssVar('checkbox-button', 'font-weight');
+  color: getCssVar('text-color-primary');
+  transition:
+    opacity getCssVar('transition-duration-fast'),
+    color getCssVar('transition-duration-fast'),
+    border getCssVar('transition-duration-fast');
+
+  &:hover {
+    background: transparent;
+    border-color: getCssVar('border-color');
+  }
 
   @include when(checked) {
     color: getCssVar('checkbox-button', 'checked-bg-color');
-    background: none;
+    background: transparent;
     border-color: getCssVar('checkbox-button', 'checked-border-color');
 
     &:hover {
@@ -19,11 +31,10 @@
   }
 
   @include m(solid) {
-    color: getCssVar('checkbox-button', 'checked-text-color');
-    background: none;
+    background: transparent;
 
     &.is-checked + .#{$namespace}-checkbox-button.is-checked {
-      border-left-color: getCssVar('color-black');
+      border-left-color: getCssVar('border-color');
     }
 
     @include when(checked) {
@@ -38,10 +49,7 @@
 
   @each $size in ('large', 'small') {
     @include m($size) {
-      height: getCssVar('component-size', $size);
-      @if ($size == 'small') {
-        font-size: 12px;
-      }
+      height: map.get($checkbox-button-height, $size);
     }
   }
 
@@ -53,6 +61,7 @@
     border-bottom-color: getCssVar('checkbox-button', 'disabled-border-color');
     background: getCssVar('checkbox-button', 'disabled-bg-color');
     cursor: not-allowed;
+
     &:hover {
       color: getCssVar('checkbox-button', 'disabled-text-color');
       background: getCssVar('checkbox-button', 'disabled-bg-color');

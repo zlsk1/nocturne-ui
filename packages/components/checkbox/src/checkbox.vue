@@ -40,8 +40,7 @@
       <span :class="ns.e('inner')" />
     </span>
     <span v-if="$slots.default || label" :class="ns.e('label')">
-      <slot />
-      <template v-if="!$slots.default">{{ label }}</template>
+      <slot>{{ label }}</slot>
     </span>
   </label>
 </template>
@@ -64,7 +63,6 @@ const ns = useNamespace('checkbox')
 
 const {
   isChecked,
-  checkboxSize,
   isDisabled,
   isFocused,
   model,
@@ -78,11 +76,7 @@ const commonCls = computed(() => [
   ns.is('checked', isChecked.value)
 ])
 
-const checkboxCls = computed(() => [
-  ns.b(),
-  ns.m(checkboxSize.value || props.size),
-  ...commonCls.value
-])
+const checkboxCls = computed(() => [ns.b(), ...commonCls.value])
 
 const checkboxInputCls = computed(() => [
   ns.e('input'),

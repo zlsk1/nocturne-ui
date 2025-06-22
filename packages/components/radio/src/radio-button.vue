@@ -23,6 +23,7 @@
 import { computed, inject, nextTick, ref } from 'vue'
 import { useNamespace } from '@nocturne-ui/composables'
 import { useFormItem } from '@nocturne-ui/components/form'
+import { componentSizes } from '@nocturne-ui/constants'
 import { radioEmits, radioProps } from './radio'
 import { RADIOGROUP_INJECTION_KEY } from './constants'
 
@@ -30,7 +31,13 @@ defineOptions({
   name: 'NRadioButton'
 })
 
-const props = defineProps(radioProps)
+const props = defineProps({
+  ...radioProps,
+  size: {
+    type: String,
+    values: componentSizes
+  }
+})
 const emit = defineEmits(radioEmits)
 
 const ns = useNamespace('radio-button')

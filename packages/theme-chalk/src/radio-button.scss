@@ -10,15 +10,13 @@
   transition: all getCssVar('transition-duration-fast') linear;
 
   &:hover {
-    opacity: 0.8;
+    background: transparent;
+    border-color: getCssVar('border-color');
   }
 
   @each $size in ('large', 'small') {
     @include m($size) {
       height: getCssVar('component-size', $size);
-      @if ($size == 'small') {
-        font-size: 12px;
-      }
     }
   }
 

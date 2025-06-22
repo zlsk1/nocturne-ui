@@ -486,8 +486,8 @@ $radio: map.merge(
     'font-size': getCssVar('font-size-base'),
     'text-color': getCssVar('text-color-regular'),
     'font-weight': getCssVar('font-weight-primary'),
-    'input-height': 14px,
-    'input-width': 14px,
+    'input-height': 16px,
+    'input-width': 16px,
     'input-border-radius': getCssVar('border-radius-circle'),
     'input-bg-color': getCssVar('fill-color', 'blank'),
     'input-border': getCssVar('border'),
@@ -534,34 +534,14 @@ $radio-checked: map.merge(
   $radio-checked
 );
 
-$radio-bordered-input-height: () !default;
-$radio-bordered-input-height: map.merge(
-  (
-    'large': 14px,
-    'default': 12px,
-    'small': 12px
-  ),
-  $radio-bordered-input-height
-);
-
-$radio-bordered-input-width: () !default;
-$radio-bordered-input-width: map.merge(
-  (
-    'large': 14px,
-    'default': 12px,
-    'small': 12px
-  ),
-  $radio-bordered-input-width
-);
-
 $checkbox: () !default;
 $checkbox: map.merge(
   (
     'font-size': 14px,
     'font-weight': getCssVar('font-weight-primary'),
     'text-color': getCssVar('text-color-regular'),
-    'input-height': 14px,
-    'input-width': 14px,
+    'input-height': 16px,
+    'input-width': 16px,
     'border-radius': getCssVar('border-radius-small'),
     'bg-color': getCssVar('fill-color', 'blank'),
     'input-border': getCssVar('border'),
@@ -583,10 +563,10 @@ $checkbox: map.merge(
 $checkbox-button: () !default;
 $checkbox-button: map.merge(
   (
+    'font-weight': getCssVar('font-weight-primary'),
     'checked-bg-color': getCssVar('color-primary'),
     'checked-text-color': getCssVar('color-white'),
     'checked-border-color': getCssVar('color-primary'),
-    // 'disabled-bg-color': getCssVar('fill-color', 'darker'),
     'disabled-bg-color': getCssVar('disabled', 'bg-color'),
     'disabled-text-color': getCssVar('disabled', 'text-color'),
     'disabled-border-color': getCssVar('disabled', 'border-color')
@@ -594,24 +574,10 @@ $checkbox-button: map.merge(
   $checkbox-button
 );
 
-$checkbox-bordered-padding-left: () !default;
-$checkbox-bordered-padding-left: map.merge(
-  (
-    'large': 12px,
-    'default': 10px,
-    'small': 8px
-  ),
-  $checkbox-bordered-padding-left
-);
-
-$checkbox-bordered-padding-right: () !default;
-$checkbox-bordered-padding-right: map.merge(
-  (
-    'large': 20px,
-    'default': 16px,
-    'small': 12px
-  ),
-  $checkbox-bordered-padding-right
+$checkbox-button-height: () !default;
+$checkbox-button-height: map.merge(
+  $common-component-size,
+  $checkbox-button-height
 );
 
 $tag: () !default;

@@ -34,7 +34,7 @@ const props = defineProps(radioProps)
 const emit = defineEmits(radioEmits)
 
 const ns = useNamespace('radio')
-const { formItemDisabled, formItemSize } = useFormItem()
+const { formItemDisabled } = useFormItem()
 const { formItem } = useForm()
 
 const groupRef = inject(RADIOGROUP_INJECTION_KEY, undefined)!
@@ -69,10 +69,6 @@ const actualdisabled = computed(() => {
   return formItemDisabled.value || groupRef?.disabled || props.disabled
 })
 
-const actualSize = computed(() => {
-  return formItemSize.value || groupRef?.size || props.size
-})
-
 const commonCls = computed(() => [
   ns.is('checked', modelValue.value === actualValue.value),
   ns.is('disabled', actualdisabled.value)
@@ -80,7 +76,6 @@ const commonCls = computed(() => [
 
 const radioCls = computed(() => [
   ns.b(),
-  ns.m(actualSize.value),
   ns.is('focus', focus.value),
   ...commonCls.value
 ])
