@@ -181,6 +181,9 @@ export default {
       leftArrow: 'Carousel arrow left ',
       rightArrow: 'Carousel arrow right',
       indicator: 'Carousel switch to index {index}'
+    },
+    empty: {
+      description: 'No Data'
     }
   }
 }

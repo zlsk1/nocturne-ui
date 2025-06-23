@@ -29,6 +29,7 @@ declare module 'vue' {
     NDrawer: (typeof import('nocturne-ui'))['NDrawer']
     NDropdown: (typeof import('nocturne-ui'))['NDropdown']
     NDropdownItem: (typeof import('nocturne-ui'))['NDropdownItem']
+    NEmpty: (typeof import('nocturne-ui'))['NEmpty']
     NFloatButton: (typeof import('nocturne-ui'))['NFloatButton']
     NFloatButtonGroup: (typeof import('nocturne-ui'))['NFloatButtonGroup']
     NBackTop: (typeof import('nocturne-ui'))['NBackTop']

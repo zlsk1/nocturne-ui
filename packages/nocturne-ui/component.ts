@@ -26,6 +26,7 @@ import { NDialog } from '@nocturne-ui/components/dialog'
 import { NDivider } from '@nocturne-ui/components/divider'
 import { NDrawer } from '@nocturne-ui/components/drawer'
 import { NDropdown, NDropdownItem } from '@nocturne-ui/components/dropdown'
+import { NEmpty } from '@nocturne-ui/components/empty'
 import {
   NBackTop,
   NFloatButton,
@@ -108,6 +109,7 @@ export default [
   NDrawer,
   NDropdown,
   NDropdownItem,
+  NEmpty,
   NFloatButton,
   NFloatButtonGroup,
   NBackTop,

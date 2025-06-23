@@ -1158,3 +1158,15 @@ $fab-group: map.merge(
   ),
   $fab-group
 );
+
+$empty: () !default;
+$empty: map.merge(
+  (
+    'line-height': 1.5,
+    'text-color': getCssVar('text-color-placeholder'),
+    'margin': 8px,
+    'image-height': 40px,
+    'font-size': 14px
+  ),
+  $fab-group
+);

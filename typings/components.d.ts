@@ -31,6 +31,7 @@ declare module '@vue/runtime-core' {
     NDrawer: (typeof import('packages/nocturne-ui'))['NDrawer']
     NDropdown: (typeof import('packages/nocturne-ui'))['NDropdown']
     NDropdownItem: (typeof import('packages/nocturne-ui'))['NDropdownItem']
+    NEmpty: (typeof import('packages/nocturne-ui'))['NEmpty']
     NFloatButton: (typeof import('packages/nocturne-ui'))['NFloatButton']
     NFloatButtonGroup: (typeof import('packages/nocturne-ui'))['NFloatButtonGroup']
     NBackTop: (typeof import('packages/nocturne-ui'))['NBackTop']

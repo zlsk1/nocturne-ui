@@ -1,0 +1,34 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/function' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(empty) {
+  @include set-component-css-var('empty', $empty);
+
+  box-sizing: border-box;
+  margin: 0 getCssVar('empty', 'margin');
+  line-height: getCssVar('empty', 'line-height');
+  text-align: center;
+  font-size: getCssVar('empty', 'font-size');
+
+  @include e(image) {
+    box-sizing: border-box;
+    height: getCssVar('empty', 'image-height');
+    margin-bottom: getCssVar('empty', 'margin');
+
+    svg {
+      max-width: 100%;
+      height: 100%;
+      margin: auto;
+    }
+  }
+
+  @include e(description) {
+    color: getCssVar('empty', 'text-color');
+  }
+
+  @include m(footer) {
+    margin-top: calc(getCssVar('empty', 'margin') * 1.2);
+  }
+}
