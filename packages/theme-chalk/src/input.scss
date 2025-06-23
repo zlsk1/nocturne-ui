@@ -263,6 +263,7 @@
   }
 
   @include e(inner) {
+    transition: getCssVar('transition-duration-fast');
     // use map.get as default value for date picker range
     @include set-css-var-value(
       'input-inner-height',
