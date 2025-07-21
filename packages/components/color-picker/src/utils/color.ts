@@ -1,11 +1,21 @@
 import { hasOwn } from '@vue/shared'
 
-const hsv2hsl = function (hue: number, sat: number, val: number) {
-  return [
-    hue,
-    (sat * val) / ((hue = (2 - sat) * val) < 1 ? hue : 2 - hue) || 0,
-    hue / 2
-  ]
+const HEX_INT_MAP: Record<string, number> = {
+  A: 10,
+  B: 11,
+  C: 12,
+  D: 13,
+  E: 14,
+  F: 15
+}
+
+const INT_HEX_MAP: Record<string, string> = {
+  10: 'A',
+  11: 'B',
+  12: 'C',
+  13: 'D',
+  14: 'E',
+  15: 'F'
 }
 
 // Need to handle 1.0 as 100%, since once it is a number, there is no difference between it and 1
@@ -39,15 +49,6 @@ const bound01 = function (value: number | string, max: number | string) {
   return (value % (max as number)) / Number.parseFloat(max as string)
 }
 
-const INT_HEX_MAP: Record<string, string> = {
-  10: 'A',
-  11: 'B',
-  12: 'C',
-  13: 'D',
-  14: 'E',
-  15: 'F'
-}
-
 const hexOne = (value: number) => {
   value = Math.min(Math.round(value), 255)
   const high = Math.floor(value / 16)
@@ -55,21 +56,20 @@ const hexOne = (value: number) => {
   return `${INT_HEX_MAP[high] || high}${INT_HEX_MAP[low] || low}`
 }
 
-const toHex = function ({ r, g, b }: { r: number; g: number; b: number }) {
+export const toHex = function ({
+  r,
+  g,
+  b
+}: {
+  r: number
+  g: number
+  b: number
+}) {
   if (Number.isNaN(+r) || Number.isNaN(+g) || Number.isNaN(+b)) return ''
   return `#${hexOne(r)}${hexOne(g)}${hexOne(b)}`
 }
 
-const HEX_INT_MAP: Record<string, number> = {
-  A: 10,
-  B: 11,
-  C: 12,
-  D: 13,
-  E: 14,
-  F: 15
-}
-
-const parseHexChannel = function (hex: string) {
+export const parseHexChannel = function (hex: string) {
   if (hex.length === 2) {
     return (
       (HEX_INT_MAP[hex[0].toUpperCase()] || +hex[0]) * 16 +
@@ -80,7 +80,14 @@ const parseHexChannel = function (hex: string) {
   return HEX_INT_MAP[hex[1].toUpperCase()] || +hex[1]
 }
 
-const hsl2hsv = function (hue: number, sat: number, light: number) {
+export const hsv2hsl = function (hue: number, sat: number, val: number) {
+  const l = val - (val * sat) / 2
+  const sprime = l === 1 || l === 0 ? 0 : (val - l) / Math.min(l, 1 - l)
+
+  return [hue, sprime, l]
+}
+
+export const hsl2hsv = function (hue: number, sat: number, light: number) {
   sat = sat / 100
   light = light / 100
   let smin = sat
@@ -106,7 +113,7 @@ const hsl2hsv = function (hue: number, sat: number, light: number) {
 // Converts an RGB color value to HSV
 // *Assumes:* r, g, and b are contained in the set [0, 255] or [0, 1]
 // *Returns:* { h, s, v } in [0,1]
-const rgb2hsv = (r: number, g: number, b: number) => {
+export const rgb2hsv = (r: number, g: number, b: number) => {
   r = bound01(r, 255)
   g = bound01(g, 255)
   b = bound01(b, 255)
@@ -146,7 +153,7 @@ const rgb2hsv = (r: number, g: number, b: number) => {
 // Converts an HSV color value to RGB.
 // *Assumes:* h is contained in [0, 1] or [0, 360] and s and v are contained in [0, 1] or [0, 100]
 // *Returns:* { r, g, b } in the set [0, 255]
-const hsv2rgb = function (h: number, s: number, v: number) {
+export const hsv2rgb = function (h: number, s: number, v: number) {
   h = bound01(h, 360) * 6
   s = bound01(s, 100)
   v = bound01(v, 100)
@@ -320,6 +327,7 @@ export default class Color {
       }
 
       const { h, s, v } = rgb2hsv(r!, g!, b!)
+
       fromHSV(h, s, v)
     }
   }
@@ -336,17 +344,19 @@ export default class Color {
   doOnChange() {
     const { _hue, _saturation, _value, _alpha, format } = this
 
+    const hue = Math.round(_hue)
+
     if (this.enableAlpha) {
       switch (format) {
         case 'hsl': {
           const hsl = hsv2hsl(_hue, _saturation / 100, _value / 100)
-          this.value = `hsla(${_hue}, ${Math.round(
+          this.value = `hsla(${hue}, ${Math.round(
             hsl[1] * 100
           )}%, ${Math.round(hsl[2] * 100)}%, ${this.get('alpha') / 100})`
           break
         }
         case 'hsv': {
-          this.value = `hsva(${_hue}, ${Math.round(_saturation)}%, ${Math.round(
+          this.value = `hsva(${hue}, ${Math.round(_saturation)}%, ${Math.round(
             _value
           )}%, ${this.get('alpha') / 100})`
           break
@@ -366,13 +376,13 @@ export default class Color {
       switch (format) {
         case 'hsl': {
           const hsl = hsv2hsl(_hue, _saturation / 100, _value / 100)
-          this.value = `hsl(${_hue}, ${Math.round(hsl[1] * 100)}%, ${Math.round(
+          this.value = `hsl(${hue}, ${Math.round(hsl[1] * 100)}%, ${Math.round(
             hsl[2] * 100
           )}%)`
           break
         }
         case 'hsv': {
-          this.value = `hsv(${_hue}, ${Math.round(_saturation)}%, ${Math.round(
+          this.value = `hsv(${hue}, ${Math.round(_saturation)}%, ${Math.round(
             _value
           )}%)`
           break

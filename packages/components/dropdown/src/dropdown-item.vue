@@ -6,7 +6,7 @@
       ns.is('disabled', disabled),
       ns.is('selected', selected === props.label)
     ]"
-    @click="(e) => onClick(e)"
+    @click="onClick"
   >
     <n-icon v-if="icon" size="16" :class="ns.m('icon')">
       <component :is="icon" />
@@ -30,10 +30,10 @@ const props = defineProps(dropdownItemProps)
 
 const ns = useNamespace('dropdown')
 
-const { selected, handleClick } = inject(NDROPDOWN_INJECTION_KEY, undefined)!
+const { selected, handleSelect } = inject(NDROPDOWN_INJECTION_KEY, undefined)!
 
-const onClick = (e: MouseEvent) => {
+const onClick = () => {
   if (props.disabled) return
-  handleClick(e, props.label)
+  handleSelect(props.label)
 }
 </script>

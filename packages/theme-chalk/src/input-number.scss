@@ -75,17 +75,15 @@ $control-width: map.merge(
 
   @include e(control) {
     box-sizing: border-box;
-    position: absolute;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: getCssVar('input-number-control-w');
+    flex: auto;
+    width: getCssVar('input-number-control-width');
+    height: 40%;
     color: getCssVar('input-number-control-color');
     background: getCssVar('input-number-control-bg');
-    transition:
-      color 0.1s,
-      height getCssVar('transition-duration') ease-in-out;
-    z-index: 1;
+    transition: getCssVar('transition-duration') ease-in-out;
     cursor: pointer;
 
     &:hover:not(.is-exceed) {
@@ -99,10 +97,6 @@ $control-width: map.merge(
   }
 
   @include e(control--increase) {
-    box-sizing: border-box;
-    top: 1px;
-    right: 1px;
-    height: calc(50% - 1px);
     border-left: 1px solid getCssVar('border-color');
     border-radius: 0 getCssVar('border-radius-base') 0 0;
 
@@ -112,9 +106,6 @@ $control-width: map.merge(
   }
 
   @include e(control--decrease) {
-    bottom: 1px;
-    right: 1px;
-    height: calc(50% - 1px);
     border-radius: 0 0 getCssVar('border-radius-base') 0;
     border-top: 1px solid getCssVar('border-color');
     border-left: 1px solid getCssVar('border-color');
@@ -125,35 +116,42 @@ $control-width: map.merge(
   }
 
   @include m(inner) {
-    @include e(control--increase) {
-      &:hover {
-        height: calc(60% - 1px);
-        + .#{$namespace}-input-number__control--decrease {
-          height: calc(40% - 1px);
-        }
-      }
-    }
-    @include e(control--decrease) {
-      &:hover {
-        height: calc(60% - 1px);
-        &:has(~ .#{$namespace}-input-number__control--increase) {
-          height: calc(40% - 1px);
-        }
+    @include e((control--increase, control--decrease)) {
+      &:hover:not(.is-exceed) {
+        height: calc(60%);
       }
     }
 
     .#{$namespace}-input {
-      &--wrapper {
-        padding-right: getCssVar('input-number-control-w');
+      &__inner {
+        text-align: start !important;
       }
     }
   }
 
+  @include e(control--inner) {
+    box-sizing: border-box;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    display: flex;
+    flex-direction: column;
+    width: getCssVar('input-number-control-width');
+    height: calc(100% - 2px);
+    transition: all 0.3s ease-in-out;
+    z-index: 1;
+  }
+
   @include m(outter) {
-    @include e(control--decrease) {
+    @include e(control) {
+      position: absolute;
       top: 1px;
-      left: 1px;
       height: calc(100% - 2px);
+      z-index: 1;
+    }
+
+    @include e(control--decrease) {
+      left: 1px;
       border-top: none;
       border-left: none;
       border-right: getCssVar(border);
@@ -163,7 +161,6 @@ $control-width: map.merge(
 
     @include e(control--increase) {
       right: 1px;
-      height: calc(100% - 2px);
       border-left: getCssVar(border);
       border-radius: 0 getCssVar('border-radius-base')
         getCssVar('border-radius-base') 0;
@@ -171,7 +168,7 @@ $control-width: map.merge(
 
     .#{$namespace}-input {
       &__inner {
-        text-align: center;
+        text-align: center !important;
       }
     }
   }

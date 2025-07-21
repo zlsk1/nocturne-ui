@@ -45,8 +45,9 @@ const cursorLeft = ref(0)
 const background = ref('hsl(0, 100%, 50%)')
 const colorValue = computed(() => {
   const hue = props.color.get('hue')
+  const saturation = props.color.get('saturation')
   const value = props.color.get('value')
-  return { hue, value }
+  return { hue, saturation, value }
 })
 
 function update() {

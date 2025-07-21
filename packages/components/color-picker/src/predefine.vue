@@ -4,11 +4,8 @@
       <div
         v-for="(item, index) in rgbaColors"
         :key="colors[index]"
-        :class="[
-          ns.e('color-selector'),
-          ns.is('alpha', item._alpha < 100),
-          { selected: item.selected }
-        ]"
+        :class="[ns.e('color-selector'), ns.is('alpha', item._alpha < 100)]"
+        :style="{ boxShadow: item.selected ? `0 0 3px 2px ${item.value}` : '' }"
         @click="handleSelect(index)"
       >
         <div :style="{ backgroundColor: item.value }" />
@@ -39,6 +36,10 @@ const props = defineProps({
   },
   enableAlpha: {
     type: Boolean,
+    required: true
+  },
+  format: {
+    type: String,
     required: true
   }
 })
@@ -72,9 +73,9 @@ function parseColors(colors: string[], color: Color) {
   return colors.map((value) => {
     const c = new Color()
     c.enableAlpha = props.enableAlpha
-    c.format = 'rgba'
+    c.format = props.format
     c.fromString(value)
-    c.selected = c.value === color.value
+    c.selected = color.compare(c)
     return c
   })
 }

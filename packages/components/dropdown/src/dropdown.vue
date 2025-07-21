@@ -1,6 +1,7 @@
 <template>
   <div :class="[ns.b(), ns.is('disabled', disabled)]">
     <n-tooltip
+      ref="popperRef"
       v-model:visible="visible"
       :transition="`${ns.ns.value}-zoom-in-top`"
       :gpu-acceleration="false"
@@ -14,6 +15,7 @@
       :offset="6"
       :hide-after="10"
       :show-arrow="showArrow"
+      :teleported="teleported"
       @before-show="handleShow"
       @close="handleClose"
     >
@@ -33,6 +35,7 @@ import NTooltip from '@nocturne-ui/components/tooltip'
 import { useNamespace } from '@nocturne-ui/composables'
 import { dropdownEmit, dropdownProps } from './dropdown'
 import { NDROPDOWN_INJECTION_KEY } from './constants'
+import type { TooltipInstance } from '@nocturne-ui/components/tooltip'
 
 defineOptions({
   name: 'NDropdown'
@@ -45,17 +48,22 @@ const ns = useNamespace('dropdown')
 
 const visible = ref(false)
 const selected = ref<undefined | string>(undefined)
+const popperRef = ref<TooltipInstance>()
 
 watch(visible, (val) => {
   emit('visibleChange', val)
 })
 
-const handleClick = (e: MouseEvent, label: string) => {
+const handleSelect = (label: string) => {
   if (props.hideAfterClick) visible.value = false
   if (props.selectable) {
     selected.value = label
   }
-  emit('click', e, label)
+
+  emit('select', label)
+  if (props.selectable) {
+    emit('update:modelValue', label)
+  }
 }
 
 const handleShow = () => {
@@ -66,8 +74,16 @@ const handleClose = () => {
   visible.value = false
 }
 
+watch(
+  () => props.modelValue,
+  (value) => {
+    selected.value = value
+  },
+  { immediate: true }
+)
+
 provide(NDROPDOWN_INJECTION_KEY, {
   selected,
-  handleClick
+  handleSelect
 })
 </script>

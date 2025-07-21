@@ -8,8 +8,8 @@
   position: absolute;
 
   > div {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     box-shadow:
       0 0 0 1.5px #fff,
       inset 0 0 1px 1px rgba(0, 0, 0, 0.3),
@@ -35,8 +35,8 @@
 @include b(color-predefine) {
   display: flex;
   font-size: 12px;
-  margin-top: 8px;
-  width: 280px;
+  padding-top: 8px;
+  border-top: 1px solid getCssVar('border-color-lighter');
 
   @include e(colors) {
     display: flex;
@@ -51,7 +51,7 @@
     border-radius: getCssVar('border-radius-base');
     cursor: pointer;
 
-    &:nth-child(10n + 1) {
+    &:nth-child(9n + 1) {
       margin-left: 0;
     }
 
@@ -74,8 +74,7 @@
 @include b(color-hue-slider) {
   position: relative;
   box-sizing: border-box;
-  width: 280px;
-  height: 12px;
+  height: 10px;
   margin-bottom: 8px;
   background-color: #f00;
   border-radius: 20px;
@@ -92,8 +91,8 @@
   }
 
   @include when(vertical) {
-    width: 12px;
-    height: 180px;
+    width: 10px;
+    height: 160px;
     padding: 2px 0;
 
     .#{$namespace}-color-hue-slider__bar {
@@ -111,15 +110,13 @@
 
 @include b(color-panel) {
   position: relative;
-  width: 280px;
-  height: 180px;
+  min-height: 160px;
+  border-radius: getCssVar('border-radius-small');
 
   @include e(('white', 'black')) {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
+    border-radius: inherit;
   }
 
   @include e('white') {
@@ -135,14 +132,14 @@
 
     > div {
       cursor: pointer;
-      width: 4px;
-      height: 4px;
+      width: 10px;
+      height: 10px;
       box-shadow:
         0 0 0 1.5px #fff,
         inset 0 0 1px 1px rgba(0, 0, 0, 0.3),
         0 0 1px 2px rgba(0, 0, 0, 0.4);
       border-radius: 50%;
-      transform: translate(-2px, -2px);
+      transform: translate(-5px, -5px);
     }
   }
 }
@@ -168,19 +165,19 @@
       getCssVar('color-picker', 'alpha-bg-b') 75%,
       getCssVar('color-picker', 'alpha-bg-a') 75%
     );
-  background-size: 12px 12px;
+  background-size: 10px 10px;
   background-position:
     0 0,
-    6px 0,
-    6px -6px,
-    0 6px;
+    5px 0,
+    5px -5px,
+    0 5px;
 }
 
 @include b(color-alpha-slider) {
   position: relative;
   box-sizing: border-box;
-  width: 280px;
-  height: 12px;
+  height: 10px;
+  margin-bottom: 12px;
   @include alpha-bg;
   border-radius: 20px;
 
@@ -221,21 +218,72 @@
 }
 
 @include b(color-dropdown) {
+  box-sizing: border-box;
+  width: 280px;
+  padding: 14px !important;
+  border-radius: getCssVar('border-radius-large') !important;
+
   @include e(main-wrapper) {
     margin-bottom: 6px;
   }
 
-  @include e(btns) {
-    margin-top: 12px;
+  @include e(input) {
+    margin-bottom: 8px;
     text-align: right;
   }
 
   @include e(value) {
-    float: left;
-    line-height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    width: 100%;
     font-size: 12px;
-    color: $color-black;
-    width: 160px;
+
+    .#{$namespace}-input-number {
+      --n-input-number-control-width: 16px;
+      .#{$namespace}-input--wrapper {
+        padding: 0 6px;
+      }
+      flex: auto;
+    }
+    .#{$namespace}-input {
+      flex: auto;
+    }
+  }
+
+  @include e(actions) {
+    margin-bottom: 8px;
+    text-align: end;
+  }
+
+  @include e(format) {
+    button {
+      display: flex;
+      align-items: center;
+      height: 24px;
+      padding: 0;
+      color: getCssVar('text-color-primary');
+      font-size: 12px;
+      font-weight: 550;
+      font-family: inherit;
+      background: none;
+      outline: none;
+      border: none;
+      cursor: pointer;
+
+      > div {
+        transition: color getCssVar('transition-duration') ease-in-out;
+      }
+
+      .#{$namespace}-color-dropdown__format--trigger {
+        color: getCssVar('text-color-placeholder');
+      }
+    }
+  }
+
+  @include e(format--arrow) {
+    color: getCssVar('text-color-placeholder');
   }
 }
 
@@ -292,6 +340,7 @@
     box-sizing: border-box;
     border: 1px solid getCssVar('border-color');
     border-radius: getCssVar('border-radius-base');
+    transition: getCssVar('transition-duration-fast');
     cursor: pointer;
   }
 
@@ -302,21 +351,42 @@
     width: map.get($color-picker-size, 'default', 'container');
     box-sizing: border-box;
     text-align: center;
-    border-radius: getCssVar('border-radius-base');
+    border: 1px solid getCssVar('border-color');
+    border-radius: getCssVar('border-radius-small');
+    transition: getCssVar('transition-duration-fast');
 
     @include when(alpha) {
       @include alpha-bg;
       // background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
     }
+
+    @include when(empty) {
+      background: transparent;
+    }
   }
 
   @include e(color-inner) {
+    position: relative;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
-    border-radius: getCssVar('border-radius-base');
+    border-radius: getCssVar('border-radius-small');
+
+    @include when(empty) {
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 2px;
+        height: 100%;
+        border-radius: 2px;
+        background: red;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+    }
   }
 
   & .#{$namespace}-color-picker__empty {

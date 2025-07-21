@@ -2,8 +2,7 @@
   <n-tooltip
     ref="popper"
     :visible="showPicker"
-    :show-arrow="false"
-    :fallback-placements="['bottom', 'top', 'right', 'left']"
+    :fallback-placements="fallbackPlacements"
     :offset="10"
     :gpu-acceleration="false"
     :popper-class="[ns.be('picker', 'panel'), ns.b('dropdown'), popperClass]"
@@ -12,6 +11,8 @@
     :teleported="teleported"
     :transition="`${ns.ns.value}-zoom-in-top`"
     persistent
+    pure
+    :placement="placement"
     @hide="setShowPicker(false)"
   >
     <template #content>
@@ -21,23 +22,19 @@
         </div>
         <hue-bar ref="hue" class="hue-slider" :color="color" />
         <alpha-bar v-if="showAlpha" ref="alpha" :color="color" />
-        <predefine
-          v-if="predefine"
-          ref="predefine"
-          :enable-alpha="showAlpha"
-          :color="color"
-          :colors="predefine"
+        <color-input
+          :format="colorFormat"
+          :alpha="currentAlpha"
+          :show-alpha="showAlpha"
+          :color-data="colorData"
+          :hex="customInput"
+          @format-change="(format) => onColorModeChange(format)"
+          @alpha-change="(alpha) => onAlphaChange(alpha)"
+          @hex-change="(hex) => onHexChange(hex)"
+          @hex-blur="onHexBlur"
+          @data-change="(data) => onDataChange(data)"
         />
-        <div :class="ns.be('dropdown', 'btns')">
-          <span :class="ns.be('dropdown', 'value')">
-            <n-input
-              ref="inputRef"
-              v-model="customInput"
-              size="small"
-              @keyup.enter="handleConfirm"
-              @blur="handleConfirm"
-            />
-          </span>
+        <div :class="ns.be('dropdown', 'actions')">
           <n-button
             :class="ns.be('dropdown', 'link-btn')"
             text
@@ -55,6 +52,14 @@
             {{ t('noc.colorpicker.confirm') }}
           </n-button>
         </div>
+        <predefine
+          v-if="predefine"
+          ref="predefine"
+          :enable-alpha="showAlpha"
+          :color="color"
+          :colors="predefine"
+          :format="colorFormat"
+        />
       </div>
     </template>
     <template #default>
@@ -73,9 +78,18 @@
       >
         <div v-if="actualDisabled" :class="ns.be('picker', 'mask')" />
         <div :class="ns.be('picker', 'trigger')" @click="handleTrigger">
-          <div :class="[ns.be('picker', 'color'), ns.is('alpha', showAlpha)]">
+          <div
+            :class="[
+              ns.be('picker', 'color'),
+              ns.is('alpha', showAlpha),
+              ns.is('empty', props.modelValue === '' && !currentColor)
+            ]"
+          >
             <span
-              :class="ns.be('picker', 'color-inner')"
+              :class="[
+                ns.be('picker', 'color-inner'),
+                ns.is('empty', props.modelValue === '' && !currentColor)
+              ]"
               :style="{
                 backgroundColor: displayedColor
               }"
@@ -104,7 +118,8 @@ import {
   provide,
   reactive,
   ref,
-  watch
+  watch,
+  watchEffect
 } from 'vue'
 import { onClickOutside, useDebounceFn } from '@vueuse/core'
 import {
@@ -113,14 +128,22 @@ import {
   useNamespace
 } from '@nocturne-ui/composables'
 import NButton from '@nocturne-ui/components/button'
-import NInput from '@nocturne-ui/components/input'
 import NTooltip from '@nocturne-ui/components/tooltip'
-import { useFormItem } from '@nocturne-ui/components/form'
+import { useForm, useFormItem } from '@nocturne-ui/components/form'
+import { isUndefined } from '@nocturne-ui/utils'
 import AlphaBar from './alpha-bar.vue'
 import HueBar from './hue-bar.vue'
 import Predefine from './predefine.vue'
 import ColorPanel from './color-panel.vue'
-import Color from './utils/color'
+import ColorInput from './color-input/input.vue'
+import Color, {
+  hsl2hsv,
+  hsv2hsl,
+  hsv2rgb,
+  parseHexChannel,
+  rgb2hsv,
+  toHex
+} from './utils/color'
 import {
   colorPickerContextKey,
   colorPickerEmits,
@@ -137,13 +160,13 @@ const emit = defineEmits(colorPickerEmits)
 const ns = useNamespace('color')
 const { t } = useLocale()
 const { formItemDisabled, formItemSize } = useFormItem()
+const { formItem } = useForm()
 
 const hue = ref<InstanceType<typeof HueBar>>()
 const cp = ref<InstanceType<typeof ColorPanel>>()
 const alpha = ref<InstanceType<typeof AlphaBar>>()
 const popper = ref<TooltipInstance>()
 const triggerRef = ref()
-const inputRef = ref()
 
 const {
   isFocused,
@@ -169,15 +192,18 @@ let shouldActiveChange = true
 const color = reactive(
   new Color({
     enableAlpha: props.showAlpha,
-    format: props.colorFormat || '',
+    format: props.colorFormat,
     value: props.modelValue
   })
 ) as Color
 
 const showPicker = ref(false)
 const showPanelColor = ref(false)
-const customInput = ref('')
+const customInput = ref(toHex(color.toRgb()).slice(1))
 const contentRef = ref()
+const currentAlpha = ref(color.get('alpha'))
+const colorFormat = ref('hex')
+const colorData = ref<number[]>([])
 
 const displayedColor = computed(() => {
   if (!props.modelValue && !showPanelColor.value) {
@@ -190,14 +216,12 @@ const currentColor = computed(() => {
   return !props.modelValue && !showPanelColor.value ? '' : color.value
 })
 
-const btnCls = computed(() => {
-  return [
-    ns.b('picker'),
-    ns.is('disabled', actualDisabled.value),
-    ns.bm('picker', actualSize.value),
-    ns.is('focused', isFocused.value)
-  ]
-})
+const btnCls = computed(() => [
+  ns.b('picker'),
+  ns.is('disabled', actualDisabled.value),
+  ns.bm('picker', actualSize.value),
+  ns.is('focused', isFocused.value)
+])
 
 const actualDisabled = computed(() => props.disabled || formItemDisabled.value)
 const actualSize = computed(() => props.size || formItemSize.value)
@@ -246,12 +270,14 @@ function handleTrigger() {
   debounceSetShowPicker(!showPicker.value)
 }
 
-function handleConfirm() {
+function onHexBlur() {
   color.fromString(customInput.value)
+  customInput.value = toHex(color.toRgb()).slice(1)
 }
 
 function confirmValue() {
   const value = color.value
+  isFocused.value = false
   emit('update:modelValue', value)
   emit('change', value)
   debounceSetShowPicker(false)
@@ -259,7 +285,7 @@ function confirmValue() {
   nextTick(() => {
     const newColor = new Color({
       enableAlpha: props.showAlpha,
-      format: props.colorFormat || '',
+      format: props.colorFormat || colorFormat.value,
       value: props.modelValue
     })
     if (!color.compare(newColor)) {
@@ -269,9 +295,11 @@ function confirmValue() {
 }
 
 function clear() {
+  isFocused.value = false
+  customInput.value = ''
   debounceSetShowPicker(false)
-  emit('update:modelValue', props.modelValue || '')
-  emit('change', props.modelValue || '')
+  emit('update:modelValue', '')
+  emit('change', '')
   resetColor()
 }
 
@@ -302,9 +330,63 @@ function blur() {
   triggerRef.value.blur()
 }
 
+const onColorModeChange = (format: string) => {
+  colorFormat.value = format
+}
+
+const onAlphaChange = (alpha?: number) => {
+  if (!isUndefined(alpha)) {
+    currentAlpha.value = alpha
+    color._alpha = alpha
+  }
+}
+
+const onHexChange = (val: string) => {
+  const hex = val.trim()
+  let r: number, g: number, b: number
+
+  if (hex.length === 3) {
+    r = parseHexChannel(hex[0] + hex[0])
+    g = parseHexChannel(hex[1] + hex[1])
+    b = parseHexChannel(hex[2] + hex[2])
+  } else if (hex.length === 6 || hex.length === 8) {
+    r = parseHexChannel(hex.slice(0, 2))
+    g = parseHexChannel(hex.slice(2, 4))
+    b = parseHexChannel(hex.slice(4, 6))
+  }
+
+  const { h, s, v } = rgb2hsv(r!, g!, b!)
+
+  color.set({
+    hue: Math.max(0, Math.min(360, h)),
+    saturation: Math.max(0, Math.min(100, s)),
+    value: Math.max(0, Math.min(100, v))
+  })
+}
+
+const onDataChange = (data: number[]) => {
+  let hsv = {} as any
+
+  if (colorFormat.value === 'hsl') {
+    hsv = hsl2hsv(data[0], data[1], data[2])
+  } else if (colorFormat.value === 'rgb') {
+    hsv = rgb2hsv(data[0], data[1], data[2])
+  } else if (colorFormat.value === 'hsb') {
+    hsv = {
+      h: data[0],
+      s: data[1],
+      v: data[2]
+    }
+  }
+
+  color.set({ hue: hsv.h })
+  color.set({ saturation: hsv.s })
+  color.set({ value: hsv.v })
+}
+
 onMounted(() => {
   if (props.modelValue) {
-    customInput.value = currentColor.value
+    customInput.value = toHex(color.toRgb()).slice(1)
   }
 })
 
@@ -323,9 +405,10 @@ watch(
 watch(
   () => currentColor.value,
   (val) => {
-    customInput.value = val
+    customInput.value = toHex(color.toRgb()).slice(1)
     shouldActiveChange && emit('activeChange', val)
     shouldActiveChange = true
+    currentAlpha.value = color.get('alpha')
   }
 )
 
@@ -341,6 +424,7 @@ watch(
 watch(
   () => showPicker.value,
   () => {
+    customInput.value = toHex(color.toRgb()).slice(1)
     nextTick(() => {
       hue.value?.update()
       cp.value?.update()
@@ -348,6 +432,35 @@ watch(
     })
   }
 )
+
+watch(
+  () => props.modelValue,
+  () => {
+    formItem?.validate('change')
+  }
+)
+
+watchEffect(() => {
+  const hue = color.get('hue')
+  const saturation = color.get('saturation')
+  const value = color.get('value')
+
+  if (colorFormat.value === 'hsl') {
+    const hsl = hsv2hsl(hue, saturation / 100, value / 100)
+    colorData.value = hsl.map((v, i) =>
+      i < 1 ? Math.round(v) : Math.round(v * 100)
+    )
+  } else if (colorFormat.value === 'rgb') {
+    const rgbObj = hsv2rgb(hue, saturation, value)
+    colorData.value = [rgbObj.r, rgbObj.g, rgbObj.b]
+  } else if (colorFormat.value === 'hsb') {
+    colorData.value = [
+      Math.round(hue),
+      Math.round(saturation),
+      Math.round(value)
+    ]
+  }
+})
 
 provide(colorPickerContextKey, {
   currentColor

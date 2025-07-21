@@ -103,9 +103,7 @@ function getThumbLeft() {
   const hue = props.color.get('hue')
 
   if (!el) return 0
-  return Math.round(
-    (hue * (el.offsetWidth - thumb.value.offsetWidth / 2)) / 360
-  )
+  return Math.round((hue * (el.offsetWidth - thumb.value.offsetWidth)) / 360)
 }
 
 function getThumbTop() {

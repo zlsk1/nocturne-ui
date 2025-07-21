@@ -7,9 +7,7 @@ export default {
     colorpicker: {
       confirm: 'OK',
       clear: 'Clear',
-      defaultLabel: 'color picker',
-      description: 'current color is {color}，press Enter to choose new color',
-      alphaLabel: 'please alpha value'
+      description: 'current color is {color}，press Enter to choose new color'
     },
     datepicker: {
       now: 'Now',

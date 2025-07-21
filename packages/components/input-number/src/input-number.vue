@@ -6,38 +6,79 @@
       ns.m(props.controlsMode),
       ns.m(props.size)
     ]"
+    @mouseenter="isHover = true"
+    @mouseleave="isHover = false"
   >
     <template v-if="controls">
-      <span
-        v-long-press="handleIncrease"
-        :class="[
-          ns.e('control'),
-          ns.em('control', 'increase'),
-          ns.is('exceed', isMoreMax)
-        ]"
-        role="button"
-        :aria-label="t('noc.inputNumber.increase')"
-      >
-        <slot name="increaseIcon">
-          <Add v-if="controlsMode === 'outter'" size="18" />
-          <ArrowUp v-else-if="controlsMode === 'inner'" size="16" />
-        </slot>
-      </span>
-      <span
-        v-long-press="handleDecrease"
-        :class="[
-          ns.e('control'),
-          ns.em('control', 'decrease'),
-          ns.is('exceed', isLessMin)
-        ]"
-        role="button"
-        :aria-label="t('noc.inputNumber.decrease')"
-      >
-        <slot name="decreaseIcon">
-          <Subtract v-if="controlsMode === 'outter'" size="18" />
-          <ArrowDown v-else-if="controlsMode === 'inner'" size="16" />
-        </slot>
-      </span>
+      <template v-if="controlsMode === 'outter'">
+        <span
+          v-long-press="handleIncrease"
+          :class="[
+            ns.e('control'),
+            ns.em('control', 'increase'),
+            ns.is('exceed', isMoreMax)
+          ]"
+          role="button"
+          :aria-label="t('noc.inputNumber.increase')"
+          :aria-disabled="isMoreMax"
+        >
+          <slot name="increaseIcon">
+            <Add v-if="controlsMode === 'outter'" size="16" />
+          </slot>
+        </span>
+        <span
+          v-long-press="handleDecrease"
+          :class="[
+            ns.e('control'),
+            ns.em('control', 'decrease'),
+            ns.is('exceed', isLessMin)
+          ]"
+          role="button"
+          :aria-label="t('noc.inputNumber.decrease')"
+          :aria-disabled="isLessMin"
+        >
+          <slot name="decreaseIcon">
+            <Subtract v-if="controlsMode === 'outter'" size="16" />
+          </slot>
+        </span>
+      </template>
+      <transition name="fade-in-linear">
+        <div
+          v-show="isHover && controlsMode === 'inner'"
+          :class="[ns.em('control', 'inner')]"
+        >
+          <span
+            v-long-press="handleIncrease"
+            :class="[
+              ns.e('control'),
+              ns.em('control', 'increase'),
+              ns.is('exceed', isMoreMax)
+            ]"
+            role="button"
+            :aria-label="t('noc.inputNumber.increase')"
+            :aria-disabled="isMoreMax"
+          >
+            <slot name="increaseIcon">
+              <ArrowUp size="14" />
+            </slot>
+          </span>
+          <span
+            v-long-press="handleDecrease"
+            :class="[
+              ns.e('control'),
+              ns.em('control', 'decrease'),
+              ns.is('exceed', isLessMin)
+            ]"
+            role="button"
+            :aria-label="t('noc.inputNumber.decrease')"
+            :aria-disabled="isLessMin"
+          >
+            <slot name="decreaseIcon">
+              <ArrowDown size="14" />
+            </slot>
+          </span>
+        </div>
+      </transition>
     </template>
     <n-input
       :id="formItemId"
@@ -75,7 +116,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
 import {
   RiAddLine as Add,
   RiArrowDownSLine as ArrowDown,
@@ -116,6 +157,7 @@ const state = reactive<State>({
   userInput: null,
   model: props.modelValue
 })
+const isHover = ref(false)
 
 // @ts-ignore
 const { handleBlur, handleFocus } = useFocusController(inputRef, {
@@ -137,6 +179,7 @@ const displayedValue = computed(() => {
   if (state.userInput !== null) {
     return state.userInput
   }
+
   let currentValue: number | string | undefined = state.model
   if (isUndefined(currentValue)) return ''
   if (isNumber(currentValue)) {
@@ -153,7 +196,7 @@ const currentPrecision = computed(() => {
 
   if (!isUndefined(props.precision)) {
     if (pos > props.precision) {
-      consoleWarn('inputNumber', 'step should be less than precision')
+      consoleWarn('n-input-number', 'step should be less than the precision')
     }
     return props.precision
   }
@@ -276,6 +319,13 @@ const handleInput = (val: string) => {
   emit('input', newVal)
   setModel(newVal)
 }
+
+watch(
+  () => props.modelValue,
+  (val) => {
+    state.model = val
+  }
+)
 
 onMounted(() => {
   const nativeInput = inputRef.value?.inputRef

@@ -454,9 +454,9 @@ $input-number-width: map.merge(
 $input-number: () !default;
 $input-number: map.merge(
   (
-    'control-color': getCssVar('text-color-secondary'),
-    'control-bg': getCssVar('fill-color-light'),
-    'control-w': 32px
+    'control-color': getCssVar('text-color-placeholder'),
+    'control-bg': getCssVar('fill-color-lighter'),
+    'control-width': 24px
   ),
   $input-number-width
 );
@@ -999,7 +999,7 @@ $dropdown: map.merge(
     'popper-padding': 4px,
     'popper-radius': getCssVar('border-radius-large'),
     'selected-item-bg': getCssVar('color-primary-light-9'),
-    'selected-item-color': getCssVar('color-primary'),
+    'item-color': getCssVar('text-color-primary'),
     'selected-hover-item-bg': getCssVar('color-primary-light-7')
   ),
   $dropdown

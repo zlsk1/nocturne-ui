@@ -7,3 +7,5 @@ export * from './src/dropdown'
 export * from './src/constants'
 export const NDropdown = withInstall(Dropdown)
 export const NDropdownItem = withInstall(DropdownItem)
+
+export default NDropdown

@@ -1,8 +1,11 @@
 import { definePropType, isNil, isString } from '@nocturne-ui/utils'
 import { ComponentSize, componentSizes } from '@nocturne-ui/constants'
 import { useTooltipContentProps } from '@nocturne-ui/components/tooltip'
-import type ColorPicker from './color-picker.vue'
+import ColorPicker from './color-picker.vue'
+import type { Placement } from '@popperjs/core'
 import type { ComputedRef, ExtractPropTypes, InjectionKey } from 'vue'
+
+export type ColorFormats = 'hex' | 'rgb' | 'hsl' | 'hsb'
 
 export const colorPickerProps = {
   modelValue: {
@@ -10,7 +13,10 @@ export const colorPickerProps = {
   },
   id: String,
   showAlpha: Boolean,
-  colorFormat: String,
+  colorFormat: {
+    type: definePropType<ColorFormats>(String),
+    default: 'hex'
+  },
   disabled: {
     type: Boolean,
     default: false
@@ -35,13 +41,17 @@ export const colorPickerProps = {
   predefine: {
     type: definePropType<string[]>(Array)
   },
-  validateEvent: {
-    type: Boolean,
-    default: true
-  },
   showText: {
     type: Boolean,
     default: false
+  },
+  placement: {
+    type: definePropType<Placement>(String),
+    default: 'bottom-start'
+  },
+  fallbackPlacements: {
+    type: definePropType<Placement[]>(Array),
+    default: ['bottom-start', 'top-start', 'right-start', 'left-start']
   }
 } as const
 
