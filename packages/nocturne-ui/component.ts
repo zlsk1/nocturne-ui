@@ -72,6 +72,7 @@ import { NTimePicker } from '@nocturne-ui/components/time-picker'
 import { NTimeline } from '@nocturne-ui/components/timeline'
 import { NTimelineItem } from '@nocturne-ui/components/timeline-item'
 import { NTooltip } from '@nocturne-ui/components/tooltip'
+import { NTour, NTourStep } from '@nocturne-ui/components/tour'
 import { NTree } from '@nocturne-ui/components/tree'
 import { NTreeSelect } from '@nocturne-ui/components/tree-select'
 import { NUpload } from '@nocturne-ui/components/upload'
@@ -155,6 +156,8 @@ export default [
   NTimeline,
   NTimelineItem,
   NTooltip,
+  NTour,
+  NTourStep,
   NTree,
   NTreeSelect,
   NUpload

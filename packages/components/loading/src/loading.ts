@@ -53,5 +53,5 @@ export type LoadingIntance = {
 
 export type loadingParams = Partial<LoadingProps> | (string | HTMLElement)
 export type normilizedParams = Partial<LoadingProps> & { target: HTMLElement }
-export type closeHandler = () => void
+type closeHandler = () => void
 export type LoadingOptions = typeof loadingDefault

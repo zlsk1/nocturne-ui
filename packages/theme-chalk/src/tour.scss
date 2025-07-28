@@ -1,0 +1,81 @@
+@use 'mixins/mixins' as *;
+@use 'common/var' as *;
+
+$select: #{$namespace}-tour;
+
+@include b(tour) {
+  font-size: 14px;
+}
+
+.#{$select}-popper.#{$namespace}-popper {
+  box-sizing: border-box;
+  width: 480px;
+  border-radius: getCssVar('border-radius-large');
+
+  .#{$select}-panel {
+    &--close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      padding: 2px;
+      color: getCssVar('text-color-placeholder');
+      border-radius: getCssVar('border-radius-small');
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        color: getCssVar('text-color-primary');
+        background: getCssVar('fill-color-dark');
+      }
+    }
+
+    &--cover {
+      padding-top: 42px;
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+
+    &__content {
+      padding-top: 12px;
+      padding-left: 14px;
+      padding-right: 14px;
+      &--title {
+        padding-bottom: 8px;
+        font-weight: 600;
+      }
+      &--description {
+        margin: 0;
+      }
+    }
+
+    &__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px 14px 14px;
+
+      &--indicator {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      &--dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: getCssVar('border-color-dark');
+      }
+    }
+
+    &__dot--selected {
+      background: getCssVar('color-primary');
+    }
+  }
+}
+
+.#{$select}-mask {
+  .#{$select}-placeholder-animated {
+    transition: all getCssVar('transition-duration');
+  }
+}

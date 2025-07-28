@@ -73,6 +73,8 @@ declare module 'vue' {
     NTimeline: (typeof import('nocturne-ui'))['NTimeline']
     NTimelineItem: (typeof import('nocturne-ui'))['NTimelineItem']
     NTooltip: (typeof import('nocturne-ui'))['NTooltip']
+    NTour: (typeof import('nocturne-ui'))['NTour']
+    NTourStep: (typeof import('nocturne-ui'))['NTourStep']
     NTree: (typeof import('nocturne-ui'))['NTree']
     NTreeSelect: (typeof import('nocturne-ui'))['NTreeSelect']
     NUpload: (typeof import('nocturne-ui'))['NUpload']

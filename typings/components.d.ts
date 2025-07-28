@@ -70,6 +70,8 @@ declare module '@vue/runtime-core' {
     NTimeline: (typeof import('packages/nocturne-ui'))['NTimeline']
     NTimelineItem: (typeof import('packages/nocturne-ui'))['NTimelineItem']
     NTooltip: (typeof import('packages/nocturne-ui'))['NTooltip']
+    NTour: (typeof import('packages/nocturne-ui'))['NTour']
+    NTourStep: (typeof import('packages/nocturne-ui'))['NTourStep']
     NTree: (typeof import('packages/nocturne-ui'))['NTree']
     NTreeSelect: (typeof import('packages/nocturne-ui'))['NTreeSelect']
     NUpload: (typeof import('packages/nocturne-ui'))['NUpload']
