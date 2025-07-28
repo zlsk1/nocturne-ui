@@ -1,17 +1,17 @@
 <template>
   <div
-    class="sticky left-0 top-0 flex items-center justify-between w-100% h-[var(--nav-height)] px-[40px] z-[100] shadow-sm max-lg:(relative left-0 top-0) max-md:px-[20px]"
+    class="sticky left-0 top-0 flex items-center justify-between w-100% h-[var(--nav-height)] pl-[40px] pr-[30px] z-[100] shadow-sm max-lg:(relative left-0 top-0) max-md:px-[20px]"
     :class="[plain ? 'bg-transparent' : 'bg-[var(--n-bg-color)]']"
   >
     <a href="/index.html" class="flex items-center">
       <img src="/logo.svg" alt="" />
       <span
         class="ml-2 text-lg"
-        style="font-family: var(--code-font-family); color: #0080ff"
+        style="font-family: var(--code-font-family); color: var(--theme-color)"
         >Nocturne</span
       >
     </a>
-    <div class="flex items-center *:ml-6">
+    <div class="flex items-center gap-4">
       <vpDocSearch />
       <nav class="flex max-md:hidden">
         <a
@@ -32,50 +32,26 @@
       </div>
       <a
         href="https://github.com/zlsk1/nocturne-ui"
-        class="flex align-center transition-color duration-[var(--duration-time)] hover:color-[var(--theme-color)]"
+        class="flex align-center p-1 rounded-md transition-bg duration-[var(--duration-time)] hover:bg-[var(--n-fill-color)] active:bg-[var(--n-fill-color-darker)]"
         title="github"
         target="_blank"
       >
-        <Github />
+        <Github size="20" />
       </a>
       <div
-        class="hidden max-md:(block h-[24px] cursor-pointer)"
+        class="hidden p-1 rounded-md transition-bg duration-[var(--duration-time)] hover:bg-[var(--n-fill-color)] active:bg-[var(--n-fill-color-darker)] max-md:(flex align-center cursor-pointer)"
         @click="openDrawer"
       >
-        <Menu style="border-bottom: 1px solid var(--n-border-color-light)" />
+        <Menu size="20" />
       </div>
     </div>
   </div>
-  <vpNavMenu v-if="route.data.filePath !== 'index.md'" :handler="openMenu" />
-  <ClientOnly>
-    <n-overlay v-show="open" :z-index="199" @click="openMenu" />
-    <n-drawer
-      v-model="visible"
-      placement="bottom"
-      size="95%"
-      :masker="false"
-      @close="closeDrawer"
-    >
-      <template #content>
-        <ul class="w-60 m-auto text-center text-sm" @click="handleNavigate">
-          <li class="py-4" style="border-bottom: 1px solid #363636">
-            <a
-              class="hover:text-[#9499ff] transition-colors"
-              href="../../../zh-CN/guide/nocturne-ui.html"
-              >指南</a
-            >
-          </li>
-          <li class="py-4" style="border-bottom: 1px solid #363636">
-            <a
-              class="hover:text-[#9499ff] transition-colors"
-              href="../../../zh-CN/components/button.html"
-              >组件</a
-            >
-          </li>
-        </ul>
-      </template>
-    </n-drawer>
-  </ClientOnly>
+  <vpNavMenu
+    v-if="route.data.filePath !== 'index.md'"
+    :open="open"
+    :on-open="openMenu"
+  />
+  <vpNavMobile v-model:visible="visible" />
 </template>
 
 <script lang="ts" setup>
@@ -86,6 +62,7 @@ import { RiGithubFill as Github, RiMenu3Fill as Menu } from '@remixicon/vue'
 import vpThemeToggle from './common/vp-theme-toggle.vue'
 import vpDocSearch from './vp-doc-search.vue'
 import vpNavMenu from './vp-nav-menu.vue'
+import vpNavMobile from './vp-nav-mobile.vue'
 
 defineProps({
   plain: {
@@ -138,14 +115,5 @@ const openDrawer = () => {
   if (!visible.value) document.body.style.overflow = 'hidden'
 
   visible.value = !visible.value
-}
-
-const handleNavigate = (e: Event) => {
-  if ((e.target as HTMLElement).tagName === 'A') visible.value = false
-  return
-}
-
-const closeDrawer = () => {
-  document.body.style.overflow = 'auto'
 }
 </script>

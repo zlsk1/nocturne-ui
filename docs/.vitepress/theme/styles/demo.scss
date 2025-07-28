@@ -1,7 +1,7 @@
 .demo-container {
   .demo-content {
     border: 1px solid var(--n-border-color-lighter);
-    border-radius: 4px;
+    border-radius: var(--n-border-radius-base);
 
     .demo-component {
       padding: 30px;

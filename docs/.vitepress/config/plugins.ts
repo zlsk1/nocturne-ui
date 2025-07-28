@@ -3,12 +3,14 @@ import path from 'path'
 import MarkdownIt from 'markdown-it'
 import mdContainer from 'markdown-it-container'
 import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
+import MarkdownItAnchor from 'markdown-it-anchor'
 import tag from '../plugins/tag'
 import { ApiTableContainer } from '../plugins/api-table'
 import ApiTableWrapper from '../plugins/table-wrapper'
 import tooltip from '../plugins/tooltip'
 import link from '../plugins/external-link'
 import { highlight } from '../../utils'
+
 import type Token from 'markdown-it/lib/token.d.mts'
 import type Renderer from 'markdown-it/lib/renderer.d.mts'
 
@@ -34,6 +36,11 @@ export const mdPlugin = (md: MarkdownIt) => {
     .use(tooltip)
     .use(link)
     .use(groupIconMdPlugin)
+    .use(MarkdownItAnchor, {
+      permalink: MarkdownItAnchor.permalink.linkInsideHeader({
+        symbol: '#'
+      })
+    })
 }
 
 /**

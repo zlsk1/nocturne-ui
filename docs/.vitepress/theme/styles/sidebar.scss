@@ -3,15 +3,16 @@
 .sidebar {
   position: fixed;
   left: 0;
-  top: 55px;
+  top: 0;
   height: 100%;
   width: var(--sidebar-width);
   padding: 40px 5px 100px 5px;
   background: var(--n-bg-color);
-  transform: translate(0, 0);
+  transform: translate(0, 55px);
   transition:
     transform 0.3s,
     opacity 0.2s;
+  transition-timing-function: ease-in-out;
   overflow: hidden;
   z-index: 10;
 
@@ -20,10 +21,9 @@
   }
 
   &.open {
-    top: 0;
     opacity: 1;
     visibility: visible;
-    transform: translate(0);
+    transform: translate(0, 0);
     z-index: 200;
   }
 

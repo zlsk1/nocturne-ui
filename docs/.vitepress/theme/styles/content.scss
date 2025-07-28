@@ -54,8 +54,8 @@
 
           th {
             white-space: nowrap;
-            border-top: 1px solid var(--n-border-color);
-            border-bottom: 1px solid var(--n-border-color);
+            border-top: 1px solid var(--n-border-color-lighter);
+            border-bottom: 1px solid var(--n-border-color-lighter);
             padding: 0.6em 1em;
             text-align: left;
             max-width: 250px;
@@ -68,8 +68,8 @@
 
           td {
             white-space: nowrap;
-            border-top: 1px solid var(--n-border-color);
-            border-bottom: 1px solid var(--n-border-color);
+            border-top: 1px solid var(--n-border-color-lighter);
+            border-bottom: 1px solid var(--n-border-color-lighter);
             padding: 0.6em 1em;
             text-align: left;
             max-width: 250px;

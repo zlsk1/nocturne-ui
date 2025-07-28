@@ -9,26 +9,29 @@
           </ClientOnly>
         </div>
         <div class="demo-operas">
-          <n-tooltip content="展开代码">
+          <n-tooltip :content="showCode ? '收起代码' : '展开代码'">
             <n-icon size="16" class="opera">
-              <codeView @click="handleShowCode" />
+              <RiCodeSFill v-if="!showCode" @click="handleShowCode" />
+              <RiCodeSSlashFill v-else @click="handleShowCode" />
             </n-icon>
           </n-tooltip>
-          <n-tooltip content="在playround中编辑">
-            <n-icon size="16" class="opera">
-              <Play />
-            </n-icon>
-          </n-tooltip>
-          <n-tooltip content="在github上查看">
-            <a :href="githubPath" target="_blank">
+          <n-tooltip content="查看源码">
+            <a :href="sourcePath" target="_blank">
               <n-icon size="16" class="opera">
-                <github />
+                <RiGithubFill />
+              </n-icon>
+            </a>
+          </n-tooltip>
+          <n-tooltip content="在GitHub上编辑">
+            <a :href="editPath" target="_blank">
+              <n-icon size="16" class="opera">
+                <RiEditFill />
               </n-icon>
             </a>
           </n-tooltip>
           <n-tooltip content="复制代码">
             <n-icon size="16" class="opera">
-              <fileCopy @click="copyCode" />
+              <RiFileCopyFill @click="copyCode" />
             </n-icon>
           </n-tooltip>
         </div>
@@ -43,7 +46,7 @@
             class="demo-source-close"
             @click="handleShowCode"
           >
-            <Triangle size="20" />
+            <RiArrowUpDoubleLine size="20" />
             <span>收起源代码</span>
           </div>
         </Transition>
@@ -55,11 +58,12 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import {
-  RiSendPlaneFill as Play,
-  RiArrowUpDoubleLine as Triangle,
-  RiCodeView as codeView,
-  RiFileCopyFill as fileCopy,
-  RiGithubFill as github
+  RiArrowUpDoubleLine,
+  RiCodeSFill,
+  RiCodeSSlashFill,
+  RiEditFill,
+  RiFileCopyFill,
+  RiGithubFill
 } from '@remixicon/vue'
 import { useClipboard } from '@vueuse/core'
 import { NMessage } from 'nocturne-ui'
@@ -110,8 +114,12 @@ const formatPathDemos = computed(() => {
   return demos
 })
 
-const githubPath = computed(() => {
+const sourcePath = computed(() => {
   return `https://github.com/zlsk1/nocturne-ui/tree/master/docs/demo/${props.src}.vue`
+})
+
+const editPath = computed(() => {
+  return `https://github.com/zlsk1/nocturne-ui/edit/master/docs/demo/${props.src}.vue`
 })
 
 const handleShowCode = async () => {
@@ -133,10 +141,3 @@ const copyCode = async () => {
   }
 }
 </script>
-
-<style scoped>
-.n-fade-in-linear-enter-active,
-.n-fade-in-linear-leave-active {
-  opacity: 0;
-}
-</style>
