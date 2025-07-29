@@ -12,7 +12,7 @@ import {
   FORWARD_REF_INJECTION_KEY,
   useForwardRefDirective
 } from '@nocturne-ui/composables'
-import type { Ref, VNode } from 'vue'
+import type { VNode } from 'vue'
 
 const NAME = 'NOnlyChild'
 
@@ -72,8 +72,4 @@ function findFirstLegitChild(node: VNode[] | undefined): VNode | null {
 
 function wrapTextContent(s: string | VNode) {
   return <span>{s}</span>
-}
-
-export type OnlyChildExpose = {
-  forwardRef: Ref<HTMLElement>
 }

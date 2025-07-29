@@ -31,6 +31,7 @@
         :trigger-target-el="triggerTargetEl"
         :visible="shouldShow"
         :z-index="zIndex"
+        :borderless="borderless"
         @mouseenter="onContentEnter"
         @mouseleave="onContentLeave"
         @blur="onBlur"
@@ -52,6 +53,7 @@ import { composeEventHandlers } from '@nocturne-ui/utils/dom'
 import { useNamespace } from '@nocturne-ui/composables'
 import { TOOLTIP_INJECTION_KEY } from './constants'
 import { useTooltipContentProps } from './content'
+import type { PopperContentInstance } from '@nocturne-ui/components/popper/src/content'
 
 defineOptions({
   name: 'NTooltipContent',
@@ -75,12 +77,12 @@ const {
 
 const ns = useNamespace('tooltip')
 
-const contentRef = ref()
+const contentRef = ref<PopperContentInstance>()
 const destroyed = ref(false)
 const ariaHidden = ref(true)
 
 const transitionClass = computed(() => {
-  return props.transition || `${ns.ns.value}-zoom-in-top-debounce`
+  return props.transition || `${ns.ns.value}-fade-in-linear`
 })
 
 const persistentRef = computed(() => {

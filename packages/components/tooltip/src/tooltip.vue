@@ -37,6 +37,7 @@
       :virtual-triggering="virtualTriggering"
       :z-index="zIndex"
       :append-to="appendTo"
+      :borderless="borderless"
     >
       <slot name="content">
         <span v-if="rawContent" v-html="content" />

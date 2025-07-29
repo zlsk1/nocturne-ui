@@ -20,11 +20,15 @@ $placement: (
   position: absolute;
   padding: 6px 10px;
   line-height: 20px;
-  font-size: 12px;
-  border-radius: 4px;
+  font-size: getCssVar('font-size-extra-small');
+  word-break: break-all;
+  visibility: visible;
+  border-radius: getCssVar('border-radius-base');
   z-index: 2000;
   background: getCssVar('bg-color', 'overlay');
-  border: 1px solid getCssVar('border-color', 'light');
+  border-width: 1px;
+  border-style: solid;
+  border-color: getCssVar('border-color', 'light');
   box-shadow: getCssVar('box-shadow-light');
 
   @include when(pure) {
@@ -32,11 +36,11 @@ $placement: (
   }
 
   @include when(borderless) {
-    border: none;
+    border-width: 0;
 
     @include e(arrow) {
       &::after {
-        border: none;
+        border-width: 0;
       }
     }
   }
@@ -50,12 +54,17 @@ $placement: (
     &::after {
       content: '';
       position: absolute;
+      left: 0;
+      right: 0;
       width: 10px;
       height: 10px;
       background: getCssVar('bg-color', 'overlay');
-      border: 1px solid getCssVar('border-color', 'light');
+      border-width: 1px;
+      border-style: solid;
+      border-color: getCssVar('border-color', 'light');
       box-sizing: border-box;
       transform: rotate(45deg);
+      z-index: -1;
     }
   }
 
@@ -94,13 +103,13 @@ $placement: (
 
   @include when(dark) {
     color: getCssVar('bg-color');
-    background-color: getCssVar('text-color', 'primary');
-    border: 1px solid getCssVar('text-color', 'primary');
+    background: getCssVar('text-color', 'primary');
+    border-color: getCssVar('text-color', 'primary');
     box-shadow: getCssVar('box-shadow-dark');
 
     @include e(arrow) {
       &::after {
-        border: 1px solid getCssVar('text-color', 'primary');
+        border-color: getCssVar('text-color', 'primary');
         background: getCssVar('text-color', 'primary');
         right: 0;
       }

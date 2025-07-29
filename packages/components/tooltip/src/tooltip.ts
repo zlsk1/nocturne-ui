@@ -23,6 +23,10 @@ export const useTooltipProps = {
   showArrow: {
     type: Boolean,
     default: true
+  },
+  hideAfter: {
+    type: Number,
+    default: 0
   }
 }
 

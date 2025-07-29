@@ -114,7 +114,13 @@ provide(POPPER_CONTENT_INJECTION_KEY, {
 })
 
 defineExpose({
+  /**
+   * @description n-popper content ref
+   */
   popperContentRef: contentRef,
+  /**
+   * @description popperjs instance
+   */
   popperInstanceRef: instanceRef,
   updatePopper,
   contentStyle
