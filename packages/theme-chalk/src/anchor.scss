@@ -5,6 +5,7 @@
 @include b(anchor) {
   @include set-component-css-var(anchor, $anchor);
 
+  position: relative;
   font-size: getCssVar('anchor-font');
 
   a {
@@ -28,7 +29,7 @@
   @include e(marker) {
     position: absolute;
     left: 0;
-    bottom: 0;
+    top: 0;
     width: 2px;
     height: 1rem;
     border-radius: getCssVar('anchor-marker-radius');

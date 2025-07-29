@@ -4,7 +4,7 @@
       v-if="marker"
       ref="markerRef"
       :class="ns.e('marker')"
-      :style="maskerStyle"
+      :style="markerStyle"
     />
     <div
       :class="[
@@ -55,7 +55,7 @@ let scrolling = false
 let currentScrollTop = 0
 let clearAnimate: (() => void) | null = null
 
-const maskerStyle = computed<CSSProperties | undefined>(() => {
+const markerStyle = computed<CSSProperties | undefined>(() => {
   if (!anchorRef.value || !markerRef.value || !activedLink.value) return {}
   const currentLink = links[activedLink.value]
   if (!currentLink) return {}
@@ -67,9 +67,8 @@ const maskerStyle = computed<CSSProperties | undefined>(() => {
   if (props.direction === 'horizontal') {
     return {
       left: `${linkRect.left - anchorRect.left}px`,
-      height: '2px',
       width: `${linkRect.width}px`,
-      opacity: '1'
+      opacity: 1
     }
   }
 
@@ -78,7 +77,7 @@ const maskerStyle = computed<CSSProperties | undefined>(() => {
 
   return {
     top: `${top}px`,
-    opacity: '1'
+    opacity: 1
   }
 })
 
