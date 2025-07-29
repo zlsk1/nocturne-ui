@@ -273,6 +273,7 @@
       cursor: pointer;
 
       > div {
+        white-space: nowrap;
         transition: color getCssVar('transition-duration') ease-in-out;
       }
 

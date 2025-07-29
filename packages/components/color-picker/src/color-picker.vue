@@ -82,13 +82,21 @@
             :class="[
               ns.be('picker', 'color'),
               ns.is('alpha', showAlpha),
-              ns.is('empty', props.modelValue === '' && !currentColor)
+              ns.is(
+                'empty',
+                (props.modelValue === '' || isUndefined(props.modelValue)) &&
+                  !currentColor
+              )
             ]"
           >
             <span
               :class="[
                 ns.be('picker', 'color-inner'),
-                ns.is('empty', props.modelValue === '' && !currentColor)
+                ns.is(
+                  'empty',
+                  (props.modelValue === '' || isUndefined(props.modelValue)) &&
+                    !currentColor
+                )
               ]"
               :style="{
                 backgroundColor: displayedColor

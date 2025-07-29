@@ -50,7 +50,7 @@ export const nTourStepProps = {
     type: String
   },
   target: {
-    type: HTMLElement
+    type: definePropType<HTMLElement>(Object)
   },
   mask: {
     type: definePropType<boolean | { style?: CSSProperties; color?: string }>([
