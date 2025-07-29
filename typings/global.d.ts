@@ -82,7 +82,7 @@ declare module 'vue' {
 
   interface ComponentCustomProperties {
     $message: (typeof import('nocturne-ui'))['NMessage']
-    $loading: (typeof import('nocturne-ui'))['NLoadingUse']
+    $loading: (typeof import('nocturne-ui'))['useLoading']
     $notify: (typeof import('nocturne-ui'))['NNotification']
   }
 }

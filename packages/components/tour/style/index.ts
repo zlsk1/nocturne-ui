@@ -1,5 +1,5 @@
 import '@nocturne-ui/theme-chalk/src/base.scss'
 import '@nocturne-ui/theme-chalk/src/tour.scss'
-import '@noctuen-ui/components/tooltip/style'
+import '@nocturne-ui/components/tooltip/style'
 import '@nocturne-ui/components/button/style'
 import '@nocturne-ui/components/space/style'
