@@ -78,6 +78,7 @@ declare module 'vue' {
     NTree: (typeof import('nocturne-ui'))['NTree']
     NTreeSelect: (typeof import('nocturne-ui'))['NTreeSelect']
     NUpload: (typeof import('nocturne-ui'))['NUpload']
+    NWatermark: (typeof import('nocturne-ui'))['NWatermark']
   }
 
   interface ComponentCustomProperties {

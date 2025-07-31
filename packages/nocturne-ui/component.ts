@@ -76,6 +76,7 @@ import { NTour, NTourStep } from '@nocturne-ui/components/tour'
 import { NTree } from '@nocturne-ui/components/tree'
 import { NTreeSelect } from '@nocturne-ui/components/tree-select'
 import { NUpload } from '@nocturne-ui/components/upload'
+import { NWatermark } from '@nocturne-ui/components/watermark'
 
 import type { Plugin } from 'vue'
 
@@ -160,5 +161,6 @@ export default [
   NTourStep,
   NTree,
   NTreeSelect,
-  NUpload
+  NUpload,
+  NWatermark
 ] as Plugin[]
