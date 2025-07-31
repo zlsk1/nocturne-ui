@@ -12,9 +12,9 @@
   ],
   "type": "module",
   "scripts": {
-    "dev": "pnpm -C playground dev --open",
+    "dev": "pnpm -C playground dev",
     "build": "pnpm -C build start",
-    "preview": "vite preview --open",
+    "preview": "vite preview",
     "test": "vitest",
     "test:coverage": "vitest --coverage",
     "clean:dist": "rimraf dist",
