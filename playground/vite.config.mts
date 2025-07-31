@@ -1,13 +1,13 @@
 import path from 'path'
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
+import Vue from '@vitejs/plugin-vue'
+import VueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
 import glob from 'fast-glob'
 import { dependencies } from '../packages/nocturne-ui/package.json'
 import { nuRoot, pkgRoot, projRoot } from '../build/utils'
 import './init'
-import type { UserConfig } from 'vite'
+import type { Plugin, UserConfig } from 'vite'
 
 export default defineConfig(async () => {
   let packageDeps = Object.keys(dependencies)
@@ -17,7 +17,7 @@ export default defineConfig(async () => {
   })
 
   return {
-    plugins: [vue(), vueJsx(), Unocss()],
+    plugins: [Vue() as Plugin, VueJsx(), Unocss()],
     resolve: {
       alias: [
         {

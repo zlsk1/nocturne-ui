@@ -1,13 +1,7 @@
-<script lang="ts" setup>
-import { onMounted } from 'vue'
-
-onMounted(() => {
-  document.documentElement.classList.add('dark')
-})
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <div ref="containerRef" class="playground-container">
+  <div ref="containerRef" class="relative">
     <n-input model-value="hello world" />
   </div>
 </template>
@@ -20,10 +14,5 @@ body {
   justify-content: center;
   width: 100%;
   height: 100%;
-  scroll-behavior: smooth;
-}
-.playground-container {
-  position: relative;
-  display: flex;
 }
 </style>
