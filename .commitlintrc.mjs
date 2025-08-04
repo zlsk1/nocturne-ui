@@ -1,9 +1,26 @@
+import { execSync } from 'child_process'
 import fg from 'fast-glob'
+
+const gitStatus = execSync('git status --porcelain || true')
+  .toString()
+  .trim()
+  .split('\n')
+
+const subjectComplete = gitStatus
+  .find((r) => ~r.indexOf('M  packages/components'))
+  ?.replace(/\//g, '%%')
+  ?.match(/packages%%components%%((\w|-)*)/)?.[1]
+
+const scopeComplete = gitStatus
+  .find((r) => ~r.indexOf('M  packages'))
+  ?.replace(/(\/)/g, '%%')
+  ?.match(/packages%%((\w|-)*)/)?.[1]
 
 const findScope = (path) => fg.sync('*', { cwd: path, onlyDirectories: true })
 
 const scopes = [
   ...findScope('packages'),
+  ...findScope('internal'),
   'docs',
   'playground',
   'style',
@@ -12,9 +29,11 @@ const scopes = [
   'ci',
   'types',
   'deps',
-  'common'
+  'common',
+  'dev'
 ]
 
+/** @type {import('cz-git').UserConfig} */
 export default {
   extends: ['@commitlint/config-conventional'],
   rules: {
@@ -43,5 +62,10 @@ export default {
         'release'
       ]
     ]
+  },
+  prompt: {
+    defaultScope: scopeComplete,
+    defaultSubject: subjectComplete && `[${subjectComplete}] `,
+    customScopesAlign: !scopeComplete ? 'top' : 'bottom'
   }
 }

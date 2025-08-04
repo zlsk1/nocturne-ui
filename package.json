@@ -26,7 +26,8 @@
     "check": "vue-tsc -p tsconfig.node.json --composite false  --noEmit",
     "docs:dev": "pnpm -C docs dev",
     "docs:build": "pnpm -C docs build",
-    "docs:preview": "pnpm -C docs preview"
+    "docs:preview": "pnpm -C docs preview",
+    "cz": "czg"
   },
   "dependencies": {
     "@nocturne-ui/components": "workspace:*",
@@ -60,6 +61,7 @@
     "@vue/test-utils": "^2.4.4",
     "chalk": "^5.5.0",
     "consola": "^3.4.2",
+    "cz-git": "^1.12.0",
     "eslint": "^9.10.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "^2.31.0",
@@ -89,6 +91,11 @@
   "pnpm": {
     "patchedDependencies": {
       "async-validator@4.2.5": "patches/async-validator@4.2.5.patch"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-git"
     }
   }
 }
