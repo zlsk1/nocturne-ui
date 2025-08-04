@@ -29,8 +29,8 @@
   },
   "dependencies": {
     "@nocturne-ui/components": "workspace:*",
-    "@nocturne-ui/constants": "workspace:*",
     "@nocturne-ui/composables": "workspace:*",
+    "@nocturne-ui/constants": "workspace:*",
     "@nocturne-ui/directives": "workspace:*",
     "@nocturne-ui/locale": "workspace:*",
     "@nocturne-ui/test-utils": "workspace:*",
@@ -83,5 +83,10 @@
   },
   "lint-staged": {
     "*.{vue,js,ts,jsx,tsx}": "eslint --fix"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "async-validator@4.2.5": "patches/async-validator@4.2.5.patch"
+    }
   }
 }
