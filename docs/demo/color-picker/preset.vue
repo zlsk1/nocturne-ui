@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <n-color-picker v-model="val" :predefine="predefineColors" />
-  </div>
+  <n-color-picker v-model="val" :predefine="predefineColors" show-alpha />
 </template>
 
 <script lang="ts" setup>

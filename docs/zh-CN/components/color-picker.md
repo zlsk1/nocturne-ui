@@ -25,7 +25,7 @@ color-picker/alpha
 
 ## 预设颜色
 
-:::demo 定义 `predefine` 属性展示预设颜色，为用户提供选择
+:::demo 使用 `predefine` 展示预设颜色，为用户提供选择
 
 color-picker/preset
 
@@ -35,7 +35,7 @@ color-picker/preset
 
 :::demo 显示已选颜色的值
 
-color-picker/show-text
+color-picker/color-format
 
 :::
 
@@ -43,20 +43,22 @@ color-picker/show-text
 
 ### Color Picker Props
 
-| 属性名               | 描述                | 类型                                     | 默认值 |
-| -------------------- | ------------------- | ---------------------------------------- | ------ |
-| modelValue / v-model | color-picker的值    | ^[string]                                | —      |
-| id                   | 原生id属性          | ^[string]                                | —      |
-| showAlpha            | 是否显示alpha控制条 | ^[boolean]                               | false  |
-| colorFormat          | 颜色格式            | ^[enum]`'hsl' \| 'hsv' \| 'hex' \|'rgb'` | —      |
-| disabled             | 是否禁用            | ^[boolean]                               | false  |
-| size                 | 尺寸                | ^[enum]`'large' \| 'default' \| 'small'` | false  |
-| popperClass          | 下拉框的类名        | ^[string]                                | —      |
-| label                | 原生label属性       | ^[string]                                | false  |
-| tabindex             | 原生tabindex属性    | ^[string]/ ^[number]                     | 0      |
-| teleported           | 是否插入到body下    | ^[boolean]                               | true   |
-| predefine            | 预设颜色组          | ^[object]`string[]`                      | []     |
-| showText             | 是否显示文字        | ^[boolean]                               | false  |
+| 属性名               | 描述                                                                              | 类型                                                                    | 默认值                                                     |
+| -------------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------- |
+| modelValue / v-model | color-picker的值                                                                  | ^[string]                                                               | —                                                          |
+| id                   | 原生id属性                                                                        | ^[string]                                                               | —                                                          |
+| showAlpha            | 是否显示alpha控制条                                                               | ^[boolean]                                                              | false                                                      |
+| colorFormat          | 颜色格式                                                                          | ^[ColorFormats]`'hsl' \| 'hsb' \| 'hex' \|'rgb'`                        | 'hex'                                                      |
+| disabled             | 是否禁用                                                                          | ^[boolean]                                                              | false                                                      |
+| size                 | 尺寸                                                                              | ^[enum]`'large' \| 'default' \| 'small'`                                | false                                                      |
+| popperClass          | 下拉框的类名                                                                      | ^[string]                                                               | —                                                          |
+| label                | 原生label属性                                                                     | ^[string]                                                               | false                                                      |
+| tabindex             | 原生tabindex属性                                                                  | ^[string]/ ^[number]                                                    | 0                                                          |
+| teleported           | 是否插入到body下                                                                  | ^[boolean]                                                              | true                                                       |
+| predefine            | 预设颜色组                                                                        | ^[object]`string[]`                                                     | []                                                         |
+| showText             | 是否显示文字                                                                      | ^[boolean]                                                              | false                                                      |
+| placement            | 浮层出现的位置                                                                    | ^[enum][popper.js](https://popper.js.org/docs/v2/constructors/#options) | 'bottom-start'                                             |
+| fallbackPlacements   | [popper.js](https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements)属性 | ^[Array]                                                                | ['bottom-start', 'top-start', 'right-start', 'left-start'] |
 
 ### Color Picker Emits
 

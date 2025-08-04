@@ -2,11 +2,11 @@
   <div class="mb-4">
     <n-color-picker v-model="value1" @change="onChange" />
   </div>
-  <div>
-    <n-color-picker v-model="value2" size="large" class="mr-4" />
-    <n-color-picker v-model="value3" size="default" class="mx-4" />
-    <n-color-picker v-model="value4" size="small" class="mx-4" />
-  </div>
+  <n-space size="large">
+    <n-color-picker v-model="value2" size="large" />
+    <n-color-picker v-model="value3" size="default" />
+    <n-color-picker v-model="value4" size="small" />
+  </n-space>
 </template>
 
 <script lang="ts" setup>
