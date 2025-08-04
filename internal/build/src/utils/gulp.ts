@@ -1,7 +1,7 @@
-import { buildRoot } from './path'
+import { buildRoot } from '@nocturne-ui/build-utils'
 import { run } from './process'
 
-import type { TaskFunction } from 'gulp'
+import type { TaskFunction } from 'undertaker'
 
 export const withTaskName = <T extends TaskFunction>(name: string, fn: T) =>
   Object.assign(fn, { displayName: name })

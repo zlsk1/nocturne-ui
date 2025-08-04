@@ -6,18 +6,18 @@ import {
   distRoot,
   nuPackage,
   pkgOutput,
-  projRoot,
-  run,
-  withTaskName
-} from './utils'
-import { buildConfig } from './build-info'
+  projRoot
+} from '@nocturne-ui/build-utils'
 import {
+  buildConfig,
   buildFullBundle,
   buildModules,
-  generateTypesDefinitions
-} from './tasks'
+  generateTypesDefinitions,
+  run,
+  withTaskName
+} from './src'
 import type { TaskFunction } from 'gulp'
-import type { Module } from './build-info'
+import type { Module } from './src'
 
 const copyFiles = () => {
   return Promise.all([

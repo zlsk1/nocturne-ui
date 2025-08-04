@@ -10,21 +10,23 @@ import { parallel } from 'gulp'
 import fg from 'fast-glob'
 import {
   camelCase,
-  formatBundleFilename,
-  getExternal,
   pkgOutput,
   pkgRoot,
-  upperFirst,
+  upperFirst
+} from '@nocturne-ui/build-utils'
+import { target } from '../build-info'
+import {
+  formatBundleFilename,
+  getExternal,
   withTaskName,
   writeBundles
 } from '../utils'
-import { NAlias } from '../plugins/rollup-plugin-Nalias'
-import { target } from '../build-info'
+import { NAlias } from '../'
 import type { TaskFunction } from 'gulp'
 import type { Plugin } from 'rollup'
 
 async function buildFullEntry(minify: boolean) {
-  const plugins: Plugin[] = [
+  const plugins = [
     NAlias(),
     vue(),
     vueJsx(),
@@ -49,7 +51,7 @@ async function buildFullEntry(minify: boolean) {
       'process.env.NODE_ENV': JSON.stringify('production'),
       preventAssignment: true
     })
-  ]
+  ] as Plugin[]
   if (minify) {
     plugins.push(
       minifyPlugin({

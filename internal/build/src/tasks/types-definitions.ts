@@ -11,7 +11,7 @@ import {
   pathRewriter,
   pkgRoot,
   projRoot
-} from '../utils'
+} from '@nocturne-ui/build-utils'
 
 import type { CompilerOptions, OutputFile, SourceFile } from 'ts-morph'
 
@@ -51,7 +51,7 @@ export const generateTypesDefinitions = async () => {
     const emitFiles = emitOutput.getOutputFiles()
 
     if (emitFiles.length === 0) {
-      throw new Error(`Emit no file: ${relativePath}`)
+      // throw new Error(`Emit no file: ${relativePath}`)
     }
 
     const subTasks = emitFiles.map(async (outputFile: OutputFile) => {

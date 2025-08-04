@@ -2,10 +2,17 @@
   "name": "@nocturne-ui/build",
   "version": "0.0.1",
   "private": true,
-  "main": "index.js",
-  "module": "index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "start": "gulp --require @esbuild-kit/cjs-loader -f gulpfile.ts"
+    "start": "gulp --require @esbuild-kit/cjs-loader -f gulpfile.ts",
+    "build": "unbuild --stub"
+  },
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs",
+    "types": "./dist/index.d.ts"
   },
   "peerDependencies": {
     "vue": "^3.2.0"
@@ -25,6 +32,7 @@
   },
   "devDependencies": {
     "@esbuild-kit/cjs-loader": "2.2.1",
+    "unbuild": "2.0.0",
     "vue": "^3.4.15"
   }
 }

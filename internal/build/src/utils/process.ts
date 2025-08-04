@@ -1,5 +1,5 @@
 import { spawn } from 'child_process'
-import { projRoot } from './path'
+import { projRoot } from '@nocturne-ui/build-utils'
 
 export const run = async (command: string, cwd: string = projRoot) => {
   return new Promise<void>((resolve, reject) => {

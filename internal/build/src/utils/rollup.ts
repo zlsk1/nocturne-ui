@@ -1,4 +1,4 @@
-import { getPackageDependencies, nuPackage } from '.'
+import { getPackageDependencies, nuPackage } from '@nocturne-ui/build-utils'
 import type { OutputOptions, RollupBuild } from 'rollup'
 
 export function writeBundles(bundle: RollupBuild, options: OutputOptions[]) {

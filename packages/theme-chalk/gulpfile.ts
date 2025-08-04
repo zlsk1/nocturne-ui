@@ -7,7 +7,7 @@ import autoprefixer from 'gulp-autoprefixer'
 import rename from 'gulp-rename'
 import postcss from 'postcss'
 import cssnano from 'cssnano'
-import { pkgOutput } from '../../build/utils'
+import { pkgOutput } from '@nocturne-ui/build-utils'
 
 const distFolder = path.resolve(__dirname, 'dist')
 const distBundle = path.resolve(pkgOutput, 'theme-chalk')

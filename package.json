@@ -6,14 +6,14 @@
   "workspace": [
     "packages/*",
     "playground",
-    "build",
+    "internal/*",
     "docs",
     "common/*"
   ],
   "type": "module",
   "scripts": {
     "dev": "pnpm -C playground dev",
-    "build": "pnpm -C build start",
+    "build": "pnpm -C internal/build start",
     "preview": "vite preview",
     "test": "vitest",
     "test:coverage": "vitest --coverage",
@@ -50,6 +50,7 @@
     "@esbuild-kit/cjs-loader": "2.2.1",
     "@eslint/js": "9.10.0",
     "@nocturne-ui/build": "workspace:*",
+    "@nocturne-ui/build-utils": "workspace:*",
     "@types/gulp": "4.0.9",
     "@types/lodash": "^4.17.7",
     "@types/node": "^20.13.0",

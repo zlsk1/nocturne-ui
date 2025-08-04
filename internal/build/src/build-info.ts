@@ -1,5 +1,5 @@
 import path from 'path'
-import { pkgOutput } from './utils'
+import { pkgOutput } from '@nocturne-ui/build-utils'
 
 import type { ModuleFormat } from 'rollup'
 

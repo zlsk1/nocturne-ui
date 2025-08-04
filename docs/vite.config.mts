@@ -6,7 +6,7 @@ import Inspect from 'vite-plugin-inspect'
 import Components from 'unplugin-vue-components/vite'
 import NocturneUIResolver from 'nocturne-ui-resolver'
 import { groupIconVitePlugin } from 'vitepress-plugin-group-icons'
-import { projRoot } from '../build/utils'
+import { projRoot } from '@nocturne-ui/build-utils'
 import { autoImportDemo } from './.vitepress/plugins/demo-import'
 
 const { dependencies: deps } = await import(

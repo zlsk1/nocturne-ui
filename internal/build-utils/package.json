@@ -1,0 +1,23 @@
+{
+  "name": "@nocturne-ui/build-utils",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "unbuild --stub"
+  },
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs",
+    "types": "./dist/index.d.ts"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "unbuild": "2.0.0"
+  }
+}

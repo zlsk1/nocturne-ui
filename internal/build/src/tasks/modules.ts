@@ -7,22 +7,16 @@ import fg from 'fast-glob'
 import commonjs from '@rollup/plugin-commonjs'
 import { rollup } from 'rollup'
 import { parallel } from 'gulp'
-import {
-  excludeFiles,
-  getExternal,
-  nuRoot,
-  pkgRoot,
-  withTaskName,
-  writeBundles
-} from '../utils'
-import { NAlias } from '../plugins/rollup-plugin-Nalias'
+import { excludeFiles, nuRoot, pkgRoot } from '@nocturne-ui/build-utils'
 import { buildConfigEntries, target } from '../build-info'
+import { getExternal, withTaskName, writeBundles } from '../utils'
+import { NAlias } from '../'
 import type { TaskFunction } from 'gulp'
 import type { OutputOptions, Plugin } from 'rollup'
 
 const extensions = ['.mjs', '.js', '.ts', '.json']
 
-const plugins: Plugin[] = [
+const plugins = [
   NAlias(),
   vue(),
   vueJsx(),
@@ -35,7 +29,7 @@ const plugins: Plugin[] = [
       '.vue': 'ts'
     }
   })
-]
+] as Plugin[]
 
 export const buildMainModules = async () => {
   const input = excludeFiles(
