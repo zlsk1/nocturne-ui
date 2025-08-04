@@ -1,24 +1,24 @@
 import { isFunction } from '@nocturne-ui/utils'
 import type { ObjectDirective } from 'vue'
 
-export interface LongPressOptions {
+export interface RepeatClickOptions {
   duration?: number
   interval?: number
   handler: (...args: any[]) => unknown
 }
 
-const LONGPRESS_DURATION = 700
-const LONGPRESS_INTERVAL = 100
+const REPEAT_DURATION = 700
+const REPEAT_INTERVAL = 100
 
-export const vLongPress: ObjectDirective<
+export const vRepeatClick: ObjectDirective<
   HTMLElement,
-  LongPressOptions | LongPressOptions['handler']
+  RepeatClickOptions | RepeatClickOptions['handler']
 > = {
   beforeMount(el, binding) {
     let pressTimer: ReturnType<typeof setTimeout> | null = null
     let intervalTimer: ReturnType<typeof setInterval> | null = null
 
-    const { duration = LONGPRESS_DURATION, interval = LONGPRESS_INTERVAL } =
+    const { duration = REPEAT_DURATION, interval = REPEAT_INTERVAL } =
       isFunction(binding.value) ? {} : binding.value
 
     const handler = isFunction(binding.value)

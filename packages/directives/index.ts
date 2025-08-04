@@ -1,1 +1,1 @@
-export { vLongPress } from './longpress'
+export { vRepeatClick } from './repeat-click'

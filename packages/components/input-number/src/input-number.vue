@@ -12,7 +12,7 @@
     <template v-if="controls">
       <template v-if="controlsMode === 'outter'">
         <span
-          v-long-press="handleIncrease"
+          v-repeat-click="handleIncrease"
           :class="[
             ns.e('control'),
             ns.em('control', 'increase'),
@@ -27,7 +27,7 @@
           </slot>
         </span>
         <span
-          v-long-press="handleDecrease"
+          v-repeat-click="handleDecrease"
           :class="[
             ns.e('control'),
             ns.em('control', 'decrease'),
@@ -48,7 +48,7 @@
           :class="[ns.em('control', 'inner')]"
         >
           <span
-            v-long-press="handleIncrease"
+            v-repeat-click="handleIncrease"
             :class="[
               ns.e('control'),
               ns.em('control', 'increase'),
@@ -63,7 +63,7 @@
             </slot>
           </span>
           <span
-            v-long-press="handleDecrease"
+            v-repeat-click="handleDecrease"
             :class="[
               ns.e('control'),
               ns.em('control', 'decrease'),
@@ -131,7 +131,7 @@ import {
 } from '@nocturne-ui/composables'
 import { useForm, useFormItem } from '@nocturne-ui/components/form'
 import { consoleWarn, isNumber, isUndefined } from '@nocturne-ui/utils'
-import { vLongPress } from '@nocturne-ui/directives'
+import { vRepeatClick } from '@nocturne-ui/directives'
 import { inputNumberEmits, inputNumberProps } from './input-number'
 import type { InputInstance } from '@nocturne-ui/components/input/src/input'
 
