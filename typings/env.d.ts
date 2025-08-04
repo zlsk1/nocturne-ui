@@ -1,13 +1,13 @@
 import { INSTALLED_KEY } from '@nocturne-ui/constants'
 import type { Component, vShow } from 'vue'
 
-// declare global {
-//   const process: {
-//     env: {
-//       NODE_ENV: string
-//     }
-//   }
-// }
+declare global {
+  const process: {
+    env: {
+      NODE_ENV: string
+    }
+  }
+}
 
 declare module '@vue/runtime-core' {
   export interface App {
