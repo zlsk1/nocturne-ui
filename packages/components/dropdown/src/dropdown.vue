@@ -13,7 +13,6 @@
       :popper-options="popperOptions"
       :disabled="disabled"
       :offset="6"
-      :hide-after="10"
       :show-arrow="showArrow"
       :teleported="teleported"
       @before-show="handleShow"

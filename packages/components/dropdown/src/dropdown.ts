@@ -1,4 +1,4 @@
-import { type ExtractPropTypes, Teleport } from 'vue'
+import { type ExtractPropTypes } from 'vue'
 import { placements } from '@popperjs/core'
 import { TooltipTriggerType } from '@nocturne-ui/components/tooltip'
 import { definePropType, isBoolean, isString } from '@nocturne-ui/utils'

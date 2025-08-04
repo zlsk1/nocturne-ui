@@ -26,7 +26,7 @@ export const useTooltipProps = {
   },
   hideAfter: {
     type: Number,
-    default: 0
+    default: 120
   }
 }
 
