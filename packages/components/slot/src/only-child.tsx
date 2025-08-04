@@ -7,7 +7,7 @@ import {
   inject,
   withDirectives
 } from 'vue'
-import { NOOP, isObject } from '@vue/shared'
+import { NOOP, isObject } from '@nocturne-ui/utils'
 import {
   FORWARD_REF_INJECTION_KEY,
   useForwardRefDirective

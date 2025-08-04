@@ -12,3 +12,12 @@ export * from './scroll'
 export * from './console'
 export * from './array'
 export * from './dynamic-css'
+
+const hasOwnProperty = Object.prototype.hasOwnProperty
+
+export const hasOwn = (
+  o: object,
+  key: string | symbol
+): key is keyof typeof o => hasOwnProperty.call(o, key)
+
+export const NOOP = () => {}

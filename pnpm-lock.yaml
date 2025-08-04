@@ -326,9 +326,6 @@ importers:
       '@types/lodash':
         specifier: ^4.17.7
         version: 4.17.13
-      '@vue/shared':
-        specifier: 3.4.15
-        version: 3.4.15
       '@vueuse/core':
         specifier: ^9.13.0
         version: 9.13.0(vue@3.4.15)
@@ -344,7 +341,7 @@ importers:
     devDependencies:
       vue:
         specifier: ^3.4.15
-        version: 3.4.15(typescript@5.4.5)
+        version: 3.4.15
       vue-router:
         specifier: ^4.0.16
         version: 4.4.5(vue@3.4.15)
@@ -2353,7 +2350,7 @@ packages:
     peerDependencies:
       vue: '>= 3'
     dependencies:
-      vue: 3.4.15(typescript@5.4.5)
+      vue: 3.4.15
     dev: false
 
   /@rollup/plugin-alias@5.1.1(rollup@3.29.5):
@@ -3969,7 +3966,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': 3.4.15
       '@vue/shared': 3.4.15
-      vue: 3.4.15(typescript@5.4.5)
+      vue: 3.4.15
 
   /@vue/server-renderer@3.5.13(vue@3.5.13):
     resolution: {integrity: sha512-wAi4IRJV/2SAW3htkTlB+dHeRmpTiVIK1OGLWV1yeStVSebSQQOwGwIq0D3ZIoBj2C2qpgz5+vX9iEBkTdk5YA==}
@@ -12185,7 +12182,7 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
-      vue: 3.4.15(typescript@5.4.5)
+      vue: 3.4.15
     dev: false
 
   /vue-demi@0.14.10(vue@3.5.13):
@@ -12235,7 +12232,7 @@ packages:
       vue: ^3.2.0
     dependencies:
       '@vue/devtools-api': 6.6.4
-      vue: 3.4.15(typescript@5.4.5)
+      vue: 3.4.15
     dev: true
 
   /vue-tsc@2.2.0(typescript@5.4.5):
@@ -12248,6 +12245,20 @@ packages:
       '@vue/language-core': 2.2.0(typescript@5.4.5)
       typescript: 5.4.5
     dev: true
+
+  /vue@3.4.15:
+    resolution: {integrity: sha512-jC0GH4KkWLWJOEQjOpkqU1bQsBwf4R1rsFtw5GQJbjHVKWDzO6P0nWWBTmjp1xSemAioDFj1jdaK1qa3DnMQoQ==}
+    peerDependencies:
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/compiler-dom': 3.4.15
+      '@vue/compiler-sfc': 3.4.15
+      '@vue/runtime-dom': 3.4.15
+      '@vue/server-renderer': 3.4.15(vue@3.4.15)
+      '@vue/shared': 3.4.15
 
   /vue@3.4.15(typescript@5.4.5):
     resolution: {integrity: sha512-jC0GH4KkWLWJOEQjOpkqU1bQsBwf4R1rsFtw5GQJbjHVKWDzO6P0nWWBTmjp1xSemAioDFj1jdaK1qa3DnMQoQ==}

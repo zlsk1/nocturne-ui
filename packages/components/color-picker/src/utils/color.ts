@@ -1,4 +1,4 @@
-import { hasOwn } from '@vue/shared'
+import { hasOwn } from '@nocturne-ui/utils'
 
 const HEX_INT_MAP: Record<string, number> = {
   A: 10,
