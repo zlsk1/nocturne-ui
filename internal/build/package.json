@@ -6,7 +6,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "start": "gulp --require @esbuild-kit/cjs-loader -f gulpfile.ts",
+    "start": "gulp --require tsx/dist/loader.cjs -f gulpfile.ts",
     "build": "unbuild --stub"
   },
   "exports": {
@@ -31,7 +31,7 @@
     "ts-morph": "14.0.0"
   },
   "devDependencies": {
-    "@esbuild-kit/cjs-loader": "2.2.1",
+    "tsx": "4.16.2",
     "unbuild": "2.0.0",
     "vue": "^3.4.15"
   }

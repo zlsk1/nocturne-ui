@@ -8,6 +8,9 @@ import rename from 'gulp-rename'
 import postcss from 'postcss'
 import cssnano from 'cssnano'
 import { pkgOutput } from '@nocturne-ui/build-utils'
+import chalk from 'chalk'
+import consola from 'consola'
+import type Vinly from 'vinyl'
 
 const distFolder = path.resolve(__dirname, 'dist')
 const distBundle = path.resolve(pkgOutput, 'theme-chalk')
@@ -33,7 +36,7 @@ function compressWithCssnano() {
   return new Transform({
     objectMode: true,
     transform(chunk, _encoding, callback) {
-      const file = chunk
+      const file = chunk as Vinly
       if (file.isNull()) {
         callback(null, file)
         return
@@ -45,6 +48,9 @@ function compressWithCssnano() {
       const cssString = file.contents!.toString()
       processor.process(cssString, { from: file.path }).then((result) => {
         file.contents = Buffer.from(result.css)
+        consola.success(
+          `${chalk.cyan(file.basename)}: ${chalk.magenta(`${cssString.length / 1000} KB`)} -> ${chalk.blue(`${result.css.length / 1000} KB`)}`
+        )
         callback(null, file)
       })
     }
@@ -58,15 +64,19 @@ function compressWithCssnano() {
  */
 function buildThemeChalk() {
   const sass = gulpSass(dartSass)
-  const noElPrefixFile = /(index|base|display)/
+  const noNPrefixFile = /(index|base|display)/
   return src(path.resolve(__dirname, 'src/*.scss'))
-    .pipe(sass.sync())
+    .pipe(
+      sass.sync({
+        silenceDeprecations: ['legacy-js-api', 'mixed-decls', 'color-functions']
+      })
+    )
     .pipe(autoprefixer({ cascade: false }))
     .pipe(compressWithCssnano())
     .pipe(
-      rename((path) => {
-        if (!noElPrefixFile.test(path.basename)) {
-          path.basename = `n-${path.basename}`
+      rename(({ basename }) => {
+        if (!noNPrefixFile.test(basename)) {
+          basename = `n-${basename}`
         }
       })
     )
@@ -80,7 +90,11 @@ function buildThemeChalk() {
 function buildDarkCssVars() {
   const sass = gulpSass(dartSass)
   return src(path.resolve(__dirname, 'src/dark/css-vars.scss'))
-    .pipe(sass.sync())
+    .pipe(
+      sass.sync({
+        silenceDeprecations: ['legacy-js-api', 'mixed-decls', 'color-functions']
+      })
+    )
     .pipe(autoprefixer({ cascade: false }))
     .pipe(compressWithCssnano())
     .pipe(dest(`${distFolder}/dark`))
@@ -106,7 +120,6 @@ export function copyThemeChalkSource() {
 export const build: TaskFunction = parallel(
   copyThemeChalkSource,
   series(buildThemeChalk, buildDarkCssVars, copyThemeChalkBundle)
-  // series(buildThemeChalk, copyThemeChalkBundle)
 )
 
 export default build
