@@ -37,7 +37,7 @@ export const watermarkProps = {
     type: definePropType<[number, number]>(Array)
   },
   font: {
-    type: definePropType<WatermarkFont>(Object)
+    type: definePropType<Partial<WatermarkFont>>(Object)
   },
   opacity: {
     type: Number,

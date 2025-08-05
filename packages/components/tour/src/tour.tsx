@@ -1,4 +1,4 @@
-import { Teleport, computed, defineComponent, ref, toRefs } from 'vue'
+import { Teleport, computed, defineComponent, ref, toRefs, watch } from 'vue'
 import { useNamespace } from '@nocturne-ui/composables'
 import ToolTip from '@nocturne-ui/components/tooltip'
 import { nTourEmit, nTourProps } from './props'
@@ -46,6 +46,13 @@ export default defineComponent({
       open,
       gap,
       mergedScrollIntoViewOptions
+    )
+
+    watch(
+      () => props.open,
+      (opened) => {
+        open.value = opened
+      }
     )
 
     return () => {
