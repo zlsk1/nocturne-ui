@@ -5,7 +5,7 @@ import ColorPicker from './color-picker.vue'
 import type { Placement } from '@popperjs/core'
 import type { ComputedRef, ExtractPropTypes, InjectionKey } from 'vue'
 
-export type ColorFormats = 'hex' | 'rgb' | 'hsl' | 'hsb'
+export type ColorFormats = 'hex' | 'rgb' | 'hsl' | 'hsv'
 
 export const colorPickerProps = {
   modelValue: {

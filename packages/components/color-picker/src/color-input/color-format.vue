@@ -22,7 +22,7 @@
         <n-dropdown-item label="HEX" />
         <n-dropdown-item label="HSL" />
         <n-dropdown-item label="RGB" />
-        <n-dropdown-item label="HSB" />
+        <n-dropdown-item label="HSV" />
       </template>
     </n-dropdown>
   </div>
@@ -33,6 +33,8 @@ import { computed, ref } from 'vue'
 import { RiArrowDownSLine } from '@remixicon/vue'
 import { useNamespace } from '@nocturne-ui/composables'
 import { NDropdown, NDropdownItem } from '@nocturne-ui/components/dropdown'
+import { definePropType } from '@nocturne-ui/utils'
+import type { ColorFormats } from '../color-picker'
 
 defineOptions({
   name: 'NColorFormat'
@@ -40,22 +42,28 @@ defineOptions({
 
 const props = defineProps({
   format: {
-    type: String,
-    default: 'hex'
+    type: definePropType<ColorFormats>(String),
+    required: true
   }
 })
 
-const emit = defineEmits<{ formatChange: [format: string] }>()
+const emit = defineEmits<{ formatChange: [format: ColorFormats] }>()
 
 const ns = useNamespace('color')
 
-const format = ref(props.format)
 const visible = ref(false)
 
-const upperFormat = computed(() => format.value.toUpperCase())
+const format = computed({
+  get: () => props.format,
+  set: () => {}
+})
+const upperFormat = computed(() => {
+  return format.value.toUpperCase()
+})
 
 const onSelect = (label: string) => {
-  format.value = label
-  emit('formatChange', label.toLowerCase())
+  const lowerFormat = label.toLowerCase() as ColorFormats
+  format.value = lowerFormat
+  emit('formatChange', lowerFormat)
 }
 </script>

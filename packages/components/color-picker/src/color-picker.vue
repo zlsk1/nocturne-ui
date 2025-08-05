@@ -143,7 +143,7 @@ import AlphaBar from './alpha-bar.vue'
 import HueBar from './hue-bar.vue'
 import Predefine from './predefine.vue'
 import ColorPanel from './color-panel.vue'
-import ColorInput from './color-input/input.vue'
+import ColorInput from './color-input/color-input.vue'
 import Color, {
   hsl2hsv,
   hsv2hsl,
@@ -157,6 +157,7 @@ import {
   colorPickerEmits,
   colorPickerProps
 } from './color-picker'
+import type { ColorFormats } from './color-picker'
 import type { TooltipInstance } from '@nocturne-ui/components/tooltip'
 
 defineOptions({
@@ -210,7 +211,7 @@ const showPanelColor = ref(false)
 const customInput = ref(toHex(color.toRgb()).slice(1))
 const contentRef = ref()
 const currentAlpha = ref(color.get('alpha'))
-const colorFormat = ref('hex')
+const colorFormat = ref(props.colorFormat)
 const colorData = ref<number[]>([])
 
 const displayedColor = computed(() => {
@@ -338,7 +339,7 @@ function blur() {
   triggerRef.value.blur()
 }
 
-const onColorModeChange = (format: string) => {
+const onColorModeChange = (format: ColorFormats) => {
   colorFormat.value = format
 }
 
@@ -379,7 +380,7 @@ const onDataChange = (data: number[]) => {
     hsv = hsl2hsv(data[0], data[1], data[2])
   } else if (colorFormat.value === 'rgb') {
     hsv = rgb2hsv(data[0], data[1], data[2])
-  } else if (colorFormat.value === 'hsb') {
+  } else if (colorFormat.value === 'hsv') {
     hsv = {
       h: data[0],
       s: data[1],
@@ -406,6 +407,7 @@ watch(
     } else if (newVal && newVal !== color.value) {
       shouldActiveChange = false
       color.fromString(newVal)
+      formItem?.validate('change')
     }
   }
 )
@@ -441,13 +443,6 @@ watch(
   }
 )
 
-watch(
-  () => props.modelValue,
-  () => {
-    formItem?.validate('change')
-  }
-)
-
 watchEffect(() => {
   const hue = color.get('hue')
   const saturation = color.get('saturation')
@@ -461,7 +456,7 @@ watchEffect(() => {
   } else if (colorFormat.value === 'rgb') {
     const rgbObj = hsv2rgb(hue, saturation, value)
     colorData.value = [rgbObj.r, rgbObj.g, rgbObj.b]
-  } else if (colorFormat.value === 'hsb') {
+  } else if (colorFormat.value === 'hsv') {
     colorData.value = [
       Math.round(hue),
       Math.round(saturation),
@@ -469,6 +464,16 @@ watchEffect(() => {
     ]
   }
 })
+
+watch(
+  () => props.colorFormat,
+  (val) => {
+    colorFormat.value = val
+    color.format = val
+    color.doOnChange()
+    emit('update:modelValue', color.value)
+  }
+)
 
 provide(colorPickerContextKey, {
   currentColor

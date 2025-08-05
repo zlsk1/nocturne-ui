@@ -27,7 +27,7 @@
         :max="
           format === 'rgb'
             ? 255
-            : format === 'hsl' || format === 'hsb'
+            : format === 'hsl' || format === 'hsv'
               ? index === 0
                 ? 360
                 : 100
@@ -62,6 +62,7 @@ import { definePropType, isUndefined } from '@nocturne-ui/utils'
 import NInputNumber from '@nocturne-ui/components/input-number'
 import NInput from '@nocturne-ui/components/input'
 import ColorFormat from './color-format.vue'
+import type { ColorFormats } from '../color-picker'
 
 defineOptions({
   name: 'NColorInput'
@@ -69,8 +70,8 @@ defineOptions({
 
 const props = defineProps({
   format: {
-    type: String,
-    default: 'hex'
+    type: definePropType<ColorFormats>(String),
+    required: true
   },
   showAlpha: {
     type: Boolean,
@@ -86,7 +87,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  formatChange: [format: string]
+  formatChange: [format: ColorFormats]
   hexChange: [hex: string]
   alphaChange: [alpha?: number]
   hexBlur: []
