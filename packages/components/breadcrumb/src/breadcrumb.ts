@@ -1,6 +1,6 @@
 import { defineComponent, h, provide, toRef } from 'vue'
 import { iconPropType, isString } from '@nocturne-ui/utils'
-import { useNamespace } from '@nocturne-ui/composables'
+import { useLocale, useNamespace } from '@nocturne-ui/composables'
 import { NBREADCRUMBINJECTIONKEY } from './constants'
 import type { ExtractPropTypes } from 'vue'
 
@@ -25,6 +25,7 @@ export default defineComponent({
   emits: breadcrumbEmit,
   setup(props, { emit, slots }) {
     const ns = useNamespace('breadcrumb')
+    const { t } = useLocale()
 
     const handleClick = (path?: string) => emit('onClick', path)
 
@@ -33,6 +34,11 @@ export default defineComponent({
       onClick: handleClick
     })
 
-    return () => h('ol', { class: ns.b() }, slots.default?.())
+    return () =>
+      h(
+        'ol',
+        { class: ns.b(), ariaLabel: t('noc.breadcrumb.label') },
+        slots.default?.()
+      )
   }
 })
