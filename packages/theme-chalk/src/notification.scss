@@ -26,17 +26,20 @@
 
     @include e(close) {
       position: absolute;
-      right: 20px;
-      top: 16px;
+      right: 27px;
+      top: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: getCssVar('border-radius-base');
+      width: 20px;
+      height: 20px;
+      border-radius: getCssVar('border-radius-small');
       color: getCssVar('text-color-secondary');
       cursor: pointer;
       transition: getCssVar('transition-duration');
 
       &:hover {
+        color: getCssVar('fill-color-primary');
         background: getCssVar('fill-color-dark');
       }
     }
@@ -78,8 +81,7 @@
     }
 
     & .#{$namespace}-notification__icon {
-      width: 24px;
-      height: 24px;
+      font-size: 20px;
       color: getCssVar('notification', 'icon-color');
     }
   }

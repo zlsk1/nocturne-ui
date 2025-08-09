@@ -1,7 +1,7 @@
 import { nextTick, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { afterEach, describe, expect, test, vi } from 'vitest'
-import { Ri24HoursFill, Ri4kFill } from '@remixicon/vue'
+import { CalculatorFilled, HeartFilled } from '@ant-design/icons-vue'
 import Switch from '../src/switch.vue'
 
 const wait = (wait: number) =>
@@ -73,17 +73,17 @@ describe('Switch', () => {
       <Switch
         modelValue={false}
         v-slots={{
-          'active-icon': () => <Ri24HoursFill></Ri24HoursFill>,
-          'inactive-icon': () => <Ri4kFill></Ri4kFill>
+          'active-icon': () => <HeartFilled></HeartFilled>,
+          'inactive-icon': () => <CalculatorFilled></CalculatorFilled>
         }}
       ></Switch>
     ))
 
-    expect(wrapper.findComponent(Ri24HoursFill).exists()).toBe(false)
-    expect(wrapper.findComponent(Ri4kFill).exists()).toBe(true)
+    expect(wrapper.findComponent(HeartFilled).exists()).toBe(false)
+    expect(wrapper.findComponent(CalculatorFilled).exists()).toBe(true)
     await wrapper.trigger('click')
-    expect(wrapper.findComponent(Ri24HoursFill).exists()).toBe(true)
-    expect(wrapper.findComponent(Ri4kFill).exists()).toBe(false)
+    expect(wrapper.findComponent(HeartFilled).exists()).toBe(true)
+    expect(wrapper.findComponent(CalculatorFilled).exists()).toBe(false)
   })
 
   test('inlinePrompt', async () => {

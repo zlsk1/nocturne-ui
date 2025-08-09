@@ -44,14 +44,14 @@
           <transition :name="`${ns.ns.value}-fade-in`">
             <n-icon
               v-if="showClose && displayedValue"
-              size="16"
+              size="14"
               :class="ns.e('suffixicon')"
               @click="onClearValue"
             >
-              <component :is="clearIcon" />
+              <component :is="clearIcon || CloseCircleFilled" />
             </n-icon>
-            <n-icon v-else size="16" :class="ns.e('suffixicon')">
-              <component :is="suffixIcon" />
+            <n-icon v-else size="14" :class="ns.e('suffixicon')">
+              <component :is="suffixIcon || ClockCircleOutlined" />
             </n-icon>
           </transition>
         </template>
@@ -85,6 +85,7 @@
 
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue'
+import { ClockCircleOutlined, CloseCircleFilled } from '@ant-design/icons-vue'
 import dayjs from 'dayjs'
 import { isEqual } from 'lodash'
 import {

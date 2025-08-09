@@ -1,7 +1,11 @@
 import { nextTick, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test, vi } from 'vitest'
-import { RiCloseCircleFill, RiEyeLine, RiEyeOffLine } from '@remixicon/vue'
+import {
+  RiCloseCircleFill,
+  RiEyeLine,
+  RiEyeOffLine
+} from '@ant-design/icons-vue'
 import Input from '../src/input.vue'
 import type { InputStatus } from '../src/input'
 

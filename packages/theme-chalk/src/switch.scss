@@ -171,19 +171,6 @@ $switch-content-padding: map.merge(
         margin-right: 3px;
         margin-left: 0;
       }
-
-      @keyframes infinite-rotate {
-        from {
-          transform: rotate(0);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      .#{$namespace}-switch__loading {
-        animation: infinite-rotate 2s infinite linear;
-      }
     }
 
     .#{$namespace}-switch__action--reverse {

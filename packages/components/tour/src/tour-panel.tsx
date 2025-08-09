@@ -3,7 +3,7 @@ import Button from '@nocturne-ui/components/button'
 import Icon from '@nocturne-ui/components/icon'
 import Space from '@nocturne-ui/components/space'
 import { useLocale, useNamespace } from '@nocturne-ui/composables'
-import { RiCloseLine } from '@remixicon/vue'
+import { CloseOutlined } from '@ant-design/icons-vue'
 import { nTourEmit } from './props'
 import type { SlotsType, VNode } from 'vue'
 
@@ -88,11 +88,11 @@ export default defineComponent({
       const closeIcon = h(
         Icon,
         {
-          size: 18,
+          size: 14,
           class: ns.bm('panel', 'close'),
           onclick: handleClose
         },
-        { default: () => <RiCloseLine></RiCloseLine> }
+        { default: () => <CloseOutlined></CloseOutlined> }
       )
 
       return (

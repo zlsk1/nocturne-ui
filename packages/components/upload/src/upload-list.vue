@@ -34,12 +34,12 @@
           >
             <template #default>
               <div>
-                <n-icon v-if="listType === 'text'" size="14">
-                  <RiLoader5Line
+                <n-icon v-if="listType === 'text'" size="12">
+                  <LoadingOutlined
                     v-if="file.status === 'uploading'"
                     :class="ns.bem('list', 'item', 'loader')"
                   />
-                  <RiLink v-else />
+                  <LinkOutlined v-else />
                 </n-icon>
                 <a
                   v-else-if="listType === 'picture'"
@@ -51,7 +51,7 @@
                   rel="noopener noreferrer"
                 >
                   <n-icon v-if="file.status === 'uploading'" size="30">
-                    <RiLoader5Line :class="ns.bem('list', 'item', 'loader')" />
+                    <LoadingOutlined />
                   </n-icon>
                   <img
                     v-else
@@ -83,12 +83,12 @@
                 </span>
                 <n-icon
                   v-if="!disabled"
-                  size="14"
+                  size="12"
                   :class="ns.bem('list', 'item', 'remove')"
                   :title="t('noc.upload.removeFile')"
                   @click="$emit('remove', file)"
                 >
-                  <component :is="removeIcon" />
+                  <component :is="removeIcon || DeleteOutlined" />
                 </n-icon>
                 <div
                   v-if="file.percent"
@@ -119,7 +119,11 @@
 <script lang="ts" setup>
 import { shallowRef, triggerRef, watch, watchEffect } from 'vue'
 import { useLocale, useNamespace } from '@nocturne-ui/composables'
-import { RiLink, RiLoader5Line } from '@remixicon/vue'
+import {
+  DeleteOutlined,
+  LinkOutlined,
+  LoadingOutlined
+} from '@ant-design/icons-vue'
 import NIcon from '@nocturne-ui/components/icon'
 import NTooltip from '@nocturne-ui/components/tooltip'
 import { isString, isUndefined } from '@nocturne-ui/utils'

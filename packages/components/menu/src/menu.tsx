@@ -13,7 +13,7 @@ import {
 import { isArray, isNil } from 'lodash'
 import { useNamespace } from '@nocturne-ui/composables'
 import NIcon from '@nocturne-ui/components/icon'
-import { RiMoreFill as More } from '@remixicon/vue'
+import { EllipsisOutlined } from '@ant-design/icons-vue'
 import { useResizeObserver } from '@vueuse/core'
 import { flattedChildren } from '@nocturne-ui/utils'
 import { menuEmit, menuProps } from './props'
@@ -224,7 +224,11 @@ export default defineComponent({
               style={{ minWidth: '64px' }}
               index="sub-menu-more"
               v-slots={{
-                icon: () => <NIcon>{{ default: () => <More></More> }}</NIcon>,
+                icon: () => (
+                  <NIcon>
+                    {{ default: () => <EllipsisOutlined></EllipsisOutlined> }}
+                  </NIcon>
+                ),
                 default: () => slotMore
               }}
             ></NSubMenu>

@@ -9,7 +9,7 @@
         @click="handlePrev"
       >
         <n-icon>
-          <component :is="ArrowLeft" />
+          <component :is="LeftOutlined" />
         </n-icon>
       </button>
       <slot v-else name="prev" @click="handlePrev" @mouseenter="handlePrev" />
@@ -54,7 +54,7 @@
         @click="handleNext"
       >
         <n-icon style="transform: rotate(180deg)">
-          <component :is="ArrowLeft" />
+          <component :is="LeftOutlined" />
         </n-icon>
       </button>
       <slot v-else name="next" @click="handleNext" @mouseenter="handleNext" />
@@ -65,7 +65,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, provide, reactive, ref, toRefs, watch } from 'vue'
 import { useIntervalFn, useThrottleFn } from '@vueuse/core'
-import { RiArrowLeftSLine as ArrowLeft } from '@remixicon/vue'
+import { LeftOutlined } from '@ant-design/icons-vue'
 import { NIcon } from '@nocturne-ui/components/icon'
 import { useLocale, useNamespace } from '@nocturne-ui/composables'
 import { isString } from 'lodash'

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { RiCloseLine as Close } from '@remixicon/vue'
+import { CloseOutlined } from '@ant-design/icons-vue'
 import { useNamespace } from '@nocturne-ui/composables'
 import { typeIcons } from '@nocturne-ui/utils'
 import NIcon from '@nocturne-ui/components/icon'
@@ -69,7 +69,7 @@ const handleClose = (e: MouseEvent) => {
         size="18"
         @click="handleClose"
       >
-        <component :is="Close" />
+        <component :is="CloseOutlined" />
       </n-icon>
       <div
         v-else

@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
-import { RiArrowRightSLine } from '@remixicon/vue'
+import { RightOutlined } from '@ant-design/icons-vue'
 import { COLLAPSE_INJECTION_KEY } from '@nocturne-ui/components/collapse/src/constants'
 import { useNamespace } from '@nocturne-ui/composables'
 import NCollapseTransition from '@nocturne-ui/components/collapse-transition'
+import NIcon from '@nocturne-ui/components/icon'
 import { collapseItemProps } from './collapse-item'
 
 defineOptions({
@@ -38,10 +39,9 @@ const showContent = () => {
         {{ title }}
       </div>
       <slot v-else name="title" />
-      <RiArrowRightSLine
-        size="16"
-        :class="[ns.e('icon'), ns.is('rotate', isActive)]"
-      />
+      <NIcon size="14" :class="[ns.e('icon'), ns.is('rotate', isActive)]">
+        <RightOutlined />
+      </NIcon>
     </div>
     <n-collapse-transition>
       <div v-show="isActive" :class="ns.e('wrap')">

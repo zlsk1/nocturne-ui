@@ -3,6 +3,7 @@ import { useNamespace } from '@nocturne-ui/composables'
 import Icon from '@nocturne-ui/components/icon'
 import Tooltip from '@nocturne-ui/components/tooltip'
 import { consoleWarn } from '@nocturne-ui/utils'
+import { InfoOutlined } from '@ant-design/icons-vue'
 import { floatButtonEmit, floatButtonProps } from './props'
 import { FloatButtonGroupContextKey } from './context'
 
@@ -23,7 +24,14 @@ const FloatButton = defineComponent({
     }
 
     return () => {
-      const { description, icon, shape, type, tooltip, buttonType } = props
+      const {
+        description,
+        icon = InfoOutlined,
+        shape,
+        type,
+        tooltip,
+        buttonType
+      } = props
 
       const fab = (
         <button

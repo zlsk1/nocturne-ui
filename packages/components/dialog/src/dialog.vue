@@ -34,7 +34,7 @@
               aria-label="close"
               @click="$emit('update:modelValue', false)"
             >
-              <Close size="18" />
+              <CloseOutlined size="18" />
             </button>
             <component
               :is="closeIcon"
@@ -71,7 +71,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { RiCloseLine as Close } from '@remixicon/vue'
+import { CloseOutlined } from '@ant-design/icons-vue'
 import {
   useLocale,
   useNamespace,

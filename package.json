@@ -30,6 +30,7 @@
     "cz": "czg"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
     "@nocturne-ui/components": "workspace:*",
     "@nocturne-ui/composables": "workspace:*",
     "@nocturne-ui/constants": "workspace:*",
@@ -39,7 +40,6 @@
     "@nocturne-ui/theme-chalk": "workspace:*",
     "@nocturne-ui/utils": "workspace:*",
     "@popperjs/core": "^2.11.8",
-    "@remixicon/vue": "^4.2.0",
     "@vueuse/core": "^9.13.0",
     "async-validator": "^4.2.5",
     "dayjs": "^1.11.11",

@@ -36,7 +36,7 @@
                 :class="ns.m('close')"
                 @click.stop="onClose"
               >
-                <n-icon><RiCloseFill /></n-icon>
+                <n-icon><CloseOutlined /></n-icon>
               </button>
             </slot>
             <div
@@ -47,7 +47,7 @@
               @click="onSwitch(-1)"
             >
               <n-icon style="transform: rotate(180deg)">
-                <RiArrowRightSLine />
+                <RightOutlined />
               </n-icon>
             </div>
             <div
@@ -57,7 +57,7 @@
               :aria-disalbed="disabledNext"
               @click="onSwitch(1)"
             >
-              <n-icon><RiArrowRightSLine /></n-icon>
+              <n-icon><RightOutlined /></n-icon>
             </div>
             <div :class="ns.m('pager')">
               <slot name="progress" :index="index" :total="previewList.length">
@@ -78,11 +78,11 @@
                   onReset
                 }"
                 :icons="{
-                  flipIcon: RiArrowUpDownLine,
-                  rotateCounterclockwiseIcon: RiAnticlockwise2Line,
-                  rotateClockwiseIcon: RiClockwise2Line,
-                  zoomOutIcon: RiZoomOutLine,
-                  zoomInIcon: RiZoomInLine
+                  flipIcon: SwapOutlined,
+                  rotateCounterclockwiseIcon: RotateLeftOutlined,
+                  rotateClockwiseIcon: RotateRightOutlined,
+                  zoomOutIcon: ZoomOutOutlined,
+                  zoomInIcon: ZoomInOutlined
                 }"
                 :index="index"
                 :total="previewList.length"
@@ -135,14 +135,14 @@ import {
   useZIndex
 } from '@nocturne-ui/composables'
 import {
-  RiAnticlockwise2Line,
-  RiArrowRightSLine,
-  RiArrowUpDownLine,
-  RiClockwise2Line,
-  RiCloseFill,
-  RiZoomInLine,
-  RiZoomOutLine
-} from '@remixicon/vue'
+  CloseOutlined,
+  RightOutlined,
+  RotateLeftOutlined,
+  RotateRightOutlined,
+  SwapOutlined,
+  ZoomInOutlined,
+  ZoomOutOutlined
+} from '@ant-design/icons-vue'
 import { useEventListener } from '@vueuse/core'
 import { imageViewerEmit, imageViewerProps } from './image-viewer'
 import { previewImageContextKey } from './constants'
@@ -204,55 +204,55 @@ const onZoomOut = () => {
 }
 
 const onRotateClockwise = () => {
-  if (!loading.value) return
+  if (loading.value) return
   imgState.value.rotate += 90
 }
 
 const onRotateCounterclockwise = () => {
-  if (!loading.value) return
+  if (loading.value) return
   imgState.value.rotate -= 90
 }
 
 const onFlipX = () => {
-  if (!loading.value) return
+  if (loading.value) return
   imgState.value.hzlReversal = !imgState.value.hzlReversal
 }
 
 const onFlipY = () => {
-  if (!loading.value) return
+  if (loading.value) return
   imgState.value.vtlReversal = !imgState.value.vtlReversal
 }
 
 const actions = [
   {
-    icon: RiArrowUpDownLine,
+    icon: SwapOutlined,
     label: t('noc.image.vtlReversal'),
     handler: onFlipY
   },
   {
-    icon: RiArrowUpDownLine,
+    icon: SwapOutlined,
     label: t('noc.image.hzlReversal'),
     style: { transform: 'rotate(90deg)' },
     handler: onFlipX
   },
   {
-    icon: RiAnticlockwise2Line,
+    icon: RotateLeftOutlined,
     label: t('noc.image.counterclockwise'),
     handler: onRotateCounterclockwise
   },
   {
-    icon: RiClockwise2Line,
+    icon: RotateRightOutlined,
     label: t('noc.image.clockwise'),
     handler: onRotateClockwise
   },
   {
-    icon: RiZoomOutLine,
+    icon: ZoomOutOutlined,
     label: t('noc.image.zoomOut'),
     disabled: computed(() => imgState.value.scale <= 1),
     handler: onZoomOut
   },
   {
-    icon: RiZoomInLine,
+    icon: ZoomInOutlined,
     label: t('noc.image.zoomIn'),
     disabled: computed(() => imgState.value.scale >= 50),
     handler: onZoomIn
@@ -285,7 +285,7 @@ const clickMaskerToClose = () => {
 const overlayEvent = useSameTarget(clickMaskerToClose)
 
 const getOffset = (offset: number) => {
-  index.value = (index.value + offset) & props.previewList.length
+  index.value = (index.value + offset) % props.previewList.length
 }
 
 const onSwitch = (offset: number) => {

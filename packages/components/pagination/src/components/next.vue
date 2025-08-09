@@ -6,7 +6,7 @@
     @click="handleNextPage"
   >
     <n-icon v-if="!nextText">
-      <component :is="nextIcon" />
+      <component :is="nextIcon || RightOutlined" />
     </n-icon>
     <span v-else>{{ nextText }}</span>
   </button>
@@ -14,6 +14,7 @@
 
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
+import { RightOutlined } from '@ant-design/icons-vue'
 import { NIcon } from '@nocturne-ui/components'
 import { useLocale, useNamespace } from '@nocturne-ui/composables'
 import { PAGINATION_INJECTION_KEY } from '../constants'

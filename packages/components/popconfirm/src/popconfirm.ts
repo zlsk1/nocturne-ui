@@ -1,4 +1,4 @@
-import { RiQuestionFill as Quesition } from '@remixicon/vue'
+import { QuestionCircleFilled } from '@ant-design/icons-vue'
 import { iconPropType } from '@nocturne-ui/utils'
 import popconfirm from './popconfirm.vue'
 
@@ -18,9 +18,11 @@ export const popconfirmProps = {
     type: Boolean,
     default: true
   },
+  /**
+   * @default QuestionCircleFilled
+   */
   icon: {
-    type: iconPropType,
-    default: Quesition
+    type: iconPropType
   }
 }
 

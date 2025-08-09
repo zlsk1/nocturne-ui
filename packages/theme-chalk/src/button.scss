@@ -141,21 +141,6 @@ $button-icon-span-gap: map.merge(
     }
   }
 
-  .#{$namespace}-icon {
-    @include when(loading-icon) {
-      animation: loopRotate 1s infinite linear;
-    }
-  }
-
-  @keyframes loopRotate {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
   @include when(round) {
     border-radius: getCssVar('border-radius', 'round');
   }
@@ -287,5 +272,21 @@ $button-icon-span-gap: map.merge(
     width: map.get($common-component-size, 'default');
     height: map.get($common-component-size, 'default');
     padding: 0;
+  }
+
+  @include when(loading) {
+    .#{$namespace}-icon {
+      animation: loading 1s infinite linear;
+    }
+  }
+
+  @keyframes loading {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
   }
 }

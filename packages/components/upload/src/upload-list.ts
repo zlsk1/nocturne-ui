@@ -1,14 +1,15 @@
 import { iconPropType, isObject, isUndefined } from '@nocturne-ui/utils'
-import { RiDeleteBin7Line } from '@remixicon/vue'
 import { pick } from 'lodash'
 import { UploadFile } from './types'
 import { uploadProps } from './upload'
 
 export const uploadListProps = {
   ...pick(uploadProps, ['fileList', 'listType', 'previewFile', 'disabled']),
+  /**
+   * @default DeleteOutlined
+   */
   removeIcon: {
-    type: iconPropType,
-    default: RiDeleteBin7Line
+    type: iconPropType
   }
 } as const
 

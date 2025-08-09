@@ -15,14 +15,14 @@
       </template>
     </span>
     <n-icon v-if="showCheck" size="16">
-      <Check />
+      <CheckOutlined />
     </n-icon>
   </li>
 </template>
 
 <script lang="ts" setup>
 import { computed, getCurrentInstance, inject } from 'vue'
-import { RiCheckFill as Check } from '@remixicon/vue'
+import { CheckOutlined } from '@ant-design/icons-vue'
 import { isFunction, isObject } from '@nocturne-ui/utils'
 import { useNamespace } from '@nocturne-ui/composables'
 import NIcon from '@nocturne-ui/components/icon'

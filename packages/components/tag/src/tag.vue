@@ -11,13 +11,8 @@
       <span :class="ns.e('content')">
         <slot />
       </span>
-      <n-icon
-        v-if="closable"
-        size="14"
-        :class="ns.e('close')"
-        @click.stop="handleClose"
-      >
-        <Close />
+      <n-icon v-if="closable" :class="ns.e('close')" @click.stop="handleClose">
+        <CloseOutlined />
       </n-icon>
     </span>
   </transition>
@@ -25,7 +20,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { RiCloseLine as Close } from '@remixicon/vue'
+import { CloseOutlined } from '@ant-design/icons-vue'
 import { useNamespace } from '@nocturne-ui/composables'
 import NIcon from '@nocturne-ui/components/icon'
 import { tagEmits, tagProps } from './tag'

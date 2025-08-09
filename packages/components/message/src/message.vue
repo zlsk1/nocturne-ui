@@ -22,7 +22,7 @@
         :value="repeatNum"
         :type="badgeType"
       />
-      <n-icon :class="ns.bm('icon', type)" size="18">
+      <n-icon :class="ns.bm('icon', type)" size="16">
         <component :is="icon" />
       </n-icon>
       <div :class="ns.e('content')">
@@ -32,12 +32,14 @@
         <span v-else :class="ns.e('title')">
           <slot />
         </span>
-        <Close
+        <n-icon
           v-if="showClose"
           :class="ns.e('close')"
-          size="18"
+          size="14"
           @click.stop="close"
-        />
+        >
+          <CloseOutlined />
+        </n-icon>
       </div>
     </div>
   </transition>
@@ -46,7 +48,7 @@
 <script lang="ts" setup>
 import { computed, isVNode, onMounted, ref, watch } from 'vue'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
-import { RiCloseLine as Close } from '@remixicon/vue'
+import { CloseOutlined } from '@ant-design/icons-vue'
 import NBadge from '@nocturne-ui/components/badge'
 import NIcon from '@nocturne-ui/components/icon'
 import { useNamespace, useZIndex } from '@nocturne-ui/composables'

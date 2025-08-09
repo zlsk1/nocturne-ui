@@ -139,12 +139,8 @@
           </div>
           <template v-if="showSuffix">
             <transition name="fade-in-linear">
-              <n-icon
-                v-if="loading"
-                size="16"
-                :class="[ns.m('loading'), ns.em('suffix', 'icon')]"
-              >
-                <Loader />
+              <n-icon v-if="loading" :class="[ns.em('suffix', 'icon')]">
+                <LoadingOutlined />
               </n-icon>
             </transition>
             <slot v-if="!loading" name="suffix">
@@ -153,16 +149,16 @@
                   v-if="!shouldShowClearIcon"
                   :class="ns.em('suffix', 'icon')"
                 >
-                  <ArrowDown
+                  <DownOutlined
                     v-if="!isFocused || actualDisabled || !showSearch"
                   />
-                  <RiSearchLine v-else-if="showSearch" />
+                  <SearchOutlined v-else-if="showSearch" />
                 </n-icon>
                 <n-icon
                   v-else
                   :class="[ns.em('suffix', 'icon'), ns.m('close')]"
                 >
-                  <Close @click.stop="clearValue" />
+                  <CloseCircleFilled @click.stop="clearValue" />
                 </n-icon>
               </transition>
             </slot>
@@ -196,11 +192,11 @@
 import { computed, nextTick, provide, reactive, ref, toRefs, watch } from 'vue'
 import { useElementSize } from '@vueuse/core'
 import {
-  RiArrowDownSLine as ArrowDown,
-  RiCloseCircleFill as Close,
-  RiLoader5Fill as Loader,
-  RiSearchLine
-} from '@remixicon/vue'
+  CloseCircleFilled,
+  DownOutlined,
+  LoadingOutlined,
+  SearchOutlined
+} from '@ant-design/icons-vue'
 import { isArray, isNil, isObject, isString } from '@nocturne-ui/utils'
 import NIcon from '@nocturne-ui/components/icon'
 import NTag from '@nocturne-ui/components/tag'

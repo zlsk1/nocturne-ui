@@ -4,7 +4,6 @@ import {
   isBoolean,
   isClient
 } from '@nocturne-ui/utils'
-import { RiArrowUpDoubleLine, RiCloseLine, RiMagicLine } from '@remixicon/vue'
 import { TooltipProps } from '@nocturne-ui/components/tooltip'
 import FloatButton from './float-button'
 import FloatButtonGroup from './float-button-group'
@@ -12,9 +11,11 @@ import BackTop from './back-top'
 import type { ExtractPropTypes } from 'vue'
 
 export const floatButtonProps = {
+  /**
+   * @default InfoOutlined
+   */
   icon: {
-    type: iconPropType,
-    default: RiMagicLine
+    type: iconPropType
   },
   description: String,
   shape: {
@@ -49,9 +50,11 @@ export const floatButtonGroupProps = {
     values: ['top', 'left', 'bottom', 'right'],
     default: 'top'
   },
+  /**
+   * @default CloseOutlined
+   */
   closeIcon: {
-    type: iconPropType,
-    default: RiCloseLine
+    type: iconPropType
   },
   trigger: {
     type: definePropType<'hover' | 'click'>(String),
@@ -71,9 +74,11 @@ export const backTopProps = {
     type: definePropType<() => HTMLElement | Window>(Function),
     default: isClient ? () => window : undefined
   },
+  /**
+   * @default VerticalAlignTopOutlined
+   */
   icon: {
-    type: iconPropType,
-    default: RiArrowUpDoubleLine
+    type: iconPropType
   },
   offset: {
     type: Number,

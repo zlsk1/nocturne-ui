@@ -2,16 +2,16 @@
   <div class="n-date-picker--panel">
     <div class="n-date__header">
       <div class="n-date__header__left">
-        <ArrowLeftDouble size="18" />
-        <ArrowLeft size="18" />
+        <DoubleLeftOutlined size="18" />
+        <LeftOutlined size="18" />
       </div>
       <div class="n-date__header__view">
         <button class="n-date-year-btn">2024年</button>
         <button class="n-date-month-btn">11月</button>
       </div>
       <div class="n-date__header__right">
-        <ArrowRight size="18" />
-        <ArrowRightDouble size="18" />
+        <RightOutlined size="18" />
+        <DoubleRightOutlined size="18" />
       </div>
     </div>
     <div class="n-date__content">
@@ -51,11 +51,11 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import {
-  RiArrowLeftSLine as ArrowLeft,
-  RiArrowLeftDoubleFill as ArrowLeftDouble,
-  RiArrowRightSLine as ArrowRight,
-  RiArrowRightDoubleFill as ArrowRightDouble
-} from '@remixicon/vue'
+  DoubleLeftOutlined,
+  DoubleRightOutlined,
+  LeftOutlined,
+  RightOutlined
+} from '@ant-design/icons-vue'
 import dayjs from 'dayjs'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'

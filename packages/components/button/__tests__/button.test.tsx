@@ -5,7 +5,7 @@ import {
   RiLoaderLine as Loading,
   RiLoader2Line as Loading2,
   RiUploadLine as Upload
-} from '@remixicon/vue'
+} from '@ant-design/icons-vue'
 import Button from '../src/button.vue'
 import ButtonGroup from '../src/button-group.vue'
 

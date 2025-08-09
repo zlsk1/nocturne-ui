@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, h, inject } from 'vue'
-import { RiAddLine as Add, RiMoreLine as More } from '@remixicon/vue'
+import { EllipsisOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import NIcon from '@nocturne-ui/components/icon'
 import NTooltip from '@nocturne-ui/components/tooltip'
 import { useNamespace } from '@nocturne-ui/composables'
@@ -35,7 +35,8 @@ export default defineComponent({
             popperClass: [ns.m('more__popper'), state.popperClass || '']
           },
           {
-            default: () => h(NIcon, null, { default: () => h(More) }),
+            default: () =>
+              h(NIcon, null, { default: () => h(EllipsisOutlined) }),
             content: () => h('ul', null, getMorelist())
           }
         )
@@ -44,14 +45,14 @@ export default defineComponent({
         h(
           NIcon,
           {
-            size: 18,
+            size: 12,
             class: ns.em('icon', 'add'),
             onClick: (e: Event) => {
               e.stopPropagation()
               emit('edit', 'add')
             }
           },
-          { default: () => h(Add) }
+          { default: () => h(PlusOutlined) }
         )
 
       const getMorelist = () =>

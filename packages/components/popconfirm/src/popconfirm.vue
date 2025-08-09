@@ -6,7 +6,7 @@
     <template #default>
       <div :class="[ns.e('title')]">
         <n-icon v-if="!$slots.icon && showIcon" size="16" color="#f0bb40">
-          <component :is="icon" />
+          <component :is="icon || QuestionCircleFilled" />
         </n-icon>
         <slot name="icon" />
         <p :class="ns.e('text')">{{ title }}</p>
@@ -29,6 +29,7 @@ import NButton from '@nocturne-ui/components/button'
 import NPopover from '@nocturne-ui/components/popover'
 import NIcon from '@nocturne-ui/components/icon'
 import { useNamespace } from '@nocturne-ui/composables'
+import { QuestionCircleFilled } from '@ant-design/icons-vue'
 import { popconfirmEmit, popconfirmProps } from './popconfirm'
 import type { PopoverInstance } from '@nocturne-ui/components'
 

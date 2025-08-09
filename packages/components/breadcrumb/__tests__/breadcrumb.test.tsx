@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { RiLineChartLine as LineChart } from '@remixicon/vue'
+import { LineChartOutlined } from '@ant-design/icons-vue'
 import Breadcrumb from '../src/breadcrumb'
 import BreadcrumbItem from '../src/breadcrumb-item'
 
@@ -16,12 +16,12 @@ describe('Breadcrumb', () => {
 
   test('separator-icon', () => {
     const wrapper = mount(() => (
-      <Breadcrumb separator={LineChart}>
+      <Breadcrumb separator={LineChartOutlined}>
         <BreadcrumbItem>index</BreadcrumbItem>
       </Breadcrumb>
     ))
     expect(wrapper.find('.n-breadcrumb__separator').text()).toBe('')
-    expect(wrapper.findComponent(LineChart).exists()).toBe(true)
+    expect(wrapper.findComponent(LineChartOutlined).exists()).toBe(true)
   })
 
   test('is-link', () => {

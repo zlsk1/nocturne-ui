@@ -1,7 +1,3 @@
-import {
-  RiCloseCircleFill as CloseCircle,
-  RiTimeLine as Time
-} from '@remixicon/vue'
 import { isObject } from 'lodash'
 import {
   definePropType,
@@ -52,13 +48,17 @@ export const pickerProps = {
     type: Boolean,
     default: false
   },
+  /**
+   * @default ClockCircleOutlined
+   */
   suffixIcon: {
-    type: iconPropType,
-    default: Time
+    type: iconPropType
   },
+  /**
+   * @default CloseCircleFilled
+   */
   clearIcon: {
-    type: iconPropType,
-    default: CloseCircle
+    type: iconPropType
   },
   disabled: {
     type: Boolean,

@@ -6,16 +6,21 @@
     >
       1
     </li>
-    <!-- prevMore -->
+    <!-- prevMoreOutlined -->
     <li
-      v-if="showPrevMore"
-      :class="[ns.e('num'), ns.is('disabled', disabled), 'quickPrev', 'more']"
+      v-if="showPrevMoreOutlined"
+      :class="[
+        ns.e('num'),
+        ns.is('disabled', disabled),
+        'quickPrev',
+        'MoreOutlined'
+      ]"
       :aria-label="t('noc.pagination.prevPages', { pager: maxPages - 2 })"
       @mouseenter="isPrevHover = true"
       @mouseleave="isPrevHover = false"
     >
-      <More v-if="!isPrevHover" size="16" />
-      <ArrowLeftDouble v-else size="16" />
+      <EllipsisOutlined v-if="!isPrevHover" size="16" />
+      <DoubleLeftOutlined v-else size="16" />
     </li>
     <!-- pages -->
     <li
@@ -26,16 +31,21 @@
     >
       {{ item }}
     </li>
-    <!-- nextMore -->
+    <!-- nextMoreOutlined -->
     <li
-      v-if="showNextMore"
-      :class="[ns.e('num'), ns.is('disabled', disabled), 'quickNext', 'more']"
+      v-if="showNextMoreOutlined"
+      :class="[
+        ns.e('num'),
+        ns.is('disabled', disabled),
+        'quickNext',
+        'MoreOutlined'
+      ]"
       :aria-label="t('noc.pagination.nextPages', { pager: maxPages - 2 })"
       @mouseenter="!disabled ? (isNextHover = true) : ''"
       @mouseleave="isNextHover = false"
     >
-      <More v-if="!isNextHover" size="16" />
-      <ArrowRightDouble v-else size="16" />
+      <EllipsisOutlined v-if="!isNextHover" size="16" />
+      <DoubleRightOutlined v-else size="16" />
     </li>
     <li
       v-if="totalPages > 1"
@@ -49,10 +59,10 @@
 <script lang="ts" setup>
 import { computed, inject, ref, watchEffect } from 'vue'
 import {
-  RiArrowLeftDoubleFill as ArrowLeftDouble,
-  RiArrowRightDoubleFill as ArrowRightDouble,
-  RiMoreFill as More
-} from '@remixicon/vue'
+  DoubleLeftOutlined,
+  DoubleRightOutlined,
+  EllipsisOutlined
+} from '@ant-design/icons-vue'
 import { useLocale, useNamespace } from '@nocturne-ui/composables'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { pagerProps } from './pager'
@@ -69,33 +79,33 @@ const { t } = useLocale()
 
 const isPrevHover = ref(false)
 const isNextHover = ref(false)
-const showPrevMore = ref(false)
-const showNextMore = ref(false)
+const showPrevMoreOutlined = ref(false)
+const showNextMoreOutlined = ref(false)
 
 const pages = computed(() => {
   const pagerCount = props.maxPages
   const halfPagerCount = (pagerCount - 1) / 2
-  let showPrevMore = false
-  let showNextMore = false
+  let showPrevMoreOutlined = false
+  let showNextMoreOutlined = false
   if (totalPages.value > pagerCount) {
     if (_currentPage.value > pagerCount - halfPagerCount) {
-      showPrevMore = true
+      showPrevMoreOutlined = true
     }
     if (_currentPage.value < totalPages.value - halfPagerCount) {
-      showNextMore = true
+      showNextMoreOutlined = true
     }
   }
   const array = []
-  if (showPrevMore && !showNextMore) {
+  if (showPrevMoreOutlined && !showNextMoreOutlined) {
     const startPage = totalPages.value - (pagerCount - 2)
     for (let i = startPage; i < totalPages.value; i++) {
       array.push(i)
     }
-  } else if (!showPrevMore && showNextMore) {
+  } else if (!showPrevMoreOutlined && showNextMoreOutlined) {
     for (let i = 2; i < pagerCount; i++) {
       array.push(i)
     }
-  } else if (showPrevMore && showNextMore) {
+  } else if (showPrevMoreOutlined && showNextMoreOutlined) {
     const offset = Math.floor(pagerCount / 2) - 1
     for (
       let i = _currentPage.value - offset;
@@ -114,14 +124,14 @@ const pages = computed(() => {
 
 watchEffect(() => {
   const halfPagerCount = (props.maxPages - 1) / 2
-  showPrevMore.value = false
-  showNextMore.value = false
+  showPrevMoreOutlined.value = false
+  showNextMoreOutlined.value = false
   if (totalPages.value > props.maxPages) {
     if (_currentPage.value > props.maxPages - halfPagerCount) {
-      showPrevMore.value = true
+      showPrevMoreOutlined.value = true
     }
     if (_currentPage.value < totalPages.value - halfPagerCount) {
-      showNextMore.value = true
+      showNextMoreOutlined.value = true
     }
   }
 })
@@ -132,7 +142,7 @@ const changePage = (e: any) => {
   const pageOffset = props.maxPages - 2
 
   const className = e.target.className
-  if (className.includes('more')) {
+  if (className.includes('MoreOutlined')) {
     if (className.includes('quickPrev')) {
       newPage = _currentPage.value - pageOffset
     } else if (className.includes('quickNext')) {

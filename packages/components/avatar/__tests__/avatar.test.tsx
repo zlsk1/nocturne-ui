@@ -1,7 +1,7 @@
 import { nextTick } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { RiHazeLine as Haze } from '@remixicon/vue'
+import { HddFilled } from '@ant-design/icons-vue'
 import { IMAGE_FAIL, IMAGE_SUCCESS, mockImageEvent } from '@/tests-utils/image'
 import Avatar from '../src/avatar.vue'
 
@@ -34,8 +34,8 @@ describe('Avatar', () => {
   })
 
   test('icon avatar', () => {
-    const wrapper = mount(() => <Avatar icon={Haze} />)
-    expect(wrapper.findComponent(Haze).exists()).toBe(true)
+    const wrapper = mount(() => <Avatar icon={HddFilled} />)
+    expect(wrapper.findComponent(HddFilled).exists()).toBe(true)
   })
 
   test('image avatar', () => {

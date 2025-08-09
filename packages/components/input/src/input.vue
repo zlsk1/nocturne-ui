@@ -48,8 +48,8 @@
               v-if="showPwdIcon"
               :class="[ns.e('icon'), ns.e('password')]"
             >
-              <Eye v-if="showPwd" @click="handleShowPwd" />
-              <EyeOff v-else @click="handleShowPwd" />
+              <EyeOutlined v-if="showPwd" @click="handleShowPwd" />
+              <EyeInvisibleOutlined v-else @click="handleShowPwd" />
             </n-icon>
             <n-icon
               v-if="showClear"
@@ -57,7 +57,7 @@
               @click="clearValue"
               @mousedown.prevent="NOOP"
             >
-              <CloseCircle />
+              <CloseCircleFilled />
             </n-icon>
             <n-icon v-if="suffixIcon" :class="[ns.e('icon')]">
               <component :is="suffixIcon" />
@@ -107,7 +107,7 @@
         </span>
       </span>
       <n-icon v-if="showClear" :class="[`${ns.ns.value}-textarea--clear`]">
-        <CloseCircle @click="clearValue" />
+        <CloseCircleFilled @click="clearValue" />
       </n-icon>
     </template>
     <div v-if="$slots.append" :class="nsGroup.e('append')">
@@ -120,10 +120,10 @@
 import { computed, nextTick, ref, useAttrs, useSlots, watch } from 'vue'
 import { NOOP, isNil, isUndefined } from '@nocturne-ui/utils'
 import {
-  RiCloseCircleFill as CloseCircle,
-  RiEyeLine as Eye,
-  RiEyeOffLine as EyeOff
-} from '@remixicon/vue'
+  CloseCircleFilled,
+  EyeInvisibleOutlined,
+  EyeOutlined
+} from '@ant-design/icons-vue'
 import { useForm, useFormItem } from '@nocturne-ui/components/form'
 import NIcon from '@nocturne-ui/components/icon'
 import {

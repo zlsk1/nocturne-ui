@@ -48,15 +48,16 @@
         <n-icon
           v-if="rootMenu.direction === 'vertical' && !rootMenu.collapse"
           :class="ns.e('arrow')"
+          size="10"
         >
-          <RiArrowRightSLine
+          <RightOutlined
             :style="{
               transform: opened ? 'rotate(270deg)' : 'rotate(90deg)'
             }"
           />
         </n-icon>
-        <n-icon v-else-if="subMenu?.level > 0" :class="ns.e('arrow')">
-          <RiArrowRightSLine
+        <n-icon v-else-if="subMenu?.level > 0" size="10" :class="ns.e('arrow')">
+          <RightOutlined
             :style="{
               transform: opened ? 'rotate(180deg)' : ''
             }"
@@ -101,7 +102,7 @@ import {
   ref,
   watch
 } from 'vue'
-import { RiArrowRightSLine } from '@remixicon/vue'
+import { RightOutlined } from '@ant-design/icons-vue'
 import { useTimeoutFn } from '@vueuse/core'
 import { useNamespace } from '@nocturne-ui/composables'
 import NCollapseTransition from '@nocturne-ui/components/collapse-transition'

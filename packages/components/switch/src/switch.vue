@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue'
-import { RiLoader2Fill as Loader } from '@remixicon/vue'
+import { LoadingOutlined } from '@ant-design/icons-vue'
 import { isBoolean, isNil, isPromise, isString } from '@nocturne-ui/utils'
 import { useForm, useFormItem } from '@nocturne-ui/components/form'
 import { useNamespace } from '@nocturne-ui/composables'
@@ -110,7 +110,7 @@ defineExpose({
     </span>
     <div :class="ns.e('wrap')" :style="newStyle">
       <div :class="ns.e('action')">
-        <Loader v-if="loading" :class="ns.e('loading')" />
+        <LoadingOutlined v-if="loading" />
         <slot v-if="actived" name="active-action-icon" />
         <slot v-else name="inactive-action-icon" />
       </div>

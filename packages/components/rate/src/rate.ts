@@ -1,5 +1,4 @@
 import { definePropType, isNumber, isUndefined } from '@nocturne-ui/utils'
-import { RiStarFill } from '@remixicon/vue'
 import Rate from './rate.vue'
 import type { Component, ExtractPropTypes } from 'vue'
 
@@ -9,10 +8,10 @@ export const rateProps = {
   },
   /**
    * @description 自定义字符
+   * @default StarFilled
    */
   character: {
-    type: definePropType<string | Component>([String, Object]),
-    default: RiStarFill
+    type: definePropType<string | Component>([String, Object])
   },
   readonly: {
     type: Boolean,

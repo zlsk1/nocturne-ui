@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, h, inject } from 'vue'
-import { RiCloseLine as Close } from '@remixicon/vue'
+import { CloseOutlined } from '@ant-design/icons-vue'
 import NIcon from '@nocturne-ui/components/icon'
 import { useNamespace } from '@nocturne-ui/composables'
 import { definePropType } from '@nocturne-ui/utils'
@@ -10,7 +10,7 @@ import type { TabType } from '../props'
 
 export default defineComponent({
   name: 'NTabNode',
-  components: { NIcon, Close },
+  components: { NIcon, CloseOutlined },
   props: {
     tab: {
       type: definePropType<TabType>(Object),
@@ -63,7 +63,7 @@ export default defineComponent({
                     emit('edit', 'del', tab.value)
                   }
                 },
-                h(NIcon, { size: 18 }, { default: () => h(Close) })
+                h(NIcon, { size: 12 }, { default: () => h(CloseOutlined) })
               )
             ]
           : tab.label

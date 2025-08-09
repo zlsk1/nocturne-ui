@@ -22,9 +22,9 @@
         <p v-else :class="ns.e('content')">
           <slot />
         </p>
-        <i :class="ns.e('close')">
-          <Close size="20" @click="close" />
-        </i>
+        <n-icon :class="ns.e('close')" size="14" @click="close">
+          <CloseOutlined />
+        </n-icon>
       </div>
     </div>
   </transition>
@@ -32,10 +32,11 @@
 
 <script lang="ts" setup>
 import { computed, isVNode, onMounted, ref, toRef } from 'vue'
-import { RiCloseLine as Close } from '@remixicon/vue'
+import { CloseOutlined } from '@ant-design/icons-vue'
 import { useResizeObserver, useTimeoutFn } from '@vueuse/core'
 import { useNamespace, useZIndex } from '@nocturne-ui/composables'
 import { typeIcons } from '@nocturne-ui/utils'
+import NIcon from '@nocturne-ui/components/icon'
 import { notificationEmit, notificationProps } from './props'
 import type { CSSProperties } from 'vue'
 

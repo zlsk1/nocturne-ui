@@ -1,6 +1,6 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue'
-import { RiCloseLine as Close } from '@remixicon/vue'
+import { CloseOutlined } from '@ant-design/icons-vue'
 import NOverlay from '@nocturne-ui/components/overlay'
 import { isFunction, isString } from '@nocturne-ui/utils'
 import {
@@ -14,7 +14,7 @@ import type { StyleValue } from 'vue'
 export default defineComponent({
   name: 'NDrawer',
   components: {
-    Close,
+    CloseOutlined,
     NOverlay
   },
   inheritAttrs: false,
@@ -98,7 +98,7 @@ export default defineComponent({
           <div :class="ns.e('header')">
             <slot name="header" />
             <i v-if="showClose" :class="ns.e('close')" @click="close">
-              <Close size="20" />
+              <CloseOutlined size="20" />
             </i>
           </div>
           <div :class="ns.e('content')">

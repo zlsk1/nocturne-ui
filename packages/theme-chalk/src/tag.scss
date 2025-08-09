@@ -102,9 +102,7 @@ $tag-icon-span-gap: map.merge(
 
   @include e(close) {
     flex-shrink: 0;
-    height: getCssVar('icon-size');
-    width: getCssVar('icon-size');
-    font-size: calc(#{getCssVar('icon-size')} - #{$svg-margin-size * 2});
+    font-size: 10px;
     color: getCssVar('tag', 'text-color');
     transition: opacity 0.3s;
     cursor: pointer;

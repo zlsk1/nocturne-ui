@@ -23,10 +23,12 @@
           :aria-disabled="isMoreMax"
         >
           <slot name="increaseIcon">
-            <Add v-if="controlsMode === 'outter'" size="16" />
+            <n-icon v-if="controlsMode === 'outter'" size="12">
+              <PlusOutlined />
+            </n-icon>
           </slot>
         </span>
-        <span
+        <n-icon
           v-repeat-click="handleDecrease"
           :class="[
             ns.e('control'),
@@ -38,16 +40,18 @@
           :aria-disabled="isLessMin"
         >
           <slot name="decreaseIcon">
-            <Subtract v-if="controlsMode === 'outter'" size="16" />
+            <n-icon v-if="controlsMode === 'outter'" size="12">
+              <LineOutlined />
+            </n-icon>
           </slot>
-        </span>
+        </n-icon>
       </template>
       <transition name="fade-in-linear">
         <div
           v-show="isHover && controlsMode === 'inner'"
           :class="[ns.em('control', 'inner')]"
         >
-          <span
+          <n-icon
             v-repeat-click="handleIncrease"
             :class="[
               ns.e('control'),
@@ -59,10 +63,12 @@
             :aria-disabled="isMoreMax"
           >
             <slot name="increaseIcon">
-              <ArrowUp size="14" />
+              <n-icon size="8">
+                <UpOutlined />
+              </n-icon>
             </slot>
-          </span>
-          <span
+          </n-icon>
+          <n-icon
             v-repeat-click="handleDecrease"
             :class="[
               ns.e('control'),
@@ -74,9 +80,11 @@
             :aria-disabled="isLessMin"
           >
             <slot name="decreaseIcon">
-              <ArrowDown size="14" />
+              <n-icon size="8">
+                <DownOutlined />
+              </n-icon>
             </slot>
-          </span>
+          </n-icon>
         </div>
       </transition>
     </template>
@@ -118,11 +126,11 @@
 <script lang="ts" setup>
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import {
-  RiAddLine as Add,
-  RiArrowDownSLine as ArrowDown,
-  RiArrowUpSLine as ArrowUp,
-  RiSubtractLine as Subtract
-} from '@remixicon/vue'
+  DownOutlined,
+  LineOutlined,
+  PlusOutlined,
+  UpOutlined
+} from '@ant-design/icons-vue'
 import NInput from '@nocturne-ui/components/input'
 import {
   useFocusController,
@@ -132,6 +140,7 @@ import {
 import { useForm, useFormItem } from '@nocturne-ui/components/form'
 import { consoleWarn, isNumber, isUndefined } from '@nocturne-ui/utils'
 import { vRepeatClick } from '@nocturne-ui/directives'
+import NIcon from '@nocturne-ui/components/icon'
 import { inputNumberEmits, inputNumberProps } from './input-number'
 import type { InputInstance } from '@nocturne-ui/components/input/src/input'
 

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { RiCheckboxCircleFill as Success } from '@remixicon/vue'
+import { CheckCircleFilled } from '@ant-design/icons-vue'
 import Alert from '../src/alert.vue'
 
 const VARIABLE = 'breaking bad'
@@ -17,7 +17,7 @@ describe('Alert', () => {
       <Alert title={'success'} showIcon type={'success'} />
     ))
     expect(wrapper.find('.n-alert').classes()).toContain('n-alert--success')
-    expect(wrapper.findComponent(Success).exists()).toBe(true)
+    expect(wrapper.findComponent(CheckCircleFilled).exists()).toBe(true)
   })
 
   test('effect', () => {

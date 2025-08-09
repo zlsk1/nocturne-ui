@@ -6,7 +6,7 @@
     @click="handlePrevPage"
   >
     <n-icon v-if="!prevText">
-      <component :is="prevIcon" />
+      <component :is="prevIcon || LeftOutlined" />
     </n-icon>
     <span v-else>{{ prevText }}</span>
   </button>
@@ -16,6 +16,7 @@
 import { computed, inject } from 'vue'
 import NIcon from '@nocturne-ui/components/icon'
 import { useLocale, useNamespace } from '@nocturne-ui/composables'
+import { LeftOutlined } from '@ant-design/icons-vue'
 import { PAGINATION_INJECTION_KEY } from '../constants'
 import { prevProps } from './prev'
 

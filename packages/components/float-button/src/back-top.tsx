@@ -8,6 +8,7 @@ import {
 } from 'vue'
 import { useEventListener } from '@vueuse/core'
 import { consoleWarn, isElement } from '@nocturne-ui/utils'
+import { VerticalAlignTopOutlined } from '@ant-design/icons-vue'
 import FloatButton from './float-button'
 import { backTopEmits, backTopProps } from './props'
 
@@ -49,6 +50,8 @@ const BackTop = defineComponent({
     })
 
     return () => {
+      const { icon = VerticalAlignTopOutlined } = props
+
       return (
         <Transition name="n-fade-in">
           {{
@@ -56,6 +59,7 @@ const BackTop = defineComponent({
               withDirectives(
                 <FloatButton
                   {...props}
+                  icon={icon}
                   onClick={(evt: MouseEvent) => onClick(evt)}
                 ></FloatButton>,
                 [[vShow, scrollY.value > props.offset]]

@@ -13,7 +13,7 @@
         <div :class="visible && ns.bem('dropdown', 'format', 'trigger')">
           {{ upperFormat }}
         </div>
-        <RiArrowDownSLine
+        <DownOutlined
           size="16"
           :class="ns.bem('dropdown', 'format', 'arrow')"
         />
@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { RiArrowDownSLine } from '@remixicon/vue'
+import { DownOutlined } from '@ant-design/icons-vue'
 import { useNamespace } from '@nocturne-ui/composables'
 import { NDropdown, NDropdownItem } from '@nocturne-ui/components/dropdown'
 import { definePropType } from '@nocturne-ui/utils'

@@ -1,7 +1,7 @@
 import { nextTick, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { RiArrowRightSLine } from '@remixicon/vue'
+import { RiArrowRightSLine } from '@ant-design/icons-vue'
 import Carousel from '../src/carousel.vue'
 import CarouselItem from '../src/carousel-item.vue'
 

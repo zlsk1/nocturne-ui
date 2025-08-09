@@ -1,7 +1,7 @@
 import { nextTick, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { Ri24HoursFill } from '@remixicon/vue'
+import { HddFilled } from '@ant-design/icons-vue'
 import LoadingDirective from '../src/directive'
 import type { VNode } from 'vue'
 
@@ -47,7 +47,7 @@ describe('loading-directive', () => {
   })
   test('icon', () => {
     const wrapper = _mount(() => (
-      <div v-loading={{ icon: <Ri24HoursFill /> }}></div>
+      <div v-loading={{ icon: <HddFilled /> }}></div>
     ))
     expect(wrapper.find('.n-loading__icon').exists()).toBe(false)
   })

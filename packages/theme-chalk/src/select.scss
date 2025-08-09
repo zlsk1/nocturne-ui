@@ -235,7 +235,7 @@ $select-size: map.merge(
   @include e(suffix--icon) {
     position: absolute;
     right: 12px;
-    font-size: 14px;
+    font-size: 12px;
     color: getCssVar('text-color-placeholder');
     transition: all getCssVar('transition-duration') ease-in-out;
     user-select: none;
@@ -281,18 +281,6 @@ $select-size: map.merge(
   @include e(prefix) {
     display: flex;
     margin-right: 6px;
-  }
-
-  @include m(loading) {
-    animation: rotate 1s linear infinite;
-    @keyframes rotate {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
   }
 }
 

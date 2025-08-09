@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { RiCloseLine as Close } from '@remixicon/vue'
+import { RiCloseLine as Close } from '@ant-design/icons-vue'
 import { triggerCompositeClick } from '@/tests-utils/composite-click'
 import Drawer from '../src/drawer.vue'
 import { drawerPlacement } from '../src/drawer'

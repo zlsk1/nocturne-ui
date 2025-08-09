@@ -1,9 +1,9 @@
 import {
-  RiCloseCircleFill as Error,
-  RiInformationFill as Info,
-  RiCheckboxCircleFill as Success,
-  RiErrorWarningFill as Warning
-} from '@remixicon/vue'
+  CheckCircleFilled,
+  CloseCircleFilled,
+  ExclamationCircleFilled,
+  InfoCircleFilled
+} from '@ant-design/icons-vue'
 import { definePropType } from '@nocturne-ui/utils'
 import type { Component } from 'vue'
 
@@ -14,8 +14,8 @@ export const iconPropType = definePropType<string | Component>([
 ])
 
 export const typeIcons = {
-  info: Info,
-  error: Error,
-  success: Success,
-  warning: Warning
+  info: InfoCircleFilled,
+  error: CloseCircleFilled,
+  success: CheckCircleFilled,
+  warning: ExclamationCircleFilled
 }

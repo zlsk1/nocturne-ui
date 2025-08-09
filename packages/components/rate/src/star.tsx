@@ -1,6 +1,7 @@
 import { computed, defineComponent } from 'vue'
 import { isString } from '@nocturne-ui/utils'
 import { useNamespace } from '@nocturne-ui/composables'
+import { StarFilled } from '@ant-design/icons-vue'
 import { rateProps } from './rate'
 
 export const starProps = {
@@ -72,7 +73,7 @@ export default defineComponent({
     }
 
     return () => {
-      const { character, modelValue, index } = props
+      const { character = StarFilled, modelValue, index } = props
 
       const characterNode = isString(character) ? character : <character />
 

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { RiAccountBoxFill } from '@remixicon/vue'
+import { RadarChartOutlined } from '@ant-design/icons-vue'
 import Tag from '../src/tag.vue'
 
 describe('Tag', () => {
@@ -81,10 +81,10 @@ describe('Tag', () => {
   test('slot-icon', () => {
     const wrapper = mount(() => (
       <Tag
-        v-slots={{ icon: () => <RiAccountBoxFill></RiAccountBoxFill> }}
+        v-slots={{ icon: () => <RadarChartOutlined></RadarChartOutlined> }}
       ></Tag>
     ))
 
-    expect(wrapper.findComponent(RiAccountBoxFill).exists()).toBe(true)
+    expect(wrapper.findComponent(RadarChartOutlined).exists()).toBe(true)
   })
 })

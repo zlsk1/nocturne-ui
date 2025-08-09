@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
-import { RiEditLine } from '@remixicon/vue'
+import { RiEditLine } from '@ant-design/icons-vue'
 import Link from '../src/link.vue'
 
 describe('Link', () => {

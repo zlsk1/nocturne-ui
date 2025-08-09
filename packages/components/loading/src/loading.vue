@@ -1,7 +1,7 @@
 <template>
   <div :class="[ns.b(), ns.is('fullScreen', fullScreen)]" :style="style">
     <div :class="ns.e('content')">
-      <RiLoader5Line v-if="icon === 'Loader'" :class="ns.e('icon')" />
+      <LoadingOutlined v-if="icon === 'Loader'" />
       <component :is="icon" v-else />
       <div>{{ text }}</div>
     </div>
@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { RiLoader5Line } from '@remixicon/vue'
+import { LoadingOutlined } from '@ant-design/icons-vue'
 import { useNamespace } from '@nocturne-ui/composables'
 import { loadingProps } from './loading'
 import type { CSSProperties } from 'vue'

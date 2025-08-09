@@ -12,6 +12,7 @@ import {
 import { useNamespace } from '@nocturne-ui/composables'
 import { isUndefined } from '@nocturne-ui/utils'
 import { onClickOutside } from '@vueuse/core'
+import { CloseOutlined } from '@ant-design/icons-vue'
 import FloatButton from './float-button'
 import { floatButtonGroupEmit, floatButtonGroupProps } from './props'
 import { FloatButtonGroupContextKey } from './context'
@@ -73,7 +74,7 @@ const FloatButtonGroup = defineComponent({
     )
 
     return () => {
-      const { closeIcon, icon, placement, shape } = props
+      const { closeIcon, icon = CloseOutlined, placement, shape } = props
 
       return (
         <div class={ns.b('group')}>

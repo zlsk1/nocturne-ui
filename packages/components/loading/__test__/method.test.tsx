@@ -1,6 +1,6 @@
 import { nextTick } from 'vue'
 import { afterEach, describe, expect, test } from 'vitest'
-import { Ri24HoursFill } from '@remixicon/vue'
+import { HddFilled } from '@ant-design/icons-vue'
 import LoadingMethod from '../src/method'
 
 describe('loading-method', () => {
@@ -50,7 +50,7 @@ describe('loading-method', () => {
     expect(document.body.style.overflow === 'hidden').toBe(true)
   })
   test('icon', () => {
-    LoadingMethod({ target: container, icon: <Ri24HoursFill /> })
+    LoadingMethod({ target: container, icon: <HddFilled /> })
     expect(document.querySelector('.n-loading__icon')).not.toBeTruthy()
   })
 })

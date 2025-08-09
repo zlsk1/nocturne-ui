@@ -17,7 +17,7 @@
     />
     <slot name="separator">
       <n-icon size="24" style="margin-right: 8px">
-        <RiArrowRightLine />
+        <RightOutlined />
       </n-icon>
     </slot>
     <input
@@ -35,7 +35,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { useFocusController, useNamespace } from '@nocturne-ui/composables'
-import { RiArrowRightLine } from '@remixicon/vue'
+import { RightOutlined } from '@ant-design/icons-vue'
 import NIcon from '@nocturne-ui/components/icon'
 import { pickerRangeTriggerProps } from './props/picker-range-trigger'
 

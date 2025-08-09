@@ -1,4 +1,3 @@
-import { RiLoader5Line } from '@remixicon/vue'
 import { iconPropType } from '@nocturne-ui/utils'
 import { componentSizes } from '@nocturne-ui/constants'
 import Button from './button.vue'
@@ -48,9 +47,11 @@ export const buttonProps = {
     type: Boolean,
     default: false
   },
+  /**
+   * @default LoadingOutlined
+   */
   loadingIcon: {
-    type: iconPropType,
-    default: RiLoader5Line
+    type: iconPropType
   },
   text: {
     type: Boolean,
