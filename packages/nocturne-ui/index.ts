@@ -3,6 +3,7 @@ import { provideGlobalConfig } from '@nocturne-ui/components/config-provider'
 import dayjs from 'dayjs'
 import Components from './component'
 import Plugins from './plugin'
+import { version } from './version'
 import type { App } from 'vue'
 import type { ConfigProviderProps } from '@nocturne-ui/components/config-provider'
 
@@ -29,7 +30,8 @@ const makeInstaller = (components: any[] = []) => {
   }
 
   return {
-    install
+    install,
+    version
   }
 }
 

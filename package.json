@@ -27,7 +27,9 @@
     "docs:dev": "pnpm -C docs dev",
     "docs:build": "pnpm -C docs build",
     "docs:preview": "pnpm -C docs preview",
-    "cz": "czg"
+    "cz": "czg",
+    "gen-version": "tsx scripts/gen-version.ts",
+    "update-version": "tsx scripts/update-version.ts"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
@@ -52,6 +54,8 @@
     "@eslint/js": "9.10.0",
     "@nocturne-ui/build": "workspace:*",
     "@nocturne-ui/build-utils": "workspace:*",
+    "@pnpm/types": "9.4.2",
+    "@types/fs-extra": "^11.0.4",
     "@types/gulp": "4.0.9",
     "@types/lodash": "^4.17.7",
     "@types/node": "^20.13.0",
@@ -70,6 +74,7 @@
     "eslint-plugin-unicorn": "55.0.0",
     "eslint-plugin-vue": "^9.28.0",
     "fast-glob": "^3.3.2",
+    "fs-extra": "^11.3.1",
     "globals": "15.9.0",
     "husky": "^9.0.11",
     "jsdom": "^24.0.0",
