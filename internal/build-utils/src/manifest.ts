@@ -33,7 +33,7 @@ export const findWorkspace = async () => {
 
 export const writeProjectManifest = async (
   pkgName: string,
-  manifest: ProjectManifest
+  manifest: ProjectManifest & { gitHead?: string }
 ) => {
   const workspace = await findWorkspace()
   const pkg = workspace[pkgName]

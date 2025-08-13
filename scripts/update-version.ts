@@ -9,6 +9,9 @@ if (!tagVersion || !gitHead) {
 }
 
 ;(function main() {
-  writeProjectManifest('nocturne-ui', { version: tagVersion })
-  writeProjectManifest('@nocturne-ui/theme-chalk', { version: tagVersion })
+  writeProjectManifest('nocturne-ui', { version: tagVersion, gitHead })
+  writeProjectManifest('@nocturne-ui/theme-chalk', {
+    version: tagVersion,
+    gitHead
+  })
 })()
