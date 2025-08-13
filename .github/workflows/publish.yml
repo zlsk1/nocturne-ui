@@ -39,6 +39,11 @@ jobs:
       - name: Update npm
         run: npm install npm@9 -g
 
+      - name: Build build-utils
+        run: |
+          cd internal/build-utils
+          pnpm build
+
       - name: Build&publish
         run: sh ./scripts/publish.sh
         env:

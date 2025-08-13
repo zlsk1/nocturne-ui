@@ -1,5 +1,6 @@
 set -e
 
+pnpm i
 pnpm gen:version
 pnpm update:version
 
