@@ -28,8 +28,8 @@
     "docs:build": "pnpm -C docs build",
     "docs:preview": "pnpm -C docs preview",
     "cz": "czg",
-    "gen-version": "tsx scripts/gen-version.ts",
-    "update-version": "tsx scripts/update-version.ts"
+    "gen:version": "tsx scripts/gen-version.ts",
+    "update:version": "tsx scripts/update-version.ts"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
