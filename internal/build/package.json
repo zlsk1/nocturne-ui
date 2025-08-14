@@ -24,13 +24,13 @@
     "@types/node": "^20.13.0",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vitejs/plugin-vue-jsx": "^4.0.0",
-    "esbuild": "^0.14.47",
     "gulp": "4.0.2",
     "rollup": "^4.18.0",
     "rollup-plugin-esbuild": "^6.1.1",
     "ts-morph": "14.0.0"
   },
   "devDependencies": {
+    "esbuild": "^0.25.0",
     "tsx": "4.16.2",
     "unbuild": "2.0.0",
     "vue": "^3.4.15"
